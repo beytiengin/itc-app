@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import { supabase } from '../../lib/supabase';
 
 const sorular = [
-  // E/I
   {
     id: 1, boyut: 'EI',
     senaryo: "Uzun ve yorucu bir prova günü sona erdi.",
@@ -18,11 +18,10 @@ const sorular = [
   },
   {
     id: 3, boyut: 'EI',
-    senaryo: "Set'te beklenmedik bir teknik sorun çıktı, uzun bir bekleme başladı.",
+    senaryo: "Sette beklenmedik bir teknik sorun çıktı, uzun bir bekleme başladı.",
     a: { metin: "Ekiptekilerle konuşur, espri yapar, ortamı canlı tutarım.", tip: 'E' },
     b: { metin: "Geri çekilir, müzik dinler veya notlarıma bakarım. Yalnız kalmayı tercih ederim.", tip: 'I' }
   },
-  // S/N
   {
     id: 4, boyut: 'SN',
     senaryo: "Yeni bir senaryo aldın. İlk okumada dikkatini ne çeker?",
@@ -41,7 +40,6 @@ const sorular = [
     a: { metin: "Gözlem. Gerçek insanları izlemek, somut jestler ve alışkanlıklar keşfetmek.", tip: 'S' },
     b: { metin: "İmgeleme. Karakterin dünyasını zihnimde canlı tutmak, sezgisel bağlar kurmak.", tip: 'N' }
   },
-  // T/F
   {
     id: 7, boyut: 'TF',
     senaryo: "Yönetmen bir sahneyi beğenmedi ve sert bir yorum yaptı.",
@@ -60,7 +58,6 @@ const sorular = [
     a: { metin: "Durumu net konuşurum. Profesyonel bir çerçevede ne yapılması gerektiğini söylerim.", tip: 'T' },
     b: { metin: "Önce ne yaşadığını anlamaya çalışırım. İlişkiyi koruyarak bir çözüm ararım.", tip: 'F' }
   },
-  // J/P
   {
     id: 10, boyut: 'JP',
     senaryo: "Prova süreci nasıl ilerlerse daha iyi çalışırsın?",
@@ -106,49 +103,57 @@ export default function Arketip() {
   const [cevaplar, setCevaplar] = useState({});
   const [tip, setTip] = useState(null);
 
-  function cevapSec(boyut, secim) {
-    const yeniCevaplar = { ...cevaplar, [boyut]: (cevaplar[boyut] || []).concat(secim) };
-    setCevaplar(yeniCevaplar);
-    setTimeout(() => {
-      if (mevcutSoru < sorular.length - 1) {
-        setMevcutSoru(mevcutSoru + 1);
-      } else {
-        const sonuc = tipHesapla(yeniCevaplar);
-        setTip(sonuc);
-        setAdim('sonuc');
-      }
-    }, 250);
-  }
-
   function tipHesapla(c) {
-    function baskın(boyut, a, b) {
+    function baskin(boyut, a, b) {
       const list = c[boyut] || [];
       const aCount = list.filter(x => x === a).length;
       const bCount = list.filter(x => x === b).length;
       return aCount >= bCount ? a : b;
     }
-    return baskın('EI','E','I') + baskın('SN','S','N') + baskın('TF','T','F') + baskın('JP','J','P');
+    return baskin('EI','E','I') + baskin('SN','S','N') + baskin('TF','T','F') + baskin('JP','J','P');
+  }
+
+  async function cevapSec(boyut, secim) {
+    const yeniCevaplar = { ...cevaplar, [boyut]: (cevaplar[boyut] || []).concat(secim) };
+    setCevaplar(yeniCevaplar);
+    setTimeout(async () => {
+      if (mevcutSoru < sorular.length - 1) {
+        setMevcutSoru(mevcutSoru + 1);
+      } else {
+        const sonuc = tipHesapla(yeniCevaplar);
+        setTip(sonuc);
+        try {
+          const { data: { user } } = await supabase.auth.getUser();
+          if (user) {
+            await supabase.from('arketip_sonuclari').insert({
+              kullanici_id: user.id,
+              tip: sonuc,
+              ad: tipler[sonuc]?.ad || sonuc,
+            });
+          }
+        } catch (e) { console.log('Kayıt hatası:', e); }
+        setAdim('sonuc');
+      }
+    }, 250);
   }
 
   if (adim === 'giris') {
     return (
       <main style={{ minHeight: '100vh', backgroundColor: '#0a0a0a', color: '#f0ede8', display: 'flex', flexDirection: 'column' }}>
-        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2rem 3rem', borderBottom: '1px solid #1a1a1a' }}>
+        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2rem 3rem', borderBottom: '1px solid #2a2a2a' }}>
           <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', letterSpacing: '0.3em', color: '#c9a96e', textTransform: 'uppercase' }}>Actor's Gym</span>
-          <a href="/kalibrasyon" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: '#444', textTransform: 'uppercase', textDecoration: 'none' }}>← Kalibrasyon</a>
+          <a href="/kalibrasyon" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: '#f0ede8', textTransform: 'uppercase', textDecoration: 'none' }}>← Kalibrasyon</a>
         </header>
         <section style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '4rem 2rem', textAlign: 'center', gap: '2rem' }}>
           <div style={{ width: '1px', height: '60px', backgroundColor: '#c9a96e', opacity: 0.4 }} />
           <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.4em', color: '#c9a96e', textTransform: 'uppercase' }}>Arketip Analizi</span>
-          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', color: '#f0ede8', margin: 0, lineHeight: 1.1 }}>
-            Enstrüman Profili
-          </h1>
-          <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.9rem', color: '#666', maxWidth: '440px', lineHeight: 1.9, margin: 0 }}>
+          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', color: '#f0ede8', margin: 0, lineHeight: 1.1 }}>Enstrüman Profili</h1>
+          <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.9rem', color: '#ccc', maxWidth: '440px', lineHeight: 1.9, margin: 0 }}>
             12 sahne senaryosu üzerinden enstrümanının dört temel boyutunu belirliyoruz. Sonuç 16 oyunculuk profilinden sana en yakın olanı gösterecek.
             <br /><br />
-            <em style={{ color: '#555', fontStyle: 'italic' }}>Her seçenekte seni en iyi tanımlayan tepkiyi seç. Doğru ya da yanlış yok.</em>
+            <em style={{ color: '#aaa', fontStyle: 'italic' }}>Her seçenekte seni en iyi tanımlayan tepkiyi seç. Doğru ya da yanlış yok.</em>
           </p>
-          <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.75rem', color: '#444', letterSpacing: '0.1em' }}>12 senaryo · yaklaşık 4 dakika</p>
+          <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.75rem', color: '#aaa', letterSpacing: '0.1em' }}>12 senaryo · yaklaşık 4 dakika</p>
           <button onClick={() => setAdim('test')}
             style={{ marginTop: '1rem', padding: '1.2rem 3rem', border: '1px solid #c9a96e', backgroundColor: 'transparent', color: '#c9a96e', fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', cursor: 'pointer', transition: 'all 0.3s ease' }}
             onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#c9a96e'; e.currentTarget.style.color = '#0a0a0a'; }}
@@ -166,24 +171,24 @@ export default function Arketip() {
     const ilerleme = (mevcutSoru / sorular.length) * 100;
     return (
       <main style={{ minHeight: '100vh', backgroundColor: '#0a0a0a', color: '#f0ede8', display: 'flex', flexDirection: 'column' }}>
-        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2rem 3rem', borderBottom: '1px solid #1a1a1a' }}>
+        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2rem 3rem', borderBottom: '1px solid #2a2a2a' }}>
           <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', letterSpacing: '0.3em', color: '#c9a96e', textTransform: 'uppercase' }}>Arketip Analizi</span>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: '#444', textTransform: 'uppercase' }}>{mevcutSoru + 1} / {sorular.length}</span>
+          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: '#f0ede8', textTransform: 'uppercase' }}>{mevcutSoru + 1} / {sorular.length}</span>
         </header>
-        <div style={{ width: '100%', height: '1px', backgroundColor: '#1a1a1a' }}>
+        <div style={{ width: '100%', height: '1px', backgroundColor: '#2a2a2a' }}>
           <div style={{ width: `${ilerleme}%`, height: '1px', backgroundColor: '#c9a96e', transition: 'width 0.4s ease' }} />
         </div>
         <section style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '3rem 2rem', textAlign: 'center', gap: '2.5rem' }}>
-          <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.7rem', letterSpacing: '0.2em', color: '#444', textTransform: 'uppercase', margin: 0 }}>Sahne</p>
+          <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.7rem', letterSpacing: '0.2em', color: '#aaa', textTransform: 'uppercase', margin: 0 }}>Sahne</p>
           <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: 'clamp(1.3rem, 3vw, 1.8rem)', color: '#f0ede8', maxWidth: '520px', lineHeight: 1.6, margin: 0 }}>
             {soru.senaryo}
           </h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', maxWidth: '500px' }}>
             {[soru.a, soru.b].map((secenek, i) => (
               <button key={i} onClick={() => cevapSec(soru.boyut, secenek.tip)}
-                style={{ padding: '1.4rem 1.8rem', border: '1px solid #2a2a2a', backgroundColor: 'transparent', color: '#888', fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.82rem', letterSpacing: '0.03em', lineHeight: 1.7, cursor: 'pointer', textAlign: 'left', transition: 'all 0.25s ease' }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = '#c9a96e'; e.currentTarget.style.color = '#f0ede8'; e.currentTarget.style.backgroundColor = '#111'; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = '#2a2a2a'; e.currentTarget.style.color = '#888'; e.currentTarget.style.backgroundColor = 'transparent'; }}>
+                style={{ padding: '1.4rem 1.8rem', border: '1px solid #3a3a3a', backgroundColor: 'transparent', color: '#f0ede8', fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.82rem', letterSpacing: '0.03em', lineHeight: 1.7, cursor: 'pointer', textAlign: 'left', transition: 'all 0.25s ease' }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = '#c9a96e'; e.currentTarget.style.backgroundColor = '#111'; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = '#3a3a3a'; e.currentTarget.style.backgroundColor = 'transparent'; }}>
                 <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', color: '#c9a96e', marginRight: '0.5rem', fontSize: '0.9rem' }}>{String.fromCharCode(65 + i)})</span>
                 {secenek.metin}
               </button>
@@ -191,7 +196,7 @@ export default function Arketip() {
           </div>
           {mevcutSoru > 0 && (
             <button onClick={() => setMevcutSoru(mevcutSoru - 1)}
-              style={{ background: 'none', border: 'none', color: '#333', fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase', cursor: 'pointer' }}>
+              style={{ background: 'none', border: 'none', color: '#aaa', fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase', cursor: 'pointer' }}>
               ← Önceki
             </button>
           )}
@@ -212,62 +217,49 @@ export default function Arketip() {
 
     return (
       <main style={{ minHeight: '100vh', backgroundColor: '#0a0a0a', color: '#f0ede8', display: 'flex', flexDirection: 'column' }}>
-        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2rem 3rem', borderBottom: '1px solid #1a1a1a' }}>
+        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2rem 3rem', borderBottom: '1px solid #2a2a2a' }}>
           <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', letterSpacing: '0.3em', color: '#c9a96e', textTransform: 'uppercase' }}>Actor's Gym</span>
-          <a href="/kalibrasyon" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: '#444', textTransform: 'uppercase', textDecoration: 'none' }}>← Kalibrasyon</a>
+          <a href="/kalibrasyon" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: '#f0ede8', textTransform: 'uppercase', textDecoration: 'none' }}>← Kalibrasyon</a>
         </header>
         <section style={{ flex: 1, padding: '3rem 2rem', maxWidth: '640px', margin: '0 auto', width: '100%', display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
 
-          {/* Başlık */}
           <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div style={{ width: '1px', height: '50px', backgroundColor: profil.renk, opacity: 0.5, margin: '0 auto' }} />
             <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.4em', color: profil.renk, textTransform: 'uppercase' }}>Enstrüman Profili</span>
-            <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: 'clamp(3rem, 10vw, 6rem)', color: '#f0ede8', margin: 0, letterSpacing: '0.15em', lineHeight: 1 }}>
-              {tip}
-            </h1>
-            <p style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.2rem', fontStyle: 'italic', color: profil.renk, margin: 0 }}>
-              {profil.ad}
-            </p>
+            <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: 'clamp(3rem, 10vw, 6rem)', color: '#f0ede8', margin: 0, letterSpacing: '0.15em', lineHeight: 1 }}>{tip}</h1>
+            <p style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.2rem', fontStyle: 'italic', color: profil.renk, margin: 0 }}>{profil.ad}</p>
           </div>
 
-          {/* 4 Boyut */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
             {boyutlar.map((b, i) => (
-              <div key={i} style={{ padding: '1rem 1.2rem', border: `1px solid ${profil.renk}33`, display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+              <div key={i} style={{ padding: '1rem 1.2rem', border: `1px solid ${profil.renk}44`, display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
                 <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.8rem', color: profil.renk, lineHeight: 1 }}>{b.harf}</span>
                 <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: '#f0ede8', letterSpacing: '0.05em' }}>{b.harf === b.a ? b.aAd : b.bAd}</span>
-                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.55rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase' }}>{b.harf === b.a ? b.a : b.b} / {b.harf === b.a ? b.b : b.a}</span>
+                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.55rem', color: '#aaa', letterSpacing: '0.1em', textTransform: 'uppercase' }}>{b.harf === b.a ? b.a : b.b} / {b.harf === b.a ? b.b : b.a}</span>
               </div>
             ))}
           </div>
 
-          {/* Sahne Profili */}
-          <div style={{ borderTop: '1px solid #1a1a1a', paddingTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+          <div style={{ borderTop: '1px solid #2a2a2a', paddingTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
             <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: profil.renk, textTransform: 'uppercase' }}>Sahnede Nasıl Bir Oyuncusun</span>
-            <p style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.05rem', color: '#f0ede8', lineHeight: 1.8, margin: 0, fontStyle: 'italic' }}>
-              "{profil.sahne}"
-            </p>
+            <p style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.05rem', color: '#f0ede8', lineHeight: 1.8, margin: 0, fontStyle: 'italic' }}>"{profil.sahne}"</p>
           </div>
 
-          {/* Yetenekler */}
           <div style={{ backgroundColor: '#0f1a0f', border: '1px solid #1e2a1e', padding: '1.5rem 1.8rem', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
             <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: '#6a9b6a', textTransform: 'uppercase' }}>Güçlü Yönler</span>
-            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.82rem', color: '#888', lineHeight: 1.8, margin: 0 }}>{profil.yetenekler}</p>
+            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.82rem', color: '#ddd', lineHeight: 1.8, margin: 0 }}>{profil.yetenekler}</p>
           </div>
 
-          {/* Engeller */}
           <div style={{ backgroundColor: '#1a0f0f', border: '1px solid #2a1e1e', padding: '1.5rem 1.8rem', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
             <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: '#9b6a6a', textTransform: 'uppercase' }}>Performans Engelleri</span>
-            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.82rem', color: '#888', lineHeight: 1.8, margin: 0 }}>{profil.engeller}</p>
+            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.82rem', color: '#ddd', lineHeight: 1.8, margin: 0 }}>{profil.engeller}</p>
           </div>
 
-          {/* Yüksek Performans */}
           <div style={{ backgroundColor: '#111', border: '1px solid #2a2a1a', padding: '1.5rem 1.8rem', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
             <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: '#c9a96e', textTransform: 'uppercase' }}>Yüksek Performans İçin</span>
-            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.82rem', color: '#888', lineHeight: 1.8, margin: 0 }}>{profil.performans}</p>
+            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.82rem', color: '#ddd', lineHeight: 1.8, margin: 0 }}>{profil.performans}</p>
           </div>
 
-          {/* Aksiyon */}
           <div style={{ display: 'flex', gap: '1rem', paddingBottom: '3rem' }}>
             <a href="/antrenman" style={{ flex: 1, display: 'block', padding: '1.2rem', border: '1px solid #c9a96e', color: '#c9a96e', textDecoration: 'none', fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', textAlign: 'center', transition: 'all 0.3s ease' }}
               onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#c9a96e'; e.currentTarget.style.color = '#0a0a0a'; }}
@@ -275,9 +267,9 @@ export default function Arketip() {
               Antrenman Odasına Geç
             </a>
             <button onClick={() => { setCevaplar({}); setMevcutSoru(0); setTip(null); setAdim('test'); }}
-              style={{ flex: 1, padding: '1.2rem', border: '1px solid #2a2a2a', backgroundColor: 'transparent', color: '#444', fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', cursor: 'pointer', transition: 'all 0.3s ease' }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = '#444'; e.currentTarget.style.color = '#f0ede8'; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = '#2a2a2a'; e.currentTarget.style.color = '#444'; }}>
+              style={{ flex: 1, padding: '1.2rem', border: '1px solid #3a3a3a', backgroundColor: 'transparent', color: '#f0ede8', fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', cursor: 'pointer', transition: 'all 0.3s ease' }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = '#f0ede8'; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = '#3a3a3a'; }}>
               Tekrar Yap
             </button>
           </div>

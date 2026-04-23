@@ -28,7 +28,7 @@ export default function Antrenman() {
           fontWeight: 200,
           fontSize: '0.6rem',
           letterSpacing: '0.25em',
-          color: '#444',
+          color: '#999',
           textTransform: 'uppercase',
           textDecoration: 'none',
         }}>
@@ -66,7 +66,7 @@ export default function Antrenman() {
         <p style={{
           fontWeight: 200,
           fontSize: '0.85rem',
-          color: '#666',
+          color: '#bbb',
           maxWidth: '380px',
           lineHeight: 1.8,
           margin: 0,
@@ -78,7 +78,7 @@ export default function Antrenman() {
           marginTop: '1rem',
           padding: '1rem 2.5rem',
           border: '1px solid #2a2a2a',
-          color: '#444',
+          color: '#999',
           fontSize: '0.7rem',
           letterSpacing: '0.2em',
           textTransform: 'uppercase',

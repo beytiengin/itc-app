@@ -1,3 +1,4 @@
+'use client';
 export default function Home() {
   return (
     <main style={{
@@ -25,16 +26,21 @@ export default function Home() {
         }}>
           Actor's Gym
         </span>
-        <span style={{
+<a href="/giris" style={{
           fontFamily: 'Jost, sans-serif',
           fontWeight: 200,
           fontSize: '0.6rem',
           letterSpacing: '0.25em',
-          color: '#444',
+          color: '#999',
           textTransform: 'uppercase',
-        }}>
-          ITC Method
-        </span>
+          textDecoration: 'none',
+          transition: 'color 0.3s ease',
+        }}
+          onMouseEnter={e => e.currentTarget.style.color = '#c9a96e'}
+          onMouseLeave={e => e.currentTarget.style.color = '#444'}
+        >
+          Giriş Yap
+        </a>
       </header>
 
       <section style={{
@@ -74,7 +80,7 @@ export default function Home() {
           fontWeight: 200,
           fontSize: '0.9rem',
           letterSpacing: '0.05em',
-          color: '#888',
+          color: '#ccc',
           maxWidth: '420px',
           lineHeight: 1.8,
           margin: 0,
@@ -157,7 +163,7 @@ export default function Home() {
             padding: '1rem 2rem',
             border: '1px solid #1a1a1a',
             textDecoration: 'none',
-            color: '#666',
+            color: '#bbb',
             transition: 'all 0.3s ease',
           }}>
             <span style={{
@@ -205,9 +211,9 @@ export default function Home() {
           textDecoration: 'none',
           cursor: 'pointer',
         }}>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: '#333' }}>01</span>
+          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: '#ccc' }}>01</span>
           <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1rem', color: '#f0ede8', lineHeight: 1.3 }}>Enstrüman Analizi</span>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.15em', color: '#444', textTransform: 'uppercase' }}>Arketip & Kalibrasyon</span>
+          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.15em', color: '#999', textTransform: 'uppercase' }}>Arketip & Kalibrasyon</span>
         </a>
 
         <a href="/antrenman" style={{
@@ -222,7 +228,7 @@ export default function Home() {
         }}>
           <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: '#c9a96e' }}>02</span>
           <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1rem', color: '#f0ede8', lineHeight: 1.3 }}>Antrenman Odası</span>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.15em', color: '#444', textTransform: 'uppercase' }}>AI Dış Ses Seansı</span>
+          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.15em', color: '#999', textTransform: 'uppercase' }}>AI Dış Ses Seansı</span>
         </a>
 
         <a href="/fuaye" style={{
@@ -235,9 +241,9 @@ export default function Home() {
           textDecoration: 'none',
           cursor: 'pointer',
         }}>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: '#333' }}>03</span>
+          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: '#ccc' }}>03</span>
           <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1rem', color: '#f0ede8', lineHeight: 1.3 }}>Zihinsel Fuaye</span>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.15em', color: '#444', textTransform: 'uppercase' }}>Regülasyon & İmgeleme</span>
+          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.15em', color: '#999', textTransform: 'uppercase' }}>Regülasyon & İmgeleme</span>
         </a>
 
         <a href="/kasa" style={{
@@ -250,9 +256,9 @@ export default function Home() {
           textDecoration: 'none',
           cursor: 'pointer',
         }}>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: '#333' }}>04</span>
+          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: '#ccc' }}>04</span>
           <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1rem', color: '#f0ede8', lineHeight: 1.3 }}>Karakter Kasası</span>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.15em', color: '#444', textTransform: 'uppercase' }}>Blueprint & Vault</span>
+          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.15em', color: '#999', textTransform: 'uppercase' }}>Blueprint & Vault</span>
         </a>
 
       </section>
