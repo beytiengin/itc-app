@@ -1,5 +1,19 @@
 'use client';
+
+import { useState, useEffect } from 'react';
+import { supabase } from './lib/supabase';
 export default function Home() {
+  const [kullanici, setKullanici] = useState(null);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setKullanici(user);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setKullanici(session?.user ?? null);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
   return (
     <main style={{
       minHeight: '100vh',
@@ -26,21 +40,27 @@ export default function Home() {
         }}>
           Actor's Gym
         </span>
-<a href="/giris" style={{
-          fontFamily: 'Jost, sans-serif',
-          fontWeight: 200,
-          fontSize: '0.6rem',
-          letterSpacing: '0.25em',
-          color: '#999',
-          textTransform: 'uppercase',
-          textDecoration: 'none',
-          transition: 'color 0.3s ease',
-        }}
-          onMouseEnter={e => e.currentTarget.style.color = '#c9a96e'}
-          onMouseLeave={e => e.currentTarget.style.color = '#444'}
-        >
-          Giriş Yap
-        </a>
+{kullanici ? (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.2em', color: '#c9a96e', textTransform: 'uppercase' }}>
+              {kullanici.user_metadata?.ad || kullanici.email}
+            </span>
+            <button
+              onClick={async () => { await supabase.auth.signOut(); setKullanici(null); }}
+              style={{ background: 'none', border: 'none', fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: '#444', textTransform: 'uppercase', cursor: 'pointer', transition: 'color 0.3s ease' }}
+              onMouseEnter={e => e.currentTarget.style.color = '#f0ede8'}
+              onMouseLeave={e => e.currentTarget.style.color = '#444'}
+            >
+              Çıkış
+            </button>
+          </div>
+        ) : (
+          <a href="/giris" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: '#f0ede8', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.3s ease' }}
+            onMouseEnter={e => e.currentTarget.style.color = '#c9a96e'}
+            onMouseLeave={e => e.currentTarget.style.color = '#f0ede8'}>
+            Giriş Yap
+          </a>
+        )}
       </header>
 
       <section style={{
