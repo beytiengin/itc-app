@@ -42,9 +42,9 @@ export default function Home() {
         </span>
 {kullanici ? (
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-            <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.2em', color: '#c9a96e', textTransform: 'uppercase' }}>
+         <a href="/profil" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.2em', color: '#c9a96e', textTransform: 'uppercase', textDecoration: 'none' }}>
               {kullanici.user_metadata?.ad || kullanici.email}
-            </span>
+            </a>
             <button
               onClick={async () => { await supabase.auth.signOut(); setKullanici(null); }}
               style={{ background: 'none', border: 'none', fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: '#444', textTransform: 'uppercase', cursor: 'pointer', transition: 'color 0.3s ease' }}
