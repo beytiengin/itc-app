@@ -1,8 +1,5 @@
 // data/karakterler/macbeth.js
 // ITC Actor's Gym — Macbeth karakter verisi
-//
-// Bu dosya sadece veridir, JSX içermez.
-// Diğer karakterler (hamlet.js, willy.js, biff.js) aynı yapıyı kullanır.
 
 const macbeth = {
   // ─── KİMLİK ───────────────────────────────────────────────────────────────
@@ -13,7 +10,7 @@ const macbeth = {
   yazar: 'William Shakespeare',
   donem: "1600'ler",
   tur: 'Trajedi',
-  tip: 'ENTJ', // Karakterin baskın MBTI tipi — Gap Analizi için
+  tip: 'ENTJ',
   ozet:
     "İktidar hırsı, suçluluk ve paranoya. İskoçya'nın en cesur generali — ve en büyük hainlerinden biri.",
   etiketler: ['Trajedi', 'Şiddet', 'İktidar', 'Paranoya'],
@@ -46,162 +43,335 @@ const macbeth = {
     { kategori: 'Son', madde: "Lady Macbeth'in ölümünü savaş ortasında öğrendi." },
   ],
 
-  // ─── 14 SAHNE — TRAVMA ETİKETLERİ İLE ─────────────────────────────────────
+  // ─── 14 SAHNE ─────────────────────────────────────────────────────────────
 
   sahneler: [
     {
-      id: '1.3',
-      perde: 1,
+      id: '1.3', perde: 1,
       label: 'Cadılarla karşılaşma',
       desc: 'Savaş sonrası ormanda üç cadı kehaneti verir: "Kral olacaksın."',
       icDurum: 'Şaşkınlık, hırs, inanmak isteme. Banquo\'ya döner: "İyi mi kötü mü bu?"',
       bosluk: 'Kehanetten sonra saraya kadar olan yolculuk. Aklında ne dönüyor?',
-      travmaKategorileri: ['zihinsel_kirilma'],
-      travmaSeviyesi: 1,
+      travmaKategorileri: ['zihinsel_kirilma'], travmaSeviyesi: 1,
     },
     {
-      id: '1.4',
-      perde: 1,
+      id: '1.4', perde: 1,
       label: 'Cawdor unvanını alır',
       desc: 'Kral Duncan, Macbeth\'i Cawdor Beyi ilan eder. Kehanet gerçekleşmeye başladı.',
       icDurum: "Hız kazanan arzu. Ama bir engel var: Duncan'ın oğlu Malcolm veliahd seçildi.",
       bosluk: "Lady Macbeth'e mektup yazarken içinde ne hissetti?",
-      travmaKategorileri: [],
-      travmaSeviyesi: 0,
+      travmaKategorileri: [], travmaSeviyesi: 0,
     },
     {
-      id: '1.7',
-      perde: 1,
+      id: '1.7', perde: 1,
       label: "Duncan'ı öldürme kararsızlığı",
       desc: 'Ziyafet sırasında odaya çekildi. Yalnız. Kendisiyle hesaplaşıyor.',
       icDurum: '"Bunu yapmamalıyım." Ama Lady Macbeth onu geri çekecek.',
       bosluk: 'O odada kaç dakika geçirdi? Hangi an geri döndü?',
-      travmaKategorileri: ['ahlaki_yara'],
-      travmaSeviyesi: 2,
+      travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 2,
     },
     {
-      id: '2.1',
-      perde: 2,
+      id: '2.1', perde: 2,
       label: 'Hançer halüsinasyonu',
       desc: 'Gece yarısı koridorda havada bir hançer görüntüsü. Gözleri mi, beyni mi?',
       icDurum: 'Zihin artık gerçekle kurguyu ayırt edemiyor. İlk kırılma.',
       bosluk: "Halüsinasyondan Duncan'ın odasına girişe kadar geçen süre.",
-      travmaKategorileri: ['zihinsel_kirilma'],
-      travmaSeviyesi: 2,
+      travmaKategorileri: ['zihinsel_kirilma'], travmaSeviyesi: 2,
     },
     {
-      id: '2.2',
-      perde: 2,
+      id: '2.2', perde: 2,
       label: "Duncan'ı öldürür",
       desc: "Kral'ın odasına girdi. Geri döndü. Hançerler elinde.",
       icDurum: '"Bunu ben mi yaptım?" Ses duyuyor. "Uyku öldürüldü."',
       bosluk: 'Odadaki süre. Hiçbir sahne göstermiyor. Oyuncu dolduracak.',
-      travmaKategorileri: ['siddet', 'ahlaki_yara'],
-      travmaSeviyesi: 3,
+      travmaKategorileri: ['siddet', 'ahlaki_yara'], travmaSeviyesi: 3,
     },
     {
-      id: '2.3',
-      perde: 2,
+      id: '2.3', perde: 2,
       label: 'Cinayeti gizleme',
       desc: 'Herkes uyandı. Macduff buldu. Macbeth hizmetçileri öldürür.',
       icDurum: 'Kontrol. Rol yapma. İlk performans: kral gibi davranmak.',
       bosluk: 'Lady Macbeth bayılınca ne düşündü?',
-      travmaKategorileri: ['ahlaki_yara'],
-      travmaSeviyesi: 2,
+      travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 2,
     },
     {
-      id: '3.1',
-      perde: 3,
+      id: '3.1', perde: 3,
       label: "Banquo'dan tehdit",
       desc: "Banquo'nun çocukları kral olacak dedi cadılar. Banquo tehlikeli.",
       icDurum: 'Paranoya başladı. En iyi dost artık düşman.',
       bosluk: "Banquo'ya ihanet kararını verdiği an.",
-      travmaKategorileri: ['ihanet'],
-      travmaSeviyesi: 1,
+      travmaKategorileri: ['ihanet'], travmaSeviyesi: 1,
     },
     {
-      id: '3.2',
-      perde: 3,
+      id: '3.2', perde: 3,
       label: "Lady Macbeth'le uzaklaşma",
       desc: 'İkisi arasında bir şeyler kırıldı. Planlarını artık paylaşmıyor.',
       icDurum: 'Yalnızlaşma. Güce sahip ama kimse yok yanında.',
       bosluk: "O gecelerde Lady Macbeth'e ne söylemek isteyip söyleyemedi?",
-      travmaKategorileri: ['kayip'],
-      travmaSeviyesi: 1,
+      travmaKategorileri: ['kayip'], travmaSeviyesi: 1,
     },
     {
-      id: '3.4',
-      perde: 3,
+      id: '3.4', perde: 3,
       label: "Banquo'nun hayaleti",
       desc: 'Ziyafet sofrasında taht boş değil. Sadece o görüyor.',
       icDurum: 'Panik. Kontrol kaybı. Herkese delilik performansı sergiledi.',
       bosluk: 'Hayalet kaybolunca — gerçek mi yoksa korku mu?',
-      travmaKategorileri: ['zihinsel_kirilma', 'ahlaki_yara'],
-      travmaSeviyesi: 3,
+      travmaKategorileri: ['zihinsel_kirilma', 'ahlaki_yara'], travmaSeviyesi: 3,
     },
     {
-      id: '4.1',
-      perde: 4,
+      id: '4.1', perde: 4,
       label: 'Yeni kehanetler',
       desc: 'Cadılara geri döndü. Daha fazlasını istedi. Daha karanlık bilgiler aldı.',
       icDurum: 'Bağımlılık. Kehanet artık güç vermiyor, uyuşturuyor.',
       bosluk: 'Cadılardan ayrıldıktan sonra yalnız kaldığı an.',
-      travmaKategorileri: ['zihinsel_kirilma'],
-      travmaSeviyesi: 2,
+      travmaKategorileri: ['zihinsel_kirilma'], travmaSeviyesi: 2,
     },
     {
-      id: '5.3',
-      perde: 5,
+      id: '5.3', perde: 5,
       label: 'Savaşa hazırlanma',
       desc: 'Beyler onu terk ediyor. Ordu yaklaşıyor. Ama kehanet güvencesi var.',
       icDurum: 'Yanlış bir güven. Ya da güvene inanmak zorunda.',
       bosluk: 'Asker sayısını öğrendiği an.',
-      travmaKategorileri: [],
-      travmaSeviyesi: 0,
+      travmaKategorileri: [], travmaSeviyesi: 0,
     },
     {
-      id: '5.5',
-      perde: 5,
+      id: '5.5', perde: 5,
       label: "Lady Macbeth'in ölümü",
       desc: 'Haber geldi. Cevabı: "Yarın, yarından sonra, yarından sonra..."',
       icDurum: 'Boşluk. Keder değil — anlamsızlık. Hayat "yürüyen bir gölge".',
       bosluk: "Haberi aldıktan savaş alanına çıkana kadar. Ne düşündü Lady Macbeth'e dair?",
-      travmaKategorileri: ['kayip', 'varolussal'],
-      travmaSeviyesi: 3,
+      travmaKategorileri: ['kayip', 'varolussal'], travmaSeviyesi: 3,
     },
     {
-      id: '5.7',
-      perde: 5,
+      id: '5.7', perde: 5,
       label: "Genç Seyward'ı öldürür",
       desc: 'Savaş alanında genç asker. Kolayca öldürdü. Kehanet doğru.',
       icDurum: 'Kısa bir zafer. Doğrulandı hissi. Ama Macduff geliyor.',
       bosluk: null,
-      travmaKategorileri: ['siddet'],
-      travmaSeviyesi: 2,
+      travmaKategorileri: ['siddet'], travmaSeviyesi: 2,
     },
     {
-      id: '5.8',
-      perde: 5,
+      id: '5.8', perde: 5,
       label: 'Macduff karşısında son',
       desc: '"Kadından doğmadım." Macduff: "Erken doğumla kopardılar beni."',
       icDurum: 'Her şey çöktü. Ama savaşmayı seçti.',
       bosluk: 'O son anda — pişmanlık mı, özgürlük mü, yoksa hiçlik mi?',
-      travmaKategorileri: ['varolussal'],
+      travmaKategorileri: ['varolussal'], travmaSeviyesi: 3,
+    },
+  ],
+
+  // ─── BOŞLUKLAR — YAZARIN SUSTUĞU YERLER ───────────────────────────────────
+  // Shakespeare'in göstermediği, oyuncunun yazacağı anlar.
+  // Her boşluk kendi mini egzersizi olarak çalışır.
+
+  bosluklar: [
+    {
+      id: 'b-pre',
+      tip: 'pre',
+      konum: 'Pre-senaryo',
+      baslik: 'Senaryodan Önce',
+      kisaAciklama: 'Kim olduğu, çocukluğu, savaştan önceki yaşamı.',
+      uzunAciklama:
+        "Shakespeare bize Macbeth'i savaş alanından kapıyor. Ama o ana kadar bir hayat var. Kimdi? Nereden geldi? Hangi anılar onu bu adam yaptı?",
+      sorular: [
+        'Macbeth\'in çocukluğunda en güçlü hatırası ne olabilir?',
+        'Babası nasıl biriydi? Onunla ilişkisi nasıldı?',
+        'İlk savaşına çıktığında kaç yaşındaydı? Ne hissetti?',
+        'Lady Macbeth\'le ilk nasıl karşılaştılar?',
+        'İktidar arzusu hangi anda doğdu? Bilinçli bir arzu mu, yoksa hep var mıydı?',
+      ],
+      sure: '15 dk',
+    },
+    {
+      id: 'b-1',
+      tip: 'ara',
+      konum: '1.3 → 1.4 arası',
+      baslik: 'Ormandan Saraya',
+      kisaAciklama: 'Cadıların kehanetinden Duncan\'ın huzuruna varış.',
+      uzunAciklama:
+        'Cadılar kayboldu. Banquo şaşkın. Macbeth\'in zihninde "kral" kelimesi yankılanıyor. Saraya kadar yol var — kimseyle konuşmadan, ama içeride sürekli bir konuşma.',
+      sorular: [
+        'At üzerinde mi yürüyor mu? Yolu hangi ritimde alıyor?',
+        'Banquo\'ya ne söyleyebilirdi ama söylemedi?',
+        'Kehaneti ilk kez ciddiye aldığı an hangisi?',
+        '"Kral" kelimesini ilk kez sesli düşündüğünde — ne hissetti?',
+      ],
+      sure: '12 dk',
+    },
+    {
+      id: 'b-2',
+      tip: 'ara',
+      konum: '1.4 → 1.7 arası',
+      baslik: 'Mektup Yazma Süreci',
+      kisaAciklama: 'Lady Macbeth\'e haberi vermek için yazılan mektup.',
+      uzunAciklama:
+        'Cawdor olduğunu öğrendi. Eve dönüş yolunda Lady Macbeth\'e mektup yazdı. O mektubu yazarken hangi kelimeyi sildi? Hangi cümleyi düşünüp yazmadı?',
+      sorular: [
+        'Mektubu yazmaya başladığı an ne hissetti?',
+        'Cadılardan bahsederken kelimeleri nasıl seçti?',
+        'Söyleyemediği şey neydi? "Onu öldürmemiz gerekecek" diye yazabilir miydi?',
+        'Mühürlerken — bu mektup geri alınamaz, biliyor mu?',
+      ],
+      sure: '15 dk',
+    },
+    {
+      id: 'b-3',
+      tip: 'ic',
+      konum: '1.7 içi',
+      baslik: 'Karar Odasında Tek Başına',
+      kisaAciklama: '"Yapacağım" dedikten sonra Duncan\'ın odasına kadar.',
+      uzunAciklama:
+        'Lady Macbeth onu ikna etti. "Yapacağım" dedi. Ama bu cümle ile gerçekten yapıyor olması arasında bir süre var. O sürede kaç kez vazgeçti? Kaç kez geri çağırdı kendini?',
+      sorular: [
+        '"Yapacağım" dediği an bedeninin neresinde değişiklik oldu?',
+        'Hizmetkârlara şarap içirirken onlara ne diyebildi?',
+        'Lady Macbeth yataktan kalkıp çanı çaldığında — son şansı miydi?',
+        'Hançere uzandığı an, gerçekten alacağını biliyor muydu?',
+      ],
+      sure: '20 dk',
+      travmaSeviyesi: 2,
+    },
+    {
+      id: 'b-4',
+      tip: 'ic',
+      konum: '2.2 odasının içi',
+      baslik: "Duncan'ın Odasında",
+      kisaAciklama: 'Cinayetin kendisi — Shakespeare\'in göstermediği an.',
+      uzunAciklama:
+        'Macbeth odaya girdi. Geri döndü. Aralarındaki süre — belki 30 saniye, belki 5 dakika. O odada ne yaptı? Ne gördü? Ne söyledi (söyledi mi)? Bu en derin boşluk.',
+      sorular: [
+        'Odaya girdiğinde Duncan\'ın yüzü görünüyor muydu?',
+        'Duncan rüyasında bir şey söyledi mi? Söyleseydi sen ne duyardın?',
+        'İlk darbe nereye? İkincisi geldi mi?',
+        'Yatağın ucundan döndüğünde — son kez baktı mı?',
+        'Geri çıkarken ne kadar zaman geçti? Ya o sürede biri uyansaydı?',
+      ],
+      sure: '25 dk',
       travmaSeviyesi: 3,
+    },
+    {
+      id: 'b-5',
+      tip: 'ara',
+      konum: '2.2 → 2.3 arası',
+      baslik: 'Uyumadığı Saatler',
+      kisaAciklama: 'Cinayetten Macduff\'ın kapıyı çalışına kadar.',
+      uzunAciklama:
+        'Eller yıkandı. Ama uyku gelmedi. "Uyku öldürüldü" dedi. O saatlerde ne yaptı? Lady Macbeth ne dedi? Sessizlik miydi yoksa konuştular mı?',
+      sorular: [
+        'Eller yıkandı — ama hâlâ kanlı görüyor mu?',
+        'Lady Macbeth\'le bakışmaları nasıldı?',
+        'Bir an pencereye gitti — dışarıda ne gördü?',
+        'Macduff kapıyı çaldığında ilk düşüncesi neydi?',
+      ],
+      sure: '15 dk',
+    },
+    {
+      id: 'b-6',
+      tip: 'ara',
+      konum: '3.1 → 3.4 arası',
+      baslik: 'Ziyafete Hazırlık',
+      kisaAciklama: 'Banquo\'yu öldürtme emrinden ziyafet sofrasına.',
+      uzunAciklama:
+        'Suikastçileri gönderdi. Ziyafet hazırlanıyor. O saatlerde Macbeth nerede? Lady Macbeth\'le konuştu mu? Banquo\'nun gelmeyeceğini biliyor — ama herkes onun geleceğini bekliyor.',
+      sorular: [
+        'Suikastçileri uğurladıktan sonra ilk gittiği yer neresi oldu?',
+        'Ziyafet kıyafetlerini giyerken aynaya baktı — kimi gördü?',
+        'Lady Macbeth\'e Banquo\'yu söyledi mi? Söyleseydi nasıl söylerdi?',
+        'Sofraya otururken — Banquo\'nun ölü olduğunu biliyor mu, yoksa bekliyor mu?',
+      ],
+      sure: '15 dk',
+    },
+    {
+      id: 'b-7',
+      tip: 'ara',
+      konum: '3.4 → 4.1 arası',
+      baslik: 'Hayaletten Cadılara',
+      kisaAciklama: 'Ziyafet rezaletinden cadılara dönüşe kadar.',
+      uzunAciklama:
+        'Ziyafet bitti. Konuklar gitti. Macbeth utanç ve panik içinde. O geceyi nasıl geçirdi? Cadıları aramaya hangi anda karar verdi?',
+      sorular: [
+        'Ziyafet bitince Lady Macbeth\'le aralarında ne kondu, ne kalmadı?',
+        'O gece uyudu mu? Uyuduysa rüyasında ne gördü?',
+        'Cadıları aramaya gitme kararını hangi an verdi?',
+        'Ormana giderken — bu sefer yalnız. Banquo yok. Hangi farkı hissetti?',
+      ],
+      sure: '15 dk',
+    },
+    {
+      id: 'b-8',
+      tip: 'ara',
+      konum: '4.1 → 5.3 arası',
+      baslik: 'Macduff\'tan Sonra Sessizlik',
+      kisaAciklama: 'Macduff\'ın ailesinin katlinden savaş hazırlığına.',
+      uzunAciklama:
+        'Macduff kaçtı. Macbeth ailesini öldürttü. Sonra haftalar var — Macduff geri dönmeden önce. O zamanda Macbeth ne yapıyor? Beyler bir bir kaçıyor. Lady Macbeth çekiliyor. O yalnızlaşma nasıl bir yalnızlık?',
+      sorular: [
+        'Macduff\'ın ailesinin öldüğünü öğrendiğinde — kazandı mı, kaybetti mi?',
+        'Sarayında dolaşırken kaç kişi kalmıştı?',
+        'Lady Macbeth\'e en son ne zaman dokundu?',
+        'Aynaya baktığı son an — kimi gördü?',
+      ],
+      sure: '18 dk',
+    },
+    {
+      id: 'b-9',
+      tip: 'ara',
+      konum: '5.3 → 5.5 arası',
+      baslik: 'Çığlığı Duyduğu An',
+      kisaAciklama: 'Lady Macbeth\'in çöküşünü ilk duyumsadığı an.',
+      uzunAciklama:
+        'Saraydan bir çığlık geldi. "Ne bağırışı bu?" diye sordu. Cevap gelmeden önceki süre — kim olduğunu zaten biliyor muydu? Bu ana hazır mıydı?',
+      sorular: [
+        'Çığlığı duyduğunda bedeninde ne hareket etti?',
+        '"Ne bağırışı bu?" derken sesinin tonu — soru mu, kabul mu?',
+        'Cevabı beklerken nefes aldı mı?',
+        'Lady Macbeth\'in öldüğünü duyduğu an — ilk dakika sessizlik. O sessizlikte ne vardı?',
+      ],
+      sure: '15 dk',
+      travmaSeviyesi: 2,
+    },
+    {
+      id: 'b-10',
+      tip: 'ara',
+      konum: '5.7 → 5.8 arası',
+      baslik: 'Son Dakikalar',
+      kisaAciklama: 'Genç Seyward\'dan Macduff\'a kadar.',
+      uzunAciklama:
+        'Genç Seyward\'ı öldürdü. "Kadın doğurmadı" diye düşündü — kehanet hâlâ koruyor. Ama Macduff geliyor. O dakikalarda ne biliyor, ne hissediyor?',
+      sorular: [
+        'Genç Seyward öldükten sonra — gerçekten zafer hissetti mi?',
+        'Etrafına baktığında kaç düşman gördü?',
+        'Macduff\'ı uzaktan tanıdı mı? Sesi mi, yürüyüşü mü?',
+        '"Kadından doğmadım" sözünü en son ne zaman tekrar etti içinde?',
+      ],
+      sure: '12 dk',
+    },
+    {
+      id: 'b-post',
+      tip: 'post',
+      konum: 'Post-senaryo',
+      baslik: 'Senaryodan Sonra',
+      kisaAciklama: 'Ölümünden sonra zihninde kalan iz — oyuncuda devam eden.',
+      uzunAciklama:
+        'Macbeth öldü. Ama oyuncu hâlâ orada. Karakteri içine aldı, taşıdı, salıveriyor şimdi. Bu boşluk Macbeth\'in değil — oyuncunun. Karakter sende ne bıraktı? Neyi alıp götürdü?',
+      sorular: [
+        'Macbeth\'in son nefesi senin bedeninde nereye yerleşti?',
+        'Onu bırakmak — hangi adımdan başlar?',
+        'Macbeth\'in sende sevdiğin bir yanı oldu mu? Korktuğun?',
+        'Bu rolden çıktığında — sen mi geri döndün, yoksa biraz değişmiş biri mi?',
+      ],
+      sure: '15 dk',
+      tipDeroling: true,
     },
   ],
 
   // ─── EGZERSİZLER ──────────────────────────────────────────────────────────
-  // adimlar bir dizi cümle dizisidir. {duyu}, {ipucu}, {yansimaSorusu}
-  // gibi yer tutucular VAK kanalına göre doldurulacak.
 
   egzersizler: [
     {
       id: 'baseline',
       baslik: 'Baseline Kurma',
-      sure: '10 dk',
-      seviye: 'Giris',
-      ikon: '🌿',
+      sure: '10 dk', seviye: 'Giris', ikon: '🌿',
       aciklama:
         "Cadılarla karşılaşmadan önce. Savaş kazanıldı. Her şey mümkün. Macbeth henüz bir general — kral değil, katil değil.",
       adimlar: [
@@ -215,9 +385,7 @@ const macbeth = {
     {
       id: 'dogrular',
       baslik: 'Değiştirilemez Doğrular Taraması',
-      sure: '15 dk',
-      seviye: 'Temel',
-      ikon: '🗺️',
+      sure: '15 dk', seviye: 'Temel', ikon: '🗺️',
       aciklama:
         "Sahneye çıkmadan önce karakterin zeminini sağlamlaştır. Her maddeyi oku, bedenine sor: 'Bu gerçek mi?'",
       adimlar: [
@@ -229,46 +397,9 @@ const macbeth = {
       travmaSeviyesi: 0,
     },
     {
-      id: 'bosluk-1-7',
-      baslik: 'Zihinsel Boşluk: 1.7 Odası',
-      sure: '20 dk',
-      seviye: 'Orta',
-      ikon: '🚪',
-      aciklama:
-        "Ziyafet devam ediyor. Macbeth odaya çekildi. Shakespeare bu sahneyi göstermiyor — sen dolduracaksın.",
-      adimlar: [
-        'Odaya girdin. Kapıyı kapattın. {duyu} uzaktan geliyor.',
-        '"Bunu yapmamalıyım." — Bu cümleyi üç kez söyle. Her seferinde farklı bir yere koy.',
-        'Pencereye git. Dışarıda ne {duyu}?',
-        'Lady Macbeth kapıya geliyor. Açmadan önce: son karar hangi anda verildi?',
-      ],
-      travmaSeviyesi: 2,
-      bagliSahne: '1.7',
-    },
-    {
-      id: 'bosluk-2-2',
-      baslik: 'Zihinsel Boşluk: 2.2 Odası',
-      sure: '25 dk',
-      seviye: 'Ileri',
-      ikon: '🩸',
-      aciklama:
-        "Duncan'ın odasına girdin. Sahne yok. Sadece içeri girdin ve geri döndün. Bu arayı yaşa.",
-      adimlar: [
-        'Koridor. Hançer elde. Nefes.',
-        'Kapıyı açtın. İçerisi karanlık. Ne {duyu}?',
-        '(Süre: oyuncu kendi ritmiyle belirler — acele yok.)',
-        'Geri döndün. Ellerinde ne var? {yansimaSorusu}',
-        '"Bu elleri okyanusun suyu temizleyemez." — Bu cümle nerede başlıyor?',
-      ],
-      travmaSeviyesi: 3,
-      bagliSahne: '2.2',
-    },
-    {
       id: 'iliski-lady',
       baslik: 'İlişki Haritası: Lady Macbeth',
-      sure: '20 dk',
-      seviye: 'Orta',
-      ikon: '👁️',
+      sure: '20 dk', seviye: 'Orta', ikon: '👁️',
       aciklama:
         "En yakın kişi. En büyük itici güç. Ve sonunda: sessizce kaybedilen. Bu ilişkinin dönüşümünü izle.",
       adimlar: [
@@ -282,56 +413,43 @@ const macbeth = {
     {
       id: 'kararlar-odasi',
       baslik: 'Kararlar Odası',
-      sure: '30 dk',
-      seviye: 'Ileri',
-      ikon: '⚖️',
+      sure: '30 dk', seviye: 'Ileri', ikon: '⚖️',
       aciklama:
         "Macbeth'in seçimleri tarihsel olarak sabit. Ama o anlarda ne hissettiği değil. Bu egzersizde karar anlarına gir — kendi seçimini yap, sonra Macbeth'inkiyle karşılaş.",
-      // Kararlar Odası'nın kendi yapısı var — adimlar yerine kararlar dizisi
       kararlar: [
         {
-          id: 'k-1-7',
-          sahne: '1.7',
-          kurulum:
-            'Ziyafetten ayrıldın. Yalnızsın. Lady Macbeth seni dışarıda bekliyor. Duncan üst katta uyuyor.',
+          id: 'k-1-7', sahne: '1.7',
+          kurulum: 'Ziyafetten ayrıldın. Yalnızsın. Lady Macbeth seni dışarıda bekliyor. Duncan üst katta uyuyor.',
           yollar: [
             { id: 'oldur', metin: "Plana sadık kal — Duncan'ı öldür" },
             { id: 'vazgec', metin: 'Vazgeç — Lady Macbeth\'e geri dön ve "yapamam" de' },
           ],
           yansimaSorusu: 'Bu kararı verirken bedeninin neresinde bir şey değişti?',
-          tarihselCevap:
-            "Macbeth öldürmeyi seçti. Ama önce 'Vazgeç' dedi — Lady Macbeth onu geri çekti. Yani aslında karar Macbeth'in tek başına değildi.",
-          farkSorusu:
-            'Sen bu karara nasıl geldin? Macbeth\'in geldiği gibi mi, yoksa farklı bir yoldan mı?',
+          tarihselCevap: "Macbeth öldürmeyi seçti. Ama önce 'Vazgeç' dedi — Lady Macbeth onu geri çekti. Yani aslında karar Macbeth'in tek başına değildi.",
+          farkSorusu: 'Sen bu karara nasıl geldin? Macbeth\'in geldiği gibi mi, yoksa farklı bir yoldan mı?',
         },
         {
-          id: 'k-3-1',
-          sahne: '3.1',
-          kurulum:
-            "Banquo, en yakın dostun. Cadılar 'onun çocukları kral olacak' dedi. Şu an ziyafet için saraya geliyor.",
+          id: 'k-3-1', sahne: '3.1',
+          kurulum: "Banquo, en yakın dostun. Cadılar 'onun çocukları kral olacak' dedi. Şu an ziyafet için saraya geliyor.",
           yollar: [
             { id: 'oldurt', metin: "Tehlike — Banquo'yu öldürtmeyi emret" },
             { id: 'konus', metin: "Risk al — Banquo ile yüz yüze konuş, kehaneti paylaş" },
             { id: 'gormezden', metin: "Görmezden gel — kehanet kendi yoluna gitsin" },
           ],
           yansimaSorusu: 'Banquo\'yu öldürtme fikrine ne tepki verdin? Hızlı mı, yavaş mı?',
-          tarihselCevap:
-            "Macbeth öldürtmeyi seçti. Ama önemli olan şu: Banquo'yu konuşmadan, sormadan, sadece kehanete dayanarak öldürttü. İlk cinayetinde tereddüt vardı — bu seferinde yok.",
+          tarihselCevap: "Macbeth öldürtmeyi seçti. Ama önemli olan şu: Banquo'yu konuşmadan, sormadan, sadece kehanete dayanarak öldürttü. İlk cinayetinde tereddüt vardı — bu seferinde yok.",
           farkSorusu: 'Sen tereddüt ettin mi? Macbeth\'le aranızdaki o tereddüt farkı ne anlama geliyor?',
         },
         {
-          id: 'k-5-8',
-          sahne: '5.8',
-          kurulum:
-            'Macduff karşısında. "Kadından doğmadım" diyor — kehanetin son kalkanı düştü. Kaçabilirsin, teslim olabilirsin, savaşabilirsin.',
+          id: 'k-5-8', sahne: '5.8',
+          kurulum: 'Macduff karşısında. "Kadından doğmadım" diyor — kehanetin son kalkanı düştü. Kaçabilirsin, teslim olabilirsin, savaşabilirsin.',
           yollar: [
             { id: 'savas', metin: 'Savaş — sonuç belli olsa da dövüş' },
             { id: 'teslim', metin: "Teslim ol — kılıcını bırak" },
             { id: 'kac', metin: 'Kaç — bir şans daha ara' },
           ],
           yansimaSorusu: 'Bu seçimi yaparken hangi duygu daha güçlü? Onur mu, korku mu, hiçlik mi?',
-          tarihselCevap:
-            'Macbeth savaşmayı seçti. "Yine de denerim" dedi. Bu bir umut değil — anlamsızlığa rağmen eylem.',
+          tarihselCevap: 'Macbeth savaşmayı seçti. "Yine de denerim" dedi. Bu bir umut değil — anlamsızlığa rağmen eylem.',
           farkSorusu: 'Senin seçimin onun seçimiyle aynı mı? Eğer farklıysa — Macbeth\'in sende eksik olan ne?',
         },
       ],
@@ -340,9 +458,7 @@ const macbeth = {
     {
       id: 'son-monolog',
       baslik: 'Son Monoloğu: Yarın',
-      sure: '15 dk',
-      seviye: 'Ileri',
-      ikon: '🕯️',
+      sure: '15 dk', seviye: 'Ileri', ikon: '🕯️',
       aciklama:
         "\"Yarın, yarından sonra, yarından sonra...\" — Bu monolog Macbeth'in en dürüst anı. Performans yok, izleyici yok, sadece anlamsızlık.",
       adimlar: [

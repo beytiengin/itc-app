@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from './lib/supabase';
+
 export default function Home() {
   const [kullanici, setKullanici] = useState(null);
 
@@ -14,6 +15,7 @@ export default function Home() {
     });
     return () => subscription.unsubscribe();
   }, []);
+
   return (
     <main style={{
       minHeight: '100vh',
@@ -23,6 +25,7 @@ export default function Home() {
       flexDirection: 'column',
     }}>
 
+      {/* HEADER */}
       <header style={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -38,11 +41,12 @@ export default function Home() {
           color: '#c9a96e',
           textTransform: 'uppercase',
         }}>
-          Actor's Gym
+          Inside The Character
         </span>
-{kullanici ? (
+
+        {kullanici ? (
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-         <a href="/profil" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.2em', color: '#c9a96e', textTransform: 'uppercase', textDecoration: 'none' }}>
+            <a href="/profil" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.2em', color: '#c9a96e', textTransform: 'uppercase', textDecoration: 'none' }}>
               {kullanici.user_metadata?.ad || kullanici.email}
             </a>
             <button
@@ -63,13 +67,12 @@ export default function Home() {
         )}
       </header>
 
+      {/* KAHRAMAN ALANI */}
       <section style={{
-        flex: 1,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-        padding: '5rem 2rem',
+        padding: '5rem 2rem 3rem 2rem',
         textAlign: 'center',
         gap: '2rem',
       }}>
@@ -105,105 +108,223 @@ export default function Home() {
           lineHeight: 1.8,
           margin: 0,
         }}>
-          Hoş geldin. Bugün enstrümanını akort etmeye
+          Hoş geldin. 
           <br />
-          ve karakterini var etmeye hazır mısın?
+          Seçtiğin karakteri sana özel kişiselleştirilmiş egzersizler ile 
+          <br />
+          yapılandırmaya hazır mısın?
         </p>
+
+      </section>
+
+      {/* MODÜLLER */}
+      <section style={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: '2rem 2rem 5rem 2rem',
+        gap: '1.5rem',
+      }}>
 
         <div style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: '1rem',
+          gap: '1.2rem',
           width: '100%',
-          maxWidth: '360px',
-          marginTop: '1rem',
+          maxWidth: '520px',
         }}>
+
+          {/* MODÜL I */}
           <a href="/kalibrasyon" style={{
             display: 'flex',
             flexDirection: 'column',
-            gap: '0.3rem',
-            padding: '1.2rem 2rem',
+            gap: '0.8rem',
+            padding: '2rem 2.2rem',
             border: '1px solid #2a2a2a',
             textDecoration: 'none',
             color: '#f0ede8',
             transition: 'all 0.3s ease',
-          }}>
-            <span style={{
-              fontFamily: 'Jost, sans-serif',
-              fontWeight: 300,
-              fontSize: '0.85rem',
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-            }}>
-              Merkezine Dön
-            </span>
+          }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = '#c9a96e'; e.currentTarget.style.backgroundColor = '#111'; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = '#2a2a2a'; e.currentTarget.style.backgroundColor = 'transparent'; }}>
+
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <span style={{
+                fontFamily: 'Jost, sans-serif',
+                fontWeight: 200,
+                fontSize: '0.6rem',
+                letterSpacing: '0.4em',
+                color: '#c9a96e',
+                textTransform: 'uppercase',
+              }}>
+                Modül I
+              </span>
+              <span style={{
+                fontFamily: 'Jost, sans-serif',
+                fontWeight: 200,
+                fontSize: '0.55rem',
+                letterSpacing: '0.2em',
+                color: '#666',
+                textTransform: 'uppercase',
+              }}>
+                3 Test
+              </span>
+            </div>
+
             <span style={{
               fontFamily: 'Cormorant Garamond, serif',
-              fontStyle: 'italic',
-              fontSize: '0.75rem',
-              color: '#c9a96e',
-            }}>
-              Baseline Kurulumu
-            </span>
-          </a>
-
-          <a href="/antrenman" style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '0.3rem',
-            padding: '1.2rem 2rem',
-            border: '1px solid #2a2a2a',
-            textDecoration: 'none',
-            color: '#f0ede8',
-            transition: 'all 0.3s ease',
-          }}>
-            <span style={{
-              fontFamily: 'Jost, sans-serif',
               fontWeight: 300,
-              fontSize: '0.85rem',
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
+              fontSize: '1.6rem',
+              color: '#f0ede8',
+              lineHeight: 1.2,
             }}>
-              Karakterini İnşa Et
+              Kendini Tanı
             </span>
-            <span style={{
-              fontFamily: 'Cormorant Garamond, serif',
-              fontStyle: 'italic',
-              fontSize: '0.75rem',
-              color: '#c9a96e',
-            }}>
-              Somatik Yolculuğa Başla
-            </span>
-          </a>
 
-          <a href="/kasa" style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '0.3rem',
-            padding: '1rem 2rem',
-            border: '1px solid #1a1a1a',
-            textDecoration: 'none',
-            color: '#bbb',
-            transition: 'all 0.3s ease',
-          }}>
             <span style={{
               fontFamily: 'Jost, sans-serif',
               fontWeight: 200,
-              fontSize: '0.8rem',
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
+              fontSize: '0.78rem',
+              color: '#aaa',
+              lineHeight: 1.7,
             }}>
-              Kapasitemi Gör
+              Enstrümanını akort et. Öğrenme stilin, performans haritan ve kişilik tipin üzerinden enstrüman profilini çıkarır.
             </span>
+
             <span style={{
               fontFamily: 'Cormorant Garamond, serif',
               fontStyle: 'italic',
-              fontSize: '0.7rem',
+              fontSize: '0.85rem',
               color: '#c9a96e',
+              marginTop: '0.3rem',
             }}>
-              Yıldız Oyuncu Analizi
+              Kalibrasyona Git →
             </span>
           </a>
+
+          {/* MODÜL II */}
+          <a href="/antrenman/karakter" style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.8rem',
+            padding: '2rem 2.2rem',
+            border: '1px solid #2a2a2a',
+            textDecoration: 'none',
+            color: '#f0ede8',
+            transition: 'all 0.3s ease',
+          }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = '#c9a96e'; e.currentTarget.style.backgroundColor = '#111'; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = '#2a2a2a'; e.currentTarget.style.backgroundColor = 'transparent'; }}>
+
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <span style={{
+                fontFamily: 'Jost, sans-serif',
+                fontWeight: 200,
+                fontSize: '0.6rem',
+                letterSpacing: '0.4em',
+                color: '#c9a96e',
+                textTransform: 'uppercase',
+              }}>
+                Modül II
+              </span>
+              <span style={{
+                fontFamily: 'Jost, sans-serif',
+                fontWeight: 200,
+                fontSize: '0.55rem',
+                letterSpacing: '0.2em',
+                color: '#666',
+                textTransform: 'uppercase',
+              }}>
+                4 Karakter
+              </span>
+            </div>
+
+            <span style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontWeight: 300,
+              fontSize: '1.6rem',
+              color: '#f0ede8',
+              lineHeight: 1.2,
+            }}>
+              Karakterini İnşa Et
+            </span>
+
+            <span style={{
+              fontFamily: 'Jost, sans-serif',
+              fontWeight: 200,
+              fontSize: '0.78rem',
+              color: '#aaa',
+              lineHeight: 1.7,
+            }}>
+              Klasik karakterleri ITC metoduyla içeriden çalış. Doğrular, zihinsel haritalar, boşluklar ve egzersizlerle her karakter senin yorumunla yeniden yazılır.
+            </span>
+
+            <span style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontStyle: 'italic',
+              fontSize: '0.85rem',
+              color: '#c9a96e',
+              marginTop: '0.3rem',
+            }}>
+              Karakter Kasasına Git →
+            </span>
+          </a>
+
+          {/* MODÜL III - Yakında */}
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.8rem',
+            padding: '2rem 2.2rem',
+            border: '1px solid #1a1a1a',
+            opacity: 0.5,
+          }}>
+
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <span style={{
+                fontFamily: 'Jost, sans-serif',
+                fontWeight: 200,
+                fontSize: '0.6rem',
+                letterSpacing: '0.4em',
+                color: '#666',
+                textTransform: 'uppercase',
+              }}>
+                Modül III
+              </span>
+              <span style={{
+                fontFamily: 'Jost, sans-serif',
+                fontWeight: 200,
+                fontSize: '0.55rem',
+                letterSpacing: '0.2em',
+                color: '#444',
+                textTransform: 'uppercase',
+              }}>
+                Yakında
+              </span>
+            </div>
+
+            <span style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontWeight: 300,
+              fontSize: '1.6rem',
+              color: '#888',
+              lineHeight: 1.2,
+            }}>
+              Sahnele
+            </span>
+
+            <span style={{
+              fontFamily: 'Jost, sans-serif',
+              fontWeight: 200,
+              fontSize: '0.78rem',
+              color: '#666',
+              lineHeight: 1.7,
+            }}>
+              AI Dış Ses ile yönlendirilmiş zihinsel yolculuk. Karakterin tüm hayatını — pre-senaryodan post-senaryoya — bedenine taşı.
+            </span>
+          </div>
+
         </div>
 
         <div style={{
@@ -211,75 +332,8 @@ export default function Home() {
           height: '60px',
           backgroundColor: '#c9a96e',
           opacity: 0.4,
+          marginTop: '1rem',
         }} />
-
-      </section>
-
-      <section style={{
-        borderTop: '1px solid #1a1a1a',
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-      }}>
-
-        <a href="/kalibrasyon" style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0.6rem',
-          padding: '2rem',
-          borderRight: '1px solid #1a1a1a',
-          borderTop: '1px solid transparent',
-          textDecoration: 'none',
-          cursor: 'pointer',
-        }}>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: '#ccc' }}>01</span>
-          <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1rem', color: '#f0ede8', lineHeight: 1.3 }}>Enstrüman Analizi</span>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.15em', color: '#999', textTransform: 'uppercase' }}>Arketip & Kalibrasyon</span>
-        </a>
-
-        <a href="/antrenman" style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0.6rem',
-          padding: '2rem',
-          borderRight: '1px solid #1a1a1a',
-          borderTop: '1px solid #c9a96e',
-          textDecoration: 'none',
-          cursor: 'pointer',
-        }}>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: '#c9a96e' }}>02</span>
-          <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1rem', color: '#f0ede8', lineHeight: 1.3 }}>Antrenman Odası</span>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.15em', color: '#999', textTransform: 'uppercase' }}>AI Dış Ses Seansı</span>
-        </a>
-
-        <a href="/fuaye" style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0.6rem',
-          padding: '2rem',
-          borderRight: '1px solid #1a1a1a',
-          borderTop: '1px solid transparent',
-          textDecoration: 'none',
-          cursor: 'pointer',
-        }}>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: '#ccc' }}>03</span>
-          <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1rem', color: '#f0ede8', lineHeight: 1.3 }}>Zihinsel Fuaye</span>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.15em', color: '#999', textTransform: 'uppercase' }}>Regülasyon & İmgeleme</span>
-        </a>
-
-        <a href="/kasa" style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0.6rem',
-          padding: '2rem',
-          borderRight: '1px solid #1a1a1a',
-          borderTop: '1px solid transparent',
-          textDecoration: 'none',
-          cursor: 'pointer',
-        }}>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: '#ccc' }}>04</span>
-          <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1rem', color: '#f0ede8', lineHeight: 1.3 }}>Karakter Kasası</span>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.15em', color: '#999', textTransform: 'uppercase' }}>Blueprint & Vault</span>
-        </a>
 
       </section>
 

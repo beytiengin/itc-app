@@ -1,19 +1,9 @@
 // lib/kalibrasyon.js
 // ITC Actor's Gym — Kalibrasyon verisi okuma katmanı
-//
-// Üç tabloyu (vak_sonuclari, yildiz_sonuclari, arketip_sonuclari)
-// tek bir nesne halinde döndürür. En son yapılan testi kullanır.
 
 import { supabase } from './supabase';
 
 // ─── ANA FONKSİYON ──────────────────────────────────────────────────────────
-
-// Kullanıcının kalibrasyon profilini getirir.
-// Hiçbir test yapılmamışsa null döner.
-//
-// Kullanım:
-//   const profil = await getKalibrasyonProfili();
-//   profil → { vak: {...}, yildiz: {...}, arketip: {...}, eksikler: [...] }
 
 export async function getKalibrasyonProfili() {
   try {
@@ -23,7 +13,6 @@ export async function getKalibrasyonProfili() {
 
     if (!user) return null;
 
-    // Üç tabloyu paralel oku, her birinden en son kaydı al
     const [vakRes, yildizRes, arketipRes] = await Promise.all([
       supabase
         .from('vak_sonuclari')
@@ -52,7 +41,6 @@ export async function getKalibrasyonProfili() {
     const yildiz = yildizRes.data;
     const arketip = arketipRes.data;
 
-    // Hangi testler eksik?
     const eksikler = [];
     if (!vak) eksikler.push('vak');
     if (!yildiz) eksikler.push('yildiz');
@@ -64,6 +52,7 @@ export async function getKalibrasyonProfili() {
       arketip,
       eksikler,
       tamMi: eksikler.length === 0,
+      hicYok: eksikler.length === 3,
     };
   } catch (e) {
     console.log('Kalibrasyon okuma hatası:', e);
@@ -72,9 +61,6 @@ export async function getKalibrasyonProfili() {
 }
 
 // ─── KİŞİSELLEŞTİRME YARDIMCILARI ───────────────────────────────────────────
-
-// VAK baskın kanalına göre yönlendirme dilini döndürür.
-// Bu metinler egzersiz adımlarında {duyu} gibi yer tutuculara konur.
 
 export function vakDili(baskin) {
   const sozluk = {
@@ -100,7 +86,6 @@ export function vakDili(baskin) {
   return sozluk[baskin] || sozluk.V;
 }
 
-// Yıldız sonucundan baskın güçlü ve zayıf alanları döndürür
 export function yildizGucluZayif(yildiz) {
   if (!yildiz) return { guclu: null, zayif: null };
 
@@ -121,9 +106,6 @@ export function yildizGucluZayif(yildiz) {
     zayif: alanlar[alanlar.length - 1],
   };
 }
-
-// Karakterin MBTI tipi ile oyuncunun arketipini karşılaştırır.
-// Gap Analizi'nin temeli — hangi boyutlar çakışıyor, hangileri ayrışıyor.
 
 export function arketipFarki(oyuncuTipi, karakterTipi) {
   if (!oyuncuTipi || !karakterTipi) return null;
@@ -156,16 +138,58 @@ export function arketipFarki(oyuncuTipi, karakterTipi) {
     karakterTipi,
     cakisanlar,
     ayrisanlar,
-    yakinlik: cakisanlar.length, // 0-4 arası
+    yakinlik: cakisanlar.length,
   };
 }
 
-// İlk giriş mesajı — sadece bir kez gösterilir
-// (sayfada localStorage ile kontrol edilecek, burada sadece metni üretiyoruz)
+// ─── İLK GİRİŞ MESAJI — DURUMA GÖRE FARKLI ──────────────────────────────────
+//
+// Üç farklı durum:
+// 1. Hiç kalibrasyon yok    → güçlü yönlendirme + buton
+// 2. Kısmen tamamlandı       → eksikleri belirt + buton
+// 3. Tamamlandı              → "sana özel hazırlandı" mesajı
 
 export function ilkGirisMesaji(profil, karakterAdi) {
-  if (!profil || !profil.vak) {
-    return `${karakterAdi}'a hoş geldin. Daha derin bir deneyim için kalibrasyonunu tamamlamanı öneririm.`;
+  // Profil hiç yok (giriş yapmamış olabilir)
+  if (!profil) {
+    return {
+      metin: `${karakterAdi}'a hoş geldin.`,
+      yonlendirme: null,
+    };
   }
-  return `${karakterAdi} sayfası, kalibrasyon sonuçların doğrultusunda sana özel hazırlandı.`;
+
+  // Hiçbir test yapılmamış
+  if (profil.hicYok) {
+    return {
+      metin: `${karakterAdi}'a hoş geldin. Bu sayfanın tam deneyimi için önce kalibrasyonunu tamamlamanı öneririm — VAK, Yıldız Matrisi ve Arketip testleri.`,
+      yonlendirme: {
+        link: '/kalibrasyon',
+        buton: 'Kalibrasyona Git',
+      },
+    };
+  }
+
+  // Kısmen tamamlanmış
+  if (!profil.tamMi) {
+    const eksikAdlari = profil.eksikler.map((e) => {
+      if (e === 'vak') return 'VAK';
+      if (e === 'yildiz') return 'Yıldız Matrisi';
+      if (e === 'arketip') return 'Arketip';
+      return e;
+    }).join(', ');
+
+    return {
+      metin: `${karakterAdi}'a hoş geldin. Henüz tamamlanmamış testlerin var: ${eksikAdlari}. Onları da tamamlarsan deneyim daha derin olacak.`,
+      yonlendirme: {
+        link: '/kalibrasyon',
+        buton: 'Kalibrasyonu Tamamla',
+      },
+    };
+  }
+
+  // Hepsi tamam
+  return {
+    metin: `${karakterAdi} sayfası, kalibrasyon sonuçların doğrultusunda sana özel hazırlandı.`,
+    yonlendirme: null,
+  };
 }
