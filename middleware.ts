@@ -11,6 +11,7 @@ const KORUMALI_ROTALAR = [
   '/kalibrasyon',
   '/antrenman',
   '/profil',
+  '/kulis',
 ];
 
 export async function middleware(request: NextRequest) {

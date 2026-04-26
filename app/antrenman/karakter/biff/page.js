@@ -17,6 +17,12 @@ export default function BiffSayfasi() {
   const [girisGoster, setGirisGoster] = useState(false);
 
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const hedef = window.location.hash.replace('#', '');
+      if (['dogrular', 'timeline', 'bosluklar', 'egzersizler'].includes(hedef)) {
+        setAktifSekme(hedef);
+      }
+    }
     async function yukle() {
       const profil = await getKalibrasyonProfili();
       setKalibrasyon(profil);
@@ -59,6 +65,11 @@ export default function BiffSayfasi() {
             onMouseEnter={e => e.currentTarget.style.color = '#c9a96e'}
             onMouseLeave={e => e.currentTarget.style.color = '#aaa'}>
             Kalibrasyon
+          </a>
+          <a href="/kulis" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: '#aaa', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.25s ease' }}
+            onMouseEnter={e => e.currentTarget.style.color = '#c9a96e'}
+            onMouseLeave={e => e.currentTarget.style.color = '#aaa'}>
+            Kulis
           </a>
           <a href="/antrenman/karakter" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: '#f0ede8', textTransform: 'uppercase', textDecoration: 'none' }}>← Karakterler</a>
         </div>
@@ -109,8 +120,8 @@ export default function BiffSayfasi() {
 
         {aktifSekme === 'dogrular' && <DogrularBolumu dogrular={biff.dogrular} />}
         {aktifSekme === 'timeline' && <TimelineGorumu sahneler={biff.sahneler} kalibrasyon={kalibrasyon} />}
-        {aktifSekme === 'bosluklar' && <BosluklarGorumu bosluklar={biff.bosluklar} kalibrasyon={kalibrasyon} />}
-        {aktifSekme === 'egzersizler' && <EgzersizListesi egzersizler={biff.egzersizler} kalibrasyon={kalibrasyon} onEgzersizTamamlandi={egzersizTamamlandi} />}
+        {aktifSekme === 'bosluklar' && <BosluklarGorumu karakterId="biff" bosluklar={biff.bosluklar} kalibrasyon={kalibrasyon} />}
+        {aktifSekme === 'egzersizler' && <EgzersizListesi karakterId="biff" egzersizler={biff.egzersizler} kalibrasyon={kalibrasyon} onEgzersizTamamlandi={egzersizTamamlandi} />}
 
         <div style={{ marginTop: '1rem', padding: '1.2rem 1.5rem', backgroundColor: '#0f0f0f', border: '1px solid #2a2a2a' }}>
           <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.3em', color: '#888', textTransform: 'uppercase', marginBottom: '0.8rem' }}>Kritik İlişkiler</p>

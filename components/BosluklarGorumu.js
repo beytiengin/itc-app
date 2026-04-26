@@ -1,5 +1,8 @@
 // components/BosluklarGorumu.js
-// ITC Actor's Gym — Yazarın belirlemediği boşluk anları
+// ITC Actor's Gym — Boşluklar bileşeni
+//
+// Yazarın belirlemediği boşluk anları + her boşluk için yazma alanı.
+// Yazılan yansımalar Supabase'e otomatik (debounced) kaydedilir.
 //
 // Üç tip boşluk:
 //  - pre  : Senaryodan önce (çocukluk, geçmiş)
@@ -9,11 +12,15 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { sahneErisimi } from '../app/lib/travma';
+import { boslukYansimasiKaydet, boslukYansimalariniGetir } from '../app/lib/kulis';
 
-export default function BosluklarGorumu({ bosluklar, kalibrasyon }) {
+export default function BosluklarGorumu({ bosluklar, kalibrasyon, karakterId }) {
   const [acik, setAcik] = useState(null);
+  const [yansimalar, setYansimalar] = useState({}); // {boslukId: metin}
+  const [kayitDurumu, setKayitDurumu] = useState({}); // {boslukId: 'kaydediliyor'|'kaydedildi'|null}
+  const debounceTimers = useRef({}); // {boslukId: timeoutId}
 
   const tipBilgisi = {
     pre: { ad: 'Senaryo Öncesi', renk: '#6a9b6a' },
@@ -21,6 +28,62 @@ export default function BosluklarGorumu({ bosluklar, kalibrasyon }) {
     ic: { ad: 'Sahne İçi', renk: '#9b6a6a' },
     post: { ad: 'Senaryo Sonrası', renk: '#6a7a9b' },
   };
+
+  // Sayfa açıldığında daha önce yazılmış yansımaları yükle
+  useEffect(() => {
+    async function yukle() {
+      if (karakterId) {
+        const veri = await boslukYansimalariniGetir(karakterId);
+        setYansimalar(veri);
+      }
+    }
+    yukle();
+  }, [karakterId]);
+
+  // Component unmount olunca timer'ları temizle
+  useEffect(() => {
+    return () => {
+      Object.values(debounceTimers.current).forEach((id) => clearTimeout(id));
+    };
+  }, []);
+
+  function yansimaDegistir(boslukId, yeniMetin) {
+    setYansimalar((onceki) => ({ ...onceki, [boslukId]: yeniMetin }));
+
+    // Önceki timer'ı iptal et
+    if (debounceTimers.current[boslukId]) {
+      clearTimeout(debounceTimers.current[boslukId]);
+    }
+
+    // Kaydediliyor durumunu hemen göster
+    setKayitDurumu((onceki) => ({ ...onceki, [boslukId]: 'yaziliyor' }));
+
+    // 800ms sonra kaydet
+    debounceTimers.current[boslukId] = setTimeout(async () => {
+      if (!karakterId) return;
+      setKayitDurumu((onceki) => ({ ...onceki, [boslukId]: 'kaydediliyor' }));
+      const basarili = await boslukYansimasiKaydet(karakterId, boslukId, yeniMetin);
+      setKayitDurumu((onceki) => ({
+        ...onceki,
+        [boslukId]: basarili ? 'kaydedildi' : 'hata',
+      }));
+
+      // 3 saniye sonra "kaydedildi" mesajını sil (sadelik için)
+      if (basarili) {
+        setTimeout(() => {
+          setKayitDurumu((onceki) => ({ ...onceki, [boslukId]: null }));
+        }, 3000);
+      }
+    }, 800);
+  }
+
+  function kayitDurumuMesaji(durum) {
+    if (durum === 'yaziliyor') return null;
+    if (durum === 'kaydediliyor') return 'Kaydediliyor…';
+    if (durum === 'kaydedildi') return '✓ Kaydedildi';
+    if (durum === 'hata') return '⚠ Kaydedilemedi';
+    return null;
+  }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -44,9 +107,11 @@ export default function BosluklarGorumu({ bosluklar, kalibrasyon }) {
           const sahneBenzeri = { travmaSeviyesi: bosluk.travmaSeviyesi || 0 };
           const erisim = sahneErisimi(sahneBenzeri, kalibrasyon?.yildiz);
           const aktif = acik === bosluk.id;
+          const yansimaMevcut = yansimalar[bosluk.id]?.length > 0;
 
           let borderColor = '#2a2a2a';
           if (aktif) borderColor = tip.renk;
+          else if (yansimaMevcut) borderColor = '#2a3a2a';
           else if (erisim.kilitli) borderColor = '#3a2f1f';
 
           return (
@@ -81,7 +146,7 @@ export default function BosluklarGorumu({ bosluklar, kalibrasyon }) {
                     fontFamily: 'Cormorant Garamond, serif',
                     fontStyle: 'italic',
                     fontSize: '1.1rem',
-                    color: tip.renk,
+                    color: yansimaMevcut ? '#6a9b6a' : tip.renk,
                     minWidth: '28px',
                     lineHeight: 1.4,
                   }}
@@ -122,6 +187,22 @@ export default function BosluklarGorumu({ bosluklar, kalibrasyon }) {
                     >
                       {tip.ad}
                     </span>
+                    {yansimaMevcut && (
+                      <span
+                        style={{
+                          fontFamily: 'Jost, sans-serif',
+                          fontWeight: 200,
+                          fontSize: '0.55rem',
+                          letterSpacing: '0.2em',
+                          color: '#6a9b6a',
+                          textTransform: 'uppercase',
+                          padding: '0.15rem 0.55rem',
+                          border: '1px solid #2a3a2a',
+                        }}
+                      >
+                        ✓ Yazıldı
+                      </span>
+                    )}
                   </div>
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', flexWrap: 'wrap' }}>
@@ -211,7 +292,6 @@ export default function BosluklarGorumu({ bosluklar, kalibrasyon }) {
                     gap: '1.2rem',
                   }}
                 >
-                  {/* Erişim uyarısı (kilitli değil ama yumuşak uyarı varsa) */}
                   {erisim.mesaj && (
                     <div
                       style={{
@@ -302,6 +382,59 @@ export default function BosluklarGorumu({ bosluklar, kalibrasyon }) {
                         </div>
                       ))}
                     </div>
+                  </div>
+
+                  {/* YANSIMA YAZMA ALANI */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span
+                        style={{
+                          fontFamily: 'Jost, sans-serif',
+                          fontWeight: 200,
+                          fontSize: '0.55rem',
+                          letterSpacing: '0.3em',
+                          color: tip.renk,
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        Yansıman
+                      </span>
+                      <span
+                        style={{
+                          fontFamily: 'Jost, sans-serif',
+                          fontWeight: 200,
+                          fontSize: '0.65rem',
+                          color: kayitDurumu[bosluk.id] === 'hata' ? '#9b6a6a' : '#6a9b6a',
+                          fontStyle: 'italic',
+                          minHeight: '1em',
+                        }}
+                      >
+                        {kayitDurumuMesaji(kayitDurumu[bosluk.id])}
+                      </span>
+                    </div>
+                    <textarea
+                      value={yansimalar[bosluk.id] || ''}
+                      onChange={(e) => yansimaDegistir(bosluk.id, e.target.value)}
+                      placeholder="Bu boşluğu kendi yorumunla doldur. Sorulara teker teker cevap verebilirsin, ya da kendi düşüncenle yaz. Bu sayfayı kapatsan bile kaydedilir, geri döndüğünde devam edebilirsin."
+                      rows={8}
+                      style={{
+                        width: '100%',
+                        padding: '1rem 1.2rem',
+                        backgroundColor: '#0a0a0a',
+                        border: '1px solid #2a2a2a',
+                        color: '#f0ede8',
+                        fontFamily: 'Cormorant Garamond, serif',
+                        fontSize: '1rem',
+                        lineHeight: 1.8,
+                        resize: 'vertical',
+                        outline: 'none',
+                        boxSizing: 'border-box',
+                        caretColor: tip.renk,
+                        transition: 'border-color 0.25s ease',
+                      }}
+                      onFocus={(e) => { e.currentTarget.style.borderColor = tip.renk; }}
+                      onBlur={(e) => { e.currentTarget.style.borderColor = '#2a2a2a'; }}
+                    />
                   </div>
 
                   <p

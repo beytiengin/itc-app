@@ -2,29 +2,37 @@
 // ITC Actor's Gym — Egzersizler bileşeni
 //
 // Yeni akış:
-//  1. Egzersiz kartı (kapalı) — başlık, süre, seviye, kısa açıklama
+//  1. Egzersiz kartı (kapalı) — başlık, süre, seviye, kısa açıklama, ✓ rozeti
 //  2. Tıklayınca açıklama panelı açılır — uzun açıklama + "Başla" butonu
 //  3. Başla deyince adımlar/kararlar açılır
-//  4. Bitince: travma 2-3 ise topraklanma uyarısı çıkar
-//
-// Üç durum:
-//  - Standart egzersiz (adimlar)
-//  - Kararlar Odası (kararlar)
-//  - Deroling/çıkış egzersizi (tipDeroling)
+//  4. Bitince: travma 2-3 ise topraklanma uyarısı çıkar, Supabase'e kayıt
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { sahneErisimi } from '../app/lib/travma';
 import { vakDili } from '../app/lib/kalibrasyon';
+import { egzersiziTamamla, tamamlananEgzersizleriGetir } from '../app/lib/kulis';
 import KararlarOdasi from './KararlarOdasi';
 
-export default function EgzersizListesi({ egzersizler, kalibrasyon, onEgzersizTamamlandi }) {
+export default function EgzersizListesi({ egzersizler, kalibrasyon, karakterId, onEgzersizTamamlandi }) {
   const [acikEgzersiz, setAcikEgzersiz] = useState(null);
-  const [calisilan, setCalisilan] = useState(null); // 'baslat' veya egzersiz id'si
+  const [calisilan, setCalisilan] = useState(null);
   const [tamamlananUyari, setTamamlananUyari] = useState(null);
+  const [tamamlananIdler, setTamamlananIdler] = useState([]);
 
   const vakBilgi = vakDili(kalibrasyon?.vak?.baskin);
+
+  // Sayfa açıldığında daha önce tamamlanan egzersizleri çek
+  useEffect(() => {
+    async function yukle() {
+      if (karakterId) {
+        const liste = await tamamlananEgzersizleriGetir(karakterId);
+        setTamamlananIdler(liste);
+      }
+    }
+    yukle();
+  }, [karakterId]);
 
   function egzersiziAc(egzersiz) {
     if (acikEgzersiz === egzersiz.id) {
@@ -40,10 +48,20 @@ export default function EgzersizListesi({ egzersizler, kalibrasyon, onEgzersizTa
     setCalisilan(egzersiz.id);
   }
 
-  function egzersiziTamamla(egzersiz) {
+  async function egzersiziTamamlandiOlarakIsaretle(egzersiz) {
+    // Supabase'e kaydet
+    if (karakterId) {
+      const basarili = await egzersiziTamamla(karakterId, egzersiz.id);
+      if (basarili && !tamamlananIdler.includes(egzersiz.id)) {
+        setTamamlananIdler([...tamamlananIdler, egzersiz.id]);
+      }
+    }
+
+    // Eski callback (varsa)
     if (onEgzersizTamamlandi) {
       onEgzersizTamamlandi(egzersiz.id, { tamamlandi: true });
     }
+
     // Travma seviyesi 2-3 ise topraklanma uyarısı
     if (egzersiz.travmaSeviyesi >= 2 && !egzersiz.tipDeroling) {
       setTamamlananUyari(egzersiz);
@@ -81,9 +99,11 @@ export default function EgzersizListesi({ egzersizler, kalibrasyon, onEgzersizTa
           const erisim = sahneErisimi(sahneBenzeri, kalibrasyon?.yildiz);
           const aktif = acikEgzersiz === egzersiz.id;
           const calisiliyor = calisilan === egzersiz.id;
+          const tamamlandi = tamamlananIdler.includes(egzersiz.id);
 
           let borderColor = '#2a2a2a';
           if (aktif) borderColor = '#c9a96e';
+          else if (tamamlandi) borderColor = '#2a3a2a';
           else if (erisim.kilitli) borderColor = '#3a2f1f';
 
           return (
@@ -119,7 +139,7 @@ export default function EgzersizListesi({ egzersizler, kalibrasyon, onEgzersizTa
                     fontFamily: 'Cormorant Garamond, serif',
                     fontStyle: 'italic',
                     fontSize: '1.1rem',
-                    color: '#c9a96e',
+                    color: tamamlandi ? '#6a9b6a' : '#c9a96e',
                     minWidth: '28px',
                     lineHeight: 1.4,
                   }}
@@ -160,6 +180,22 @@ export default function EgzersizListesi({ egzersizler, kalibrasyon, onEgzersizTa
                     >
                       {egzersiz.seviye}
                     </span>
+                    {tamamlandi && (
+                      <span
+                        style={{
+                          fontFamily: 'Jost, sans-serif',
+                          fontWeight: 200,
+                          fontSize: '0.55rem',
+                          letterSpacing: '0.2em',
+                          color: '#6a9b6a',
+                          textTransform: 'uppercase',
+                          padding: '0.15rem 0.55rem',
+                          border: '1px solid #2a3a2a',
+                        }}
+                      >
+                        ✓ Tamamlandı
+                      </span>
+                    )}
                   </div>
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', flexWrap: 'wrap' }}>
@@ -255,7 +291,6 @@ export default function EgzersizListesi({ egzersizler, kalibrasyon, onEgzersizTa
                     gap: '1.2rem',
                   }}
                 >
-                  {/* Erişim uyarısı (kilitli değil ama yumuşak uyarı varsa) */}
                   {erisim.mesaj && (
                     <div
                       style={{
@@ -279,7 +314,6 @@ export default function EgzersizListesi({ egzersizler, kalibrasyon, onEgzersizTa
                     </div>
                   )}
 
-                  {/* DURUM 1: HENÜZ BAŞLAMADI — açıklama + Başla butonu */}
                   {!calisiliyor && (
                     <>
                       <p
@@ -295,7 +329,6 @@ export default function EgzersizListesi({ egzersizler, kalibrasyon, onEgzersizTa
                         {egzersiz.aciklama}
                       </p>
 
-                      {/* Travma seviyesi 2-3 için ek hazırlık uyarısı */}
                       {egzersiz.travmaSeviyesi >= 2 && !egzersiz.tipDeroling && (
                         <div
                           style={{
@@ -353,7 +386,7 @@ export default function EgzersizListesi({ egzersizler, kalibrasyon, onEgzersizTa
                           onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#d9b97e'; }}
                           onMouseLeave={e => { e.currentTarget.style.backgroundColor = '#c9a96e'; }}
                         >
-                          Hazırım · Başla
+                          {tamamlandi ? 'Yeniden Başla' : 'Hazırım · Başla'}
                         </button>
                         <span
                           style={{
@@ -369,12 +402,11 @@ export default function EgzersizListesi({ egzersizler, kalibrasyon, onEgzersizTa
                     </>
                   )}
 
-                  {/* DURUM 2: ÇALIŞIYOR — adımlar veya kararlar gösterilir */}
                   {calisiliyor && egzersiz.kararlar && (
                     <KararlarOdasi
                       egzersiz={egzersiz}
                       vakBilgi={vakBilgi}
-                      onTamamlandi={() => egzersiziTamamla(egzersiz)}
+                      onTamamlandi={() => egzersiziTamamlandiOlarakIsaretle(egzersiz)}
                     />
                   )}
 
@@ -382,7 +414,7 @@ export default function EgzersizListesi({ egzersizler, kalibrasyon, onEgzersizTa
                     <AdimliEgzersiz
                       egzersiz={egzersiz}
                       vakBilgi={vakBilgi}
-                      onTamamlandi={() => egzersiziTamamla(egzersiz)}
+                      onTamamlandi={() => egzersiziTamamlandiOlarakIsaretle(egzersiz)}
                     />
                   )}
                 </div>
@@ -392,7 +424,6 @@ export default function EgzersizListesi({ egzersizler, kalibrasyon, onEgzersizTa
         })}
       </div>
 
-      {/* TOPRAKLANMA UYARISI */}
       {tamamlananUyari && (
         <TopraklanmaModu
           egzersiz={tamamlananUyari}
@@ -409,7 +440,6 @@ function AdimliEgzersiz({ egzersiz, vakBilgi, onTamamlandi }) {
   const [mevcutAdim, setMevcutAdim] = useState(0);
   const adimlar = egzersiz.adimlar || [];
 
-  // Placeholder değerlerini değiştir
   function adimMetni(adim) {
     if (typeof adim !== 'string') return adim;
     return adim
@@ -532,9 +562,6 @@ function AdimliEgzersiz({ egzersiz, vakBilgi, onTamamlandi }) {
 }
 
 // ─── TOPRAKLANMA MODU ───────────────────────────────────────────────────────
-//
-// Travma seviye 2-3 egzersizden sonra otomatik açılır.
-// Oyuncu karakteri bırakmadan günlük hayata dönmesin.
 
 function TopraklanmaModu({ egzersiz, onKapat }) {
   const [adim, setAdim] = useState(0);
