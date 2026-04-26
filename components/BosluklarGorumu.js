@@ -47,7 +47,7 @@ export default function BosluklarGorumu({ bosluklar, kalibrasyon }) {
 
           let borderColor = '#2a2a2a';
           if (aktif) borderColor = tip.renk;
-          else if (erisim.kilitli) borderColor = '#3a1f1f';
+          else if (erisim.kilitli) borderColor = '#3a2f1f';
 
           return (
             <div
@@ -56,7 +56,7 @@ export default function BosluklarGorumu({ bosluklar, kalibrasyon }) {
                 border: `1px solid ${borderColor}`,
                 backgroundColor: aktif ? '#0f0f0f' : 'transparent',
                 transition: 'all 0.25s ease',
-                opacity: erisim.kilitli ? 0.55 : 1,
+                opacity: erisim.kilitli ? 0.65 : 1,
               }}
             >
               <button
@@ -124,7 +124,7 @@ export default function BosluklarGorumu({ bosluklar, kalibrasyon }) {
                     </span>
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', flexWrap: 'wrap' }}>
                     <span
                       style={{
                         fontFamily: 'Cormorant Garamond, serif',
@@ -145,9 +145,6 @@ export default function BosluklarGorumu({ bosluklar, kalibrasyon }) {
                     >
                       {bosluk.sure}
                     </span>
-                    {erisim.kilitli && (
-                      <span style={{ fontSize: '0.7rem', color: '#9b6a6a' }}>🔒</span>
-                    )}
                   </div>
 
                   <p
@@ -179,7 +176,31 @@ export default function BosluklarGorumu({ bosluklar, kalibrasyon }) {
                 )}
               </button>
 
-              {aktif && (
+              {/* Kilitli durumda yumuşak mesaj göster */}
+              {erisim.kilitli && (
+                <div
+                  style={{
+                    padding: '0 1.4rem 1.2rem 1.4rem',
+                    borderTop: '1px solid #2a1f1f',
+                    paddingTop: '0.9rem',
+                  }}
+                >
+                  <p
+                    style={{
+                      fontFamily: 'Jost, sans-serif',
+                      fontWeight: 300,
+                      fontSize: '0.75rem',
+                      color: '#c9a96e',
+                      lineHeight: 1.7,
+                      margin: 0,
+                    }}
+                  >
+                    {erisim.mesaj}
+                  </p>
+                </div>
+              )}
+
+              {aktif && !erisim.kilitli && (
                 <div
                   style={{
                     padding: '0 1.4rem 1.4rem 1.4rem',
@@ -190,8 +211,8 @@ export default function BosluklarGorumu({ bosluklar, kalibrasyon }) {
                     gap: '1.2rem',
                   }}
                 >
-                  {/* Erişim uyarısı */}
-                  {erisim.mesaj && !erisim.kilitli && (
+                  {/* Erişim uyarısı (kilitli değil ama yumuşak uyarı varsa) */}
+                  {erisim.mesaj && (
                     <div
                       style={{
                         padding: '0.9rem 1.1rem',
@@ -209,7 +230,7 @@ export default function BosluklarGorumu({ bosluklar, kalibrasyon }) {
                           margin: 0,
                         }}
                       >
-                        ⚠ {erisim.mesaj}
+                        {erisim.mesaj}
                       </p>
                     </div>
                   )}
@@ -283,7 +304,6 @@ export default function BosluklarGorumu({ bosluklar, kalibrasyon }) {
                     </div>
                   </div>
 
-                  {/* Pedagojik not */}
                   <p
                     style={{
                       fontFamily: 'Jost, sans-serif',

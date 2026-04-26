@@ -1,179 +1,146 @@
 // lib/travma.js
 // ITC Actor's Gym — Travma kategorileri ve etik koruma mantığı
 //
-// Bu dosya tüm karakter sayfaları tarafından kullanılır.
-// Kategoriler ve seviyeler değişirse sadece burası güncellenir.
+// 8 travma kategorisi + 3 yoğunluk seviyesi (atıf/tanıklık/icra).
+// Etik koruma: oyuncunun Yıldız Matrisi psikolojik skoruna göre
+// derin egzersizler "hazır değil" mesajıyla bekletilir.
 
-// ─── 8 KATEGORİ ─────────────────────────────────────────────────────────────
+// ─── KATEGORİLER ────────────────────────────────────────────────────────────
 
 export const TRAVMA_KATEGORILERI = {
   siddet: {
-    id: 'siddet',
     ad: 'Şiddet ve Ölüm',
-    aciklama: 'Cinayet, savaş, fiziksel saldırı, intihar.',
-    renk: '#a04040',
+    aciklama: 'Fiziksel şiddet, cinayet, ölüm karşılaşması.',
   },
   kayip: {
-    id: 'kayip',
     ad: 'Kayıp ve Yas',
-    aciklama: 'Sevilenin ölümü, ayrılık, terk edilme, vatan kaybı.',
-    renk: '#6a7a8a',
+    aciklama: 'Sevilen birinin kaybı, yas süreçleri.',
   },
   ihanet: {
-    id: 'ihanet',
-    ad: 'İhanet ve Güven Kırılması',
-    aciklama: 'Aldatılma, aile/dost ihaneti, sistem tarafından terk edilme.',
-    renk: '#8a6a4a',
+    ad: 'İhanet',
+    aciklama: 'Güven ilişkilerinin kırılması, yakınlardan gelen darbe.',
   },
   cinsel: {
-    id: 'cinsel',
     ad: 'Cinsel Travma',
-    aciklama: 'Tecavüz, istismar, taciz, beden otonomisi kaybı.',
-    renk: '#7a4a6a',
+    aciklama: 'Cinsel şiddet veya istismar konuları.',
   },
   zihinsel_kirilma: {
-    id: 'zihinsel_kirilma',
     ad: 'Zihinsel Kırılma',
-    aciklama: 'Halüsinasyon, paranoya, psikoz, dissosiyasyon.',
-    renk: '#5a5a8a',
+    aciklama: 'Halüsinasyon, paranoya, gerçeklikle bağın kopması.',
   },
   cocukluk: {
-    id: 'cocukluk',
     ad: 'Çocukluk Travması',
-    aciklama: 'Ebeveyn şiddeti/ihmali, aile içi işlev bozukluğu, bağlanma yaraları.',
-    renk: '#7a8a6a',
+    aciklama: 'Erken yaş yaralanmaları, çocukluğa ait acılar.',
   },
   ahlaki_yara: {
-    id: 'ahlaki_yara',
     ad: 'Ahlaki Yara',
-    aciklama: 'Suçluluk, utanç, pişmanlık, vicdan azabı.',
-    renk: '#8a7a4a',
+    aciklama: 'Vicdani çatışmalar, yapılmış olanın ağırlığı.',
   },
   varolussal: {
-    id: 'varolussal',
     ad: 'Varoluşsal Kırılma',
-    aciklama: 'Anlamsızlık, hiçlik, inanç kaybı, kendine yabancılaşma.',
-    renk: '#6a6a6a',
+    aciklama: 'Anlamsızlık, ölümlülük, varoluşun çöküşü.',
   },
 };
 
-// ─── 3 YOĞUNLUK SEVİYESİ ────────────────────────────────────────────────────
+// ─── YOĞUNLUK SEVİYELERİ ────────────────────────────────────────────────────
 
-export const YOGUNLUK_SEVIYELERI = {
-  1: {
-    seviye: 1,
-    ad: 'Atıf',
-    kisaAd: 'Reference',
-    aciklama: 'Karakter bunu duyumsar, anar, anlatır.',
-    ornek: 'Hamlet babasının ölümünden bahseder.',
-    renk: '#a0a060',
-  },
-  2: {
-    seviye: 2,
-    ad: 'Tanıklık',
-    kisaAd: 'Witness',
-    aciklama: 'Karakter olayın içindedir ama failinin değildir.',
-    ornek: "Macbeth, Banquo'nun hayaletiyle karşılaşır.",
-    renk: '#c08040',
-  },
-  3: {
-    seviye: 3,
-    ad: 'İcra',
-    kisaAd: 'Embodiment',
-    aciklama: 'Karakter olayı bizzat yaşar, yapar veya kurban olur.',
-    ornek: "Macbeth Duncan'ı öldürür.",
-    renk: '#a04040',
-  },
+export const TRAVMA_SEVIYESI = {
+  0: { ad: 'Yok', aciklama: 'Travmatik içerik yok.' },
+  1: { ad: 'Atıf', aciklama: 'Karakter olaya atıfta bulunuyor, doğrudan yaşamıyor.' },
+  2: { ad: 'Tanıklık', aciklama: 'Karakter olaya tanık oluyor, içine giriyor.' },
+  3: { ad: 'İcra', aciklama: 'Karakter olayı doğrudan yaşıyor veya gerçekleştiriyor.' },
 };
 
-// ─── KİLİTLEME MANTIĞI ──────────────────────────────────────────────────────
+// Geriye dönük uyumluluk için alias
+export const YOGUNLUK_SEVIYELERI = TRAVMA_SEVIYESI;
 
-// Yıldız Oyuncu testindeki "psikolojik" skoruna göre hangi seviyeye erişebilir.
-// Bu fonksiyon her sahne için bir durum nesnesi döndürür.
+// ─── ERİŞİM HESAPLAMA ───────────────────────────────────────────────────────
 //
-// Kullanım:
-//   sahneErisimi(sahne, yildizSonucu)
-//   → { kilitli: true/false, seviye: 'standart'/'uyari'/'kilit', mesaj: '...' }
+// Bir sahne / egzersiz / boşluk için erişim durumunu hesaplar.
+// Yıldız Matrisi'ndeki psikolojik skora göre üç durum üretir:
+//
+//   - kilitli: false, mesaj: null         → tam erişim
+//   - kilitli: false, mesaj: '...'        → uyarılı erişim
+//   - kilitli: true,  mesaj: '...'        → henüz hazır değil
+//
+// Mesajlar yumuşak dilde — "kilitli" yerine "hazır değil" anlamı.
 
-export function sahneErisimi(sahne, yildizSonucu) {
-  // Sahne travmalı değilse her zaman açık
-  const yogunluk = sahne.travmaSeviyesi || 0;
-  if (yogunluk === 0) {
-    return { kilitli: false, seviye: 'standart', mesaj: null };
+export function sahneErisimi(sahne, yildiz) {
+  const seviye = sahne?.travmaSeviyesi || 0;
+
+  // Travma yoksa veya seviye 1 ise herkese açık
+  if (seviye <= 1) {
+    return { kilitli: false, mesaj: null };
   }
 
-  // Yıldız sonucu yoksa (kalibrasyon yapılmamış) — varsayılan olarak orta yol
-  if (!yildizSonucu || yildizSonucu.psikolojik == null) {
-    return {
-      kilitli: false,
-      seviye: 'uyari',
-      mesaj:
-        'Bu sahne travma protokolü gerektiriyor. Kalibrasyonunu tamamlaman önerilir.',
-    };
-  }
-
-  const psk = yildizSonucu.psikolojik;
-
-  // psikolojik >= 5 → tüm seviyeler açık
-  if (psk >= 5) {
-    return { kilitli: false, seviye: 'standart', mesaj: null };
-  }
-
-  // psikolojik 3-5 arası → seviye 3 uyarılı, oyuncu açabilir
-  if (psk >= 3) {
-    if (yogunluk === 3) {
+  // Yıldız Matrisi yoksa, seviye 2-3 için yumuşak uyarı
+  if (!yildiz) {
+    if (seviye === 2) {
       return {
         kilitli: false,
-        seviye: 'uyari',
         mesaj:
-          'Bu sahne yoğun bir bedensel etki taşıyor. Çalışmadan önce baseline egzersizini yapmanı öneririm.',
+          'Bu çalışma daha derin bir katman içeriyor. Yıldız Oyuncu Analizi\'ni tamamlarsan sistem sana özel bir koruma çerçevesi sunabilir.',
       };
     }
-    return { kilitli: false, seviye: 'standart', mesaj: null };
+    if (seviye === 3) {
+      return {
+        kilitli: false,
+        mesaj:
+          'Bu çalışma yoğun bir derinlik içeriyor. Yıldız Oyuncu Analizi\'ni tamamlamadan girmen önerilmez — sistem sana özel hazırlık önerileri sunamıyor.',
+      };
+    }
   }
 
-  // psikolojik < 3 → seviye 2 ve 3 kilitli
-  if (yogunluk >= 2) {
+  const psk = yildiz?.psikolojik || 0;
+
+  // Seviye 2 — psikolojik kontrol
+  if (seviye === 2) {
+    if (psk >= 5) {
+      return { kilitli: false, mesaj: null };
+    }
+    if (psk >= 3) {
+      return {
+        kilitli: false,
+        mesaj:
+          'Bu egzersiz orta yoğunlukta bir derinlik içeriyor. Hazır hissettiğinde başla — bitince kısa bir topraklanma anı önereceğim.',
+      };
+    }
     return {
       kilitli: true,
-      seviye: 'kilit',
       mesaj:
-        'Bu sahne baseline\'ın güçlendirdiği bir zemin gerektiriyor. Önce "Baseline Kurma" ve "Değiştirilemez Doğrular" egzersizlerini tamamlamanı öneriyorum.',
+        'Bu egzersiz için önce zemin kurman gerekiyor. Daha temel egzersizleri tamamlayıp psikolojik kapasiteni güçlendirdiğinde burası açılır.',
     };
   }
 
-  return { kilitli: false, seviye: 'standart', mesaj: null };
-}
-
-// ─── KATEGORI YARDIMCILARI ──────────────────────────────────────────────────
-
-export function kategoriBilgisi(kategoriId) {
-  return TRAVMA_KATEGORILERI[kategoriId] || null;
-}
-
-export function yogunlukBilgisi(seviye) {
-  return YOGUNLUK_SEVIYELERI[seviye] || null;
-}
-
-// Bir karakterin tüm sahnelerinden travma profilini çıkarır
-// (örnek: { siddet: 3, ahlaki_yara: 5, ... })
-export function karakterTravmaProfili(sahneler) {
-  const profil = {};
-  sahneler.forEach((sahne) => {
-    if (sahne.travmaKategorileri) {
-      sahne.travmaKategorileri.forEach((kat) => {
-        profil[kat] = (profil[kat] || 0) + 1;
-      });
+  // Seviye 3 — daha sıkı kontrol
+  if (seviye === 3) {
+    if (psk >= 5) {
+      return {
+        kilitli: false,
+        mesaj:
+          'Bu çalışma yoğun bir katmanda işliyor. Sessiz bir alan, hazırlık zamanı ve sonrasında topraklanma için boşluk bırak.',
+      };
     }
-  });
-  return profil;
+    if (psk >= 3) {
+      return {
+        kilitli: false,
+        mesaj:
+          'Bu çalışma derin bir katmanda işliyor. Yalnız değil, birinin yakınında olduğunda yapmanı öneririm. Bitince mutlaka topraklanma adımını uygula.',
+      };
+    }
+    return {
+      kilitli: true,
+      mesaj:
+        'Bu çalışma henüz hazır değil. Önce daha temel egzersizlerle psikolojik zeminini güçlendirmek gerekiyor — bu kapı sonra açılacak.',
+    };
+  }
+
+  return { kilitli: false, mesaj: null };
 }
 
-// Bir karakterin baskın 2 travma kategorisini döndürür
-export function baskinKategoriler(sahneler, sayi = 2) {
-  const profil = karakterTravmaProfili(sahneler);
-  return Object.entries(profil)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, sayi)
-    .map(([kat]) => kat);
+// ─── KATEGORİ ETİKETİ FORMATLAMA ────────────────────────────────────────────
+
+export function travmaEtiketleri(kategoriler) {
+  if (!kategoriler || !kategoriler.length) return [];
+  return kategoriler.map((k) => TRAVMA_KATEGORILERI[k]?.ad || k);
 }
