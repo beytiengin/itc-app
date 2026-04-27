@@ -386,10 +386,543 @@ const willy = {
     },
   ],
 
-  // ─── ZİHİNSEL ANTRENMANLAR ────────────────────────────────────────────────
-  // Bu karakter için zihinsel antrenmanlar yakında.
+  // ─── ZİHİNSEL ANTRENMANLAR — 7 EGZERSİZ, ITC FORMATI ──────────────────────
 
-  antrenmanlar: [],
+  antrenmanlar: [
+  
+    // ==========================================================================
+    //  EGZERSİZ 1 — Eve Dönüş, Yorgun Adam
+    // ==========================================================================
+    {
+      id: 'eve-donus',
+      no: 1,
+      baslik: 'Eve Dönüş — Yorgun Adam',
+      altbaslik: 'Kuzeyden geri dönüş, kaza eşiği',
+      sure: '20-25 dk',
+      seviye: 'Temel',
+      bagliSahne: 'a1',
+      travmaKategorileri: ['varolussal', 'kayip'],
+      travmaSeviyesi: 2,
+  
+      girisMetni: 'Bu egzersizde Willy\'nin Yonkers\'tan eve geri döndüğü âna gideceğiz. 63 yaşında, bir satıcı, çantaları elinde, arabanın direksiyonunda neredeyse iki kez yoldan çıkmış bir adam. Ev hâlâ yerinde. Linda hâlâ bekliyor. Ama Willy o adam değil artık — sadece henüz kabul etmiyor.',
+  
+      adimlar: [
+        {
+          no: 1,
+          tip: 'okuma',
+          metin: 'Rahat bir yere otur. Birkaç derin nefes al. Hazır olduğunda devam et.',
+        },
+        {
+          no: 2,
+          tip: 'yazma',
+          metin: 'Gözlerini kapat. Willy şu an nerede? Brooklyn, gece geç, kendi evinin kapısının önünde. Etraf nasıl, ev nasıl görünüyor, çantalar elinde nasıl bir ağırlık? Mekanı bul.',
+          soru: 'Neredesin?',
+        },
+        {
+          no: 3,
+          tip: 'yazma',
+          metin: 'Az önce yoldaydın. Direksiyonda. İki kez yoldan çıktın — Linda\'ya bunu söyleyeceksin ama yumuşatarak. Bu uçtan uca yorgunluk şu an bedeninde nerede en yoğun?',
+          soru: 'Yorgunluk nerede?',
+        },
+        {
+          no: 4,
+          tip: 'yazma',
+          metin: 'Ayağa kalk. Willy 63 yaşında ve bedeni bunu biliyor. 30 yıllık bir satıcı bedenini taşıyor. Postürünü dene — omuzlar nasıl, sırt nasıl, ayaklar nasıl? Yorgun adamın postürü neresinden başlıyor?',
+          soru: 'Postürün niteliği',
+        },
+        {
+          no: 5,
+          tip: 'yazma',
+          metin: 'Otur. İçinde iki şey var: "Bunu Linda\'ya nasıl açıklayacağım" ve "Bu işten ne zaman emekli olacağım, hayatım nereye gidiyor?" Bu ikisi bedeninde aynı yere mi düşüyor, farklı yerlere mi?',
+          soru: 'İki düşünce nerede?',
+        },
+        {
+          no: 6,
+          tip: 'vak',
+          vakSorulari: {
+            gorsel:    'Yoldayken neyi gördün son? Yeşil ağaçlar mı, kendi yüzünü camda mı, çocukluğunu mu, bir an Boston\'u mu? Şu an gözünde hangi görüntü var?',
+            isitsel:   'Direksiyonda kafanın içinde sesler vardı — kimin sesi? Linda\'nın mı, Biff\'in mi, Howard\'ın mı, kendi babanın mı, kardeşin Ben\'in mi? Hangi ses en yüksek?',
+            kinestetik:'Eline bir bavul almış, kapıdasın. Ama bedenin gerçekten kapıyı açabiliyor mu? Kollarında, dizlerinde, bedeninin neresinde "yapamıyorum" var?',
+          },
+          soru: 'Ne buldun?',
+        },
+        {
+          no: 7,
+          tip: 'yazma',
+          metin: 'Şu cümleyi Willy olarak içinden geçir: "I am tired to the death." (Ölesiye yorgunum.) Bu cümle nereden geliyor? Sadece bedensel yorgunluk mu, yoksa daha derin bir şey mi?',
+          soru: 'Yorgunluğun derinliği',
+        },
+        {
+          no: 8,
+          tip: 'yazma',
+          metin: 'Linda kapıyı açmak üzere. Onu görmeden önce son bir an. Ona ne söyleyeceksin? Yalan mı, gerçek mi, yarım gerçek mi? Bedeninde hangi cevap hazır?',
+          soru: 'Linda\'ya ne söyleyeceksin?',
+        },
+        {
+          no: 9,
+          tip: 'cikis',
+          metin: 'Üç derin nefes al. Adını söyle. Buradasın. Willy\'nin yorgunluğu orada — sen şimdi kendine döndün. Su iç. Birkaç dakika öylece otur.',
+        },
+      ],
+    },
+  
+    // ==========================================================================
+    //  EGZERSİZ 2 — Howard'a Yalvarış
+    // ==========================================================================
+    {
+      id: 'howard-yalvaris',
+      no: 2,
+      baslik: 'Howard\'a Yalvarış',
+      altbaslik: '34 yıllık satıcının silinmesi',
+      sure: '20-25 dk',
+      seviye: 'İleri',
+      bagliSahne: 'a2',
+      travmaKategorileri: ['ahlaki_yara', 'varolussal'],
+      travmaSeviyesi: 2,
+  
+      girisMetni: 'Bu egzersizde Willy\'nin patronu Howard\'ın ofisine girip ondan yardım istediği âna gideceğiz. 34 yıl boyunca bu firmaya çalıştın. Şirketin kurucusu eski patronundu — onun oğlu Howard şimdi karşında, senden 30 yaş genç, ses kayıt cihazıyla oynuyor. Sen onu doğmadan önce tanıyordun. Şimdi ondan iş istiyorsun. Ama o seni kovuyor.',
+  
+      adimlar: [
+        {
+          no: 1,
+          tip: 'okuma',
+          metin: 'Rahat bir yere otur. Birkaç derin nefes al. Hazır olduğunda devam et.',
+        },
+        {
+          no: 2,
+          tip: 'yazma',
+          metin: 'Gözlerini kapat. Willy şu an nerede? New York City, Howard\'ın ofisi. Modern, soğuk, yabancı bir alan. Sen yıllardır bu şirketteydin. Mekanı bul.',
+          soru: 'Neredesin?',
+        },
+        {
+          no: 3,
+          tip: 'yazma',
+          metin: 'Howard senin gözüne bakmıyor. Yeni bir teyp kaydedicisiyle oynuyor, çocuklarının sesini dinletiyor sana. Sen ondan rica edeceksin: New York\'ta kalmak, eve yakın bir iş. Bu yalvarış pozisyonuna girmek bedenine ne yapıyor?',
+          soru: 'Yalvarış nerede?',
+        },
+        {
+          no: 4,
+          tip: 'yazma',
+          metin: 'Ayağa kalk. Eski Willy — yıllar önce bu ofise zafer kazanmış geri dönen Willy — ile şimdiki Willy arasındaki fark bedeninde nasıl? Postürün nasıl çöktü?',
+          soru: 'Postürdeki çöküş',
+        },
+        {
+          no: 5,
+          tip: 'yazma',
+          metin: 'Otur. Howard sana şöyle diyor: "Pop, business is business." Bu kelimeler bedeninin neresine değdi? "Pop" — sen onun çocukken babası gibiydin. Şimdi bu kelime ile sen büyük adam yerine küçük yaşlı bir adamsın.',
+          soru: 'Pop kelimesi ne yaptı?',
+        },
+        {
+          no: 6,
+          tip: 'vak',
+          vakSorulari: {
+            gorsel:    'Howard\'ın yüzüne bakarken zihninde başka bir yüz mü beliriyor? Belki Howard\'ın babası, belki kendi ailenin yüzü, belki kendi gelecekteki halin?',
+            isitsel:   'Howard kayıt cihazıyla oynuyor — çocuğunun sesi geliyor odaya. Bu ses senin için ne anlama geliyor? Kendi çocukluğun mu, kendi oğullarının çocukluğu mu, kayıp bir şey mi?',
+            kinestetik:'Bedenin masaya doğru eğildi mi, geri çekildi mi? Ellerin nerede? Diz çökmek istemediğin bir şey mi var bu odada?',
+          },
+          soru: 'Ne buldun?',
+        },
+        {
+          no: 7,
+          tip: 'yazma',
+          metin: 'Şu cümleyi Willy olarak içinden geçir: "A man is not a piece of fruit, you can\'t just throw him away when he\'s no longer sweet." (Adam bir meyve değildir, tatlılığı bittiğinde atılamaz.) Bu bir yalvarış mı, bir öfke mi, bir gerçeği söylemek mi?',
+          soru: 'Cümlenin tonu',
+        },
+        {
+          no: 8,
+          tip: 'yazma',
+          metin: 'Howard sana sırtını dönüyor. Sen ofisten çıkmak üzeresin — kovulmuş, beraat etmemiş. Bu odadan çıkıyorsun ama içinde ne kaldı? Öfke mi, utanç mı, çöküş mü?',
+          soru: 'İçinde ne kaldı?',
+        },
+        {
+          no: 9,
+          tip: 'cikis',
+          metin: 'Üç derin nefes al. Adını söyle. Buradasın. Willy\'nin utancı orada — sen şimdi kendine döndün. Su iç. Birkaç dakika öylece otur.',
+        },
+      ],
+    },
+  
+    // ==========================================================================
+    //  EGZERSİZ 3 — Charley'den Para İstemek
+    // ==========================================================================
+    {
+      id: 'charley-para',
+      no: 3,
+      baslik: 'Charley\'den Para İstemek',
+      altbaslik: 'Gururun son sınırı',
+      sure: '20-25 dk',
+      seviye: 'Orta',
+      bagliSahne: 'a2',
+      travmaKategorileri: ['ahlaki_yara', 'varolussal'],
+      travmaSeviyesi: 1,
+  
+      girisMetni: 'Bu egzersizde Willy\'nin komşusu Charley\'den para istediği âna gideceğiz. Charley\'i hep küçük gördün — eline çekiç almayı bilmeyen bir adam, "yumuşak" bir adam. Ama oğlu Bernard\'ın artık başarılı bir avukat olduğunu öğrendin. Ve şimdi Charley\'den para istemek zorundasın. Bu sıradan bir borçlanma değil — bu hiyerarşinin kendi yüzüne çarpması.',
+  
+      adimlar: [
+        {
+          no: 1,
+          tip: 'okuma',
+          metin: 'Rahat bir yere otur. Birkaç derin nefes al. Hazır olduğunda devam et.',
+        },
+        {
+          no: 2,
+          tip: 'yazma',
+          metin: 'Gözlerini kapat. Willy şu an nerede? Charley\'nin ofisi, küçük ama iyi düzenlenmiş. Az önce Bernard\'la karşılaştın koridorda — başarılı genç bir adam, şimdi bir avukat, Yargıtay\'a hazırlanıyor. Mekanı bul.',
+          soru: 'Neredesin?',
+        },
+        {
+          no: 3,
+          tip: 'yazma',
+          metin: 'Bernard genç bir delikanlıyken senin oğlun Biff\'in arkasından koşardı. Şimdi Bernard avukat, Biff hâlâ bir yerlerde dolaşıyor. Bu kıyas bedeninin neresine değiyor?',
+          soru: 'Kıyas nerede?',
+        },
+        {
+          no: 4,
+          tip: 'yazma',
+          metin: 'Ayağa kalk. Charley\'den para isteyecek Willy\'nin postürü nasıl? Az önce bu ofisten çekindin, şimdi geri döndün. Postürün dik mi, eğik mi, ortada mı?',
+          soru: 'Postürün durumu',
+        },
+        {
+          no: 5,
+          tip: 'yazma',
+          metin: 'Otur. Charley sana iş teklif ediyor — düzenli bir maaş, sıkıntı yok. Sen reddediyorsun. Çünkü bu bir sadakaymış gibi geliyor sana. İçinde iki şey çatışıyor: Para ihtiyacı ve gurur. Hangi taraf daha güçlü?',
+          soru: 'Hangi taraf?',
+        },
+        {
+          no: 6,
+          tip: 'vak',
+          vakSorulari: {
+            gorsel:    'Bernard\'ın yüzünü gördün — gençken senin oğullarına göre küçücük bir çocuktu. Şimdi büyük bir adam. Bu görüntü ile Biff\'in son halini yan yana tut. Hangi imge baskın?',
+            isitsel:   'Charley sana sesleniyor — yumuşak, dostça, hiç yargılamadan. Bu ses bedeninde nereye değiyor? Şefkatli ses sana ne yapıyor?',
+            kinestetik:'Charley sana parayı uzatıyor — eline. Bu hareket ne hissettiriyor? Almak için elin uzanıyor mu, geri çekiliyor mu?',
+          },
+          soru: 'Ne buldun?',
+        },
+        {
+          no: 7,
+          tip: 'yazma',
+          metin: 'Şu cümleyi Willy olarak içinden geçir: "I am offering you a job, you don\'t want a job, what is it?" (Sana iş öneriyorum, iş istemiyorsun, sorun ne?) Charley\'nin sorusu. Sen kendine ne cevap veriyorsun?',
+          soru: 'Senin cevabın',
+        },
+        {
+          no: 8,
+          tip: 'yazma',
+          metin: 'Parayı al, Charley\'den ayrıl. Bu paranın elinde olması bedenine ne yapıyor? Rahatlama mı, daha derin bir utanç mı, garip bir şükran mı?',
+          soru: 'Para elinde nasıl?',
+        },
+        {
+          no: 9,
+          tip: 'cikis',
+          metin: 'Üç derin nefes al. Adını söyle. Buradasın. Willy\'nin gururu orada — sen şimdi kendine döndün. Su iç. Birkaç dakika öylece otur.',
+        },
+      ],
+    },
+  
+    // ==========================================================================
+    //  EGZERSİZ 4 — Boston Anısı
+    // ==========================================================================
+    {
+      id: 'boston-anisi',
+      no: 4,
+      baslik: 'Boston Anısı',
+      altbaslik: 'Biff\'in babasını gördüğü an',
+      sure: '25-30 dk',
+      seviye: 'İleri',
+      bagliSahne: 'gecmis',
+      travmaKategorileri: ['ihanet', 'ahlaki_yara'],
+      travmaSeviyesi: 3,
+  
+      girisMetni: 'Bu egzersizde Willy\'nin Boston otelinde Biff tarafından yakalandığı âna gideceğiz. Bu bir bellek değil — Willy için sürekli geri dönen bir gerçeklik. Yıllar önce, bir otel odasında, başka bir kadınla. Kapı çalındı. Açtın. Biff orada duruyordu — 17 yaşında, matematikten kaldığı için babasını görmeye gelmiş. Ve gördü. Ve o andan itibaren her şey değişti.',
+  
+      adimlar: [
+        {
+          no: 1,
+          tip: 'okuma',
+          metin: 'Bu egzersiz büyük bir suçluluk anına gidiyor. Hazır olduğunda devam et.',
+        },
+        {
+          no: 2,
+          tip: 'yazma',
+          metin: 'Gözlerini kapat. Willy şu an nerede? Boston, otel odası, yıllar önce. Yatak dağınık. Yanında bir kadın — Bayan Francis. Bir sabah, kapı çalıyor. Mekanı bul.',
+          soru: 'Neredesin?',
+        },
+        {
+          no: 3,
+          tip: 'yazma',
+          metin: 'Kapıyı açtın. Biff orada. 17 yaşında, gözlerinde ışıltı. Sana matematik öğretmeninin onu sınıfta bıraktığını söylemeye gelmiş. Babasından yardım istemeye gelmiş. Bu görüntüyü bedeninde nasıl tutuyorsun?',
+          soru: 'Biff\'i görmek nasıl?',
+        },
+        {
+          no: 4,
+          tip: 'yazma',
+          metin: 'Ayağa kalk. O andaki Willy — kapıyı açmış, oğlu karşısında, başka bir kadın yatakta. Bedenin nasıl bir hal aldı? Donmuş mu, çekilmiş mi, çığlık atmış mı? Sen tarif etme — bedenin söylesin.',
+          soru: 'O andaki postür',
+        },
+        {
+          no: 5,
+          tip: 'yazma',
+          metin: 'Otur. Biff sana şöyle dedi: "You — you gave her Mama\'s stockings!" (Annemin çoraplarını ona verdin!) Bu cümle senin neresine değdi? Çoraplar küçük bir detay — ama bu detay tüm dünyanı çökertti. Çünkü Biff için annenin çorapları ihanetin somut karşılığı oldu.',
+          soru: 'Çoraplar cümlesi',
+        },
+        {
+          no: 6,
+          tip: 'vak',
+          vakSorulari: {
+            gorsel:    'Biff\'in yüzünü gör. 17 yaşında, sana güveniyordu. Sonra göz teması anı. Onun yüzünde ne oldu? Şok mu, kayıp mı, dünyanın çökmesi mi? Bu görüntü hâlâ bedeninde duruyor.',
+            isitsel:   'O odada hangi sesleri duydun? Biff\'in nefesi mi, kadının kıkırdayışı mı, kendi nefesin mi? Hangi ses sana hâlâ geliyor?',
+            kinestetik:'Bedenin Biff\'e dokunmaya mı yöneldi, geri çekildi mi? Onu durduramadın, gitti. Bu fiziksel kopuş bedeninde nereye yerleşti?',
+          },
+          soru: 'Ne buldun?',
+        },
+        {
+          no: 7,
+          tip: 'yazma',
+          metin: 'Biff koridorda yürüdü, gitti. Sen kapıda kaldın. Şu cümleyi Willy olarak içinden geçir: "Biff, please... I gave you an order, Biff!" (Biff, lütfen… Sana bir emir verdim, Biff!) Ama o duymadı. Bu emir bir öfke mi, bir yalvarış mı, bir kendini koruma mı?',
+          soru: 'Cümlenin altında ne var?',
+        },
+        {
+          no: 8,
+          tip: 'yazma',
+          metin: 'Yıllar geçti. Ama bu an hiç bitmedi. Şu an Willy olarak — bu hatırayı taşıyan adam — bedeninde nerede yaşıyor bu an? Eski bir yara mı, açık bir kanama mı?',
+          soru: 'Yara nerede?',
+        },
+        {
+          no: 9,
+          tip: 'cikis',
+          metin: 'Bu egzersiz çok derin bir suçluluk yerine götürdü. Şimdi yavaşça geri dönüyoruz. Üç derin nefes al. Adını yüksek sesle söyle. Bugünün tarihini söyle. Etrafındaki üç şeyi say. Boston orada — sen burada, kendi bedeninde. Su iç. Birkaç dakika öylece otur. Bugün bitince fiziksel bir aktivite yap.',
+        },
+      ],
+    },
+  
+    // ==========================================================================
+    //  EGZERSİZ 5 — Ben'in Hayaleti
+    // ==========================================================================
+    {
+      id: 'ben-hayaleti',
+      no: 5,
+      baslik: 'Ben\'in Hayaleti',
+      altbaslik: 'Kardeşinin sesi, gitmediğin yol',
+      sure: '20-25 dk',
+      seviye: 'Orta',
+      bagliSahne: 'surekli',
+      travmaKategorileri: ['varolussal', 'kayip'],
+      travmaSeviyesi: 2,
+  
+      girisMetni: 'Bu egzersizde Willy\'nin abisi Ben\'le hayalî bir konuşma kurduğu âna gideceğiz. Ben gerçek değil artık — öldü yıllar önce. Ama Willy için Ben hep orada. Çünkü Ben yapmıştı: 17 yaşında ormana yürüdü, 21 yaşında zenginleşti. "When I was seventeen, I walked into the jungle. And when I was twenty-one, I walked out. And by God, I was rich!" Willy bu cümleyi her gün duyar. Ve her gün kendine sorar: Ben neden gitmedim?',
+  
+      adimlar: [
+        {
+          no: 1,
+          tip: 'okuma',
+          metin: 'Rahat bir yere otur. Birkaç derin nefes al. Hazır olduğunda devam et.',
+        },
+        {
+          no: 2,
+          tip: 'yazma',
+          metin: 'Gözlerini kapat. Willy şu an nerede? Belki bahçe, belki mutfak, belki uyumadan önce yatak. Ben görünmek üzere. Mekanı bul.',
+          soru: 'Neredesin?',
+        },
+        {
+          no: 3,
+          tip: 'yazma',
+          metin: 'Ben karşına geliyor. Senden büyük, geniş omuzlu, elinde bir bavul, sanki yine yola çıkacak. Onu görmek bedenine ne yapıyor? Sevgi mi, kıskançlık mı, küçüklük mü?',
+          soru: 'Ben\'i görmek nasıl?',
+        },
+        {
+          no: 4,
+          tip: 'yazma',
+          metin: 'Ayağa kalk. Ben\'in yanında nasıl bir Willy oluyorsun? Kendinden ufak mı hissediyorsun, gururlu mu, savunmacı mı? Postürünü dene.',
+          soru: 'Ben\'le birlikte postür',
+        },
+        {
+          no: 5,
+          tip: 'yazma',
+          metin: 'Otur. Ben sana şöyle diyor: "When I was seventeen, I walked into the jungle. And when I was twenty-one, I walked out. And by God, I was rich!" Bu cümleyi her duyduğunda bedeninde ne oluyor? İlk duyduğun zamandan farklı mı?',
+          soru: 'Cümle nereye değiyor?',
+        },
+        {
+          no: 6,
+          tip: 'vak',
+          vakSorulari: {
+            gorsel:    'Ben gerçek değil — ama sana o kadar gerçek görünüyor ki. Onun yüzü, kıyafeti, ormana giden adımları. Bu görüntü senin için bir gurur mu, bir suçlama mı?',
+            isitsel:   'Ben\'in sesi nasıl? Sert mi, sevecen mi, alaycı mı? "And by God, I was rich!" cümlesindeki tonun seni rahatsız mı ediyor, çekiyor mu?',
+            kinestetik:'Ben\'in fiziksel varlığı odanı dolduruyor mu? Onun yanında küçülmek mi, büyümek mi geliyor bedenine?',
+          },
+          soru: 'Ne buldun?',
+        },
+        {
+          no: 7,
+          tip: 'yazma',
+          metin: 'Sen ona soruyorsun: "Ben — what is the answer? How did you do it?" (Ben — cevap ne? Sen bunu nasıl yaptın?) Bu soru bir öğrenmek isteme mi, bir yardım dileme mi, bir kıskançlık mı?',
+          soru: 'Soruyu sorarken ne hissettin?',
+        },
+        {
+          no: 8,
+          tip: 'yazma',
+          metin: 'Şu cümleyi Willy olarak içinden geçir: "Why couldn\'t I have made a thing in the jungle?" (Neden ben de ormana gitmedim?) Bu pişmanlık mı, bahane mi, suçlama mı, gerçek bir merak mı?',
+          soru: 'Cümlenin altında ne var?',
+        },
+        {
+          no: 9,
+          tip: 'cikis',
+          metin: 'Üç derin nefes al. Ben gitti — o gerçek değildi. Sen buradasın, kendi bedeninde. Adını söyle. Su iç. Birkaç dakika öylece otur.',
+        },
+      ],
+    },
+  
+    // ==========================================================================
+    //  EGZERSİZ 6 — Restoran, Oğullar Terk Ediyor
+    // ==========================================================================
+    {
+      id: 'restoran-terk',
+      no: 6,
+      baslik: 'Restoran — Oğullar Terk Ediyor',
+      altbaslik: '"Where are you guys?"',
+      sure: '25-30 dk',
+      seviye: 'İleri',
+      bagliSahne: 'a2',
+      travmaKategorileri: ['kayip', 'ihanet'],
+      travmaSeviyesi: 3,
+  
+      girisMetni: 'Bu egzersizde Willy\'nin oğullarıyla restoranda buluştuğu âna gideceğiz. Biff Bill Oliver\'la görüşmeye gitti — Willy büyük bir umutla bekliyor. Ama Biff başaramadı. Daha kötüsü, kalemini çaldı. Ve şimdi söylemek üzere. Ama Willy duyamıyor. Willy başka bir gerçeklikte — Boston\'da, hatıralarda. Oğullar onu masada bırakıp gidiyorlar. Willy yalnız kalıyor.',
+  
+      adimlar: [
+        {
+          no: 1,
+          tip: 'okuma',
+          metin: 'Bu egzersiz çok yoğun bir terk edilme anına gidiyor. Hazır olduğunda devam et.',
+        },
+        {
+          no: 2,
+          tip: 'yazma',
+          metin: 'Gözlerini kapat. Willy şu an nerede? New York\'ta bir restoran, Frank\'in Chop House. Oğullar bu akşam buluşacaktınız — kutlama olacaktı. Mekanı bul.',
+          soru: 'Neredesin?',
+        },
+        {
+          no: 3,
+          tip: 'yazma',
+          metin: 'Biff sana doğru bir şey söylemeye çalışıyor — gerçeği söylemeye. Ama sen duymak istemiyorsun. Çünkü duyduğunda her şey çöker. Bu duymama isteğini bedenin neresinde tutuyorsun?',
+          soru: 'Duymama isteği nerede?',
+        },
+        {
+          no: 4,
+          tip: 'yazma',
+          metin: 'Ayağa kalk. Willy bu masada — kafası başka bir yerde. Bedenin nasıl iki yerde aynı anda? Şu anda mı, Boston\'da mı, hatıralarda mı? Bu kayma bedenin neresinde?',
+          soru: 'Kayma nerede?',
+        },
+        {
+          no: 5,
+          tip: 'yazma',
+          metin: 'Otur. Biff "Pop, Bill Oliver beni hatırlamadı. Ben hiç onun için çalışmamıştım — sadece bir tezgâhtardım." dedi. Bu cümleyi duyduğunda bedeninde ne oldu? Reddetmek mi, anlamamak mı, kayıp mı?',
+          soru: 'Cümle nereye değdi?',
+        },
+        {
+          no: 6,
+          tip: 'vak',
+          vakSorulari: {
+            gorsel:    'Restoranın ışıkları, gürültüsü, kadın garsonlar — şimdi bunlar nasıl görünüyor? Yumuşadı mı, soldu mu, başka bir mekana mı dönüştü? Boston otel odası mı belirdi?',
+            isitsel:   'Etraftaki sesler — yemek, bardak, kahkaha — uzaklaştı mı? Yerinde Biff\'in genç sesini mi duyuyorsun? "You — you gave her Mama\'s stockings!" sesi mi?',
+            kinestetik:'Bedenin sandalyede mi, kalkıp gitmeye mi hazırlanıyor, donmuş mu? Oğulların gittiğini fark ettiğinde bedenin ne yaptı?',
+          },
+          soru: 'Ne buldun?',
+        },
+        {
+          no: 7,
+          tip: 'yazma',
+          metin: 'Oğullar masadan kalktılar. Senin yanında iki kadın bıraktılar — yabancılar. Restoranda yalnız kaldın. Şu cümleyi Willy olarak içinden geçir: "Where are you guys? Where are you?" (Neredesiniz, çocuklar? Neredesiniz?) Bu çağırış bir korku mu, bir kayıp mı, bir uyku mu?',
+          soru: 'Çağırışın altında ne var?',
+        },
+        {
+          no: 8,
+          tip: 'yazma',
+          metin: 'Yalnız kaldın. Garsonlar etrafında. Sen artık tutamıyorsun. İçinde ne kaldı? Çığlık mı, sessizlik mi, bir şey daha derinde mi?',
+          soru: 'Sende ne kaldı?',
+        },
+        {
+          no: 9,
+          tip: 'cikis',
+          metin: 'Bu egzersiz bir terk edilme yerine götürdü. Şimdi yavaşça geri dönüyoruz. Üç derin nefes al. Adını yüksek sesle söyle. Bugünün tarihini söyle. Etrafındaki üç şeyi say. Restoran orada — sen burada, kendi bedeninde. Su iç. Birkaç dakika öylece otur. Bugün bitince fiziksel bir aktivite yap.',
+        },
+      ],
+    },
+  
+    // ==========================================================================
+    //  EGZERSİZ 7 — Bahçede Tohum + Son Yolculuk
+    // ==========================================================================
+    {
+      id: 'bahce-son',
+      no: 7,
+      baslik: 'Bahçede Tohum + Son Yolculuk',
+      altbaslik: 'Karanlıkta yetiştirmek',
+      sure: '25-30 dk',
+      seviye: 'İleri',
+      bagliSahne: 'a2-son',
+      travmaKategorileri: ['varolussal', 'kayip'],
+      travmaSeviyesi: 3,
+  
+      girisMetni: 'Bu egzersizde Willy\'nin son gece yaşadığı iki âna gideceğiz: Bahçede gece tohum ekmesi ve sonra arabaya gidişi. Bu sıralı iki an aynı şeyin parçası — bir adam dünyaya bir şey bırakmaya çalışıyor. Tohumla, sonra hayat sigortasıyla. Çünkü Willy artık sadece bir şey istiyor: Biff\'in onu sevdiğini bilmek. Ve bunun bir bedeli olmalı.',
+  
+      adimlar: [
+        {
+          no: 1,
+          tip: 'okuma',
+          metin: 'Bu egzersiz son an a yaklaşıyor. Hazır olduğunda devam et. Acele etme.',
+        },
+        {
+          no: 2,
+          tip: 'yazma',
+          metin: 'Gözlerini kapat. Willy şu an nerede? Brooklyn, küçük bahçe, gece. Elinde tohum paketleri ve bir el feneri. Etraf karanlık, evler büyümüş, gökyüzü görünmüyor. Mekanı bul.',
+          soru: 'Neredesin?',
+        },
+        {
+          no: 3,
+          tip: 'yazma',
+          metin: 'Bahçe artık güneş almıyor — komşu binalar her şeyi gölge altında bırakıyor. Yine de tohum ekiyorsun. Gece. Bu eylemin bedeninde nereye değdi? Umut mu, çaresizlik mi, ritüel mi?',
+          soru: 'Tohum ekmek nerede?',
+        },
+        {
+          no: 4,
+          tip: 'yazma',
+          metin: 'Ayağa kalk. Eline el feneri al, bir tohum paketi tut. Bu Willy bahçede eğilirken nasıl bir bedendir? Yorgun mu, kararlı mı, çoktan başka bir yerde mi?',
+          soru: 'Postür ne diyor?',
+        },
+        {
+          no: 5,
+          tip: 'yazma',
+          metin: 'Otur. Yan yanına Ben gelip oturuyor — gerçek değil ama orada. Sen ona iş hakkında konuşuyorsun: 20 bin dolarlık hayat sigortası. Ölürsen bu para Biff\'e gidecek. Sen bunu Ben\'e sunuyorsun bir iş gibi: "It\'s a guaranteed twenty thousand dollar proposition." Bu bir iş mi, bir hediye mi, bir suç mu, bir sevgi mi?',
+          soru: 'Bu plan nedir?',
+        },
+        {
+          no: 6,
+          tip: 'vak',
+          vakSorulari: {
+            gorsel:    'Bahçede gece — el fenerinin ışığı dar bir alanı aydınlatıyor. Geri kalanı karanlık. Sen bu karanlığa ne ekiyorsun gerçekten? Tohum mu, başka bir şey mi?',
+            isitsel:   'Geceyi dinle. Şehir gürültüleri, uzaktan bir araba, bir evden müzik. Ama içinde Ben\'in sesi. "It\'s dark in there but full of diamonds." Bu ses neyi söylüyor sana?',
+            kinestetik:'Toprakta diz çökmüşsün, ellerin toprakta. Bu fiziksel temas seninle yer arasında ne kuruyor? Bir veda mı, bir bağlanma mı?',
+          },
+          soru: 'Ne buldun?',
+        },
+        {
+          no: 7,
+          tip: 'yazma',
+          metin: 'Biff geliyor — son bir kez seninle konuşmaya. Sana sarılıyor. Ağlıyor. "He likes me!" diyorsun şaşkınlıkla. "He likes me!" Bu fark ediş bedeninde nereye değdi? Hep bilmek istediğin şey buydu — ve sana bu kadar geç mi geldi?',
+          soru: 'Biff seni seviyor — bu nereye değdi?',
+        },
+        {
+          no: 8,
+          tip: 'yazma',
+          metin: 'Şimdi karar net. Arabaya gideceksin. Şu cümleyi Willy olarak içinden geçir: "That boy — that boy is going to be magnificent!" (O çocuk — o çocuk muhteşem olacak!) Bu sevinç mi, teselli mi, kendine ettiğin son yalan mı?',
+          soru: 'Cümlenin altında ne var?',
+        },
+        {
+          no: 9,
+          tip: 'cikis',
+          metin: 'Bu egzersiz büyük bir veda yerine götürdü. Şimdi yavaşça geri dönüyoruz. Üç derin nefes al. Adını yüksek sesle söyle. Bugünün tarihini söyle. Yaşıyorsun, buradasın. Etrafındaki üç şeyi say. Willy\'nin son gecesi orada — sen burada, kendi bedeninde. Su iç. Birkaç dakika öylece otur. Bugün bitince mutlaka fiziksel bir aktivite yap, biriyle konuş.',
+        },
+      ],
+    },
+  
+  ],
 };
 
 export default willy;
