@@ -54,6 +54,7 @@ const biff = {
       icDurum: 'Yorgun. Yıkık. Ama bir umut hâlâ var. "Belki bu sefer..."',
       bosluk: 'Eve geldikten sonra ilk gece — yatakta uyuyabildi mi?',
       travmaKategorileri: ['varolussal'], travmaSeviyesi: 1,
+      kritikMi: false,
     },
     {
       id: 'a1-cocukluk', perde: 1,
@@ -62,6 +63,7 @@ const biff = {
       icDurum: 'Bu hatıra Biff\'in için tatlı ve acı. O zamanlar gerçekten inanıyordu.',
       bosluk: 'O çocuk ile şimdiki Biff arasındaki köprü ne zaman koptu?',
       travmaKategorileri: ['cocukluk'], travmaSeviyesi: 1,
+      kritikMi: false,
     },
     {
       id: 'a1-ebbets', perde: 1,
@@ -70,6 +72,7 @@ const biff = {
       icDurum: 'En parlak an. Biff "ben özelim" hissini en çok burada yaşadı.',
       bosluk: 'O maçtan sonra eve gittiklerinde Willy ona ne söyledi?',
       travmaKategorileri: [], travmaSeviyesi: 0,
+      kritikMi: false,
     },
     {
       id: 'a1-matematik', perde: 1,
@@ -78,6 +81,7 @@ const biff = {
       icDurum: 'Tehlike işareti — ama hem Biff hem baba duymak istemiyor.',
       bosluk: 'O sınava girdi mi? Çalıştı mı? Niye başaramadı?',
       travmaKategorileri: [], travmaSeviyesi: 1,
+      kritikMi: false,
     },
     {
       id: 'a1-bernard-uyari', perde: 1,
@@ -86,6 +90,7 @@ const biff = {
       icDurum: 'Bernard\'ın söylediği gerçek — ama henüz Biff Boston\'a gitmedi. Bu sahne sonrası gidecek.',
       bosluk: 'Bernard\'ın "Boston" demesini duyduğunda — niye gitmek istedi?',
       travmaKategorileri: [], travmaSeviyesi: 1,
+      kritikMi: false,
     },
     {
       id: 'a1-boston', perde: 1,
@@ -94,6 +99,7 @@ const biff = {
       icDurum: 'Kahraman imgesi yıkılıyor. Bir saniye içinde her şey değişiyor. Babanın yalanları, "Adonis"i — hepsi.',
       bosluk: 'Otel kapısından sokağa çıktığında — nereye gitti? Trene mi, dışarıya mı?',
       travmaKategorileri: ['ihanet', 'ahlaki_yara'], travmaSeviyesi: 3,
+      kritikMi: true,
     },
     {
       id: 'a1-linda-uyari', perde: 1,
@@ -102,6 +108,7 @@ const biff = {
       icDurum: 'Annenin yüzünü ilk kez bu kadar net görüyor. Linda\'nın taşıdığı yükü hissediyor.',
       bosluk: 'Linda gittikten sonra Happy ile ne konuştu?',
       travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 1,
+      kritikMi: false,
     },
     {
       id: 'a2-bill-oliver', perde: 2,
@@ -110,6 +117,7 @@ const biff = {
       icDurum: 'Bir an netlik: "Bill Oliver beni hiç tanımadı. Ben hiç onun arkadaşı olmadım." Hayat boyu yalan.',
       bosluk: 'Kalemi cebine koyduğu an — niye? Kasten mi, refleks mi?',
       travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 1,
+      kritikMi: false,
     },
     {
       id: 'a2-hapishane', perde: 2,
@@ -118,6 +126,7 @@ const biff = {
       icDurum: 'Bu Biff\'in en sakladığı şey. Babanın gözünde "Adonis" hâlâ yaşamak için.',
       bosluk: 'Hapisten çıktığında nereye gitti? Eve dönmek aklına geldi mi?',
       travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 1,
+      kritikMi: false,
     },
     {
       id: 'a2-restoran-once', perde: 2,
@@ -126,6 +135,7 @@ const biff = {
       icDurum: 'Karar verdi. Bu kez gerçek konuşacak. Babasının hayalini kırmaya hazır.',
       bosluk: 'Babası gelene kadar masada kaç kez kararını sorguladı?',
       travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 1,
+      kritikMi: false,
     },
     {
       id: 'a2-restoran', perde: 2,
@@ -134,6 +144,7 @@ const biff = {
       icDurum: 'Pes. "Ona söyleyemiyorum. Beni dinlemiyor." Sokağa çıkarken kaçma duygusu.',
       bosluk: 'Restoranı terk ettikten sonra eve mi gitti, başka yere mi?',
       travmaKategorileri: ['ihanet', 'ahlaki_yara'], travmaSeviyesi: 2,
+      kritikMi: true,
     },
     {
       id: 'a2-linda-yuzleşme', perde: 2,
@@ -142,6 +153,7 @@ const biff = {
       icDurum: 'Annenin öfkesi haklı. Ama Biff de haklı. İki gerçek çarpışıyor.',
       bosluk: 'Linda\'yla bu konuşmadan sonra evde dolaştığı saatler — neyi düşündü?',
       travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 2,
+      kritikMi: false,
     },
     {
       id: 'a2-son-yuzleşme', perde: 2,
@@ -150,6 +162,7 @@ const biff = {
       icDurum: 'Hayat boyu söyleyemediği şey çıkıyor. Hem yıkım hem özgürlük. Babasını ilk kez bu kadar yakından gördüğü an.',
       bosluk: 'Ağladıktan sonra yataktan kalkmadan önce — ne hissetti?',
       travmaKategorileri: ['ahlaki_yara', 'kayip'], travmaSeviyesi: 3,
+      kritikMi: true,
     },
     {
       id: 'requiem', perde: 5,
@@ -158,6 +171,7 @@ const biff = {
       icDurum: 'Bir özgürleşme — ama acıyla. Babanın hayatı bir yanlış üzerine kurulmuştu. Biff bunu görebiliyor şimdi.',
       bosluk: 'Mezar başından ayrıldıktan sonra — nereye gidecek?',
       travmaKategorileri: ['kayip', 'varolussal'], travmaSeviyesi: 2,
+      kritikMi: true,
     },
   ],
 
@@ -371,147 +385,10 @@ const biff = {
     },
   ],
 
-  // ─── EGZERSİZLER ──────────────────────────────────────────────────────────
+  // ─── ZİHİNSEL ANTRENMANLAR ────────────────────────────────────────────────
+  // Bu karakter için zihinsel antrenmanlar yakında.
 
-  egzersizler: [
-    {
-      id: 'baseline',
-      baslik: 'Baseline Kurma',
-      sure: '10 dk', seviye: 'Giris', ikon: '🏈',
-      aciklama:
-        "17 yaşındaki Biff. Lise yıldızı. Ebbets Stadyumu maçı yaklaşıyor. Üniversiteler peşinde. Babası gururlu, kendisi rahat. Henüz Boston yok.",
-      adimlar: [
-        'Gözlerini kapat. Soyunma odasındasın. Maça hazırlanıyorsun.',
-        'Üniformayı giyiyorsun. {duyu}?',
-        'Babanın tribünde olduğunu biliyorsun. Onun yüzünü hayal et.',
-        'Sahaya çıkıyorsun. Bu Biff\'i tut. Buraya istediğin an dönebilirsin.',
-      ],
-      travmaSeviyesi: 0,
-    },
-    {
-      id: 'dogrular',
-      baslik: 'Değiştirilemez Doğrular Taraması',
-      sure: '15 dk', seviye: 'Temel', ikon: '🗺️',
-      aciklama:
-        "Biff\'in metinden gelen sabit gerçeklerini bedenine yedir. Yorum değil — zemin.",
-      adimlar: [
-        'Listeyi yavaşça oku. Acele etme.',
-        'Her madde için içinden bir cevap ver: "Evet, biliyorum."',
-        'Sürpriz yaratan bir madde var mı? Onu daha uzun tut.',
-        '"Biff bunların hepsini taşıyarak sahneye giriyor."',
-      ],
-      travmaSeviyesi: 0,
-    },
-    {
-      id: 'iliski-willy',
-      baslik: 'İlişki Haritası: Willy',
-      sure: '25 dk', seviye: 'Orta', ikon: '👁️',
-      aciklama:
-        "Tanrıdan insana bir yolculuk. Biff babasını çocukken tanrı olarak gördü. Boston\'da insan olduğunu öğrendi. 17 yıl boyunca bu iki imajla yaşadı.",
-      adimlar: [
-        'Çocukken babanı bekleyen Biff. Yolda gözleri. {ipucu}',
-        'Boston\'da kapı açıldığında babanın yüzü. O an bedeninde ne oldu?',
-        'Restoran sahnesinde "ona söyleyemiyorum" hissi — niye söylenmiyor?',
-        'Son sahnede onu kucakladığın an — sen mi onu bırakıyorsun, o mu seni?',
-      ],
-      travmaSeviyesi: 3,
-    },
-    {
-      id: 'kahraman-yikim',
-      baslik: 'Kahraman İmgesinin Yıkımı: Boston',
-      sure: '25 dk', seviye: 'Ileri', ikon: '🚪',
-      aciklama:
-        "Bu egzersiz Boston anına özel — Biff\'in en kırılma anı. Kapıyı çalmadan önce ile sokağa çıktıktan sonra arasındaki birkaç dakika.",
-      adimlar: [
-        'Otel koridorunda. Kapıya yaklaşıyorsun. Babanın odasının kapısı.',
-        'Çalmadan önce — beklediğin görüntü ne? {ipucu}',
-        'Çaldın. İçeriden sesler. Bir kadın sesi. {duyu}?',
-        'Kapı açıldı. Babanın yüzünü gör. Sonra kadını gör.',
-        'Sokağa çıktığında — o Biff artık yok. Hangi yeni Biff bir adım atıyor?',
-      ],
-      travmaSeviyesi: 3,
-      bagliSahne: 'a1-boston',
-    },
-    {
-      id: 'kararlar-odasi',
-      baslik: 'Kararlar Odası',
-      sure: '30 dk', seviye: 'Ileri', ikon: '⚖️',
-      aciklama:
-        "Biff\'in hayatındaki üç dönüm noktası. Onun seçimlerini bil — kendi seçimini yap.",
-      kararlar: [
-        {
-          id: 'k-boston',
-          sahne: 'Boston otel kapısı',
-          kurulum: 'Otel kapısının önünde. İçeriden sesler. Bir kadının kahkahası. Babanın sesi.',
-          yollar: [
-            { id: 'cal', metin: 'Kapıyı çal — gör neler oluyor' },
-            { id: 'cik', metin: 'Çık — kapıyı çalma, eve dön' },
-            { id: 'bekle', metin: 'Bekle — koridorda dur, bir süre' },
-          ],
-          yansimaSorusu: 'Bu kararı verirken — meraktan mı, korku mu, başka bir şey mi?',
-          tarihselCevap: 'Biff kapıyı çaldı. Tekrar çaldı. Açtırdı. Babasını ve kadını gördü. O dakika hayatının yön değiştiren tek anı oldu. Hiç bilmediği şeyleri bilmek zorunda kaldı.',
-          farkSorusu: 'Çıkmayı seçebilir miydin? Eğer öyleyse — Biff\'in çıkamayışı sana ne anlatıyor?',
-        },
-        {
-          id: 'k-bill-oliver',
-          sahne: 'Bill Oliver ofisi',
-          kurulum: 'Ofisteki masada. Bill Oliver az önce çıktı — seni hatırlamamıştı. Masanın üzerinde dolma kalem.',
-          yollar: [
-            { id: 'cal', metin: 'Kalemi çal — kaç' },
-            { id: 'birak', metin: 'Bırak — sokağa kibarca çık' },
-            { id: 'gerigetir', metin: 'Cebinden çıkar — masaya bırak, çık' },
-          ],
-          yansimaSorusu: 'Kaleme uzandığın an — bilinçli bir karar mı, eski bir alışkanlık mı?',
-          tarihselCevap: 'Biff kalemi aldı. Sonra kaçtı. Restoranda Willy\'ye bunu anlatmak istedi: "Ben kim olduğumu öğrendim. Ben bir hırsızım. Ben adam değilim." Willy duymadı.',
-          farkSorusu: 'Sen kalemi geri verir miydin? Biff\'in alma refleksi sana ne söylüyor?',
-        },
-        {
-          id: 'k-son',
-          sahne: 'Son sahne — babayla yüzleşme',
-          kurulum: 'Salon. Willy ayağa kalkmış, sana bağırıyor. Linda kapıda. "Ona ne söyleyeceksin?"',
-          yollar: [
-            { id: 'gercegi', metin: 'Gerçeği söyle — "ben hiçbir şeyim" cümlesini söyle' },
-            { id: 'sus', metin: 'Sus — odana git, konuşma' },
-            { id: 'kucakla', metin: 'Kucakla — söze gerek yok' },
-          ],
-          yansimaSorusu: 'Bu kararı verirken — onu kurtarmak mı, kendini kurtarmak mı önemliydi?',
-          tarihselCevap: 'Biff hem söyledi hem kucakladı. "Bırak baba. Ben dime a dozen\'ım. Sen de." Ağladı. Willy bunu sevgi olarak yorumladı — ama hayalle. Ertesi sabah Willy öldü.',
-          farkSorusu: 'Biff yanıldı mı, yoksa hakikati söylemek hâlâ doğru muydu? Senin için fark ne?',
-        },
-      ],
-      travmaSeviyesi: 2,
-    },
-    {
-      id: 'ben-hicbir-seyim',
-      baslik: '"Ben Hiçbir Şeyim"',
-      sure: '15 dk', seviye: 'Ileri', ikon: '🌾',
-      aciklama:
-        "Biff\'in en özgürleştirici cümlesi. \"Ben dime a dozen\'ım — sen de.\" Bu egzersiz o cümlenin altındaki katmanları açar.",
-      adimlar: [
-        'Otur. "Ben Adonis\'im" cümlesini söyle. Çocuk Biff\'in cümlesi. {duyu}?',
-        'Şimdi: "Ben dime a dozen\'ım." 34 yaşındaki Biff\'in cümlesi. Aynı bedensel zemini koruyabiliyor musun?',
-        '"Sen de" — bu cümleyi babana söylemek nasıl bir şey?',
-        'Şimdi: "I know who I am now." Mezardaki Biff\'in cümlesi. Bu cümle bir özgürlük mü, bir teslimiyet mi?',
-      ],
-      travmaSeviyesi: 2,
-    },
-    {
-      id: 'cikis-yola',
-      baslik: '"Bir Yola Çık" — Çıkış',
-      sure: '15 dk', seviye: 'Ileri', ikon: '🛤️',
-      aciklama:
-        "Modül III\'ün ön habercisi — deroling. Biff\'i içine aldın. Babasıyla yüzleşmesini taşıdın. Şimdi onu bırakma zamanı.",
-      adimlar: [
-        'Otur. Ayaklarını yere bas. Biff\'in son nefesini bedeninden çıkar.',
-        '"I know who I am now" — bu cümleyi sen söyle. Biff için. Kendin için.',
-        'Adını yüksek sesle söyle. Yaşını söyle. Bugünün tarihini söyle.',
-        'Etrafına bak — odanın ışığı, sıcaklığı, kokusu. Sen şimdi buradasın.',
-        'Biff\'i bırakmadan kalkma. Su iç. Birkaç dakika öylece otur.',
-      ],
-      travmaSeviyesi: 0,
-      tipDeroling: true,
-    },
-  ],
+  antrenmanlar: [],
 };
 
 export default biff;

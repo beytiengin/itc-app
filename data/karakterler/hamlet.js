@@ -57,6 +57,7 @@ const hamlet = {
       icDurum: '"Bu çok hızlı oldu" — yastan, ihanet duygusundan, kimseye söyleyemediği bir öfkeden oluşuyor.',
       bosluk: 'Salondan ayrıldığı an — ilk kez tek başına kaldığında ne hissetti?',
       travmaKategorileri: ['kayip', 'ihanet'], travmaSeviyesi: 1,
+      kritikMi: false,
     },
     {
       id: '1.2-monolog', perde: 1,
@@ -65,6 +66,7 @@ const hamlet = {
       icDurum: '"Tanrı kendini öldürmeyi yasaklamasaydı..." Bu cümle tehlikeli yakınlıkta.',
       bosluk: 'Monolog bittiğinde — ne yapacaktı? Horatio gelmeseydi nereye giderdi?',
       travmaKategorileri: ['ihanet', 'ahlaki_yara', 'varolussal'], travmaSeviyesi: 2,
+      kritikMi: false,
     },
     {
       id: '1.4', perde: 1,
@@ -73,6 +75,7 @@ const hamlet = {
       icDurum: 'Korku, umut, doğrulanma arzusu. "Demek ki delirmemişim — gerçekten yanlış olan bir şey var."',
       bosluk: 'Hayaleti takip ederken arkadaşlarını bırakırken bedeninde ne değişti?',
       travmaKategorileri: ['zihinsel_kirilma'], travmaSeviyesi: 2,
+      kritikMi: true,
     },
     {
       id: '1.5', perde: 1,
@@ -81,6 +84,7 @@ const hamlet = {
       icDurum: 'Sezdiği şey doğrulandı. Ama şimdi bir görev var — taşıyabileceğinden emin değil.',
       bosluk: 'Hayalet kaybolduktan sonra, arkadaşlarına dönmeden önceki dakikalar.',
       travmaKategorileri: ['siddet', 'ihanet', 'zihinsel_kirilma'], travmaSeviyesi: 2,
+      kritikMi: true,
     },
     {
       id: '2.2', perde: 2,
@@ -89,6 +93,7 @@ const hamlet = {
       icDurum: 'İçinde gerçek bir kırılma var ama kontrolü elde tutmaya çalışıyor. Performansla gerçek arası belirsizleşiyor.',
       bosluk: '"Antic disposition" kararını ne zaman verdi? Ne kadar bilinçli?',
       travmaKategorileri: ['zihinsel_kirilma'], travmaSeviyesi: 1,
+      kritikMi: false,
     },
     {
       id: '3.1-monolog', perde: 3,
@@ -97,6 +102,7 @@ const hamlet = {
       icDurum: 'Bu performans değil. Hamlet\'in en dürüst anı. Kimse izlemiyor (sandığı). Ama Polonius ve Claudius dinliyor.',
       bosluk: 'Monoloğa başlarken son düşüncesi neydi? Hangi an "yapmak" düşüncesinden "düşünmek" düşüncesine geçti?',
       travmaKategorileri: ['varolussal'], travmaSeviyesi: 2,
+      kritikMi: true,
     },
     {
       id: '3.1-ophelia', perde: 3,
@@ -105,6 +111,7 @@ const hamlet = {
       icDurum: 'Ophelia\'yı korumak için mi, ona güvenmediği için mi, Claudius\'u zorlamak için mi? Üçü de.',
       bosluk: 'Ophelia ağlayarak çıktıktan sonra — ne hissetti? Pişmanlık? Soğuk planlama?',
       travmaKategorileri: ['kayip', 'ahlaki_yara'], travmaSeviyesi: 2,
+      kritikMi: false,
     },
     {
       id: '3.2', perde: 3,
@@ -113,6 +120,7 @@ const hamlet = {
       icDurum: 'Doğrulama anı. "Hayalet doğru söylemiş." Ama bu doğrulama bir rahatlama mı, yoksa görevi reddedemeyeceğinin kanıtı mı?',
       bosluk: 'Claudius çıktıktan sonra Horatio\'yla baş başa kaldıkları an.',
       travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 1,
+      kritikMi: false,
     },
     {
       id: '3.3', perde: 3,
@@ -121,6 +129,7 @@ const hamlet = {
       icDurum: 'Mantık mı, korku mu, ahlak mı? "Şimdi öldürürsem ruhu kurtulur." Bu akıl yürütme mi, yoksa bahane mi?',
       bosluk: 'O odadan çıktıktan sonra — pişman mı, rahatlamış mı?',
       travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 2,
+      kritikMi: true,
     },
     {
       id: '3.4-polonius', perde: 3,
@@ -129,6 +138,7 @@ const hamlet = {
       icDurum: 'Refleks mi, niyet mi? Claudius sandı mı? Bilmiyor — hareket eyleme dönüştü, ilk kez.',
       bosluk: 'Perdeyi açtığında — Polonius olduğunu görmek nasıl bir şey? Hangi sürede tepki verdi?',
       travmaKategorileri: ['siddet', 'ahlaki_yara'], travmaSeviyesi: 3,
+      kritikMi: true,
     },
     {
       id: '3.4-anne', perde: 3,
@@ -137,6 +147,7 @@ const hamlet = {
       icDurum: 'Annesini sarsıyor ama bir yandan yıkılıyor. Hayalet onu kınıyor — "annene yumuşak ol".',
       bosluk: 'Hayalet kaybolduktan sonra, anneyle son sözleri. Polonius\'un cesedini sürüklerken aklında ne vardı?',
       travmaKategorileri: ['zihinsel_kirilma', 'ihanet'], travmaSeviyesi: 2,
+      kritikMi: false,
     },
     {
       id: '4.4', perde: 4,
@@ -145,6 +156,7 @@ const hamlet = {
       icDurum: '"Onlar bir hiç için ölüyor, ben her şey için tereddüt ediyorum." Utanç ve kararlılık karışımı.',
       bosluk: 'O monoloğun sonu — Danimarka\'ya geri dönme planı hangi an oluştu?',
       travmaKategorileri: ['varolussal'], travmaSeviyesi: 1,
+      kritikMi: true,
     },
     {
       id: '5.1', perde: 5,
@@ -153,6 +165,7 @@ const hamlet = {
       icDurum: 'Ölümle artık dost. Kafatası elinde, hiçliği kabulleniyor. Sonra Ophelia\'nın cesedi — kabullenmenin sınırı.',
       bosluk: 'Laertes\'le mezarın içinde kavga ettiğinde — gerçekten Ophelia için mi, yoksa Laertes\'le karşılaşmaya mı kavga ediyordu?',
       travmaKategorileri: ['kayip', 'varolussal'], travmaSeviyesi: 3,
+      kritikMi: true,
     },
     {
       id: '5.2', perde: 5,
@@ -161,6 +174,7 @@ const hamlet = {
       icDurum: 'Sonunda eylem — ama tüm anlamlar dağıldıktan sonra. Sessizlik bir kayıp değil, bir kabul.',
       bosluk: 'Horatio\'ya "yaşamı anlat" derken — kendi hikayesini nasıl bir adam olarak hatırlanmak istiyor?',
       travmaKategorileri: ['siddet', 'varolussal'], travmaSeviyesi: 3,
+      kritikMi: true,
     },
   ],
 
@@ -372,146 +386,664 @@ const hamlet = {
     },
   ],
 
-  // ─── EGZERSİZLER ──────────────────────────────────────────────────────────
+  // ─── ZİHİNSEL ANTRENMANLAR — 9 EGZERSİZ, ITC FORMATI ──────────────────────
 
-  egzersizler: [
+  antrenmanlar: [
+
+    // EGZERSİZ 1 — Hayaletle Karşılaşmadan Önce
     {
-      id: 'baseline',
-      baslik: 'Baseline Kurma',
-      sure: '10 dk', seviye: 'Giris', ikon: '📚',
-      aciklama:
-        "Wittenberg'de bir öğrenci. Henüz babası yaşıyor, anne ve baba bir arada. Felsefeyle, dostlarıyla ve Ophelia'ya duyduğu sevgiyle tanışıyoruz. Henüz yas yok, henüz hayalet yok.",
+      id: 'hayalet-oncesi',
+      no: 1,
+      baslik: 'Hayaletle Karşılaşmadan Önce',
+      altbaslik: 'Sessizliğin egzersizi',
+      sure: '15-20 dk',
+      seviye: 'Giriş',
+      bagliSahne: '1.4',
+      travmaKategorileri: ['kayip', 'varolussal'],
+      travmaSeviyesi: 1,
+
+      girisMetni: 'Bu egzersizde Hamlet\'in hayaletle ilk karşılaşmasından önceki anına gideceğiz. Hamlet henüz konuşmuyor — sadece bekliyor. Senin yapacağın da bu: Sessizliği taşımak.',
+
       adimlar: [
-        "Gözlerini kapat. Wittenberg'desin. Sınıf, kütüphane, yatakhane.",
-        'Bir kitap önünde — ne {duyu}? Hangi düşünce seni en çok meşgul ediyor?',
-        'Horatio yanına geliyor. Bir tartışmaya girmek üzeresiniz. Hangi konu hakkında?',
-        "Bu Hamlet'i hatırla. Buraya istediğin an dönebilirsin.",
+        {
+          no: 1,
+          tip: 'okuma',
+          metin: 'Rahat bir yere otur. Birkaç derin nefes al. Hazır olduğunda devam et.',
+        },
+        {
+          no: 2,
+          tip: 'yazma',
+          metin: 'Gözlerini kapat. Hamlet şu an nerede? Hayal et — ama resimden değil, içeriden. Mekanı duy, kokla, hisset.',
+          soru: 'Neredesin?',
+        },
+        {
+          no: 3,
+          tip: 'yazma',
+          metin: 'Tekrar gözlerini kapat. O mekanda saat kaç? Hava nasıl? Bedeninin neresi soğuk, neresi sıcak?',
+          soru: 'Saat, hava ve bedensel duyumlar',
+        },
+        {
+          no: 4,
+          tip: 'yazma',
+          metin: 'Gözlerini kapatma bu sefer. Ayağa kalk. Hamlet bu anda nasıl duruyor? Sen tarif etme — bedeninde dene. Ağırlığın nerede? Kolların ne yapıyor? Bakışın? Birkaç deneme yap. Doğru olanı bedenin söyleyecek.',
+          soru: 'Hamlet\'in postürü nasıl?',
+        },
+        {
+          no: 5,
+          tip: 'yazma',
+          metin: 'O postürde dur ya da otur. Babasının kaybı, annesinin hızla amcasıyla evlenmesi, taht değişmiş, düzen bozulmuş, surun duvarlarında fısıltılar dolaşıyor. Sen yalnızsın, henüz hiçbir şey görmedin. Sadece hissediyorsun. Bedeninde bu bekleyişi en yoğun nerede hissediyorsun?',
+          soru: 'O nokta neresi?',
+        },
+        {
+          no: 6,
+          tip: 'vak',
+          vakSorulari: {
+            gorsel:    'O nokta bir renge dönüşürse, hangi renk olur? Şekli nasıl? Donmuş mu, hareket eden mi?',
+            isitsel:   'O nokta bir sesle konuşsa, neye benzer? Yüksek mi, alçak mı? Sürekli mi, kesikli mi?',
+            kinestetik:'O noktaya ağırlık versen, ne kadar ağır olur? Hangi dokuda? Sıcak mı, soğuk mu?',
+          },
+          soru: 'Ne buldun?',
+        },
+        {
+          no: 7,
+          tip: 'yazma',
+          metin: 'Az önce nöbetçi asker Horatio sana şöyle demişti: "Babanızın hayaletine benziyor, prens." Sen henüz cevap vermedin. Sadece dinledin ve geldin buraya. Şimdi o cümleyi içinde tekrarla. Bedenin nasıl tepki veriyor?',
+          soru: 'Yansıma',
+        },
+        {
+          no: 8,
+          tip: 'cikis',
+          metin: 'Üç derin nefes al. Adını yüksek sesle söyle. Buradasın. Hamlet\'in o anı içinde — ama sen şimdi kendine döndün. Bir an öylece otur.',
+        },
       ],
-      travmaSeviyesi: 0,
     },
+
+    // EGZERSİZ 2 — Hayaletle Görüştükten Sonra
     {
-      id: 'dogrular',
-      baslik: 'Değiştirilemez Doğrular Taraması',
-      sure: '15 dk', seviye: 'Temel', ikon: '🗺️',
-      aciklama:
-        "Sahneye çıkmadan önce zemini sağlamlaştır. Hamlet'in metinden gelen sabit gerçeklerini bedenine yedir.",
-      adimlar: [
-        'Listeyi yavaşça oku. Acele etme.',
-        'Her madde için içinden bir cevap ver: "Evet, biliyorum."',
-        'Sürpriz yaratan bir madde var mı? Onu daha uzun tut.',
-        '"Hamlet bunların hepsini taşıyarak sahneye giriyor."',
-      ],
-      travmaSeviyesi: 0,
-    },
-    {
-      id: 'iliski-ophelia',
-      baslik: 'İlişki Haritası: Ophelia',
-      sure: '20 dk', seviye: 'Orta', ikon: '🌹',
-      aciklama:
-        "Sevgi ile güvensizlik arasında. Bir kadına aşık olabilen Hamlet aynı zamanda annesinin ihanetini taşıyor. Ophelia bu yarayı hem iyileştirir hem deşer.",
-      adimlar: [
-        "İlk Ophelia'yla nasıl tanıştıklarını hayal et. {ipucu}",
-        '3.1\'de "manastıra git" derken — onu mu, kendini mi, anneyi mi reddediyor?',
-        "Cenazesinde mezara atladığında — sevgi mi, suçluluk mu, kıskançlık mı?",
-        '"I loved you not" demişti. Sonra "Forty thousand brothers..." Hangisi gerçek?',
-      ],
+      id: 'hayalet-sonrasi',
+      no: 2,
+      baslik: 'Hayaletle Görüştükten Sonra',
+      altbaslik: 'Sırrın bedenine yerleşmesi',
+      sure: '20-25 dk',
+      seviye: 'Temel',
+      bagliSahne: '1.5',
+      travmaKategorileri: ['kayip', 'ihanet', 'varolussal'],
       travmaSeviyesi: 2,
-    },
-    {
-      id: 'iliski-anne',
-      baslik: 'İlişki Haritası: Gertrude',
-      sure: '25 dk', seviye: 'Orta', ikon: '👁️',
-      aciklama:
-        "En derin yara burada. Anne — ihanet eden, sevilen, kurtarılmak istenen, suçlu bulunan, sonunda kollarında ölen.",
+
+      girisMetni: 'Bu egzersizde Hamlet\'in babasının hayaletiyle görüşmesinden hemen sonraki anına gideceğiz. Artık her şey değişti. Bir gerçekle yüzleştin — ama bu gerçek görünmeyen bir yerden geldi. Hayaletin söylediklerinin zihninde fırtına yarattığı an. Ne yapacağını bilmiyorsun. Ama artık hiçbir şey eskisi gibi olmayacak.',
+
       adimlar: [
-        "Çocukluğunda annesiyle bir an — {ipucu}",
-        'Düğün gününde annesinin yüzü. O an "annem" kelimesi sende ne hissettirdi?',
-        '3.4\'te onu sarsarken — kurtarmak mı istiyorsun, cezalandırmak mı?',
-        "5.2'de zehri içtiğinde — son baktığın gözler.",
+        {
+          no: 1,
+          tip: 'okuma',
+          metin: 'Rahat bir yere otur. Birkaç derin nefes al. Hazır olduğunda devam et.',
+        },
+        {
+          no: 2,
+          tip: 'yazma',
+          metin: 'Gözlerini kapat. Az önce hayalet kayboldu. Sen neredesin? Az önce duvarın üstündeydin, şimdi nereye gittin? Tek başına mısın?',
+          soru: 'Şu an neredesin?',
+        },
+        {
+          no: 3,
+          tip: 'yazma',
+          metin: 'Hayalet sana çok şey söyledi. Babanın katili, annenin şu anki eşi olan amcanın. Bu bilgiyle şimdi yalnız kalıyorsun. Bedeninde nereye yerleşti bu bilgi?',
+          soru: 'Bilgi bedenin neresinde?',
+        },
+        {
+          no: 4,
+          tip: 'yazma',
+          metin: 'Gözlerini aç, ayağa kalk. Bu yeni bilgi senin postürünü değiştirdi mi? Az önceki bekleyiş postüründen farklı mı? Dene — eski postürünü hatırla, sonra şimdiki bedeninde ne değişti, fark et.',
+          soru: 'Postürdeki değişim',
+        },
+        {
+          no: 5,
+          tip: 'yazma',
+          metin: 'Otur. Hayalet sana şöyle dedi: "Hatırla beni." Bu cümleyi içinde tekrarla. Sadece dinle, henüz dışarı çıkarma. Sözlerin henüz zihninde, ama hislerin çoktan bedeninde.',
+          soru: 'Bu cümle sende ne uyandırıyor?',
+        },
+        {
+          no: 6,
+          tip: 'vak',
+          vakSorulari: {
+            gorsel:    'Bu sırrı bir görüntüye dönüştürsen, neye benzer? Bir sis mi, bir alev mi, bir kanlı bıçak mı, bir mektup mu?',
+            isitsel:   'Bu sır içinde bir sesle yankılansa, hangi tonla? Hayaletin sesi mi, kendi sesin mi, başka bir ses mi?',
+            kinestetik:'Bu sırrı bir cisme dönüştürsen, nasıl bir ağırlığı olurdu? Bedenin neresinde taşırdın? Cebinde mi, omzunda mı, midende mi?',
+          },
+          soru: 'Ne buldun?',
+        },
+        {
+          no: 7,
+          tip: 'yazma',
+          metin: 'Birazdan Horatio ve Marcellus seni bulacak. Onlara her şeyi anlatacak mısın, sır olarak mı tutacaksın? Henüz karar vermek zorunda değilsin — ama bedeninde hangi tarafa eğildiğini fark et.',
+          soru: 'Bedenin sana ne söylüyor?',
+        },
+        {
+          no: 8,
+          tip: 'yazma',
+          metin: 'Şimdi içinden geçen ilk cümleyi sesli ya da sessiz söyle. Hamlet olarak. Ne ilk geliyor ağzına?',
+          soru: 'İlk cümlen',
+        },
+        {
+          no: 9,
+          tip: 'cikis',
+          metin: 'Üç derin nefes al. Sırrı içinde tut ama bedenine kendi adınla geri dön. Adını yüksek sesle söyle. Buradasın. Su iç. Bir an öylece otur.',
+        },
       ],
-      travmaSeviyesi: 3,
     },
+
+    // EGZERSİZ 3 — "To Be or Not To Be" Monoloğu
     {
-      id: 'kararlar-odasi',
-      baslik: 'Kararlar Odası',
-      sure: '30 dk', seviye: 'Ileri', ikon: '⚖️',
-      aciklama:
-        "Hamlet karar veremeyen prens olarak bilinir — ama aslında kararlar verdi. Sadece beklenen anlarda değil. Bu egzersizde onun kritik karar anlarına gir.",
-      kararlar: [
+      id: 'to-be',
+      no: 3,
+      baslik: '"Olmak ya da Olmamak" Monoloğu',
+      altbaslik: 'Varoluşsal eşik',
+      sure: '25-30 dk',
+      seviye: 'Orta',
+      bagliSahne: '3.1',
+      travmaKategorileri: ['varolussal', 'zihinsel_kirilma'],
+      travmaSeviyesi: 3,
+
+      girisMetni: 'Bu egzersizde Hamlet\'in varoluşsal sorgulamasını yalnızca felsefi değil, duyusal ve bedensel olarak deneyimleyeceğiz. Yaşamak ve ölmek arasındaki duygusal geçişleri zihninde ve bedeninde inşa edeceğiz. Bu bir karar değil — bu bir karar eşiği.',
+
+      adimlar: [
         {
-          id: 'k-3-3',
-          sahne: '3.3',
-          kurulum: "Claudius dua ediyor. Sırtı dönük. Kılıç elinde. Tek bir hareket — intikam tamamlanır.",
-          yollar: [
-            { id: 'oldur', metin: "Şimdi öldür — fırsat bu" },
-            { id: 'bekle', metin: "Bekle — daha kötü bir anda öldür ki cehenneme gitsin" },
-            { id: 'birak', metin: "Bırak — bu kararı veremem, sıyrıl ve git" },
-          ],
-          yansimaSorusu: 'Bu kararı verirken — gerçekten Claudius\'un ruhunu mu düşündün, yoksa bir şey seni durdurdu?',
-          tarihselCevap: "Hamlet beklemeyi seçti. Gerekçe: Claudius dua ettiği için ruhu cennete giderdi. Ama bu mantıklı mı, yoksa kendisinin yapamadığını rasyonalize mi etti? Asla bir daha bu kadar kolay bir fırsat olmayacaktı.",
-          farkSorusu: "Sen onun gerekçesini gerçekten satın alıyor musun, yoksa bahane olduğunu mu düşünüyorsun?",
+          no: 1,
+          tip: 'okuma',
+          metin: 'Bu egzersiz derin bir varoluşsal sorgulamaya götürecek. Eğer kendini bugün buna hazır hissetmiyorsan, başka bir gün dönebilirsin. Hazırsan rahat bir yere otur ve devam et.',
         },
         {
-          id: 'k-3-4',
-          sahne: '3.4',
-          kurulum: "Annenin odasında. Perdenin arkasından bir ses, bir hareket. Claudius olabilir. Kılıç elinde.",
-          yollar: [
-            { id: 'sapla', metin: "Sapla — Claudius\'sa hesap görülür, kim olursa olsun" },
-            { id: 'bak', metin: "Önce kim olduğuna bak — perdeyi aç" },
-            { id: 'cek', metin: "Geri çekil — ses çıkmasın, bir şey yapma" },
-          ],
-          yansimaSorusu: 'Kılıcı saplama anı düşünmeden mi geldi, yoksa içinde "yap" diyen bir ses mi vardı?',
-          tarihselCevap: "Hamlet sapladı. Refleksti, ama 3.3'teki kararsızlığın patlaması da olabilir. Kim olduğunu bilmeden öldürdü. Polonius olduğunu görünce ilk tepkisi — neredeyse umursamaz: 'You wretched, rash, intruding fool.'",
-          farkSorusu: "Hamlet'in soğukluğu seni şaşırttı mı? Yoksa bu da onun bir başka yüzü mü?",
+          no: 2,
+          tip: 'yazma',
+          metin: 'Gözlerini kapat. Hamlet şu an nerede? Tek başına mı, kalabalık mı? Etrafında ne var, ne yok? Sözleri henüz çıkmadı, ama içinde dönmeye başladı.',
+          soru: 'Neredesin?',
         },
         {
-          id: 'k-5-2',
-          sahne: '5.2',
-          kurulum: "Düello teklif edildi. Bunun bir tuzak olabileceğini sezmek için yeterli işaret var. Reddetmek mümkün, ertelemek mümkün, kabul etmek mümkün.",
-          yollar: [
-            { id: 'kabul', metin: "Kabul et — gelsin ne gelecekse" },
-            { id: 'ertele', metin: "Ertele — daha hazırım de, zaman kazan" },
-            { id: 'reddet', metin: "Reddet — bu açıkça bir tuzak" },
-          ],
-          yansimaSorusu: 'Bu kararı verirken — yorgunluk mu, kabulleniş mi, gizli bir umut mu vardı?',
-          tarihselCevap: "Hamlet kabul etti. Horatio'ya 'kalbimde bir ağırlık var ama önemi yok' dedi. Artık kaçmıyor — ama kaçmamak da bir karar.",
-          farkSorusu: "Sen kabul edebilir miydin? Hangi an Hamlet senden ayrıldı, hangi an birlikteydiniz?",
+          no: 3,
+          tip: 'yazma',
+          metin: 'Babasının kaybı, annesinin yeni evliliği, Ophelia\'ya yaklaşıp uzaklaşma, sırtında taşıdığı sır… Tüm bu karmaşanın içinde şu an yapayalnızsın. Bedeninde bu yalnızlık nereye yerleşti?',
+          soru: 'Yalnızlık nerede?',
+        },
+        {
+          no: 4,
+          tip: 'yazma',
+          metin: 'O yalnızlığın içinde bir cümle yaklaşıyor. Daha çıkmamış, ama yakın. Cümle giderek belirginleşiyor: "Var olmak mı? Yok olmak mı?" Bu bir soru değil — bu bir karar eşiği. O eşikte dur, henüz seçme.',
+          soru: 'O eşikte ne hissediyorsun?',
+        },
+        {
+          no: 5,
+          tip: 'yazma',
+          metin: 'Şimdi cümleyi içinde tekrarla. Hızlı değil, çok yavaş. "Var olmak mı? Yok olmak mı?" Her tekrarda bedenin farklı bir yerinde tepki verecek. Hangi yer, fark et.',
+          soru: 'Hangi yer ne diyor?',
+        },
+        {
+          no: 6,
+          tip: 'vak',
+          vakSorulari: {
+            gorsel:    'Var olmak ve yok olmak arasındaki o eşik nasıl bir görüntü? Bir uçurum mu, bir kapı mı, bir sis mi, bir buz parçası mı? İki tarafı görüyor musun?',
+            isitsel:   'Cümleyi tekrarladığında ses tonu değişiyor mu? Bazen çığlık, bazen fısıltı, bazen sessizlik mi? Hangi ton hangi anlamla geliyor?',
+            kinestetik:'Bedeninde "var olmak" tarafı ile "yok olmak" tarafı farklı yerlerde mi? Birinde ağırlık, diğerinde hafiflik mi? Yoksa tam tersi mi?',
+          },
+          soru: 'Ne buldun?',
+        },
+        {
+          no: 7,
+          tip: 'yazma',
+          metin: 'Şimdi sahneye çık. Hamlet olarak ilk satırı sesli ya da sessiz söyle: "Olmak ya da olmamak — işte bütün mesele bu." Bu cümle yazılı bir replik değil — bedeninden geliyor mu? Eğer gelmiyor, durup tekrar dene.',
+          soru: 'Cümle nasıl çıktı?',
+        },
+        {
+          no: 8,
+          tip: 'yazma',
+          metin: 'Eşikte kalmak yorucu. Şu an bedeninde nereye gitmek istiyor? Hangi tarafa eğiliyor? Yok olmaya mı, var olmaya mı, yoksa eşiği daha uzun süre taşımaya mı?',
+          soru: 'Bedenin ne diyor?',
+        },
+        {
+          no: 9,
+          tip: 'cikis',
+          metin: 'Bu egzersiz yoğun bir varoluşsal yere götürdü. Şimdi yavaşça geri dönüyoruz. Üç derin nefes al. Adını yüksek sesle söyle. Bugünün tarihini söyle. Etrafındaki üç şeyi say. Hamlet\'in eşiği orada — sen burada. Su iç. Birkaç dakika öylece otur. Bugün bitince fiziksel bir aktivite — yürüyüş, duş, biriyle sohbet — yapmak iyi gelecek.',
         },
       ],
+    },
+
+    // EGZERSİZ 4 — Fare Kapanı Planı
+    {
+      id: 'fare-kapani',
+      no: 4,
+      baslik: 'Fare Kapanı Planı',
+      altbaslik: 'Oyun içinde oyun, oyuncu içinde dedektif',
+      sure: '20-25 dk',
+      seviye: 'Orta',
+      bagliSahne: '2.2 / 3.2',
+      travmaKategorileri: ['ihanet', 'ahlaki_yara'],
       travmaSeviyesi: 2,
-    },
-    {
-      id: 'olmak-ya-da-olmamak',
-      baslik: '"Olmak ya da Olmamak"',
-      sure: '15 dk', seviye: 'Ileri', ikon: '🕯️',
-      aciklama:
-        "Hamlet'in en çok bilinen ama en yanlış anlaşılan anı. Bu performans değil — Hamlet kimsenin dinlemediğini sanıyor. En dürüst olduğu an.",
+
+      girisMetni: 'Bu egzersizde Hamlet\'in Claudius\'u suçüstü yakalamak için plan kurduğu anına gideceğiz. Artık şüphen kesinleşti, ama elinde kanıt yok. İçinde hem öfke hem strateji var. Sahne kuruluyor, plan işliyor, ve sen bu düzenin merkezindesin.',
+
       adimlar: [
-        "Sahnede yalnız olduğunu varsay. Sadece sen varsın.",
-        "İlk satır: 'Olmak ya da olmamak.' — Bu cümle bir karar mı, soru mu, çığlık mı? Sen söyle, hangi tonda?",
-        "'Ölmek, uyumak, belki rüya görmek' — burası en tehlikeli yer. Ölümden korkuyor mu, yoksa rüyadan mı?",
-        '"Bilinmeyen ülke" — senin hayatında bu cümlenin karşılığı ne?',
-        "Monolog bitince — kim seni susturdu? Ophelia mı, yoksa içinden bir şey mi?",
+        {
+          no: 1,
+          tip: 'okuma',
+          metin: 'Rahat bir yere otur. Birkaç derin nefes al. Hazır olduğunda devam et.',
+        },
+        {
+          no: 2,
+          tip: 'yazma',
+          metin: 'Gözlerini kapat. Hamlet şu an nerede? Saraya bir tiyatro kumpanyası geldi — bu senin için bir fırsat. Mekanı bul.',
+          soru: 'Neredesin?',
+        },
+        {
+          no: 3,
+          tip: 'yazma',
+          metin: 'İçinde iki şey aynı anda var: Babasından gelen bilgiyi doğrulama isteği ve plan kurma soğukkanlılığı. Bu ikisinin bedeninde farklı yerleri var mı?',
+          soru: 'Öfke nerede, strateji nerede?',
+        },
+        {
+          no: 4,
+          tip: 'yazma',
+          metin: 'Ayağa kalk. Hamlet şimdi sıradan bir Hamlet değil — bir oyun yazarı, bir yönetmen, bir dedektif. Bu yeni rol postürünü değiştiriyor mu? Hangi kasların gerildi, hangileri rahatladı?',
+          soru: 'Postürdeki değişim',
+        },
+        {
+          no: 5,
+          tip: 'yazma',
+          metin: 'Otur. "Fare Kapanı" adını verdiğin sahne — Claudius\'un suçunu kendi tepkisiyle açığa çıkaracak. Zihninde sahnenin kenarındasın. Işıklar yanmak üzere. Claudius yerini aldı. Sen izlemiyorsun — sen gözlüyorsun. Bedeninde bu izleme nasıl?',
+          soru: 'Gözleyen Hamlet nasıl?',
+        },
+        {
+          no: 6,
+          tip: 'vak',
+          vakSorulari: {
+            gorsel:    'O sahnede Claudius\'un yüzüne bakıyorsun. Ne arıyorsun? Bir kıpırdanma, bir titreme, bir solgunluk mu? Aklında nasıl bir görüntü var?',
+            isitsel:   'Tüm sesleri keskinleştir — Claudius\'un nefesini bile duyabilecek kadar. Hangi sesi en çok dinliyorsun?',
+            kinestetik:'Bedenin sahnenin neresinde? Geride mi, önde mi, gizli mi? Hareketsiz misin yoksa için kıpırdıyor mu?',
+          },
+          soru: 'Ne buldun?',
+        },
+        {
+          no: 7,
+          tip: 'yazma',
+          metin: 'Şu cümleyi Hamlet olarak zihninden geçir: "Şimdi oynamaya başlayacağız… ama ben oyun dışı kalamam." İçinde hem bir oyuncu, hem bir yönetmen, hem bir dedektif var. Bu üçünün dengesi sende nasıl?',
+          soru: 'Üçü nasıl bir arada?',
+        },
+        {
+          no: 8,
+          tip: 'cikis',
+          metin: 'Üç derin nefes al. Adını söyle. Hamlet\'in soğukkanlı stratejisi orada — sen şimdi kendine döndün. Su iç. Birkaç dakika öylece otur.',
+        },
       ],
+    },
+
+    // EGZERSİZ 5 — Claudius'a Dokunmamak
+    {
+      id: 'claudius-dokunmamak',
+      no: 5,
+      baslik: 'Claudius\'a Dokunmamak',
+      altbaslik: 'Vicdan ve intikam arasındaki boşluk',
+      sure: '20-25 dk',
+      seviye: 'İleri',
+      bagliSahne: '3.3',
+      travmaKategorileri: ['ahlaki_yara', 'ihanet'],
+      travmaSeviyesi: 2,
+
+      girisMetni: 'Bu egzersizde Hamlet\'in Claudius\'u dua ederken öldürmeme kararına gideceğiz. Bu bir eylemsizlik değil, içsel bir strateji, duyusal bir fren. Öldürebilirdin. Ama yapmadın. Çünkü adalet, öfke kadar hızlı davranmaz.',
+
+      adimlar: [
+        {
+          no: 1,
+          tip: 'okuma',
+          metin: 'Rahat bir yere otur. Birkaç derin nefes al. Hazır olduğunda devam et.',
+        },
+        {
+          no: 2,
+          tip: 'yazma',
+          metin: 'Gözlerini kapat. Hamlet şu an nerede? Az önce Claudius\'un suçunu öğrendin — Fare Kapanı işe yaradı. Şimdi onu buldun. Mekanı bul.',
+          soru: 'Neredesin?',
+        },
+        {
+          no: 3,
+          tip: 'yazma',
+          metin: 'Claudius önünde, sırtı sana dönük. Dua ediyor. Elinde kılıç yok, savunmasız. Sen kılıcını çekmek üzeresin. Bedeninde nasıl bir hazırlık var?',
+          soru: 'Bedeninin durumu',
+        },
+        {
+          no: 4,
+          tip: 'yazma',
+          metin: 'Ayağa kalk. Bu kararın bedensel hâli ne? Kolların kalkıyor mu? Ağırlığın bir bacağa mı? Nefesin tutuluyor mu?',
+          soru: 'Postür',
+        },
+        {
+          no: 5,
+          tip: 'yazma',
+          metin: 'Ama duruyorsun. Çünkü bu ölüm onun kurtuluşu olabilir mi? Cezalandırmak istedin — ama bu sahne bir cezaya mı, yoksa bir ödüle mi dönüşecek? İçinde bu sorunun ağırlığı nerede?',
+          soru: 'Sorunun ağırlığı',
+        },
+        {
+          no: 6,
+          tip: 'vak',
+          vakSorulari: {
+            gorsel:    'Claudius\'un sırtı sana dönük. Ona bakarken zihninde başka bir görüntü beliriyor mu? Babanın yüzü, Cennetin kapısı, Cehennem ateşi? Hangi imge?',
+            isitsel:   'Claudius\'un dua sesini duyuyorsun. Aynı zamanda içindeki başka bir ses var. O ses ne diyor? "Şimdi öldür" mü, "Şimdi olmaz" mı, yoksa karışık mı?',
+            kinestetik:'Kılıcın elinde. Ağırlığını hisset. Bu ağırlık seni ileriye mi itiyor, geriye mi tutuyor?',
+          },
+          soru: 'Ne buldun?',
+        },
+        {
+          no: 7,
+          tip: 'yazma',
+          metin: 'Şu cümleyi Hamlet olarak içinde söyle: "Hayır… Şimdi değil. Daha aşağıdayken, daha kirliyken, daha günahkârken." Bu bir mantık mı, bir bahane mi, yoksa bir vicdan kararı mı?',
+          soru: 'Bu cümle ne?',
+        },
+        {
+          no: 8,
+          tip: 'yazma',
+          metin: 'Şimdi geri çekil. Kılıcı kınına koy. O an bedeninde hangi duygu kaldı? Pişmanlık, rahatlama, daha derin öfke, şüphe?',
+          soru: 'Geride ne kaldı?',
+        },
+        {
+          no: 9,
+          tip: 'cikis',
+          metin: 'Üç derin nefes al. Kılıcı bırak — ama Hamlet\'in vicdanını içinde tut. Adını söyle. Buradasın. Su iç. Birkaç dakika öylece otur.',
+        },
+      ],
+    },
+
+    // EGZERSİZ 6 — Fortinbras Haberi
+    {
+      id: 'fortinbras',
+      no: 6,
+      baslik: 'Fortinbras Haberi',
+      altbaslik: 'Kendi hareketsizliğini görmek',
+      sure: '20-25 dk',
+      seviye: 'Orta',
+      bagliSahne: '4.4',
+      travmaKategorileri: ['ahlaki_yara', 'varolussal'],
+      travmaSeviyesi: 2,
+
+      girisMetni: 'Bu egzersizde Hamlet\'in Fortinbras\'ın ordusunun geçişiyle yüzleştiği âna gideceğiz. Başkasının cesareti, senin eylemsizliğini yüzüne vuruyor. İçinde kıyas, utanç, suçluluk ve yeni bir karar var. Kendi hareketsizliğini görmek, bazen en sert harekettir.',
+
+      adimlar: [
+        {
+          no: 1,
+          tip: 'okuma',
+          metin: 'Rahat bir yere otur. Birkaç derin nefes al. Hazır olduğunda devam et.',
+        },
+        {
+          no: 2,
+          tip: 'yazma',
+          metin: 'Gözlerini kapat. Hamlet şu an nerede? Elsinore\'un dışında, açık bir alanda mı? Tek başına mı, askerlerle mi? Mekanı bul.',
+          soru: 'Neredesin?',
+        },
+        {
+          no: 3,
+          tip: 'yazma',
+          metin: 'Fortinbras, babasının onurunu savunmak için binlerce askeriyle harekete geçti. Sen hâlâ bekliyorsun. Bedeninde bu kıyas nereye değiyor?',
+          soru: 'Kıyas bedeninde nerede?',
+        },
+        {
+          no: 4,
+          tip: 'yazma',
+          metin: 'Ayağa kalk. Az önce hareketsiz duruyordun. Şimdi bu haberle bedenin ne yapmak istiyor? Kıpırdamak mı, donmak mı, yer değiştirmek mi?',
+          soru: 'Bedenin ne istiyor?',
+        },
+        {
+          no: 5,
+          tip: 'yazma',
+          metin: 'Otur. İçinde bir cümle dolaşıyor: "Ben neden duruyorum?" Bu cümleyi yargılamadan dinle. Bedenin nasıl tepki veriyor?',
+          soru: 'Cümleye tepki',
+        },
+        {
+          no: 6,
+          tip: 'vak',
+          vakSorulari: {
+            gorsel:    'Ufukta Fortinbras\'ın askerleri ilerliyor. Sen onları nasıl görüyorsun — küçücük figürler mi, kahraman bir kalabalık mı, anlamsız bir ölüm korosu mu?',
+            isitsel:   'Askerlerin ayak sesi, atların nal sesi var. Ama içindeki ses ne diyor? Onların sesini bastıracak kadar yüksek mi, yoksa onların altında bir uğultu mu?',
+            kinestetik:'Onlar yürüyor — sen duruyorsun. Bu fark bedeninde nereye düşüyor? Ayaklarına mı, midene mi, omuzlarına mı?',
+          },
+          soru: 'Ne buldun?',
+        },
+        {
+          no: 7,
+          tip: 'yazma',
+          metin: 'Şu cümleyi Hamlet olarak içinden geçir: "Binlerce asker… bir toprak parçası için. Peki ya ben? Babam için?" Bu cümle bir karar eşiği mi, yoksa bir suçlama mı?',
+          soru: 'Bu cümle ne?',
+        },
+        {
+          no: 8,
+          tip: 'yazma',
+          metin: 'Bu sahneden çıktığında Hamlet artık aynı Hamlet değil. Senin içinde bir karar şekillenmeye başladı mı? Henüz tam değil — ama bedenin bir tarafa eğiliyor mu?',
+          soru: 'Karar şekilleniyor mu?',
+        },
+        {
+          no: 9,
+          tip: 'cikis',
+          metin: 'Üç derin nefes al. Adını söyle. Buradasın. Hamlet\'in soruları orada — sen şimdi kendine döndün. Su iç. Birkaç dakika öylece otur.',
+        },
+      ],
+    },
+
+    // EGZERSİZ 7 — Ophelia'nın Kaybı
+    {
+      id: 'ophelia-kaybi',
+      no: 7,
+      baslik: 'Ophelia\'nın Kaybı',
+      altbaslik: 'Geri dönülemeyen bir sevgi',
+      sure: '25-30 dk',
+      seviye: 'İleri',
+      bagliSahne: '5.1',
+      travmaKategorileri: ['kayip', 'ahlaki_yara'],
       travmaSeviyesi: 3,
-      bagliSahne: '3.1-monolog',
-    },
-    {
-      id: 'cikis-sessizlik',
-      baslik: '"The Rest is Silence" — Çıkış',
-      sure: '15 dk', seviye: 'Ileri', ikon: '🕊️',
-      aciklama:
-        "Bu egzersiz Modül III'ün ön habercisidir — deroling. Hamlet'i içine aldın, taşıdın. Şimdi bırakma zamanı. Onu bırakmadan günlük hayata dönmek tehlikelidir.",
+
+      girisMetni: 'Bu egzersizde Hamlet\'in Ophelia\'nın ölümüne dair hissettiği anlara gideceğiz. Bu bir kayıp değil yalnızca; suçluluk, özlem, pişmanlık ve geri dönülemezlik duygusudur. Sevdiğini yitirdin — ve belki bunun bir parçası sendin.',
+
       adimlar: [
-        "Otur. Ayaklarını yere bas. Hamlet'in son nefesini bedeninden çıkar.",
-        '"The rest is silence" — bu cümle bir bitiş, bir kabul, bir özgürlük. Sen hangisini taşıyorsun?',
-        "Adını yüksek sesle söyle. Yaşını söyle. Bugünün tarihini söyle.",
-        "Etrafına bak — odanın ışığı, sıcaklığı, kokusu. Sen şimdi buradasın.",
-        "Macbeth'i bırakmadan kalkma. Su iç. Birkaç dakika öylece otur.",
+        {
+          no: 1,
+          tip: 'okuma',
+          metin: 'Bu egzersiz bir yas ve sarsıntı yerine götürüyor. Hazır olduğunda devam et. Acele etme.',
+        },
+        {
+          no: 2,
+          tip: 'yazma',
+          metin: 'Gözlerini kapat. Hamlet şu an nerede? Tek başına mı, başkalarıyla mı? Bir mezarlığın yakınında mısın? Mekanı bul.',
+          soru: 'Neredesin?',
+        },
+        {
+          no: 3,
+          tip: 'yazma',
+          metin: 'Ophelia artık yok. Onu yitirdin — hem de uzaklaşarak, koparak, anlamadan. Bu kaybın bedenine ilk değdiği yer neresi?',
+          soru: 'Kayıp nerede değdi?',
+        },
+        {
+          no: 4,
+          tip: 'yazma',
+          metin: 'Ayağa kalk. Bu yas postürünü değiştiriyor mu? Eğilmek mi, donup kalmak mı, başını ellerine almak mı? Sen tarif etme — bedeninde dene.',
+          soru: 'Yasın postürü',
+        },
+        {
+          no: 5,
+          tip: 'yazma',
+          metin: 'Otur. Kardeşi Laertes\'in gözlerinin içine bakıyorsun. Onda seni suçlayan bir şey var. Kendine bile açıklayamadığın bir duygunun ağırlığıyla yüzleşiyorsun. Bu ağırlık bedeninde nasıl?',
+          soru: 'Ağırlık nasıl?',
+        },
+        {
+          no: 6,
+          tip: 'vak',
+          vakSorulari: {
+            gorsel:    'Ophelia\'nın yüzünü zihninde görüyor musun? Hangi anı geliyor önce — son konuşmanız mı, ilk tanıştığınız mı, çiçeklerle dağıldığı an mı? Görüntü değişiyor mu?',
+            isitsel:   'Onun sesi senin için neye benziyor şimdi? Hatırladığın mı, son söylediği mi, yoksa hiç söylemediği bir şey mi?',
+            kinestetik:'Ona dokunduğunu hatırlıyor musun? O temas şimdi nerede yaşıyor bedeninde? Var mı hâlâ, yok mu?',
+          },
+          soru: 'Ne buldun?',
+        },
+        {
+          no: 7,
+          tip: 'yazma',
+          metin: 'Şu cümleyi Hamlet olarak içinde tekrarla: "Yüz bin kardeş kadar çok sevdim onu." Ama bu sevgi geç mi kaldı? Bu sorunun yankısı bedeninde nerede dolaşıyor?',
+          soru: 'Yankı nerede?',
+        },
+        {
+          no: 8,
+          tip: 'yazma',
+          metin: 'Ophelia artık yok. Sen hâlâ buradasın. İçinde patlamamış bir ağıt gibi biriken sessiz cümleler var. Bir tanesini söyle — Hamlet olarak, ona.',
+          soru: 'Ona ne söylersin?',
+        },
+        {
+          no: 9,
+          tip: 'cikis',
+          metin: 'Bu egzersiz derin bir yas yerine götürdü. Şimdi yavaşça geri dönüyoruz. Üç derin nefes al. Adını yüksek sesle söyle. Bugünün tarihini söyle. Etrafındaki üç şeyi say. Hamlet\'in yası orada — sen burada. Su iç. Birkaç dakika öylece otur. Bugün bitince fiziksel bir aktivite — yürüyüş, duş, biriyle sohbet — yapmak iyi gelecek.',
+        },
       ],
-      travmaSeviyesi: 0,
-      tipDeroling: true,
     },
+
+    // EGZERSİZ 8 — Mezarlık Yürüyüşü
+    {
+      id: 'mezarlik-yuruyusu',
+      no: 8,
+      baslik: 'Mezarlık Yürüyüşü',
+      altbaslik: 'Geçicilikle yüzleşme',
+      sure: '20-25 dk',
+      seviye: 'İleri',
+      bagliSahne: '5.1',
+      travmaKategorileri: ['kayip', 'varolussal'],
+      travmaSeviyesi: 3,
+
+      girisMetni: 'Bu egzersizde Hamlet\'in mezarlıkta yürürken, bir kafatasını elinde tutarken yaşadığı içsel duruma gideceğiz. Bu yalnızca bir ölümle yüzleşme değil; hayatın geçiciliğini, zamanın acımasız ilerleyişini ve varoluşun kırılganlığını hissetme ânı. Burada kimin sonu yok ki?',
+
+      adimlar: [
+        {
+          no: 1,
+          tip: 'okuma',
+          metin: 'Bu egzersiz varoluşsal bir derinleşme. Hazır olduğunda devam et. Acele etme.',
+        },
+        {
+          no: 2,
+          tip: 'yazma',
+          metin: 'Gözlerini kapat. Hamlet bir mezarlıkta. Mekanı bul. Hangi mevsim, hangi saat, ne kadar yalnız?',
+          soru: 'Neredesin?',
+        },
+        {
+          no: 3,
+          tip: 'yazma',
+          metin: 'Toprak kazılıyor. Eski bir kafatası elinden alındı. Bu kafatasını tanıyorsun — Yorick. Çocukluğunun soytarısı. Eline aldığında bedenin ne yapıyor?',
+          soru: 'Bedenin ne yapıyor?',
+        },
+        {
+          no: 4,
+          tip: 'yazma',
+          metin: 'Ayağa kalk. Eline gerçekmiş gibi bir kafatası tut — hayalde, ya da elinde başka bir nesneyle. Kafatasını taşımak postürünü değiştiriyor mu? Ağırlık ne kadar? Boyun mu, kollar mı taşıyor?',
+          soru: 'Postür ve ağırlık',
+        },
+        {
+          no: 5,
+          tip: 'yazma',
+          metin: 'Otur. Şimdi bu kemiklere, geçmişe ve kayıplara bakıyorsun. Ama asıl baktığın şey kendi geçiciliğin. Bu geçicilik bedeninde nerede yankılanıyor?',
+          soru: 'Geçicilik nerede?',
+        },
+        {
+          no: 6,
+          tip: 'vak',
+          vakSorulari: {
+            gorsel:    'Yorick\'in yüzünü hatırlıyor musun çocukken? O canlı yüzü ile şu kemikli kafatasını yan yana koyabiliyor musun zihninde? Aralarındaki dönüşümü görüyor musun?',
+            isitsel:   'Yorick gülüyordu, şakalar yapıyordu. Şimdi sessizlik. Bu sessizlik bir yokluk mu, bir doluluk mu? İçindeki ses ne diyor?',
+            kinestetik:'Kafatasının ağırlığı, dokusu, soğukluğu. Bedenin onu tutmaktan ne hissediyor? Ürperti mi, kabullenme mi, merak mı?',
+          },
+          soru: 'Ne buldun?',
+        },
+        {
+          no: 7,
+          tip: 'yazma',
+          metin: 'Şu cümleyi Hamlet olarak içinde söyle: "Burada kimin sonu yok ki?" Bu bir soru mu, bir kabullenme mi, bir teslimiyet mi?',
+          soru: 'Bu cümle ne?',
+        },
+        {
+          no: 8,
+          tip: 'yazma',
+          metin: 'Şimdi kafatasını yere bırak. Bedenine bak — sende ne kaldı? Bir hafiflik mi, bir ağırlık mı, bir sessizlik mi?',
+          soru: 'Sende ne kaldı?',
+        },
+        {
+          no: 9,
+          tip: 'cikis',
+          metin: 'Bu egzersiz geçicilik üzerine bir sorgulamaydı. Şimdi yavaşça geri dönüyoruz. Üç derin nefes al. Adını yüksek sesle söyle. Bugünün tarihini söyle. Yaşıyorsun, buradasın. Etrafındaki üç şeyi say. Hamlet\'in mezarlığı orada — sen burada. Su iç. Birkaç dakika öylece otur. Bugün bitince fiziksel bir aktivite yapmak iyi gelecek.',
+        },
+      ],
+    },
+
+    // EGZERSİZ 9 — Düello Öncesi Hazırlık
+    {
+      id: 'duello-oncesi',
+      no: 9,
+      baslik: 'Düello Öncesi Hazırlık',
+      altbaslik: 'Sessiz son hazırlık',
+      sure: '20-25 dk',
+      seviye: 'İleri',
+      bagliSahne: '5.2',
+      travmaKategorileri: ['varolussal', 'ahlaki_yara'],
+      travmaSeviyesi: 2,
+
+      girisMetni: 'Bu egzersizde Hamlet\'in düelloya çıkmadan önceki içsel hazırlık ânına gideceğiz. Bu bir ölüm kabullenişi değil — bir hesaplaşma, bir vedalaşma, bir teslimiyet hâli. Artık her şey hazır. Şimdi olan, sadece senin içinde olan.',
+
+      adimlar: [
+        {
+          no: 1,
+          tip: 'okuma',
+          metin: 'Rahat bir yere otur. Birkaç derin nefes al. Hazır olduğunda devam et.',
+        },
+        {
+          no: 2,
+          tip: 'yazma',
+          metin: 'Gözlerini kapat. Hamlet düello alanında. Etrafındakiler kim — Claudius, annen, Horatio? Hepsi yerinde. Mekanı bul.',
+          soru: 'Neredesin?',
+        },
+        {
+          no: 3,
+          tip: 'yazma',
+          metin: 'Bütün yolculuk seni buraya getirdi. Hayalet, Fare Kapanı, Ophelia, mezarlık… hepsi şu âna doğru aktı. Bu âna varman bedeninde nasıl bir his?',
+          soru: 'Buraya gelmek nasıl?',
+        },
+        {
+          no: 4,
+          tip: 'yazma',
+          metin: 'Ayağa kalk. Düelloya çıkacaksın. Bu, kasları geren bir hazırlık mı, yoksa garip bir gevşeme mi? Bedenin kavgaya mı, kabullenmeye mi hazırlanıyor?',
+          soru: 'Beden ne hazırlıyor?',
+        },
+        {
+          no: 5,
+          tip: 'yazma',
+          metin: 'Otur. İçinde garip bir sessizlik var. Belki bir barış. Daha önce hep sorgulayan, hep konuşan, hep çatışan Hamlet\'in içinde şimdi sadece bu sessizlik. Bu sessizlik nerede oturuyor?',
+          soru: 'Sessizlik nerede?',
+        },
+        {
+          no: 6,
+          tip: 'vak',
+          vakSorulari: {
+            gorsel:    'Bu sessizliğin bir görüntüsü var mı? Bir göl yüzeyi, bir karanlık oda, bir açık ufuk, bir kapanan göz?',
+            isitsel:   'Etrafta sesler var — Claudius\'un sesi, Laertes\'in nefesi, kalabalığın mırıltısı. Ama içindeki ses ne diyor? Yoksa hiç ses yok mu?',
+            kinestetik:'Bedenin teslim mi, hazır mı? Kılıç elinde nasıl bir ağırlık? Kollarında titreme mi, sabitlik mi?',
+          },
+          soru: 'Ne buldun?',
+        },
+        {
+          no: 7,
+          tip: 'yazma',
+          metin: 'Şu cümleyi Hamlet olarak zihninden geçir: "Olacak olan olur." Bu bir teslimiyet mi, bir bilgelik mi, bir yorgunluk mu? Hangi tonu var sende?',
+          soru: 'Cümlenin tonu',
+        },
+        {
+          no: 8,
+          tip: 'yazma',
+          metin: 'Düelloya başlamadan önce son bir an. Bedenin son hâlini hisset. Hamlet olarak şu an söyleyebileceğin son cümle ne olurdu — sessizce, kendine?',
+          soru: 'Son cümle',
+        },
+        {
+          no: 9,
+          tip: 'cikis',
+          metin: 'Üç derin nefes al. Hamlet o eşikte — sen şimdi kendine döndün. Adını yüksek sesle söyle. Buradasın, yaşıyorsun. Su iç. Birkaç dakika öylece otur.',
+        },
+      ],
+    },
+
   ],
 };
 

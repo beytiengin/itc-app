@@ -184,3 +184,93 @@ export async function tumBoslukYansimalariniGetir() {
     return [];
   }
 }
+
+// ─── ANTRENMAN YANSIMALARI (Zihinsel Antrenman adımları) ────────────────────
+//
+// `antrenman_yansimalari` tablosuna yazma/okuma. Her antrenman içinde adım
+// adım ilerleyen yazma alanları olur — adim_no ile ayrılır.
+
+/**
+ * Bir antrenmanın belirli bir adımı için yansıma kaydet (UPSERT).
+ * @param {string} karakterId
+ * @param {string} antrenmanId
+ * @param {number} adimNo
+ * @param {string} metin
+ * @returns {{veri?: any, hata?: string}}
+ */
+export async function antrenmanAdimiKaydet(karakterId, antrenmanId, adimNo, metin) {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return { hata: 'Giris yapilmamis' };
+
+    const { data, error } = await supabase
+      .from('antrenman_yansimalari')
+      .upsert(
+        {
+          kullanici_id: user.id,
+          karakter_id: karakterId,
+          antrenman_id: antrenmanId,
+          adim_no: adimNo,
+          metin: metin,
+          son_guncelleme: new Date().toISOString(),
+        },
+        {
+          onConflict: 'kullanici_id,karakter_id,antrenman_id,adim_no',
+        }
+      );
+
+    if (error) return { hata: error.message };
+    return { veri: data };
+  } catch (e) {
+    return { hata: e?.message || 'Bilinmeyen hata' };
+  }
+}
+
+/**
+ * Bir antrenmanın tüm adımlarındaki yansımaları getir.
+ * @param {string} karakterId
+ * @param {string} antrenmanId
+ * @returns {{yansimalar: Object<number, {metin: string, son_guncelleme: string}>, hata?: string}}
+ */
+export async function antrenmanYansimalariniGetir(karakterId, antrenmanId) {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return { hata: 'Giris yapilmamis', yansimalar: {} };
+
+    const { data, error } = await supabase
+      .from('antrenman_yansimalari')
+      .select('adim_no, metin, son_guncelleme')
+      .eq('kullanici_id', user.id)
+      .eq('karakter_id', karakterId)
+      .eq('antrenman_id', antrenmanId)
+      .order('adim_no', { ascending: true });
+
+    if (error) return { hata: error.message, yansimalar: {} };
+
+    const yansimalar = {};
+    (data || []).forEach((y) => {
+      yansimalar[y.adim_no] = { metin: y.metin, son_guncelleme: y.son_guncelleme };
+    });
+
+    return { yansimalar };
+  } catch (e) {
+    return { hata: e?.message || 'Bilinmeyen hata', yansimalar: {} };
+  }
+}
+
+/**
+ * Yarıda kalmış antrenman için son yazılmış adım numarasını getir.
+ * Hiç yansıma yoksa 0 döner.
+ * @param {string} karakterId
+ * @param {string} antrenmanId
+ * @returns {{sonAdim: number}}
+ */
+export async function antrenmanSonAdiminiGetir(karakterId, antrenmanId) {
+  const { yansimalar, hata } = await antrenmanYansimalariniGetir(karakterId, antrenmanId);
+  if (hata) return { sonAdim: 0 };
+
+  const adimNumaralari = Object.keys(yansimalar).map(Number);
+  if (adimNumaralari.length === 0) return { sonAdim: 0 };
+
+  return { sonAdim: Math.max(...adimNumaralari) };
+}

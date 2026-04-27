@@ -57,6 +57,7 @@ const willy = {
       icDurum: '"Olmuyor. Bu sefer olmadı." Yorgunluk ama kabul edemediği bir yorgunluk.',
       bosluk: 'Yolda neden geri döndü? Hangi an karar verdi?',
       travmaKategorileri: ['zihinsel_kirilma'], travmaSeviyesi: 1,
+      kritikMi: false,
     },
     {
       id: 'a1-cocukluk', perde: 1,
@@ -65,6 +66,7 @@ const willy = {
       icDurum: 'Bu anılar Willy için gerçek — şu andan daha gerçek.',
       bosluk: 'Bu hatıraya ne tetikledi? Hangi ses, koku, görüntü?',
       travmaKategorileri: ['cocukluk'], travmaSeviyesi: 1,
+      kritikMi: false,
     },
     {
       id: 'a1-charley-ben', perde: 1,
@@ -73,6 +75,7 @@ const willy = {
       icDurum: 'Şu an ile bellek arasındaki sınır siliniyor. İki kişiyle aynı anda konuşuyor.',
       bosluk: 'Ben gittiğinde, Charley ona ne dedi? Willy ne duydu?',
       travmaKategorileri: ['zihinsel_kirilma'], travmaSeviyesi: 2,
+      kritikMi: true,
     },
     {
       id: 'a1-linda', perde: 1,
@@ -81,6 +84,7 @@ const willy = {
       icDurum: 'Willy bunu duymuyor — sahnedeki o değil. Ama oyuncu olarak biliyorsun: bu söyleniyor.',
       bosluk: 'Linda hortumu bulduğu an ne hissetti? Willy\'ye söyleyebilir miydi?',
       travmaKategorileri: ['varolussal'], travmaSeviyesi: 2,
+      kritikMi: false,
     },
     {
       id: 'a1-boston-onces', perde: 1,
@@ -89,6 +93,7 @@ const willy = {
       icDurum: 'Yalnızlık bahanesi. "Sadece arkadaşım." Ama biliyor — daha fazlası olacak.',
       bosluk: 'O ilk Boston yolculuğundan önce Linda\'nın yüzüne bakabildi mi?',
       travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 1,
+      kritikMi: false,
     },
     {
       id: 'a2-yenigun', perde: 2,
@@ -97,6 +102,7 @@ const willy = {
       icDurum: 'Bir kez daha umut. Ama altta titreyen bir şey var. Howard\'a gideceğini hatırlıyor.',
       bosluk: 'Linda gözlerinin içine baktığında — gerçek olan ne kadar yansıdı?',
       travmaKategorileri: ['varolussal'], travmaSeviyesi: 1,
+      kritikMi: false,
     },
     {
       id: 'a2-howard', perde: 2,
@@ -105,6 +111,7 @@ const willy = {
       icDurum: '"Babanı tanıyordum, bana söz verdi" — geçmişe sığınma. Ama Howard duymuyor. "İş = kimlik" çöküyor.',
       bosluk: 'Ofisten çıktığında ilk gittiği yer neresi? Sokakta yürüdü mü?',
       travmaKategorileri: ['ahlaki_yara', 'varolussal'], travmaSeviyesi: 3,
+      kritikMi: true,
     },
     {
       id: 'a2-ben-alaska', perde: 2,
@@ -113,6 +120,7 @@ const willy = {
       icDurum: 'Bu hatıra şimdi acıtıyor. "Gitseydim — başka bir adam olurdum."',
       bosluk: 'O an Linda\'nın "kal" demesine niye uydu? Şimdi pişman mı?',
       travmaKategorileri: ['kayip'], travmaSeviyesi: 1,
+      kritikMi: false,
     },
     {
       id: 'a2-charley-ofis', perde: 2,
@@ -121,6 +129,7 @@ const willy = {
       icDurum: '"Sen benim tek dostumsun" — itiraf. Ama "iş alamam senden" — gurur.',
       bosluk: 'Charley\'nin ofisinden çıkarken cebindeki parayı — sayar mıydı, saymaz mıydı?',
       travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 2,
+      kritikMi: false,
     },
     {
       id: 'a2-boston', perde: 2,
@@ -129,6 +138,7 @@ const willy = {
       icDurum: 'O an gerçek bir an. Willy bunu unutamıyor — ne kadar bastırırsa bastırsın.',
       bosluk: 'Biff koşarak çıktıktan sonra odada, kadınla — ne söyleyebildi?',
       travmaKategorileri: ['ihanet', 'ahlaki_yara'], travmaSeviyesi: 3,
+      kritikMi: true,
     },
     {
       id: 'a2-restoran', perde: 2,
@@ -137,6 +147,7 @@ const willy = {
       icDurum: 'Yalnızlık. Tuvalette ayna karşısında. Boston o anda geri geliyor.',
       bosluk: 'Tuvaletten çıkıp restoran kapısından sokağa adım attığında — kim olduğunu biliyor mu?',
       travmaKategorileri: ['ihanet', 'kayip'], travmaSeviyesi: 2,
+      kritikMi: false,
     },
     {
       id: 'a2-bahce', perde: 2,
@@ -145,6 +156,7 @@ const willy = {
       icDurum: '"Adam dünyada bir iz bırakmalı." Tohum onun için bir umut değil — bir teselli.',
       bosluk: 'Bahçedeyken Ben\'le konuşuyor — ne anlattı, ne sordu, ne karar verdi?',
       travmaKategorileri: ['varolussal'], travmaSeviyesi: 2,
+      kritikMi: true,
     },
     {
       id: 'a2-son-yuzlesme', perde: 2,
@@ -153,6 +165,7 @@ const willy = {
       icDurum: '"He likes me — he likes me!" Yanlış anlama. Sevgiyi başarı olarak okuyor.',
       bosluk: 'Biff yataklara çekildikten sonra Willy bahçeye çıktığı an.',
       travmaKategorileri: ['ahlaki_yara', 'kayip'], travmaSeviyesi: 3,
+      kritikMi: true,
     },
     {
       id: 'a2-son', perde: 2,
@@ -161,6 +174,7 @@ const willy = {
       icDurum: 'Son hesap. Bu intihar değil — ona göre fedakarlık. Son satış.',
       bosluk: 'Arabaya binmeden önce evde son kez baktığı bir şey vardı mı?',
       travmaKategorileri: ['varolussal', 'siddet'], travmaSeviyesi: 3,
+      kritikMi: true,
     },
   ],
 
@@ -372,146 +386,10 @@ const willy = {
     },
   ],
 
-  // ─── EGZERSİZLER ──────────────────────────────────────────────────────────
+  // ─── ZİHİNSEL ANTRENMANLAR ────────────────────────────────────────────────
+  // Bu karakter için zihinsel antrenmanlar yakında.
 
-  egzersizler: [
-    {
-      id: 'baseline',
-      baslik: 'Baseline Kurma',
-      sure: '10 dk', seviye: 'Giris', ikon: '🛤️',
-      aciklama:
-        "Genç Willy. Yola çıkıyor. Brooklyn arkasında. Linda hamile, çocuklar yeni doğmuş. Henüz başarısızlık yok, henüz Boston yok, henüz yorgun değil.",
-      adimlar: [
-        'Gözlerini kapat. Sen Brooklyn\'desin, ama yola çıkmak üzeresin.',
-        'Çantanı topluyorsun. İçinde örnek ürünler var. {duyu}?',
-        'Linda kapıda seni uğurluyor. Yüzü genç. Bir şey diyor sana — ne diyor?',
-        'Bu Willy\'yi tut. Buraya istediğin an dönebilirsin.',
-      ],
-      travmaSeviyesi: 0,
-    },
-    {
-      id: 'dogrular',
-      baslik: 'Değiştirilemez Doğrular Taraması',
-      sure: '15 dk', seviye: 'Temel', ikon: '🗺️',
-      aciklama:
-        "Willy\'nin metinden gelen sabit gerçeklerini bedenine yedir. Yorum değil — zemin.",
-      adimlar: [
-        'Listeyi yavaşça oku. Acele etme.',
-        'Her madde için içinden bir cevap ver: "Evet, biliyorum."',
-        'Sürpriz yaratan bir madde var mı? Onu daha uzun tut.',
-        '"Willy bunların hepsini taşıyarak sahneye giriyor."',
-      ],
-      travmaSeviyesi: 0,
-    },
-    {
-      id: 'iliski-linda',
-      baslik: 'İlişki Haritası: Linda',
-      sure: '20 dk', seviye: 'Orta', ikon: '🌾',
-      aciklama:
-        "Linda — onu yıllardır taşıyan, koruyan, gören. Willy\'nin yanılsamalarına izin veren ama gerçeği de bilen kadın. Bu ilişki sadece sevgi değil — bir komplo.",
-      adimlar: [
-        'İlk Linda nasıl görünüyordu — genç haliyle? {ipucu}',
-        'Linda gaz hortumunu bulduğu an — sana doğrudan söyleyebilir miydi?',
-        'A2\'de Linda oğullarına "babanız bir insan, dikkat edin" derken — bu seni koruyor mu, yargılıyor mu?',
-        'Cenazedeki "free, free, free" — sevgi mi, kabul mu, yorgunluk mu?',
-      ],
-      travmaSeviyesi: 2,
-    },
-    {
-      id: 'iliski-biff',
-      baslik: 'İlişki Haritası: Biff',
-      sure: '25 dk', seviye: 'Orta', ikon: '⚾',
-      aciklama:
-        "En büyük yara burada. Biff hem mirası, hem yansıması, hem yargılayıcısı. Boston\'dan sonra hiç aynı olmadılar — ama Willy bu farkı tam olarak göremedi.",
-      adimlar: [
-        'Biff küçükken — Ebbets Stadyumu, sahada zaferi. {ipucu}',
-        'Boston\'dan sonra Biff\'in yüzüne ilk kez baktığın an.',
-        'A2\'de Biff "ben hiçbir şeyim" derken — sevgi mi gördün, yenilgi mi?',
-        '"He likes me!" — niye sevgiyi sadece bu kadar dolaylı kabul edebilirsin?',
-      ],
-      travmaSeviyesi: 3,
-    },
-    {
-      id: 'kararlar-odasi',
-      baslik: 'Kararlar Odası',
-      sure: '30 dk', seviye: 'Ileri', ikon: '⚖️',
-      aciklama:
-        "Willy\'nin hayatındaki üç büyük karar anı. Sen önce kendi seçimini yap, sonra onunkiyle karşılaş.",
-      kararlar: [
-        {
-          id: 'k-boston',
-          sahne: 'Boston otel',
-          kurulum: 'Otel odasındasın. Kadın yanında. Kapı çalıyor. Biff\'in sesi: "Baba!"',
-          yollar: [
-            { id: 'sakla', metin: 'Kadını banyoya sakla, kapıyı aç' },
-            { id: 'sus', metin: 'Sus, kapıyı açma — Biff gitsin' },
-            { id: 'gercegi', metin: 'Kapıyı aç, gerçeği söyle' },
-          ],
-          yansimaSorusu: 'Bu kararı verirken — Biff\'i mi düşündün, kendini mi, kadını mı?',
-          tarihselCevap: 'Willy kadını banyoya gizlemeye çalıştı, kapıyı açtı — ama saklayamadı. Biff kadını gördü. Willy "o senin annenin değişmesi gerekiyordu, sadece bir alıcı" diye açıklamaya çalıştı. Bu yalan tutmadı.',
-          farkSorusu: 'Sen "gerçeği söyle" yi seçebildin mi? Yoksa Willy\'nin saklama refleksi sende de var mı?',
-        },
-        {
-          id: 'k-howard',
-          sahne: 'Howard ofiste',
-          kurulum: 'Howard ses kayıt cihazıyla oynuyor. Sen masa başında. "Howard, biraz konuşalım."',
-          yollar: [
-            { id: 'yalvar', metin: 'Yalvar — geçmişe sığın, "babanı tanıyordum"' },
-            { id: 'kibirle', metin: 'Kibirle çık — "ben de senin gibi başarılıydım"' },
-            { id: 'cik', metin: 'Sessizce çık — onuru koru' },
-          ],
-          yansimaSorusu: 'Bu odaya girerken kim olduğunu sanıyordun? Çıkarken kim oldun?',
-          tarihselCevap: 'Willy yalvardı. Geçmişi anlattı. Howard\'ın babasıyla geçirdiği yılları anımsattı. Howard duymadı — kayıt cihazını dinlemekle meşguldü. Willy küçüldü. Sonunda "git biraz dinlen" diye kovuldu.',
-          farkSorusu: 'Sen yalvarabilir miydin? Yoksa onurunu kurtarmak için çıkmayı seçer miydin?',
-        },
-        {
-          id: 'k-son',
-          sahne: 'Son gece',
-          kurulum: 'Bahçede. Ben hayaleti yanında. "Yirmi bin dolar — Biff için elmas." Araba garajda.',
-          yollar: [
-            { id: 'arabaya', metin: 'Arabaya bin — fedakarlığı yap' },
-            { id: 'eve', metin: 'Eve gir — Linda\'ya git, "yarın bakacağız" de' },
-            { id: 'durup', metin: 'Bahçede dur — sabaha kadar bekle' },
-          ],
-          yansimaSorusu: 'Bu son seçimi yaparken — sevgiyle mi, yorgunlukla mı, yoksa yanılsamayla mı verdin?',
-          tarihselCevap: 'Willy arabaya bindi. Ben\'le konuşa konuşa. "Elmas" metaforu son ana kadar onunlaydı. Bu intihar değil — onun gözünde son satıştı. Linda cenazede borcu kapattıklarını söyledi: "Bu eve borcumuz bitti. Free, free, free."',
-          farkSorusu: 'Willy\'nin gözünde bu fedakarlıktı. Senin için — senin oynadığın Willy için — neydi?',
-        },
-      ],
-      travmaSeviyesi: 2,
-    },
-    {
-      id: 'yanilsama',
-      baslik: '"Yanılsama Çözülüyor"',
-      sure: '15 dk', seviye: 'Ileri', ikon: '🪞',
-      aciklama:
-        "Willy gerçekle çarpıştığı anlarda kırılır. Bu egzersiz onun yanılsama-gerçek geçişlerini bedenine alır.",
-      adimlar: [
-        'Otur. "Ben Willy Loman\'ım. İyi bir satıcıyım." cümlesini söyle. Bedeninde {duyu}?',
-        'Şimdi: "Howard beni kovdu." Aynı bedensel zemini koruyabiliyor musun?',
-        '"Biff beni sevmiyor mu?" — kendine yüksek sesle sor. {yansimaSorusu}',
-        '"He likes me, he likes me" — bu cümleyi üç kez söyle. Her seferinde farklı.',
-        'Son olarak: "Ben kimim?" — boş bir cümle. Cevap arama.',
-      ],
-      travmaSeviyesi: 2,
-    },
-    {
-      id: 'cikis-mezar',
-      baslik: '"Mezarda" — Çıkış',
-      sure: '15 dk', seviye: 'Ileri', ikon: '🕊️',
-      aciklama:
-        "Modül III\'ün ön habercisi — deroling. Willy\'yi içine aldın. Ölümünü taşıdın. Şimdi onu bırakma zamanı.",
-      adimlar: [
-        'Otur. Ayaklarını yere bas. Willy\'nin son nefesini bedeninden çıkar.',
-        '"Free, free, free" — Linda\'nın cümlesini sen söyle. Willy için — ve kendin için.',
-        'Adını yüksek sesle söyle. Yaşını söyle. Bugünün tarihini söyle.',
-        'Etrafına bak — odanın ışığı, sıcaklığı, kokusu. Sen şimdi buradasın.',
-        'Willy\'yi bırakmadan kalkma. Su iç. Birkaç dakika öylece otur.',
-      ],
-      travmaSeviyesi: 0,
-      tipDeroling: true,
-    },
-  ],
+  antrenmanlar: [],
 };
 
 export default willy;
