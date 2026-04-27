@@ -21,6 +21,7 @@ import {
   tamamlananEgzersizleriGetir,
 } from '../app/lib/kulis';
 import TopraklanmaModu from './TopraklanmaModu';
+import IlerlemeRozet from './IlerlemeRozet';
 
 const TON = '#9b7a6a';
 const TON_HOVER = '#4a3a2f';
@@ -337,8 +338,11 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
       <>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <BasligaSection
-            sayim={`${tamamSayisi}/${antrenmanlar.length} Antrenman`}
+            sayim={`${antrenmanlar.length} Antrenman`}
             alt="Karaktere bedenden ve zihinden giriş."
+            mevcut={tamamSayisi}
+            toplam={antrenmanlar.length}
+            renk={TON}
           />
 
           {!vakBaskini && (
@@ -737,9 +741,10 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
 
 // ─── BAŞLIK BÖLÜMÜ ──────────────────────────────────────────────────────────
 
-function BasligaSection({ sayim, alt }) {
+function BasligaSection({ sayim, alt, mevcut, toplam, renk }) {
+  const rozetGoster = typeof toplam === 'number' && toplam > 0;
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
         <span
           style={{
@@ -782,6 +787,9 @@ function BasligaSection({ sayim, alt }) {
         >
           {alt}
         </p>
+      )}
+      {rozetGoster && (
+        <IlerlemeRozet mevcut={mevcut} toplam={toplam} renk={renk || TON} />
       )}
     </div>
   );

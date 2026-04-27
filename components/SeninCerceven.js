@@ -9,6 +9,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { sahneErisimi } from '../app/lib/travma';
 import { boslukYansimasiKaydet, boslukYansimalariniGetir } from '../app/lib/kulis';
+import IlerlemeRozet from './IlerlemeRozet';
 
 const TON = '#7a9b7a';
 const TON_HOVER = '#3a4a3a';
@@ -81,7 +82,7 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
         <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
           <span
             style={{
@@ -105,7 +106,7 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
               textTransform: 'uppercase',
             }}
           >
-            {yazilanSayisi}/{toplam} Alan
+            {toplam} Alan
           </span>
         </div>
         <p
@@ -121,6 +122,7 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
         >
           Yazarın sustuğu yerler — sen yazıyorsun.
         </p>
+        <IlerlemeRozet mevcut={yazilanSayisi} toplam={toplam} renk={TON} />
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>

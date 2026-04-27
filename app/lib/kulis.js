@@ -274,3 +274,94 @@ export async function antrenmanSonAdiminiGetir(karakterId, antrenmanId) {
 
   return { sonAdim: Math.max(...adimNumaralari) };
 }
+
+// ─── İLERLEME SAYIMLARI ─────────────────────────────────────────────────────
+//
+// Karakter listesi sayfası ve rozet gösterimleri için kişisel ilerleme.
+
+/**
+ * Bir karakter için yazılan boşluk sayısı (metni boş olmayan kayıtlar).
+ * @param {string} karakterId
+ * @returns {Promise<number>}
+ */
+export async function karakterBoslukSayisi(karakterId) {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return 0;
+
+    const { count, error } = await supabase
+      .from('bosluk_yansimalari')
+      .select('*', { count: 'exact', head: true })
+      .eq('kullanici_id', user.id)
+      .eq('karakter_id', karakterId)
+      .not('metin', 'is', null)
+      .neq('metin', '');
+
+    if (error) return 0;
+    return count || 0;
+  } catch (e) {
+    return 0;
+  }
+}
+
+/**
+ * Bir karakter için tamamlanan antrenman sayısı.
+ * @param {string} karakterId
+ * @returns {Promise<number>}
+ */
+export async function karakterAntrenmanSayisi(karakterId) {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return 0;
+
+    const { count, error } = await supabase
+      .from('tamamlanan_egzersizler')
+      .select('*', { count: 'exact', head: true })
+      .eq('kullanici_id', user.id)
+      .eq('karakter_id', karakterId);
+
+    if (error) return 0;
+    return count || 0;
+  } catch (e) {
+    return 0;
+  }
+}
+
+/**
+ * Tüm karakterler için ilerleme bilgisini tek seferde getir (karakter listesi
+ * sayfası için performans optimizasyonu — 4 ayrı sorgu yerine 2).
+ * @returns {Promise<Object<string, {bosluk: number, antrenman: number}>>}
+ */
+export async function tumKarakterIlerlemeleri() {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return {};
+
+    const [bosluklarRes, antrenmanlarRes] = await Promise.all([
+      supabase
+        .from('bosluk_yansimalari')
+        .select('karakter_id, metin')
+        .eq('kullanici_id', user.id)
+        .not('metin', 'is', null)
+        .neq('metin', ''),
+      supabase
+        .from('tamamlanan_egzersizler')
+        .select('karakter_id')
+        .eq('kullanici_id', user.id),
+    ]);
+
+    const sonuc = {};
+    (bosluklarRes.data || []).forEach((b) => {
+      if (!sonuc[b.karakter_id]) sonuc[b.karakter_id] = { bosluk: 0, antrenman: 0 };
+      sonuc[b.karakter_id].bosluk++;
+    });
+    (antrenmanlarRes.data || []).forEach((a) => {
+      if (!sonuc[a.karakter_id]) sonuc[a.karakter_id] = { bosluk: 0, antrenman: 0 };
+      sonuc[a.karakter_id].antrenman++;
+    });
+
+    return sonuc;
+  } catch (e) {
+    return {};
+  }
+}

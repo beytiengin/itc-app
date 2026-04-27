@@ -1,6 +1,58 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+import { tumKarakterIlerlemeleri } from '../../lib/kulis';
+import IlerlemeRozet from '../../../components/IlerlemeRozet';
+
+const KARAKTER_META = {
+  hamlet: { boslukSayisi: 12, antrenmanSayisi: 9 },
+  macbeth: { boslukSayisi: 12, antrenmanSayisi: 8 },
+  willy: { boslukSayisi: 12, antrenmanSayisi: 7 },
+  biff: { boslukSayisi: 12, antrenmanSayisi: 6 },
+};
+
+function IlerlemeBloku({ karakterId, ilerlemeler }) {
+  const meta = KARAKTER_META[karakterId];
+  if (!meta) return null;
+  const veri = ilerlemeler[karakterId] || { bosluk: 0, antrenman: 0 };
+  return (
+    <div style={{
+      marginTop: '1rem',
+      paddingTop: '1rem',
+      borderTop: '1px solid #1a1a1a',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '0.6rem',
+    }}>
+      <IlerlemeRozet
+        ikon="◇"
+        etiket="Senin Çerçeven"
+        mevcut={veri.bosluk}
+        toplam={meta.boslukSayisi}
+        renk="#7a9b7a"
+      />
+      <IlerlemeRozet
+        ikon="○"
+        etiket="Zihinsel Antrenman"
+        mevcut={veri.antrenman}
+        toplam={meta.antrenmanSayisi}
+        renk="#9b7a6a"
+      />
+    </div>
+  );
+}
+
 export default function KarakterListesi() {
+  const [ilerlemeler, setIlerlemeler] = useState({});
+
+  useEffect(() => {
+    async function veriYukle() {
+      const veri = await tumKarakterIlerlemeleri();
+      setIlerlemeler(veri);
+    }
+    veriYukle();
+  }, []);
+
   return (
     <main style={{ minHeight: '100vh', backgroundColor: '#0a0a0a', color: '#f0ede8', display: 'flex', flexDirection: 'column' }}>
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2rem 3rem', borderBottom: '1px solid #2a2a2a' }}>
@@ -38,7 +90,7 @@ export default function KarakterListesi() {
                 <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: '#f0ede8', lineHeight: 1 }}>Hamlet</span>
                 <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: '#c9a96e', letterSpacing: '0.1em' }}>William Shakespeare</span>
               </div>
-              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>7 Egzersiz</span>
+              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>9 Antrenman</span>
             </div>
             <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: '#888', lineHeight: 1.7, margin: 0 }}>
               Yas, ihanet ve varoluşsal sorgulama. Düşünce ile eylem arasında sıkışmış bir prensin görünmeyen yolculuğu.
@@ -48,6 +100,7 @@ export default function KarakterListesi() {
                 <span key={tag} style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.15em', color: '#555', textTransform: 'uppercase', padding: '0.2rem 0.6rem', border: '1px solid #2a2a2a' }}>{tag}</span>
               ))}
             </div>
+            <IlerlemeBloku karakterId="hamlet" ilerlemeler={ilerlemeler} />
           </a>
 
           {/* Macbeth */}
@@ -60,7 +113,7 @@ export default function KarakterListesi() {
                 <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: '#f0ede8', lineHeight: 1 }}>Macbeth</span>
                 <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: '#c9a96e', letterSpacing: '0.1em' }}>William Shakespeare</span>
               </div>
-              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>7 Egzersiz</span>
+              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>8 Antrenman</span>
             </div>
             <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: '#888', lineHeight: 1.7, margin: 0 }}>
               İktidar hırsı, suçluluk ve paranoya. İskoçya'nın en cesur generali — ve en büyük hainlerinden biri.
@@ -70,6 +123,7 @@ export default function KarakterListesi() {
                 <span key={tag} style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.15em', color: '#555', textTransform: 'uppercase', padding: '0.2rem 0.6rem', border: '1px solid #2a2a2a' }}>{tag}</span>
               ))}
             </div>
+            <IlerlemeBloku karakterId="macbeth" ilerlemeler={ilerlemeler} />
           </a>
 
           {/* Willy Loman */}
@@ -82,7 +136,7 @@ export default function KarakterListesi() {
                 <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: '#f0ede8', lineHeight: 1 }}>Willy Loman</span>
                 <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: '#c9a96e', letterSpacing: '0.1em' }}>Arthur Miller</span>
               </div>
-              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>7 Egzersiz</span>
+              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>7 Antrenman</span>
             </div>
             <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: '#888', lineHeight: 1.7, margin: 0 }}>
               Yanılsama ve kimlik çöküşü. Geçmiş ile şimdinin aynı anda yaşandığı bir zihin.
@@ -92,6 +146,7 @@ export default function KarakterListesi() {
                 <span key={tag} style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.15em', color: '#555', textTransform: 'uppercase', padding: '0.2rem 0.6rem', border: '1px solid #2a2a2a' }}>{tag}</span>
               ))}
             </div>
+            <IlerlemeBloku karakterId="willy" ilerlemeler={ilerlemeler} />
           </a>
 
           {/* Biff Loman */}
@@ -104,7 +159,7 @@ export default function KarakterListesi() {
                 <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: '#f0ede8', lineHeight: 1 }}>Biff Loman</span>
                 <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: '#c9a96e', letterSpacing: '0.1em' }}>Arthur Miller</span>
               </div>
-              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>7 Egzersiz</span>
+              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>6 Antrenman</span>
             </div>
             <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: '#888', lineHeight: 1.7, margin: 0 }}>
               Babanın rüyasından uyanış. Kırılma ve özgürleşme arasında sıkışmış bir adamın gerçeği arama yolculuğu.
@@ -114,6 +169,7 @@ export default function KarakterListesi() {
                 <span key={tag} style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.15em', color: '#555', textTransform: 'uppercase', padding: '0.2rem 0.6rem', border: '1px solid #2a2a2a' }}>{tag}</span>
               ))}
             </div>
+            <IlerlemeBloku karakterId="biff" ilerlemeler={ilerlemeler} />
           </a>
 
           {/* Yakında */}
