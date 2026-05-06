@@ -134,6 +134,18 @@ export default function HamletAltSoruYazma({
           </span>
           <KayitRozet durum={kayitDurumu} />
         </div>
+        <p
+          style={{
+            fontFamily: 'Cormorant Garamond, serif',
+            fontStyle: 'italic',
+            fontSize: '0.85rem',
+            color: '#9b6a6a',
+            margin: 0,
+            opacity: 0.85,
+          }}
+        >
+          Karakterin bedeninde ne oldu? Senin değil — onun.
+        </p>
         <textarea
           value={metin}
           onChange={(e) => metinDegistir(e.target.value)}

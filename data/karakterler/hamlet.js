@@ -674,6 +674,7 @@ const hamlet = {
     {
       no: 1,
       baslik: "Wittenberg'den Elsinore'a",
+      sinif: 'Mekân Boşluğu',
       konum: 'Oyun Öncesi → I.ii Saray',
       sonraSahneNo: 2,
       onceBaslik: 'Wittenberg',
@@ -708,6 +709,7 @@ const hamlet = {
     {
       no: 2,
       baslik: 'Hayaletten Sonraki Gece',
+      sinif: 'Karar Boşluğu',
       konum: 'I.v Sonu → II.ii',
       sonraSahneNo: 4,
       onceBaslik: 'I.v · Sonu',
@@ -742,6 +744,7 @@ const hamlet = {
     {
       no: 3,
       baslik: "Polonius'tan Sonra",
+      sinif: 'Travma Boşluğu',
       konum: 'III.iv Sonu → IV.iii',
       sonraSahneNo: 9,
       onceBaslik: 'III.iv · Anne Odası',
@@ -776,6 +779,7 @@ const hamlet = {
     {
       no: 4,
       baslik: 'İngiltere Yolculuğu',
+      sinif: 'Dönüşüm Boşluğu',
       konum: 'IV.iii → V.i',
       sonraSahneNo: 12,
       onceBaslik: 'IV.iii',
@@ -810,6 +814,7 @@ const hamlet = {
     {
       no: 5,
       baslik: 'Düello Öncesi',
+      sinif: 'Eşik Boşluğu',
       konum: 'V.ii(A) → V.ii(B)',
       sonraSahneNo: 14,
       onceBaslik: 'V.ii(A)',

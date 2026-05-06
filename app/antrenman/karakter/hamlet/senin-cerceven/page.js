@@ -119,7 +119,60 @@ export default function SeninCerceveAnaSayfa() {
           </p>
         </div>
 
+        {/* Substitution sınır cümlesi — ITC etik DNA */}
+        <div
+          style={{
+            borderLeft: '3px solid #9b6a6a',
+            padding: '1.2rem 1.5rem',
+            backgroundColor: '#1a0f10',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.7rem',
+          }}
+        >
+          <span
+            style={{
+              fontFamily: 'Jost, sans-serif',
+              fontWeight: 300,
+              fontSize: '0.6rem',
+              letterSpacing: '0.35em',
+              color: '#9b6a6a',
+              textTransform: 'uppercase',
+            }}
+          >
+            Yöntem sınırı
+          </span>
+          <p
+            style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontStyle: 'italic',
+              fontSize: '1.05rem',
+              color: '#ddd',
+              lineHeight: 1.7,
+              margin: 0,
+            }}
+          >
+            Senin Çerçeven seni <em style={{ color: '#9b6a6a' }}>kendi anılarına</em> döndürmez —
+            karakterin yaşadığı ama metinde yazılmamış olası bir ana götürür.
+          </p>
+          <p
+            style={{
+              fontFamily: 'Jost, sans-serif',
+              fontWeight: 200,
+              fontSize: '0.85rem',
+              color: '#aaa',
+              fontStyle: 'italic',
+              lineHeight: 1.7,
+              margin: 0,
+            }}
+          >
+            Yazarken Hamlet'in zihninde misafirsin. Senin acından beslenmiyor —
+            onun verisinden besleniyor.
+          </p>
+        </div>
+
         {/* ITC 3. İlke */}
+        {/* ITC Manifestosu — Üç İlke (3. ilke aktif) */}
         <div
           style={{
             border: '1px solid #2a2a2a',
@@ -127,36 +180,31 @@ export default function SeninCerceveAnaSayfa() {
             backgroundColor: '#0d0d0d',
             display: 'flex',
             flexDirection: 'column',
-            gap: '0.9rem',
+            gap: '1.4rem',
           }}
         >
-          <span style={{ ...etiket, color: TON }}>ITC · 3. İlke · Sessiz Evrim</span>
-          <p
-            style={{
-              fontFamily: 'Cormorant Garamond, serif',
-              fontStyle: 'italic',
-              fontSize: '1rem',
-              color: '#ccc',
-              lineHeight: 1.8,
-              margin: 0,
-            }}
-          >
-            "Çoğu sistem sahne içindeki davranışı analiz ederken, ITC karakterin dönüşümünü
-            sahne dışındaki boşluklarda arar. Repliklerin arasındaki suskunluk, bir sahnenin
-            bittiği ama karakterin devam ettiği alanlar, oyuncunun zihinsel canlandırma
-            becerisiyle doldurulur."
-          </p>
-          <span
-            style={{
-              fontFamily: 'Jost, sans-serif',
-              fontWeight: 200,
-              fontSize: '0.7rem',
-              color: '#888',
-              fontStyle: 'italic',
-            }}
-          >
-            — Inside The Character, Manifesto, 3. Madde
-          </span>
+          <span style={{ ...etiket, color: ALTIN }}>ITC Manifestosu · Üç İlke</span>
+
+          <IlkeSatiri
+            no="1"
+            baslik="Görmediğimizi Taşımak"
+            metin="Karakterin sahnede gösterilmeyen geçmişini, oyuncunun sahnede taşıması."
+          />
+
+          <IlkeSatiri
+            no="2"
+            baslik="Karakterin Verisi"
+            metin="Karakterin verisi karakterin kendisinden çıkarılır — oyuncunun yarasından beslenmez."
+          />
+
+          <IlkeSatiri
+            no="3"
+            baslik="Sessiz Evrim"
+            metin='"Çoğu sistem sahne içindeki davranışı analiz ederken, ITC karakterin dönüşümünü sahne dışındaki boşluklarda arar. Repliklerin arasındaki suskunluk, oyuncunun zihinsel canlandırma becerisiyle doldurulur."'
+            kaynak="— Inside The Character, Manifesto, 3. Madde"
+            aktif
+            aktifNot="— Bu sayfada bu ilke uygulanıyor."
+          />
         </div>
 
         {/* Yöntem — 5 Adım */}
@@ -334,6 +382,90 @@ export default function SeninCerceveAnaSayfa() {
 }
 
 // ─── Yardımcılar ────────────────────────────────────────────────────────────
+
+function IlkeSatiri({ no, baslik: ilkeBaslik, metin, kaynak, aktif, aktifNot }) {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        gap: '1rem',
+        alignItems: 'flex-start',
+        opacity: aktif ? 1 : 0.55,
+        paddingLeft: aktif ? '0.9rem' : 0,
+        borderLeft: aktif ? `2px solid ${ALTIN}` : 'none',
+        marginLeft: aktif ? '-0.9rem' : 0,
+      }}
+    >
+      <span
+        style={{
+          fontFamily: 'Cormorant Garamond, serif',
+          fontStyle: 'italic',
+          fontWeight: 300,
+          fontSize: '2rem',
+          color: ALTIN,
+          minWidth: '36px',
+          lineHeight: 1,
+        }}
+      >
+        {no}
+      </span>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+        <h4
+          style={{
+            fontFamily: 'Cormorant Garamond, serif',
+            fontStyle: 'italic',
+            fontWeight: 300,
+            fontSize: '1.15rem',
+            color: '#f0ede8',
+            margin: 0,
+          }}
+        >
+          {ilkeBaslik}
+        </h4>
+        <p
+          style={{
+            fontFamily: aktif ? 'Cormorant Garamond, serif' : 'Jost, sans-serif',
+            fontStyle: aktif ? 'italic' : 'normal',
+            fontWeight: aktif ? 300 : 200,
+            fontSize: aktif ? '0.95rem' : '0.85rem',
+            color: aktif ? '#ddd' : '#aaa',
+            lineHeight: 1.7,
+            margin: 0,
+          }}
+        >
+          {metin}
+        </p>
+        {kaynak && (
+          <span
+            style={{
+              fontFamily: 'Jost, sans-serif',
+              fontWeight: 200,
+              fontSize: '0.7rem',
+              color: '#888',
+              fontStyle: 'italic',
+            }}
+          >
+            {kaynak}
+          </span>
+        )}
+        {aktif && aktifNot && (
+          <span
+            style={{
+              fontFamily: 'Jost, sans-serif',
+              fontWeight: 300,
+              fontSize: '0.72rem',
+              color: ALTIN,
+              fontStyle: 'italic',
+              marginTop: '0.3rem',
+            }}
+          >
+            {aktifNot}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
 
 function YontemAdim({ no, baslik, children }) {
   return (

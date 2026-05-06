@@ -7,12 +7,182 @@ import IlerlemeRozet from '../../../components/IlerlemeRozet';
 // Hamlet refactor sonrası: 5 boşluk (her biri 3 alt-soru, hibrit yapı).
 // Diğer karakterler eski 12 alanlı yapıda. Antrenman sayıları her karakter için
 // kendi data dosyasındaki egzersizler dizisinin uzunluğu.
+//
+// Mizaç: psikometrik (MBTI + Yıldız profili göstergeleri)
+// Tema:  içerik havuzu (yas, suçluluk, iktidar, vb.)
 const KARAKTER_META = {
-  hamlet:  { boslukSayisi: 5,  antrenmanSayisi: 0 }, // 9 antrenman retire edildi → Modül III'e taşındı
-  macbeth: { boslukSayisi: 12, antrenmanSayisi: 8 },
-  willy:   { boslukSayisi: 12, antrenmanSayisi: 7 },
-  biff:    { boslukSayisi: 12, antrenmanSayisi: 6 },
+  hamlet: {
+    boslukSayisi: 5, antrenmanSayisi: 0,
+    mizac: ['INFP', 'empati yüksek', 'analiz yüksek', 'yas yorgunluğu'],
+    tema:  ['yas', 'intikam', 'yanılsama', 'varoluş', 'ihanet'],
+  },
+  macbeth: {
+    boslukSayisi: 12, antrenmanSayisi: 8,
+    mizac: ['ENTJ', 'hırs yüksek', 'paranoya', 'ahlaki çöküş'],
+    tema:  ['iktidar', 'suçluluk', 'ihanet', 'şiddet'],
+  },
+  willy: {
+    boslukSayisi: 12, antrenmanSayisi: 7,
+    mizac: ['ESFP', 'yanılsamacı', 'zaman kayması', 'kimlik kırılması'],
+    tema:  ['yanılsama', 'kimlik', 'çöküş', 'baba-oğul'],
+  },
+  biff: {
+    boslukSayisi: 12, antrenmanSayisi: 6,
+    mizac: ['INFP', 'kırık kahraman', 'gerçeklik arayışı'],
+    tema:  ['yas', 'kimlik', 'özgürleşme', 'baba-oğul'],
+  },
 };
+
+function EtiketBloku({ karakterId }) {
+  const meta = KARAKTER_META[karakterId];
+  if (!meta) return null;
+  const TON = '#c9a96e';
+  const baslikStili = {
+    fontFamily: 'Jost, sans-serif',
+    fontWeight: 200,
+    fontSize: '0.55rem',
+    letterSpacing: '0.3em',
+    color: '#666',
+    textTransform: 'uppercase',
+    minWidth: '52px',
+    paddingTop: '0.2rem',
+  };
+  const mizacEtiketStili = {
+    fontFamily: 'Jost, sans-serif',
+    fontWeight: 200,
+    fontSize: '0.6rem',
+    letterSpacing: '0.1em',
+    color: '#aaa',
+    padding: '0.2rem 0.6rem',
+    border: '1px solid #2a2a2a',
+    borderRadius: '12px',
+  };
+  const temaEtiketStili = {
+    fontFamily: 'Cormorant Garamond, serif',
+    fontStyle: 'italic',
+    fontSize: '0.72rem',
+    color: TON,
+    padding: '0.2rem 0.7rem',
+    border: `1px solid ${TON}33`,
+    backgroundColor: '#15110a',
+    borderRadius: '12px',
+  };
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'baseline' }}>
+        <span style={baslikStili}>Mizaç</span>
+        {meta.mizac.map((m) => (
+          <span key={m} style={mizacEtiketStili}>{m}</span>
+        ))}
+      </div>
+      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'baseline' }}>
+        <span style={baslikStili}>Tema</span>
+        {meta.tema.map((t) => (
+          <span key={t} style={temaEtiketStili}>{t}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function OgrenmeZinciri() {
+  const TON = '#c9a96e';
+  const halkalar = [
+    { fiil: 'Gör', aciklama: 'Doğruları' },
+    { fiil: 'Tanı', aciklama: 'İlişkileri' },
+    { fiil: 'Anla', aciklama: 'Sahneleri' },
+    { fiil: 'İşaretle', aciklama: 'Tercihleri' },
+    { fiil: 'Yaz', aciklama: 'Boşlukları' },
+    { fiil: 'İçselleştir', aciklama: 'Yükü' },
+  ];
+  return (
+    <div
+      style={{
+        border: '1px solid #2a2a2a',
+        backgroundColor: '#0d0d0d',
+        padding: '1.4rem 1.6rem',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+      }}
+    >
+      <span
+        style={{
+          fontFamily: 'Jost, sans-serif',
+          fontWeight: 200,
+          fontSize: '0.55rem',
+          letterSpacing: '0.35em',
+          color: '#888',
+          textTransform: 'uppercase',
+        }}
+      >
+        ITC öğrenme zinciri
+      </span>
+      <ol
+        style={{
+          listStyle: 'none',
+          padding: 0,
+          margin: 0,
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '0.4rem',
+          alignItems: 'baseline',
+        }}
+      >
+        {halkalar.map((h, i) => (
+          <li
+            key={h.fiil}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'baseline',
+              gap: '0.5rem',
+              padding: '0.4rem 0.7rem',
+              backgroundColor: '#0a0a0a',
+              border: '1px solid #1a1a1a',
+            }}
+          >
+            <span
+              style={{
+                fontFamily: 'Cormorant Garamond, serif',
+                fontStyle: 'italic',
+                fontSize: '1.05rem',
+                color: TON,
+              }}
+            >
+              {h.fiil}
+            </span>
+            <span
+              style={{
+                fontFamily: 'Jost, sans-serif',
+                fontWeight: 200,
+                fontSize: '0.7rem',
+                color: '#aaa',
+              }}
+            >
+              {h.aciklama}
+            </span>
+            {i < halkalar.length - 1 && (
+              <span style={{ color: '#444', marginLeft: '0.3rem', fontSize: '0.7rem' }}>→</span>
+            )}
+          </li>
+        ))}
+      </ol>
+      <p
+        style={{
+          fontFamily: 'Cormorant Garamond, serif',
+          fontStyle: 'italic',
+          fontSize: '0.85rem',
+          color: '#888',
+          lineHeight: 1.7,
+          margin: 0,
+        }}
+      >
+        Her bölüm farklı bir bilişsel eylem ister. Sayılar tamamladığını değil,
+        kaçında <em style={{ color: '#bbb' }}>karakterle temas ettiğini</em> gösterir.
+      </p>
+    </div>
+  );
+}
 
 function IlerlemeBloku({ karakterId, ilerlemeler }) {
   const meta = KARAKTER_META[karakterId];
@@ -83,6 +253,8 @@ export default function KarakterListesi() {
           </p>
         </div>
 
+        <OgrenmeZinciri />
+
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
 
           {/* Hamlet */}
@@ -100,11 +272,7 @@ export default function KarakterListesi() {
             <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: '#888', lineHeight: 1.7, margin: 0 }}>
               Yas, ihanet ve varoluşsal sorgulama. Düşünce ile eylem arasında sıkışmış bir prensin görünmeyen yolculuğu.
             </p>
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-              {['İçedönük', 'Sezgisel', 'Felsefi', 'Varoluşsal'].map(tag => (
-                <span key={tag} style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.15em', color: '#555', textTransform: 'uppercase', padding: '0.2rem 0.6rem', border: '1px solid #2a2a2a' }}>{tag}</span>
-              ))}
-            </div>
+            <EtiketBloku karakterId="hamlet" />
             <IlerlemeBloku karakterId="hamlet" ilerlemeler={ilerlemeler} />
           </a>
 
@@ -123,11 +291,7 @@ export default function KarakterListesi() {
             <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: '#888', lineHeight: 1.7, margin: 0 }}>
               Kral Duncan'ın generali. Bir kehanet, bir karar, bir yıkım. İktidar hırsı, suçluluk ve paranoyanın iç çöküşü.
             </p>
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-              {['Trajedi', 'Şiddet', 'İktidar', 'Paranoya'].map(tag => (
-                <span key={tag} style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.15em', color: '#555', textTransform: 'uppercase', padding: '0.2rem 0.6rem', border: '1px solid #2a2a2a' }}>{tag}</span>
-              ))}
-            </div>
+            <EtiketBloku karakterId="macbeth" />
             <IlerlemeBloku karakterId="macbeth" ilerlemeler={ilerlemeler} />
           </a>
 
@@ -146,11 +310,7 @@ export default function KarakterListesi() {
             <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: '#888', lineHeight: 1.7, margin: 0 }}>
               Yanılsama ve kimlik çöküşü. Geçmiş ile şimdinin aynı anda yaşandığı bir zihin.
             </p>
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-              {['Dışadönük', 'Yanılsamacı', 'Zaman-İçi-Kayma'].map(tag => (
-                <span key={tag} style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.15em', color: '#555', textTransform: 'uppercase', padding: '0.2rem 0.6rem', border: '1px solid #2a2a2a' }}>{tag}</span>
-              ))}
-            </div>
+            <EtiketBloku karakterId="willy" />
             <IlerlemeBloku karakterId="willy" ilerlemeler={ilerlemeler} />
           </a>
 
@@ -169,11 +329,7 @@ export default function KarakterListesi() {
             <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: '#888', lineHeight: 1.7, margin: 0 }}>
               Babanın rüyasından uyanış. Kırılma ve özgürleşme arasında sıkışmış bir adamın gerçeği arama yolculuğu.
             </p>
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-              {['İçedönük', 'Kırık Kahraman', 'Boston Sonrası'].map(tag => (
-                <span key={tag} style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.15em', color: '#555', textTransform: 'uppercase', padding: '0.2rem 0.6rem', border: '1px solid #2a2a2a' }}>{tag}</span>
-              ))}
-            </div>
+            <EtiketBloku karakterId="biff" />
             <IlerlemeBloku karakterId="biff" ilerlemeler={ilerlemeler} />
           </a>
 

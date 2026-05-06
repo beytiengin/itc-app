@@ -411,7 +411,7 @@ export default function SentezSayfasi() {
                   textTransform: 'uppercase',
                 }}
               >
-                Tercihlerin Timeline'da Nasıl Görünür
+                Tercihlerin Zaman Çizgisi'nde Nasıl Görünür
               </span>
               <p
                 style={{
@@ -512,17 +512,18 @@ export default function SentezSayfasi() {
           </section>
         )}
 
-        {/* Sayfa sonu — Yazarın Çerçevesi tamamlandı tebriği (sadece hepsi tamamsa) */}
+        {/* Buraya Kadar — reflektif kapanış (hepsi tamamsa) */}
         {hepsiTamam && (
           <section
             style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: '1.2rem',
-              padding: '2.4rem 2rem',
-              border: `1px solid ${TON}33`,
-              backgroundColor: '#100c06',
+              gap: '1rem',
+              padding: '3rem 2rem',
+              borderTop: `1px solid ${TON}33`,
               textAlign: 'center',
+              maxWidth: '560px',
+              margin: '2rem auto 0',
             }}
           >
             <span
@@ -530,12 +531,12 @@ export default function SentezSayfasi() {
                 fontFamily: 'Jost, sans-serif',
                 fontWeight: 200,
                 fontSize: '0.6rem',
-                letterSpacing: '0.35em',
+                letterSpacing: '0.4em',
                 color: TON,
                 textTransform: 'uppercase',
               }}
             >
-              ✓ Yazarın Çerçevesi Tamamlandı
+              Buraya kadar
             </span>
             <p
               style={{
@@ -545,13 +546,47 @@ export default function SentezSayfasi() {
                 color: '#ddd',
                 lineHeight: 1.7,
                 margin: 0,
-                maxWidth: '600px',
-                alignSelf: 'center',
               }}
             >
-              Beş tercih yaptın. Yazarın çerçevesini sahiplendin. Shakespeare'in yazdığı
-              çerçevenin içine girdin. Onun bıraktığı açık uçlardan kendi yorumunu çıkardın.
-              Bunlar senin Hamlet'inin omurgası.
+              Doğruları gördün. Oyun öncesini tanıdın. Zaman Çizgisi'ni dolaştın.
+              Şimdi <em style={{ color: TON }}>yazarın çerçevesini</em> sahiplendin —
+              Shakespeare'in açık uçlarından kendi yorumunu çıkardın.
+            </p>
+            <p
+              style={{
+                fontFamily: 'Cormorant Garamond, serif',
+                fontStyle: 'italic',
+                fontSize: '1.05rem',
+                color: '#ccc',
+                lineHeight: 1.7,
+                margin: 0,
+              }}
+            >
+              Bunlar senin Hamlet'inin <em style={{ color: TON }}>omurgası</em>.
+              Sahneye çıktığında, beş tercihinin hepsi bedeninde olacak.
+            </p>
+            <p
+              style={{
+                fontFamily: 'Cormorant Garamond, serif',
+                fontSize: '1.5rem',
+                letterSpacing: '0.6em',
+                color: '#666',
+                margin: '1rem 0',
+              }}
+            >
+              ∙ ∙ ∙
+            </p>
+            <p
+              style={{
+                fontFamily: 'Jost, sans-serif',
+                fontWeight: 200,
+                fontSize: '0.85rem',
+                color: '#888',
+                fontStyle: 'italic',
+                margin: 0,
+              }}
+            >
+              Bir nefes ver. Sıradaki son bölüm.
             </p>
           </section>
         )}

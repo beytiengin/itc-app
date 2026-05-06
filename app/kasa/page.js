@@ -71,7 +71,7 @@ export default function Kasa() {
           lineHeight: 1.8,
           margin: 0,
         }}>
-          Tüm antrenmanların, blueprint'lerin ve karakter
+          Tüm antrenmanların, karakter haritalarının ve karakter
           tasarımlarının mahrem arşivi.
         </p>
         <span style={{

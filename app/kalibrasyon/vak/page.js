@@ -104,14 +104,38 @@ export default function VAK() {
         </header>
         <section style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '4rem 2rem', textAlign: 'center', gap: '2rem' }}>
           <div style={{ width: '1px', height: '60px', backgroundColor: '#c9a96e', opacity: 0.4 }} />
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.4em', color: '#c9a96e', textTransform: 'uppercase' }}>Öğrenme Stili Analizi</span>
-          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', color: '#f0ede8', margin: 0, lineHeight: 1.1 }}>Algı Kanalın</h1>
-          <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.9rem', color: '#ccc', maxWidth: '420px', lineHeight: 1.9, margin: 0 }}>
-            Enstrümanını akort ediyoruz. Bu 27 maddelik analiz, karakter inşası sırasındaki algı navigasyonunu belirleyecek.
+          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.4em', color: '#c9a96e', textTransform: 'uppercase' }}>Duyusal Kanal Tercihi</span>
+          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', color: '#f0ede8', margin: 0, lineHeight: 1.1 }}>Duyusal Kanal Tercihin</h1>
+          <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.9rem', color: '#ccc', maxWidth: '440px', lineHeight: 1.9, margin: 0 }}>
+            Bu test, hangi duyusal kanaldan dünyaya öncelikle bağlandığını gösterir
+            — görerek mi, duyarak mı, dokunarak/yaparak mı? Bu bir öğrenme yetisi
+            değil, bir tercihtir. Yöntem bu tercihe göre sana farklı kapılar sunar.
             <br /><br />
             Cevap verirken sadece kendi doğal reflekslerini düşün. Doğru ya da yanlış cevap yoktur.
           </p>
           <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.75rem', color: '#aaa', letterSpacing: '0.1em' }}>27 soru · yaklaşık 5 dakika</p>
+
+          <aside style={{
+            maxWidth: '440px',
+            borderLeft: '2px solid #3a3a3a',
+            padding: '0.9rem 1.2rem',
+            textAlign: 'left',
+            backgroundColor: '#0f0f0f',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.5rem',
+          }}>
+            <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.55rem', letterSpacing: '0.3em', color: '#888', textTransform: 'uppercase' }}>
+              Akademik not
+            </span>
+            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: '#aaa', lineHeight: 1.7, margin: 0 }}>
+              "Öğrenme stilleri" kavramı eğitim psikolojisinde tartışmalıdır
+              (Pashler ve diğerleri, 2008). ITC, VAK'ı bir yetenek ölçüsü olarak
+              değil, senin <em style={{ fontStyle: 'italic', color: '#ddd' }}>fenomenolojik tercihin</em> olarak kullanır
+              — yönteme nereden girmenin sana doğal geleceğini belirlemek için.
+            </p>
+          </aside>
+
           <button onClick={() => setAdim('test')}
             style={{ marginTop: '1rem', padding: '1.2rem 3rem', border: '1px solid #c9a96e', backgroundColor: 'transparent', color: '#c9a96e', fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', cursor: 'pointer', transition: 'all 0.3s ease' }}
             onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#c9a96e'; e.currentTarget.style.color = '#0a0a0a'; }}
@@ -130,7 +154,7 @@ export default function VAK() {
     return (
       <main style={{ minHeight: '100vh', backgroundColor: '#0a0a0a', color: '#f0ede8', display: 'flex', flexDirection: 'column' }}>
         <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2rem 3rem', borderBottom: '1px solid #2a2a2a' }}>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', letterSpacing: '0.3em', color: '#c9a96e', textTransform: 'uppercase' }}>Öğrenme Stili Analizi</span>
+          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', letterSpacing: '0.3em', color: '#c9a96e', textTransform: 'uppercase' }}>Duyusal Kanal Tercihi</span>
           <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: '#f0ede8', textTransform: 'uppercase' }}>{mevcutSoru + 1} / {sorular.length}</span>
         </header>
         <div style={{ width: '100%', height: '1px', backgroundColor: '#2a2a2a' }}>

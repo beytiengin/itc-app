@@ -410,7 +410,7 @@ export default function AnaSayfa() {
                 <span style={modulAltStili}>Kalibrasyon</span>
               </div>
               <p style={modulMetinStili}>
-                Üç kısa test ile öğrenme stilin, psikolojik haritan ve kişilik tipin çıkar.
+                Üç kısa test ile duyusal kanal tercihin, psikolojik haritan ve kişilik tipin çıkar.
                 Bu veriler sonraki modüllerde sessizce kişiselleştirme yapar — meta-açıklama yok,
                 sadece sana uyan akış.
               </p>

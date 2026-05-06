@@ -217,7 +217,7 @@ export default function YazarinCerceveSAnaSayfa() {
 
         <HamletBolumGecisi
           oncekiEtiket="Bölüm 3"
-          oncekiBaslik="Sahne Timeline"
+          oncekiBaslik="Zaman Çizgisi"
           oncekiYol="/antrenman/karakter/hamlet/timeline"
           sonrakiEtiket="Bölüm 5"
           sonrakiBaslik="Senin Çerçeven"

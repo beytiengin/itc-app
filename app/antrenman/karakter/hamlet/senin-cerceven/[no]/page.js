@@ -161,6 +161,23 @@ export default function BoslukDetaySayfasi({ params }) {
           >
             {bosluk.baslik}
           </h1>
+          {bosluk.sinif && (
+            <span
+              style={{
+                fontFamily: 'Jost, sans-serif',
+                fontWeight: 300,
+                fontSize: '0.6rem',
+                letterSpacing: '0.3em',
+                color: TON,
+                textTransform: 'uppercase',
+                padding: '0.25rem 0.7rem',
+                border: `1px solid ${TON}55`,
+                alignSelf: 'flex-start',
+              }}
+            >
+              {bosluk.sinif}
+            </span>
+          )}
         </header>
 
         {/* Önce → Boşluk → Sonra */}
@@ -199,7 +216,7 @@ export default function BoslukDetaySayfasi({ params }) {
                 onMouseEnter={(e) => { e.currentTarget.style.borderColor = ALTIN; }}
                 onMouseLeave={(e) => { e.currentTarget.style.borderColor = ALTIN + '55'; }}
               >
-                → Timeline · Sahne {bosluk.sonraSahneNo}
+                → Zaman Çizgisi · Sahne {bosluk.sonraSahneNo}
               </a>
             )}
           </CerceveBolumu>
