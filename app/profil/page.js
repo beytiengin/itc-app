@@ -13,7 +13,7 @@ export default function Profil() {
   useEffect(() => {
     async function verileriGetir() {
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) { window.location.href = '/giris'; return; }
+      if (!user) { setYukleniyor(false); return; }
       setKullanici(user);
 
       const [vakRes, yildizRes, arketipRes] = await Promise.all([

@@ -1,25 +1,39 @@
 // middleware.ts
 // ITC Actor's Gym — Auth Gating
 //
-// Korumali rotalar (kalibrasyon ve antrenman) icin uye olma sarti.
-// Anonim kullanici → /giris'e yonlendirilir.
+// GEÇİCİ: Tüm auth gating devre dışı. Middleware hiçbir şey yapmıyor —
+// Supabase çağrısı bile yok. Tüm sayfalar herkese açık.
+//
+// Geri açmak için aşağıdaki kodun yorumlanmış orijinal halini kullan
+// (alt taraf). KORUMALI_ROTALAR listesini geri yerine koy.
 
-import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
-// Auth gating geçici olarak devre dışı — Google OAuth callback sorunu çözülene
-// kadar tüm sayfalar herkese açık. Yansıma yazma/okuma RLS nedeniyle yine de
-// authenticated user gerektiriyor (email/şifre girişi çalışıyor).
-//
-// Geri açmak için aşağıdaki listeyi eski haline getir:
-//   ['/kalibrasyon', '/antrenman', '/profil', '/kulis']
-const KORUMALI_ROTALAR: string[] = [];
+export async function middleware(_request: NextRequest) {
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: [
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+  ],
+};
+
+/* ESKİ — auth gating'i geri açmak için bu bloğu yukarıdaki middleware'in
+   yerine koy:
+
+import { createServerClient } from '@supabase/ssr';
+
+const KORUMALI_ROTALAR = [
+  '/kalibrasyon',
+  '/antrenman',
+  '/profil',
+  '/kulis',
+];
 
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
+    request: { headers: request.headers },
   });
 
   const supabase = createServerClient(
@@ -32,16 +46,12 @@ export async function middleware(request: NextRequest) {
         },
         set(name: string, value: string, options: any) {
           request.cookies.set({ name, value, ...options });
-          response = NextResponse.next({
-            request: { headers: request.headers },
-          });
+          response = NextResponse.next({ request: { headers: request.headers } });
           response.cookies.set({ name, value, ...options });
         },
         remove(name: string, options: any) {
           request.cookies.set({ name, value: '', ...options });
-          response = NextResponse.next({
-            request: { headers: request.headers },
-          });
+          response = NextResponse.next({ request: { headers: request.headers } });
           response.cookies.set({ name, value: '', ...options });
         },
       },
@@ -49,11 +59,9 @@ export async function middleware(request: NextRequest) {
   );
 
   const { data: { user } } = await supabase.auth.getUser();
-
   const yol = request.nextUrl.pathname;
   const korumali = KORUMALI_ROTALAR.some((r) => yol.startsWith(r));
 
-  // Korumali rotaya anonim erisim → /giris'e yonlendir
   if (korumali && !user) {
     const yonlendir = request.nextUrl.clone();
     yonlendir.pathname = '/giris';
@@ -61,7 +69,6 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(yonlendir);
   }
 
-  // Uye iken /giris'e gitmeye calisirsa → /'e yonlendir
   if (yol === '/giris' && user) {
     const yonlendir = request.nextUrl.clone();
     yonlendir.pathname = '/';
@@ -70,16 +77,4 @@ export async function middleware(request: NextRequest) {
 
   return response;
 }
-
-export const config = {
-  matcher: [
-    /*
-     * Match all paths except:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico
-     * - public files
-     */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
-  ],
-};
+*/
