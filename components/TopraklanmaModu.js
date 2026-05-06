@@ -41,8 +41,8 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
         style={{
           maxWidth: '500px',
           width: '100%',
-          backgroundColor: '#0a0a0a',
-          border: '1px solid #6a9b6a',
+          backgroundColor: 'var(--bg-base)',
+          border: '1px solid var(--onay-soft)',
           padding: '2.5rem 2.2rem',
           display: 'flex',
           flexDirection: 'column',
@@ -56,7 +56,7 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.4em',
-              color: '#6a9b6a',
+              color: 'var(--onay-soft)',
               textTransform: 'uppercase',
             }}
           >
@@ -67,7 +67,7 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
               fontFamily: 'Cormorant Garamond, serif',
               fontWeight: 300,
               fontSize: '1.6rem',
-              color: '#f0ede8',
+              color: 'var(--ink)',
               margin: 0,
             }}
           >
@@ -79,7 +79,7 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
                 fontFamily: 'Jost, sans-serif',
                 fontWeight: 200,
                 fontSize: '0.72rem',
-                color: '#aaa',
+                color: 'var(--ink-soft)',
                 lineHeight: 1.6,
                 margin: 0,
               }}
@@ -96,13 +96,13 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
               fontWeight: 200,
               fontSize: '0.55rem',
               letterSpacing: '0.3em',
-              color: '#6a9b6a',
+              color: 'var(--onay-soft)',
               textTransform: 'uppercase',
             }}
           >
             {adim + 1} / {adimlar.length}
           </span>
-          <div style={{ flex: 1, height: '1px', backgroundColor: '#2a2a2a', position: 'relative' }}>
+          <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--rule)', position: 'relative' }}>
             <div
               style={{
                 position: 'absolute',
@@ -110,7 +110,7 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
                 top: '-1px',
                 height: '3px',
                 width: `${((adim + 1) / adimlar.length) * 100}%`,
-                backgroundColor: '#6a9b6a',
+                backgroundColor: 'var(--onay-soft)',
                 transition: 'width 0.4s ease',
               }}
             />
@@ -122,7 +122,7 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
             fontFamily: 'Cormorant Garamond, serif',
             fontStyle: 'italic',
             fontSize: '1.05rem',
-            color: '#f0ede8',
+            color: 'var(--ink)',
             lineHeight: 1.9,
             margin: 0,
             minHeight: '4rem',
@@ -138,9 +138,9 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
               onClick={() => setAdim(adim + 1)}
               style={{
                 padding: '0.9rem 2rem',
-                backgroundColor: '#6a9b6a',
+                backgroundColor: 'var(--onay-soft)',
                 border: 'none',
-                color: '#0a0a0a',
+                color: 'var(--bg-base)',
                 fontFamily: 'Jost, sans-serif',
                 fontWeight: 300,
                 fontSize: '0.7rem',
@@ -149,8 +149,8 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#7aab7a'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#6a9b6a'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--onay)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--onay-soft)'; }}
             >
               Yaptım · Devam
             </button>
@@ -159,9 +159,9 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
               onClick={onKapat}
               style={{
                 padding: '0.9rem 2rem',
-                backgroundColor: '#6a9b6a',
+                backgroundColor: 'var(--onay-soft)',
                 border: 'none',
-                color: '#0a0a0a',
+                color: 'var(--bg-base)',
                 fontFamily: 'Jost, sans-serif',
                 fontWeight: 300,
                 fontSize: '0.7rem',
@@ -170,8 +170,8 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#7aab7a'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#6a9b6a'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--onay)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--onay-soft)'; }}
             >
               Buradayım ✓
             </button>

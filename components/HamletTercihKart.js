@@ -8,7 +8,7 @@
 
 'use client';
 
-const TON = '#c9a96e';
+const TON = 'var(--accent)';
 
 export default function HamletTercihKart({ tercih, secim }) {
   const secilmis = secim?.secimler?.length > 0 || (secim?.ozelYorum?.length || 0) > 0;
@@ -20,18 +20,18 @@ export default function HamletTercihKart({ tercih, secim }) {
     <a
       href={yol}
       style={{
-        border: `1px solid ${secilmis ? TON + '55' : '#2a2a2a'}`,
-        backgroundColor: secilmis ? '#100c06' : '#0d0d0d',
+        border: `1px solid ${secilmis ? TON + '55' : 'var(--rule)'}`,
+        backgroundColor: secilmis ? 'var(--accent-bg-deep)' : 'var(--bg-elevated)',
         padding: '1.5rem 1.8rem',
         display: 'flex',
         flexDirection: 'column',
         gap: '0.8rem',
         textDecoration: 'none',
-        color: '#f0ede8',
+        color: 'var(--ink)',
         transition: 'all 0.25s ease',
       }}
       onMouseEnter={(e) => { e.currentTarget.style.borderColor = TON; }}
-      onMouseLeave={(e) => { e.currentTarget.style.borderColor = secilmis ? TON + '55' : '#2a2a2a'; }}
+      onMouseLeave={(e) => { e.currentTarget.style.borderColor = secilmis ? TON + '55' : 'var(--rule)'; }}
     >
       <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.9rem', flexWrap: 'wrap' }}>
         <span
@@ -52,7 +52,7 @@ export default function HamletTercihKart({ tercih, secim }) {
             fontWeight: 200,
             fontSize: '0.6rem',
             letterSpacing: '0.35em',
-            color: '#888',
+            color: 'var(--ink-muted)',
             textTransform: 'uppercase',
           }}
         >
@@ -65,7 +65,7 @@ export default function HamletTercihKart({ tercih, secim }) {
           fontFamily: 'Cormorant Garamond, serif',
           fontStyle: 'italic',
           fontSize: '1.2rem',
-          color: '#f0ede8',
+          color: 'var(--ink)',
           lineHeight: 1.4,
           margin: 0,
         }}
@@ -86,7 +86,7 @@ export default function HamletTercihKart({ tercih, secim }) {
                   color: TON,
                   letterSpacing: '0.15em',
                   padding: '0.2rem 0.6rem',
-                  border: `1px solid ${TON}55`,
+                  border: `1px solid color-mix(in srgb, ${TON} 33%, transparent)`,
                   textTransform: 'uppercase',
                 }}
               >
@@ -114,7 +114,7 @@ export default function HamletTercihKart({ tercih, secim }) {
               fontFamily: 'Jost, sans-serif',
               fontWeight: 200,
               fontSize: '0.65rem',
-              color: '#666',
+              color: 'var(--ink-muted)',
               letterSpacing: '0.2em',
               fontStyle: 'italic',
             }}

@@ -8,7 +8,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { iliskiYansimasiKaydet } from '../app/lib/hamlet-veri';
 
-const TON = '#c9a96e';
+const TON = 'var(--accent)';
 
 export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) {
   const [acik, setAcik] = useState(false);
@@ -43,13 +43,13 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
   }
 
   const yansimaMevcut = metin.length > 0;
-  const borderColor = acik ? TON : (yansimaMevcut || tanidi ? '#3a2f1f' : '#2a2a2a');
+  const borderColor = acik ? TON : (yansimaMevcut || tanidi ? 'var(--accent-rule)' : 'var(--rule)');
 
   return (
     <div
       style={{
         border: `1px solid ${borderColor}`,
-        backgroundColor: acik ? '#0f0f0f' : 'transparent',
+        backgroundColor: acik ? 'var(--bg-elevated)' : 'transparent',
         transition: 'all 0.25s ease',
       }}
     >
@@ -65,7 +65,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
           border: 'none',
           textAlign: 'left',
           cursor: 'pointer',
-          color: '#f0ede8',
+          color: 'var(--ink)',
           fontFamily: 'inherit',
         }}
         onMouseEnter={(e) => { if (!acik) e.currentTarget.parentElement.style.borderColor = TON; }}
@@ -76,7 +76,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
             fontFamily: 'Cormorant Garamond, serif',
             fontStyle: 'italic',
             fontSize: '1.4rem',
-            color: tanidi ? TON : (yansimaMevcut ? '#aaa' : '#666'),
+            color: tanidi ? TON : (yansimaMevcut ? 'var(--ink-soft)' : 'var(--ink-muted)'),
             minWidth: '32px',
             lineHeight: 1.1,
           }}
@@ -91,7 +91,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: '1.15rem',
-                color: '#f0ede8',
+                color: 'var(--ink)',
                 lineHeight: 1.2,
               }}
             >
@@ -122,7 +122,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
                     color: TON,
                     textTransform: 'uppercase',
                     padding: '0.15rem 0.55rem',
-                    border: `1px solid ${TON}55`,
+                    border: `1px solid color-mix(in srgb, ${TON} 33%, transparent)`,
                   }}
                 >
                   ✓ Tanındı
@@ -135,10 +135,10 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
                     fontWeight: 200,
                     fontSize: '0.55rem',
                     letterSpacing: '0.25em',
-                    color: '#aaa',
+                    color: 'var(--ink-soft)',
                     textTransform: 'uppercase',
                     padding: '0.15rem 0.55rem',
-                    border: '1px solid #3a2f1f',
+                    border: '1px solid var(--accent-rule)',
                   }}
                 >
                   ✓ Yazıldı
@@ -151,7 +151,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
         <span
           style={{
             fontSize: '0.7rem',
-            color: '#888',
+            color: 'var(--ink-muted)',
             marginTop: '0.5rem',
             transform: acik ? 'rotate(180deg)' : 'rotate(0deg)',
             transition: 'transform 0.3s ease',
@@ -165,7 +165,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
         <div
           style={{
             padding: '0 1.4rem 1.4rem 1.4rem',
-            borderTop: '1px solid #2a2a2a',
+            borderTop: '1px solid var(--rule)',
             paddingTop: '1.4rem',
             display: 'flex',
             flexDirection: 'column',
@@ -185,7 +185,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
                 fontWeight: 200,
                 fontSize: '0.55rem',
                 letterSpacing: '0.3em',
-                color: '#7a9b7a',
+                color: 'var(--onay)',
                 textTransform: 'uppercase',
               }}
             >
@@ -196,7 +196,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: '0.95rem',
-                color: '#bbb',
+                color: 'var(--ink-soft)',
                 lineHeight: 1.7,
                 margin: '0.5rem 0 0 0',
               }}
@@ -229,9 +229,9 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
               style={{
                 width: '100%',
                 padding: '1rem 1.2rem',
-                backgroundColor: '#0a0a0a',
-                border: '1px solid #2a2a2a',
-                color: '#f0ede8',
+                backgroundColor: 'var(--bg-base)',
+                border: '1px solid var(--rule)',
+                color: 'var(--ink)',
                 fontFamily: 'Cormorant Garamond, serif',
                 fontSize: '1rem',
                 lineHeight: 1.8,
@@ -242,7 +242,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
                 transition: 'border-color 0.25s ease',
               }}
               onFocus={(e) => { e.currentTarget.style.borderColor = TON; }}
-              onBlur={(e) => { e.currentTarget.style.borderColor = '#2a2a2a'; }}
+              onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; }}
             />
           </div>
 
@@ -254,7 +254,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
               cursor: 'pointer',
               userSelect: 'none',
               paddingTop: '0.4rem',
-              borderTop: '1px solid #1a1a1a',
+              borderTop: '1px solid var(--bg-elevated)',
             }}
           >
             <input
@@ -273,7 +273,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
                 fontFamily: 'Jost, sans-serif',
                 fontWeight: 300,
                 fontSize: '0.8rem',
-                color: tanidi ? TON : '#aaa',
+                color: tanidi ? TON : 'var(--ink-soft)',
                 letterSpacing: '0.05em',
               }}
             >
@@ -295,7 +295,7 @@ function KatmanSatiri({ etiket, metin, altinli }) {
           fontWeight: 200,
           fontSize: '0.55rem',
           letterSpacing: '0.3em',
-          color: altinli ? TON : '#888',
+          color: altinli ? TON : 'var(--ink-muted)',
           textTransform: 'uppercase',
           minWidth: '70px',
           paddingTop: '0.25rem',
@@ -310,7 +310,7 @@ function KatmanSatiri({ etiket, metin, altinli }) {
           fontStyle: altinli ? 'italic' : 'normal',
           fontWeight: altinli ? 300 : 300,
           fontSize: altinli ? '1rem' : '0.88rem',
-          color: altinli ? '#ddd' : '#bbb',
+          color: altinli ? 'var(--ink-soft)' : 'var(--ink-soft)',
           lineHeight: 1.7,
           margin: 0,
         }}
@@ -323,7 +323,7 @@ function KatmanSatiri({ etiket, metin, altinli }) {
 
 function KayitRozet({ durum }) {
   if (!durum || durum === 'yaziliyor') return <span style={{ minHeight: '1em' }} />;
-  const renk = durum === 'hata' ? '#9b6a6a' : '#c9a96e';
+  const renk = durum === 'hata' ? 'var(--uyari)' : 'var(--accent)';
   const mesaj =
     durum === 'kaydediliyor' ? 'Kaydediliyor…' :
     durum === 'kaydedildi' ? '✓ Kaydedildi' :

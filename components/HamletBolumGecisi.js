@@ -8,7 +8,7 @@
 
 'use client';
 
-const TON = '#c9a96e';
+const TON = 'var(--accent)';
 
 export default function HamletBolumGecisi({
   oncekiEtiket,
@@ -26,7 +26,7 @@ export default function HamletBolumGecisi({
         justifyContent: 'space-between',
         gap: '1rem',
         padding: '1.6rem 0 0',
-        borderTop: '1px solid #2a2a2a',
+        borderTop: '1px solid var(--rule)',
         flexWrap: 'wrap',
       }}
     >
@@ -34,8 +34,8 @@ export default function HamletBolumGecisi({
         <a
           href={oncekiYol}
           style={linkStili('onceki')}
-          onMouseEnter={(e) => { e.currentTarget.style.color = '#f0ede8'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = '#aaa'; }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
         >
           <span style={altEtiketStili}>← Önceki</span>
           <span style={oncekiUstStili}>
@@ -48,13 +48,13 @@ export default function HamletBolumGecisi({
         <span
           style={{
             ...linkStili('sonraki'),
-            color: '#666',
+            color: 'var(--ink-muted)',
             cursor: 'default',
             textAlign: 'right',
           }}
         >
           <span style={altEtiketStili}>Sıradaki</span>
-          <span style={{ ...sonrakiUstStili, color: '#666' }}>
+          <span style={{ ...sonrakiUstStili, color: 'var(--ink-muted)' }}>
             {sonrakiBaslik || 'Modül III · Yakında'}
           </span>
         </span>
@@ -80,7 +80,7 @@ const altEtiketStili = {
   fontWeight: 200,
   fontSize: '0.55rem',
   letterSpacing: '0.3em',
-  color: '#888',
+  color: 'var(--ink-muted)',
   textTransform: 'uppercase',
   display: 'block',
   marginBottom: '0.3rem',
@@ -90,7 +90,7 @@ const oncekiUstStili = {
   fontFamily: 'Cormorant Garamond, serif',
   fontStyle: 'italic',
   fontSize: '1rem',
-  color: '#aaa',
+  color: 'var(--ink-soft)',
   display: 'block',
 };
 

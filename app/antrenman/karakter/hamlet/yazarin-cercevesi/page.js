@@ -13,7 +13,7 @@ import HamletAltSayfaHeader from '../../../../../components/HamletAltSayfaHeader
 import HamletTercihKart from '../../../../../components/HamletTercihKart';
 import HamletBolumGecisi from '../../../../../components/HamletBolumGecisi';
 
-const TON = '#c9a96e';
+const TON = 'var(--accent)';
 
 export default function YazarinCerceveSAnaSayfa() {
   const [secimler, setSecimler] = useState({});
@@ -44,7 +44,7 @@ export default function YazarinCerceveSAnaSayfa() {
             fontWeight: 200,
             fontSize: '0.7rem',
             letterSpacing: '0.3em',
-            color: '#888',
+            color: 'var(--ink-muted)',
             textTransform: 'uppercase',
           }}
         >
@@ -58,8 +58,8 @@ export default function YazarinCerceveSAnaSayfa() {
     <main
       style={{
         minHeight: '100vh',
-        backgroundColor: '#0a0a0a',
-        color: '#f0ede8',
+        backgroundColor: 'var(--bg-base)',
+        color: 'var(--ink)',
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -83,7 +83,7 @@ export default function YazarinCerceveSAnaSayfa() {
             href="/antrenman/karakter/hamlet"
             style={geriLinkStili}
             onMouseEnter={(e) => { e.currentTarget.style.color = TON; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = '#888'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
           >
             ← Hamlet
           </a>
@@ -103,7 +103,7 @@ export default function YazarinCerceveSAnaSayfa() {
           style={{
             borderLeft: `2px solid ${TON}`,
             padding: '0.8rem 1.4rem',
-            backgroundColor: '#15110a',
+            backgroundColor: 'var(--accent-bg)',
           }}
         >
           <p
@@ -126,7 +126,7 @@ export default function YazarinCerceveSAnaSayfa() {
             justifyContent: 'space-between',
             alignItems: 'center',
             paddingTop: '1rem',
-            borderTop: '1px solid #1a1a1a',
+            borderTop: '1px solid var(--bg-elevated)',
           }}
         >
           <span style={etiketStili}>Beş Kavşak</span>
@@ -135,7 +135,7 @@ export default function YazarinCerceveSAnaSayfa() {
               fontFamily: 'Cormorant Garamond, serif',
               fontStyle: 'italic',
               fontSize: '1rem',
-              color: hepsiTamam ? TON : '#888',
+              color: hepsiTamam ? TON : 'var(--ink-muted)',
             }}
           >
             {tamamlananSayisi} / {tercihler.length} tamamlandı
@@ -159,13 +159,13 @@ export default function YazarinCerceveSAnaSayfa() {
             href="/antrenman/karakter/hamlet/yazarin-cercevesi/sentez"
             style={{
               border: `1px solid ${hepsiTamam ? TON : TON + '55'}`,
-              backgroundColor: hepsiTamam ? '#100c06' : '#0d0d0d',
+              backgroundColor: hepsiTamam ? 'var(--accent-bg-deep)' : 'var(--bg-elevated)',
               padding: '1.8rem 2rem',
               display: 'flex',
               flexDirection: 'column',
               gap: '0.7rem',
               textDecoration: 'none',
-              color: '#f0ede8',
+              color: 'var(--ink)',
               transition: 'all 0.25s ease',
             }}
             onMouseEnter={(e) => { e.currentTarget.style.borderColor = TON; }}
@@ -180,7 +180,7 @@ export default function YazarinCerceveSAnaSayfa() {
                 fontStyle: 'italic',
                 fontWeight: 300,
                 fontSize: '1.5rem',
-                color: '#f0ede8',
+                color: 'var(--ink)',
               }}
             >
               Beş Cümle, Bir Hamlet
@@ -190,7 +190,7 @@ export default function YazarinCerceveSAnaSayfa() {
                 fontFamily: 'Jost, sans-serif',
                 fontWeight: 300,
                 fontSize: '0.85rem',
-                color: '#bbb',
+                color: 'var(--ink-soft)',
                 lineHeight: 1.7,
                 margin: 0,
               }}
@@ -235,7 +235,7 @@ const geriLinkStili = {
   fontWeight: 200,
   fontSize: '0.6rem',
   letterSpacing: '0.3em',
-  color: '#888',
+  color: 'var(--ink-muted)',
   textTransform: 'uppercase',
   textDecoration: 'none',
   alignSelf: 'flex-start',
@@ -256,7 +256,7 @@ const baslikStili = {
   fontStyle: 'italic',
   fontWeight: 300,
   fontSize: 'clamp(2.2rem, 6vw, 3.4rem)',
-  color: '#f0ede8',
+  color: 'var(--ink)',
   margin: 0,
   lineHeight: 1.1,
 };
@@ -265,7 +265,7 @@ const altyaziStili = {
   fontFamily: 'Cormorant Garamond, serif',
   fontStyle: 'italic',
   fontSize: '1.1rem',
-  color: '#888',
+  color: 'var(--ink-muted)',
   margin: 0,
 };
 
@@ -273,15 +273,15 @@ const paragrafStili = {
   fontFamily: 'Cormorant Garamond, serif',
   fontStyle: 'italic',
   fontSize: '1.05rem',
-  color: '#ddd',
+  color: 'var(--ink-soft)',
   lineHeight: 1.8,
   margin: 0,
 };
 
 const ekranStili = {
   minHeight: '100vh',
-  backgroundColor: '#0a0a0a',
-  color: '#f0ede8',
+  backgroundColor: 'var(--bg-base)',
+  color: 'var(--ink)',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

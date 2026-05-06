@@ -20,8 +20,8 @@ export default function DogrularKarti({ dogrular }) {
   return (
     <div
       style={{
-        backgroundColor: '#0f0f0f',
-        border: '1px solid #2a2a2a',
+        backgroundColor: 'var(--bg-elevated)',
+        border: '1px solid var(--rule)',
         padding: '2rem',
         display: 'flex',
         flexDirection: 'column',
@@ -36,7 +36,7 @@ export default function DogrularKarti({ dogrular }) {
             fontWeight: 300,
             fontSize: '0.85rem',
             letterSpacing: '0.4em',
-            color: '#c9a96e',
+            color: 'var(--accent)',
             textTransform: 'uppercase',
           }}
         >
@@ -47,7 +47,7 @@ export default function DogrularKarti({ dogrular }) {
             fontFamily: 'Jost, sans-serif',
             fontWeight: 200,
             fontSize: '0.78rem',
-            color: '#888',
+            color: 'var(--ink-muted)',
             fontStyle: 'italic',
             lineHeight: 1.6,
           }}
@@ -66,7 +66,7 @@ export default function DogrularKarti({ dogrular }) {
                 display: 'flex',
                 gap: '1.5rem',
                 padding: '1.1rem 0',
-                borderTop: i === 0 ? 'none' : '1px solid #1a1a1a',
+                borderTop: i === 0 ? 'none' : '1px solid var(--bg-elevated)',
                 alignItems: 'flex-start',
               }}
             >
@@ -76,7 +76,7 @@ export default function DogrularKarti({ dogrular }) {
                   fontWeight: 200,
                   fontSize: '0.55rem',
                   letterSpacing: '0.3em',
-                  color: '#c9a96e',
+                  color: 'var(--accent)',
                   textTransform: 'uppercase',
                   width: '90px',
                   flexShrink: 0,
@@ -93,7 +93,7 @@ export default function DogrularKarti({ dogrular }) {
                       fontFamily: 'Jost, sans-serif',
                       fontWeight: 300,
                       fontSize: '0.95rem',
-                      color: '#f0ede8',
+                      color: 'var(--ink)',
                       lineHeight: 1.65,
                       margin: 0,
                     }}

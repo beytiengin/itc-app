@@ -20,7 +20,7 @@ const ustEtiketStili = {
   fontWeight: 300,
   letterSpacing: '0.4em',
   textTransform: 'uppercase',
-  color: '#888',
+  color: 'var(--ink-muted)',
   marginBottom: '1rem',
 };
 
@@ -28,7 +28,7 @@ const altBaslikStili = {
   fontFamily: 'Cormorant Garamond, serif',
   fontStyle: 'italic',
   fontSize: '1.3rem',
-  color: '#c9a96e',
+  color: 'var(--accent)',
   fontWeight: 300,
   margin: '0 0 1rem 0',
 };
@@ -38,7 +38,7 @@ const paragrafStili = {
   fontSize: '0.95rem',
   fontWeight: 300,
   lineHeight: 1.85,
-  color: '#bbb',
+  color: 'var(--ink-soft)',
   margin: 0,
 };
 
@@ -46,8 +46,8 @@ const ctaButonStili = {
   display: 'inline-block',
   padding: '1rem 2.5rem',
   background: 'transparent',
-  border: '1px solid #c9a96e',
-  color: '#c9a96e',
+  border: '1px solid var(--accent)',
+  color: 'var(--accent)',
   fontFamily: 'Jost, sans-serif',
   fontSize: '0.85rem',
   fontWeight: 300,
@@ -57,8 +57,8 @@ const ctaButonStili = {
   transition: 'all 0.3s ease',
   cursor: 'pointer',
 };
-function ctaHoverIn(e) { e.currentTarget.style.background = '#c9a96e'; e.currentTarget.style.color = '#0a0a0a'; }
-function ctaHoverOut(e) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#c9a96e'; }
+function ctaHoverIn(e) { e.currentTarget.style.background = 'var(--accent)'; e.currentTarget.style.color = 'var(--bg-base)'; }
+function ctaHoverOut(e) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--accent)'; }
 
 // ─── Test Kartı (inline component) ─────────────────────────────────────────
 
@@ -68,15 +68,15 @@ function TestKarti({ url, baslik, altbaslik, aciklama, meta, tamamlandi, sonuc }
       href={url}
       style={{
         display: 'block',
-        background: '#0f0f0f',
-        border: '1px solid #2a2a2a',
+        background: 'var(--bg-elevated)',
+        border: '1px solid var(--rule)',
         padding: '2rem 2.5rem',
         marginBottom: '1.5rem',
         textDecoration: 'none',
         transition: 'all 0.3s ease',
       }}
-      onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#c9a96e'; }}
-      onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#2a2a2a'; }}
+      onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
+      onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '0.6rem', flexWrap: 'wrap', gap: '0.5rem' }}>
         <div style={{
@@ -85,7 +85,7 @@ function TestKarti({ url, baslik, altbaslik, aciklama, meta, tamamlandi, sonuc }
           fontWeight: 300,
           letterSpacing: '0.3em',
           textTransform: 'uppercase',
-          color: '#f0ede8',
+          color: 'var(--ink)',
         }}>
           {baslik}
         </div>
@@ -96,7 +96,7 @@ function TestKarti({ url, baslik, altbaslik, aciklama, meta, tamamlandi, sonuc }
             fontWeight: 300,
             letterSpacing: '0.25em',
             textTransform: 'uppercase',
-            color: '#7a9b7a',
+            color: 'var(--onay)',
           }}>
             ✓ Tamamlandı
           </div>
@@ -105,7 +105,7 @@ function TestKarti({ url, baslik, altbaslik, aciklama, meta, tamamlandi, sonuc }
             fontFamily: 'Jost, sans-serif',
             fontSize: '0.7rem',
             fontWeight: 300,
-            color: '#c9a96e',
+            color: 'var(--accent)',
             letterSpacing: '0.1em',
           }}>
             Yap →
@@ -117,7 +117,7 @@ function TestKarti({ url, baslik, altbaslik, aciklama, meta, tamamlandi, sonuc }
         fontFamily: 'Cormorant Garamond, serif',
         fontStyle: 'italic',
         fontSize: '1.05rem',
-        color: '#c9a96e',
+        color: 'var(--accent)',
         marginBottom: '1rem',
       }}>
         {altbaslik}
@@ -128,7 +128,7 @@ function TestKarti({ url, baslik, altbaslik, aciklama, meta, tamamlandi, sonuc }
         fontSize: '0.88rem',
         fontWeight: 300,
         lineHeight: 1.7,
-        color: '#aaa',
+        color: 'var(--ink-soft)',
         marginTop: 0,
         marginBottom: '1rem',
       }}>
@@ -140,7 +140,7 @@ function TestKarti({ url, baslik, altbaslik, aciklama, meta, tamamlandi, sonuc }
           fontFamily: 'Jost, sans-serif',
           fontSize: '0.7rem',
           fontWeight: 300,
-          color: '#666',
+          color: 'var(--ink-muted)',
           letterSpacing: '0.1em',
         }}>
           {meta}
@@ -150,7 +150,7 @@ function TestKarti({ url, baslik, altbaslik, aciklama, meta, tamamlandi, sonuc }
             fontFamily: 'Jost, sans-serif',
             fontSize: '0.75rem',
             fontWeight: 300,
-            color: '#7a9b7a',
+            color: 'var(--onay)',
             letterSpacing: '0.05em',
           }}>
             {sonuc}
@@ -194,7 +194,7 @@ export default function Kalibrasyon() {
     : null;
 
   return (
-    <main style={{ minHeight: '100vh', backgroundColor: '#0a0a0a', color: '#f0ede8', display: 'flex', flexDirection: 'column' }}>
+    <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', flexDirection: 'column' }}>
 
       {/* HEADER */}
       <header style={{
@@ -202,23 +202,23 @@ export default function Kalibrasyon() {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '1.6rem 2rem',
-        borderBottom: '1px solid #1a1a1a',
+        borderBottom: '1px solid var(--bg-elevated)',
         flexWrap: 'wrap',
         gap: '1rem',
       }}>
         <a href="/" style={{
           fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem',
-          letterSpacing: '0.3em', color: '#c9a96e', textTransform: 'uppercase', textDecoration: 'none',
+          letterSpacing: '0.3em', color: 'var(--accent)', textTransform: 'uppercase', textDecoration: 'none',
         }}>
           Inside The Character
         </a>
         <a href="/" style={{
           fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem',
-          letterSpacing: '0.25em', color: '#aaa', textTransform: 'uppercase', textDecoration: 'none',
+          letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none',
           transition: 'color 0.25s ease',
         }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = '#c9a96e'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = '#aaa'; }}>
+          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
           ← Ana Ekran
         </a>
       </header>
@@ -232,14 +232,14 @@ export default function Kalibrasyon() {
         width: '100%',
         boxSizing: 'border-box',
       }}>
-        <div style={{ width: '1px', height: '50px', backgroundColor: '#c9a96e', opacity: 0.4, margin: '0 auto 1.8rem' }} />
+        <div style={{ width: '1px', height: '50px', backgroundColor: 'var(--accent)', opacity: 0.4, margin: '0 auto 1.8rem' }} />
         <div style={ustEtiketStili}>Modül I</div>
         <h1 style={{
           fontFamily: 'Cormorant Garamond, serif',
           fontStyle: 'italic',
           fontSize: 'clamp(2.3rem, 5vw, 3.4rem)',
           fontWeight: 300,
-          color: '#f0ede8',
+          color: 'var(--ink)',
           margin: '0 0 1.4rem 0',
           lineHeight: 1.2,
           letterSpacing: '0.02em',
@@ -250,7 +250,7 @@ export default function Kalibrasyon() {
           fontFamily: 'Cormorant Garamond, serif',
           fontStyle: 'italic',
           fontSize: 'clamp(1rem, 2vw, 1.15rem)',
-          color: '#aaa',
+          color: 'var(--ink-soft)',
           maxWidth: '600px',
           margin: 0,
           marginLeft: 'auto',
@@ -276,7 +276,7 @@ export default function Kalibrasyon() {
             etiket="Toplam"
             mevcut={tamamlananSayisi}
             toplam={3}
-            renk="#c9a96e"
+            renk="var(--accent)"
           />
         )}
       </section>
@@ -322,8 +322,8 @@ export default function Kalibrasyon() {
       <section style={{
         padding: 'clamp(3rem, 7vw, 5rem) 2rem',
         marginTop: '3rem',
-        borderTop: '1px solid #1a1a1a',
-        background: '#0c0c0c',
+        borderTop: '1px solid var(--bg-elevated)',
+        background: 'var(--bg-elevated)',
       }}>
         <div style={{ maxWidth: '780px', margin: '0 auto' }}>
 
@@ -334,7 +334,7 @@ export default function Kalibrasyon() {
               fontFamily: 'Cormorant Garamond, serif',
               fontStyle: 'italic',
               fontSize: 'clamp(1.6rem, 3vw, 2rem)',
-              color: '#f0ede8',
+              color: 'var(--ink)',
               fontWeight: 300,
               margin: 0,
             }}>
@@ -371,7 +371,7 @@ export default function Kalibrasyon() {
           </div>
 
           {/* Ayraç */}
-          <hr style={{ border: 'none', borderTop: '1px solid #1a1a1a', margin: '4rem 0' }} />
+          <hr style={{ border: 'none', borderTop: '1px solid var(--bg-elevated)', margin: '4rem 0' }} />
 
           {/* Alt-bölüm 2 — Güvenli Karakter İnşası */}
           <div>
@@ -382,7 +382,7 @@ export default function Kalibrasyon() {
                 fontWeight: 300,
                 letterSpacing: '0.4em',
                 textTransform: 'uppercase',
-                color: '#888',
+                color: 'var(--ink-muted)',
                 marginBottom: '0.8rem',
               }}>
                 Güvenli Karakter İnşası
@@ -391,7 +391,7 @@ export default function Kalibrasyon() {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: '1.6rem',
-                color: '#f0ede8',
+                color: 'var(--ink)',
                 fontWeight: 300,
                 margin: 0,
               }}>
@@ -412,7 +412,7 @@ export default function Kalibrasyon() {
             </p>
 
             <p style={{ ...paragrafStili, marginTop: '1.5rem' }}>
-              Yıldız Oyuncu profilin bu sistemin nasıl çalışacağını belirler. Eğer psikolojik kapasiten bugün için belirli bir derinliğe hazır değilse, sistem o derinliği henüz açmaz. Bir kilit değil — bir bekleyiş. Diğer oyunculuk yöntemlerinin aksine ITC'nin temeli şu cümledir: <em style={{ color: '#c9a96e' }}>Karakter senin kişisel travmalarınla inşa edilmez.</em> Karakterin kendi verisi vardır. Senin yaraların seninle kalır.
+              Yıldız Oyuncu profilin bu sistemin nasıl çalışacağını belirler. Eğer psikolojik kapasiten bugün için belirli bir derinliğe hazır değilse, sistem o derinliği henüz açmaz. Bir kilit değil — bir bekleyiş. Diğer oyunculuk yöntemlerinin aksine ITC'nin temeli şu cümledir: <em style={{ color: 'var(--accent)' }}>Karakter senin kişisel travmalarınla inşa edilmez.</em> Karakterin kendi verisi vardır. Senin yaraların seninle kalır.
             </p>
           </div>
 
@@ -423,7 +423,7 @@ export default function Kalibrasyon() {
       <section style={{
         padding: 'clamp(3rem, 7vw, 5rem) 2rem',
         textAlign: 'center',
-        borderTop: '1px solid #1a1a1a',
+        borderTop: '1px solid var(--bg-elevated)',
       }}>
         <div style={{ maxWidth: '600px', margin: '0 auto' }}>
           {tamamlananSayisi === 3 ? (
@@ -432,7 +432,7 @@ export default function Kalibrasyon() {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: 'clamp(1.6rem, 3vw, 2rem)',
-                color: '#f0ede8',
+                color: 'var(--ink)',
                 fontWeight: 300,
                 margin: '0 0 1rem 0',
               }}>
@@ -442,7 +442,7 @@ export default function Kalibrasyon() {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: '1.1rem',
-                color: '#aaa',
+                color: 'var(--ink-soft)',
                 margin: '0 0 2.5rem 0',
               }}>
                 Şimdi karakteri içeriden inşa etme zamanı.
@@ -462,7 +462,7 @@ export default function Kalibrasyon() {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: 'clamp(1.5rem, 3vw, 1.8rem)',
-                color: '#f0ede8',
+                color: 'var(--ink)',
                 fontWeight: 300,
                 margin: '0 0 1rem 0',
               }}>
@@ -472,7 +472,7 @@ export default function Kalibrasyon() {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: '1.05rem',
-                color: '#aaa',
+                color: 'var(--ink-soft)',
                 margin: 0,
               }}>
                 Devam etmeye hazır mısın?
@@ -484,7 +484,7 @@ export default function Kalibrasyon() {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: 'clamp(1.5rem, 3vw, 1.8rem)',
-                color: '#f0ede8',
+                color: 'var(--ink)',
                 fontWeight: 300,
                 margin: '0 0 1rem 0',
               }}>
@@ -494,7 +494,7 @@ export default function Kalibrasyon() {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: '1.05rem',
-                color: '#aaa',
+                color: 'var(--ink-soft)',
                 margin: 0,
               }}>
                 On beş dakika. Üç test. Bir profil.
@@ -508,26 +508,26 @@ export default function Kalibrasyon() {
       <section style={{
         padding: '2rem',
         textAlign: 'center',
-        borderTop: '1px solid #1a1a1a',
+        borderTop: '1px solid var(--bg-elevated)',
       }}>
         <p style={{
           fontFamily: 'Jost, sans-serif',
           fontSize: '0.78rem',
           fontWeight: 300,
-          color: '#666',
+          color: 'var(--ink-muted)',
           margin: 0,
         }}>
           Detaylı sonuçlarını dilediğin zaman{' '}
           <a
             href="/profil"
             style={{
-              color: '#888',
-              borderBottom: '1px solid #444',
+              color: 'var(--ink-muted)',
+              borderBottom: '1px solid var(--rule)',
               textDecoration: 'none',
               transition: 'color 0.25s ease',
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = '#c9a96e'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = '#888'; }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
           >
             profilinde
           </a>

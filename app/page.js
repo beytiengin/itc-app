@@ -14,7 +14,7 @@ const ustEtiketStili = {
   fontWeight: 300,
   letterSpacing: '0.4em',
   textTransform: 'uppercase',
-  color: '#888',
+  color: 'var(--ink-muted)',
   marginBottom: '1rem',
 };
 
@@ -22,14 +22,14 @@ const bolumBaslikStili = {
   fontFamily: 'Cormorant Garamond, serif',
   fontStyle: 'italic',
   fontSize: 'clamp(1.6rem, 3vw, 2rem)',
-  color: '#f0ede8',
+  color: 'var(--ink)',
   fontWeight: 300,
   margin: 0,
 };
 
 const ilkeKartiStili = {
-  background: '#0f0f0f',
-  border: '1px solid #2a2a2a',
+  background: 'var(--bg-elevated)',
+  border: '1px solid var(--rule)',
   padding: '2.5rem 2rem',
   transition: 'all 0.3s ease',
 };
@@ -38,7 +38,7 @@ const ilkeNumarasiStili = {
   fontFamily: 'Cormorant Garamond, serif',
   fontStyle: 'italic',
   fontSize: '1.5rem',
-  color: '#c9a96e',
+  color: 'var(--accent)',
   marginBottom: '1rem',
 };
 
@@ -46,7 +46,7 @@ const ilkeBaslikStili = {
   fontFamily: 'Cormorant Garamond, serif',
   fontStyle: 'italic',
   fontSize: '1.5rem',
-  color: '#f0ede8',
+  color: 'var(--ink)',
   fontWeight: 300,
   margin: '0 0 1rem 0',
 };
@@ -56,13 +56,13 @@ const ilkeMetinStili = {
   fontSize: '0.95rem',
   fontWeight: 300,
   lineHeight: 1.7,
-  color: '#aaa',
+  color: 'var(--ink-soft)',
   margin: 0,
 };
 
 const modulKartiStili = {
-  background: '#0f0f0f',
-  border: '1px solid #2a2a2a',
+  background: 'var(--bg-elevated)',
+  border: '1px solid var(--rule)',
   padding: '2rem 2.5rem',
   transition: 'all 0.3s ease',
 };
@@ -71,7 +71,7 @@ const modulRomenStili = {
   fontFamily: 'Cormorant Garamond, serif',
   fontStyle: 'italic',
   fontSize: '1.5rem',
-  color: '#c9a96e',
+  color: 'var(--accent)',
   minWidth: '30px',
 };
 
@@ -79,7 +79,7 @@ const modulBaslikStili = {
   fontFamily: 'Cormorant Garamond, serif',
   fontStyle: 'italic',
   fontSize: '1.6rem',
-  color: '#f0ede8',
+  color: 'var(--ink)',
   fontWeight: 300,
   margin: 0,
 };
@@ -89,7 +89,7 @@ const modulAltStili = {
   fontSize: '0.7rem',
   letterSpacing: '0.3em',
   textTransform: 'uppercase',
-  color: '#888',
+  color: 'var(--ink-muted)',
 };
 
 const modulMetinStili = {
@@ -97,7 +97,7 @@ const modulMetinStili = {
   fontSize: '0.95rem',
   fontWeight: 300,
   lineHeight: 1.7,
-  color: '#aaa',
+  color: 'var(--ink-soft)',
   margin: '0 0 0.8rem 0',
 };
 
@@ -106,7 +106,7 @@ const modulMetaStili = {
   fontSize: '0.7rem',
   letterSpacing: '0.2em',
   textTransform: 'uppercase',
-  color: '#666',
+  color: 'var(--ink-muted)',
 };
 
 const kisiEtiketStili = {
@@ -115,7 +115,7 @@ const kisiEtiketStili = {
   fontWeight: 300,
   letterSpacing: '0.3em',
   textTransform: 'uppercase',
-  color: '#c9a96e',
+  color: 'var(--accent)',
   marginBottom: '0.5rem',
 };
 
@@ -123,7 +123,7 @@ const kisiAdStili = {
   fontFamily: 'Cormorant Garamond, serif',
   fontStyle: 'italic',
   fontSize: '2rem',
-  color: '#f0ede8',
+  color: 'var(--ink)',
   fontWeight: 300,
   margin: 0,
 };
@@ -133,15 +133,15 @@ const kisiMetinStili = {
   fontSize: '0.9rem',
   fontWeight: 300,
   lineHeight: 1.8,
-  color: '#aaa',
+  color: 'var(--ink-soft)',
 };
 
 const ctaButonStili = {
   display: 'inline-block',
   padding: '1rem 2.5rem',
   background: 'transparent',
-  border: '1px solid #c9a96e',
-  color: '#c9a96e',
+  border: '1px solid var(--accent)',
+  color: 'var(--accent)',
   fontFamily: 'Jost, sans-serif',
   fontSize: '0.85rem',
   fontWeight: 300,
@@ -153,12 +153,12 @@ const ctaButonStili = {
 };
 
 function ctaHoverIn(e) {
-  e.currentTarget.style.background = '#c9a96e';
-  e.currentTarget.style.color = '#0a0a0a';
+  e.currentTarget.style.background = 'var(--accent)';
+  e.currentTarget.style.color = 'var(--bg-base)';
 }
 function ctaHoverOut(e) {
   e.currentTarget.style.background = 'transparent';
-  e.currentTarget.style.color = '#c9a96e';
+  e.currentTarget.style.color = 'var(--accent)';
 }
 
 // ─── Ana Sayfa Bileşeni ─────────────────────────────────────────────────────
@@ -190,7 +190,7 @@ export default function AnaSayfa() {
     : 'Önce kalibrasyon. Üç kısa test, on beş dakika.';
 
   return (
-    <main style={{ minHeight: '100vh', backgroundColor: '#0a0a0a', color: '#f0ede8', display: 'flex', flexDirection: 'column' }}>
+    <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', flexDirection: 'column' }}>
 
       {/* HEADER */}
       <header style={{
@@ -198,7 +198,7 @@ export default function AnaSayfa() {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '1.6rem 2rem',
-        borderBottom: '1px solid #1a1a1a',
+        borderBottom: '1px solid var(--bg-elevated)',
         flexWrap: 'wrap',
         gap: '1rem',
       }}>
@@ -207,7 +207,7 @@ export default function AnaSayfa() {
           fontWeight: 200,
           fontSize: '0.65rem',
           letterSpacing: '0.3em',
-          color: '#c9a96e',
+          color: 'var(--accent)',
           textTransform: 'uppercase',
         }}>
           Inside The Character
@@ -215,14 +215,14 @@ export default function AnaSayfa() {
 
         {kullanici ? (
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.6rem', flexWrap: 'wrap' }}>
-            <a href="/kulis" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: '#aaa', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.25s ease' }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#c9a96e'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = '#aaa'; }}>
+            <a href="/kulis" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.25s ease' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
               Kulis
             </a>
-            <a href="/profil" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: '#aaa', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.25s ease' }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#c9a96e'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = '#aaa'; }}>
+            <a href="/profil" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.25s ease' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
               {kullanici.user_metadata?.ad || kullanici.email}
             </a>
             <button
@@ -230,11 +230,11 @@ export default function AnaSayfa() {
               style={{
                 background: 'none', border: 'none', cursor: 'pointer', padding: 0,
                 fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem',
-                letterSpacing: '0.25em', color: '#666', textTransform: 'uppercase',
+                letterSpacing: '0.25em', color: 'var(--ink-muted)', textTransform: 'uppercase',
                 transition: 'color 0.25s ease',
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#f0ede8'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = '#666'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
             >
               Çıkış
             </button>
@@ -242,11 +242,11 @@ export default function AnaSayfa() {
         ) : (
           <a href="/giris" style={{
             fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem',
-            letterSpacing: '0.25em', color: '#f0ede8', textTransform: 'uppercase',
+            letterSpacing: '0.25em', color: 'var(--ink)', textTransform: 'uppercase',
             textDecoration: 'none', transition: 'color 0.25s ease',
           }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = '#c9a96e'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = '#f0ede8'; }}>
+            onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}>
             Giriş Yap
           </a>
         )}
@@ -261,13 +261,13 @@ export default function AnaSayfa() {
         width: '100%',
         boxSizing: 'border-box',
       }}>
-        <div style={{ width: '1px', height: '60px', backgroundColor: '#c9a96e', opacity: 0.4, margin: '0 auto 2rem' }} />
+        <div style={{ width: '1px', height: '60px', backgroundColor: 'var(--accent)', opacity: 0.4, margin: '0 auto 2rem' }} />
 
         <div style={{
           fontFamily: 'Jost, sans-serif',
           fontSize: '0.65rem',
           fontWeight: 300,
-          color: '#888',
+          color: 'var(--ink-muted)',
           letterSpacing: '0.4em',
           marginBottom: '2rem',
           textTransform: 'uppercase',
@@ -280,7 +280,7 @@ export default function AnaSayfa() {
           fontStyle: 'italic',
           fontSize: 'clamp(2.5rem, 6vw, 4rem)',
           fontWeight: 300,
-          color: '#f0ede8',
+          color: 'var(--ink)',
           marginBottom: '1.5rem',
           marginTop: 0,
           lineHeight: 1.2,
@@ -295,7 +295,7 @@ export default function AnaSayfa() {
           fontStyle: 'italic',
           fontSize: 'clamp(1rem, 2vw, 1.2rem)',
           fontWeight: 300,
-          color: '#aaa',
+          color: 'var(--ink-soft)',
           maxWidth: '600px',
           margin: '0 auto 3rem',
           lineHeight: 1.7,
@@ -317,24 +317,24 @@ export default function AnaSayfa() {
       {/* BÖLÜM 2 — VURUŞ CÜMLESİ */}
       <section style={{
         padding: 'clamp(3rem, 6vw, 4rem) 2rem',
-        borderTop: '1px solid #1a1a1a',
-        borderBottom: '1px solid #1a1a1a',
+        borderTop: '1px solid var(--bg-elevated)',
+        borderBottom: '1px solid var(--bg-elevated)',
         textAlign: 'center',
-        background: '#0c0c0c',
+        background: 'var(--bg-elevated)',
       }}>
         <p style={{
           fontFamily: 'Cormorant Garamond, serif',
           fontStyle: 'italic',
           fontSize: 'clamp(1.3rem, 3vw, 1.8rem)',
           fontWeight: 300,
-          color: '#f0ede8',
+          color: 'var(--ink)',
           maxWidth: '700px',
           margin: '0 auto',
           lineHeight: 1.6,
         }}>
-          Geleneksel yöntemler oyuncuya <span style={{ color: '#888' }}>"ne yapacağını"</span> söyler.
+          Geleneksel yöntemler oyuncuya <span style={{ color: 'var(--ink-muted)' }}>"ne yapacağını"</span> söyler.
           <br /><br />
-          ITC ise <span style={{ color: '#c9a96e' }}>"nasıl düşündüğünü"</span> sorar.
+          ITC ise <span style={{ color: 'var(--accent)' }}>"nasıl düşündüğünü"</span> sorar.
         </p>
       </section>
 
@@ -390,8 +390,8 @@ export default function AnaSayfa() {
       {/* BÖLÜM 4 — ÜÇ MODÜL */}
       <section style={{
         padding: 'clamp(3rem, 7vw, 5rem) 2rem',
-        borderTop: '1px solid #1a1a1a',
-        background: '#0c0c0c',
+        borderTop: '1px solid var(--bg-elevated)',
+        background: 'var(--bg-elevated)',
       }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
 
@@ -522,8 +522,8 @@ export default function AnaSayfa() {
       <section style={{
         padding: 'clamp(3rem, 7vw, 5rem) 2rem',
         textAlign: 'center',
-        borderTop: '1px solid #1a1a1a',
-        background: '#0c0c0c',
+        borderTop: '1px solid var(--bg-elevated)',
+        background: 'var(--bg-elevated)',
       }}>
         <div style={{ maxWidth: '600px', margin: '0 auto' }}>
 
@@ -531,7 +531,7 @@ export default function AnaSayfa() {
             fontFamily: 'Cormorant Garamond, serif',
             fontStyle: 'italic',
             fontSize: 'clamp(1.6rem, 3vw, 2rem)',
-            color: '#f0ede8',
+            color: 'var(--ink)',
             fontWeight: 300,
             marginBottom: '1.5rem',
             marginTop: 0,
@@ -543,7 +543,7 @@ export default function AnaSayfa() {
             fontFamily: 'Cormorant Garamond, serif',
             fontStyle: 'italic',
             fontSize: '1.1rem',
-            color: '#aaa',
+            color: 'var(--ink-soft)',
             marginBottom: '2.5rem',
             marginTop: 0,
           }}>
@@ -562,24 +562,24 @@ export default function AnaSayfa() {
           <div style={{
             marginTop: '4rem',
             paddingTop: '2rem',
-            borderTop: '1px solid #1a1a1a',
+            borderTop: '1px solid var(--bg-elevated)',
             fontFamily: 'Jost, sans-serif',
             fontSize: '0.7rem',
             fontWeight: 300,
-            color: '#666',
+            color: 'var(--ink-muted)',
             letterSpacing: '0.1em',
           }}>
             <a
               href="https://beytienginstudio.com"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: '#888', textDecoration: 'none', borderBottom: '1px solid #444', transition: 'color 0.25s ease' }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#c9a96e'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = '#888'; }}
+              style={{ color: 'var(--ink-muted)', textDecoration: 'none', borderBottom: '1px solid var(--rule)', transition: 'color 0.25s ease' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
             >
               beytienginstudio.com
             </a>
-            <span style={{ margin: '0 1rem', color: '#444' }}>·</span>
+            <span style={{ margin: '0 1rem', color: 'var(--ink-muted)' }}>·</span>
             <span>2005'ten bu yana</span>
           </div>
         </div>

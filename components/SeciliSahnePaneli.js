@@ -6,14 +6,14 @@
 
 'use client';
 
-const TON = '#c9a96e';
+const TON = 'var(--accent)';
 
 export default function SeciliSahnePaneli({ sahne }) {
   if (!sahne) {
     return (
       <div
         style={{
-          border: '1px dashed #2a2a2a',
+          border: '1px dashed var(--rule)',
           padding: '2rem',
           textAlign: 'center',
         }}
@@ -23,7 +23,7 @@ export default function SeciliSahnePaneli({ sahne }) {
             fontFamily: 'Cormorant Garamond, serif',
             fontStyle: 'italic',
             fontSize: '0.95rem',
-            color: '#666',
+            color: 'var(--ink-muted)',
           }}
         >
           Bir sahneye tıklayarak detaylarını gör
@@ -35,8 +35,8 @@ export default function SeciliSahnePaneli({ sahne }) {
   return (
     <div
       style={{
-        backgroundColor: '#0f0f0f',
-        border: '1px solid #2a2a2a',
+        backgroundColor: 'var(--bg-elevated)',
+        border: '1px solid var(--rule)',
         padding: '2rem',
         display: 'flex',
         flexDirection: 'column',
@@ -53,7 +53,7 @@ export default function SeciliSahnePaneli({ sahne }) {
             color: TON,
             textTransform: 'uppercase',
             padding: '0.2rem 0.6rem',
-            border: `1px solid ${TON}55`,
+            border: `1px solid color-mix(in srgb, ${TON} 33%, transparent)`,
           }}
         >
           {sahne.id}
@@ -64,7 +64,7 @@ export default function SeciliSahnePaneli({ sahne }) {
             fontStyle: 'italic',
             fontWeight: 300,
             fontSize: '1.4rem',
-            color: '#f0ede8',
+            color: 'var(--ink)',
             margin: 0,
             lineHeight: 1.3,
           }}
@@ -80,8 +80,8 @@ export default function SeciliSahnePaneli({ sahne }) {
             alignItems: 'center',
             gap: '0.7rem',
             padding: '0.7rem 1rem',
-            backgroundColor: '#15110a',
-            border: `1px solid ${TON}33`,
+            backgroundColor: 'var(--accent-bg)',
+            border: `1px solid color-mix(in srgb, ${TON} 20%, transparent)`,
           }}
         >
           <span style={{ color: TON, fontSize: '0.95rem' }}>⬥</span>
@@ -102,7 +102,7 @@ export default function SeciliSahnePaneli({ sahne }) {
               fontFamily: 'Cormorant Garamond, serif',
               fontStyle: 'italic',
               fontSize: '0.85rem',
-              color: '#bbb',
+              color: 'var(--ink-soft)',
               flex: 1,
             }}
           >
@@ -117,7 +117,7 @@ export default function SeciliSahnePaneli({ sahne }) {
             fontFamily: 'Cormorant Garamond, serif',
             fontStyle: 'italic',
             fontSize: '1rem',
-            color: '#ddd',
+            color: 'var(--ink-soft)',
             lineHeight: 1.8,
             margin: 0,
           }}
@@ -145,7 +145,7 @@ export default function SeciliSahnePaneli({ sahne }) {
               fontFamily: 'Jost, sans-serif',
               fontWeight: 300,
               fontSize: '0.88rem',
-              color: '#ccc',
+              color: 'var(--ink-soft)',
               lineHeight: 1.7,
               margin: 0,
             }}
@@ -159,7 +159,7 @@ export default function SeciliSahnePaneli({ sahne }) {
         <div
           style={{
             paddingTop: '1rem',
-            borderTop: '1px solid #1a1a1a',
+            borderTop: '1px solid var(--bg-elevated)',
             display: 'flex',
             flexDirection: 'column',
             gap: '0.5rem',
@@ -171,7 +171,7 @@ export default function SeciliSahnePaneli({ sahne }) {
               fontWeight: 200,
               fontSize: '0.55rem',
               letterSpacing: '0.3em',
-              color: '#7a9b7a',
+              color: 'var(--onay)',
               textTransform: 'uppercase',
             }}
           >
@@ -182,7 +182,7 @@ export default function SeciliSahnePaneli({ sahne }) {
               fontFamily: 'Cormorant Garamond, serif',
               fontStyle: 'italic',
               fontSize: '0.95rem',
-              color: '#bbb',
+              color: 'var(--ink-soft)',
               lineHeight: 1.7,
               margin: 0,
             }}

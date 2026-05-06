@@ -1,17 +1,129 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@200;300;400&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --black: #0a0a0a;
-  --white: #f0ede8;
-  --gold: #c9a96e;
-  --text-primary: #f0ede8;
-  --text-secondary: #ccc;
-  --text-muted: #999;
-  --border: #2a2a2a;
+/* === Dual Mode Tema Sistemi ===
+   Dalga 1 (altyapi): degiskenler tanimli, sayfalar henuz cogunlukla
+   inline hard-coded renk kullaniyor. Dalga 2'de var(--*)'a tasinacak.
+
+   Aksan rengi MOD-SPESIFIK:
+   - Dark mode: altin #c9a96e (mevcut kimlik korunuyor)
+   - Krem mode: bordo #5C1A2C (Workbook ile birebir)
+
+   Eski --gold/--white/--black degiskenleri geriye uyumluluk icin
+   --accent / --ink / --bg-base'e map edildi. */
+
+:root,
+[data-theme="dark"] {
+  /* Zemin & Yuzey */
+  --bg-base:         #0a0a0a;
+  --bg-elevated:     #1a1a1a;
+  --bg-deep:         #050505;
+
+  /* Murekkep */
+  --ink:             #f0ede8;
+  --ink-soft:        #c4bfb6;
+  --ink-muted:       #8a8378;
+
+  /* Aksan: Altin (dark mode kimligi) */
+  --accent:          #c9a96e;
+  --accent-hover:    #d6b97e;
+  --accent-soft:     #a88a5a;
+
+  /* Cizgi & Doku */
+  --rule:            #2a2a2a;
+  --rule-soft:       #1f1f1f;
+  --highlight:       #1a1410;
+
+  /* Etkilesim */
+  --focus-ring:      #c9a96e;
+  --shadow-card:     0 1px 0 rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.2);
+
+  /* Semantik (mod-aware) */
+  --onay:            #7a9b7a;
+  --onay-soft:       #6a9b6a;
+  --onay-bg:         #1e2a1e;
+  --onay-rule:       #3a4a3a;
+  --uyari:           #9b6a6a;
+  --uyari-bg:        #1a0f0f;
+
+  /* Sicak zemin (Hamlet, ITC ilke kutusu vb.) */
+  --accent-bg:       #15110a;
+  --accent-bg-deep:  #100c06;
+  --accent-rule:     #3a2f1f;
+
+  /* Kategori paleti (VAK/Yildiz/Arketip kategori cubuklari) */
+  --kanal-1:         #8fa3b1;  /* mavi-gri (isitsel, psikolojik, ISTJ-INTJ-ESTJ-ENFJ) */
+  --kanal-2:         #9b8ea0;  /* mor-gri (kinestetik, mesleki, ISFJ-INFP-ESFJ) */
+  --kanal-3:         #a0b89b;  /* yesil-gri (yaratici, ISTP-INTP-ENTP) */
+  --kanal-4:         #b8a99b;  /* kahve-gri (entelektuel, ISFP-ESFP-ENTJ) */
+  --kanal-5:         #9ba8b8;  /* mavi-gri 2 (iliski) */
+  --kanal-kahve:     #9b7a6a;  /* macbeth karakter tonu */
+
+  /* Sicaklik gradyani (Hamlet zaman cizgisi) */
+  --sicak-soguk:     #6a8aa8;
+  --sicak-sicak:     #c97a4a;
+
+  /* Geriye uyumluluk (eski isimler) */
+  --black:           var(--bg-base);
+  --white:           var(--ink);
+  --gold:            var(--accent);
+  --text-primary:    var(--ink);
+  --text-secondary:  var(--ink-soft);
+  --text-muted:      var(--ink-muted);
+  --border:          var(--rule);
+}
+
+/* Krem paleti (Workbook ruhu) */
+[data-theme="krem"] {
+  /* Zemin & Yuzey */
+  --bg-base:         #F4ECDD;
+  --bg-elevated:     #EFE4D0;
+  --bg-deep:         #E8DBC2;
+
+  /* Murekkep - krem zeminde okunabilirlik icin koyulastirildi */
+  --ink:             #1A140C;
+  --ink-soft:        #3A2F25;
+  --ink-muted:       #6A5E50;
+
+  /* Aksan: Bordo (Workbook'la birebir) */
+  --accent:          #5C1A2C;
+  --accent-hover:    #74233A;
+  --accent-soft:     #8A3E51;
+
+  /* Cizgi & Doku */
+  --rule:            #C9B997;
+  --rule-soft:       #D9CCB1;
+  --highlight:       #E8D5A5;
+
+  /* Etkilesim */
+  --focus-ring:      #5C1A2C;
+  --shadow-card:     0 1px 0 rgba(31,26,20,0.05), 0 4px 16px rgba(31,26,20,0.06);
+
+  /* Semantik krem ton */
+  --onay:            #4a7d4a;
+  --onay-soft:       #5a8a5a;
+  --onay-bg:         #DDE5C8;
+  --onay-rule:       #B5C49B;
+  --uyari:           #8a3e3e;
+  --uyari-bg:        #EBD5C8;
+
+  /* Sicak zemin krem ton (Workbook sarimsi krem) */
+  --accent-bg:       #E8D5A5;
+  --accent-bg-deep:  #DCC890;
+  --accent-rule:     #B89E6A;
+
+  /* Kategori paleti krem ton (krem zeminde okunaklilik icin koyulastirildi) */
+  --kanal-1:         #3E5F75;  /* mavi koyu */
+  --kanal-2:         #5C4A65;  /* mor koyu */
+  --kanal-3:         #4A6840;  /* yesil koyu */
+  --kanal-4:         #6E5340;  /* kahve koyu */
+  --kanal-5:         #3E5A75;  /* mavi 2 koyu */
+  --kanal-kahve:     #6E4A3A;  /* macbeth karakter koyu */
+
+  /* Sicaklik gradyani krem ton */
+  --sicak-soguk:     #3A6688;
+  --sicak-sicak:     #A0502A;
 }
 
 * {
@@ -21,26 +133,55 @@
 }
 
 body {
-  background-color: #0a0a0a;
-  color: #f0ede8;
-  font-family: 'Jost', sans-serif;
+  background-color: var(--bg-base);
+  color: var(--ink);
+  font-family: var(--font-body), 'Jost', sans-serif;
   font-weight: 200;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 250ms ease, color 250ms ease;
+}
+
+/* === Krem Mode Okunabilirlik Kalibrasyonu ===
+   Inline style'lardaki light font weight'leri krem zemin icin
+   bir tik artiriyoruz. Attribute selector style attribute string'ini
+   tarar, !important inline style spesifikligini gecer.
+   React inline style'i camelCase'i kebab-case'e cevirir,
+   format genelde "font-weight: 200;" seklinde. */
+
+[data-theme="krem"] body {
+  font-weight: 300;
+}
+
+[data-theme="krem"] [style*="font-weight: 200"],
+[data-theme="krem"] [style*="font-weight:200"] {
+  font-weight: 400 !important;
+}
+
+[data-theme="krem"] [style*="font-weight: 300"],
+[data-theme="krem"] [style*="font-weight:300"] {
+  font-weight: 500 !important;
+}
+
+/* Bordo (aksan) yazilar krem zeminde biraz daha govdeli olsun */
+[data-theme="krem"] [style*="color: var(--accent)"],
+[data-theme="krem"] [style*="color:var(--accent)"] {
+  font-weight: 500 !important;
+  letter-spacing: 0.02em;
 }
 
 input {
-  color: #f0ede8 !important;
-  background-color: #1a1a1a;
+  color: var(--ink) !important;
+  background-color: var(--bg-elevated);
 }
 
 input::placeholder {
-  color: #777;
+  color: var(--ink-muted);
   opacity: 1;
 }
 
 input:focus {
   outline: none;
-  border-color: #c9a96e !important;
+  border-color: var(--accent) !important;
 }
 
 button {
@@ -49,6 +190,13 @@ button {
 
 a {
   color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 @keyframes fadeUp {

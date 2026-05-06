@@ -19,7 +19,7 @@ export default function HamletAltSayfaHeader() {
     fontWeight: 200,
     fontSize: '0.6rem',
     letterSpacing: '0.25em',
-    color: '#aaa',
+    color: 'var(--ink-soft)',
     textTransform: 'uppercase',
     textDecoration: 'none',
     transition: 'color 0.25s ease',
@@ -32,7 +32,7 @@ export default function HamletAltSayfaHeader() {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '1.6rem 2rem',
-        borderBottom: '1px solid #2a2a2a',
+        borderBottom: '1px solid var(--rule)',
         flexWrap: 'wrap',
         gap: '1rem',
       }}
@@ -44,7 +44,7 @@ export default function HamletAltSayfaHeader() {
           fontWeight: 200,
           fontSize: '0.65rem',
           letterSpacing: '0.3em',
-          color: '#c9a96e',
+          color: 'var(--accent)',
           textTransform: 'uppercase',
           textDecoration: 'none',
         }}
@@ -55,24 +55,24 @@ export default function HamletAltSayfaHeader() {
         <a
           href="/kalibrasyon"
           style={navLink}
-          onMouseEnter={(e) => { e.currentTarget.style.color = '#c9a96e'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = '#aaa'; }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
         >
           Kalibrasyon
         </a>
         <a
           href="/kulis"
           style={navLink}
-          onMouseEnter={(e) => { e.currentTarget.style.color = '#c9a96e'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = '#aaa'; }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
         >
           Kulis
         </a>
         <a
           href="/antrenman/karakter"
-          style={{ ...navLink, color: '#f0ede8' }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = '#c9a96e'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = '#f0ede8'; }}
+          style={{ ...navLink, color: 'var(--ink)' }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
         >
           ← Karakterler
         </a>
@@ -84,10 +84,10 @@ export default function HamletAltSayfaHeader() {
             cursor: 'pointer',
             padding: 0,
             ...navLink,
-            color: '#666',
+            color: 'var(--ink-muted)',
           }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = '#f0ede8'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = '#666'; }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
         >
           Çıkış
         </button>

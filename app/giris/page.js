@@ -63,26 +63,26 @@ function GirisIcerik() {
   const inputStil = {
     width: '100%',
     padding: '1rem 1.2rem',
-    backgroundColor: '#1a1a1a',
-    border: '1px solid #3a3a3a',
-    color: '#f0ede8',
+    backgroundColor: 'var(--bg-elevated)',
+    border: '1px solid var(--rule)',
+    color: 'var(--ink)',
     fontFamily: 'Jost, sans-serif',
     fontWeight: 200,
     fontSize: '0.85rem',
     outline: 'none',
     boxSizing: 'border-box',
-    caretColor: '#c9a96e',
+    caretColor: 'var(--accent)',
   };
 
   return (
-    <main style={{ minHeight: '100vh', backgroundColor: '#0a0a0a', color: '#f0ede8', display: 'flex', flexDirection: 'column' }}>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2rem 3rem', borderBottom: '1px solid #2a2a2a' }}>
-        <a href="/" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', letterSpacing: '0.3em', color: '#c9a96e', textTransform: 'uppercase', textDecoration: 'none' }}>
+    <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', flexDirection: 'column' }}>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2rem 3rem', borderBottom: '1px solid var(--rule)' }}>
+        <a href="/" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', letterSpacing: '0.3em', color: 'var(--accent)', textTransform: 'uppercase', textDecoration: 'none' }}>
           Inside The Character
         </a>
-        <a href="/" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: '#f0ede8', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.3s ease' }}
-          onMouseEnter={e => e.currentTarget.style.color = '#c9a96e'}
-          onMouseLeave={e => e.currentTarget.style.color = '#f0ede8'}
+        <a href="/" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink)', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.3s ease' }}
+          onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'}
+          onMouseLeave={e => e.currentTarget.style.color = 'var(--ink)'}
         >
           ← Ana Ekran
         </a>
@@ -93,18 +93,18 @@ function GirisIcerik() {
         <div style={{ width: '100%', maxWidth: '380px', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
 
           <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-            <div style={{ width: '1px', height: '50px', backgroundColor: '#c9a96e', opacity: 0.4, margin: '0 auto' }} />
-            <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '2.5rem', color: '#f0ede8', margin: 0 }}>
+            <div style={{ width: '1px', height: '50px', backgroundColor: 'var(--accent)', opacity: 0.4, margin: '0 auto' }} />
+            <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '2.5rem', color: 'var(--ink)', margin: 0 }}>
               {mod === 'giris' ? 'Giriş Yap' : 'Hesap Oluştur'}
             </h1>
-            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.8rem', color: '#aaa', margin: 0 }}>
+            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.8rem', color: 'var(--ink-soft)', margin: 0 }}>
               {mod === 'giris' ? 'Enstrümanına dön.' : "Inside The Character'a katıl."}
             </p>
           </div>
 
           {mesaj ? (
-            <div style={{ padding: '1.5rem', border: '1px solid #2a4a2a', backgroundColor: '#0f1a0f', textAlign: 'center' }}>
-              <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.82rem', color: '#6a9b6a', lineHeight: 1.8, margin: 0 }}>{mesaj}</p>
+            <div style={{ padding: '1.5rem', border: '1px solid var(--onay-rule)', backgroundColor: 'var(--onay-bg)', textAlign: 'center' }}>
+              <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.82rem', color: 'var(--onay-soft)', lineHeight: 1.8, margin: 0 }}>{mesaj}</p>
             </div>
           ) : (
             <>
@@ -118,9 +118,9 @@ function GirisIcerik() {
                   justifyContent: 'center',
                   gap: '0.8rem',
                   padding: '1rem',
-                  border: '1px solid #3a3a3a',
-                  backgroundColor: '#f0ede8',
-                  color: '#0a0a0a',
+                  border: '1px solid var(--rule)',
+                  backgroundColor: 'var(--ink)',
+                  color: 'var(--bg-base)',
                   fontFamily: 'Jost, sans-serif',
                   fontWeight: 400,
                   fontSize: '0.8rem',
@@ -129,8 +129,8 @@ function GirisIcerik() {
                   opacity: yukleniyor ? 0.5 : 1,
                   transition: 'all 0.3s ease',
                 }}
-                onMouseEnter={e => { if (!yukleniyor) e.currentTarget.style.backgroundColor = '#fff'; }}
-                onMouseLeave={e => { e.currentTarget.style.backgroundColor = '#f0ede8'; }}
+                onMouseEnter={e => { if (!yukleniyor) e.currentTarget.style.backgroundColor = 'var(--ink)'; }}
+                onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'var(--ink)'; }}
               >
                 <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4"/>
@@ -143,9 +143,9 @@ function GirisIcerik() {
 
               {/* AYIRICI */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', margin: '0.5rem 0' }}>
-                <div style={{ flex: 1, height: '1px', backgroundColor: '#2a2a2a' }} />
-                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: '#666', textTransform: 'uppercase' }}>veya</span>
-                <div style={{ flex: 1, height: '1px', backgroundColor: '#2a2a2a' }} />
+                <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--rule)' }} />
+                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>veya</span>
+                <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--rule)' }} />
               </div>
 
               {/* EMAIL FORM */}
@@ -178,15 +178,15 @@ function GirisIcerik() {
                 />
 
                 {hata && (
-                  <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.75rem', color: '#9b6a6a', margin: 0 }}>{hata}</p>
+                  <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.75rem', color: 'var(--uyari)', margin: 0 }}>{hata}</p>
                 )}
 
                 <button
                   onClick={mod === 'giris' ? girisYap : kayitOl}
                   disabled={yukleniyor}
-                  style={{ marginTop: '0.5rem', padding: '1.2rem', border: '1px solid #c9a96e', backgroundColor: 'transparent', color: '#c9a96e', fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', cursor: yukleniyor ? 'not-allowed' : 'pointer', opacity: yukleniyor ? 0.5 : 1, transition: 'all 0.3s ease' }}
-                  onMouseEnter={e => { if (!yukleniyor) { e.currentTarget.style.backgroundColor = '#c9a96e'; e.currentTarget.style.color = '#0a0a0a'; }}}
-                  onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#c9a96e'; }}
+                  style={{ marginTop: '0.5rem', padding: '1.2rem', border: '1px solid var(--accent)', backgroundColor: 'transparent', color: 'var(--accent)', fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', cursor: yukleniyor ? 'not-allowed' : 'pointer', opacity: yukleniyor ? 0.5 : 1, transition: 'all 0.3s ease' }}
+                  onMouseEnter={e => { if (!yukleniyor) { e.currentTarget.style.backgroundColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--bg-base)'; }}}
+                  onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--accent)'; }}
                 >
                   {yukleniyor ? 'Bekle...' : mod === 'giris' ? 'Giriş Yap' : 'Hesap Oluştur'}
                 </button>
@@ -196,31 +196,31 @@ function GirisIcerik() {
           )}
 
           {/* MOD DEĞİŞİM — belirginleştirilmiş */}
-          <div style={{ textAlign: 'center', borderTop: '1px solid #2a2a2a', paddingTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          <div style={{ textAlign: 'center', borderTop: '1px solid var(--rule)', paddingTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             {mod === 'giris' ? (
               <>
-                <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: '#888', margin: 0 }}>
+                <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', margin: 0 }}>
                   Henüz hesabın yok mu?
                 </p>
                 <button
                   onClick={() => { setMod('kayit'); setHata(''); setMesaj(''); }}
-                  style={{ background: 'none', border: 'none', color: '#c9a96e', fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.85rem', letterSpacing: '0.15em', cursor: 'pointer', textTransform: 'uppercase', transition: 'color 0.3s ease' }}
-                  onMouseEnter={e => e.currentTarget.style.color = '#d9b97e'}
-                  onMouseLeave={e => e.currentTarget.style.color = '#c9a96e'}
+                  style={{ background: 'none', border: 'none', color: 'var(--accent)', fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.85rem', letterSpacing: '0.15em', cursor: 'pointer', textTransform: 'uppercase', transition: 'color 0.3s ease' }}
+                  onMouseEnter={e => e.currentTarget.style.color = 'var(--accent-hover)'}
+                  onMouseLeave={e => e.currentTarget.style.color = 'var(--accent)'}
                 >
                   Hesap Oluştur →
                 </button>
               </>
             ) : (
               <>
-                <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: '#888', margin: 0 }}>
+                <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', margin: 0 }}>
                   Zaten hesabın var mı?
                 </p>
                 <button
                   onClick={() => { setMod('giris'); setHata(''); setMesaj(''); }}
-                  style={{ background: 'none', border: 'none', color: '#c9a96e', fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.85rem', letterSpacing: '0.15em', cursor: 'pointer', textTransform: 'uppercase', transition: 'color 0.3s ease' }}
-                  onMouseEnter={e => e.currentTarget.style.color = '#d9b97e'}
-                  onMouseLeave={e => e.currentTarget.style.color = '#c9a96e'}
+                  style={{ background: 'none', border: 'none', color: 'var(--accent)', fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.85rem', letterSpacing: '0.15em', cursor: 'pointer', textTransform: 'uppercase', transition: 'color 0.3s ease' }}
+                  onMouseEnter={e => e.currentTarget.style.color = 'var(--accent-hover)'}
+                  onMouseLeave={e => e.currentTarget.style.color = 'var(--accent)'}
                 >
                   ← Giriş Yap
                 </button>
@@ -236,7 +236,7 @@ function GirisIcerik() {
 
 export default function Giris() {
   return (
-    <Suspense fallback={<main style={{ minHeight: '100vh', backgroundColor: '#0a0a0a' }} />}>
+    <Suspense fallback={<main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)' }} />}>
       <GirisIcerik />
     </Suspense>
   );

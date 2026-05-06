@@ -23,8 +23,8 @@ import {
 import TopraklanmaModu from './TopraklanmaModu';
 import IlerlemeRozet from './IlerlemeRozet';
 
-const TON = '#9b7a6a';
-const TON_HOVER = '#4a3a2f';
+const TON = 'var(--kanal-kahve)';
+const TON_HOVER = 'var(--accent-rule)';
 
 export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini, travmaProfili }) {
   // Liste/Sayfa görünüm
@@ -135,7 +135,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
       <div
         key={antrenman.id}
         style={{
-          border: `1px solid ${tamamlandi ? TON_HOVER : '#2a2a2a'}`,
+          border: `1px solid ${tamamlandi ? TON_HOVER : 'var(--rule)'}`,
           backgroundColor: 'transparent',
           transition: 'all 0.3s ease',
           opacity: erisim.kilitli ? 0.65 : 1,
@@ -152,19 +152,19 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
             border: 'none',
             textAlign: 'left',
             cursor: 'pointer',
-            color: '#f0ede8',
+            color: 'var(--ink)',
             fontFamily: 'inherit',
             alignItems: 'flex-start',
           }}
           onMouseEnter={(e) => { e.currentTarget.parentElement.style.borderColor = TON; }}
-          onMouseLeave={(e) => { e.currentTarget.parentElement.style.borderColor = tamamlandi ? TON_HOVER : '#2a2a2a'; }}
+          onMouseLeave={(e) => { e.currentTarget.parentElement.style.borderColor = tamamlandi ? TON_HOVER : 'var(--rule)'; }}
         >
           <span
             style={{
               fontFamily: 'Cormorant Garamond, serif',
               fontStyle: 'italic',
               fontSize: '1.2rem',
-              color: tamamlandi ? TON : '#888',
+              color: tamamlandi ? TON : 'var(--ink-muted)',
               minWidth: '24px',
               lineHeight: 1.4,
               paddingTop: '0.1rem',
@@ -175,7 +175,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
 
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem', flexWrap: 'wrap' }}>
-              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.92rem', color: '#f0ede8' }}>
+              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.92rem', color: 'var(--ink)' }}>
                 {antrenman.no}. {antrenman.baslik}
               </span>
               {tamamlandi && (
@@ -201,10 +201,10 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                     fontWeight: 200,
                     fontSize: '0.55rem',
                     letterSpacing: '0.2em',
-                    color: '#888',
+                    color: 'var(--ink-muted)',
                     textTransform: 'uppercase',
                     padding: '0.15rem 0.55rem',
-                    border: '1px solid #3a3a3a',
+                    border: '1px solid var(--rule)',
                   }}
                 >
                   Devam et — adım {sonAdim}/{toplamAdim}
@@ -218,7 +218,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                   fontFamily: 'Cormorant Garamond, serif',
                   fontStyle: 'italic',
                   fontSize: '0.88rem',
-                  color: '#aaa',
+                  color: 'var(--ink-soft)',
                   lineHeight: 1.5,
                 }}
               >
@@ -228,7 +228,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', flexWrap: 'wrap' }}>
               {antrenman.sure && (
-                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: '#888' }}>
+                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--ink-muted)' }}>
                   {antrenman.sure}
                 </span>
               )}
@@ -239,10 +239,10 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                     fontWeight: 200,
                     fontSize: '0.55rem',
                     letterSpacing: '0.2em',
-                    color: '#888',
+                    color: 'var(--ink-muted)',
                     textTransform: 'uppercase',
                     padding: '0.15rem 0.55rem',
-                    border: '1px solid #2a2a2a',
+                    border: '1px solid var(--rule)',
                   }}
                 >
                   {antrenman.seviye}
@@ -255,7 +255,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                     fontWeight: 200,
                     fontSize: '0.55rem',
                     letterSpacing: '0.2em',
-                    color: '#9b6a6a',
+                    color: 'var(--uyari)',
                     textTransform: 'uppercase',
                   }}
                 >
@@ -268,7 +268,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                     fontFamily: 'Cormorant Garamond, serif',
                     fontStyle: 'italic',
                     fontSize: '0.78rem',
-                    color: '#c9a96e',
+                    color: 'var(--accent)',
                   }}
                 >
                   Hazır olduğunda
@@ -351,8 +351,8 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
               style={{
                 display: 'block',
                 padding: '0.8rem 1.1rem',
-                border: '1px dashed #3a3a3a',
-                color: '#aaa',
+                border: '1px dashed var(--rule)',
+                color: 'var(--ink-soft)',
                 fontFamily: 'Jost, sans-serif',
                 fontWeight: 200,
                 fontSize: '0.78rem',
@@ -362,7 +362,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                 transition: 'all 0.25s ease',
               }}
               onMouseEnter={(e) => { e.currentTarget.style.borderColor = TON; e.currentTarget.style.color = TON; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#3a3a3a'; e.currentTarget.style.color = '#aaa'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; e.currentTarget.style.color = 'var(--ink-soft)'; }}
             >
               Daha kişiselleştirilmiş egzersizler için kalibrasyon yap →
             </a>
@@ -413,10 +413,10 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
             textAlign: 'center',
           }}
         >
-          <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontWeight: 300, fontSize: '1.4rem', color: '#f0ede8', margin: 0 }}>
+          <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontWeight: 300, fontSize: '1.4rem', color: 'var(--ink)', margin: 0 }}>
             {acikAntrenman.baslik}
           </h3>
-          <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.9rem', color: '#aaa', lineHeight: 1.7, margin: 0 }}>
+          <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.9rem', color: 'var(--ink-soft)', lineHeight: 1.7, margin: 0 }}>
             Daha önce {sonAdim}. adıma kadar geldin.
           </p>
           <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -426,7 +426,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                 padding: '0.9rem 1.8rem',
                 backgroundColor: TON,
                 border: 'none',
-                color: '#0a0a0a',
+                color: 'var(--bg-base)',
                 fontFamily: 'Jost, sans-serif',
                 fontWeight: 300,
                 fontSize: '0.7rem',
@@ -465,8 +465,8 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
               style={{
                 padding: '0.9rem 1.8rem',
                 backgroundColor: 'transparent',
-                border: '1px solid #3a3a3a',
-                color: '#888',
+                border: '1px solid var(--rule)',
+                color: 'var(--ink-muted)',
                 fontFamily: 'Jost, sans-serif',
                 fontWeight: 200,
                 fontSize: '0.7rem',
@@ -475,8 +475,8 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#bbb'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = '#888'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
             >
               ← Geri
             </button>
@@ -511,7 +511,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
               alignSelf: 'flex-start',
               background: 'none',
               border: 'none',
-              color: '#888',
+              color: 'var(--ink-muted)',
               fontFamily: 'Jost, sans-serif',
               fontWeight: 200,
               fontSize: '0.7rem',
@@ -522,13 +522,13 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
               transition: 'color 0.25s ease',
             }}
             onMouseEnter={(e) => { e.currentTarget.style.color = TON; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = '#888'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
           >
             ← Geri
           </button>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-            <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontWeight: 300, fontSize: '1.6rem', color: '#f0ede8', margin: 0, lineHeight: 1.3 }}>
+            <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', margin: 0, lineHeight: 1.3 }}>
               {acikAntrenman.baslik}
             </h3>
             {acikAntrenman.altbaslik && (
@@ -560,15 +560,15 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                 );
               })}
             </div>
-            <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: '#888', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+            <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--ink-muted)', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
               Adım {mevcutAdimNo}/{adimlar.length}
             </span>
           </div>
 
           <div
             style={{
-              backgroundColor: '#0f0f0f',
-              border: '1px solid #2a2a2a',
+              backgroundColor: 'var(--bg-elevated)',
+              border: '1px solid var(--rule)',
               padding: '2rem',
               display: 'flex',
               flexDirection: 'column',
@@ -584,7 +584,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: '1.05rem',
-                color: '#f0ede8',
+                color: 'var(--ink)',
                 lineHeight: 1.85,
                 margin: 0,
               }}
@@ -599,13 +599,13 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                   gap: '0.5rem',
                   alignItems: 'baseline',
                   paddingLeft: '0.5rem',
-                  borderLeft: `2px solid ${TON}55`,
+                  borderLeft: `2px solid color-mix(in srgb, ${TON} 33%, transparent)`,
                   paddingTop: '0.2rem',
                   paddingBottom: '0.2rem',
                 }}
               >
                 <span style={{ color: TON, fontSize: '0.85rem' }}>→</span>
-                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.88rem', color: '#bbb', lineHeight: 1.6 }}>
+                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.6 }}>
                   {soru}
                 </span>
               </div>
@@ -621,7 +621,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                     fontFamily: 'Jost, sans-serif',
                     fontWeight: 200,
                     fontSize: '0.65rem',
-                    color: kayitDurumu[mevcutAdimNo] === 'hata' ? '#9b6a6a' : TON,
+                    color: kayitDurumu[mevcutAdimNo] === 'hata' ? 'var(--uyari)' : TON,
                     fontStyle: 'italic',
                     minHeight: '1em',
                   }}>
@@ -636,9 +636,9 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                   style={{
                     width: '100%',
                     padding: '1rem 1.2rem',
-                    backgroundColor: '#0a0a0a',
-                    border: '1px solid #2a2a2a',
-                    color: '#f0ede8',
+                    backgroundColor: 'var(--bg-base)',
+                    border: '1px solid var(--rule)',
+                    color: 'var(--ink)',
                     fontFamily: 'Cormorant Garamond, serif',
                     fontStyle: 'italic',
                     fontSize: '1rem',
@@ -650,7 +650,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                     transition: 'border-color 0.25s ease',
                   }}
                   onFocus={(e) => { e.currentTarget.style.borderColor = TON; }}
-                  onBlur={(e) => { e.currentTarget.style.borderColor = '#2a2a2a'; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; }}
                 />
               </div>
             )}
@@ -662,8 +662,8 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                 style={{
                   padding: '0.7rem 1.4rem',
                   backgroundColor: 'transparent',
-                  border: '1px solid #3a3a3a',
-                  color: mevcutAdimNo === 1 ? '#444' : '#aaa',
+                  border: '1px solid var(--rule)',
+                  color: mevcutAdimNo === 1 ? 'var(--ink-muted)' : 'var(--ink-soft)',
                   fontFamily: 'Jost, sans-serif',
                   fontWeight: 200,
                   fontSize: '0.65rem',
@@ -681,9 +681,9 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                   onClick={antrenmanTamamla}
                   style={{
                     padding: '0.9rem 2rem',
-                    backgroundColor: '#6a9b6a',
+                    backgroundColor: 'var(--onay-soft)',
                     border: 'none',
-                    color: '#0a0a0a',
+                    color: 'var(--bg-base)',
                     fontFamily: 'Jost, sans-serif',
                     fontWeight: 300,
                     fontSize: '0.7rem',
@@ -692,8 +692,8 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
                   }}
-                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#7aab7a'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#6a9b6a'; }}
+                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--onay)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--onay-soft)'; }}
                 >
                   Tamamlandı ✓
                 </button>
@@ -704,7 +704,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                     padding: '0.9rem 2rem',
                     backgroundColor: TON,
                     border: 'none',
-                    color: '#0a0a0a',
+                    color: 'var(--bg-base)',
                     fontFamily: 'Jost, sans-serif',
                     fontWeight: 300,
                     fontSize: '0.7rem',
@@ -765,7 +765,7 @@ function BasligaSection({ sayim, alt, mevcut, toplam, renk }) {
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.25em',
-              color: '#888',
+              color: 'var(--ink-muted)',
               textTransform: 'uppercase',
             }}
           >
@@ -779,7 +779,7 @@ function BasligaSection({ sayim, alt, mevcut, toplam, renk }) {
             fontFamily: 'Jost, sans-serif',
             fontWeight: 200,
             fontSize: '0.85rem',
-            color: '#aaa',
+            color: 'var(--ink-soft)',
             lineHeight: 1.7,
             margin: 0,
             fontStyle: 'italic',
@@ -815,8 +815,8 @@ function TravmaUyariModal({ antrenman, onIptal, onDevam }) {
         style={{
           maxWidth: '480px',
           width: '100%',
-          backgroundColor: '#0a0a0a',
-          border: '1px solid #c9a96e',
+          backgroundColor: 'var(--bg-base)',
+          border: '1px solid var(--accent)',
           padding: '2.5rem 2.2rem',
           display: 'flex',
           flexDirection: 'column',
@@ -830,7 +830,7 @@ function TravmaUyariModal({ antrenman, onIptal, onDevam }) {
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.4em',
-              color: '#c9a96e',
+              color: 'var(--accent)',
               textTransform: 'uppercase',
             }}
           >
@@ -842,7 +842,7 @@ function TravmaUyariModal({ antrenman, onIptal, onDevam }) {
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: '1.4rem',
-              color: '#f0ede8',
+              color: 'var(--ink)',
               margin: 0,
               lineHeight: 1.3,
             }}
@@ -856,7 +856,7 @@ function TravmaUyariModal({ antrenman, onIptal, onDevam }) {
             fontFamily: 'Jost, sans-serif',
             fontWeight: 300,
             fontSize: '0.9rem',
-            color: '#ccc',
+            color: 'var(--ink-soft)',
             lineHeight: 1.8,
             margin: 0,
             textAlign: 'center',
@@ -871,8 +871,8 @@ function TravmaUyariModal({ antrenman, onIptal, onDevam }) {
             style={{
               padding: '0.8rem 1.6rem',
               backgroundColor: 'transparent',
-              border: '1px solid #3a3a3a',
-              color: '#aaa',
+              border: '1px solid var(--rule)',
+              color: 'var(--ink-soft)',
               fontFamily: 'Jost, sans-serif',
               fontWeight: 200,
               fontSize: '0.7rem',
@@ -881,8 +881,8 @@ function TravmaUyariModal({ antrenman, onIptal, onDevam }) {
               cursor: 'pointer',
               transition: 'all 0.3s ease',
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = '#f0ede8'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = '#aaa'; }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
           >
             Şimdi değil
           </button>
@@ -890,9 +890,9 @@ function TravmaUyariModal({ antrenman, onIptal, onDevam }) {
             onClick={onDevam}
             style={{
               padding: '0.8rem 1.6rem',
-              backgroundColor: '#c9a96e',
+              backgroundColor: 'var(--accent)',
               border: 'none',
-              color: '#0a0a0a',
+              color: 'var(--bg-base)',
               fontFamily: 'Jost, sans-serif',
               fontWeight: 300,
               fontSize: '0.7rem',
@@ -901,8 +901,8 @@ function TravmaUyariModal({ antrenman, onIptal, onDevam }) {
               cursor: 'pointer',
               transition: 'all 0.3s ease',
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#d9b97e'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#c9a96e'; }}
+            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-hover)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent)'; }}
           >
             Hazırım, devam
           </button>

@@ -2,8 +2,8 @@ export default function Kasa() {
   return (
     <main style={{
       minHeight: '100vh',
-      backgroundColor: '#0a0a0a',
-      color: '#f0ede8',
+      backgroundColor: 'var(--bg-base)',
+      color: 'var(--ink)',
       display: 'flex',
       flexDirection: 'column',
       fontFamily: 'Jost, sans-serif',
@@ -13,13 +13,13 @@ export default function Kasa() {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '2rem 3rem',
-        borderBottom: '1px solid #1a1a1a',
+        borderBottom: '1px solid var(--bg-elevated)',
       }}>
         <span style={{
           fontWeight: 200,
           fontSize: '0.65rem',
           letterSpacing: '0.3em',
-          color: '#c9a96e',
+          color: 'var(--accent)',
           textTransform: 'uppercase',
         }}>
           Actor's Gym
@@ -28,7 +28,7 @@ export default function Kasa() {
           fontWeight: 200,
           fontSize: '0.6rem',
           letterSpacing: '0.25em',
-          color: '#999',
+          color: 'var(--ink-muted)',
           textTransform: 'uppercase',
           textDecoration: 'none',
         }}>
@@ -49,7 +49,7 @@ export default function Kasa() {
           fontWeight: 200,
           fontSize: '0.6rem',
           letterSpacing: '0.4em',
-          color: '#c9a96e',
+          color: 'var(--accent)',
           textTransform: 'uppercase',
         }}>
           04 — Karakter Kasası
@@ -58,7 +58,7 @@ export default function Kasa() {
           fontFamily: 'Cormorant Garamond, serif',
           fontWeight: 300,
           fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
-          color: '#f0ede8',
+          color: 'var(--ink)',
           margin: 0,
         }}>
           The Vault
@@ -66,7 +66,7 @@ export default function Kasa() {
         <p style={{
           fontWeight: 200,
           fontSize: '0.85rem',
-          color: '#bbb',
+          color: 'var(--ink-soft)',
           maxWidth: '380px',
           lineHeight: 1.8,
           margin: 0,
@@ -77,8 +77,8 @@ export default function Kasa() {
         <span style={{
           marginTop: '1rem',
           padding: '1rem 2.5rem',
-          border: '1px solid #2a2a2a',
-          color: '#999',
+          border: '1px solid var(--rule)',
+          color: 'var(--ink-muted)',
           fontSize: '0.7rem',
           letterSpacing: '0.2em',
           textTransform: 'uppercase',
