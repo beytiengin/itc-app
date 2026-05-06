@@ -3,16 +3,16 @@
 //
 // Sıcaklığa göre renklenmiş daire:
 //   1-3 (soğuk): #6a8aa8 — soluk mavi
-//   4-6 (orta):  #c9a96e — altın
+//   4-6 (orta):  var(--accent) — altın
 //   7-10 (sıcak): #c97a4a — sıcak turuncu
 // Seçili olduğunda glow + büyür.
 
 'use client';
 
 export function sicaklikRengi(sicaklik) {
-  if (sicaklik == null) return '#3a3a3a';
+  if (sicaklik == null) return 'var(--rule)';
   if (sicaklik <= 3) return '#6a8aa8';
-  if (sicaklik <= 6) return '#c9a96e';
+  if (sicaklik <= 6) return 'var(--accent)';
   return '#c97a4a';
 }
 
@@ -50,7 +50,7 @@ export default function HamletSahneKuresi({
         border: 'none',
         cursor: 'pointer',
         padding: '0.4rem 0.2rem',
-        color: '#f0ede8',
+        color: 'var(--ink)',
         fontFamily: 'inherit',
         position: 'relative',
         zIndex: 1,
@@ -65,7 +65,7 @@ export default function HamletSahneKuresi({
           fontWeight: 200,
           fontSize: '0.55rem',
           letterSpacing: '0.2em',
-          color: secili ? renk : '#666',
+          color: secili ? renk : 'var(--ink-muted)',
           textTransform: 'uppercase',
         }}
       >
@@ -88,7 +88,7 @@ export default function HamletSahneKuresi({
             width: '100%',
             height: '100%',
             borderRadius: '50%',
-            backgroundColor: oyuncuVar ? renk : '#0a0a0a',
+            backgroundColor: oyuncuVar ? renk : 'var(--bg-base)',
             border: `2px solid ${renk}`,
             boxShadow: secili ? `0 0 16px ${renk}aa` : 'none',
             transition: 'all 0.25s ease',
@@ -103,7 +103,7 @@ export default function HamletSahneKuresi({
               width: '8px',
               height: '8px',
               borderRadius: '50%',
-              backgroundColor: '#0a0a0a',
+              backgroundColor: 'var(--bg-base)',
               border: `1.5px solid ${renk}`,
             }}
           />
@@ -115,7 +115,7 @@ export default function HamletSahneKuresi({
           fontFamily: 'Cormorant Garamond, serif',
           fontStyle: 'italic',
           fontSize: '0.72rem',
-          color: secili ? '#f0ede8' : '#888',
+          color: secili ? 'var(--ink)' : 'var(--ink-muted)',
           lineHeight: 1.3,
           whiteSpace: 'normal',
           textAlign: 'center',

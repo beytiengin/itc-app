@@ -7,8 +7,8 @@
 
 'use client';
 
-const TON = '#c9a96e';
-const TON_HOVER = '#3a2f1f';
+const TON = 'var(--accent)';
+const TON_HOVER = 'var(--accent-rule)';
 
 export default function YazarinCercevesi({ sahneler, karakterId, onSahneSec }) {
   const kritikSahneler = (sahneler || []).filter((s) => s.kritikMi === true);
@@ -44,7 +44,7 @@ export default function YazarinCercevesi({ sahneler, karakterId, onSahneSec }) {
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.25em',
-              color: '#888',
+              color: 'var(--ink-muted)',
               textTransform: 'uppercase',
             }}
           >
@@ -56,7 +56,7 @@ export default function YazarinCercevesi({ sahneler, karakterId, onSahneSec }) {
             fontFamily: 'Jost, sans-serif',
             fontWeight: 200,
             fontSize: '0.85rem',
-            color: '#aaa',
+            color: 'var(--ink-soft)',
             lineHeight: 1.7,
             margin: 0,
             fontStyle: 'italic',
@@ -76,7 +76,7 @@ export default function YazarinCercevesi({ sahneler, karakterId, onSahneSec }) {
             <div
               key={sahne.id}
               style={{
-                border: '1px solid #2a2a2a',
+                border: '1px solid var(--rule)',
                 backgroundColor: 'transparent',
                 transition: 'all 0.3s ease',
                 padding: '1.4rem 1.5rem',
@@ -85,8 +85,8 @@ export default function YazarinCercevesi({ sahneler, karakterId, onSahneSec }) {
                 alignItems: 'flex-start',
                 cursor: 'default',
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = TON; e.currentTarget.style.backgroundColor = '#0f0f0f'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#2a2a2a'; e.currentTarget.style.backgroundColor = 'transparent'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = TON; e.currentTarget.style.backgroundColor = 'var(--bg-elevated)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; e.currentTarget.style.backgroundColor = 'transparent'; }}
             >
               <span
                 style={{
@@ -118,11 +118,11 @@ export default function YazarinCercevesi({ sahneler, karakterId, onSahneSec }) {
                   >
                     {sahne.id}
                   </span>
-                  <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.92rem', color: '#f0ede8' }}>
+                  <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.92rem', color: 'var(--ink)' }}>
                     {sahne.label}
                   </span>
                 </div>
-                <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: '#aaa', lineHeight: 1.6, margin: 0 }}>
+                <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-soft)', lineHeight: 1.6, margin: 0 }}>
                   {kisaDesc}
                 </p>
               </div>

@@ -13,7 +13,7 @@ import { tercihleriGetir, tercihKaydet } from '../../../../../lib/hamlet-veri';
 import HamletAltSayfaHeader from '../../../../../../components/HamletAltSayfaHeader';
 import HamletBolumGecisi from '../../../../../../components/HamletBolumGecisi';
 
-const TON = '#c9a96e';
+const TON = 'var(--accent)';
 
 export default function SentezSayfasi() {
   const [secimler, setSecimler] = useState({});
@@ -65,7 +65,7 @@ export default function SentezSayfasi() {
             fontWeight: 200,
             fontSize: '0.7rem',
             letterSpacing: '0.3em',
-            color: '#888',
+            color: 'var(--ink-muted)',
             textTransform: 'uppercase',
           }}
         >
@@ -85,8 +85,8 @@ export default function SentezSayfasi() {
     <main
       style={{
         minHeight: '100vh',
-        backgroundColor: '#0a0a0a',
-        color: '#f0ede8',
+        backgroundColor: 'var(--bg-base)',
+        color: 'var(--ink)',
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -113,14 +113,14 @@ export default function SentezSayfasi() {
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.3em',
-              color: '#888',
+              color: 'var(--ink-muted)',
               textTransform: 'uppercase',
               textDecoration: 'none',
               alignSelf: 'flex-start',
               transition: 'color 0.25s ease',
             }}
             onMouseEnter={(e) => { e.currentTarget.style.color = TON; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = '#888'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
           >
             ← Yazarın Çerçevesi
           </a>
@@ -145,7 +145,7 @@ export default function SentezSayfasi() {
                 fontWeight: 200,
                 fontSize: '0.65rem',
                 letterSpacing: '0.35em',
-                color: '#888',
+                color: 'var(--ink-muted)',
                 textTransform: 'uppercase',
               }}
             >
@@ -159,7 +159,7 @@ export default function SentezSayfasi() {
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: 'clamp(2.2rem, 6vw, 3.4rem)',
-              color: '#f0ede8',
+              color: 'var(--ink)',
               margin: 0,
               lineHeight: 1.1,
             }}
@@ -195,8 +195,8 @@ export default function SentezSayfasi() {
               <div
                 key={tercih.no}
                 style={{
-                  border: `1px solid ${yapilmis ? TON + '55' : '#2a2a2a'}`,
-                  backgroundColor: '#0d0d0d',
+                  border: `1px solid ${yapilmis ? TON + '55' : 'var(--rule)'}`,
+                  backgroundColor: 'var(--bg-elevated)',
                   padding: '1.6rem 1.8rem',
                   display: 'flex',
                   flexDirection: 'column',
@@ -222,7 +222,7 @@ export default function SentezSayfasi() {
                       fontWeight: 200,
                       fontSize: '0.6rem',
                       letterSpacing: '0.35em',
-                      color: '#888',
+                      color: 'var(--ink-muted)',
                       textTransform: 'uppercase',
                     }}
                   >
@@ -236,13 +236,13 @@ export default function SentezSayfasi() {
                       fontWeight: 200,
                       fontSize: '0.55rem',
                       letterSpacing: '0.25em',
-                      color: '#888',
+                      color: 'var(--ink-muted)',
                       textTransform: 'uppercase',
                       textDecoration: 'none',
                       transition: 'color 0.25s ease',
                     }}
                     onMouseEnter={(e) => { e.currentTarget.style.color = TON; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.color = '#888'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
                   >
                     Düzenle →
                   </a>
@@ -260,7 +260,7 @@ export default function SentezSayfasi() {
                             minWidth: '22px',
                             borderRadius: tercih.cokluSecim ? '3px' : '50%',
                             backgroundColor: TON,
-                            color: '#0a0a0a',
+                            color: 'var(--bg-base)',
                             fontFamily: 'Jost, sans-serif',
                             fontWeight: 400,
                             fontSize: '0.65rem',
@@ -278,7 +278,7 @@ export default function SentezSayfasi() {
                             fontFamily: 'Cormorant Garamond, serif',
                             fontStyle: 'italic',
                             fontSize: '1rem',
-                            color: '#ddd',
+                            color: 'var(--ink-soft)',
                             lineHeight: 1.5,
                           }}
                         >
@@ -294,7 +294,7 @@ export default function SentezSayfasi() {
                             fontWeight: 200,
                             fontSize: '0.55rem',
                             letterSpacing: '0.25em',
-                            color: '#7a9b7a',
+                            color: 'var(--onay)',
                             textTransform: 'uppercase',
                             minWidth: '60px',
                             paddingTop: '0.15rem',
@@ -308,7 +308,7 @@ export default function SentezSayfasi() {
                             fontFamily: 'Cormorant Garamond, serif',
                             fontStyle: 'italic',
                             fontSize: '0.95rem',
-                            color: '#bbb',
+                            color: 'var(--ink-soft)',
                             lineHeight: 1.7,
                             margin: 0,
                           }}
@@ -324,7 +324,7 @@ export default function SentezSayfasi() {
                       fontFamily: 'Jost, sans-serif',
                       fontWeight: 200,
                       fontSize: '0.8rem',
-                      color: '#888',
+                      color: 'var(--ink-muted)',
                       fontStyle: 'italic',
                       margin: 0,
                     }}
@@ -341,7 +341,7 @@ export default function SentezSayfasi() {
 
                 {/* Sentez cümlesi */}
                 {yapilmis && (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', paddingTop: '0.8rem', borderTop: '1px solid #1a1a1a' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', paddingTop: '0.8rem', borderTop: '1px solid var(--bg-elevated)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <span
                         style={{
@@ -349,7 +349,7 @@ export default function SentezSayfasi() {
                           fontWeight: 200,
                           fontSize: '0.55rem',
                           letterSpacing: '0.3em',
-                          color: '#7a9b7a',
+                          color: 'var(--onay)',
                           textTransform: 'uppercase',
                         }}
                       >
@@ -365,9 +365,9 @@ export default function SentezSayfasi() {
                       style={{
                         width: '100%',
                         padding: '0.9rem 1.1rem',
-                        backgroundColor: '#0a0a0a',
-                        border: '1px solid #2a2a2a',
-                        color: '#f0ede8',
+                        backgroundColor: 'var(--bg-base)',
+                        border: '1px solid var(--rule)',
+                        color: 'var(--ink)',
                         fontFamily: 'Cormorant Garamond, serif',
                         fontStyle: 'italic',
                         fontSize: '0.95rem',
@@ -379,7 +379,7 @@ export default function SentezSayfasi() {
                         transition: 'border-color 0.25s ease',
                       }}
                       onFocus={(e) => { e.currentTarget.style.borderColor = TON; }}
-                      onBlur={(e) => { e.currentTarget.style.borderColor = '#2a2a2a'; }}
+                      onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; }}
                     />
                   </div>
                 )}
@@ -392,9 +392,9 @@ export default function SentezSayfasi() {
         {tamamlananSayisi > 0 && (
           <section
             style={{
-              border: '1px solid #2a2a2a',
+              border: '1px solid var(--rule)',
               padding: '1.8rem 2rem',
-              backgroundColor: '#0d0d0d',
+              backgroundColor: 'var(--bg-elevated)',
               display: 'flex',
               flexDirection: 'column',
               gap: '1.4rem',
@@ -418,7 +418,7 @@ export default function SentezSayfasi() {
                   fontFamily: 'Cormorant Garamond, serif',
                   fontStyle: 'italic',
                   fontSize: '0.95rem',
-                  color: '#888',
+                  color: 'var(--ink-muted)',
                   margin: 0,
                   lineHeight: 1.6,
                 }}
@@ -485,11 +485,11 @@ export default function SentezSayfasi() {
                             fontWeight: 200,
                             fontSize: '0.6rem',
                             letterSpacing: '0.25em',
-                            color: '#aaa',
+                            color: 'var(--ink-soft)',
                             textTransform: 'uppercase',
                             textDecoration: 'none',
                             padding: '0.3rem 0.7rem',
-                            border: '1px solid #2a2a2a',
+                            border: '1px solid var(--rule)',
                             transition: 'all 0.25s ease',
                           }}
                           onMouseEnter={(e) => {
@@ -497,8 +497,8 @@ export default function SentezSayfasi() {
                             e.currentTarget.style.borderColor = TON;
                           }}
                           onMouseLeave={(e) => {
-                            e.currentTarget.style.color = '#aaa';
-                            e.currentTarget.style.borderColor = '#2a2a2a';
+                            e.currentTarget.style.color = 'var(--ink-soft)';
+                            e.currentTarget.style.borderColor = 'var(--rule)';
                           }}
                         >
                           Sahne {no}
@@ -543,7 +543,7 @@ export default function SentezSayfasi() {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: '1.1rem',
-                color: '#ddd',
+                color: 'var(--ink-soft)',
                 lineHeight: 1.7,
                 margin: 0,
               }}
@@ -557,7 +557,7 @@ export default function SentezSayfasi() {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: '1.05rem',
-                color: '#ccc',
+                color: 'var(--ink-soft)',
                 lineHeight: 1.7,
                 margin: 0,
               }}
@@ -570,7 +570,7 @@ export default function SentezSayfasi() {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontSize: '1.5rem',
                 letterSpacing: '0.6em',
-                color: '#666',
+                color: 'var(--ink-muted)',
                 margin: '1rem 0',
               }}
             >
@@ -581,7 +581,7 @@ export default function SentezSayfasi() {
                 fontFamily: 'Jost, sans-serif',
                 fontWeight: 200,
                 fontSize: '0.85rem',
-                color: '#888',
+                color: 'var(--ink-muted)',
                 fontStyle: 'italic',
                 margin: 0,
               }}
@@ -607,7 +607,7 @@ export default function SentezSayfasi() {
 
 function KayitRozet({ durum }) {
   if (!durum || durum === 'yaziliyor') return <span style={{ minHeight: '1em' }} />;
-  const renk = durum === 'hata' ? '#9b6a6a' : '#c9a96e';
+  const renk = durum === 'hata' ? 'var(--uyari)' : 'var(--accent)';
   const mesaj =
     durum === 'kaydediliyor' ? 'Kaydediliyor…' :
     durum === 'kaydedildi' ? '✓ Kaydedildi' :
@@ -631,15 +631,15 @@ const paragrafStili = {
   fontFamily: 'Cormorant Garamond, serif',
   fontStyle: 'italic',
   fontSize: '1.05rem',
-  color: '#ddd',
+  color: 'var(--ink-soft)',
   lineHeight: 1.8,
   margin: 0,
 };
 
 const ekranStili = {
   minHeight: '100vh',
-  backgroundColor: '#0a0a0a',
-  color: '#f0ede8',
+  backgroundColor: 'var(--bg-base)',
+  color: 'var(--ink)',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

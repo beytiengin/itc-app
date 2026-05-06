@@ -15,8 +15,8 @@ import {
 import HamletAltSayfaHeader from '../../../../../../components/HamletAltSayfaHeader';
 import HamletBolumGecisi from '../../../../../../components/HamletBolumGecisi';
 
-const TON = '#7a9b7a';
-const ALTIN = '#c9a96e';
+const TON = 'var(--onay)';
+const ALTIN = 'var(--accent)';
 
 export default function SeninCerceveSentez() {
   const [yansimalar, setYansimalar] = useState({});
@@ -73,8 +73,8 @@ export default function SeninCerceveSentez() {
     <main
       style={{
         minHeight: '100vh',
-        backgroundColor: '#0a0a0a',
-        color: '#f0ede8',
+        backgroundColor: 'var(--bg-base)',
+        color: 'var(--ink)',
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -98,7 +98,7 @@ export default function SeninCerceveSentez() {
             href="/antrenman/karakter/hamlet/senin-cerceven"
             style={geriLink}
             onMouseEnter={(e) => { e.currentTarget.style.color = ALTIN; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = '#888'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
           >
             ← Senin Çerçeven
           </a>
@@ -106,7 +106,7 @@ export default function SeninCerceveSentez() {
           {hepsiBaslamis ? (
             <span style={{ ...etiket, color: TON }}>✓ Beş Boşluk Yazıldı</span>
           ) : (
-            <span style={{ ...etiket, color: '#888' }}>
+            <span style={{ ...etiket, color: 'var(--ink-muted)' }}>
               Sentez · {tamamlananBosluk} / {bosluklar.length} boşluk yazıldı
             </span>
           )}
@@ -128,8 +128,8 @@ export default function SeninCerceveSentez() {
               <div
                 key={b.no}
                 style={{
-                  border: `1px solid ${ozet.yapilmis ? TON + '55' : '#2a2a2a'}`,
-                  backgroundColor: '#0d0d0d',
+                  border: `1px solid ${ozet.yapilmis ? TON + '55' : 'var(--rule)'}`,
+                  backgroundColor: 'var(--bg-elevated)',
                   padding: '1.4rem 1.6rem',
                   display: 'flex',
                   flexDirection: 'column',
@@ -154,7 +154,7 @@ export default function SeninCerceveSentez() {
                       fontFamily: 'Cormorant Garamond, serif',
                       fontStyle: 'italic',
                       fontSize: '1.15rem',
-                      color: '#f0ede8',
+                      color: 'var(--ink)',
                     }}
                   >
                     {b.baslik}
@@ -167,13 +167,13 @@ export default function SeninCerceveSentez() {
                       fontWeight: 200,
                       fontSize: '0.55rem',
                       letterSpacing: '0.25em',
-                      color: '#888',
+                      color: 'var(--ink-muted)',
                       textTransform: 'uppercase',
                       textDecoration: 'none',
                       transition: 'color 0.25s ease',
                     }}
                     onMouseEnter={(e) => { e.currentTarget.style.color = TON; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.color = '#888'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
                   >
                     {ozet.yapilmis ? 'Düzenle →' : 'Yaz →'}
                   </a>
@@ -186,7 +186,7 @@ export default function SeninCerceveSentez() {
                       fontFamily: 'Cormorant Garamond, serif',
                       fontStyle: 'italic',
                       fontSize: '0.85rem',
-                      color: '#888',
+                      color: 'var(--ink-muted)',
                       lineHeight: 1.5,
                       margin: 0,
                     }}
@@ -203,7 +203,7 @@ export default function SeninCerceveSentez() {
                         fontFamily: 'Cormorant Garamond, serif',
                         fontStyle: 'italic',
                         fontSize: '1rem',
-                        color: '#ddd',
+                        color: 'var(--ink-soft)',
                         lineHeight: 1.7,
                         margin: 0,
                         paddingLeft: '1rem',
@@ -218,7 +218,7 @@ export default function SeninCerceveSentez() {
                         fontWeight: 200,
                         fontSize: '0.6rem',
                         letterSpacing: '0.25em',
-                        color: '#888',
+                        color: 'var(--ink-muted)',
                         textTransform: 'uppercase',
                       }}
                     >
@@ -232,7 +232,7 @@ export default function SeninCerceveSentez() {
                       fontFamily: 'Jost, sans-serif',
                       fontWeight: 200,
                       fontSize: '0.85rem',
-                      color: '#888',
+                      color: 'var(--ink-muted)',
                       fontStyle: 'italic',
                       margin: 0,
                     }}
@@ -255,7 +255,7 @@ export default function SeninCerceveSentez() {
         <section
           style={{
             border: `1px solid ${ALTIN}33`,
-            backgroundColor: '#100c06',
+            backgroundColor: 'var(--accent-bg-deep)',
             padding: '1.8rem 2rem',
             display: 'flex',
             flexDirection: 'column',
@@ -268,7 +268,7 @@ export default function SeninCerceveSentez() {
               fontFamily: 'Cormorant Garamond, serif',
               fontStyle: 'italic',
               fontSize: '1rem',
-              color: '#ddd',
+              color: 'var(--ink-soft)',
               lineHeight: 1.8,
               margin: 0,
             }}
@@ -282,7 +282,7 @@ export default function SeninCerceveSentez() {
               fontFamily: 'Cormorant Garamond, serif',
               fontStyle: 'italic',
               fontSize: '0.95rem',
-              color: '#bbb',
+              color: 'var(--ink-soft)',
               lineHeight: 1.7,
               margin: 0,
             }}
@@ -339,7 +339,7 @@ export default function SeninCerceveSentez() {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: '1rem',
-                color: '#bbb',
+                color: 'var(--ink-soft)',
                 lineHeight: 1.6,
               }}
             >
@@ -354,7 +354,7 @@ export default function SeninCerceveSentez() {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: '1.05rem',
-                color: '#ddd',
+                color: 'var(--ink-soft)',
                 lineHeight: 1.7,
                 margin: '0.6rem 0 0 0',
               }}
@@ -366,7 +366,7 @@ export default function SeninCerceveSentez() {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontSize: '1.5rem',
                 letterSpacing: '0.6em',
-                color: '#666',
+                color: 'var(--ink-muted)',
                 margin: '0.6rem 0',
               }}
             >
@@ -377,7 +377,7 @@ export default function SeninCerceveSentez() {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: '0.98rem',
-                color: '#aaa',
+                color: 'var(--ink-soft)',
                 lineHeight: 1.7,
                 margin: 0,
               }}
@@ -391,7 +391,7 @@ export default function SeninCerceveSentez() {
                 fontFamily: 'Jost, sans-serif',
                 fontWeight: 200,
                 fontSize: '0.85rem',
-                color: '#888',
+                color: 'var(--ink-muted)',
                 fontStyle: 'italic',
                 margin: '0.6rem 0 0 0',
               }}
@@ -403,7 +403,7 @@ export default function SeninCerceveSentez() {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: '0.95rem',
-                color: '#aaa',
+                color: 'var(--ink-soft)',
                 lineHeight: 1.7,
                 margin: 0,
               }}
@@ -431,7 +431,7 @@ const geriLink = {
   fontWeight: 200,
   fontSize: '0.6rem',
   letterSpacing: '0.3em',
-  color: '#888',
+  color: 'var(--ink-muted)',
   textTransform: 'uppercase',
   textDecoration: 'none',
   alignSelf: 'flex-start',
@@ -451,7 +451,7 @@ const baslik = {
   fontStyle: 'italic',
   fontWeight: 300,
   fontSize: 'clamp(2.2rem, 6vw, 3.4rem)',
-  color: '#f0ede8',
+  color: 'var(--ink)',
   margin: 0,
   lineHeight: 1.1,
 };
@@ -460,7 +460,7 @@ const paragraf = {
   fontFamily: 'Cormorant Garamond, serif',
   fontStyle: 'italic',
   fontSize: '1.05rem',
-  color: '#ddd',
+  color: 'var(--ink-soft)',
   lineHeight: 1.8,
   margin: 0,
 };
@@ -470,14 +470,14 @@ const yukleniyorMetin = {
   fontWeight: 200,
   fontSize: '0.7rem',
   letterSpacing: '0.3em',
-  color: '#888',
+  color: 'var(--ink-muted)',
   textTransform: 'uppercase',
 };
 
 const ekranStili = {
   minHeight: '100vh',
-  backgroundColor: '#0a0a0a',
-  color: '#f0ede8',
+  backgroundColor: 'var(--bg-base)',
+  color: 'var(--ink)',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

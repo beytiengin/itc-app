@@ -27,7 +27,7 @@ export default function HamletSicaklikSecici({
             fontWeight: 200,
             fontSize: '0.55rem',
             letterSpacing: '0.3em',
-            color: '#888',
+            color: 'var(--ink-muted)',
             textTransform: 'uppercase',
             minWidth: '110px',
           }}
@@ -39,8 +39,8 @@ export default function HamletSicaklikSecici({
             width: '14px',
             height: '14px',
             borderRadius: '50%',
-            backgroundColor: '#1a1a1a',
-            border: '1.5px solid #555',
+            backgroundColor: 'var(--bg-elevated)',
+            border: '1.5px solid var(--rule)',
           }}
         />
         <span
@@ -48,7 +48,7 @@ export default function HamletSicaklikSecici({
             fontFamily: 'Cormorant Garamond, serif',
             fontStyle: 'italic',
             fontSize: '0.95rem',
-            color: '#888',
+            color: 'var(--ink-muted)',
           }}
         >
           {oneri}/10 — {sicaklikEtiketi(oneri)}
@@ -76,7 +76,7 @@ export default function HamletSicaklikSecici({
               width: '14px',
               height: '14px',
               borderRadius: '50%',
-              backgroundColor: oyuncuVar ? renk : '#0a0a0a',
+              backgroundColor: oyuncuVar ? renk : 'var(--bg-base)',
               border: `1.5px solid ${renk}`,
             }}
           />
@@ -85,7 +85,7 @@ export default function HamletSicaklikSecici({
               fontFamily: 'Cormorant Garamond, serif',
               fontStyle: 'italic',
               fontSize: '0.95rem',
-              color: oyuncuVar ? '#f0ede8' : '#666',
+              color: oyuncuVar ? 'var(--ink)' : 'var(--ink-muted)',
             }}
           >
             {oyuncuVar ? `${oyuncuSicaklik}/10 — ${sicaklikEtiketi(oyuncuSicaklik)}` : 'Henüz işaretlenmedi'}
@@ -95,19 +95,19 @@ export default function HamletSicaklikSecici({
               onClick={() => onDegistir(null)}
               style={{
                 background: 'none',
-                border: '1px solid #2a2a2a',
+                border: '1px solid var(--rule)',
                 cursor: 'pointer',
                 padding: '0.2rem 0.6rem',
                 fontFamily: 'Jost, sans-serif',
                 fontWeight: 200,
                 fontSize: '0.55rem',
                 letterSpacing: '0.2em',
-                color: '#888',
+                color: 'var(--ink-muted)',
                 textTransform: 'uppercase',
                 transition: 'all 0.25s ease',
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#f0ede8'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = '#888'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
             >
               Sıfırla
             </button>
@@ -136,7 +136,7 @@ export default function HamletSicaklikSecici({
             fontWeight: 200,
             fontSize: '0.55rem',
             letterSpacing: '0.15em',
-            color: '#666',
+            color: 'var(--ink-muted)',
             textTransform: 'uppercase',
           }}
         >

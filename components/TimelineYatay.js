@@ -9,7 +9,7 @@
 
 import { useEffect, useRef } from 'react';
 
-const TON = '#c9a96e';
+const TON = 'var(--accent)';
 
 export default function TimelineYatay({ sahneler, seciliSahneId, onSahneSec }) {
   const containerRef = useRef(null);
@@ -65,7 +65,7 @@ export default function TimelineYatay({ sahneler, seciliSahneId, onSahneSec }) {
             left: '40px',
             right: '40px',
             height: '1px',
-            backgroundColor: '#2a2a2a',
+            backgroundColor: 'var(--rule)',
             zIndex: 0,
           }}
         />
@@ -90,7 +90,7 @@ export default function TimelineYatay({ sahneler, seciliSahneId, onSahneSec }) {
                 border: 'none',
                 cursor: 'pointer',
                 padding: '0.3rem 0.2rem',
-                color: '#f0ede8',
+                color: 'var(--ink)',
                 fontFamily: 'inherit',
                 position: 'relative',
                 zIndex: 1,
@@ -105,7 +105,7 @@ export default function TimelineYatay({ sahneler, seciliSahneId, onSahneSec }) {
                   fontWeight: 200,
                   fontSize: '0.55rem',
                   letterSpacing: '0.15em',
-                  color: aktif ? TON : '#666',
+                  color: aktif ? TON : 'var(--ink-muted)',
                   textTransform: 'uppercase',
                   whiteSpace: 'nowrap',
                   overflow: 'hidden',
@@ -120,7 +120,7 @@ export default function TimelineYatay({ sahneler, seciliSahneId, onSahneSec }) {
                 style={{
                   width: aktif ? (kritik ? '20px' : '18px') : (kritik ? '14px' : '12px'),
                   height: aktif ? (kritik ? '20px' : '18px') : (kritik ? '14px' : '12px'),
-                  backgroundColor: '#0a0a0a',
+                  backgroundColor: 'var(--bg-base)',
                   border: `2px solid ${TON}`,
                   borderRadius: kritik ? '2px' : '50%',
                   transform: kritik ? 'rotate(45deg)' : 'none',
@@ -134,7 +134,7 @@ export default function TimelineYatay({ sahneler, seciliSahneId, onSahneSec }) {
                   fontFamily: 'Cormorant Garamond, serif',
                   fontStyle: 'italic',
                   fontSize: '0.7rem',
-                  color: aktif ? '#f0ede8' : '#888',
+                  color: aktif ? 'var(--ink)' : 'var(--ink-muted)',
                   lineHeight: 1.3,
                   whiteSpace: 'normal',
                   textAlign: 'center',

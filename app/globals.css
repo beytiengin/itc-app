@@ -39,6 +39,19 @@
   --focus-ring:      #c9a96e;
   --shadow-card:     0 1px 0 rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.2);
 
+  /* Semantik (mod-aware) */
+  --onay:            #7a9b7a;
+  --onay-soft:       #6a9b6a;
+  --onay-bg:         #1e2a1e;
+  --onay-rule:       #3a4a3a;
+  --uyari:           #9b6a6a;
+  --uyari-bg:        #1a0f0f;
+
+  /* Sicak zemin (Hamlet, ITC ilke kutusu vb.) */
+  --accent-bg:       #15110a;
+  --accent-bg-deep:  #100c06;
+  --accent-rule:     #3a2f1f;
+
   /* Geriye uyumluluk (eski isimler) */
   --black:           var(--bg-base);
   --white:           var(--ink);
@@ -74,6 +87,19 @@
   /* Etkilesim */
   --focus-ring:      #5C1A2C;
   --shadow-card:     0 1px 0 rgba(31,26,20,0.05), 0 4px 16px rgba(31,26,20,0.06);
+
+  /* Semantik krem ton */
+  --onay:            #4a7d4a;
+  --onay-soft:       #5a8a5a;
+  --onay-bg:         #DDE5C8;
+  --onay-rule:       #B5C49B;
+  --uyari:           #8a3e3e;
+  --uyari-bg:        #EBD5C8;
+
+  /* Sicak zemin krem ton (Workbook sarimsi krem) */
+  --accent-bg:       #E8D5A5;
+  --accent-bg-deep:  #DCC890;
+  --accent-rule:     #B89E6A;
 }
 
 * {

@@ -3,7 +3,7 @@
 
 'use client';
 
-const TON = '#c9a96e';
+const TON = 'var(--accent)';
 
 export default function HamletPerdeBandi({ perdeler, aktifPerde, onPerdeTikla }) {
   return (
@@ -12,8 +12,8 @@ export default function HamletPerdeBandi({ perdeler, aktifPerde, onPerdeTikla })
         display: 'grid',
         gridTemplateColumns: `repeat(${perdeler.length}, 1fr)`,
         gap: '1px',
-        backgroundColor: '#2a2a2a',
-        border: '1px solid #2a2a2a',
+        backgroundColor: 'var(--rule)',
+        border: '1px solid var(--rule)',
       }}
     >
       {perdeler.map((p) => {
@@ -24,7 +24,7 @@ export default function HamletPerdeBandi({ perdeler, aktifPerde, onPerdeTikla })
             onClick={() => onPerdeTikla?.(p.perde)}
             style={{
               padding: '1rem 0.8rem',
-              backgroundColor: aktif ? '#15110a' : '#0a0a0a',
+              backgroundColor: aktif ? 'var(--accent-bg)' : 'var(--bg-base)',
               border: 'none',
               cursor: onPerdeTikla ? 'pointer' : 'default',
               display: 'flex',
@@ -34,8 +34,8 @@ export default function HamletPerdeBandi({ perdeler, aktifPerde, onPerdeTikla })
               textAlign: 'center',
               transition: 'background-color 0.25s ease',
             }}
-            onMouseEnter={(e) => { if (onPerdeTikla && !aktif) e.currentTarget.style.backgroundColor = '#0f0f0f'; }}
-            onMouseLeave={(e) => { if (onPerdeTikla && !aktif) e.currentTarget.style.backgroundColor = '#0a0a0a'; }}
+            onMouseEnter={(e) => { if (onPerdeTikla && !aktif) e.currentTarget.style.backgroundColor = 'var(--bg-elevated)'; }}
+            onMouseLeave={(e) => { if (onPerdeTikla && !aktif) e.currentTarget.style.backgroundColor = 'var(--bg-base)'; }}
           >
             <span
               style={{
@@ -43,7 +43,7 @@ export default function HamletPerdeBandi({ perdeler, aktifPerde, onPerdeTikla })
                 fontStyle: 'italic',
                 fontWeight: 300,
                 fontSize: '1.5rem',
-                color: aktif ? TON : '#aaa',
+                color: aktif ? TON : 'var(--ink-soft)',
                 lineHeight: 1,
               }}
             >
@@ -54,7 +54,7 @@ export default function HamletPerdeBandi({ perdeler, aktifPerde, onPerdeTikla })
                 fontFamily: 'Jost, sans-serif',
                 fontWeight: 300,
                 fontSize: '0.7rem',
-                color: aktif ? '#f0ede8' : '#bbb',
+                color: aktif ? 'var(--ink)' : 'var(--ink-soft)',
                 lineHeight: 1.4,
                 letterSpacing: '0.02em',
               }}
@@ -67,7 +67,7 @@ export default function HamletPerdeBandi({ perdeler, aktifPerde, onPerdeTikla })
                 fontWeight: 200,
                 fontSize: '0.55rem',
                 letterSpacing: '0.25em',
-                color: '#666',
+                color: 'var(--ink-muted)',
                 textTransform: 'uppercase',
               }}
             >

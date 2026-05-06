@@ -18,7 +18,7 @@ import OyunOncesiOlayKart from '../../../../../components/OyunOncesiOlayKart';
 import OyunOncesiIliskiKart from '../../../../../components/OyunOncesiIliskiKart';
 import HamletBolumGecisi from '../../../../../components/HamletBolumGecisi';
 
-const TON = '#c9a96e';
+const TON = 'var(--accent)';
 
 export default function OyunOncesiYasamSayfasi() {
   const [olayYansimalari, setOlayYansimalari] = useState({});
@@ -53,7 +53,7 @@ export default function OyunOncesiYasamSayfasi() {
             fontWeight: 200,
             fontSize: '0.7rem',
             letterSpacing: '0.3em',
-            color: '#888',
+            color: 'var(--ink-muted)',
             textTransform: 'uppercase',
           }}
         >
@@ -67,8 +67,8 @@ export default function OyunOncesiYasamSayfasi() {
     <main
       style={{
         minHeight: '100vh',
-        backgroundColor: '#0a0a0a',
-        color: '#f0ede8',
+        backgroundColor: 'var(--bg-base)',
+        color: 'var(--ink)',
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -96,14 +96,14 @@ export default function OyunOncesiYasamSayfasi() {
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.3em',
-              color: '#888',
+              color: 'var(--ink-muted)',
               textTransform: 'uppercase',
               textDecoration: 'none',
               alignSelf: 'flex-start',
               transition: 'color 0.25s ease',
             }}
             onMouseEnter={(e) => { e.currentTarget.style.color = TON; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = '#888'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
           >
             ← Hamlet
           </a>
@@ -127,7 +127,7 @@ export default function OyunOncesiYasamSayfasi() {
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: 'clamp(2.2rem, 6vw, 3.4rem)',
-              color: '#f0ede8',
+              color: 'var(--ink)',
               margin: 0,
               lineHeight: 1.1,
             }}
@@ -139,7 +139,7 @@ export default function OyunOncesiYasamSayfasi() {
               fontFamily: 'Cormorant Garamond, serif',
               fontStyle: 'italic',
               fontSize: '1.1rem',
-              color: '#888',
+              color: 'var(--ink-muted)',
               margin: 0,
             }}
           >
@@ -164,7 +164,7 @@ export default function OyunOncesiYasamSayfasi() {
             style={{
               borderLeft: `2px solid ${TON}`,
               padding: '0.8rem 1.4rem',
-              backgroundColor: '#15110a',
+              backgroundColor: 'var(--accent-bg)',
             }}
           >
             <p
@@ -188,7 +188,7 @@ export default function OyunOncesiYasamSayfasi() {
               alignItems: 'center',
               gap: '0.9rem',
               padding: '0.7rem 1.1rem',
-              border: '1px dashed #2a2a2a',
+              border: '1px dashed var(--rule)',
               flexWrap: 'wrap',
             }}
           >
@@ -198,7 +198,7 @@ export default function OyunOncesiYasamSayfasi() {
                 fontWeight: 200,
                 fontSize: '0.6rem',
                 letterSpacing: '0.25em',
-                color: '#888',
+                color: 'var(--ink-muted)',
                 textTransform: 'uppercase',
               }}
             >
@@ -209,7 +209,7 @@ export default function OyunOncesiYasamSayfasi() {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: '0.9rem',
-                color: '#aaa',
+                color: 'var(--ink-soft)',
                 flex: 1,
                 minWidth: '220px',
               }}
@@ -240,9 +240,9 @@ export default function OyunOncesiYasamSayfasi() {
           {/* ITC Prensibi */}
           <div
             style={{
-              border: '1px solid #2a2a2a',
+              border: '1px solid var(--rule)',
               padding: '1.6rem 1.8rem',
-              backgroundColor: '#0d0d0d',
+              backgroundColor: 'var(--bg-elevated)',
               display: 'flex',
               flexDirection: 'column',
               gap: '0.9rem',
@@ -265,7 +265,7 @@ export default function OyunOncesiYasamSayfasi() {
                 fontFamily: 'Jost, sans-serif',
                 fontWeight: 300,
                 fontSize: '0.88rem',
-                color: '#ccc',
+                color: 'var(--ink-soft)',
                 lineHeight: 1.8,
                 margin: 0,
               }}
@@ -278,7 +278,7 @@ export default function OyunOncesiYasamSayfasi() {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: '0.95rem',
-                color: '#bbb',
+                color: 'var(--ink-soft)',
                 lineHeight: 1.8,
                 margin: 0,
               }}
@@ -349,7 +349,7 @@ export default function OyunOncesiYasamSayfasi() {
             gap: '1.4rem',
             padding: '2.4rem 2rem',
             border: `1px solid ${TON}33`,
-            backgroundColor: '#100c06',
+            backgroundColor: 'var(--accent-bg-deep)',
             textAlign: 'center',
           }}
         >
@@ -370,7 +370,7 @@ export default function OyunOncesiYasamSayfasi() {
               fontFamily: 'Cormorant Garamond, serif',
               fontStyle: 'italic',
               fontSize: '1.15rem',
-              color: '#ddd',
+              color: 'var(--ink-soft)',
               lineHeight: 1.7,
               margin: 0,
               maxWidth: '600px',
@@ -427,7 +427,7 @@ function BolumBasligi({ etiket, baslik, altyazi, ilerleme }) {
             fontWeight: 200,
             fontSize: '0.6rem',
             letterSpacing: '0.25em',
-            color: '#888',
+            color: 'var(--ink-muted)',
             textTransform: 'uppercase',
           }}
         >
@@ -440,7 +440,7 @@ function BolumBasligi({ etiket, baslik, altyazi, ilerleme }) {
           fontStyle: 'italic',
           fontWeight: 300,
           fontSize: '1.8rem',
-          color: '#f0ede8',
+          color: 'var(--ink)',
           margin: 0,
           lineHeight: 1.2,
         }}
@@ -452,7 +452,7 @@ function BolumBasligi({ etiket, baslik, altyazi, ilerleme }) {
           fontFamily: 'Cormorant Garamond, serif',
           fontStyle: 'italic',
           fontSize: '0.95rem',
-          color: '#888',
+          color: 'var(--ink-muted)',
           margin: 0,
         }}
       >
@@ -476,7 +476,7 @@ function KapanisKutusu({ children }) {
           fontFamily: 'Cormorant Garamond, serif',
           fontStyle: 'italic',
           fontSize: '1rem',
-          color: '#bbb',
+          color: 'var(--ink-soft)',
           lineHeight: 1.6,
           margin: 0,
         }}
@@ -491,15 +491,15 @@ const paragrafStili = {
   fontFamily: 'Cormorant Garamond, serif',
   fontStyle: 'italic',
   fontSize: '1.05rem',
-  color: '#ddd',
+  color: 'var(--ink-soft)',
   lineHeight: 1.8,
   margin: 0,
 };
 
 const ekranStili = {
   minHeight: '100vh',
-  backgroundColor: '#0a0a0a',
-  color: '#f0ede8',
+  backgroundColor: 'var(--bg-base)',
+  color: 'var(--ink)',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -521,7 +521,7 @@ function KarakterHeader() {
     fontWeight: 200,
     fontSize: '0.6rem',
     letterSpacing: '0.25em',
-    color: '#aaa',
+    color: 'var(--ink-soft)',
     textTransform: 'uppercase',
     textDecoration: 'none',
     transition: 'color 0.25s ease',
@@ -534,7 +534,7 @@ function KarakterHeader() {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '1.6rem 2rem',
-        borderBottom: '1px solid #2a2a2a',
+        borderBottom: '1px solid var(--rule)',
         flexWrap: 'wrap',
         gap: '1rem',
       }}
@@ -546,7 +546,7 @@ function KarakterHeader() {
           fontWeight: 200,
           fontSize: '0.65rem',
           letterSpacing: '0.3em',
-          color: '#c9a96e',
+          color: 'var(--accent)',
           textTransform: 'uppercase',
           textDecoration: 'none',
         }}
@@ -555,18 +555,18 @@ function KarakterHeader() {
       </a>
       <nav style={{ display: 'flex', gap: '1.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
         <a href="/kalibrasyon" style={navLink}
-          onMouseEnter={(e) => { e.currentTarget.style.color = '#c9a96e'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = '#aaa'; }}>
+          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
           Kalibrasyon
         </a>
         <a href="/kulis" style={navLink}
-          onMouseEnter={(e) => { e.currentTarget.style.color = '#c9a96e'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = '#aaa'; }}>
+          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
           Kulis
         </a>
-        <a href="/antrenman/karakter" style={{ ...navLink, color: '#f0ede8' }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = '#c9a96e'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = '#f0ede8'; }}>
+        <a href="/antrenman/karakter" style={{ ...navLink, color: 'var(--ink)' }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}>
           ← Karakterler
         </a>
         <button
@@ -577,10 +577,10 @@ function KarakterHeader() {
             cursor: 'pointer',
             padding: 0,
             ...navLink,
-            color: '#666',
+            color: 'var(--ink-muted)',
           }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = '#f0ede8'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = '#666'; }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
         >
           Çıkış
         </button>
