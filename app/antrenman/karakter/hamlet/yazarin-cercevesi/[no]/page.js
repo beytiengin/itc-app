@@ -1,0 +1,233 @@
+// app/antrenman/karakter/hamlet/yazarin-cercevesi/[no]/page.js
+// ITC Actor's Gym — Modül II Hamlet · Yazarın Çerçevesi · Tek Tercih Detayı
+//
+// Dinamik route: /yazarin-cercevesi/1 ... /5
+// İçerik HamletTercihSecim bileşeni tarafından render edilir.
+
+'use client';
+
+import { useState, useEffect, use } from 'react';
+import { useRouter } from 'next/navigation';
+import hamlet from '../../../../../../data/karakterler/hamlet';
+import { tercihleriGetir } from '../../../../../lib/hamlet-veri';
+import HamletAltSayfaHeader from '../../../../../../components/HamletAltSayfaHeader';
+import HamletTercihSecim from '../../../../../../components/HamletTercihSecim';
+
+const TON = '#c9a96e';
+
+export default function TercihDetaySayfasi({ params }) {
+  const { no } = use(params);
+  const tercihNo = parseInt(no, 10);
+  const router = useRouter();
+
+  const [secimler, setSecimler] = useState({});
+  const [yukleniyor, setYukleniyor] = useState(true);
+
+  const tercihler = hamlet.tercihler || [];
+  const tercih = tercihler.find((t) => t.no === tercihNo);
+
+  useEffect(() => {
+    async function yukle() {
+      const veri = await tercihleriGetir(hamlet.id);
+      setSecimler(veri);
+      setYukleniyor(false);
+    }
+    yukle();
+  }, []);
+
+  // Geçersiz tercih no — ana sayfaya yönlendir
+  useEffect(() => {
+    if (!yukleniyor && !tercih) {
+      router.replace('/antrenman/karakter/hamlet/yazarin-cercevesi');
+    }
+  }, [yukleniyor, tercih, router]);
+
+  if (yukleniyor || !tercih) {
+    return (
+      <main style={ekranStili}>
+        <span
+          style={{
+            fontFamily: 'Jost, sans-serif',
+            fontWeight: 200,
+            fontSize: '0.7rem',
+            letterSpacing: '0.3em',
+            color: '#888',
+            textTransform: 'uppercase',
+          }}
+        >
+          Hazırlanıyor…
+        </span>
+      </main>
+    );
+  }
+
+  const oncekiNo = tercihNo > 1 ? tercihNo - 1 : null;
+  const sonrakiNo = tercihNo < tercihler.length ? tercihNo + 1 : null;
+
+  return (
+    <main
+      style={{
+        minHeight: '100vh',
+        backgroundColor: '#0a0a0a',
+        color: '#f0ede8',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <HamletAltSayfaHeader />
+
+      <article
+        style={{
+          maxWidth: '900px',
+          margin: '0 auto',
+          width: '100%',
+          padding: '3rem 2rem 5rem',
+          boxSizing: 'border-box',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '2.4rem',
+        }}
+      >
+        {/* Üst başlık */}
+        <header style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <a
+            href="/antrenman/karakter/hamlet/yazarin-cercevesi"
+            style={{
+              fontFamily: 'Jost, sans-serif',
+              fontWeight: 200,
+              fontSize: '0.6rem',
+              letterSpacing: '0.3em',
+              color: '#888',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+              alignSelf: 'flex-start',
+              transition: 'color 0.25s ease',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = TON; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = '#888'; }}
+          >
+            ← Yazarın Çerçevesi
+          </a>
+
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.9rem', flexWrap: 'wrap' }}>
+            <span
+              style={{
+                fontFamily: 'Jost, sans-serif',
+                fontWeight: 200,
+                fontSize: '0.65rem',
+                letterSpacing: '0.35em',
+                color: TON,
+                textTransform: 'uppercase',
+              }}
+            >
+              Tercih {tercih.no} · {tercih.konu}
+            </span>
+            <span
+              style={{
+                fontFamily: 'Jost, sans-serif',
+                fontWeight: 200,
+                fontSize: '0.55rem',
+                letterSpacing: '0.25em',
+                color: '#666',
+                textTransform: 'uppercase',
+              }}
+            >
+              {tercih.no} / {tercihler.length}
+            </span>
+          </div>
+
+          <h1
+            style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontStyle: 'italic',
+              fontWeight: 300,
+              fontSize: 'clamp(1.8rem, 5vw, 2.6rem)',
+              color: '#f0ede8',
+              margin: 0,
+              lineHeight: 1.2,
+            }}
+          >
+            {tercih.baslik}
+          </h1>
+        </header>
+
+        {/* SEÇİM ALANI */}
+        <HamletTercihSecim
+          tercih={tercih}
+          baslangic={secimler[tercih.no]}
+          karakterId={hamlet.id}
+        />
+
+        {/* Navigasyon */}
+        <div
+          style={{
+            paddingTop: '1.5rem',
+            borderTop: '1px solid #2a2a2a',
+            display: 'flex',
+            justifyContent: 'space-between',
+            gap: '1rem',
+          }}
+        >
+          {oncekiNo ? (
+            <a
+              href={`/antrenman/karakter/hamlet/yazarin-cercevesi/${oncekiNo}`}
+              style={navButonStili()}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#f0ede8'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#aaa'; }}
+            >
+              ← Tercih {oncekiNo}
+            </a>
+          ) : <span />}
+
+          {sonrakiNo ? (
+            <a
+              href={`/antrenman/karakter/hamlet/yazarin-cercevesi/${sonrakiNo}`}
+              style={navButonStili()}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#f0ede8'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#aaa'; }}
+            >
+              Tercih {sonrakiNo} →
+            </a>
+          ) : (
+            <a
+              href="/antrenman/karakter/hamlet/yazarin-cercevesi/sentez"
+              style={{
+                ...navButonStili(),
+                color: TON,
+                borderColor: TON,
+              }}
+            >
+              Sentez →
+            </a>
+          )}
+        </div>
+      </article>
+    </main>
+  );
+}
+
+function navButonStili() {
+  return {
+    background: 'none',
+    border: '1px solid #2a2a2a',
+    cursor: 'pointer',
+    padding: '0.7rem 1.3rem',
+    fontFamily: 'Jost, sans-serif',
+    fontWeight: 200,
+    fontSize: '0.6rem',
+    letterSpacing: '0.25em',
+    color: '#aaa',
+    textTransform: 'uppercase',
+    textDecoration: 'none',
+    transition: 'color 0.25s ease',
+  };
+}
+
+const ekranStili = {
+  minHeight: '100vh',
+  backgroundColor: '#0a0a0a',
+  color: '#f0ede8',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};

@@ -244,7 +244,11 @@ function KarakterKarti({ karakter, egzersizSayisi, yansimaSayisi, aktivite, iler
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.8rem', flexWrap: 'wrap' }}>
                         <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.78rem', color: '#f0ede8' }}>{bosluk.baslik}</span>
                         <a
-                          href={`/antrenman/karakter/${karakter.id}#bosluklar`}
+                          href={
+                            karakter.id === 'hamlet'
+                              ? `/antrenman/karakter/hamlet/senin-cerceven`
+                              : `/antrenman/karakter/${karakter.id}#bosluklar`
+                          }
                           style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.8rem', color: '#c9a96e', textDecoration: 'none', whiteSpace: 'nowrap' }}
                           onClick={(ev) => ev.stopPropagation()}
                         >

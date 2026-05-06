@@ -47,7 +47,804 @@ const hamlet = {
     { kategori: 'Son', madde: 'Fortinbras tahtın varisi olur.' },
   ],
 
-  // ─── 14 SAHNE ─────────────────────────────────────────────────────────────
+  // ─── OYUN ÖNCESİ YAŞAM (Workbook s.58-65) ─────────────────────────────────
+  // Sahneye çıkmadan önce ne yaşandı — Hamlet'in bedeninde taşıdığı geçmiş.
+
+  oyunOncesi: {
+    olaylar: [
+      {
+        no: 1,
+        baslik: "Kral Hamlet (babası), Norveç Kralı Fortinbras'ı düelloda yener",
+        sahneRef: 'I.i · Horatio',
+        yuk: 'Ailesel onur, güç mirası, sırtta taşınan büyük bir gölge.',
+        yansimaSorusu:
+          "Bu efsanevi babanın gölgesi senin Hamlet'inin bedenine nereye düşüyor?",
+      },
+      {
+        no: 2,
+        baslik: 'Norveç Kralı ölür; genç Fortinbras intikam planlar',
+        sahneRef: 'I.i · Horatio',
+        yuk: "Hamlet'in kendi durumuna paralel bir intikam — ama o atılgan, Hamlet erteleyici.",
+        yansimaSorusu:
+          'Hamlet bu paralel intikamcıyı duyduğunda kendisini nasıl konumlandırıyor?',
+      },
+      {
+        no: 3,
+        baslik: 'Kral Hamlet ani ve şüpheli bir biçimde ölür',
+        sahneRef: 'I.v · Hayaletin İfşası',
+        yuk: 'Bütün oyunun hareket noktası. Bilinçaltındaki şüphe, sözle ifade edilmemiş bir kuşku.',
+        yansimaSorusu:
+          "Sözle ifade edilemeyen kuşku — Hamlet'in bedeninde nasıl bir ses?",
+      },
+      {
+        no: 4,
+        baslik: 'Gertrude, Claudius ile aceleyle evlenir',
+        sahneRef: "I.ii · Hamlet'in Monoloğu",
+        yuk: 'Ahlaki travma, derin yas üzerine ihanet — "henüz aylar dolmadan".',
+        yansimaSorusu: '"Henüz aylar dolmadan" — bu cümle bedende nasıl kayıyor?',
+      },
+      {
+        no: 5,
+        baslik:
+          'Claudius tahta geçer; Hamlet veraset hakkı olduğu hâlde dışarıda kalır',
+        sahneRef: 'I.ii',
+        yuk: 'Taht hakkının gaspı. Kişisel kayıp + siyasi kırılma birlikte.',
+        yansimaSorusu:
+          'Kişisel kayıp + siyasi kırılma birlikte — hangisi önce hissediliyor?',
+      },
+      {
+        no: 6,
+        baslik: "Hamlet, Wittenberg'den Danimarka'ya çağrılır",
+        sahneRef: 'I.ii · Claudius',
+        yuk: 'Entelektüel hayatından koparılış — Wittenberg, kendisi olabildiği yer.',
+        yansimaSorusu:
+          'Kendisi olabildiği yerden çağrılmak — bedensel direnç nerede?',
+      },
+      {
+        no: 7,
+        baslik: 'Ophelia ile romantik bağ — oyun öncesinde başlamış',
+        sahneRef: 'III.i · Polonius, Laertes',
+        yuk: 'Umut ve kırılganlık. Yas içindeki tek pozitif bağ — ama o da tehdit altında.',
+        yansimaSorusu:
+          'Yas içindeki tek pozitif bağ — ama tehdit altında. Çelişki nerede?',
+      },
+      {
+        no: 8,
+        baslik: 'Claudius, Norveç ile diplomatik ilişkiler kurar',
+        sahneRef: 'I.ii',
+        yuk: 'Yalnızca Hamlet yas tutuyor. Saray, ilişkilerine devam ediyor.',
+        yansimaSorusu:
+          'Yalnızca Hamlet yas tutuyor — bu yalnızlık nasıl bir izolasyon?',
+      },
+    ],
+
+    iliskiler: [
+      {
+        no: 1,
+        ad: 'Gertrude',
+        rol: 'ANNE',
+        gecmis: 'Sevgi kaynağı, çocukluğun sıcak merkezi.',
+        simdi: 'İhanet hissi içinde — ama hâlâ anne. Kopamıyor.',
+        iz: 'Aşk + öfke, aynı bedende.',
+        yansimaSorusu:
+          'Bu çelişkili yük bedeninde nereye yerleşiyor? Hangi an sevgi, hangi an öfke baskın?',
+      },
+      {
+        no: 2,
+        ad: 'Kral Hamlet',
+        rol: 'BABA',
+        gecmis: 'İdeal kral, ahlaki ölçü; oğul için hayranlık konusu.',
+        simdi: 'Ölü. Yas, henüz hayalet olarak çağrılmadı.',
+        iz: 'Doldurulamaz baba boşluğu.',
+        yansimaSorusu:
+          'Doldurulamaz boşluk — bu boşluğun şekli ve büyüklüğü ne?',
+      },
+      {
+        no: 3,
+        ad: 'Claudius',
+        rol: 'AMCA · ÜVEY BABA',
+        gecmis: 'Saraydaki amca, akrabalık. Yakın değil ama tanıdık.',
+        simdi: 'Annesinin eşi, tahta sahibi — tiksinti veriyor.',
+        iz: '"Yeğenden biraz fazla, oğuldan bir hayli az."',
+        yansimaSorusu:
+          '"Yeğenden biraz fazla, oğuldan bir hayli az" — bu mesafe bedende nasıl?',
+      },
+      {
+        no: 4,
+        ad: 'Ophelia',
+        rol: 'SEVGİLİ',
+        gecmis: 'Aşk başlamış — mektuplar, gizli sözler.',
+        simdi: "Polonius'un kontrolünde; Hamlet'ten uzaklaştırılıyor.",
+        iz: 'Tek pozitif bağ — ama o da kayıyor.',
+        yansimaSorusu:
+          'Tek pozitif bağ kayıyor — bu kayma hangi anlarda fark ediliyor?',
+      },
+      {
+        no: 5,
+        ad: 'Horatio',
+        rol: 'DOST',
+        gecmis: "Wittenberg'den dost; entelektüel ortaklık.",
+        simdi: "Cenazeye gelmiş — Hamlet'in tek güvendiği insan.",
+        iz: 'Tek sığınak, tek ayna.',
+        yansimaSorusu:
+          "Tek sığınak, tek ayna — Horatio'yla olduğun zaman bedenin nasıl?",
+      },
+      {
+        no: 6,
+        ad: 'Polonius',
+        rol: 'SEVGİLİNİN BABASI',
+        gecmis: "Saray danışmanı; Hamlet'i prens olarak görür.",
+        simdi: 'Aşkın önündeki engel, gözcü, manipülatör.',
+        iz: 'Aşka set çeken otorite.',
+        yansimaSorusu:
+          "Aşka set çeken otorite — Polonius'a bakışta hangi tutulma var?",
+      },
+      {
+        no: 7,
+        ad: 'Laertes',
+        rol: 'SEVGİLİNİN KARDEŞİ',
+        gecmis: 'Saray çevresinden tanıdık; aynı yaş, paralel hayat.',
+        simdi: "Fransa'ya gidiyor; kız kardeşini Hamlet'e karşı uyarıyor.",
+        iz: 'Eski yakınlık, yeni mesafe.',
+        yansimaSorusu:
+          'Eski yakınlık, yeni mesafe — bu değişim hangi anda fark edildi?',
+      },
+      {
+        no: 8,
+        ad: 'Fortinbras',
+        rol: 'NORVEÇ PRENSİ',
+        gecmis: 'Babalarının düellosu üzerinden dolaylı bir tarih.',
+        simdi: "Uzak bir tehdit, henüz Hamlet'in radarında değil.",
+        iz: "Paralel intikamcı — Hamlet'in karşı-aynası.",
+        yansimaSorusu:
+          "Karşı-ayna — Fortinbras'ı düşündüğünde Hamlet kendinden ne görür?",
+      },
+    ],
+  },
+
+  // ─── PERDE TEMALARI (Workbook s.66-67) ────────────────────────────────────
+
+  perdeTemalari: [
+    { perde: 'I',   baslik: 'Şüphe ve Pasif Yas',  sahneAraligi: '1-2'  },
+    { perde: 'II',  baslik: 'Plan ve Gözlem',      sahneAraligi: '3-4'  },
+    { perde: 'III', baslik: 'Eylem ve Patlama',    sahneAraligi: '5-8'  },
+    { perde: 'IV',  baslik: 'Sürgün ve Kıyaslama', sahneAraligi: '9-11' },
+    { perde: 'V',   baslik: 'Kabul ve Son',        sahneAraligi: '12-14'},
+  ],
+
+  // ─── 14 SAHNE — WORKBOOK FORMATI (s.66-85) ────────────────────────────────
+  // Bu dizi yeni Timeline sayfası tarafından kullanılır.
+  // Eski `sahneler` dizisi Yazarın Çerçevesi tarafından hâlâ kullanıldığı için
+  // şimdilik korundu — Sprint 2'de retire edilecek.
+
+  sahnelerWorkbook: [
+    {
+      no: 1, perde: 1, perdeRomen: 'I',
+      baslik: 'Surlarda Hayalet',
+      konum: 'I.i · Gece',
+      olay:
+        'Elsinore surlarında nöbet tutan askerler bir hayalet görür. Horatio çağrılır; hayalet Eski Kral Hamlet\'e benzemektedir. Hamlet henüz sahnede değil — saray salonunda yas tutmaktadır.',
+      icsel:
+        'Hamlet bu sahnede yok — ama metin onun yokluğunda örülüyor. Hayalet, oğlunu bekliyor.',
+      onerilenSicaklik: 3,
+      yuk: 'Henüz haberi olmayan bir oğul, bir hakikate doğru çekiliyor.',
+    },
+    {
+      no: 2, perde: 1, perdeRomen: 'I',
+      baslik: 'İlk Monolog',
+      konum: 'I.ii · Saray',
+      olay:
+        'Claudius tahttadır, Gertrude yanında, Hamlet siyahlar içinde kenarda. "Yeğenden biraz fazla, oğuldan bir hayli az" der amcasına. Yalnız kalınca: "Ah bu katı, kaskatı beden bir dağılsa, eriyip gitse bir çiy tanesinde sabahın!"',
+      icsel:
+        'Yas + tiksinti + ahlaki çöküş. Annenin hızı, sarayın gülümsemesi katlanılmaz.',
+      onerilenSicaklik: 7,
+      yuk: 'Yalnızlık doruk. Bir şey eksik, ama ne — henüz bilmiyor.',
+    },
+    {
+      no: 3, perde: 1, perdeRomen: 'I',
+      baslik: 'Hayaletle Karşılaşma',
+      konum: 'I.iv-v · Gece',
+      olay:
+        'Hayalet Hamlet\'e görünür. Babasının Claudius tarafından kulağına zehir dökülerek öldürüldüğünü söyler ve intikam ister. Hamlet yemin eder.',
+      icsel:
+        'Şok → inanç → intikam yemini. Üç katman birkaç dakikada.',
+      onerilenSicaklik: 9,
+      yuk: 'Bu sahneden çıkan Hamlet, sahneye giren Hamlet değildir.',
+    },
+    {
+      no: 4, perde: 2, perdeRomen: 'II',
+      baslik: 'Plan + Oyuncular',
+      konum: 'II.ii · Saray',
+      olay:
+        'Rosencrantz ve Guildenstern saraydadır — Claudius\'un casusları. Oyuncular gelir. Hamlet, "Fare Kapanı" planını kurar: bir oyun sahnelenecek, Claudius\'un suçluluğu test edilecek.',
+      icsel:
+        'Paranoya + zekâya yöneliş. Beden geride, akıl önde. Delilik maskesi takılıyor.',
+      onerilenSicaklik: 5,
+      yuk: 'Hayalete inanmıyorum diyor; gerçekten de mi inanmıyor?',
+    },
+    {
+      no: 5, perde: 3, perdeRomen: 'III',
+      baslik: '"Var olmak mı, yok olmak mı" + Ophelia',
+      konum: 'III.i',
+      olay:
+        'Hamlet tek başına, varoluş üzerine düşünür: "Var olmak mı, yok olmak mı, bütün sorun bu." Sonra Ophelia gelir; Hamlet onu sertçe reddeder, manastıra gönderir.',
+      icsel:
+        'Varoluşsal çöküş → hayata dönme kararı → aşkın reddedilişi. Üç farklı an, tek sahnede.',
+      onerilenSicaklik: 8,
+      yuk: 'Ophelia da onların safındaydı (sandı). Tek pozitif bağ koparılıyor.',
+    },
+    {
+      no: 6, perde: 3, perdeRomen: 'III',
+      baslik: 'Oyun İçinde Oyun',
+      konum: 'III.ii · Saray',
+      olay:
+        'Oyuncular, Eski Kral\'ın ölümünü temsil eden bir sahne oynar. Claudius dayanamaz, sahneyi bırakıp çıkar. Hamlet kanıtını almıştır.',
+      icsel:
+        'Sabırlı strateji → patlamış doğrulama. "Şimdi biliyorum."',
+      onerilenSicaklik: 9,
+      yuk: 'Artık biliyorum. Şimdi ne?',
+    },
+    {
+      no: 7, perde: 3, perdeRomen: 'III',
+      baslik: 'Dua Eden Claudius',
+      konum: 'III.iii',
+      olay:
+        'Claudius günah çıkarmak için diz çökmüştür. Hamlet arkasında, kılıç çekilmiş — ama vurmuyor. "Cennete gider bu halinde öldürürsem; öcümü almış sayılır mıyım?" Erteliyor.',
+      icsel:
+        'Vicdan + adalet duygusu + erteleme. Akıl gerekçe üretiyor.',
+      onerilenSicaklik: 6,
+      yuk: 'Erteleme alışkanlığı pekişti. Ne zaman olsa hep böyle.',
+    },
+    {
+      no: 8, perde: 3, perdeRomen: 'III',
+      baslik: 'Anne Sahnesi + Polonius',
+      konum: 'III.iv · Anne Odası',
+      olay:
+        'Hamlet annesinin odasına gelir. Perdenin arkasında bir ses duyar; "Ne o? Bir fare mi?" diye kılıcını saplar. Polonius\'u yanlışlıkla öldürmüştür. Annesiyle yüzleşme bundan sonra başlar.',
+      icsel:
+        'Sevgi → öfke → pişmanlık. Üç katman aynı anda patlar.',
+      onerilenSicaklik: 10,
+      yuk: 'Artık katil. Geri dönüş yok.',
+    },
+    {
+      no: 9, perde: 4, perdeRomen: 'IV',
+      baslik: "İngiltere'ye Gönderiliş",
+      konum: 'IV.iii',
+      olay:
+        'Polonius\'un cesedini saklamıştır. Claudius onu sürgün eder — sözde diplomasi için, gerçekte ölüm fermanıyla. Hamlet ironi maskesini takar; içten içe tehdidi sezer.',
+      icsel:
+        'İronik delilik maskesi + içte tetik. Söz ve niyet ayrı.',
+      onerilenSicaklik: 5,
+      yuk: 'Tehdit altında — ama farkındayım.',
+    },
+    {
+      no: 10, perde: 4, perdeRomen: 'IV',
+      baslik: 'Fortinbras Ordusu',
+      konum: 'IV.iv · Yol',
+      olay:
+        'Yolda, Fortinbras\'ın ordusuyla karşılaşır. Küçük bir toprak parçası için savaşan binlerce asker. Hamlet kendi eylemsizliğine bakıp utanç duyar: "Ey düşüncem, bundan böyle ya kana boyan, ya da beş para etmediğine yan."',
+      icsel:
+        'Utanç → kendine öfke → eylem kararı. Kıyaslama bedeni harekete geçirir.',
+      onerilenSicaklik: 7,
+      yuk: 'Karar var, ama Danimarka\'dan uzak. Eylem nerede?',
+    },
+    {
+      no: 11, perde: 4, perdeRomen: 'IV',
+      baslik: "Ophelia'nın Deliliği + Ölümü",
+      konum: 'IV.v-vii',
+      olay:
+        'Hamlet sahne dışında. Ophelia çiçeklerle gelir, deliliği görünür. Bir süre sonra dereye düşer ve boğulur. Laertes Fransa\'dan döner, intikam yemini eder.',
+      icsel:
+        'Hamlet henüz haberi yok — ama yokluğu sahneyi büyütüyor. Polonius\'un ölümünün dolaylı dalgaları.',
+      onerilenSicaklik: 4,
+      yuk: 'Yokluğu büyür. Geri döndüğünde başka bir yas onu bekliyor.',
+    },
+    {
+      no: 12, perde: 5, perdeRomen: 'V',
+      baslik: "Yorick + Ophelia'nın Cenazesi",
+      konum: 'V.i · Mezarlık',
+      olay:
+        'Mezarcılarla konuşur, Yorick\'in kafatasını eline alır: "Zavallı Yorick…" Sonra Ophelia\'nın cenazesine rastlar. Laertes ile mezarın içinde kavgaya tutuşur.',
+      icsel:
+        'Ölümle felsefi barış (sakin) → bastırılmış aşkın patlaması (şok). İki an, beş dakika içinde.',
+      onerilenSicaklik: 8,
+      yuk: 'Aşkı kabullenmedi, ama kaybetti. Ölüm artık tanıdık.',
+    },
+    {
+      no: 13, perde: 5, perdeRomen: 'V',
+      baslik: "Horatio'ya · Kabulleniş",
+      konum: 'V.ii(A)',
+      olay:
+        'Horatio\'ya R&G\'nin ihanetini ve onların ölümüne sebep oluşunu anlatır. Düello davetini kabul eder. "Serçenin ölmesinde bile bir bildiği vardır kaderin."',
+      icsel:
+        'Soğukkanlı kabulleniş. İçsel barış başlıyor — ölümle yüzleşmeye hazır.',
+      onerilenSicaklik: 4,
+      yuk: 'Artık ölümle barıştım. Ne olursa olsun.',
+    },
+    {
+      no: 14, perde: 5, perdeRomen: 'V',
+      baslik: 'Düello + Ölüm',
+      konum: 'V.ii(B) · Son',
+      olay:
+        'Düello başlar. Hile fark edilir: kılıç ve kadeh zehirlidir. Gertrude zehirli kadehten içer, ölür. Hamlet, Laertes\'i ve Claudius\'u öldürür. Kendi de zehirden ölür: "Üst tarafı… sessiz bir dünya."',
+      icsel:
+        'Onurla ölüm + hikâyeyi devretme. "Horatio… anlat onlara."',
+      onerilenSicaklik: 9,
+      yuk: 'Hikâye Horatio\'ya kaldı. Hamlet susuyor.',
+    },
+  ],
+
+  // ─── YAZARIN ÇERÇEVESİ · 5 TERCİH (Workbook s.86-105) ─────────────────────
+  // Her tercih: Shakespeare'in metinde bıraktığı işaretler + olası yorumlar.
+  // Tercih 4 birden fazla seçime izin verir (cokluSecim: true).
+  // sahneNolari: Tercih → Timeline sahne bağlantısı için.
+
+  tercihler: [
+    {
+      no: 1,
+      konu: 'Hayalet',
+      baslik: 'Hayalet gerçek mi, halüsinasyon mu?',
+      cokluSecim: false,
+      sahneNolari: [1, 3, 8],
+      isaretler: [
+        {
+          ref: 'I.i · Surlar',
+          sahneNo: 1,
+          metin:
+            "Bernardo, Marcellus ve Horatio aynı anda görür. Horatio şüpheci entelektüel: \"Yemin ederim, dünyada inanmazdım, kendi gözlerimle görmeseydim böylesine açık seçik.\"",
+        },
+        {
+          ref: 'I.v · Gece',
+          sahneNo: 3,
+          metin:
+            "Hayalet Hamlet'le konuşur, Eski Kral'ın ölümünü tüm ayrıntısıyla anlatır — kulağa zehir, bahçedeki uyku.",
+        },
+        {
+          ref: 'III.iv · Anne Odası',
+          sahneNo: 8,
+          metin:
+            'Hamlet hayaleti görür ve onunla konuşur. Gertrude tek kelime duymaz: "Hiçbir şey! Oysa görüyor da gözlerim ne varsa."',
+        },
+      ],
+      sentez: 'Toplu görüş + yalnız görüş — birlikte. Shakespeare ikisini de yazıyor.',
+      yorumlar: [
+        {
+          harf: 'A',
+          baslik: 'Hayalet fizik ötesi gerçek',
+          aciklama:
+            "Tıpkı Shakespeare'in çağdaş seyircisinin inandığı gibi: ruh, intikam emri, dinsel gerçeklik. Anne görmüyor çünkü onun ruhsal görüşü kapalı.",
+        },
+        {
+          harf: 'B',
+          baslik: 'Toplu sezgi, bireysel zihin',
+          aciklama:
+            "Surlardaki askerler kollektif bir gerilime tepki veriyor. Anne sahnesinde ise Hamlet'in zihinsel projeksiyonu — bilinçaltı gerçek görünür hâle gelmiş.",
+        },
+        {
+          harf: 'C',
+          baslik: "Tamamen Hamlet'in zihninden",
+          aciklama:
+            "Hayalet bir halüsinasyon — Hamlet'in suçluluk ve şüphesinin dışavurumu. Diğerlerinin görüşü tarihsel gerçekçilik için kurgu.",
+        },
+      ],
+      kapanis: "Senin seçimin Hamlet'in gerçeklikle ilişkisini belirler.",
+    },
+
+    {
+      no: 2,
+      konu: 'Delilik',
+      baslik: 'Delilik gerçek mi, performans mı?',
+      cokluSecim: false,
+      sahneNolari: [3, 5, 8, 12],
+      isaretler: [
+        {
+          ref: 'I.v · Sonu',
+          sahneNo: 3,
+          metin:
+            'Hamlet, Horatio\'ya plan açıklar: "Çünkü olur ya, bundan sonra, kendimi deli göstermek isteyebilirim." — bilinçli karar.',
+        },
+        {
+          ref: 'III.iv · Anne Odası',
+          sahneNo: 8,
+          metin:
+            'Annesine söyler: "Deli olmadığımı, mahsus öyle göründüğümü."',
+        },
+        {
+          ref: 'III.i · Nunnery',
+          sahneNo: 5,
+          metin:
+            "Ophelia'ya zalimlik. \"Git, bir manastıra gir!\" — Bu bir performans olabilir, ama duygusal şiddet sahici.",
+        },
+        {
+          ref: 'V.i · Mezarlık',
+          sahneNo: 12,
+          metin:
+            "Laertes ile Ophelia'nın mezarında kavga: \"Bin kardeşi bütün sevgilerini birleştirip gelseler…\" — kontrolsüz patlama.",
+        },
+      ],
+      sentez: null,
+      yorumlar: [
+        {
+          harf: 'A',
+          baslik: 'Tamamen performans',
+          aciklama:
+            'Hamlet zekice bir oyun oynuyor. Anlık yoğunluklar bile rolün içinde. Sahnedeki her aşırılık amaca yönelik.',
+        },
+        {
+          harf: 'B',
+          baslik: 'Maske gerçeğe dönüşüyor',
+          aciklama:
+            'Başlangıçta strateji — ama travma birikince maske içeriden çatlıyor. Hamlet bazı anlarda gerçekten dağılıyor, sonra toparlıyor.',
+        },
+        {
+          harf: 'C',
+          baslik: 'İki yan birlikte',
+          aciklama:
+            'Bilinçli ve bilinçsiz hep birlikte. Hamlet seçiyor ama aynı zamanda kapılıyor. İki yan ayrılamaz.',
+        },
+      ],
+      kapanis: 'Senin seçimin sahnedeki "delilik" anlarının dokusunu belirler.',
+    },
+
+    {
+      no: 3,
+      konu: 'Ophelia',
+      baslik: "Ophelia'ya aşk sahici mi?",
+      cokluSecim: false,
+      sahneNolari: [5, 11, 12],
+      isaretler: [
+        {
+          ref: 'II.ii · Polonius mektuptan okur',
+          sahneNo: null,
+          metin:
+            'Hamlet\'in Ophelia\'ya yazdığı: "İnanma istersen yıldızların yandığına, güneşin döndüğüne inanma, doğrunun ta kendisini yalan bil, ama seni sevdiğime inan Ophelia."',
+        },
+        {
+          ref: 'III.i · Nunnery',
+          sahneNo: 5,
+          metin:
+            'Çelişkili: "Sizi gerçekten sevmişim bir ara." — birkaç dize sonra: "Sevmiyordum sizi." Ardından: "Git, bir manastıra gir!"',
+        },
+        {
+          ref: 'V.i · Mezarlık',
+          sahneNo: 12,
+          metin:
+            'Cenazede patlar: "Ophelia\'yı seviyordum ben. Bin kardeşi bütün sevgilerini birleştirip gelseler, sevemezler onu benim sevdiğim kadar!"',
+        },
+        {
+          ref: "IV.v · Ophelia'nın Ölümü",
+          sahneNo: 11,
+          metin:
+            'Hamlet sahne dışında — yas tutmuyor, haberi yok. Geri dönüşte ilk gördüğü cenaze.',
+        },
+      ],
+      sentez: null,
+      yorumlar: [
+        {
+          harf: 'A',
+          baslik: 'Sahici aşk, korumacı ret',
+          aciklama:
+            "Aşk başta da, sonda da gerçek. Manastır sahnesindeki sertlik Ophelia'yı sarayın tehlikesinden uzaklaştırma jesti — sevgisini gizleyerek kollar.",
+        },
+        {
+          harf: 'B',
+          baslik: 'İhanet duygusu kırılma yapmış',
+          aciklama:
+            "Aşk başlangıçta gerçek; ama Ophelia'nın babası ile işbirliği yaptığını sanınca soğumuş. Mezarlıktaki patlama, geri dönüşü olmayan bir kaybın itirafı.",
+        },
+        {
+          harf: 'C',
+          baslik: 'Aşk hep belirsizdi',
+          aciklama:
+            'Hamlet kendi de bilmiyordu sevip sevmediğini. Mezarlıkta da bilmiyor — sadece kaybın büyüklüğüne tepki veriyor. Aşk, kayıp anında doğdu.',
+        },
+      ],
+      kapanis:
+        'Senin seçimin nunnery sahnesinin yumuşaklığını ya da sertliğini belirler.',
+    },
+
+    {
+      no: 4,
+      konu: 'Erteleme',
+      baslik: 'Hamlet neden bu kadar bekliyor?',
+      cokluSecim: true,
+      cokluSecimNotu:
+        'Birden fazla seçebilirsin. Çoğu sahneleme birkaç katmanı birlikte kullanır.',
+      sahneNolari: [4, 5, 7, 10],
+      isaretler: [
+        {
+          ref: 'II.ii · 2. Monolog',
+          sahneNo: 4,
+          metin:
+            '"Ne zavallı bir eşekmişim ben!" Kendine kızıyor — eylem yok, sadece sözler. Oyuncu, hayali bir acı için bile gözyaşı dökebiliyorken o, gerçek babası için tek bir şey yapmamış.',
+        },
+        {
+          ref: 'III.iii · Dua eden Claudius',
+          sahneNo: 7,
+          metin:
+            'Kılıç çekilmiş — vurmuyor. "Cennete gider bu halinde öldürürsem; öcümü almış sayılır mıyım?" — gerekçe üretiliyor.',
+        },
+        {
+          ref: "IV.iv · Fortinbras'tan Sonra",
+          sahneNo: 10,
+          metin:
+            '"Ey düşüncem, bundan böyle ya kana boyan, ya da beş para etmediğine yan." — kendine söz, ama eylem yine yok.',
+        },
+        {
+          ref: 'III.i · "Olmak ya da Olmamak"',
+          sahneNo: 5,
+          metin:
+            '"Bilinç böyle korkak ediyor hepimizi: düşüncenin soluk ışığı bulandırıyor yürekten gelenin doğal rengini."',
+        },
+      ],
+      sentez: null,
+      yorumlar: [
+        {
+          harf: 'A',
+          baslik: 'Vicdan / ahlaki tereddüt',
+          aciklama:
+            'Goethe yorumu. Hamlet hassas ruhlu, kabul edemediği bir görevin altında ezilmiş.',
+        },
+        {
+          harf: 'B',
+          baslik: 'Korkaklık',
+          aciklama:
+            'Kendi kendine söylediği — eylem cesareti yok, sözle örtüyor.',
+        },
+        {
+          harf: 'C',
+          baslik: 'Depresyon ve eylemsizlik',
+          aciklama:
+            'Modern okuma — yas, anhedoni, irade çöküşü. Karar veremiyor çünkü yapılacak hiçbir şey önemli görünmüyor.',
+        },
+        {
+          harf: 'D',
+          baslik: 'Düşünce engeli',
+          aciklama:
+            'Coleridge yorumu — fazla düşünce, eylemi paralize ediyor. Entelektüel ölüm.',
+        },
+        {
+          harf: 'E',
+          baslik: 'Bilinçaltı çatışma',
+          aciklama:
+            "Freud yorumu — Claudius, Hamlet'in bilinçaltında kendisinin yapmak istediğini yapmış. Ona vurmak, kendine vurmak demek.",
+        },
+      ],
+      kapanis: null,
+    },
+
+    {
+      no: 5,
+      konu: 'Son',
+      baslik: 'Sondaki teslimiyet pasif mi, olgun mu?',
+      cokluSecim: false,
+      sahneNolari: [13, 14],
+      isaretler: [
+        {
+          ref: "V.ii · Horatio'ya",
+          sahneNo: 13,
+          metin:
+            '"Serçenin ölmesinde bile bir bildiği vardır kaderin. Şimdi olacak bir şey yarına kalmaz, yarına kalacaksa, bugün olmaz. Bütün mesele hazır olmakta."',
+        },
+        {
+          ref: 'V.ii · Düello Öncesi',
+          sahneNo: 14,
+          metin:
+            'Horatio uyarır: "İçim sıkıntı dolu, gitme." Hamlet: "Ne olacaksa olsun! Bütün mesele hazır olmakta."',
+        },
+        {
+          ref: 'V.ii · Son Sözler',
+          sahneNo: 14,
+          metin:
+            '"Üst tarafı… sessiz bir dünya." — Onurla mı, yorgunlukla mı? Shakespeare boş bırakır.',
+        },
+      ],
+      sentez:
+        'Beşinci perdenin Hamlet\'i öncekiyle aynı değil. Bir şey değişmiş — ama ne?',
+      yorumlar: [
+        {
+          harf: 'A',
+          baslik: 'Pasif vazgeçiş',
+          aciklama:
+            'Hamlet yorulmuş, anlamlandırma kapasitesi tükenmiş. "Bütün mesele hazır olmakta" da bir teslim bayrağı — kaderin elinde dövülmüş bir adamın son sözü. Ölüm bir kurtuluş.',
+        },
+        {
+          harf: 'B',
+          baslik: 'Olgun kabulleniş',
+          aciklama:
+            'İngiltere yolundan dönen Hamlet farklı — ölümle yüzleşmiş, korkusunu yenmiş. Teslim değil barış. Eyleme hazır, ama sonucuna takılı değil. Felsefi bir olgunluk.',
+        },
+        {
+          harf: 'C',
+          baslik: 'İkisi birden — gri alan',
+          aciklama:
+            'Hem yorgun hem olgun. Vazgeçmek ile teslim olmak arasındaki ince çizgi. Shakespeare bu ikisini ayırmıyor — belki ayırmak da gerekmiyor.',
+        },
+      ],
+      kapanis:
+        'Senin seçimin son sahnenin tonunu belirler — yenilgi mi, yatışma mı.',
+    },
+  ],
+
+  // ─── SENİN ÇERÇEVEN · 5 BOŞLUK + 15 ALT-SORU (Workbook s.106-125) ─────────
+  // Yazarın sustuğu yer — oyuncunun yazdığı.
+  // Her boşluk: önce → boşluk metni → sonra (sahne) + 3 alt-soru.
+
+  boslukSet: [
+    {
+      no: 1,
+      baslik: "Wittenberg'den Elsinore'a",
+      konum: 'Oyun Öncesi → I.ii Saray',
+      sonraSahneNo: 2,
+      onceBaslik: 'Wittenberg',
+      onceMetin:
+        'Hamlet üniversitede, entelektüel hayatın içinde. Babası sağ. Hayatı düzenli, sevdiği bir kadın var Danimarka\'da, dostu Horatio yanında. Bir gün haber gelir: babası ölmüş.',
+      boslukMetin:
+        'Habersiz kalkış · belirsiz bir yolculuk · cenazeye yetişme telaşı · yas içinde anneyi düşünmek · Claudius hâlâ amca · evlilik haberi gelmemiş.',
+      sonraBaslik: 'I.ii · Saray',
+      sonraMetin:
+        'Hamlet siyahlar içinde sarayda. Anne Claudius\'la evlenmiş. Hamlet kenarda, yas tutuyor — ilk monolog: "Ah bu katı, kaskatı beden bir dağılsa, eriyip gitse bir çiy tanesinde sabahın!"',
+      sentez:
+        'Boşlukta ne kadar zaman geçti, bilmiyoruz. Cenazeye mi yetişti, düğüne mi vardı — Shakespeare bunu söylemiyor.',
+      altSorular: [
+        {
+          no: 1,
+          baslik: 'Haber Geldiğinde',
+          soru: 'Haberi ona kim, hangi kelimelerle getirdi? Bedeni nasıl tepki verdi?',
+        },
+        {
+          no: 2,
+          baslik: 'Yola Çıkmadan',
+          soru: 'Yola çıkmadan önce odasında ne yaptı, neyi bıraktı, neyi yanına aldı?',
+        },
+        {
+          no: 3,
+          baslik: 'Anneyi Gördüğünde',
+          soru: 'Anneyi ilk gördüğünde hangi sözcük dudaklarına geldi, hangisi gelmedi?',
+        },
+      ],
+    },
+
+    {
+      no: 2,
+      baslik: 'Hayaletten Sonraki Gece',
+      konum: 'I.v Sonu → II.ii',
+      sonraSahneNo: 4,
+      onceBaslik: 'I.v · Sonu',
+      onceMetin:
+        'Hayalet babasının nasıl öldüğünü söyledi. Hamlet intikam yemini etti. Horatio ve Marcellus\'a yemin ettirdi: "Çünkü olur ya, bundan sonra, kendimi deli göstermek isteyebilirim." Şafak söküyor, surlardan iniyorlar.',
+      boslukMetin:
+        'Şafak · ilk gün · ilk gece tek başına · yataktayken zihin · "Antic disposition" fikrinin doğuşu · Ophelia\'nın odasına gelişin altyapısı (II.i Polonius bunu anlatır).',
+      sonraBaslik: 'II.ii · Saray',
+      sonraMetin:
+        'Birkaç gün geçmiş. Polonius "delilik" gözlemini krala bildirdi. R&G çağrıldı. Oyuncular gelir. Hamlet plan kuruyor — "Fare Kapanı".',
+      sentez:
+        'Hayaletten ayrıldıktan sonra Hamlet\'in delilik maskesi takmaya, plan kurmaya başlaması arasında bir gece var en az. Belki birkaç.',
+      altSorular: [
+        {
+          no: 1,
+          baslik: 'Surlardan İnerken',
+          soru: 'Surlardan inerken Horatio\'ya bakışı nasıldı? Sözcük çıktı mı, sessiz miydi?',
+        },
+        {
+          no: 2,
+          baslik: 'O Gece Uyandığında',
+          soru: 'O gece uyudu mu? Uyumayı denedi mi? Uyandığında bir şey değişmiş miydi?',
+        },
+        {
+          no: 3,
+          baslik: 'Maske Fikrinin Doğuşu',
+          soru: '"Antic disposition" fikri nereden çıktı? Bilinçli bir hesap mı, ani bir karar mı?',
+        },
+      ],
+    },
+
+    {
+      no: 3,
+      baslik: "Polonius'tan Sonra",
+      konum: 'III.iv Sonu → IV.iii',
+      sonraSahneNo: 9,
+      onceBaslik: 'III.iv · Anne Odası',
+      onceMetin:
+        'Hamlet annesiyle yüzleşti. Perdenin arkasındaki Polonius\'u "Ne o? Bir fare mi?" diye öldürdü. Hayalet yine geldi. Annesinin yanından çıktı, ölüyü sürükleyerek.',
+      boslukMetin:
+        'Ceset · gece boyunca saraya doğru · ilk öldürmenin zihinde otururuşu · pişmanlık mı, soğukluk mu, korku mu? · sabah olmadan ne yaptı? · ilk katil olarak uyku.',
+      sonraBaslik: 'IV.iii · Claudius önünde',
+      sonraMetin:
+        'Hamlet ironi maskesiyle Claudius\'un sorularına yanıt veriyor. "Polonius nerede?" — Yemekte, ama yiyen değil yenen. Soğuk delilik, tetik içte.',
+      sentez:
+        'Hamlet\'in ilk öldürdüğü kişi. İlk kanlı an. Bu boşlukta o ilk katilin oluşumu var.',
+      altSorular: [
+        {
+          no: 1,
+          baslik: 'Cesedi Sürüklerken',
+          soru: 'Cesedi sürüklerken eline kan bulaştı mı? Ne hissetti? İlk bakışta ne düşündü?',
+        },
+        {
+          no: 2,
+          baslik: 'Cesedi Saklarken',
+          soru: 'Cesedi nereye, nasıl sakladı? Bilinçli bir yer mi seçti, panik bir köşe mi?',
+        },
+        {
+          no: 3,
+          baslik: 'İlk Katil Olarak',
+          soru: 'İlk öldürmenin ardından bedeninde ne değişti? Ses tonu, bakış, yürüyüş?',
+        },
+      ],
+    },
+
+    {
+      no: 4,
+      baslik: 'İngiltere Yolculuğu',
+      konum: 'IV.iii → V.i',
+      sonraSahneNo: 12,
+      onceBaslik: 'IV.iii',
+      onceMetin:
+        'Claudius onu sürgün ediyor. R&G ile gemiye binecek. Hamlet ironiyle vedalaşır: "Haydi yola, İngiltere\'ye! Allaha ısmarladık, sevgili anamız." Hayatına dair kararı dış güçler vermiş gibi.',
+      boslukMetin:
+        'Gemi denize açılır · Hamlet R&G\'nin mektubunu bulur · ölüm fermanını okur · mektubu değiştirir · korsanlar saldırır · Hamlet kaçar · Danimarka\'ya geri döner. Horatio\'ya mektup yazar (IV.vi\'da okunur).',
+      sonraBaslik: 'V.i · Mezarlık',
+      sonraMetin:
+        'Hamlet farklıdır. "Bütün mesele hazır olmakta." Yorick\'in kafatasıyla felsefe konuşur. Ophelia\'nın cenazesinde patlama bile başka tonlu — ölümle daha tanıdık.',
+      sentez:
+        'Beş boşluğun en büyüğü. Hamlet\'in en büyük dönüşümü burada — sürgüne giden Hamlet ile dönen Hamlet aynı kişi değil.',
+      altSorular: [
+        {
+          no: 1,
+          baslik: 'Mektubu Okuduğunda',
+          soru: 'Mektubu okuduğunda ilk hissi neydi? Şaşırma yok — sezmişti. Ama hangi sözcük durdu damağında?',
+        },
+        {
+          no: 2,
+          baslik: 'R&G Kararı',
+          soru: 'R&G\'nin ölümüne karar verirken neye dayandı? Vicdan? İntikam? Yoksa oyun gereği?',
+        },
+        {
+          no: 3,
+          baslik: 'Geri Dönüş',
+          soru: 'Geri dönüş yolunda kim olarak döndüğünü ne zaman anladı? Bir an, bir kelime, bir tanıklık?',
+        },
+      ],
+    },
+
+    {
+      no: 5,
+      baslik: 'Düello Öncesi',
+      konum: 'V.ii(A) → V.ii(B)',
+      sonraSahneNo: 14,
+      onceBaslik: 'V.ii(A)',
+      onceMetin:
+        'Hamlet Horatio\'ya R&G hikâyesini anlattı, düello davetini kabul etti. "Serçenin ölmesinde bile bir bildiği vardır kaderin." İçsel barış başladı. Osric çıktı, hazırlık vakti.',
+      boslukMetin:
+        'Hazırlık · belki yalnız bir an · belki Horatio ile yol · Annesini düşünmek · Babasını · Ophelia\'yı · "Bu olabilirdi yaşamım" anı · kılıcı seçme · salona girme nefesi.',
+      sonraBaslik: 'V.ii(B) · Düello',
+      sonraMetin:
+        'Düello salonu. Tüm saray. Hamlet Laertes\'le yüzleşir, özür diler. Düello başlar. "Üst tarafı… sessiz bir dünya."',
+      sentez:
+        'Hamlet bilmiyor ki ölecek. Ama bedeni biliyor olabilir. Bu son boşluk en kısa boşluk — ama belki en yoğun.',
+      altSorular: [
+        {
+          no: 1,
+          baslik: 'Yalnız Bir An',
+          soru: 'Salona girmeden önce yalnız bir an oldu mu? Pencereden mi baktı, aynaya mı?',
+        },
+        {
+          no: 2,
+          baslik: 'Annesini Düşündü mü',
+          soru: 'Annesini düşündü mü? Hangi anısı geldi — çocukluktan, son sahnelerden?',
+        },
+        {
+          no: 3,
+          baslik: 'Son Nefes',
+          soru: 'Salona girdiği son nefes — derin mi, yüzeysel mi? Kılıç ağırlığı mı tanıdık geldi, yoksa bir yabancılık mı?',
+        },
+      ],
+    },
+  ],
+
+  // ─── ESKİ 14 SAHNE — RETIRE EDİLDİ (Sprint 4) ────────────────────────────
+  // UI'da artık kullanılmıyor. Veri korundu — geri alınmak istenirse referans.
+  // Yeni timeline: sahnelerWorkbook (yukarıda).
 
   sahneler: [
     {
@@ -178,7 +975,9 @@ const hamlet = {
     },
   ],
 
-  // ─── BOŞLUKLAR — YAZARIN SUSTUĞU YERLER ───────────────────────────────────
+  // ─── ESKİ BOŞLUKLAR — RETIRE EDİLDİ (Sprint 4) ───────────────────────────
+  // 12 alanlı eski yapı UI'da artık kullanılmıyor. Yeni 5 boşluk + 15 alt-soru:
+  // boslukSet (yukarıda). Veri korundu — geri alınmak istenirse referans.
 
   bosluklar: [
     {
@@ -386,7 +1185,10 @@ const hamlet = {
     },
   ],
 
-  // ─── ZİHİNSEL ANTRENMANLAR — 9 EGZERSİZ, ITC FORMATI ──────────────────────
+  // ─── ESKİ 9 ANTRENMAN — RETIRE EDİLDİ (Sprint 4) ─────────────────────────
+  // UI'da artık kullanılmıyor — Modül III · Yolculuk Modu (110 dk AI Dış Ses)
+  // bunların yerini alacak. Veri korundu — gerekirse Yolculuk Modu içeriğine
+  // tohumluk olarak referans alınabilir.
 
   antrenmanlar: [
 

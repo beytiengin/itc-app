@@ -1,0 +1,575 @@
+// app/antrenman/karakter/hamlet/senin-cerceven/[no]/page.js
+// ITC Actor's Gym — Modül II Hamlet · Senin Çerçeven · Tek Boşluk Detayı
+//
+// Önce → Boşluk → Sonra (sahne linki) + 3 alt-soru + opsiyonel genel metin.
+// Yan panelde Yazarın Çerçevesi seçimleri hatırlatılır.
+
+'use client';
+
+import { useState, useEffect, useRef, use } from 'react';
+import { useRouter } from 'next/navigation';
+import hamlet from '../../../../../../data/karakterler/hamlet';
+import {
+  altSoruYansimalariniGetir,
+  boslukGenelMetinleriGetir,
+  boslukGenelMetinKaydet,
+  tercihleriGetir,
+} from '../../../../../lib/hamlet-veri';
+import HamletAltSayfaHeader from '../../../../../../components/HamletAltSayfaHeader';
+import HamletAltSoruYazma from '../../../../../../components/HamletAltSoruYazma';
+
+const TON = '#7a9b7a';
+const ALTIN = '#c9a96e';
+
+export default function BoslukDetaySayfasi({ params }) {
+  const { no } = use(params);
+  const boslukNo = parseInt(no, 10);
+  const router = useRouter();
+
+  const [yansimalar, setYansimalar] = useState({});
+  const [genelMetin, setGenelMetin] = useState('');
+  const [tercihler, setTercihler] = useState({});
+  const [yukleniyor, setYukleniyor] = useState(true);
+  const [genelKayitDurumu, setGenelKayitDurumu] = useState(null);
+  const debounceRef = useRef(null);
+
+  const bosluklar = hamlet.boslukSet || [];
+  const bosluk = bosluklar.find((b) => b.no === boslukNo);
+
+  useEffect(() => {
+    async function yukle() {
+      const [altSorular, genelMetinler, tercihVerisi] = await Promise.all([
+        altSoruYansimalariniGetir(hamlet.id),
+        boslukGenelMetinleriGetir(hamlet.id),
+        tercihleriGetir(hamlet.id),
+      ]);
+      setYansimalar(altSorular);
+      setGenelMetin(genelMetinler[boslukNo] || '');
+      setTercihler(tercihVerisi);
+      setYukleniyor(false);
+    }
+    yukle();
+  }, [boslukNo]);
+
+  useEffect(() => {
+    if (!yukleniyor && !bosluk) {
+      router.replace('/antrenman/karakter/hamlet/senin-cerceven');
+    }
+  }, [yukleniyor, bosluk, router]);
+
+  useEffect(() => () => { if (debounceRef.current) clearTimeout(debounceRef.current); }, []);
+
+  function genelMetinDegistir(yeni) {
+    setGenelMetin(yeni);
+    setGenelKayitDurumu('yaziliyor');
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(async () => {
+      setGenelKayitDurumu('kaydediliyor');
+      const ok = await boslukGenelMetinKaydet(hamlet.id, boslukNo, yeni);
+      setGenelKayitDurumu(ok ? 'kaydedildi' : 'hata');
+      if (ok) setTimeout(() => setGenelKayitDurumu(null), 2500);
+    }, 800);
+  }
+
+  if (yukleniyor || !bosluk) {
+    return (
+      <main style={ekranStili}>
+        <span style={yukleniyorMetin}>Hazırlanıyor…</span>
+      </main>
+    );
+  }
+
+  const oncekiNo = boslukNo > 1 ? boslukNo - 1 : null;
+  const sonrakiNo = boslukNo < bosluklar.length ? boslukNo + 1 : null;
+  const yansimaSet = yansimalar[boslukNo] || {};
+
+  // Yazarın Çerçevesi seçimlerinin yan panel için özet
+  const tercihOzetleri = (hamlet.tercihler || []).map((t) => {
+    const s = tercihler[t.no];
+    if (!s || (s.secimler.length === 0 && (s.ozelYorum?.length || 0) === 0)) return null;
+    return {
+      no: t.no,
+      konu: t.konu,
+      harfler: s.secimler,
+      ozelVar: (s.ozelYorum?.length || 0) > 0,
+    };
+  }).filter(Boolean);
+
+  return (
+    <main
+      style={{
+        minHeight: '100vh',
+        backgroundColor: '#0a0a0a',
+        color: '#f0ede8',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <HamletAltSayfaHeader />
+
+      <article
+        style={{
+          maxWidth: '900px',
+          margin: '0 auto',
+          width: '100%',
+          padding: '3rem 2rem 5rem',
+          boxSizing: 'border-box',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '2.4rem',
+        }}
+      >
+        {/* Üst başlık */}
+        <header style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <a
+            href="/antrenman/karakter/hamlet/senin-cerceven"
+            style={geriLink}
+            onMouseEnter={(e) => { e.currentTarget.style.color = ALTIN; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = '#888'; }}
+          >
+            ← Senin Çerçeven
+          </a>
+
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.9rem', flexWrap: 'wrap' }}>
+            <span style={{ ...etiket, color: TON }}>
+              Boşluk {bosluk.no}
+            </span>
+            <span
+              style={{
+                fontFamily: 'Jost, sans-serif',
+                fontWeight: 200,
+                fontSize: '0.55rem',
+                letterSpacing: '0.25em',
+                color: '#666',
+                textTransform: 'uppercase',
+              }}
+            >
+              {bosluk.no} / {bosluklar.length} · {bosluk.konum}
+            </span>
+          </div>
+
+          <h1
+            style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontStyle: 'italic',
+              fontWeight: 300,
+              fontSize: 'clamp(1.8rem, 5vw, 2.6rem)',
+              color: '#f0ede8',
+              margin: 0,
+              lineHeight: 1.2,
+            }}
+          >
+            {bosluk.baslik}
+          </h1>
+        </header>
+
+        {/* Önce → Boşluk → Sonra */}
+        <section style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <CerceveBolumu etiket={`Önce — ${bosluk.onceBaslik}`} renk={ALTIN}>
+            {bosluk.onceMetin}
+          </CerceveBolumu>
+
+          <Ok />
+
+          <CerceveBolumu etiket="Boşluk" renk={TON} ozel>
+            {bosluk.boslukMetin}
+          </CerceveBolumu>
+
+          <Ok />
+
+          <CerceveBolumu etiket={`Sonra — ${bosluk.sonraBaslik}`} renk={ALTIN}>
+            {bosluk.sonraMetin}
+            {bosluk.sonraSahneNo && (
+              <a
+                href={`/antrenman/karakter/hamlet/timeline#sahne-${bosluk.sonraSahneNo}`}
+                style={{
+                  display: 'inline-block',
+                  marginTop: '0.7rem',
+                  fontFamily: 'Jost, sans-serif',
+                  fontWeight: 200,
+                  fontSize: '0.6rem',
+                  letterSpacing: '0.3em',
+                  color: ALTIN,
+                  textTransform: 'uppercase',
+                  textDecoration: 'none',
+                  padding: '0.3rem 0.7rem',
+                  border: `1px solid ${ALTIN}55`,
+                  transition: 'all 0.25s ease',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = ALTIN; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = ALTIN + '55'; }}
+              >
+                → Timeline · Sahne {bosluk.sonraSahneNo}
+              </a>
+            )}
+          </CerceveBolumu>
+
+          {bosluk.sentez && (
+            <p
+              style={{
+                fontFamily: 'Cormorant Garamond, serif',
+                fontStyle: 'italic',
+                fontSize: '0.95rem',
+                color: ALTIN,
+                lineHeight: 1.7,
+                margin: '0.6rem 0 0 0',
+                paddingLeft: '1rem',
+                borderLeft: `1px solid ${ALTIN}55`,
+              }}
+            >
+              {bosluk.sentez}
+            </p>
+          )}
+        </section>
+
+        {/* 3 ALT-SORU */}
+        <section style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            <span style={{ ...etiket, color: TON }}>Senin Hamlet'in İçin Bu Boşluk</span>
+            <p
+              style={{
+                fontFamily: 'Cormorant Garamond, serif',
+                fontStyle: 'italic',
+                fontSize: '0.95rem',
+                color: '#888',
+                lineHeight: 1.7,
+                margin: 0,
+              }}
+            >
+              Üç anı yaz. Her biri için bir alt-soru. Hepsini yazma zorunlu değil — biri açılır,
+              diğeri yarın açılır.
+            </p>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {bosluk.altSorular.map((altSoru) => (
+              <HamletAltSoruYazma
+                key={altSoru.no}
+                boslukNo={bosluk.no}
+                altSoru={altSoru}
+                baslangic={yansimaSet[altSoru.no]}
+                karakterId={hamlet.id}
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* Bütün Boşluk (Opsiyonel) */}
+        <section
+          style={{
+            border: '1px dashed #2a2a2a',
+            padding: '1.4rem 1.6rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.7rem',
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+            <span style={{ ...etiket, color: TON }}>Bu Boşluğun Bütünü</span>
+            <KayitRozet durum={genelKayitDurumu} renk={TON} />
+          </div>
+          <p
+            style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontStyle: 'italic',
+              fontSize: '0.9rem',
+              color: '#888',
+              lineHeight: 1.7,
+              margin: 0,
+            }}
+          >
+            Opsiyonel. Üç alt-soru yerine boşluğu bir bütün olarak yazmak istersen burası.
+            Ya da alt-soruları tamamladıktan sonra bunları birleştiren bir paragraf.
+          </p>
+          <textarea
+            value={genelMetin}
+            onChange={(e) => genelMetinDegistir(e.target.value)}
+            placeholder="Boşluğun bütünü — sahne arasında akan görünmez metin."
+            rows={6}
+            style={{
+              width: '100%',
+              padding: '1rem 1.2rem',
+              backgroundColor: '#0a0a0a',
+              border: '1px solid #2a2a2a',
+              color: '#f0ede8',
+              fontFamily: 'Cormorant Garamond, serif',
+              fontSize: '0.95rem',
+              lineHeight: 1.8,
+              resize: 'vertical',
+              outline: 'none',
+              boxSizing: 'border-box',
+              caretColor: TON,
+              transition: 'border-color 0.25s ease',
+            }}
+            onFocus={(e) => { e.currentTarget.style.borderColor = TON; }}
+            onBlur={(e) => { e.currentTarget.style.borderColor = '#2a2a2a'; }}
+          />
+        </section>
+
+        {/* Yazarın Çerçevesi seçimleri hatırlatma */}
+        {tercihOzetleri.length > 0 && (
+          <section
+            style={{
+              border: `1px solid ${ALTIN}33`,
+              padding: '1.4rem 1.6rem',
+              backgroundColor: '#100c06',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.9rem',
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+              <span style={{ ...etiket, color: ALTIN }}>Senin Hamlet'inde</span>
+              <a
+                href="/antrenman/karakter/hamlet/yazarin-cercevesi"
+                style={{
+                  fontFamily: 'Jost, sans-serif',
+                  fontWeight: 200,
+                  fontSize: '0.55rem',
+                  letterSpacing: '0.25em',
+                  color: '#888',
+                  textTransform: 'uppercase',
+                  textDecoration: 'none',
+                  transition: 'color 0.25s ease',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = ALTIN; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = '#888'; }}
+              >
+                Yazarın Çerçevesi →
+              </a>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              {tercihOzetleri.map((t) => (
+                <div key={t.no} style={{ display: 'flex', gap: '0.7rem', alignItems: 'baseline', flexWrap: 'wrap' }}>
+                  <span
+                    style={{
+                      fontFamily: 'Jost, sans-serif',
+                      fontWeight: 300,
+                      fontSize: '0.7rem',
+                      letterSpacing: '0.2em',
+                      color: '#888',
+                      textTransform: 'uppercase',
+                      minWidth: '90px',
+                    }}
+                  >
+                    {t.konu}
+                  </span>
+                  <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                    {t.harfler.map((h) => (
+                      <span
+                        key={h}
+                        style={{
+                          fontFamily: 'Jost, sans-serif',
+                          fontWeight: 300,
+                          fontSize: '0.65rem',
+                          color: ALTIN,
+                          padding: '0.1rem 0.45rem',
+                          border: `1px solid ${ALTIN}55`,
+                          letterSpacing: '0.1em',
+                        }}
+                      >
+                        {h}
+                      </span>
+                    ))}
+                    {t.ozelVar && (
+                      <span
+                        style={{
+                          fontFamily: 'Jost, sans-serif',
+                          fontWeight: 200,
+                          fontSize: '0.55rem',
+                          color: ALTIN,
+                          letterSpacing: '0.2em',
+                          textTransform: 'uppercase',
+                          paddingTop: '0.2rem',
+                        }}
+                      >
+                        + Özel
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p
+              style={{
+                fontFamily: 'Cormorant Garamond, serif',
+                fontStyle: 'italic',
+                fontSize: '0.85rem',
+                color: '#888',
+                lineHeight: 1.6,
+                margin: '0.4rem 0 0 0',
+              }}
+            >
+              Yazdığın boşluk bunlarla uyumlu mu?
+            </p>
+          </section>
+        )}
+
+        {/* Navigasyon */}
+        <div
+          style={{
+            paddingTop: '1.5rem',
+            borderTop: '1px solid #2a2a2a',
+            display: 'flex',
+            justifyContent: 'space-between',
+            gap: '1rem',
+          }}
+        >
+          {oncekiNo ? (
+            <a
+              href={`/antrenman/karakter/hamlet/senin-cerceven/${oncekiNo}`}
+              style={navButonStili()}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#f0ede8'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#aaa'; }}
+            >
+              ← Boşluk {oncekiNo}
+            </a>
+          ) : <span />}
+
+          {sonrakiNo ? (
+            <a
+              href={`/antrenman/karakter/hamlet/senin-cerceven/${sonrakiNo}`}
+              style={navButonStili()}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#f0ede8'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#aaa'; }}
+            >
+              Boşluk {sonrakiNo} →
+            </a>
+          ) : (
+            <a
+              href="/antrenman/karakter/hamlet/senin-cerceven/sentez"
+              style={{ ...navButonStili(), color: TON, borderColor: TON }}
+            >
+              Sentez →
+            </a>
+          )}
+        </div>
+      </article>
+    </main>
+  );
+}
+
+// ─── Yardımcılar ────────────────────────────────────────────────────────────
+
+function CerceveBolumu({ etiket: et, renk, children, ozel }) {
+  return (
+    <div
+      style={{
+        border: ozel ? `1px solid ${renk}55` : '1px solid #2a2a2a',
+        padding: '1.2rem 1.4rem',
+        backgroundColor: ozel ? '#0d0f0d' : '#0d0d0d',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '0.7rem',
+      }}
+    >
+      <span
+        style={{
+          fontFamily: 'Jost, sans-serif',
+          fontWeight: 200,
+          fontSize: '0.55rem',
+          letterSpacing: '0.35em',
+          color: renk,
+          textTransform: 'uppercase',
+        }}
+      >
+        {et}
+      </span>
+      <div
+        style={{
+          fontFamily: 'Cormorant Garamond, serif',
+          fontStyle: 'italic',
+          fontSize: '0.98rem',
+          color: '#ddd',
+          lineHeight: 1.7,
+          margin: 0,
+        }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function Ok() {
+  return (
+    <div style={{ textAlign: 'center', color: '#444', fontSize: '0.9rem', margin: '-0.2rem 0' }}>↓</div>
+  );
+}
+
+function navButonStili() {
+  return {
+    background: 'none',
+    border: '1px solid #2a2a2a',
+    cursor: 'pointer',
+    padding: '0.7rem 1.3rem',
+    fontFamily: 'Jost, sans-serif',
+    fontWeight: 200,
+    fontSize: '0.6rem',
+    letterSpacing: '0.25em',
+    color: '#aaa',
+    textTransform: 'uppercase',
+    textDecoration: 'none',
+    transition: 'color 0.25s ease',
+  };
+}
+
+function KayitRozet({ durum, renk }) {
+  if (!durum || durum === 'yaziliyor') return <span style={{ minHeight: '1em' }} />;
+  const r = durum === 'hata' ? '#9b6a6a' : (renk || '#c9a96e');
+  const mesaj =
+    durum === 'kaydediliyor' ? 'Kaydediliyor…' :
+    durum === 'kaydedildi' ? '✓ Kaydedildi' :
+    '⚠ Kaydedilemedi';
+  return (
+    <span
+      style={{
+        fontFamily: 'Jost, sans-serif',
+        fontWeight: 200,
+        fontSize: '0.65rem',
+        color: r,
+        fontStyle: 'italic',
+      }}
+    >
+      {mesaj}
+    </span>
+  );
+}
+
+const geriLink = {
+  fontFamily: 'Jost, sans-serif',
+  fontWeight: 200,
+  fontSize: '0.6rem',
+  letterSpacing: '0.3em',
+  color: '#888',
+  textTransform: 'uppercase',
+  textDecoration: 'none',
+  alignSelf: 'flex-start',
+  transition: 'color 0.25s ease',
+};
+
+const etiket = {
+  fontFamily: 'Jost, sans-serif',
+  fontWeight: 200,
+  fontSize: '0.65rem',
+  letterSpacing: '0.35em',
+  textTransform: 'uppercase',
+};
+
+const yukleniyorMetin = {
+  fontFamily: 'Jost, sans-serif',
+  fontWeight: 200,
+  fontSize: '0.7rem',
+  letterSpacing: '0.3em',
+  color: '#888',
+  textTransform: 'uppercase',
+};
+
+const ekranStili = {
+  minHeight: '100vh',
+  backgroundColor: '#0a0a0a',
+  color: '#f0ede8',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};

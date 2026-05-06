@@ -76,24 +76,52 @@ itc-app/
 │   │   └── karakter/
 │   │       ├── page.js                  # Karakter listesi
 │   │       ├── macbeth/page.js
-│   │       ├── hamlet/page.js
+│   │       ├── hamlet/                  # Hamlet — Workbook refactor (Sprint 1-5)
+│   │       │   ├── page.js              # Ana: Doğrular + 4 alt-bölüm kartı + Modül III CTA
+│   │       │   ├── oyun-oncesi-yasam/page.js
+│   │       │   ├── timeline/page.js
+│   │       │   ├── yazarin-cercevesi/
+│   │       │   │   ├── page.js          # 5 tercih listesi
+│   │       │   │   ├── [no]/page.js     # Dinamik tercih detayı
+│   │       │   │   └── sentez/page.js
+│   │       │   └── senin-cerceven/
+│   │       │       ├── page.js          # 5 boşluk listesi
+│   │       │       ├── [no]/page.js     # Dinamik boşluk detayı
+│   │       │       └── sentez/page.js
 │   │       ├── willy/page.js
 │   │       └── biff/page.js
 │   └── lib/
 │       ├── supabase.js                  # Cookie tabanlı browser client
 │       ├── kalibrasyon.js               # Profil okuma + akıllı giriş mesajı
 │       ├── travma.js                    # Etik koruma mantığı
-│       └── kulis.js                     # Egzersiz/boşluk kayıt fonksiyonları
+│       ├── kulis.js                     # Egzersiz/boşluk kayıt fonksiyonları
+│       └── hamlet-veri.js               # Hamlet refactor için yeni tabloların CRUD'u
 ├── components/
-│   ├── TimelineGorumu.js                # Sahne timeline'ı
+│   ├── TimelineGorumu.js                # Sahne timeline'ı (Macbeth/Willy/Biff)
 │   ├── KararlarOdasi.js                 # Kararlar Odası egzersizi
 │   ├── EgzersizListesi.js               # Egzersiz akışı + topraklanma
-│   └── BosluklarGorumu.js               # Boşluklar + yazma alanı
+│   ├── BosluklarGorumu.js               # Boşluklar + yazma alanı (eski)
+│   └── Hamlet*                          # Hamlet refactor bileşenleri (Sprint 1-5)
+│       ├── HamletAltSayfaHeader.js      # Ortak header (4 alt sayfa kullanıyor)
+│       ├── HamletSahneKuresi.js         # Timeline sahne küresi (sıcaklık renkli)
+│       ├── HamletSicaklikSecici.js      # Timeline sıcaklık slider
+│       ├── HamletPerdeBandi.js          # Timeline 5 perde tema bandı
+│       ├── HamletSahneDetay.js          # Timeline sahne detay paneli
+│       ├── OyunOncesiOlayKart.js        # Oyun Öncesi olay kartı
+│       ├── OyunOncesiIliskiKart.js      # Oyun Öncesi ilişki kartı
+│       ├── HamletTercihKart.js          # Yazarın Çerçevesi tercih kartı
+│       ├── HamletTercihSecim.js         # Yazarın Çerçevesi tercih detay seçim
+│       ├── HamletBoslukKart.js          # Senin Çerçeven boşluk kartı
+│       └── HamletAltSoruYazma.js        # Senin Çerçeven alt-soru yazma alanı
 ├── data/karakterler/
 │   ├── macbeth.js
-│   ├── hamlet.js
+│   ├── hamlet.js                        # Workbook genişletilmiş (oyunOncesi, tercihler, boslukSet, sahnelerWorkbook, perdeTemalari)
 │   ├── willy.js
 │   └── biff.js
+├── supabase-migrations/                 # SQL migration dosyaları (elle uygulanan)
+│   ├── sprint1-hamlet-refactor.sql
+│   ├── sprint2-yazarin-cercevesi.sql
+│   └── sprint3-senin-cerceven.sql
 ├── middleware.ts                        # Auth gating
 ├── CLAUDE.md                            # Bu dosya
 └── package.json
@@ -110,15 +138,39 @@ yildiz_sonuclari    (kullanici_id, teknik, psikolojik, mesleki, yaratici,
                      entelektuel, iliski, genel_yuzde, created_at)
 arketip_sonuclari   (kullanici_id, tip, ad, created_at)
 
--- Kulis verisi (Modül II - oyuncunun ilerlemesi)
-tamamlanan_egzersizler  (id, kullanici_id, karakter_id, egzersiz_id, tarih)
-                        UNIQUE(kullanici_id, karakter_id, egzersiz_id) — UPSERT mantığı
+-- Kulis verisi (Modül II - klasik 4 karakter)
+tamamlanan_egzersizler   (id, kullanici_id, karakter_id, egzersiz_id, tarih)
+                         UNIQUE(kullanici_id, karakter_id, egzersiz_id) — UPSERT
+bosluk_yansimalari       (id, kullanici_id, karakter_id, bosluk_id, metin, ...)
+                         UNIQUE(kullanici_id, karakter_id, bosluk_id) — UPSERT
+                         Macbeth/Willy/Biff için aktif. Hamlet'te eski 12 alanlı yapı
+                         retire edildi (veri korunuyor).
+antrenman_yansimalari    (id, kullanici_id, karakter_id, antrenman_id, adim_no, metin, ...)
 
-bosluk_yansimalari      (id, kullanici_id, karakter_id, bosluk_id, metin, tarih, son_guncelleme)
-                        UNIQUE(kullanici_id, karakter_id, bosluk_id) — UPSERT mantığı
+-- Hamlet refactor tabloları (Sprint 1-3, Modül II Hamlet Workbook)
+oyun_oncesi_olay_yansimalari   (id, kullanici_id, karakter_id, olay_no,
+                                yansima_metni, icsel_kabul, son_guncelleme)
+                                UNIQUE(kullanici_id, karakter_id, olay_no)
+oyun_oncesi_iliski_yansimalari (id, kullanici_id, karakter_id, iliski_no,
+                                yansima_metni, tanidi, son_guncelleme)
+                                UNIQUE(kullanici_id, karakter_id, iliski_no)
+sahne_yansimalari              (id, kullanici_id, karakter_id, sahne_no,
+                                oyuncu_sicaklik, yansima_metni, anladi, son_guncelleme)
+                                UNIQUE(kullanici_id, karakter_id, sahne_no)
+yazarin_cercevesi_secimler     (id, kullanici_id, karakter_id, tercih_no,
+                                secimler text[], ozel_yorum, sentez_cumle, ...)
+                                UNIQUE(kullanici_id, karakter_id, tercih_no)
+bosluk_alt_soru_yansimalari    (id, kullanici_id, karakter_id, bosluk_no, alt_soru_no,
+                                yansima_metni, acildi, son_guncelleme)
+                                UNIQUE(kullanici_id, karakter_id, bosluk_no, alt_soru_no)
+bosluk_genel_metin             (id, kullanici_id, karakter_id, bosluk_no,
+                                genel_metin, son_guncelleme)
+                                UNIQUE(kullanici_id, karakter_id, bosluk_no)
 ```
 
 **Tüm tablolarda RLS açık.** Kullanıcı sadece kendi verisini görür/yazar.
+
+**Migration:** Yeni tablolar `supabase-migrations/sprint*.sql` dosyalarında. Manuel olarak Supabase Dashboard SQL Editor'da uygulanır (idempotent — yeniden çalıştırmak güvenli).
 
 ---
 
@@ -333,6 +385,12 @@ Bu ilkeler kod kararlarını etkiler. **Mutlaka oku:**
 - ✅ Topraklanma protokolü (travma 2-3 sonrası otomatik)
 - ✅ "Hazır değil" yumuşak dili
 - ✅ Emojisiz arayüz
+- ✅ **Modül II · Hamlet Workbook Refactor** (Sprint 1-5, 2026-05)
+  - 5 alt-bölüm yapısı: Doğrular · Oyun Öncesi Yaşam · Timeline · Yazarın Çerçevesi · Senin Çerçeven
+  - Eski 9 antrenman, sahne tabanlı Yazarın Çerçevesi, 12 alanlı Senin Çerçeven retire edildi (veri korundu)
+  - Modül III · Yolculuk Modu CTA (yakında durumunda)
+  - Çapraz atıflar: tercih ↔ sahne, boşluk ↔ sahne, sahne → tercih + boşluk bağlantıları
+  - Sadece Hamlet için yapıldı — Macbeth/Willy/Biff aynı yapıda (eski) çalışmaya devam ediyor
 
 ---
 
@@ -351,6 +409,11 @@ Bu ilkeler kod kararlarını etkiler. **Mutlaka oku:**
 - Ana ekranda Modül I durumu rozeti ("✓ Tamamlandı" veya "1/3")
 
 ### Orta vade
+
+**C-WB — Macbeth/Willy/Biff için Workbook refactor**
+- Hamlet'te yapılan refactor'un (Oyun Öncesi · Timeline · Yazarın Çerçevesi · Senin Çerçeven) diğer 3 karaktere de uygulanması.
+- İçerik üretimi büyük iş — her karakter için workbook hazırlamak gerekir.
+- Mimari ve veri katmanı hazır (karakter_id ile parametrik).
 
 **C5 — Blueprint sayfası (`/blueprint`)**
 - Pasif rapor değil **aktif öneri**
@@ -421,4 +484,4 @@ Bu öneriler ileride uygulanacak — şimdilik dokunma:
 
 ---
 
-**Son güncelleme:** 2026-04-26 (C2 tamamlandı, Boşluklara yazma alanı çalışıyor)
+**Son güncelleme:** 2026-05-06 (Modül II · Hamlet Workbook Refactor — Sprint 1-5 tamamlandı)
