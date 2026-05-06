@@ -13,22 +13,22 @@ import IlerlemeRozet from '../../../components/IlerlemeRozet';
 const KARAKTER_META = {
   hamlet: {
     boslukSayisi: 5, antrenmanSayisi: 0,
-    mizac: ['INFP', 'empati yüksek', 'analiz yüksek', 'yas yorgunluğu'],
+    mizac: ['empati yüksek', 'analiz yüksek', 'yas yorgunluğu'],
     tema:  ['yas', 'intikam', 'yanılsama', 'varoluş', 'ihanet'],
   },
   macbeth: {
     boslukSayisi: 12, antrenmanSayisi: 8,
-    mizac: ['ENTJ', 'hırs yüksek', 'paranoya', 'ahlaki çöküş'],
+    mizac: ['hırs yüksek', 'paranoya', 'ahlaki çöküş'],
     tema:  ['iktidar', 'suçluluk', 'ihanet', 'şiddet'],
   },
   willy: {
     boslukSayisi: 12, antrenmanSayisi: 7,
-    mizac: ['ESFP', 'yanılsamacı', 'zaman kayması', 'kimlik kırılması'],
+    mizac: ['yanılsamacı', 'zaman kayması', 'kimlik kırılması'],
     tema:  ['yanılsama', 'kimlik', 'çöküş', 'baba-oğul'],
   },
   biff: {
     boslukSayisi: 12, antrenmanSayisi: 6,
-    mizac: ['INFP', 'kırık kahraman', 'gerçeklik arayışı'],
+    mizac: ['kırık kahraman', 'gerçeklik arayışı'],
     tema:  ['yas', 'kimlik', 'özgürleşme', 'baba-oğul'],
   },
 };
@@ -247,7 +247,7 @@ export default function KarakterListesi() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
           <div style={{ width: '1px', height: '50px', backgroundColor: 'var(--accent)', opacity: 0.4 }} />
           <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.4em', color: 'var(--accent)', textTransform: 'uppercase' }}>02 — Antrenman Odası</span>
-          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--ink)', margin: 0 }}>Karakter Kasası</h1>
+          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--ink)', margin: 0 }}>Karakterler</h1>
           <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.8, margin: 0 }}>
             Her karakter ITC metodolojisiyle derinlemesine inşa edilmiştir. Çalışmak istediğin karakteri seç.
           </p>

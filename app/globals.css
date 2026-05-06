@@ -69,10 +69,10 @@
   --bg-elevated:     #EFE4D0;
   --bg-deep:         #E8DBC2;
 
-  /* Murekkep */
-  --ink:             #1F1A14;
-  --ink-soft:        #5A4F45;
-  --ink-muted:       #8A7E6F;
+  /* Murekkep - krem zeminde okunabilirlik icin koyulastirildi */
+  --ink:             #1A140C;
+  --ink-soft:        #3A2F25;
+  --ink-muted:       #6A5E50;
 
   /* Aksan: Bordo (Workbook'la birebir) */
   --accent:          #5C1A2C;
@@ -115,6 +115,34 @@ body {
   font-weight: 200;
   -webkit-font-smoothing: antialiased;
   transition: background-color 250ms ease, color 250ms ease;
+}
+
+/* === Krem Mode Okunabilirlik Kalibrasyonu ===
+   Inline style'lardaki light font weight'leri krem zemin icin
+   bir tik artiriyoruz. Attribute selector style attribute string'ini
+   tarar, !important inline style spesifikligini gecer.
+   React inline style'i camelCase'i kebab-case'e cevirir,
+   format genelde "font-weight: 200;" seklinde. */
+
+[data-theme="krem"] body {
+  font-weight: 300;
+}
+
+[data-theme="krem"] [style*="font-weight: 200"],
+[data-theme="krem"] [style*="font-weight:200"] {
+  font-weight: 400 !important;
+}
+
+[data-theme="krem"] [style*="font-weight: 300"],
+[data-theme="krem"] [style*="font-weight:300"] {
+  font-weight: 500 !important;
+}
+
+/* Bordo (aksan) yazilar krem zeminde biraz daha govdeli olsun */
+[data-theme="krem"] [style*="color: var(--accent)"],
+[data-theme="krem"] [style*="color:var(--accent)"] {
+  font-weight: 500 !important;
+  letter-spacing: 0.02em;
 }
 
 input {
