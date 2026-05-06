@@ -257,7 +257,7 @@ export default function Kalibrasyon() {
           marginRight: 'auto',
           lineHeight: 1.7,
         }}>
-          Üç analiz, tek bir enstrüman profili. Önerilen sıra: Öğrenme Stili → Kişilik Tipi → Yıldız Oyuncu. Tamamlamak şart değil — dilediğin yerden başlayabilirsin.
+          Üç analiz, tek bir enstrüman profili. Önerilen sıra: Duyusal Kanal → Kişilik Tipi → Yıldız Oyuncu. Tamamlamak şart değil — dilediğin yerden başlayabilirsin.
         </p>
       </section>
 
@@ -291,9 +291,9 @@ export default function Kalibrasyon() {
       }}>
         <TestKarti
           url="/kalibrasyon/vak"
-          baslik="Öğrenme Stili Analizi"
+          baslik="Duyusal Kanal Tercihi"
           altbaslik="Görsel · İşitsel · Kinestetik"
-          aciklama="Baskın algı kanalını ve karakter inşasındaki navigasyon stilini belirler."
+          aciklama="Hangi duyusal kanaldan dünyaya öncelikle bağlandığını gösterir. Yöntem bu tercihe göre farklı kapılar sunar."
           meta="27 soru · ~5 dk"
           tamamlandi={vak !== null}
           sonuc={vakSonucMetni}
@@ -349,16 +349,16 @@ export default function Kalibrasyon() {
             </p>
 
             <div style={{ marginTop: '2.5rem' }}>
-              <h3 style={altBaslikStili}>◆ Öğrenme Stilin</h3>
+              <h3 style={altBaslikStili}>◆ Duyusal Kanal Tercihin</h3>
               <p style={paragrafStili}>
-                Bilgiyi hangi kanaldan içselleştirdiğini belirler: Görsel, işitsel, ya da kinestetik. Karakteri inşa ederken, bedensel antrenmanların derinleşme aşaması senin baskın kanalına göre şekillenir. Bir karakteri "görerek" mi, "duyarak" mı, yoksa "hissederek" mi içine alıyorsun — yöntem buna göre kendini ayarlar. Bu, sahnede klişelere düşmemenin ilk adımıdır. Çünkü oyuncuya hiç ait olmayan bir kanaldan içeriden çalışmak, dış imitasyon doğurur.
+                Hangi duyusal kanaldan dünyaya öncelikle bağlandığını gösterir: görsel, işitsel ya da kinestetik. Karakteri inşa ederken, bedensel antrenmanların derinleşme aşaması senin baskın kanalına göre şekillenir. Bir karakteri "görerek" mi, "duyarak" mı, yoksa "hissederek" mi içine alıyorsun — yöntem buna göre kendini ayarlar. Bu bir öğrenme yetisi değil, bir tercihtir. Sahnede klişelere düşmemenin ilk adımı budur — çünkü oyuncuya hiç ait olmayan bir kanaldan içeriden çalışmak, dış imitasyon doğurur.
               </p>
             </div>
 
             <div style={{ marginTop: '2.5rem' }}>
               <h3 style={altBaslikStili}>◆ Kişilik Tipin</h3>
               <p style={paragrafStili}>
-                Düşünme biçimini, karar verme yapını ve dünyaya bakış açını gösteren bir enstrüman profili. Bu profil senin "varsayılan ayarın" — karakter inşasında gerçek iş, kendi profilin ile karakterin profili arasındaki mesafeyi görmektir. Mesafeyi görmek, esneme yönünü görmektir. Hangi kasları gerip hangilerini gevşetmen gerektiğini bilirsin. Modül II'nin ilerideki Blueprint bölümünde bu mesafe görselleşecek.
+                Düşünme biçimini, karar verme yapını ve dünyaya bakış açını gösteren bir enstrüman profili. Bu profil senin "varsayılan ayarın" — karakter inşasında gerçek iş, kendi profilin ile karakterin profili arasındaki mesafeyi görmektir. Mesafeyi görmek, esneme yönünü görmektir. Hangi kasları gerip hangilerini gevşetmen gerektiğini bilirsin. Modül II'nin ilerideki Karakter Haritası bölümünde bu mesafe görselleşecek.
               </p>
             </div>
 

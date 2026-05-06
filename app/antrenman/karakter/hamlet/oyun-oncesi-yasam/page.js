@@ -214,8 +214,8 @@ export default function OyunOncesiYasamSayfasi() {
                 minWidth: '220px',
               }}
             >
-              Bu sekiz olay sahnede gösterilmez — ama Timeline'ın ilk iki sahnesinde
-              Hamlet'in bedeninde olur.
+              Bu sekiz olay sahnede gösterilmez — ama Zaman Çizgisi'nin ilk iki
+              sahnesinde Hamlet'in bedeninde olur.
             </span>
             <a
               href="/antrenman/karakter/hamlet/timeline"
@@ -233,7 +233,7 @@ export default function OyunOncesiYasamSayfasi() {
               onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.7'; }}
               onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
             >
-              Timeline →
+              Zaman Çizgisi →
             </a>
           </div>
 
@@ -387,7 +387,7 @@ export default function OyunOncesiYasamSayfasi() {
           oncekiBaslik="Doğrular"
           oncekiYol="/antrenman/karakter/hamlet"
           sonrakiEtiket="Bölüm 3"
-          sonrakiBaslik="Sahne Timeline"
+          sonrakiBaslik="Zaman Çizgisi"
           sonrakiYol="/antrenman/karakter/hamlet/timeline"
         />
       </article>

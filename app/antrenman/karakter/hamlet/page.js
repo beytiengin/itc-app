@@ -234,7 +234,7 @@ function BolumKartlari() {
     },
     {
       etiket: 'Bölüm 3',
-      baslik: 'Sahne Timeline',
+      baslik: 'Zaman Çizgisi',
       altyazi: "Hamlet'in bedensel zinciri",
       aciklama: '14 sahnenin sıcaklık haritası. Kendi yorumunu işaretle.',
       yol: '/antrenman/karakter/hamlet/timeline',

@@ -154,6 +154,29 @@ export default function Arketip() {
             <em style={{ color: '#aaa', fontStyle: 'italic' }}>Her seçenekte seni en iyi tanımlayan tepkiyi seç. Doğru ya da yanlış yok.</em>
           </p>
           <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.75rem', color: '#aaa', letterSpacing: '0.1em' }}>12 senaryo · yaklaşık 4 dakika</p>
+
+          <aside style={{
+            maxWidth: '440px',
+            borderLeft: '2px solid #3a3a3a',
+            padding: '0.9rem 1.2rem',
+            textAlign: 'left',
+            backgroundColor: '#0f0f0f',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.5rem',
+          }}>
+            <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.55rem', letterSpacing: '0.3em', color: '#888', textTransform: 'uppercase' }}>
+              Akademik not
+            </span>
+            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: '#aaa', lineHeight: 1.7, margin: 0 }}>
+              MBTI ve Jungiyen tip sınıflandırması klinik tanı aracı değildir
+              (Pittenger, 1993). ITC bu testi <em style={{ fontStyle: 'italic', color: '#ddd' }}>sezgisel kalibrasyon</em> için
+              kullanır — yöntemin senin iletişim ve düşünme tercihlerine göre
+              nasıl uyarlanacağını belirlemek için. Kişiliğini sabit bir
+              kategoriye yerleştirmez.
+            </p>
+          </aside>
+
           <button onClick={() => setAdim('test')}
             style={{ marginTop: '1rem', padding: '1.2rem 3rem', border: '1px solid #c9a96e', backgroundColor: 'transparent', color: '#c9a96e', fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', cursor: 'pointer', transition: 'all 0.3s ease' }}
             onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#c9a96e'; e.currentTarget.style.color = '#0a0a0a'; }}
@@ -229,6 +252,18 @@ export default function Arketip() {
             <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: 'clamp(3rem, 10vw, 6rem)', color: '#f0ede8', margin: 0, letterSpacing: '0.15em', lineHeight: 1 }}>{tip}</h1>
             <p style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.2rem', fontStyle: 'italic', color: profil.renk, margin: 0 }}>{profil.ad}</p>
           </div>
+
+          <aside style={{
+            borderLeft: `2px solid ${profil.renk}55`,
+            padding: '0.7rem 1.1rem',
+            backgroundColor: '#0f0f0f',
+          }}>
+            <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.9rem', color: '#aaa', lineHeight: 1.7, margin: 0 }}>
+              Bu sonuç senin <em style={{ color: '#ddd' }}>tek</em> kimliğin
+              değil — bugün doldurduğun anketin bir fotoğrafı. Yöntem bu
+              fotoğrafı anlık bir başlangıç noktası olarak kullanır.
+            </p>
+          </aside>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
             {boyutlar.map((b, i) => (

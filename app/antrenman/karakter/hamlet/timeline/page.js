@@ -164,7 +164,7 @@ export default function TimelineSayfasi() {
               lineHeight: 1.1,
             }}
           >
-            Sahne Timeline
+            Zaman Çizgisi
           </h1>
           <p
             style={{
@@ -182,7 +182,7 @@ export default function TimelineSayfasi() {
         <p style={paragrafStili}>
           Bir karakter, sahnelerini ayrı ayrı yaşamaz. Her sahneye bir öncekinden
           bir şey taşır; her sahneden bir sonrakine bir şey bırakır. Bu zincire
-          <em> içsel timeline</em> diyoruz.
+          <em> içsel zaman çizgisi</em> diyoruz.
         </p>
 
         <div

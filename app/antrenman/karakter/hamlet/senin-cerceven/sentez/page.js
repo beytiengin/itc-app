@@ -307,43 +307,109 @@ export default function SeninCerceveSentez() {
           </p>
         </section>
 
-        {/* Modül II tamamlandı mesajı */}
+        {/* Modül II Tamamlandı — reflektif kapanış */}
         {hepsiBaslamis && (
           <section
             style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: '1.2rem',
-              padding: '2.4rem 2rem',
-              border: `1px solid ${TON}55`,
-              backgroundColor: '#0d100d',
+              gap: '1rem',
+              padding: '3rem 2rem',
+              borderTop: `1px solid ${TON}55`,
               textAlign: 'center',
+              maxWidth: '560px',
+              margin: '2rem auto 0',
             }}
           >
-            <span style={{ ...etiket, color: TON }}>
-              ✓ Modül II · Hamlet Tamamlandı
+            <span
+              style={{
+                ...etiket,
+                color: TON,
+                fontSize: '0.7rem',
+                letterSpacing: '0.45em',
+              }}
+            >
+              ✓ Modül II Tamamlandı
             </span>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.95rem', color: '#aaa' }}>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.4rem',
+                fontFamily: 'Cormorant Garamond, serif',
+                fontStyle: 'italic',
+                fontSize: '1rem',
+                color: '#bbb',
+                lineHeight: 1.6,
+              }}
+            >
               <span>Doğruları gördün.</span>
               <span>Oyun öncesini tanıdın.</span>
-              <span>Timeline'ı dolaştın.</span>
+              <span>Zaman Çizgisi'ni dolaştın.</span>
               <span>Yazarın çerçevesini sahiplendin.</span>
-              <span>Boşlukları yazdın.</span>
+              <span style={{ color: TON }}><em>Boşlukları yazdın.</em></span>
             </div>
             <p
               style={{
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
-                fontSize: '1.1rem',
+                fontSize: '1.05rem',
                 color: '#ddd',
                 lineHeight: 1.7,
                 margin: '0.6rem 0 0 0',
-                maxWidth: '600px',
-                alignSelf: 'center',
               }}
             >
-              Karakter koordinatları kuruldu. Bu kısım bir kez yazılıp bitmez. Yıllarca,
-              farklı Hamlet'lerinde geri dönüp yeniden yazabilirsin.
+              Karakter koordinatları kuruldu.
+            </p>
+            <p
+              style={{
+                fontFamily: 'Cormorant Garamond, serif',
+                fontSize: '1.5rem',
+                letterSpacing: '0.6em',
+                color: '#666',
+                margin: '0.6rem 0',
+              }}
+            >
+              ∙ ∙ ∙
+            </p>
+            <p
+              style={{
+                fontFamily: 'Cormorant Garamond, serif',
+                fontStyle: 'italic',
+                fontSize: '0.98rem',
+                color: '#aaa',
+                lineHeight: 1.7,
+                margin: 0,
+              }}
+            >
+              Bu kısım bir kez yazılıp bitmez. Yıllarca, farklı Hamlet'lerinde
+              geri dönüp yeniden yazabilirsin. Her yeni sahnelemede yeni boşluklar,
+              yeni cevaplar.
+            </p>
+            <p
+              style={{
+                fontFamily: 'Jost, sans-serif',
+                fontWeight: 200,
+                fontSize: '0.85rem',
+                color: '#888',
+                fontStyle: 'italic',
+                margin: '0.6rem 0 0 0',
+              }}
+            >
+              Hazır mısın?
+            </p>
+            <p
+              style={{
+                fontFamily: 'Cormorant Garamond, serif',
+                fontStyle: 'italic',
+                fontSize: '0.95rem',
+                color: '#aaa',
+                lineHeight: 1.7,
+                margin: 0,
+              }}
+            >
+              Modül III · Yolculuk Modu seni bekliyor. Hamlet'in tüm yaşamını
+              bedeninle bir kez baştan sona dolaşacaksın.
             </p>
           </section>
         )}

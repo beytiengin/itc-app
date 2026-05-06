@@ -56,6 +56,23 @@ export default function HamletBoslukKart({ bosluk, yazilanSayisi }) {
         >
           ◇ Boşluk
         </span>
+        {bosluk.sinif && (
+          <span
+            style={{
+              fontFamily: 'Jost, sans-serif',
+              fontWeight: 300,
+              fontSize: '0.55rem',
+              letterSpacing: '0.25em',
+              color: TON,
+              textTransform: 'uppercase',
+              padding: '0.2rem 0.55rem',
+              border: `1px solid ${TON}55`,
+              marginLeft: 'auto',
+            }}
+          >
+            {bosluk.sinif}
+          </span>
+        )}
       </div>
 
       <p
