@@ -63,7 +63,7 @@ function EtiketBloku({ karakterId }) {
     fontSize: '0.72rem',
     color: TON,
     padding: '0.2rem 0.7rem',
-    border: `1px solid ${TON}33`,
+    border: `1px solid color-mix(in srgb, ${TON} 20%, transparent)`,
     backgroundColor: 'var(--accent-bg)',
     borderRadius: '12px',
   };
@@ -210,7 +210,7 @@ function IlerlemeBloku({ karakterId, ilerlemeler }) {
           etiket="Zihinsel Antrenman"
           mevcut={veri.antrenman}
           toplam={meta.antrenmanSayisi}
-          renk="#9b7a6a"
+          renk="var(--kanal-kahve)"
         />
       )}
     </div>

@@ -73,7 +73,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
             <div
               key={i}
               style={{
-                borderLeft: `1px solid ${TON}55`,
+                borderLeft: `1px solid color-mix(in srgb, ${TON} 33%, transparent)`,
                 padding: '0.4rem 0 0.4rem 1.2rem',
                 display: 'flex',
                 flexDirection: 'column',
@@ -105,7 +105,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
                       textTransform: 'uppercase',
                       textDecoration: 'none',
                       padding: '0.15rem 0.5rem',
-                      border: `1px solid ${TON}33`,
+                      border: `1px solid color-mix(in srgb, ${TON} 20%, transparent)`,
                       transition: 'all 0.25s ease',
                     }}
                     onMouseEnter={(e) => { e.currentTarget.style.borderColor = TON; }}
@@ -178,7 +178,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
               margin: 0,
               padding: '0.7rem 1rem',
               backgroundColor: 'var(--accent-bg)',
-              borderLeft: `2px solid ${TON}55`,
+              borderLeft: `2px solid color-mix(in srgb, ${TON} 33%, transparent)`,
             }}
           >
             {tercih.cokluSecimNotu}

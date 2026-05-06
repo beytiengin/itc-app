@@ -124,7 +124,7 @@ export default function TimelineYatay({ sahneler, seciliSahneId, onSahneSec }) {
                   border: `2px solid ${TON}`,
                   borderRadius: kritik ? '2px' : '50%',
                   transform: kritik ? 'rotate(45deg)' : 'none',
-                  boxShadow: aktif ? `0 0 12px ${TON}88` : 'none',
+                  boxShadow: aktif ? `0 0 12px color-mix(in srgb, ${TON} 53%, transparent)` : 'none',
                   transition: 'all 0.25s ease',
                 }}
               />

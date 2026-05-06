@@ -5,11 +5,11 @@ import { supabase } from '../../lib/supabase';
 
 const kategoriler = {
   teknik: { ad: "Teknik Donanım", renk: "var(--accent)", sorular: [3, 17, 19, 20, 21] },
-  psikolojik: { ad: "Psikolojik Sağlamlık", renk: "#8fa3b1", sorular: [2, 7, 10, 11, 22, 31, 37] },
-  mesleki: { ad: "Mesleki Tutum", renk: "#9b8ea0", sorular: [5, 12, 16, 23, 24, 25] },
-  yaratici: { ad: "Yaratıcı Kapasite", renk: "#a0b89b", sorular: [4, 8, 9, 27] },
-  entelektuel: { ad: "Entelektüel Derinlik", renk: "#b8a99b", sorular: [1, 14, 28, 29, 34, 35, 36] },
-  iliski: { ad: "İlişki & İfade", renk: "#9ba8b8", sorular: [6, 13, 18, 26, 30, 32, 33] }
+  psikolojik: { ad: "Psikolojik Sağlamlık", renk: "var(--kanal-1)", sorular: [2, 7, 10, 11, 22, 31, 37] },
+  mesleki: { ad: "Mesleki Tutum", renk: "var(--kanal-2)", sorular: [5, 12, 16, 23, 24, 25] },
+  yaratici: { ad: "Yaratıcı Kapasite", renk: "var(--kanal-3)", sorular: [4, 8, 9, 27] },
+  entelektuel: { ad: "Entelektüel Derinlik", renk: "var(--kanal-4)", sorular: [1, 14, 28, 29, 34, 35, 36] },
+  iliski: { ad: "İlişki & İfade", renk: "var(--kanal-5)", sorular: [6, 13, 18, 26, 30, 32, 33] }
 };
 
 const sorular = [

@@ -52,6 +52,18 @@
   --accent-bg-deep:  #100c06;
   --accent-rule:     #3a2f1f;
 
+  /* Kategori paleti (VAK/Yildiz/Arketip kategori cubuklari) */
+  --kanal-1:         #8fa3b1;  /* mavi-gri (isitsel, psikolojik, ISTJ-INTJ-ESTJ-ENFJ) */
+  --kanal-2:         #9b8ea0;  /* mor-gri (kinestetik, mesleki, ISFJ-INFP-ESFJ) */
+  --kanal-3:         #a0b89b;  /* yesil-gri (yaratici, ISTP-INTP-ENTP) */
+  --kanal-4:         #b8a99b;  /* kahve-gri (entelektuel, ISFP-ESFP-ENTJ) */
+  --kanal-5:         #9ba8b8;  /* mavi-gri 2 (iliski) */
+  --kanal-kahve:     #9b7a6a;  /* macbeth karakter tonu */
+
+  /* Sicaklik gradyani (Hamlet zaman cizgisi) */
+  --sicak-soguk:     #6a8aa8;
+  --sicak-sicak:     #c97a4a;
+
   /* Geriye uyumluluk (eski isimler) */
   --black:           var(--bg-base);
   --white:           var(--ink);
@@ -100,6 +112,18 @@
   --accent-bg:       #E8D5A5;
   --accent-bg-deep:  #DCC890;
   --accent-rule:     #B89E6A;
+
+  /* Kategori paleti krem ton (krem zeminde okunaklilik icin koyulastirildi) */
+  --kanal-1:         #3E5F75;  /* mavi koyu */
+  --kanal-2:         #5C4A65;  /* mor koyu */
+  --kanal-3:         #4A6840;  /* yesil koyu */
+  --kanal-4:         #6E5340;  /* kahve koyu */
+  --kanal-5:         #3E5A75;  /* mavi 2 koyu */
+  --kanal-kahve:     #6E4A3A;  /* macbeth karakter koyu */
+
+  /* Sicaklik gradyani krem ton */
+  --sicak-soguk:     #3A6688;
+  --sicak-sicak:     #A0502A;
 }
 
 * {

@@ -379,7 +379,7 @@ export default function TimelineSayfasi() {
             flexDirection: 'column',
             gap: '1.4rem',
             padding: '2.4rem 2rem',
-            border: `1px solid ${TON}33`,
+            border: `1px solid color-mix(in srgb, ${TON} 20%, transparent)`,
             backgroundColor: 'var(--accent-bg-deep)',
             textAlign: 'center',
           }}

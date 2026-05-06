@@ -40,12 +40,12 @@ const kanalBilgisi = {
     pratik: "Sahneye çıkmadan önce karakterin bulunduğu mekânı zihninde görselleştir. O mekânın ışığını, dokusunu, renk paletini hisset."
   },
   A: {
-    ad: "İşitsel", eng: "Auditory", renk: "#8fa3b1",
+    ad: "İşitsel", eng: "Auditory", renk: "var(--kanal-1)",
     aciklama: "Enstrümanın işitsel kanaldan besleniyorsun. Zihnin sesler, ritimler ve iç diyalogla çalışır. Karakter inşası sırasında somatik çapalarını sesin tonu ve ritmiyle atarsın. AI Dış Ses seanslarında sana 'Bu hissin sesi nasıl?' ve 'Karakterin içindeki ses ne söylüyor?' gibi sorular yönlendirilecek.",
     pratik: "Sahneye çıkmadan önce karakterin iç sesini bul. O sesin tonu, ritmi ve hızı seni doğrudan karakterin bedenine götürür."
   },
   K: {
-    ad: "Kinestetik", eng: "Kinesthetic", renk: "#9b8ea0",
+    ad: "Kinestetik", eng: "Kinesthetic", renk: "var(--kanal-2)",
     aciklama: "Enstrümanın kinestetik kanaldan besleniyorsun. Zihnin beden duyumları, hareket ve dokunsal hafızayla çalışır. Karakter inşası sırasında somatik çapalarını fiziksel bir gerilim veya ağırlık noktasıyla atarsın. AI Dış Ses seanslarında sana 'Bu his bedeninin neresinde oturuyor?' ve 'Dokunsan nasıl bir doku hissedersin?' gibi sorular yönlendirilecek.",
     pratik: "Sahneye çıkmadan önce karakterin bedensel ağırlığını ve postürünü hisset. O postür seni doğrudan karakterin duygusal durumuna götürür."
   }

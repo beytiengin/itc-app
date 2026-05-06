@@ -221,7 +221,7 @@ function KarakterKarti({ karakter, egzersizSayisi, yansimaSayisi, aktivite, iler
               </span>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                 {tamamlananEgzersizler.map((e) => (
-                  <div key={e.id} style={{ display: 'flex', gap: '0.7rem', alignItems: 'center', padding: '0.7rem 1rem', borderLeft: '2px solid var(--accent)44' }}>
+                  <div key={e.id} style={{ display: 'flex', gap: '0.7rem', alignItems: 'center', padding: '0.7rem 1rem', borderLeft: '2px solid color-mix(in srgb, var(--accent) 27%, transparent)' }}>
                     <span style={{ color: 'var(--onay-soft)', fontSize: '0.75rem' }}>✓</span>
                     <span style={{ flex: 1, fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-soft)', lineHeight: 1.5 }}>{e.baslik}</span>
                     <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.55rem', color: 'var(--ink-muted)', letterSpacing: '0.15em', textTransform: 'uppercase' }}>{e.seviye}</span>
@@ -240,7 +240,7 @@ function KarakterKarti({ karakter, egzersizSayisi, yansimaSayisi, aktivite, iler
                 {yazilanBosluklar.map(({ boslukId, metin, bosluk }) => {
                   const onizleme = metin.length > 100 ? `${metin.slice(0, 100).trim()}…` : metin;
                   return (
-                    <div key={boslukId} style={{ padding: '0.9rem 1.1rem', borderLeft: '2px solid var(--onay-soft)55', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    <div key={boslukId} style={{ padding: '0.9rem 1.1rem', borderLeft: '2px solid color-mix(in srgb, var(--onay-soft) 33%, transparent)', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.8rem', flexWrap: 'wrap' }}>
                         <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.78rem', color: 'var(--ink)' }}>{bosluk.baslik}</span>
                         <a

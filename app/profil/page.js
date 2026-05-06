@@ -31,7 +31,7 @@ export default function Profil() {
     verileriGetir();
   }, []);
 
-  const kanalRenk = { V: 'var(--accent)', A: '#8fa3b1', K: '#9b8ea0' };
+  const kanalRenk = { V: 'var(--accent)', A: 'var(--kanal-1)', K: 'var(--kanal-2)' };
   const kanalAd = { V: 'Görsel', A: 'İşitsel', K: 'Kinestetik' };
 
   if (yukleniyor) {
@@ -117,11 +117,11 @@ export default function Profil() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
                 {[
                   { ad: 'Teknik Donanım', renk: 'var(--accent)', deger: yildiz.teknik },
-                  { ad: 'Psikolojik Sağlamlık', renk: '#8fa3b1', deger: yildiz.psikolojik },
-                  { ad: 'Mesleki Tutum', renk: '#9b8ea0', deger: yildiz.mesleki },
-                  { ad: 'Yaratıcı Kapasite', renk: '#a0b89b', deger: yildiz.yaratici },
-                  { ad: 'Entelektüel Derinlik', renk: '#b8a99b', deger: yildiz.entelektuel },
-                  { ad: 'İlişki & İfade', renk: '#9ba8b8', deger: yildiz.iliski },
+                  { ad: 'Psikolojik Sağlamlık', renk: 'var(--kanal-1)', deger: yildiz.psikolojik },
+                  { ad: 'Mesleki Tutum', renk: 'var(--kanal-2)', deger: yildiz.mesleki },
+                  { ad: 'Yaratıcı Kapasite', renk: 'var(--kanal-3)', deger: yildiz.yaratici },
+                  { ad: 'Entelektüel Derinlik', renk: 'var(--kanal-4)', deger: yildiz.entelektuel },
+                  { ad: 'İlişki & İfade', renk: 'var(--kanal-5)', deger: yildiz.iliski },
                 ].map((item, i) => (
                   <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.62rem', color: item.renk, width: '130px', textAlign: 'right', flexShrink: 0 }}>{item.ad}</span>

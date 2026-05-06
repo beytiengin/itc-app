@@ -439,7 +439,7 @@ export default function SentezSayfasi() {
                     key={tercih.no}
                     style={{
                       paddingLeft: '1rem',
-                      borderLeft: `2px solid ${TON}55`,
+                      borderLeft: `2px solid color-mix(in srgb, ${TON} 33%, transparent)`,
                       display: 'flex',
                       flexDirection: 'column',
                       gap: '0.5rem',
@@ -467,7 +467,7 @@ export default function SentezSayfasi() {
                             fontSize: '0.65rem',
                             color: TON,
                             padding: '0.1rem 0.45rem',
-                            border: `1px solid ${TON}55`,
+                            border: `1px solid color-mix(in srgb, ${TON} 33%, transparent)`,
                             letterSpacing: '0.1em',
                           }}
                         >
@@ -520,7 +520,7 @@ export default function SentezSayfasi() {
               flexDirection: 'column',
               gap: '1rem',
               padding: '3rem 2rem',
-              borderTop: `1px solid ${TON}33`,
+              borderTop: `1px solid color-mix(in srgb, ${TON} 20%, transparent)`,
               textAlign: 'center',
               maxWidth: '560px',
               margin: '2rem auto 0',

@@ -96,7 +96,7 @@ export default function HamletAltSoruYazma({
               color: TON,
               textTransform: 'uppercase',
               padding: '0.15rem 0.55rem',
-              border: `1px solid ${TON}55`,
+              border: `1px solid color-mix(in srgb, ${TON} 33%, transparent)`,
               marginLeft: 'auto',
             }}
           >

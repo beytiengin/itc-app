@@ -360,7 +360,7 @@ function ModulIIICta() {
   return (
     <div
       style={{
-        border: `1px solid ${TON}33`,
+        border: `1px solid color-mix(in srgb, ${TON} 20%, transparent)`,
         backgroundColor: 'var(--accent-bg-deep)',
         padding: '2.2rem 2.4rem',
         display: 'flex',

@@ -95,7 +95,7 @@ export default function HamletSahneDetay({
             color: TON,
             textTransform: 'uppercase',
             padding: '0.25rem 0.7rem',
-            border: `1px solid ${TON}55`,
+            border: `1px solid color-mix(in srgb, ${TON} 33%, transparent)`,
           }}
         >
           Sahne {sahne.no}
@@ -157,7 +157,7 @@ export default function HamletSahneDetay({
       {(bagliTercihler.length > 0 || bagliBosluklar.length > 0) && (
         <div
           style={{
-            border: `1px solid ${TON}33`,
+            border: `1px solid color-mix(in srgb, ${TON} 20%, transparent)`,
             backgroundColor: 'var(--accent-bg-deep)',
             padding: '1rem 1.2rem',
             display: 'flex',

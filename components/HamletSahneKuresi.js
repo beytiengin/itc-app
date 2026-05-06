@@ -2,18 +2,18 @@
 // ITC Actor's Gym — Timeline · Sahne küresi
 //
 // Sıcaklığa göre renklenmiş daire:
-//   1-3 (soğuk): #6a8aa8 — soluk mavi
+//   1-3 (soğuk): var(--sicak-soguk) — soluk mavi
 //   4-6 (orta):  var(--accent) — altın
-//   7-10 (sıcak): #c97a4a — sıcak turuncu
+//   7-10 (sıcak): var(--sicak-sicak) — sıcak turuncu
 // Seçili olduğunda glow + büyür.
 
 'use client';
 
 export function sicaklikRengi(sicaklik) {
   if (sicaklik == null) return 'var(--rule)';
-  if (sicaklik <= 3) return '#6a8aa8';
+  if (sicaklik <= 3) return 'var(--sicak-soguk)';
   if (sicaklik <= 6) return 'var(--accent)';
-  return '#c97a4a';
+  return 'var(--sicak-sicak)';
 }
 
 export function sicaklikEtiketi(sicaklik) {
@@ -90,7 +90,7 @@ export default function HamletSahneKuresi({
             borderRadius: '50%',
             backgroundColor: oyuncuVar ? renk : 'var(--bg-base)',
             border: `2px solid ${renk}`,
-            boxShadow: secili ? `0 0 16px ${renk}aa` : 'none',
+            boxShadow: secili ? `0 0 16px color-mix(in srgb, ${renk} 67%, transparent)` : 'none',
             transition: 'all 0.25s ease',
           }}
         />

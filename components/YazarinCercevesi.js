@@ -113,7 +113,7 @@ export default function YazarinCercevesi({ sahneler, karakterId, onSahneSec }) {
                       color: TON,
                       textTransform: 'uppercase',
                       padding: '0.15rem 0.55rem',
-                      border: `1px solid ${TON}55`,
+                      border: `1px solid color-mix(in srgb, ${TON} 33%, transparent)`,
                     }}
                   >
                     {sahne.id}

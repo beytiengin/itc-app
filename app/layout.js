@@ -1,6 +1,7 @@
 import "./globals.css";
 import { cormorant, jost } from "./fonts";
 import { ThemeProvider } from "./lib/theme";
+import TemaToggleFloat from "../components/TemaToggleFloat";
 
 export const metadata = {
   title: "Actor's Gym — ITC Method",
@@ -30,7 +31,10 @@ export default function RootLayout({ children }) {
         <script dangerouslySetInnerHTML={{ __html: temaScript }} />
       </head>
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          {children}
+          <TemaToggleFloat />
+        </ThemeProvider>
       </body>
     </html>
   );

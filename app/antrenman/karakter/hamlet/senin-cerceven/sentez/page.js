@@ -207,7 +207,7 @@ export default function SeninCerceveSentez() {
                         lineHeight: 1.7,
                         margin: 0,
                         paddingLeft: '1rem',
-                        borderLeft: `2px solid ${TON}55`,
+                        borderLeft: `2px solid color-mix(in srgb, ${TON} 33%, transparent)`,
                       }}
                     >
                       {ozet.ilkSatir}
@@ -254,7 +254,7 @@ export default function SeninCerceveSentez() {
         {/* Sahneye Taşıma kutusu */}
         <section
           style={{
-            border: `1px solid ${ALTIN}33`,
+            border: `1px solid color-mix(in srgb, ${ALTIN} 20%, transparent)`,
             backgroundColor: 'var(--accent-bg-deep)',
             padding: '1.8rem 2rem',
             display: 'flex',
@@ -300,7 +300,7 @@ export default function SeninCerceveSentez() {
               lineHeight: 1.6,
               margin: '0.5rem 0 0 0',
               paddingTop: '0.7rem',
-              borderTop: `1px solid ${ALTIN}33`,
+              borderTop: `1px solid color-mix(in srgb, ${ALTIN} 20%, transparent)`,
             }}
           >
             "Yazdıkların sahnenin altındaki nehirdir."
@@ -315,7 +315,7 @@ export default function SeninCerceveSentez() {
               flexDirection: 'column',
               gap: '1rem',
               padding: '3rem 2rem',
-              borderTop: `1px solid ${TON}55`,
+              borderTop: `1px solid color-mix(in srgb, ${TON} 33%, transparent)`,
               textAlign: 'center',
               maxWidth: '560px',
               margin: '2rem auto 0',

@@ -171,7 +171,7 @@ export default function BoslukDetaySayfasi({ params }) {
                 color: TON,
                 textTransform: 'uppercase',
                 padding: '0.25rem 0.7rem',
-                border: `1px solid ${TON}55`,
+                border: `1px solid color-mix(in srgb, ${TON} 33%, transparent)`,
                 alignSelf: 'flex-start',
               }}
             >
@@ -210,7 +210,7 @@ export default function BoslukDetaySayfasi({ params }) {
                   textTransform: 'uppercase',
                   textDecoration: 'none',
                   padding: '0.3rem 0.7rem',
-                  border: `1px solid ${ALTIN}55`,
+                  border: `1px solid color-mix(in srgb, ${ALTIN} 33%, transparent)`,
                   transition: 'all 0.25s ease',
                 }}
                 onMouseEnter={(e) => { e.currentTarget.style.borderColor = ALTIN; }}
@@ -231,7 +231,7 @@ export default function BoslukDetaySayfasi({ params }) {
                 lineHeight: 1.7,
                 margin: '0.6rem 0 0 0',
                 paddingLeft: '1rem',
-                borderLeft: `1px solid ${ALTIN}55`,
+                borderLeft: `1px solid color-mix(in srgb, ${ALTIN} 33%, transparent)`,
               }}
             >
               {bosluk.sentez}
@@ -327,7 +327,7 @@ export default function BoslukDetaySayfasi({ params }) {
         {tercihOzetleri.length > 0 && (
           <section
             style={{
-              border: `1px solid ${ALTIN}33`,
+              border: `1px solid color-mix(in srgb, ${ALTIN} 20%, transparent)`,
               padding: '1.4rem 1.6rem',
               backgroundColor: 'var(--accent-bg-deep)',
               display: 'flex',
@@ -381,7 +381,7 @@ export default function BoslukDetaySayfasi({ params }) {
                           fontSize: '0.65rem',
                           color: ALTIN,
                           padding: '0.1rem 0.45rem',
-                          border: `1px solid ${ALTIN}55`,
+                          border: `1px solid color-mix(in srgb, ${ALTIN} 33%, transparent)`,
                           letterSpacing: '0.1em',
                         }}
                       >
@@ -472,7 +472,7 @@ function CerceveBolumu({ etiket: et, renk, children, ozel }) {
   return (
     <div
       style={{
-        border: ozel ? `1px solid ${renk}55` : '1px solid var(--rule)',
+        border: ozel ? `1px solid color-mix(in srgb, ${renk} 33%, transparent)` : '1px solid var(--rule)',
         padding: '1.2rem 1.4rem',
         backgroundColor: ozel ? 'var(--accent-bg-deep)' : 'var(--bg-elevated)',
         display: 'flex',

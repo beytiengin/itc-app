@@ -86,7 +86,7 @@ export default function HamletTercihKart({ tercih, secim }) {
                   color: TON,
                   letterSpacing: '0.15em',
                   padding: '0.2rem 0.6rem',
-                  border: `1px solid ${TON}55`,
+                  border: `1px solid color-mix(in srgb, ${TON} 33%, transparent)`,
                   textTransform: 'uppercase',
                 }}
               >

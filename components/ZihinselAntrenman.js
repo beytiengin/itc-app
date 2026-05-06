@@ -23,7 +23,7 @@ import {
 import TopraklanmaModu from './TopraklanmaModu';
 import IlerlemeRozet from './IlerlemeRozet';
 
-const TON = '#9b7a6a';
+const TON = 'var(--kanal-kahve)';
 const TON_HOVER = 'var(--accent-rule)';
 
 export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini, travmaProfili }) {
@@ -599,7 +599,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                   gap: '0.5rem',
                   alignItems: 'baseline',
                   paddingLeft: '0.5rem',
-                  borderLeft: `2px solid ${TON}55`,
+                  borderLeft: `2px solid color-mix(in srgb, ${TON} 33%, transparent)`,
                   paddingTop: '0.2rem',
                   paddingBottom: '0.2rem',
                 }}

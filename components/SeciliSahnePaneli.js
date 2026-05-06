@@ -53,7 +53,7 @@ export default function SeciliSahnePaneli({ sahne }) {
             color: TON,
             textTransform: 'uppercase',
             padding: '0.2rem 0.6rem',
-            border: `1px solid ${TON}55`,
+            border: `1px solid color-mix(in srgb, ${TON} 33%, transparent)`,
           }}
         >
           {sahne.id}
@@ -81,7 +81,7 @@ export default function SeciliSahnePaneli({ sahne }) {
             gap: '0.7rem',
             padding: '0.7rem 1rem',
             backgroundColor: 'var(--accent-bg)',
-            border: `1px solid ${TON}33`,
+            border: `1px solid color-mix(in srgb, ${TON} 20%, transparent)`,
           }}
         >
           <span style={{ color: TON, fontSize: '0.95rem' }}>⬥</span>
