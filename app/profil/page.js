@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import TemaSecici from '../../components/TemaSecici';
 
 export default function Profil() {
   const [kullanici, setKullanici] = useState(null);
@@ -164,6 +165,17 @@ export default function Profil() {
               <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.9rem', color: '#c9a96e' }}>Teste Başla →</span>
             </a>
           )}
+        </div>
+
+        {/* Görünüm */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: '#c9a96e', textTransform: 'uppercase' }}>Görünüm</span>
+          </div>
+          <p style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontStyle: 'italic', fontSize: '0.95rem', color: '#aaa', margin: 0, lineHeight: 1.6 }}>
+            Karanlık mod uzun seans için. Krem mod Workbook'la aynı kâğıt sıcaklığında.
+          </p>
+          <TemaSecici stil="radyo" />
         </div>
 
         {/* Kalibrasyon linki */}

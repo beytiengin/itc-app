@@ -1,17 +1,79 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@200;300;400&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --black: #0a0a0a;
-  --white: #f0ede8;
-  --gold: #c9a96e;
-  --text-primary: #f0ede8;
-  --text-secondary: #ccc;
-  --text-muted: #999;
-  --border: #2a2a2a;
+/* === Dual Mode Tema Sistemi ===
+   Dalga 1 (altyapi): degiskenler tanimli, sayfalar henuz cogunlukla
+   inline hard-coded renk kullaniyor. Dalga 2'de var(--*)'a tasinacak.
+
+   Aksan rengi MOD-SPESIFIK:
+   - Dark mode: altin #c9a96e (mevcut kimlik korunuyor)
+   - Krem mode: bordo #5C1A2C (Workbook ile birebir)
+
+   Eski --gold/--white/--black degiskenleri geriye uyumluluk icin
+   --accent / --ink / --bg-base'e map edildi. */
+
+:root,
+[data-theme="dark"] {
+  /* Zemin & Yuzey */
+  --bg-base:         #0a0a0a;
+  --bg-elevated:     #1a1a1a;
+  --bg-deep:         #050505;
+
+  /* Murekkep */
+  --ink:             #f0ede8;
+  --ink-soft:        #c4bfb6;
+  --ink-muted:       #8a8378;
+
+  /* Aksan: Altin (dark mode kimligi) */
+  --accent:          #c9a96e;
+  --accent-hover:    #d6b97e;
+  --accent-soft:     #a88a5a;
+
+  /* Cizgi & Doku */
+  --rule:            #2a2a2a;
+  --rule-soft:       #1f1f1f;
+  --highlight:       #1a1410;
+
+  /* Etkilesim */
+  --focus-ring:      #c9a96e;
+  --shadow-card:     0 1px 0 rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.2);
+
+  /* Geriye uyumluluk (eski isimler) */
+  --black:           var(--bg-base);
+  --white:           var(--ink);
+  --gold:            var(--accent);
+  --text-primary:    var(--ink);
+  --text-secondary:  var(--ink-soft);
+  --text-muted:      var(--ink-muted);
+  --border:          var(--rule);
+}
+
+/* Krem paleti (Workbook ruhu) */
+[data-theme="krem"] {
+  /* Zemin & Yuzey */
+  --bg-base:         #F4ECDD;
+  --bg-elevated:     #EFE4D0;
+  --bg-deep:         #E8DBC2;
+
+  /* Murekkep */
+  --ink:             #1F1A14;
+  --ink-soft:        #5A4F45;
+  --ink-muted:       #8A7E6F;
+
+  /* Aksan: Bordo (Workbook'la birebir) */
+  --accent:          #5C1A2C;
+  --accent-hover:    #74233A;
+  --accent-soft:     #8A3E51;
+
+  /* Cizgi & Doku */
+  --rule:            #C9B997;
+  --rule-soft:       #D9CCB1;
+  --highlight:       #E8D5A5;
+
+  /* Etkilesim */
+  --focus-ring:      #5C1A2C;
+  --shadow-card:     0 1px 0 rgba(31,26,20,0.05), 0 4px 16px rgba(31,26,20,0.06);
 }
 
 * {
@@ -21,26 +83,27 @@
 }
 
 body {
-  background-color: #0a0a0a;
-  color: #f0ede8;
-  font-family: 'Jost', sans-serif;
+  background-color: var(--bg-base);
+  color: var(--ink);
+  font-family: var(--font-body), 'Jost', sans-serif;
   font-weight: 200;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 250ms ease, color 250ms ease;
 }
 
 input {
-  color: #f0ede8 !important;
-  background-color: #1a1a1a;
+  color: var(--ink) !important;
+  background-color: var(--bg-elevated);
 }
 
 input::placeholder {
-  color: #777;
+  color: var(--ink-muted);
   opacity: 1;
 }
 
 input:focus {
   outline: none;
-  border-color: #c9a96e !important;
+  border-color: var(--accent) !important;
 }
 
 button {
@@ -49,6 +112,13 @@ button {
 
 a {
   color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 @keyframes fadeUp {
