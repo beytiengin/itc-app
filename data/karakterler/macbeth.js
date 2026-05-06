@@ -12,7 +12,7 @@ const macbeth = {
   tur: 'Trajedi',
   tip: 'ENTJ',
   ozet:
-    "İktidar hırsı, suçluluk ve paranoya. İskoçya'nın en cesur generali — ve en büyük hainlerinden biri.",
+    "Kral Duncan'ın generali. Bir kehanet, bir karar, bir yıkım. İktidar hırsı, suçluluk ve paranoyanın iç çöküşü.",
   etiketler: ['Trajedi', 'Şiddet', 'İktidar', 'Paranoya'],
 
   // ─── BASELINE ─────────────────────────────────────────────────────────────
@@ -30,7 +30,8 @@ const macbeth = {
   // ─── DEĞİŞTİRİLEMEZ DOĞRULAR ──────────────────────────────────────────────
 
   dogrular: [
-    { kategori: 'Kimlik', madde: "Macbeth, İskoçya'nın en cesur generalidir." },
+    { kategori: 'Kimlik', madde: "Macbeth, Kral Duncan'ın güvendiği bir generaldir." },
+    { kategori: 'Kimlik', madde: "Cawdor Beyi unvanını yeni almıştır (I.iii)." },
     { kategori: 'Kimlik', madde: "Kral Duncan'ın akrabasıdır — hem askeri hem misafir." },
     { kategori: 'Bilgi', madde: 'Cadıların kehanetini duydu: kral olacak.' },
     { kategori: 'Bilgi', madde: "Banquo'nun çocuklarının kral olacağını biliyor." },

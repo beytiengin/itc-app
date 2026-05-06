@@ -310,7 +310,7 @@ export default function Kalibrasyon() {
         <TestKarti
           url="/kalibrasyon/yildiz"
           baslik="Yıldız Oyuncu Analizi"
-          altbaslik="Parlayan · Gelişim · Planlama"
+          altbaslik="Parlayan yönlerin · Gelişim alanların · Yol planın"
           aciklama="Teknik donanım ve psikolojik kapasite haritanı çıkarır."
           meta="37 kriter · ~5 dk"
           tamamlandi={yildiz !== null}

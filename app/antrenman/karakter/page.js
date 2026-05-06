@@ -4,11 +4,14 @@ import { useState, useEffect } from 'react';
 import { tumKarakterIlerlemeleri } from '../../lib/kulis';
 import IlerlemeRozet from '../../../components/IlerlemeRozet';
 
+// Hamlet refactor sonrası: 5 boşluk (her biri 3 alt-soru, hibrit yapı).
+// Diğer karakterler eski 12 alanlı yapıda. Antrenman sayıları her karakter için
+// kendi data dosyasındaki egzersizler dizisinin uzunluğu.
 const KARAKTER_META = {
-  hamlet: { boslukSayisi: 12, antrenmanSayisi: 9 },
+  hamlet:  { boslukSayisi: 5,  antrenmanSayisi: 0 }, // 9 antrenman retire edildi → Modül III'e taşındı
   macbeth: { boslukSayisi: 12, antrenmanSayisi: 8 },
-  willy: { boslukSayisi: 12, antrenmanSayisi: 7 },
-  biff: { boslukSayisi: 12, antrenmanSayisi: 6 },
+  willy:   { boslukSayisi: 12, antrenmanSayisi: 7 },
+  biff:    { boslukSayisi: 12, antrenmanSayisi: 6 },
 };
 
 function IlerlemeBloku({ karakterId, ilerlemeler }) {
@@ -31,13 +34,15 @@ function IlerlemeBloku({ karakterId, ilerlemeler }) {
         toplam={meta.boslukSayisi}
         renk="#7a9b7a"
       />
-      <IlerlemeRozet
-        ikon="○"
-        etiket="Zihinsel Antrenman"
-        mevcut={veri.antrenman}
-        toplam={meta.antrenmanSayisi}
-        renk="#9b7a6a"
-      />
+      {meta.antrenmanSayisi > 0 && (
+        <IlerlemeRozet
+          ikon="○"
+          etiket="Zihinsel Antrenman"
+          mevcut={veri.antrenman}
+          toplam={meta.antrenmanSayisi}
+          renk="#9b7a6a"
+        />
+      )}
     </div>
   );
 }
@@ -90,7 +95,7 @@ export default function KarakterListesi() {
                 <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: '#f0ede8', lineHeight: 1 }}>Hamlet</span>
                 <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: '#c9a96e', letterSpacing: '0.1em' }}>William Shakespeare</span>
               </div>
-              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>9 Antrenman</span>
+              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>5 Bölüm</span>
             </div>
             <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: '#888', lineHeight: 1.7, margin: 0 }}>
               Yas, ihanet ve varoluşsal sorgulama. Düşünce ile eylem arasında sıkışmış bir prensin görünmeyen yolculuğu.
@@ -116,7 +121,7 @@ export default function KarakterListesi() {
               <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>8 Antrenman</span>
             </div>
             <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: '#888', lineHeight: 1.7, margin: 0 }}>
-              İktidar hırsı, suçluluk ve paranoya. İskoçya'nın en cesur generali — ve en büyük hainlerinden biri.
+              Kral Duncan'ın generali. Bir kehanet, bir karar, bir yıkım. İktidar hırsı, suçluluk ve paranoyanın iç çöküşü.
             </p>
             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
               {['Trajedi', 'Şiddet', 'İktidar', 'Paranoya'].map(tag => (

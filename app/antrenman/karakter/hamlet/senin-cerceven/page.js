@@ -36,6 +36,8 @@ export default function SeninCerceveAnaSayfa() {
   }
 
   const tamamlananBosluk = bosluklar.filter((b) => yazilanSayisi(b.no) > 0).length;
+  const toplamYazilanAltSoru = bosluklar.reduce((s, b) => s + yazilanSayisi(b.no), 0);
+  const toplamAltSoruSayisi = bosluklar.reduce((s, b) => s + (b.altSorular?.length || 0), 0);
   const hepsiBaslamis = tamamlananBosluk >= bosluklar.length;
 
   if (yukleniyor) {
@@ -239,7 +241,12 @@ export default function SeninCerceveAnaSayfa() {
               color: hepsiBaslamis ? TON : '#888',
             }}
           >
-            {tamamlananBosluk} / {bosluklar.length} boşluğa değildi
+            {tamamlananBosluk} / {bosluklar.length} boşluğa değinildi
+            {toplamYazilanAltSoru > 0 && (
+              <span style={{ color: '#666', marginLeft: '0.5rem', fontSize: '0.85rem' }}>
+                ({toplamYazilanAltSoru} / {toplamAltSoruSayisi} alt-soru)
+              </span>
+            )}
           </span>
         </div>
 

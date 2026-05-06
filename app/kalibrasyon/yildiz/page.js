@@ -221,9 +221,9 @@ export default function YildizOyuncu() {
           </div>
 
           {[
-            { baslik: 'Parlayan Alan — 5 ve Üzeri', renk: '#6a9b6a', border: '#1e2a1e', liste: bolgeler.parlayan, aciklama: 'Kısa vadede odaklanırsan hızla parlatacağın alanlar.' },
-            { baslik: 'Gelişim Alanı — 3 ile 5 Arası', renk: '#c9a96e', border: '#2a2510', liste: bolgeler.gelisim, aciklama: 'Orta vadede vakit ayırırsan parlatacağın alanlar.' },
-            { baslik: 'Planlama Alanı — 3 Altı', renk: '#888', border: '#2a2a2a', liste: bolgeler.planlama, aciklama: 'Uzun vadede planlama yaparak ele alacağın alanlar.' },
+            { baslik: 'Parlayan Yönlerin — 5 ve üzeri', renk: '#6a9b6a', border: '#1e2a1e', liste: bolgeler.parlayan, aciklama: 'Kısa vadede odaklanırsan hızla parlatacağın alanlar.' },
+            { baslik: 'Gelişim Alanların — 3 ile 5 arası', renk: '#c9a96e', border: '#2a2510', liste: bolgeler.gelisim, aciklama: 'Orta vadede vakit ayırırsan parlatacağın alanlar.' },
+            { baslik: 'Yol Planın — 3 altı', renk: '#888', border: '#2a2a2a', liste: bolgeler.planlama, aciklama: 'Uzun vadede planlama yaparak ele alacağın alanlar.' },
           ].map((bolge, i) => (
             <div key={i} style={{ border: `1px solid ${bolge.border}`, padding: '1.5rem 2rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>

@@ -39,3 +39,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Yanlislikla shell ile olusan bos dosyalar (Sprint hizli-kazanc oncesi)
+# .gitignore boslukli/utf-8 isimleri tek pattern ile match etmedigi icin tek tek:
+/**Oyun
+/*Sahneye
+/Bir
+/Bu
+/Her
+/-
+/Do*
+/Her sahne*
+
+# Claude Code yerel oturum dosyalari
+.claude/

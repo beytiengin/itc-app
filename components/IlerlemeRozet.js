@@ -15,17 +15,20 @@ export default function IlerlemeRozet({ ikon, etiket, mevcut, toplam, renk = '#c
 
   const noktalar = [];
   for (let i = 0; i < gosterilenToplam; i++) {
+    const dolu = i < orantiliMevcut;
     noktalar.push(
       <span
         key={i}
         style={{
           display: 'inline-block',
-          width: '6px',
-          height: '6px',
+          width: '7px',
+          height: '7px',
           borderRadius: '50%',
           marginRight: '3px',
-          backgroundColor: i < orantiliMevcut ? renk : '#2a2a2a',
-          transition: 'background-color 0.3s ease',
+          boxSizing: 'border-box',
+          backgroundColor: dolu ? renk : 'transparent',
+          border: dolu ? `1px solid ${renk}` : '1px solid #4a4a4a',
+          transition: 'all 0.3s ease',
         }}
       />
     );

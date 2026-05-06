@@ -329,7 +329,12 @@ export async function karakterAntrenmanSayisi(karakterId) {
 
 /**
  * Tüm karakterler için ilerleme bilgisini tek seferde getir (karakter listesi
- * sayfası için performans optimizasyonu — 4 ayrı sorgu yerine 2).
+ * sayfası için performans optimizasyonu).
+ *
+ * Hamlet refactor sonrası: Hamlet için boşluk sayımı yeni hibrit yapıdan
+ * (bosluk_alt_soru_yansimalari) DISTINCT bosluk_no olarak gelir; max 5.
+ * Diğer karakterler eski bosluk_yansimalari tablosundan sayılır.
+ *
  * @returns {Promise<Object<string, {bosluk: number, antrenman: number}>>}
  */
 export async function tumKarakterIlerlemeleri() {
@@ -337,7 +342,7 @@ export async function tumKarakterIlerlemeleri() {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return {};
 
-    const [bosluklarRes, antrenmanlarRes] = await Promise.all([
+    const [bosluklarRes, antrenmanlarRes, hamletAltSoruRes] = await Promise.all([
       supabase
         .from('bosluk_yansimalari')
         .select('karakter_id, metin')
@@ -348,13 +353,36 @@ export async function tumKarakterIlerlemeleri() {
         .from('tamamlanan_egzersizler')
         .select('karakter_id')
         .eq('kullanici_id', user.id),
+      // Hamlet'in yeni hibrit yapısı için ayrı sorgu
+      supabase
+        .from('bosluk_alt_soru_yansimalari')
+        .select('karakter_id, bosluk_no, yansima_metni')
+        .eq('kullanici_id', user.id)
+        .not('yansima_metni', 'is', null)
+        .neq('yansima_metni', ''),
     ]);
 
     const sonuc = {};
+
+    // Eski bosluk_yansimalari (Macbeth/Willy/Biff için)
     (bosluklarRes.data || []).forEach((b) => {
+      if (b.karakter_id === 'hamlet') return; // Hamlet yeni tablodan sayılıyor
       if (!sonuc[b.karakter_id]) sonuc[b.karakter_id] = { bosluk: 0, antrenman: 0 };
       sonuc[b.karakter_id].bosluk++;
     });
+
+    // Yeni bosluk_alt_soru_yansimalari — DISTINCT bosluk_no (Hamlet için)
+    const hamletDokunulanBosluklar = new Set();
+    (hamletAltSoruRes.data || []).forEach((r) => {
+      if (r.karakter_id === 'hamlet') {
+        hamletDokunulanBosluklar.add(r.bosluk_no);
+      }
+    });
+    if (hamletDokunulanBosluklar.size > 0 || !sonuc.hamlet) {
+      if (!sonuc.hamlet) sonuc.hamlet = { bosluk: 0, antrenman: 0 };
+      sonuc.hamlet.bosluk = hamletDokunulanBosluklar.size;
+    }
+
     (antrenmanlarRes.data || []).forEach((a) => {
       if (!sonuc[a.karakter_id]) sonuc[a.karakter_id] = { bosluk: 0, antrenman: 0 };
       sonuc[a.karakter_id].antrenman++;

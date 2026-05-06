@@ -272,7 +272,7 @@ export default function AnaSayfa() {
           marginBottom: '2rem',
           textTransform: 'uppercase',
         }}>
-          Inside The Character
+          ITC Method · 2005'ten bu yana
         </div>
 
         <h1 style={{
