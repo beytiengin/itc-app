@@ -7,12 +7,13 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
-const KORUMALI_ROTALAR = [
-  '/kalibrasyon',
-  '/antrenman',
-  '/profil',
-  '/kulis',
-];
+// Auth gating geçici olarak devre dışı — Google OAuth callback sorunu çözülene
+// kadar tüm sayfalar herkese açık. Yansıma yazma/okuma RLS nedeniyle yine de
+// authenticated user gerektiriyor (email/şifre girişi çalışıyor).
+//
+// Geri açmak için aşağıdaki listeyi eski haline getir:
+//   ['/kalibrasyon', '/antrenman', '/profil', '/kulis']
+const KORUMALI_ROTALAR: string[] = [];
 
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({
