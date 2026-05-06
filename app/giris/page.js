@@ -51,7 +51,7 @@ function GirisIcerik() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}${geri}`,
+        redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(geri)}`,
       },
     });
     if (error) {
