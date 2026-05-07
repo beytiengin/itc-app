@@ -8,7 +8,7 @@ const willy = {
   ad: 'Willy Loman',
   oyun: 'Satıcının Ölümü',
   yazar: 'Arthur Miller',
-  donem: '1940\'lar',
+  donem: '1949',
   tur: 'Trajedi',
   tip: 'ESFP',
   ozet:
