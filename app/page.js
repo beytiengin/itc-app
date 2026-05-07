@@ -425,11 +425,11 @@ export default function AnaSayfa() {
                 <span style={modulAltStili}>Antrenman</span>
               </div>
               <p style={modulMetinStili}>
-                Dört klasik karakter — Hamlet, Macbeth, Willy Loman, Biff Loman — her biri için
-                değiştirilemez doğrular, yatay timeline, yazarın çerçevesi (kritik sahneler),
-                senin çerçeven (boşluklar) ve zihinsel antrenmanlar.
+                Dört klasik karakter — Hamlet, Macbeth, Willy Loman, Biff Loman. Her karakter için
+                değiştirilemez doğrular, oyun öncesi yaşam, zaman çizgisi, yazarın çerçevesi
+                (beş tercih) ve senin çerçeven (boşluklar).
               </p>
-              <div style={modulMetaStili}>4 karakter · 30 zihinsel antrenman</div>
+              <div style={modulMetaStili}>4 klasik karakter · ~25 dk/oturum</div>
             </div>
 
             {/* Modül III */}
@@ -508,7 +508,7 @@ export default function AnaSayfa() {
                 ve Duygu Odaklı Terapi yer alır. Psikoloji İstanbul'un kurucularındandır.
               </p>
               <p style={{ margin: 0 }}>
-                Oyuncularla "Karakter Tasarım" odaklı çalışmalar yapmakta, oyunculuk ve performans
+                Oyuncularla "Karakter Tasarımı" odaklı çalışmalar yapmakta, oyunculuk ve performans
                 geliştirme üzerine dünyanın çeşitli ülkelerinde eğitimler vermektedir. ITC
                 metodolojisinin Beyti Engin ile birlikte kurucusudur.
               </p>
