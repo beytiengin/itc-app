@@ -9,7 +9,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { olayYansimasiKaydet } from '../app/lib/hamlet-veri';
 
-const TON = 'var(--accent)';
+const TON = '#c9a96e';
 
 export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
   const [acik, setAcik] = useState(false);
@@ -44,13 +44,13 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
   }
 
   const yansimaMevcut = metin.length > 0;
-  const borderColor = acik ? TON : (yansimaMevcut || icselKabul ? 'var(--accent-rule)' : 'var(--rule)');
+  const borderColor = acik ? TON : (yansimaMevcut || icselKabul ? '#3a2f1f' : '#2a2a2a');
 
   return (
     <div
       style={{
         border: `1px solid ${borderColor}`,
-        backgroundColor: acik ? 'var(--bg-elevated)' : 'transparent',
+        backgroundColor: acik ? '#0f0f0f' : 'transparent',
         transition: 'all 0.25s ease',
       }}
     >
@@ -66,7 +66,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
           border: 'none',
           textAlign: 'left',
           cursor: 'pointer',
-          color: 'var(--ink)',
+          color: '#f0ede8',
           fontFamily: 'inherit',
         }}
         onMouseEnter={(e) => { if (!acik) e.currentTarget.parentElement.style.borderColor = TON; }}
@@ -77,7 +77,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
             fontFamily: 'Cormorant Garamond, serif',
             fontStyle: 'italic',
             fontSize: '1.4rem',
-            color: icselKabul ? TON : (yansimaMevcut ? 'var(--ink-soft)' : 'var(--ink-muted)'),
+            color: icselKabul ? TON : (yansimaMevcut ? '#aaa' : '#666'),
             minWidth: '32px',
             lineHeight: 1.1,
           }}
@@ -91,7 +91,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
               fontFamily: 'Cormorant Garamond, serif',
               fontStyle: 'italic',
               fontSize: '1rem',
-              color: 'var(--ink)',
+              color: '#f0ede8',
               lineHeight: 1.5,
               margin: 0,
             }}
@@ -105,7 +105,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
                 fontWeight: 200,
                 fontSize: '0.6rem',
                 letterSpacing: '0.25em',
-                color: 'var(--ink-muted)',
+                color: '#888',
                 textTransform: 'uppercase',
               }}
             >
@@ -121,7 +121,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
                   color: TON,
                   textTransform: 'uppercase',
                   padding: '0.15rem 0.55rem',
-                  border: `1px solid color-mix(in srgb, ${TON} 33%, transparent)`,
+                  border: `1px solid ${TON}55`,
                 }}
               >
                 ✓ İçselleştirildi
@@ -134,10 +134,10 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
                   fontWeight: 200,
                   fontSize: '0.55rem',
                   letterSpacing: '0.25em',
-                  color: 'var(--ink-soft)',
+                  color: '#aaa',
                   textTransform: 'uppercase',
                   padding: '0.15rem 0.55rem',
-                  border: '1px solid var(--accent-rule)',
+                  border: '1px solid #3a2f1f',
                 }}
               >
                 ✓ Yazıldı
@@ -149,7 +149,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
         <span
           style={{
             fontSize: '0.7rem',
-            color: 'var(--ink-muted)',
+            color: '#888',
             marginTop: '0.5rem',
             transform: acik ? 'rotate(180deg)' : 'rotate(0deg)',
             transition: 'transform 0.3s ease',
@@ -163,7 +163,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
         <div
           style={{
             padding: '0 1.4rem 1.4rem 1.4rem',
-            borderTop: '1px solid var(--rule)',
+            borderTop: '1px solid #2a2a2a',
             paddingTop: '1.4rem',
             display: 'flex',
             flexDirection: 'column',
@@ -188,7 +188,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: '1rem',
-                color: 'var(--ink-soft)',
+                color: '#ddd',
                 lineHeight: 1.7,
                 margin: '0.5rem 0 0 0',
               }}
@@ -204,7 +204,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
                 fontWeight: 200,
                 fontSize: '0.55rem',
                 letterSpacing: '0.3em',
-                color: 'var(--onay)',
+                color: '#7a9b7a',
                 textTransform: 'uppercase',
               }}
             >
@@ -215,7 +215,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: '0.95rem',
-                color: 'var(--ink-soft)',
+                color: '#bbb',
                 lineHeight: 1.7,
                 margin: '0.5rem 0 0 0',
               }}
@@ -248,9 +248,9 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
               style={{
                 width: '100%',
                 padding: '1rem 1.2rem',
-                backgroundColor: 'var(--bg-base)',
-                border: '1px solid var(--rule)',
-                color: 'var(--ink)',
+                backgroundColor: '#0a0a0a',
+                border: '1px solid #2a2a2a',
+                color: '#f0ede8',
                 fontFamily: 'Cormorant Garamond, serif',
                 fontSize: '1rem',
                 lineHeight: 1.8,
@@ -261,7 +261,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
                 transition: 'border-color 0.25s ease',
               }}
               onFocus={(e) => { e.currentTarget.style.borderColor = TON; }}
-              onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; }}
+              onBlur={(e) => { e.currentTarget.style.borderColor = '#2a2a2a'; }}
             />
           </div>
 
@@ -273,7 +273,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
               cursor: 'pointer',
               userSelect: 'none',
               paddingTop: '0.4rem',
-              borderTop: '1px solid var(--bg-elevated)',
+              borderTop: '1px solid #1a1a1a',
             }}
           >
             <input
@@ -292,7 +292,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
                 fontFamily: 'Jost, sans-serif',
                 fontWeight: 300,
                 fontSize: '0.8rem',
-                color: icselKabul ? TON : 'var(--ink-soft)',
+                color: icselKabul ? TON : '#aaa',
                 letterSpacing: '0.05em',
               }}
             >
@@ -309,7 +309,7 @@ function KayitRozet({ durum }) {
   if (!durum || durum === 'yaziliyor') {
     return <span style={{ minHeight: '1em' }} />;
   }
-  const renk = durum === 'hata' ? 'var(--uyari)' : 'var(--accent)';
+  const renk = durum === 'hata' ? '#9b6a6a' : '#c9a96e';
   const mesaj =
     durum === 'kaydediliyor' ? 'Kaydediliyor…' :
     durum === 'kaydedildi' ? '✓ Kaydedildi' :

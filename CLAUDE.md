@@ -176,55 +176,27 @@ bosluk_genel_metin             (id, kullanici_id, karakter_id, bosluk_no,
 
 ## 🎨 Stil Rehberi (KESİNLİKLE Uy)
 
-### Tema sistemi (Tasarım Migrasyonu Sprint, 2026-05-07)
-
-**Dual mode:** dark (default, mevcut kimlik) + krem (Workbook ruhu).
-Kullanıcı `prefers-color-scheme`'a göre default alır, profilden ya da
-sağ-alt floating toggle'dan değiştirebilir. localStorage'da persist.
-
-**KESINLIKLE inline hex kullanma.** Tüm renkler `var(--*)` üzerinden:
-
-```css
-/* Yapı (mod-spesifik) */
---bg-base, --bg-elevated, --bg-deep
---ink, --ink-soft, --ink-muted
---accent (dark: altın #c9a96e / krem: bordo #5C1A2C)
---accent-hover, --accent-soft
---rule, --rule-soft, --highlight
-
-/* Semantik (mod-aware) */
---onay, --onay-soft, --onay-bg, --onay-rule
---uyari, --uyari-bg
-
-/* Sıcak zemin (Hamlet, ITC ilke kutusu) */
---accent-bg, --accent-bg-deep, --accent-rule
-
-/* Kategori paleti (VAK/Yıldız/Arketip çubukları) */
---kanal-1..5, --kanal-kahve
-
-/* Sıcaklık gradyanı (Hamlet zaman çizgisi) */
---sicak-soguk, --sicak-sicak
-```
-
-**Alpha overlay'leri:** `${TON}33` gibi alpha-suffix YASAK — CSS'te
-geçersiz. Yerine: `color-mix(in srgb, ${TON} 20%, transparent)`.
+### Renkler
+- **Arkaplan:** `#0a0a0a` (koyu siyah)
+- **Metin (ana):** `#f0ede8` (krem beyaz)
+- **Metin (ikinci):** `#aaa`, `#ccc`, `#888`
+- **Vurgu (altın):** `#c9a96e` ⭐ ana vurgu rengi
+- **Pozitif/onay (yeşil):** `#6a9b6a`
+- **Uyarı/derin (kırmızımsı):** `#9b6a6a`
+- **Kenarlıklar:** `#2a2a2a`, `#3a3a3a`
 
 ### Tipografi
-- **Self-hosted** via `next/font/google` (build time):
-  Cormorant Garamond + Jost.
-- **Başlıklar:** `Cormorant Garamond, serif` — `fontWeight: 300`, çoğu italic
+- **Başlıklar:** `Cormorant Garamond, serif` — `fontWeight: 300`, **çoğu yerde italic**
 - **Gövde + UI:** `Jost, sans-serif` — `fontWeight: 200` veya `300`
-- **Krem mode override:** weight 200→400, 300→500 (CSS attribute selector)
 - **Alt başlıklar/etiketler:** Jost, küçük (0.6rem), büyük harf, `letterSpacing: 0.3em`
 
 ### Tasarım Prensipleri
 - **MİNİMAL** — boşluk önemli, ferah olsun
-- Kart kenarlıkları ince (`1px solid var(--rule)`)
-- Hover'da kenar **var(--accent)** rengine dönsün
+- Kart kenarlıkları ince (`1px solid #2a2a2a`)
+- Hover'da kenar **altın renkten** dönsün
 - Geçişler yumuşak (`transition: all 0.3s ease`)
 - **Emoji KULLANMA** — kullanıcı talebi (yerine anlamlı etiketler: "Çıkış · Topraklanma" gibi)
 - **🔒 kilit ikonu yok** — yumuşak dil kullan ("hazır değil", "henüz açık değil")
-- **WCAG AA garantili** — krem mode tüm metin çiftleri AA, çoğu AAA
 
 ### Dil
 - **TÜRKÇE.** Kullanıcı arayüzü, hata mesajları, yorum satırları — hepsi Türkçe.
@@ -419,16 +391,6 @@ Bu ilkeler kod kararlarını etkiler. **Mutlaka oku:**
   - Modül III · Yolculuk Modu CTA (yakında durumunda)
   - Çapraz atıflar: tercih ↔ sahne, boşluk ↔ sahne, sahne → tercih + boşluk bağlantıları
   - Sadece Hamlet için yapıldı — Macbeth/Willy/Biff aynı yapıda (eski) çalışmaya devam ediyor
-- ✅ **Tasarım Migrasyonu Sprint** (Dalga 1-3, 2026-05-07)
-  - Dual mode: dark (mevcut kimlik) + krem (Workbook ruhu, bordo aksan)
-  - CSS değişken sistemi: yapı + semantik + sıcak zemin + kategori paleti
-  - Self-hosted tipografi via `next/font/google`
-  - Anti-flash inline script + ThemeProvider context
-  - Global floating tema toggle (sağ-alt) + profil sayfasında radyo seçimi
-  - 44 dosya hard-coded hex → `var(--*)` migrasyonu
-  - Alpha overlay'leri `color-mix(in srgb, X N%, transparent)` syntaxı
-  - WCAG AA garantili (krem mode tüm metin çiftleri AA, çoğu AAA)
-  - Krem mode okunabilirlik: weight 200→400, 300→500 (CSS attribute selector)
 
 ---
 
@@ -522,4 +484,4 @@ Bu öneriler ileride uygulanacak — şimdilik dokunma:
 
 ---
 
-**Son güncelleme:** 2026-05-07 (Tasarım Migrasyonu Sprint — Dalga 1-3 tamamlandı, dual mode canlı)
+**Son güncelleme:** 2026-05-06 (Modül II · Hamlet Workbook Refactor — Sprint 1-5 tamamlandı)

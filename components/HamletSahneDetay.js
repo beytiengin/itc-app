@@ -13,7 +13,7 @@ import { sahneYansimasiKaydet } from '../app/lib/hamlet-veri';
 import hamlet from '../data/karakterler/hamlet';
 import HamletSicaklikSecici from './HamletSicaklikSecici';
 
-const TON = 'var(--accent)';
+const TON = '#c9a96e';
 
 export default function HamletSahneDetay({
   sahne,
@@ -76,8 +76,8 @@ export default function HamletSahneDetay({
   return (
     <div
       style={{
-        backgroundColor: 'var(--bg-elevated)',
-        border: '1px solid var(--rule)',
+        backgroundColor: '#0f0f0f',
+        border: '1px solid #2a2a2a',
         padding: '2rem',
         display: 'flex',
         flexDirection: 'column',
@@ -95,7 +95,7 @@ export default function HamletSahneDetay({
             color: TON,
             textTransform: 'uppercase',
             padding: '0.25rem 0.7rem',
-            border: `1px solid color-mix(in srgb, ${TON} 33%, transparent)`,
+            border: `1px solid ${TON}55`,
           }}
         >
           Sahne {sahne.no}
@@ -106,7 +106,7 @@ export default function HamletSahneDetay({
             fontStyle: 'italic',
             fontWeight: 300,
             fontSize: '1.55rem',
-            color: 'var(--ink)',
+            color: '#f0ede8',
             margin: 0,
             lineHeight: 1.2,
           }}
@@ -121,7 +121,7 @@ export default function HamletSahneDetay({
           fontWeight: 200,
           fontSize: '0.6rem',
           letterSpacing: '0.3em',
-          color: 'var(--ink-muted)',
+          color: '#888',
           textTransform: 'uppercase',
           marginTop: '-0.6rem',
         }}
@@ -150,15 +150,15 @@ export default function HamletSahneDetay({
 
       {/* YÜK */}
       <Bolum etiket="Yük">
-        <p style={{ ...duzMetin, fontStyle: 'italic', color: 'var(--ink-soft)' }}>{sahne.yuk}</p>
+        <p style={{ ...duzMetin, fontStyle: 'italic', color: '#bbb' }}>{sahne.yuk}</p>
       </Bolum>
 
       {/* BAĞLANTILAR — Yazarın Çerçevesi + Senin Çerçeven */}
       {(bagliTercihler.length > 0 || bagliBosluklar.length > 0) && (
         <div
           style={{
-            border: `1px solid color-mix(in srgb, ${TON} 20%, transparent)`,
-            backgroundColor: 'var(--accent-bg-deep)',
+            border: `1px solid ${TON}33`,
+            backgroundColor: '#100c06',
             padding: '1rem 1.2rem',
             display: 'flex',
             flexDirection: 'column',
@@ -185,7 +185,7 @@ export default function HamletSahneDetay({
                   fontFamily: 'Jost, sans-serif',
                   fontWeight: 300,
                   fontSize: '0.7rem',
-                  color: 'var(--ink-muted)',
+                  color: '#888',
                   letterSpacing: '0.05em',
                 }}
               >
@@ -201,11 +201,11 @@ export default function HamletSahneDetay({
                       fontWeight: 200,
                       fontSize: '0.6rem',
                       letterSpacing: '0.2em',
-                      color: 'var(--ink-soft)',
+                      color: '#aaa',
                       textTransform: 'uppercase',
                       textDecoration: 'none',
                       padding: '0.3rem 0.7rem',
-                      border: '1px solid var(--rule)',
+                      border: '1px solid #2a2a2a',
                       transition: 'all 0.25s ease',
                     }}
                     onMouseEnter={(e) => {
@@ -213,8 +213,8 @@ export default function HamletSahneDetay({
                       e.currentTarget.style.borderColor = TON;
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.color = 'var(--ink-soft)';
-                      e.currentTarget.style.borderColor = 'var(--rule)';
+                      e.currentTarget.style.color = '#aaa';
+                      e.currentTarget.style.borderColor = '#2a2a2a';
                     }}
                   >
                     Tercih {t.no} · {t.konu}
@@ -231,7 +231,7 @@ export default function HamletSahneDetay({
                   fontFamily: 'Jost, sans-serif',
                   fontWeight: 300,
                   fontSize: '0.7rem',
-                  color: 'var(--ink-muted)',
+                  color: '#888',
                   letterSpacing: '0.05em',
                 }}
               >
@@ -247,20 +247,20 @@ export default function HamletSahneDetay({
                       fontWeight: 200,
                       fontSize: '0.6rem',
                       letterSpacing: '0.2em',
-                      color: 'var(--ink-soft)',
+                      color: '#aaa',
                       textTransform: 'uppercase',
                       textDecoration: 'none',
                       padding: '0.3rem 0.7rem',
-                      border: '1px solid var(--rule)',
+                      border: '1px solid #2a2a2a',
                       transition: 'all 0.25s ease',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.color = 'var(--onay)';
-                      e.currentTarget.style.borderColor = 'var(--onay)';
+                      e.currentTarget.style.color = '#7a9b7a';
+                      e.currentTarget.style.borderColor = '#7a9b7a';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.color = 'var(--ink-soft)';
-                      e.currentTarget.style.borderColor = 'var(--rule)';
+                      e.currentTarget.style.color = '#aaa';
+                      e.currentTarget.style.borderColor = '#2a2a2a';
                     }}
                   >
                     Boşluk {b.no} · {b.baslik}
@@ -276,7 +276,7 @@ export default function HamletSahneDetay({
       <div
         style={{
           paddingTop: '1.4rem',
-          borderTop: '1px solid var(--bg-elevated)',
+          borderTop: '1px solid #1a1a1a',
           display: 'flex',
           flexDirection: 'column',
           gap: '0.6rem',
@@ -289,7 +289,7 @@ export default function HamletSahneDetay({
               fontWeight: 200,
               fontSize: '0.55rem',
               letterSpacing: '0.3em',
-              color: 'var(--onay)',
+              color: '#7a9b7a',
               textTransform: 'uppercase',
             }}
           >
@@ -302,7 +302,7 @@ export default function HamletSahneDetay({
             fontFamily: 'Cormorant Garamond, serif',
             fontStyle: 'italic',
             fontSize: '0.95rem',
-            color: 'var(--ink-muted)',
+            color: '#888',
             lineHeight: 1.7,
             margin: 0,
           }}
@@ -317,9 +317,9 @@ export default function HamletSahneDetay({
           style={{
             width: '100%',
             padding: '1rem 1.2rem',
-            backgroundColor: 'var(--bg-base)',
-            border: '1px solid var(--rule)',
-            color: 'var(--ink)',
+            backgroundColor: '#0a0a0a',
+            border: '1px solid #2a2a2a',
+            color: '#f0ede8',
             fontFamily: 'Cormorant Garamond, serif',
             fontSize: '1rem',
             lineHeight: 1.8,
@@ -330,7 +330,7 @@ export default function HamletSahneDetay({
             transition: 'border-color 0.25s ease',
           }}
           onFocus={(e) => { e.currentTarget.style.borderColor = TON; }}
-          onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; }}
+          onBlur={(e) => { e.currentTarget.style.borderColor = '#2a2a2a'; }}
         />
       </div>
 
@@ -360,7 +360,7 @@ export default function HamletSahneDetay({
             fontFamily: 'Jost, sans-serif',
             fontWeight: 300,
             fontSize: '0.8rem',
-            color: anladi ? TON : 'var(--ink-soft)',
+            color: anladi ? TON : '#aaa',
             letterSpacing: '0.05em',
           }}
         >
@@ -372,7 +372,7 @@ export default function HamletSahneDetay({
       <div
         style={{
           paddingTop: '1.4rem',
-          borderTop: '1px solid var(--bg-elevated)',
+          borderTop: '1px solid #1a1a1a',
           display: 'flex',
           justifyContent: 'space-between',
           gap: '1rem',
@@ -382,8 +382,8 @@ export default function HamletSahneDetay({
           onClick={onOnceki}
           disabled={sahne.no <= 1}
           style={navButonStili(sahne.no <= 1)}
-          onMouseEnter={(e) => { if (sahne.no > 1) e.currentTarget.style.color = 'var(--ink)'; }}
-          onMouseLeave={(e) => { if (sahne.no > 1) e.currentTarget.style.color = 'var(--ink-soft)'; }}
+          onMouseEnter={(e) => { if (sahne.no > 1) e.currentTarget.style.color = '#f0ede8'; }}
+          onMouseLeave={(e) => { if (sahne.no > 1) e.currentTarget.style.color = '#aaa'; }}
         >
           ← Sahne {sahne.no - 1}
         </button>
@@ -391,8 +391,8 @@ export default function HamletSahneDetay({
           onClick={onSonraki}
           disabled={sahne.no >= toplamSahne}
           style={navButonStili(sahne.no >= toplamSahne)}
-          onMouseEnter={(e) => { if (sahne.no < toplamSahne) e.currentTarget.style.color = 'var(--ink)'; }}
-          onMouseLeave={(e) => { if (sahne.no < toplamSahne) e.currentTarget.style.color = 'var(--ink-soft)'; }}
+          onMouseEnter={(e) => { if (sahne.no < toplamSahne) e.currentTarget.style.color = '#f0ede8'; }}
+          onMouseLeave={(e) => { if (sahne.no < toplamSahne) e.currentTarget.style.color = '#aaa'; }}
         >
           Sahne {sahne.no + 1} →
         </button>
@@ -427,7 +427,7 @@ const duzMetin = {
   fontFamily: 'Cormorant Garamond, serif',
   fontStyle: 'italic',
   fontSize: '1rem',
-  color: 'var(--ink-soft)',
+  color: '#ddd',
   lineHeight: 1.8,
   margin: 0,
 };
@@ -435,14 +435,14 @@ const duzMetin = {
 function navButonStili(disabled) {
   return {
     background: 'none',
-    border: '1px solid var(--rule)',
+    border: '1px solid #2a2a2a',
     cursor: disabled ? 'not-allowed' : 'pointer',
     padding: '0.6rem 1.2rem',
     fontFamily: 'Jost, sans-serif',
     fontWeight: 200,
     fontSize: '0.6rem',
     letterSpacing: '0.25em',
-    color: disabled ? 'var(--ink-muted)' : 'var(--ink-soft)',
+    color: disabled ? '#444' : '#aaa',
     textTransform: 'uppercase',
     transition: 'color 0.25s ease',
   };
@@ -450,7 +450,7 @@ function navButonStili(disabled) {
 
 function KayitRozet({ durum }) {
   if (!durum || durum === 'yaziliyor') return <span style={{ minHeight: '1em' }} />;
-  const renk = durum === 'hata' ? 'var(--uyari)' : 'var(--accent)';
+  const renk = durum === 'hata' ? '#9b6a6a' : '#c9a96e';
   const mesaj =
     durum === 'kaydediliyor' ? 'Kaydediliyor…' :
     durum === 'kaydedildi' ? '✓ Kaydedildi' :

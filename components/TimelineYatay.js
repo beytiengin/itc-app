@@ -9,7 +9,7 @@
 
 import { useEffect, useRef } from 'react';
 
-const TON = 'var(--accent)';
+const TON = '#c9a96e';
 
 export default function TimelineYatay({ sahneler, seciliSahneId, onSahneSec }) {
   const containerRef = useRef(null);
@@ -65,7 +65,7 @@ export default function TimelineYatay({ sahneler, seciliSahneId, onSahneSec }) {
             left: '40px',
             right: '40px',
             height: '1px',
-            backgroundColor: 'var(--rule)',
+            backgroundColor: '#2a2a2a',
             zIndex: 0,
           }}
         />
@@ -90,7 +90,7 @@ export default function TimelineYatay({ sahneler, seciliSahneId, onSahneSec }) {
                 border: 'none',
                 cursor: 'pointer',
                 padding: '0.3rem 0.2rem',
-                color: 'var(--ink)',
+                color: '#f0ede8',
                 fontFamily: 'inherit',
                 position: 'relative',
                 zIndex: 1,
@@ -105,7 +105,7 @@ export default function TimelineYatay({ sahneler, seciliSahneId, onSahneSec }) {
                   fontWeight: 200,
                   fontSize: '0.55rem',
                   letterSpacing: '0.15em',
-                  color: aktif ? TON : 'var(--ink-muted)',
+                  color: aktif ? TON : '#666',
                   textTransform: 'uppercase',
                   whiteSpace: 'nowrap',
                   overflow: 'hidden',
@@ -120,11 +120,11 @@ export default function TimelineYatay({ sahneler, seciliSahneId, onSahneSec }) {
                 style={{
                   width: aktif ? (kritik ? '20px' : '18px') : (kritik ? '14px' : '12px'),
                   height: aktif ? (kritik ? '20px' : '18px') : (kritik ? '14px' : '12px'),
-                  backgroundColor: 'var(--bg-base)',
+                  backgroundColor: '#0a0a0a',
                   border: `2px solid ${TON}`,
                   borderRadius: kritik ? '2px' : '50%',
                   transform: kritik ? 'rotate(45deg)' : 'none',
-                  boxShadow: aktif ? `0 0 12px color-mix(in srgb, ${TON} 53%, transparent)` : 'none',
+                  boxShadow: aktif ? `0 0 12px ${TON}88` : 'none',
                   transition: 'all 0.25s ease',
                 }}
               />
@@ -134,7 +134,7 @@ export default function TimelineYatay({ sahneler, seciliSahneId, onSahneSec }) {
                   fontFamily: 'Cormorant Garamond, serif',
                   fontStyle: 'italic',
                   fontSize: '0.7rem',
-                  color: aktif ? 'var(--ink)' : 'var(--ink-muted)',
+                  color: aktif ? '#f0ede8' : '#888',
                   lineHeight: 1.3,
                   whiteSpace: 'normal',
                   textAlign: 'center',

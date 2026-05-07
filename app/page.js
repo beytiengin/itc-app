@@ -272,7 +272,7 @@ export default function AnaSayfa() {
           marginBottom: '2rem',
           textTransform: 'uppercase',
         }}>
-          ITC Method · 2005'ten bu yana
+          ITC Yöntemi · 2005'ten bu yana
         </div>
 
         <h1 style={{
@@ -443,7 +443,7 @@ export default function AnaSayfa() {
                 Karakterin pre-senaryo anından post-senaryoya kadar tüm yaşamını sıralı tek seansta
                 AI sesli yönlendirmeyle dolaşan bir modül. Antrenmandan sahneye çıkış.
               </p>
-              <div style={modulMetaStili}>Yakında</div>
+              <div style={modulMetaStili}>~110 dakika · AI Dış Ses · Yakında</div>
             </div>
 
           </div>

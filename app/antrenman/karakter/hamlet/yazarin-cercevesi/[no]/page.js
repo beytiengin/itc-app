@@ -13,7 +13,7 @@ import { tercihleriGetir } from '../../../../../lib/hamlet-veri';
 import HamletAltSayfaHeader from '../../../../../../components/HamletAltSayfaHeader';
 import HamletTercihSecim from '../../../../../../components/HamletTercihSecim';
 
-const TON = 'var(--accent)';
+const TON = '#c9a96e';
 
 export default function TercihDetaySayfasi({ params }) {
   const { no } = use(params);
@@ -51,7 +51,7 @@ export default function TercihDetaySayfasi({ params }) {
             fontWeight: 200,
             fontSize: '0.7rem',
             letterSpacing: '0.3em',
-            color: 'var(--ink-muted)',
+            color: '#888',
             textTransform: 'uppercase',
           }}
         >
@@ -68,8 +68,8 @@ export default function TercihDetaySayfasi({ params }) {
     <main
       style={{
         minHeight: '100vh',
-        backgroundColor: 'var(--bg-base)',
-        color: 'var(--ink)',
+        backgroundColor: '#0a0a0a',
+        color: '#f0ede8',
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -97,14 +97,14 @@ export default function TercihDetaySayfasi({ params }) {
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.3em',
-              color: 'var(--ink-muted)',
+              color: '#888',
               textTransform: 'uppercase',
               textDecoration: 'none',
               alignSelf: 'flex-start',
               transition: 'color 0.25s ease',
             }}
             onMouseEnter={(e) => { e.currentTarget.style.color = TON; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = '#888'; }}
           >
             ← Yazarın Çerçevesi
           </a>
@@ -128,7 +128,7 @@ export default function TercihDetaySayfasi({ params }) {
                 fontWeight: 200,
                 fontSize: '0.55rem',
                 letterSpacing: '0.25em',
-                color: 'var(--ink-muted)',
+                color: '#666',
                 textTransform: 'uppercase',
               }}
             >
@@ -142,7 +142,7 @@ export default function TercihDetaySayfasi({ params }) {
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: 'clamp(1.8rem, 5vw, 2.6rem)',
-              color: 'var(--ink)',
+              color: '#f0ede8',
               margin: 0,
               lineHeight: 1.2,
             }}
@@ -162,7 +162,7 @@ export default function TercihDetaySayfasi({ params }) {
         <div
           style={{
             paddingTop: '1.5rem',
-            borderTop: '1px solid var(--rule)',
+            borderTop: '1px solid #2a2a2a',
             display: 'flex',
             justifyContent: 'space-between',
             gap: '1rem',
@@ -172,8 +172,8 @@ export default function TercihDetaySayfasi({ params }) {
             <a
               href={`/antrenman/karakter/hamlet/yazarin-cercevesi/${oncekiNo}`}
               style={navButonStili()}
-              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#f0ede8'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#aaa'; }}
             >
               ← Tercih {oncekiNo}
             </a>
@@ -183,8 +183,8 @@ export default function TercihDetaySayfasi({ params }) {
             <a
               href={`/antrenman/karakter/hamlet/yazarin-cercevesi/${sonrakiNo}`}
               style={navButonStili()}
-              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#f0ede8'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#aaa'; }}
             >
               Tercih {sonrakiNo} →
             </a>
@@ -209,14 +209,14 @@ export default function TercihDetaySayfasi({ params }) {
 function navButonStili() {
   return {
     background: 'none',
-    border: '1px solid var(--rule)',
+    border: '1px solid #2a2a2a',
     cursor: 'pointer',
     padding: '0.7rem 1.3rem',
     fontFamily: 'Jost, sans-serif',
     fontWeight: 200,
     fontSize: '0.6rem',
     letterSpacing: '0.25em',
-    color: 'var(--ink-soft)',
+    color: '#aaa',
     textTransform: 'uppercase',
     textDecoration: 'none',
     transition: 'color 0.25s ease',
@@ -225,8 +225,8 @@ function navButonStili() {
 
 const ekranStili = {
   minHeight: '100vh',
-  backgroundColor: 'var(--bg-base)',
-  color: 'var(--ink)',
+  backgroundColor: '#0a0a0a',
+  color: '#f0ede8',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

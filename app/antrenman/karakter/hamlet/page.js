@@ -19,7 +19,7 @@ import hamlet from '../../../../data/karakterler/hamlet';
 import DogrularKarti from '../../../../components/DogrularKarti';
 import HamletAltSayfaHeader from '../../../../components/HamletAltSayfaHeader';
 
-const TON = 'var(--accent)';
+const TON = '#c9a96e';
 
 export default function HamletSayfasi() {
   const router = useRouter();
@@ -43,8 +43,8 @@ export default function HamletSayfasi() {
     <main
       style={{
         minHeight: '100vh',
-        backgroundColor: 'var(--bg-base)',
-        color: 'var(--ink)',
+        backgroundColor: '#0a0a0a',
+        color: '#f0ede8',
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -80,7 +80,7 @@ export default function HamletSayfasi() {
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: 'clamp(2.2rem, 6vw, 3.2rem)',
-              color: 'var(--ink)',
+              color: '#f0ede8',
               margin: 0,
               lineHeight: 1.1,
               letterSpacing: '0.02em',
@@ -93,7 +93,7 @@ export default function HamletSayfasi() {
               fontFamily: 'Jost, sans-serif',
               fontWeight: 200,
               fontSize: '0.8rem',
-              color: 'var(--ink-muted)',
+              color: '#888',
               letterSpacing: '0.12em',
             }}
           >
@@ -105,7 +105,7 @@ export default function HamletSayfasi() {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: '1.05rem',
-                color: 'var(--ink-soft)',
+                color: '#bbb',
                 maxWidth: '700px',
                 lineHeight: 1.7,
                 margin: '0.8rem 0 0 0',
@@ -154,7 +154,7 @@ export default function HamletSayfasi() {
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: '1.4rem',
-              color: 'var(--ink)',
+              color: '#f0ede8',
             }}
           >
             Değiştirilemez Doğrular
@@ -195,7 +195,7 @@ export default function HamletSayfasi() {
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: '1.4rem',
-              color: 'var(--ink)',
+              color: '#f0ede8',
             }}
           >
             Karakter koordinatları
@@ -270,23 +270,23 @@ function BolumKartlari() {
           key={k.yol}
           href={k.yol}
           style={{
-            border: '1px solid var(--rule)',
+            border: '1px solid #2a2a2a',
             padding: '1.6rem 1.8rem',
-            backgroundColor: 'var(--bg-elevated)',
+            backgroundColor: '#0d0d0d',
             display: 'flex',
             flexDirection: 'column',
             gap: '0.6rem',
             textDecoration: 'none',
-            color: 'var(--ink)',
+            color: '#f0ede8',
             transition: 'all 0.25s ease',
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.borderColor = TON;
-            e.currentTarget.style.backgroundColor = 'var(--accent-bg-deep)';
+            e.currentTarget.style.backgroundColor = '#100c06';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = 'var(--rule)';
-            e.currentTarget.style.backgroundColor = 'var(--bg-elevated)';
+            e.currentTarget.style.borderColor = '#2a2a2a';
+            e.currentTarget.style.backgroundColor = '#0d0d0d';
           }}
         >
           <span
@@ -307,7 +307,7 @@ function BolumKartlari() {
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: '1.5rem',
-              color: 'var(--ink)',
+              color: '#f0ede8',
               lineHeight: 1.2,
             }}
           >
@@ -318,7 +318,7 @@ function BolumKartlari() {
               fontFamily: 'Cormorant Garamond, serif',
               fontStyle: 'italic',
               fontSize: '0.95rem',
-              color: 'var(--ink-muted)',
+              color: '#888',
             }}
           >
             {k.altyazi}
@@ -328,7 +328,7 @@ function BolumKartlari() {
               fontFamily: 'Jost, sans-serif',
               fontWeight: 300,
               fontSize: '0.82rem',
-              color: 'var(--ink-soft)',
+              color: '#bbb',
               lineHeight: 1.7,
               margin: '0.4rem 0 0 0',
             }}
@@ -360,8 +360,8 @@ function ModulIIICta() {
   return (
     <div
       style={{
-        border: `1px solid color-mix(in srgb, ${TON} 20%, transparent)`,
-        backgroundColor: 'var(--accent-bg-deep)',
+        border: `1px solid ${TON}33`,
+        backgroundColor: '#0d0a05',
         padding: '2.2rem 2.4rem',
         display: 'flex',
         flexDirection: 'column',
@@ -387,7 +387,7 @@ function ModulIIICta() {
           fontStyle: 'italic',
           fontWeight: 300,
           fontSize: 'clamp(1.6rem, 4vw, 2.2rem)',
-          color: 'var(--ink)',
+          color: '#f0ede8',
           margin: 0,
           lineHeight: 1.2,
         }}
@@ -400,7 +400,7 @@ function ModulIIICta() {
           fontFamily: 'Cormorant Garamond, serif',
           fontStyle: 'italic',
           fontSize: '1.05rem',
-          color: 'var(--ink-soft)',
+          color: '#ccc',
           lineHeight: 1.8,
           margin: 0,
           maxWidth: '700px',
@@ -427,10 +427,10 @@ function ModulIIICta() {
             fontWeight: 200,
             fontSize: '0.65rem',
             letterSpacing: '0.3em',
-            color: 'var(--ink-muted)',
+            color: '#888',
             textTransform: 'uppercase',
             padding: '0.4rem 0.9rem',
-            border: '1px solid var(--rule)',
+            border: '1px solid #3a3a3a',
           }}
         >
           Yakında
@@ -440,7 +440,7 @@ function ModulIIICta() {
             fontFamily: 'Cormorant Garamond, serif',
             fontStyle: 'italic',
             fontSize: '0.9rem',
-            color: 'var(--ink-muted)',
+            color: '#888',
           }}
         >
           Modül II tamamlandığında açılacak.

@@ -8,7 +8,7 @@ const macbeth = {
   ad: 'Macbeth',
   oyun: 'Macbeth',
   yazar: 'William Shakespeare',
-  donem: '1606',
+  donem: "1600'ler",
   tur: 'Trajedi',
   tip: 'ENTJ',
   ozet:

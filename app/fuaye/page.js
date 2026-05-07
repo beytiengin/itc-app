@@ -2,8 +2,8 @@ export default function Fuaye() {
   return (
     <main style={{
       minHeight: '100vh',
-      backgroundColor: 'var(--bg-base)',
-      color: 'var(--ink)',
+      backgroundColor: '#0a0a0a',
+      color: '#f0ede8',
       display: 'flex',
       flexDirection: 'column',
       fontFamily: 'Jost, sans-serif',
@@ -13,13 +13,13 @@ export default function Fuaye() {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '2rem 3rem',
-        borderBottom: '1px solid var(--bg-elevated)',
+        borderBottom: '1px solid #1a1a1a',
       }}>
         <span style={{
           fontWeight: 200,
           fontSize: '0.65rem',
           letterSpacing: '0.3em',
-          color: 'var(--accent)',
+          color: '#c9a96e',
           textTransform: 'uppercase',
         }}>
           Actor's Gym
@@ -28,7 +28,7 @@ export default function Fuaye() {
           fontWeight: 200,
           fontSize: '0.6rem',
           letterSpacing: '0.25em',
-          color: 'var(--ink-muted)',
+          color: '#999',
           textTransform: 'uppercase',
           textDecoration: 'none',
         }}>
@@ -49,7 +49,7 @@ export default function Fuaye() {
           fontWeight: 200,
           fontSize: '0.6rem',
           letterSpacing: '0.4em',
-          color: 'var(--accent)',
+          color: '#c9a96e',
           textTransform: 'uppercase',
         }}>
           03 — Zihinsel Fuaye
@@ -58,7 +58,7 @@ export default function Fuaye() {
           fontFamily: 'Cormorant Garamond, serif',
           fontWeight: 300,
           fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
-          color: 'var(--ink)',
+          color: '#f0ede8',
           margin: 0,
         }}>
           Regülasyon & İmgeleme
@@ -66,7 +66,7 @@ export default function Fuaye() {
         <p style={{
           fontWeight: 200,
           fontSize: '0.85rem',
-          color: 'var(--ink-soft)',
+          color: '#bbb',
           maxWidth: '380px',
           lineHeight: 1.8,
           margin: 0,
@@ -77,8 +77,8 @@ export default function Fuaye() {
         <span style={{
           marginTop: '1rem',
           padding: '1rem 2.5rem',
-          border: '1px solid var(--rule)',
-          color: 'var(--ink-muted)',
+          border: '1px solid #2a2a2a',
+          color: '#999',
           fontSize: '0.7rem',
           letterSpacing: '0.2em',
           textTransform: 'uppercase',

@@ -10,7 +10,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { tercihKaydet } from '../app/lib/hamlet-veri';
 
-const TON = 'var(--accent)';
+const TON = '#c9a96e';
 
 export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
   const [secimler, setSecimler] = useState(baslangic?.secimler || []);
@@ -73,7 +73,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
             <div
               key={i}
               style={{
-                borderLeft: `1px solid color-mix(in srgb, ${TON} 33%, transparent)`,
+                borderLeft: `1px solid ${TON}55`,
                 padding: '0.4rem 0 0.4rem 1.2rem',
                 display: 'flex',
                 flexDirection: 'column',
@@ -87,7 +87,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
                     fontWeight: 200,
                     fontSize: '0.6rem',
                     letterSpacing: '0.25em',
-                    color: 'var(--ink-muted)',
+                    color: '#888',
                     textTransform: 'uppercase',
                   }}
                 >
@@ -105,7 +105,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
                       textTransform: 'uppercase',
                       textDecoration: 'none',
                       padding: '0.15rem 0.5rem',
-                      border: `1px solid color-mix(in srgb, ${TON} 20%, transparent)`,
+                      border: `1px solid ${TON}33`,
                       transition: 'all 0.25s ease',
                     }}
                     onMouseEnter={(e) => { e.currentTarget.style.borderColor = TON; }}
@@ -120,7 +120,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
                   fontFamily: 'Cormorant Garamond, serif',
                   fontStyle: 'italic',
                   fontSize: '1rem',
-                  color: 'var(--ink-soft)',
+                  color: '#ddd',
                   lineHeight: 1.7,
                   margin: 0,
                 }}
@@ -132,7 +132,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
         </div>
 
         {tercih.sentez && (
-          <div style={{ paddingTop: '0.8rem', borderTop: '1px solid var(--bg-elevated)' }}>
+          <div style={{ paddingTop: '0.8rem', borderTop: '1px solid #1a1a1a' }}>
             <p
               style={{
                 fontFamily: 'Cormorant Garamond, serif',
@@ -173,12 +173,12 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
               fontFamily: 'Jost, sans-serif',
               fontWeight: 200,
               fontSize: '0.78rem',
-              color: 'var(--ink-muted)',
+              color: '#888',
               fontStyle: 'italic',
               margin: 0,
               padding: '0.7rem 1rem',
-              backgroundColor: 'var(--accent-bg)',
-              borderLeft: `2px solid color-mix(in srgb, ${TON} 33%, transparent)`,
+              backgroundColor: '#15110a',
+              borderLeft: `2px solid ${TON}55`,
             }}
           >
             {tercih.cokluSecimNotu}
@@ -195,18 +195,18 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
                 style={{
                   textAlign: 'left',
                   cursor: 'pointer',
-                  border: `1px solid ${aktif ? TON : 'var(--rule)'}`,
-                  backgroundColor: aktif ? 'var(--accent-bg-deep)' : 'transparent',
+                  border: `1px solid ${aktif ? TON : '#2a2a2a'}`,
+                  backgroundColor: aktif ? '#100c06' : 'transparent',
                   padding: '1.1rem 1.4rem',
                   display: 'flex',
                   alignItems: 'flex-start',
                   gap: '1rem',
-                  color: 'var(--ink)',
+                  color: '#f0ede8',
                   fontFamily: 'inherit',
                   transition: 'all 0.25s ease',
                 }}
                 onMouseEnter={(e) => { if (!aktif) e.currentTarget.style.borderColor = TON + '88'; }}
-                onMouseLeave={(e) => { if (!aktif) e.currentTarget.style.borderColor = 'var(--rule)'; }}
+                onMouseLeave={(e) => { if (!aktif) e.currentTarget.style.borderColor = '#2a2a2a'; }}
               >
                 <span
                   style={{
@@ -214,9 +214,9 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
                     height: '24px',
                     minWidth: '24px',
                     borderRadius: tercih.cokluSecim ? '3px' : '50%',
-                    border: `1.5px solid ${aktif ? TON : 'var(--ink-muted)'}`,
+                    border: `1.5px solid ${aktif ? TON : '#444'}`,
                     backgroundColor: aktif ? TON : 'transparent',
-                    color: aktif ? 'var(--bg-base)' : 'var(--ink-muted)',
+                    color: aktif ? '#0a0a0a' : '#888',
                     fontFamily: 'Jost, sans-serif',
                     fontWeight: 400,
                     fontSize: '0.7rem',
@@ -235,7 +235,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
                       fontFamily: 'Cormorant Garamond, serif',
                       fontStyle: 'italic',
                       fontSize: '1.05rem',
-                      color: aktif ? 'var(--ink)' : 'var(--ink-soft)',
+                      color: aktif ? '#f0ede8' : '#ddd',
                       lineHeight: 1.3,
                     }}
                   >
@@ -246,7 +246,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
                       fontFamily: 'Jost, sans-serif',
                       fontWeight: 300,
                       fontSize: '0.85rem',
-                      color: aktif ? 'var(--ink-soft)' : 'var(--ink-soft)',
+                      color: aktif ? '#ccc' : '#aaa',
                       lineHeight: 1.7,
                       margin: 0,
                     }}
@@ -268,7 +268,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
             fontWeight: 200,
             fontSize: '0.55rem',
             letterSpacing: '0.35em',
-            color: 'var(--onay)',
+            color: '#7a9b7a',
             textTransform: 'uppercase',
           }}
         >
@@ -279,7 +279,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
             fontFamily: 'Cormorant Garamond, serif',
             fontStyle: 'italic',
             fontSize: '0.95rem',
-            color: 'var(--ink-muted)',
+            color: '#888',
             lineHeight: 1.7,
             margin: 0,
           }}
@@ -294,9 +294,9 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
           style={{
             width: '100%',
             padding: '1rem 1.2rem',
-            backgroundColor: 'var(--bg-base)',
-            border: '1px solid var(--rule)',
-            color: 'var(--ink)',
+            backgroundColor: '#0a0a0a',
+            border: '1px solid #2a2a2a',
+            color: '#f0ede8',
             fontFamily: 'Cormorant Garamond, serif',
             fontSize: '1rem',
             lineHeight: 1.8,
@@ -307,7 +307,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
             transition: 'border-color 0.25s ease',
           }}
           onFocus={(e) => { e.currentTarget.style.borderColor = TON; }}
-          onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; }}
+          onBlur={(e) => { e.currentTarget.style.borderColor = '#2a2a2a'; }}
         />
       </section>
 
@@ -317,11 +317,11 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
             fontFamily: 'Cormorant Garamond, serif',
             fontStyle: 'italic',
             fontSize: '0.95rem',
-            color: 'var(--ink-muted)',
+            color: '#888',
             lineHeight: 1.7,
             margin: 0,
             padding: '1rem 0',
-            borderTop: '1px solid var(--bg-elevated)',
+            borderTop: '1px solid #1a1a1a',
           }}
         >
           {tercih.kapanis}
@@ -333,7 +333,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
 
 function KayitRozet({ durum }) {
   if (!durum || durum === 'yaziliyor') return <span style={{ minHeight: '1em' }} />;
-  const renk = durum === 'hata' ? 'var(--uyari)' : 'var(--accent)';
+  const renk = durum === 'hata' ? '#9b6a6a' : '#c9a96e';
   const mesaj =
     durum === 'kaydediliyor' ? 'Kaydediliyor…' :
     durum === 'kaydedildi' ? '✓ Kaydedildi' :

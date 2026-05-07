@@ -15,7 +15,7 @@ import HamletPerdeBandi from '../../../../../components/HamletPerdeBandi';
 import HamletSahneDetay from '../../../../../components/HamletSahneDetay';
 import HamletBolumGecisi from '../../../../../components/HamletBolumGecisi';
 
-const TON = 'var(--accent)';
+const TON = '#c9a96e';
 
 export default function TimelineSayfasi() {
   const [yansimalar, setYansimalar] = useState({});
@@ -85,7 +85,7 @@ export default function TimelineSayfasi() {
             fontWeight: 200,
             fontSize: '0.7rem',
             letterSpacing: '0.3em',
-            color: 'var(--ink-muted)',
+            color: '#888',
             textTransform: 'uppercase',
           }}
         >
@@ -99,8 +99,8 @@ export default function TimelineSayfasi() {
     <main
       style={{
         minHeight: '100vh',
-        backgroundColor: 'var(--bg-base)',
-        color: 'var(--ink)',
+        backgroundColor: '#0a0a0a',
+        color: '#f0ede8',
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -128,14 +128,14 @@ export default function TimelineSayfasi() {
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.3em',
-              color: 'var(--ink-muted)',
+              color: '#888',
               textTransform: 'uppercase',
               textDecoration: 'none',
               alignSelf: 'flex-start',
               transition: 'color 0.25s ease',
             }}
             onMouseEnter={(e) => { e.currentTarget.style.color = TON; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = '#888'; }}
           >
             ← Hamlet
           </a>
@@ -159,7 +159,7 @@ export default function TimelineSayfasi() {
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: 'clamp(2.2rem, 6vw, 3.4rem)',
-              color: 'var(--ink)',
+              color: '#f0ede8',
               margin: 0,
               lineHeight: 1.1,
             }}
@@ -171,7 +171,7 @@ export default function TimelineSayfasi() {
               fontFamily: 'Cormorant Garamond, serif',
               fontStyle: 'italic',
               fontSize: '1.1rem',
-              color: 'var(--ink-muted)',
+              color: '#888',
               margin: 0,
             }}
           >
@@ -189,7 +189,7 @@ export default function TimelineSayfasi() {
           style={{
             borderLeft: `2px solid ${TON}`,
             padding: '0.8rem 1.4rem',
-            backgroundColor: 'var(--accent-bg)',
+            backgroundColor: '#15110a',
           }}
         >
           <p
@@ -209,9 +209,9 @@ export default function TimelineSayfasi() {
         {/* Sayfa anatomisi */}
         <div
           style={{
-            border: '1px solid var(--rule)',
+            border: '1px solid #2a2a2a',
             padding: '1.4rem 1.7rem',
-            backgroundColor: 'var(--bg-elevated)',
+            backgroundColor: '#0d0d0d',
             display: 'flex',
             flexDirection: 'column',
             gap: '0.9rem',
@@ -282,7 +282,7 @@ export default function TimelineSayfasi() {
                 left: '40px',
                 right: '40px',
                 height: '1px',
-                backgroundColor: 'var(--rule)',
+                backgroundColor: '#2a2a2a',
                 zIndex: 0,
               }}
             />
@@ -344,7 +344,7 @@ export default function TimelineSayfasi() {
         ) : (
           <div
             style={{
-              border: '1px dashed var(--rule)',
+              border: '1px dashed #2a2a2a',
               padding: '3rem 2rem',
               textAlign: 'center',
             }}
@@ -354,7 +354,7 @@ export default function TimelineSayfasi() {
                 fontFamily: 'Cormorant Garamond, serif',
                 fontStyle: 'italic',
                 fontSize: '1rem',
-                color: 'var(--ink-muted)',
+                color: '#666',
               }}
             >
               Bir sahneye tıklayarak detaylarını gör
@@ -379,8 +379,8 @@ export default function TimelineSayfasi() {
             flexDirection: 'column',
             gap: '1.4rem',
             padding: '2.4rem 2rem',
-            border: `1px solid color-mix(in srgb, ${TON} 20%, transparent)`,
-            backgroundColor: 'var(--accent-bg-deep)',
+            border: `1px solid ${TON}33`,
+            backgroundColor: '#100c06',
             textAlign: 'center',
           }}
         >
@@ -401,7 +401,7 @@ export default function TimelineSayfasi() {
               fontFamily: 'Cormorant Garamond, serif',
               fontStyle: 'italic',
               fontSize: '1.15rem',
-              color: 'var(--ink-soft)',
+              color: '#ddd',
               lineHeight: 1.7,
               margin: 0,
               maxWidth: '600px',
@@ -453,7 +453,7 @@ function AnatomiSatiri({ etiket, children }) {
           fontFamily: 'Cormorant Garamond, serif',
           fontStyle: 'italic',
           fontSize: '0.95rem',
-          color: 'var(--ink-soft)',
+          color: '#ccc',
           lineHeight: 1.7,
           margin: 0,
         }}
@@ -468,7 +468,7 @@ function Rozet({ etiket, deger }) {
   return (
     <div
       style={{
-        border: '1px solid var(--rule)',
+        border: '1px solid #2a2a2a',
         padding: '0.7rem 1.2rem',
         display: 'flex',
         flexDirection: 'column',
@@ -482,7 +482,7 @@ function Rozet({ etiket, deger }) {
           fontWeight: 200,
           fontSize: '0.55rem',
           letterSpacing: '0.3em',
-          color: 'var(--ink-muted)',
+          color: '#888',
           textTransform: 'uppercase',
         }}
       >
@@ -506,15 +506,15 @@ const paragrafStili = {
   fontFamily: 'Cormorant Garamond, serif',
   fontStyle: 'italic',
   fontSize: '1.05rem',
-  color: 'var(--ink-soft)',
+  color: '#ddd',
   lineHeight: 1.8,
   margin: 0,
 };
 
 const ekranStili = {
   minHeight: '100vh',
-  backgroundColor: 'var(--bg-base)',
-  color: 'var(--ink)',
+  backgroundColor: '#0a0a0a',
+  color: '#f0ede8',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -536,7 +536,7 @@ function KarakterHeader() {
     fontWeight: 200,
     fontSize: '0.6rem',
     letterSpacing: '0.25em',
-    color: 'var(--ink-soft)',
+    color: '#aaa',
     textTransform: 'uppercase',
     textDecoration: 'none',
     transition: 'color 0.25s ease',
@@ -549,7 +549,7 @@ function KarakterHeader() {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '1.6rem 2rem',
-        borderBottom: '1px solid var(--rule)',
+        borderBottom: '1px solid #2a2a2a',
         flexWrap: 'wrap',
         gap: '1rem',
       }}
@@ -561,7 +561,7 @@ function KarakterHeader() {
           fontWeight: 200,
           fontSize: '0.65rem',
           letterSpacing: '0.3em',
-          color: 'var(--accent)',
+          color: '#c9a96e',
           textTransform: 'uppercase',
           textDecoration: 'none',
         }}
@@ -570,18 +570,18 @@ function KarakterHeader() {
       </a>
       <nav style={{ display: 'flex', gap: '1.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
         <a href="/kalibrasyon" style={navLink}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
+          onMouseEnter={(e) => { e.currentTarget.style.color = '#c9a96e'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = '#aaa'; }}>
           Kalibrasyon
         </a>
         <a href="/kulis" style={navLink}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
+          onMouseEnter={(e) => { e.currentTarget.style.color = '#c9a96e'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = '#aaa'; }}>
           Kulis
         </a>
-        <a href="/antrenman/karakter" style={{ ...navLink, color: 'var(--ink)' }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}>
+        <a href="/antrenman/karakter" style={{ ...navLink, color: '#f0ede8' }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = '#c9a96e'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = '#f0ede8'; }}>
           ← Karakterler
         </a>
         <button
@@ -592,10 +592,10 @@ function KarakterHeader() {
             cursor: 'pointer',
             padding: 0,
             ...navLink,
-            color: 'var(--ink-muted)',
+            color: '#666',
           }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = '#f0ede8'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = '#666'; }}
         >
           Çıkış
         </button>

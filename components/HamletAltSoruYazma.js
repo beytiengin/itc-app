@@ -8,7 +8,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { altSoruYansimasiKaydet } from '../app/lib/hamlet-veri';
 
-const TON = 'var(--onay)';
+const TON = '#7a9b7a';
 
 export default function HamletAltSoruYazma({
   boslukNo,
@@ -47,14 +47,14 @@ export default function HamletAltSoruYazma({
   }
 
   const yazildi = metin.length > 0;
-  const borderColor = acildi ? TON : (yazildi ? 'var(--onay-rule)' : 'var(--rule)');
+  const borderColor = acildi ? TON : (yazildi ? '#3a4a3a' : '#2a2a2a');
 
   return (
     <div
       style={{
         border: `1px solid ${borderColor}`,
         padding: '1.4rem 1.6rem',
-        backgroundColor: 'var(--bg-elevated)',
+        backgroundColor: '#0d0d0d',
         display: 'flex',
         flexDirection: 'column',
         gap: '1rem',
@@ -68,7 +68,7 @@ export default function HamletAltSoruYazma({
             fontStyle: 'italic',
             fontWeight: 300,
             fontSize: '1.5rem',
-            color: acildi ? TON : (yazildi ? 'var(--ink-soft)' : 'var(--ink-muted)'),
+            color: acildi ? TON : (yazildi ? '#aaa' : '#666'),
             lineHeight: 1,
             minWidth: '24px',
           }}
@@ -80,7 +80,7 @@ export default function HamletAltSoruYazma({
             fontFamily: 'Cormorant Garamond, serif',
             fontStyle: 'italic',
             fontSize: '1.1rem',
-            color: 'var(--ink)',
+            color: '#f0ede8',
             lineHeight: 1.3,
           }}
         >
@@ -96,7 +96,7 @@ export default function HamletAltSoruYazma({
               color: TON,
               textTransform: 'uppercase',
               padding: '0.15rem 0.55rem',
-              border: `1px solid color-mix(in srgb, ${TON} 33%, transparent)`,
+              border: `1px solid ${TON}55`,
               marginLeft: 'auto',
             }}
           >
@@ -110,7 +110,7 @@ export default function HamletAltSoruYazma({
           fontFamily: 'Cormorant Garamond, serif',
           fontStyle: 'italic',
           fontSize: '0.95rem',
-          color: 'var(--ink-soft)',
+          color: '#bbb',
           lineHeight: 1.7,
           margin: 0,
         }}
@@ -139,7 +139,7 @@ export default function HamletAltSoruYazma({
             fontFamily: 'Cormorant Garamond, serif',
             fontStyle: 'italic',
             fontSize: '0.85rem',
-            color: 'var(--uyari)',
+            color: '#9b6a6a',
             margin: 0,
             opacity: 0.85,
           }}
@@ -154,9 +154,9 @@ export default function HamletAltSoruYazma({
           style={{
             width: '100%',
             padding: '0.9rem 1.1rem',
-            backgroundColor: 'var(--bg-base)',
-            border: '1px solid var(--rule)',
-            color: 'var(--ink)',
+            backgroundColor: '#0a0a0a',
+            border: '1px solid #2a2a2a',
+            color: '#f0ede8',
             fontFamily: 'Cormorant Garamond, serif',
             fontSize: '0.95rem',
             lineHeight: 1.8,
@@ -167,7 +167,7 @@ export default function HamletAltSoruYazma({
             transition: 'border-color 0.25s ease',
           }}
           onFocus={(e) => { e.currentTarget.style.borderColor = TON; }}
-          onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; }}
+          onBlur={(e) => { e.currentTarget.style.borderColor = '#2a2a2a'; }}
         />
       </div>
 
@@ -196,7 +196,7 @@ export default function HamletAltSoruYazma({
             fontFamily: 'Jost, sans-serif',
             fontWeight: 300,
             fontSize: '0.78rem',
-            color: acildi ? TON : 'var(--ink-soft)',
+            color: acildi ? TON : '#aaa',
             letterSpacing: '0.05em',
           }}
         >
@@ -209,7 +209,7 @@ export default function HamletAltSoruYazma({
 
 function KayitRozet({ durum }) {
   if (!durum || durum === 'yaziliyor') return <span style={{ minHeight: '1em' }} />;
-  const renk = durum === 'hata' ? 'var(--uyari)' : 'var(--onay)';
+  const renk = durum === 'hata' ? '#9b6a6a' : '#7a9b7a';
   const mesaj =
     durum === 'kaydediliyor' ? 'Kaydediliyor…' :
     durum === 'kaydedildi' ? '✓ Kaydedildi' :

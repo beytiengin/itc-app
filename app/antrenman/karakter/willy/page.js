@@ -49,26 +49,26 @@ export default function WillySayfasi() {
 
   if (yukleniyor) {
     return (
-      <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.7rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>Hazırlanıyor…</span>
+      <main style={{ minHeight: '100vh', backgroundColor: '#0a0a0a', color: '#f0ede8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.7rem', letterSpacing: '0.3em', color: '#888', textTransform: 'uppercase' }}>Hazırlanıyor…</span>
       </main>
     );
   }
 
   return (
-    <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', flexDirection: 'column' }}>
+    <main style={{ minHeight: '100vh', backgroundColor: '#0a0a0a', color: '#f0ede8', display: 'flex', flexDirection: 'column' }}>
       <KarakterHeader />
 
       <section style={{ padding: '3rem 2rem 2rem', maxWidth: '1100px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(2.2rem, 6vw, 3.2rem)', color: 'var(--ink)', margin: 0, lineHeight: 1.1, letterSpacing: '0.02em' }}>
+          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(2.2rem, 6vw, 3.2rem)', color: '#f0ede8', margin: 0, lineHeight: 1.1, letterSpacing: '0.02em' }}>
             {willy.ad}
           </h1>
-          <div style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.8rem', color: 'var(--ink-muted)', letterSpacing: '0.12em' }}>
+          <div style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.8rem', color: '#888', letterSpacing: '0.12em' }}>
             {willy.yazar} · {willy.donem} · {willy.tip} · {willy.tur}
           </div>
           {willy.ozet && (
-            <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.05rem', color: 'var(--ink-soft)', maxWidth: '700px', lineHeight: 1.7, margin: '0.8rem 0 0 0' }}>
+            <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.05rem', color: '#bbb', maxWidth: '700px', lineHeight: 1.7, margin: '0.8rem 0 0 0' }}>
               {willy.ozet}
             </p>
           )}
@@ -81,10 +81,10 @@ export default function WillySayfasi() {
 
       <section style={{ padding: '3rem 2rem 0.5rem', maxWidth: '1100px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-          <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontWeight: 300, fontSize: '1.5rem', color: 'var(--accent)', letterSpacing: '0.05em' }}>
+          <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontWeight: 300, fontSize: '1.5rem', color: '#c9a96e', letterSpacing: '0.05em' }}>
             Timeline
           </span>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-muted)', fontStyle: 'italic' }}>
+          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.85rem', color: '#888', fontStyle: 'italic' }}>
             Karakterin yaşam çizgisi — sahnelere tıklayarak detayları gör.
           </span>
         </div>
@@ -102,7 +102,7 @@ export default function WillySayfasi() {
         <SeciliSahnePaneli sahne={seciliSahne} />
       </section>
 
-      <hr style={{ border: 'none', borderTop: '1px solid var(--bg-elevated)', margin: '3rem 2rem 0', maxWidth: '1100px', width: 'calc(100% - 4rem)', alignSelf: 'center' }} />
+      <hr style={{ border: 'none', borderTop: '1px solid #1a1a1a', margin: '3rem 2rem 0', maxWidth: '1100px', width: 'calc(100% - 4rem)', alignSelf: 'center' }} />
 
       <section style={{ padding: '3rem 2rem 5rem', maxWidth: '1100px', margin: '0 auto', width: '100%', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', gap: '4rem' }}>
         <div id="sahneler">
@@ -148,7 +148,7 @@ function KarakterHeader() {
     fontWeight: 200,
     fontSize: '0.6rem',
     letterSpacing: '0.25em',
-    color: 'var(--ink-soft)',
+    color: '#aaa',
     textTransform: 'uppercase',
     textDecoration: 'none',
     transition: 'color 0.25s ease',
@@ -161,7 +161,7 @@ function KarakterHeader() {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '1.6rem 2rem',
-        borderBottom: '1px solid var(--rule)',
+        borderBottom: '1px solid #2a2a2a',
         flexWrap: 'wrap',
         gap: '1rem',
       }}
@@ -173,7 +173,7 @@ function KarakterHeader() {
           fontWeight: 200,
           fontSize: '0.65rem',
           letterSpacing: '0.3em',
-          color: 'var(--accent)',
+          color: '#c9a96e',
           textTransform: 'uppercase',
           textDecoration: 'none',
         }}
@@ -182,25 +182,25 @@ function KarakterHeader() {
       </a>
       <nav style={{ display: 'flex', gap: '1.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
         <a href="/kalibrasyon" style={navLink}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
+          onMouseEnter={(e) => { e.currentTarget.style.color = '#c9a96e'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = '#aaa'; }}>
           Kalibrasyon
         </a>
         <a href="/kulis" style={navLink}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
+          onMouseEnter={(e) => { e.currentTarget.style.color = '#c9a96e'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = '#aaa'; }}>
           Kulis
         </a>
-        <a href="/antrenman/karakter" style={{ ...navLink, color: 'var(--ink)' }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}>
+        <a href="/antrenman/karakter" style={{ ...navLink, color: '#f0ede8' }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = '#c9a96e'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = '#f0ede8'; }}>
           ← Karakterler
         </a>
         <button
           onClick={cikisYap}
-          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, ...navLink, color: 'var(--ink-muted)' }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, ...navLink, color: '#666' }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = '#f0ede8'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = '#666'; }}
         >
           Çıkış
         </button>
