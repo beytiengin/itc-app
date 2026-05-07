@@ -11,8 +11,8 @@ import { sahneErisimi } from '../app/lib/travma';
 import { boslukYansimasiKaydet, boslukYansimalariniGetir } from '../app/lib/kulis';
 import IlerlemeRozet from './IlerlemeRozet';
 
-const TON = '#7a9b7a';
-const TON_HOVER = '#3a4a3a';
+const TON = 'var(--onay)';
+const TON_HOVER = 'var(--onay-rule)';
 
 export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
   const [acik, setAcik] = useState(null);
@@ -102,7 +102,7 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.25em',
-              color: '#888',
+              color: 'var(--ink-muted)',
               textTransform: 'uppercase',
             }}
           >
@@ -114,7 +114,7 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
             fontFamily: 'Jost, sans-serif',
             fontWeight: 200,
             fontSize: '0.85rem',
-            color: '#aaa',
+            color: 'var(--ink-soft)',
             lineHeight: 1.7,
             margin: 0,
             fontStyle: 'italic',
@@ -133,10 +133,10 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
           const aktif = acik === bosluk.id;
           const yansimaMevcut = yansimalar[bosluk.id]?.length > 0;
 
-          let borderColor = '#2a2a2a';
+          let borderColor = 'var(--rule)';
           if (aktif) borderColor = TON;
           else if (yansimaMevcut) borderColor = TON_HOVER;
-          else if (erisim.kilitli) borderColor = '#3a2f1f';
+          else if (erisim.kilitli) borderColor = 'var(--accent-rule)';
 
           return (
             <div
@@ -144,7 +144,7 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
               id={`bosluk-${bosluk.id}`}
               style={{
                 border: `1px solid ${borderColor}`,
-                backgroundColor: aktif ? '#0f0f0f' : 'transparent',
+                backgroundColor: aktif ? 'var(--bg-elevated)' : 'transparent',
                 transition: 'all 0.25s ease',
                 opacity: erisim.kilitli ? 0.65 : 1,
               }}
@@ -162,18 +162,18 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
                   border: 'none',
                   textAlign: 'left',
                   cursor: erisim.kilitli ? 'not-allowed' : 'pointer',
-                  color: '#f0ede8',
+                  color: 'var(--ink)',
                   fontFamily: 'inherit',
                 }}
                 onMouseEnter={(e) => { if (!aktif && !erisim.kilitli) e.currentTarget.parentElement.style.borderColor = TON; }}
-                onMouseLeave={(e) => { if (!aktif && !erisim.kilitli) e.currentTarget.parentElement.style.borderColor = yansimaMevcut ? TON_HOVER : '#2a2a2a'; }}
+                onMouseLeave={(e) => { if (!aktif && !erisim.kilitli) e.currentTarget.parentElement.style.borderColor = yansimaMevcut ? TON_HOVER : 'var(--rule)'; }}
               >
                 <span
                   style={{
                     fontFamily: 'Cormorant Garamond, serif',
                     fontStyle: 'italic',
                     fontSize: '1.1rem',
-                    color: yansimaMevcut ? TON : '#888',
+                    color: yansimaMevcut ? TON : 'var(--ink-muted)',
                     minWidth: '28px',
                     lineHeight: 1.4,
                   }}
@@ -183,7 +183,7 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
 
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem', flexWrap: 'wrap' }}>
-                    <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.9rem', color: '#f0ede8' }}>
+                    <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.9rem', color: 'var(--ink)' }}>
                       {bosluk.baslik}
                     </span>
                     <span
@@ -195,7 +195,7 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
                         color: TON,
                         textTransform: 'uppercase',
                         padding: '0.15rem 0.55rem',
-                        border: `1px solid ${TON}55`,
+                        border: `1px solid color-mix(in srgb, ${TON} 33%, transparent)`,
                       }}
                     >
                       {tip.ad}
@@ -218,14 +218,14 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
                     )}
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', flexWrap: 'wrap' }}>
-                    <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.78rem', color: '#888' }}>
+                    <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.78rem', color: 'var(--ink-muted)' }}>
                       {bosluk.konum}
                     </span>
-                    <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: '#888' }}>
+                    <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--ink-muted)' }}>
                       {bosluk.sure}
                     </span>
                   </div>
-                  <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: '#aaa', lineHeight: 1.6, margin: '0.2rem 0 0 0' }}>
+                  <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-soft)', lineHeight: 1.6, margin: '0.2rem 0 0 0' }}>
                     {bosluk.kisaAciklama}
                   </p>
                 </div>
@@ -234,7 +234,7 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
                   <span
                     style={{
                       fontSize: '0.7rem',
-                      color: '#888',
+                      color: 'var(--ink-muted)',
                       marginTop: '0.3rem',
                       transform: aktif ? 'rotate(180deg)' : 'rotate(0deg)',
                       transition: 'transform 0.3s ease',
@@ -246,8 +246,8 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
               </button>
 
               {erisim.kilitli && (
-                <div style={{ padding: '0 1.4rem 1.2rem 1.4rem', borderTop: '1px solid #2a1f1f', paddingTop: '0.9rem' }}>
-                  <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.75rem', color: '#c9a96e', lineHeight: 1.7, margin: 0 }}>
+                <div style={{ padding: '0 1.4rem 1.2rem 1.4rem', borderTop: '1px solid var(--uyari)', paddingTop: '0.9rem' }}>
+                  <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.75rem', color: 'var(--accent)', lineHeight: 1.7, margin: 0 }}>
                     {erisim.mesaj}
                   </p>
                 </div>
@@ -257,7 +257,7 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
                 <div
                   style={{
                     padding: '0 1.4rem 1.4rem 1.4rem',
-                    borderTop: '1px solid #2a2a2a',
+                    borderTop: '1px solid var(--rule)',
                     paddingTop: '1.4rem',
                     display: 'flex',
                     flexDirection: 'column',
@@ -265,14 +265,14 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
                   }}
                 >
                   {erisim.mesaj && (
-                    <div style={{ padding: '0.9rem 1.1rem', backgroundColor: '#1a150f', border: '1px solid #3a2f1f' }}>
-                      <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.75rem', color: '#c9a96e', lineHeight: 1.7, margin: 0 }}>
+                    <div style={{ padding: '0.9rem 1.1rem', backgroundColor: 'var(--accent-bg)', border: '1px solid var(--accent-rule)' }}>
+                      <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.75rem', color: 'var(--accent)', lineHeight: 1.7, margin: 0 }}>
                         {erisim.mesaj}
                       </p>
                     </div>
                   )}
 
-                  <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1rem', color: '#ddd', lineHeight: 1.8, margin: 0 }}>
+                  <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)', lineHeight: 1.8, margin: 0 }}>
                     {bosluk.uzunAciklama}
                   </p>
 
@@ -286,7 +286,7 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
                           <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.85rem', color: TON, minWidth: '20px', lineHeight: 1.7 }}>
                             {j + 1}.
                           </span>
-                          <p style={{ flex: 1, fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.85rem', color: '#ddd', lineHeight: 1.7, margin: 0 }}>
+                          <p style={{ flex: 1, fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.7, margin: 0 }}>
                             {soru}
                           </p>
                         </div>
@@ -303,7 +303,7 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
                         fontFamily: 'Jost, sans-serif',
                         fontWeight: 200,
                         fontSize: '0.65rem',
-                        color: kayitDurumu[bosluk.id] === 'hata' ? '#9b6a6a' : TON,
+                        color: kayitDurumu[bosluk.id] === 'hata' ? 'var(--uyari)' : TON,
                         fontStyle: 'italic',
                         minHeight: '1em',
                       }}>
@@ -318,9 +318,9 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
                       style={{
                         width: '100%',
                         padding: '1rem 1.2rem',
-                        backgroundColor: '#0a0a0a',
-                        border: '1px solid #2a2a2a',
-                        color: '#f0ede8',
+                        backgroundColor: 'var(--bg-base)',
+                        border: '1px solid var(--rule)',
+                        color: 'var(--ink)',
                         fontFamily: 'Cormorant Garamond, serif',
                         fontSize: '1rem',
                         lineHeight: 1.8,
@@ -331,7 +331,7 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
                         transition: 'border-color 0.25s ease',
                       }}
                       onFocus={(e) => { e.currentTarget.style.borderColor = TON; }}
-                      onBlur={(e) => { e.currentTarget.style.borderColor = '#2a2a2a'; }}
+                      onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; }}
                     />
                   </div>
 
@@ -340,12 +340,12 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
                       fontFamily: 'Jost, sans-serif',
                       fontWeight: 200,
                       fontSize: '0.72rem',
-                      color: '#777',
+                      color: 'var(--ink-muted)',
                       lineHeight: 1.7,
                       margin: 0,
                       fontStyle: 'italic',
                       paddingTop: '0.5rem',
-                      borderTop: '1px solid #2a2a2a',
+                      borderTop: '1px solid var(--rule)',
                     }}
                   >
                     Bu sorulara doğru cevap yok. Senin cevapların — karakterin senin yorumun.

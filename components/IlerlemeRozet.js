@@ -6,7 +6,7 @@
 
 'use client';
 
-export default function IlerlemeRozet({ ikon, etiket, mevcut, toplam, renk = '#c9a96e' }) {
+export default function IlerlemeRozet({ ikon, etiket, mevcut, toplam, renk = 'var(--accent)' }) {
   // Toplam 12'den fazlaysa noktalar fazla olur — max 12 nokta göster
   const gosterilenToplam = Math.min(toplam, 12);
   const orantiliMevcut = toplam > 0
@@ -27,7 +27,7 @@ export default function IlerlemeRozet({ ikon, etiket, mevcut, toplam, renk = '#c
           marginRight: '3px',
           boxSizing: 'border-box',
           backgroundColor: dolu ? renk : 'transparent',
-          border: dolu ? `1px solid ${renk}` : '1px solid #4a4a4a',
+          border: dolu ? `1px solid ${renk}` : '1px solid var(--rule)',
           transition: 'all 0.3s ease',
         }}
       />
@@ -43,7 +43,7 @@ export default function IlerlemeRozet({ ikon, etiket, mevcut, toplam, renk = '#c
         fontFamily: 'Jost, sans-serif',
         fontSize: '0.7rem',
         fontWeight: 300,
-        color: '#aaa',
+        color: 'var(--ink-soft)',
         letterSpacing: '0.05em',
         flexWrap: 'wrap',
       }}
@@ -57,7 +57,7 @@ export default function IlerlemeRozet({ ikon, etiket, mevcut, toplam, renk = '#c
       <span style={{ display: 'inline-flex', alignItems: 'center' }}>
         {noktalar}
       </span>
-      <span style={{ color: '#888', fontSize: '0.65rem', minWidth: '40px' }}>
+      <span style={{ color: 'var(--ink-muted)', fontSize: '0.65rem', minWidth: '40px' }}>
         {mevcut}/{toplam}
       </span>
     </div>

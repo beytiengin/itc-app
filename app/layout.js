@@ -6,8 +6,8 @@ import TemaToggleFloat from "../components/TemaToggleFloat";
 export const metadata = {
   metadataBase: new URL('https://itc-app-six.vercel.app'),
   title: {
-    default: "Actor's Gym — ITC Yöntemi · Karakterin zihnine gir",
-    template: '%s · ITC Yöntemi',
+    default: "Actor's Gym — ITC Method · Karakterin zihnine gir",
+    template: '%s · ITC Method',
   },
   description:
     "ITC, oyuncuların karakterin zihinsel-bedensel haritasına psikolojik güvenlikle giriş yaptığı dijital antrenman platformudur. Beyti Engin × Filiz Kaya Ataklı, 2005.",
@@ -15,7 +15,7 @@ export const metadata = {
   authors: [{ name: 'Beyti Engin' }, { name: 'Filiz Kaya Ataklı' }],
   keywords: ['oyunculuk', 'ITC', 'karakter çalışması', 'aktör eğitimi', 'sahne pedagojisi'],
   openGraph: {
-    title: "Actor's Gym — ITC Yöntemi",
+    title: "Actor's Gym — ITC Method",
     description:
       'Karakterin zihnine gir. Sahici ol. Inside The Character metoduyla dijital oyunculuk antrenmanı.',
     url: 'https://itc-app-six.vercel.app',
@@ -25,7 +25,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Actor's Gym — ITC Yöntemi",
+    title: "Actor's Gym — ITC Method",
     description: 'Karakterin zihnine gir. Sahici ol.',
   },
   robots: { index: true, follow: true },
