@@ -12,22 +12,30 @@ import IlerlemeRozet from '../../../components/IlerlemeRozet';
 // Tema:  içerik havuzu (yas, suçluluk, iktidar, vb.)
 const KARAKTER_META = {
   hamlet: {
+    yazar: 'William Shakespeare', donem: '1600', tur: 'Trajedi',
     boslukSayisi: 5, antrenmanSayisi: 0,
+    durum: 'tam', // tam yapi (refactor edildi) | eski (refactor bekliyor)
     mizac: ['empati yüksek', 'analiz yüksek', 'yas yorgunluğu'],
     tema:  ['yas', 'intikam', 'yanılsama', 'varoluş', 'ihanet'],
   },
   macbeth: {
+    yazar: 'William Shakespeare', donem: '1606', tur: 'Trajedi',
     boslukSayisi: 12, antrenmanSayisi: 8,
+    durum: 'eski',
     mizac: ['hırs yüksek', 'paranoya', 'ahlaki çöküş'],
     tema:  ['iktidar', 'suçluluk', 'ihanet', 'şiddet'],
   },
   willy: {
+    yazar: 'Arthur Miller', donem: '1949', tur: 'Trajedi',
     boslukSayisi: 12, antrenmanSayisi: 7,
+    durum: 'eski',
     mizac: ['yanılsamacı', 'zaman kayması', 'kimlik kırılması'],
     tema:  ['yanılsama', 'kimlik', 'çöküş', 'baba-oğul'],
   },
   biff: {
+    yazar: 'Arthur Miller', donem: '1949', tur: 'Trajedi',
     boslukSayisi: 12, antrenmanSayisi: 6,
+    durum: 'eski',
     mizac: ['kırık kahraman', 'gerçeklik arayışı'],
     tema:  ['yas', 'kimlik', 'özgürleşme', 'baba-oğul'],
   },
@@ -184,6 +192,46 @@ function OgrenmeZinciri() {
   );
 }
 
+function MetaSatiri({ karakterId }) {
+  const meta = KARAKTER_META[karakterId];
+  if (!meta) return null;
+  return (
+    <span style={{
+      fontFamily: 'Jost, sans-serif',
+      fontWeight: 200,
+      fontSize: '0.65rem',
+      color: 'var(--accent)',
+      letterSpacing: '0.1em',
+    }}>
+      {meta.yazar} · {meta.donem} · {meta.tur}
+    </span>
+  );
+}
+
+function DurumGostergesi({ karakterId }) {
+  const meta = KARAKTER_META[karakterId];
+  if (!meta) return null;
+  const tam = meta.durum === 'tam';
+  const isim = tam ? '✓ Tam Yapı' : '○ Refactor Bekliyor';
+  const detay = tam ? `${meta.boslukSayisi} Bölüm` : 'Eski Yapı';
+  return (
+    <span style={{
+      fontFamily: 'Jost, sans-serif',
+      fontWeight: 200,
+      fontSize: '0.6rem',
+      color: tam ? 'var(--accent)' : 'var(--ink-muted)',
+      letterSpacing: '0.1em',
+      textTransform: 'uppercase',
+      flexShrink: 0,
+      textAlign: 'right',
+    }}>
+      {isim}
+      <br />
+      <span style={{ color: 'var(--ink-muted)', fontSize: '0.55rem' }}>{detay}</span>
+    </span>
+  );
+}
+
 function IlerlemeBloku({ karakterId, ilerlemeler }) {
   const meta = KARAKTER_META[karakterId];
   if (!meta) return null;
@@ -265,9 +313,9 @@ export default function KarakterListesi() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
                 <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>Hamlet</span>
-                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--accent)', letterSpacing: '0.1em' }}>William Shakespeare</span>
+                <MetaSatiri karakterId="hamlet" />
               </div>
-              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', color: 'var(--ink-muted)', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>5 Bölüm</span>
+              <DurumGostergesi karakterId="hamlet" />
             </div>
             <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>
               Yas, ihanet ve varoluşsal sorgulama. Düşünce ile eylem arasında sıkışmış bir prensin görünmeyen yolculuğu.
@@ -284,9 +332,9 @@ export default function KarakterListesi() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
                 <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>Macbeth</span>
-                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--accent)', letterSpacing: '0.1em' }}>William Shakespeare</span>
+                <MetaSatiri karakterId="macbeth" />
               </div>
-              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', color: 'var(--ink-muted)', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>8 Antrenman</span>
+              <DurumGostergesi karakterId="macbeth" />
             </div>
             <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>
               Kral Duncan'ın generali. Bir kehanet, bir karar, bir yıkım. İktidar hırsı, suçluluk ve paranoyanın iç çöküşü.
@@ -303,9 +351,9 @@ export default function KarakterListesi() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
                 <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>Willy Loman</span>
-                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--accent)', letterSpacing: '0.1em' }}>Arthur Miller</span>
+                <MetaSatiri karakterId="willy" />
               </div>
-              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', color: 'var(--ink-muted)', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>7 Antrenman</span>
+              <DurumGostergesi karakterId="willy" />
             </div>
             <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>
               Yanılsama ve kimlik çöküşü. Geçmiş ile şimdinin aynı anda yaşandığı bir zihin.
@@ -322,9 +370,9 @@ export default function KarakterListesi() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
                 <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>Biff Loman</span>
-                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--accent)', letterSpacing: '0.1em' }}>Arthur Miller</span>
+                <MetaSatiri karakterId="biff" />
               </div>
-              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', color: 'var(--ink-muted)', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>6 Antrenman</span>
+              <DurumGostergesi karakterId="biff" />
             </div>
             <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>
               Babanın rüyasından uyanış. Kırılma ve özgürleşme arasında sıkışmış bir adamın gerçeği arama yolculuğu.

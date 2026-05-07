@@ -8,7 +8,7 @@ const biff = {
   ad: 'Biff Loman',
   oyun: 'Satıcının Ölümü',
   yazar: 'Arthur Miller',
-  donem: '1940\'lar',
+  donem: '1949',
   tur: 'Trajedi',
   tip: 'ISFP',
   ozet:

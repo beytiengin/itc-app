@@ -8,7 +8,7 @@ const hamlet = {
   ad: 'Hamlet',
   oyun: 'Hamlet',
   yazar: 'William Shakespeare',
-  donem: "1600'ler",
+  donem: '1600',
   tur: 'Trajedi',
   tip: 'INFP',
   ozet:
