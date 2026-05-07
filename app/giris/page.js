@@ -7,12 +7,13 @@ import { supabase } from '../lib/supabase';
 function GirisIcerik() {
   const searchParams = useSearchParams();
   const geri = searchParams.get('geri') || '/';
+  const oauthHata = searchParams.get('hata') || '';
 
   const [mod, setMod] = useState('giris');
   const [email, setEmail] = useState('');
   const [sifre, setSifre] = useState('');
   const [ad, setAd] = useState('');
-  const [hata, setHata] = useState('');
+  const [hata, setHata] = useState(oauthHata ? `Google girişi başarısız: ${oauthHata}` : '');
   const [yukleniyor, setYukleniyor] = useState(false);
   const [mesaj, setMesaj] = useState('');
 
