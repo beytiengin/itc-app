@@ -127,6 +127,28 @@ export default function YildizOyuncu() {
             Cevaplarken başkalarının senden beklediklerini değil, <em style={{ color: 'var(--ink)', fontStyle: 'italic' }}>sadece kendi gerçeğini</em> düşün.
           </p>
           <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.75rem', color: 'var(--ink-soft)', letterSpacing: '0.1em' }}>37 kriter · yaklaşık 8 dakika</p>
+
+          <aside style={{
+            maxWidth: '440px',
+            borderLeft: '2px solid var(--rule)',
+            padding: '0.9rem 1.2rem',
+            textAlign: 'left',
+            backgroundColor: 'var(--bg-elevated)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.5rem',
+          }}>
+            <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.55rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>
+              Akademik not
+            </span>
+            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-soft)', lineHeight: 1.7, margin: 0 }}>
+              Yıldız Oyuncu Matrisi, ITC ekibinin oyuncularla yirmi yılı aşkın
+              çalışmasında geliştirilmiştir. Klinik bir tanı aracı değil,
+              <em style={{ fontStyle: 'italic', color: 'var(--ink-soft)' }}> performans geliştirme haritasıdır</em>.
+              Eşik değerleri travma sistemi içinde etik koruma için kullanılır.
+            </p>
+          </aside>
+
           <button onClick={() => setAdim('test')}
             style={{ marginTop: '1rem', padding: '1.2rem 3rem', border: '1px solid var(--accent)', backgroundColor: 'transparent', color: 'var(--accent)', fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', cursor: 'pointer', transition: 'all 0.3s ease' }}
             onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--bg-base)'; }}

@@ -358,7 +358,7 @@ export default function Kalibrasyon() {
             <div style={{ marginTop: '2.5rem' }}>
               <h3 style={altBaslikStili}>◆ Kişilik Tipin</h3>
               <p style={paragrafStili}>
-                Düşünme biçimini, karar verme yapını ve dünyaya bakış açını gösteren bir enstrüman profili. Bu profil senin "varsayılan ayarın" — karakter inşasında gerçek iş, kendi profilin ile karakterin profili arasındaki mesafeyi görmektir. Mesafeyi görmek, esneme yönünü görmektir. Hangi kasları gerip hangilerini gevşetmen gerektiğini bilirsin. Modül II'nin ilerideki Karakter Haritası bölümünde bu mesafe görselleşecek.
+                Düşünme biçimini, karar verme yapını ve dünyaya bakış açını gösteren bir enstrüman profili. Bu profil senin "varsayılan ayarın" — karakter inşasında gerçek iş, kendi profilin ile karakterin profili arasındaki mesafeyi görmektir. Mesafeyi görmek, esneme yönünü görmektir. Hangi kasları gerip hangilerini gevşetmen gerektiğini bilirsin. Modül II'nin ilerleyen aşamalarında bu mesafe görselleşecek.
               </p>
             </div>
 

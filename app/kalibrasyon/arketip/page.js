@@ -153,7 +153,7 @@ export default function Arketip() {
             <br /><br />
             <em style={{ color: 'var(--ink-soft)', fontStyle: 'italic' }}>Her seçenekte seni en iyi tanımlayan tepkiyi seç. Doğru ya da yanlış yok.</em>
           </p>
-          <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.75rem', color: 'var(--ink-soft)', letterSpacing: '0.1em' }}>12 senaryo · yaklaşık 4 dakika</p>
+          <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.75rem', color: 'var(--ink-soft)', letterSpacing: '0.1em' }}>12 senaryo · yaklaşık 5 dakika</p>
 
           <aside style={{
             maxWidth: '440px',
