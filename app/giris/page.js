@@ -43,7 +43,16 @@ function GirisIcerik() {
     setHata('');
     const { error } = await supabase.auth.signInWithPassword({ email, password: sifre });
     if (error) {
-      setHata('Email veya şifre hatalı.');
+      // Supabase'in gercek hata mesajini goster - jenerik 'sifre hatali' yerine
+      // 'Email not confirmed', 'Invalid login credentials', rate limit vb. gorunsun
+      const msg = error.message || 'Bilinmeyen hata';
+      if (msg.toLowerCase().includes('email not confirmed')) {
+        setHata('Email henüz onaylanmamış. Kayıt olurken gönderilen onay linkine tıkla.');
+      } else if (msg.toLowerCase().includes('invalid login')) {
+        setHata('Email veya şifre hatalı.');
+      } else {
+        setHata('Giriş başarısız: ' + msg);
+      }
     } else {
       window.location.href = geri;
     }
