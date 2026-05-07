@@ -213,43 +213,50 @@ export default function AnaSayfa() {
           Inside The Character
         </span>
 
-        {kullanici ? (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.6rem', flexWrap: 'wrap' }}>
-            <a href="/kulis" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.25s ease' }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
-              Kulis
-            </a>
-            <a href="/profil" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.25s ease' }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
-              {kullanici.user_metadata?.ad || kullanici.email}
-            </a>
-            <button
-              onClick={cikisYap}
-              style={{
-                background: 'none', border: 'none', cursor: 'pointer', padding: 0,
-                fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem',
-                letterSpacing: '0.25em', color: 'var(--ink-muted)', textTransform: 'uppercase',
-                transition: 'color 0.25s ease',
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
-            >
-              Çıkış
-            </button>
-          </div>
-        ) : (
-          <a href="/giris" style={{
-            fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem',
-            letterSpacing: '0.25em', color: 'var(--ink)', textTransform: 'uppercase',
-            textDecoration: 'none', transition: 'color 0.25s ease',
-          }}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.6rem', flexWrap: 'wrap' }}>
+          <a href="/hakkimizda" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.25s ease' }}
             onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}>
-            Giriş Yap
+            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
+            Hakkımızda
           </a>
-        )}
+          {kullanici ? (
+            <>
+              <a href="/kulis" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.25s ease' }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
+                Kulis
+              </a>
+              <a href="/profil" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.25s ease' }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
+                {kullanici.user_metadata?.ad || kullanici.email}
+              </a>
+              <button
+                onClick={cikisYap}
+                style={{
+                  background: 'none', border: 'none', cursor: 'pointer', padding: 0,
+                  fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem',
+                  letterSpacing: '0.25em', color: 'var(--ink-muted)', textTransform: 'uppercase',
+                  transition: 'color 0.25s ease',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
+              >
+                Çıkış
+              </button>
+            </>
+          ) : (
+            <a href="/giris" style={{
+              fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem',
+              letterSpacing: '0.25em', color: 'var(--ink)', textTransform: 'uppercase',
+              textDecoration: 'none', transition: 'color 0.25s ease',
+            }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}>
+              Giriş Yap
+            </a>
+          )}
+        </div>
       </header>
 
       {/* BÖLÜM 1 — KARŞILAMA (HERO) */}
@@ -458,63 +465,58 @@ export default function AnaSayfa() {
         width: '100%',
         boxSizing: 'border-box',
       }}>
-        <div style={{ textAlign: 'center', marginBottom: 'clamp(2.5rem, 5vw, 4rem)' }}>
+        <div style={{ textAlign: 'center', marginBottom: 'clamp(2rem, 4vw, 3rem)' }}>
           <div style={ustEtiketStili}>2005'ten Bu Yana</div>
-          <h2 style={bolumBaslikStili}>ITC'nin Arkasındaki İsimler</h2>
+          <h2 style={bolumBaslikStili}>İki Eş Kurucu</h2>
         </div>
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
-          gap: '3rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: '2.5rem',
+          marginBottom: 'clamp(2rem, 4vw, 3rem)',
         }}>
 
-          {/* Beyti Engin */}
+          {/* Beyti Engin — kisa */}
           <div>
             <div style={kisiEtiketStili}>Oyuncu · Eğitmen</div>
             <h3 style={kisiAdStili}>Beyti Engin</h3>
-            <div style={{ ...kisiMetinStili, marginTop: '1.5rem' }}>
-              <p style={{ marginBottom: '1rem', marginTop: 0 }}>
-                Afife Tiyatro Ödülü sahibi. Dostlar Tiyatrosu'ndan Bakırköy Belediye
-                Tiyatroları'na, oradan Oyun Atölyesi'ne uzanan bir yolculukla, Türkiye
-                tiyatrosunun çağdaş çizgisinde yer almıştır.
-              </p>
-              <p style={{ marginBottom: '1rem' }}>
-                Nassim Soleimanpour'un "White Rabbit Red Rabbit" eserini Türkiye'de ilk
-                kez sahneleyen cesur bir performansçıdır. Şu an Rufus Norris yönetimindeki
-                "Satıcının Ölümü" ve Nagihan Gürkan'ın yönettiği "Güneşin Oğlu" ile
-                oyunculuk kariyerine devam etmektedir.
-              </p>
-              <p style={{ margin: 0 }}>
-                ITC metodolojisini Filiz Kaya Ataklı ile birlikte 2005'te kurdu ve
-                o günden bu yana 1000'i aşkın oyuncuya uygulayarak geliştirmeye devam ediyor.
-              </p>
-            </div>
+            <p style={{ ...kisiMetinStili, marginTop: '1rem', margin: 0 }}>
+              Afife Ödüllü oyuncu. ITC metodolojisini 2005'te Filiz Kaya Ataklı ile
+              kurdu, 1000'i aşkın oyuncuyla geliştirdi.
+            </p>
           </div>
 
-          {/* Filiz Kaya Ataklı */}
+          {/* Filiz Kaya Ataklı — kisa */}
           <div>
-            <div style={kisiEtiketStili}>Klinik Psikolog · Performans Psikolojisi Uzmanı</div>
+            <div style={kisiEtiketStili}>Klinik Psikolog</div>
             <h3 style={kisiAdStili}>Filiz Kaya Ataklı</h3>
-            <div style={{ ...kisiMetinStili, marginTop: '1.5rem' }}>
-              <p style={{ marginBottom: '1rem', marginTop: 0 }}>
-                İstanbul Üniversitesi Psikoloji Bölümü mezunu. Aynı üniversitede Adli Bilimler
-                yüksek lisansını tamamladı. Çift ve Evlilik Terapisi eğitimlerini John ve Julie
-                Gottman'dan alan Kaya, Türkiye'nin Gottman Çift Terapisi Usta Eğitmenlerinden
-                (Master Trainer) biridir.
-              </p>
-              <p style={{ marginBottom: '1rem' }}>
-                Meslek eğitimleri arasında Sensorimotor Psikoterapi, EMDR, PACT, Mental Training
-                ve Duygu Odaklı Terapi yer alır. Psikoloji İstanbul'un kurucularındandır.
-              </p>
-              <p style={{ margin: 0 }}>
-                Oyuncularla "Karakter Tasarımı" odaklı çalışmalar yapmakta, oyunculuk ve performans
-                geliştirme üzerine dünyanın çeşitli ülkelerinde eğitimler vermektedir. ITC
-                metodolojisinin Beyti Engin ile birlikte kurucusudur.
-              </p>
-            </div>
+            <p style={{ ...kisiMetinStili, marginTop: '1rem', margin: 0 }}>
+              Gottman Master Trainer. ITC'nin klinik altyapısının mimarı, yöntemin
+              eş kurucusu.
+            </p>
           </div>
 
+        </div>
+
+        <div style={{ textAlign: 'center' }}>
+          <a href="/hakkimizda" style={{
+            display: 'inline-block',
+            padding: '0.9rem 2rem',
+            border: '1px solid var(--rule)',
+            color: 'var(--ink)',
+            fontFamily: 'Jost, sans-serif',
+            fontSize: '0.75rem',
+            fontWeight: 300,
+            letterSpacing: '0.25em',
+            textTransform: 'uppercase',
+            textDecoration: 'none',
+            transition: 'all 0.3s ease',
+          }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; e.currentTarget.style.color = 'var(--ink)'; }}>
+            Hakkımızda Daha Fazla →
+          </a>
         </div>
       </section>
 
