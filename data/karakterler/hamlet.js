@@ -35,7 +35,7 @@ const hamlet = {
     { kategori: 'Bilgi', madde: "Babasının hayaletiyle karşılaştı; onun ağzından Claudius'un katil olduğunu öğrendi." },
     { kategori: 'Bilgi', madde: 'Annesi Gertrude, babasının ölümünden iki ay sonra Claudius ile evlendi.' },
     { kategori: 'Bilgi', madde: 'Claudius hem amcası, hem üvey babası, hem de hedefi.' },
-    { kategori: 'İlişki', madde: "Ophelia'yı sever — ama ona karşı güvensizlik duyar." },
+    { kategori: 'İlişki', madde: "Ophelia ile romantik bir bağı vardır." },
     { kategori: 'İlişki', madde: 'Horatio en yakın dostudur, ona her şeyi açar.' },
     { kategori: 'İlişki', madde: "Polonius, Ophelia'nın babası — yanlışlıkla öldürür." },
     { kategori: 'Eylem', madde: "Polonius'u perdenin arkasından öldürür." },
@@ -43,7 +43,7 @@ const hamlet = {
     { kategori: 'Eylem', madde: "Rosencrantz ve Guildenstern'i ölüme yollar." },
     { kategori: 'Eylem', madde: 'Düelloda Laertes ile dövüşür.' },
     { kategori: 'Son', madde: 'Zehirli kılıçla yaralanır.' },
-    { kategori: 'Son', madde: '"The rest is silence" — son sözüdür.' },
+    { kategori: 'Son', madde: 'Son sözleri: "Üst tarafı sessiz bir dünya" (The rest is silence).' },
     { kategori: 'Son', madde: 'Fortinbras tahtın varisi olur.' },
   ],
 
