@@ -447,9 +447,6 @@ export default function Hakkimizda() {
                 vermektedir. ITC metodolojisinin Beyti Engin ile birlikte kurucusu,
                 klinik altyapısının mimarıdır.
               </p>
-              <p style={kisiNotStili}>
-                Klinik kuram · Damasio · Levine · Goleman · Gardner çerçevesi
-              </p>
             </div>
           </div>
 
