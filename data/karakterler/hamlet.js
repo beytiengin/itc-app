@@ -744,7 +744,7 @@ const hamlet = {
     {
       no: 3,
       baslik: "Polonius'tan Sonra",
-      sinif: 'Travma Boşluğu',
+      sinif: 'Kırılma Boşluğu',
       konum: 'III.iv Sonu → IV.iii',
       sonraSahneNo: 9,
       onceBaslik: 'III.iv · Anne Odası',
