@@ -345,55 +345,6 @@ export default function AnaSayfa() {
         </p>
       </section>
 
-      {/* BÖLÜM 3 — ÜÇ İLKE */}
-      <section style={{
-        padding: 'clamp(3rem, 7vw, 5rem) 2rem',
-        maxWidth: '1100px',
-        margin: '0 auto',
-        width: '100%',
-        boxSizing: 'border-box',
-      }}>
-        <div style={{ textAlign: 'center', marginBottom: 'clamp(2.5rem, 5vw, 4rem)' }}>
-          <div style={ustEtiketStili}>Üç İlke</div>
-          <h2 style={bolumBaslikStili}>Yöntemin temeli</h2>
-        </div>
-
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: '2rem',
-        }}>
-          <div style={ilkeKartiStili}>
-            <div style={ilkeNumarasiStili}>01</div>
-            <h3 style={ilkeBaslikStili}>Psikolojik Güvenlik</h3>
-            <p style={ilkeMetinStili}>
-              ITC, oyuncuyu kendi kişisel travmalarından koruyarak, karaktere ait
-              veriler üzerinden yeni alanlar yaratmaya yönlendirir. Yöntemin merkezinde
-              oyuncunun duygusal güvenliği vardır.
-            </p>
-          </div>
-
-          <div style={ilkeKartiStili}>
-            <div style={ilkeNumarasiStili}>02</div>
-            <h3 style={ilkeBaslikStili}>Bireysel Rota</h3>
-            <p style={ilkeMetinStili}>
-              Her oyuncunun öğrenme serüveni farklıdır. ITC her oyuncuya, karaktere
-              giden kişiselleştirilmiş giriş kapıları sunar. Aynı sahneye bambaşka
-              yollardan girilir.
-            </p>
-          </div>
-
-          <div style={ilkeKartiStili}>
-            <div style={ilkeNumarasiStili}>03</div>
-            <h3 style={ilkeBaslikStili}>Bilimsel Altyapı</h3>
-            <p style={ilkeMetinStili}>
-              ITC'nin kuramsal temeli nörobilim, psikoloji ve sahne pedagojisinde yapılan
-              araştırmalar üzerinden kendini güncellemektedir. Sezgi değil — yöntem.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* BÖLÜM 4 — ÜÇ MODÜL */}
       <section style={{
         padding: 'clamp(3rem, 7vw, 5rem) 2rem',
