@@ -143,9 +143,9 @@ export default function YildizOyuncu() {
             </span>
             <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-soft)', lineHeight: 1.7, margin: 0 }}>
               Yıldız Oyuncu Matrisi, ITC ekibinin oyuncularla yirmi yılı aşkın
-              çalışmasında geliştirilmiştir. Klinik bir tanı aracı değil,
-              <em style={{ fontStyle: 'italic', color: 'var(--ink-soft)' }}> performans geliştirme haritasıdır</em>.
-              Eşik değerleri travma sistemi içinde etik koruma için kullanılır.
+              çalışmasında geliştirilmiştir.
+              <em style={{ fontStyle: 'italic', color: 'var(--ink-soft)' }}> Altı boyutlu öz-farkındalık haritasıdır</em>.
+              Sonuç, karakter çalışmasında hangi eksenden başlayacağını ve hangilerini geliştirmen gerektiğini gösterir.
             </p>
           </aside>
 

@@ -311,7 +311,7 @@ export default function Kalibrasyon() {
           url="/kalibrasyon/yildiz"
           baslik="Yıldız Oyuncu Analizi"
           altbaslik="Parlayan yönlerin · Gelişim alanların · Yol planın"
-          aciklama="Teknik donanım ve psikolojik kapasite haritanı çıkarır."
+          aciklama="Altı boyutlu öz-farkındalık haritan + karaktere yaklaşım kılavuzun."
           meta="37 kriter · ~5 dk"
           tamamlandi={yildiz !== null}
           sonuc={yildizSonucMetni}
@@ -365,7 +365,7 @@ export default function Kalibrasyon() {
             <div style={{ marginTop: '2.5rem' }}>
               <h3 style={altBaslikStili}>◆ Yıldız Oyuncu Profilin</h3>
               <p style={paragrafStili}>
-                Teknik donanımını ve psikolojik kapasiteni haritalayan bir profil. ITC'nin etik temeli burada görünür: Karakter çalışırken oyuncuyu kendi sınırlarından koruruz. Bazı egzersizler derin yerlere götürür — şiddet, kayıp, ahlaki yara, varoluşsal kriz. Senin psikolojik kapasiten bu derinliklere hangi sırayla, hangi yoğunlukta erişeceğini belirler.
+                Altı boyutlu bir öz-farkındalık haritası — teknik donanımın, psikolojik sağlamlığın, mesleki tutumun, yaratıcı kapasiten, entelektüel derinliğin, ilişki ve ifade gücün. Hangi eksenlerin parladığını, hangilerinin gelişmeyi beklediğini görürsün; kendine bir rota çizebilirsin. Karakter çalışırken bu harita "açık kapıların" gösterir — güçlü eksenler karaktere giriş yolun olur, zayıf eksenler yapıyı geliştirebileceğin alanları işaretler.
               </p>
             </div>
           </div>
@@ -412,7 +412,7 @@ export default function Kalibrasyon() {
             </p>
 
             <p style={{ ...paragrafStili, marginTop: '1.5rem' }}>
-              Yıldız Oyuncu profilin bu sistemin nasıl çalışacağını belirler. Eğer psikolojik kapasiten bugün için belirli bir derinliğe hazır değilse, sistem o derinliği henüz açmaz. Bir kilit değil — bir bekleyiş. Diğer oyunculuk yöntemlerinin aksine ITC'nin temeli şu cümledir: <em style={{ color: 'var(--accent)' }}>Karakter senin kişisel travmalarınla inşa edilmez.</em> Karakterin kendi verisi vardır. Senin yaraların seninle kalır.
+              Bu güvenlik sahnenin içeriğinden gelir. Karakterin sahnesi yoğun bir travma kategorisi taşıyorsa sistem seni önceden uyarır; yoğun sahneler sonrası otomatik topraklanma adımına geçer. ITC'nin temeli şu cümledir: <em style={{ color: 'var(--accent)' }}>Karakter senin kişisel travmalarınla inşa edilmez.</em> Karakterin kendi verisi vardır. Senin yaraların seninle kalır.
             </p>
           </div>
 
