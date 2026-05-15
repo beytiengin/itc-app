@@ -2,6 +2,8 @@
 
 Bu dosya Claude Code için referans niteliğindedir. Projenin felsefesini, mimarisini, kod stilini ve yapılacaklar listesini tek yerde toplar.
 
+> **Not — Repo konumu:** Bu repo artık `itc-canon` üst-reposunun altında **submodule** olarak yaşıyor (`itc-canon/app/`). Canon kaynakları (Spine, Decision Log, Method Book, Workbook, Workshop) bir üst dizindedir. Kanonu etkileyen yapısal değişiklikler için `itc-canon` tarafında **karar yedirme** akışı işletilir (Decision Log + Spine + ilgili dokümanlar senkron). Sadece app-içi (kanon dışı) değişiklikler bu repoda kalır.
+
 ---
 
 ## 🎭 Proje Özü
