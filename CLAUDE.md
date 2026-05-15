@@ -360,11 +360,14 @@ export default macbeth;
 - 2: **Tanıklık** — karakter olaya tanık oluyor
 - 3: **İcra** — karakter olayı doğrudan yaşıyor
 
-**Erişim kuralları** (`travma.js`'de) — yumuşak dilde, "kilitli" yerine "hazır değil":
-- Travma 2-3 olan içerik için Yıldız Matrisi puanı kontrol edilir
-- Düşük puan → erişim engellenir, yumuşak mesaj gösterilir
+**Erişim kuralları** (`travma.js`'de — Karar 21, Spine v1.9):
+- Travma sınıflandırması karakter verisinden (metinden) çıkarılır; oyuncuya **uyarı** olarak gösterilir
+- Hiçbir sahne oyuncu profili nedeniyle kilitlenmez — gate yok
+- Yoğunluk 2 (Tanıklık) veya 3 (İcra) sahneler sonrası Topraklanma Protokolü otomatik tetiklenir (kategori- ve profil-bağımsız)
 
-**Topraklanma protokolü:** Travma 2-3 egzersizi tamamladıktan sonra otomatik açılan 6 adımlı çıkış (deroling).
+> **İş 2 — uygulama beklemede:** `sahneErisimi(sahne, yildiz)` fonksiyonu hâlâ eski gate mantığında (psikolojik puan kontrolü). Refactor planı: `sahneUyarisi(sahne)` + `topraklanmaGerekli(yogunluk)` olarak ikiye ayrılacak; yıldız parametresi kaldırılacak. Detay: `kararlar/2026-05-15-yildiz-travma-ayrismasi/04-app-degisiklik-listesi.md` (canon repo).
+
+**Topraklanma protokolü:** Yoğunluk 2-3 sahneleri tamamladıktan sonra otomatik açılan 6 adımlı çıkış (deroling). Tetikleyici sahne-içeriği temellidir; oyuncu profili etkilemez.
 
 ---
 
