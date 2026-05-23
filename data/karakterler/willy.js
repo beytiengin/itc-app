@@ -10,7 +10,6 @@ const willy = {
   yazar: 'Arthur Miller',
   donem: '1949',
   tur: 'Trajedi',
-  tip: 'ESFP',
   ozet:
     "Yanılsama ve kimlik çöküşü. Geçmiş ile şimdinin aynı anda yaşandığı bir zihin.",
   etiketler: ['Trajedi', 'Yanılsama', 'Aile', 'Amerikan Rüyası'],
@@ -47,7 +46,456 @@ const willy = {
     { kategori: 'Son', madde: 'Cenazesinde sadece aile vardı. Kimse gelmedi.' },
   ],
 
-  // ─── 14 SAHNE ─────────────────────────────────────────────────────────────
+  // ─── OYUN ÖNCESİ YAŞAM ────────────────────────────────────────────────────
+  // Sahneye çıkmadan önce Willy'nin bedeninde taşıdığı geçmiş.
+  // olaylar: sahneden inen, sahne dışında yaşanmış yükler.
+  // iliskiler: 9 bağ (9. = Kadın, sahnede görünen ayrı bağ — R2 / Karar 22).
+
+  oyunOncesi: {
+    olaylar: [
+      {
+        no: 1,
+        baslik: 'Babası Willy küçükken aileyi terk eder',
+        sahneRef: "Ben: \"Baba çok büyük, çok başına buyruk bir adamdı.\"",
+        yuk: 'Yön gösterecek bir el hiç olmadı. Boşlukta büyüyen bir adamın temel güvensizliği.',
+        yansimaSorusu: "Hiç tanımadığı babanın boşluğu, Willy'nin bedeninde nereye yerleşti?",
+      },
+      {
+        no: 2,
+        baslik: 'Ağabey Ben Alaska/Afrika\'ya gider, "zengin olur", erken ölür',
+        sahneRef: 'Ben: "On yedi yaşında ormana girdim, yirmi birinde çıktım. Ve zengindim."',
+        yuk: 'Erişilemeyen başarı miti. Willy\'nin ölçtüğü ama asla varamadığı ölçüt.',
+        yansimaSorusu: "Ben'in 'başardı' miti, Willy'nin kendi hayatını nasıl küçültüyor?",
+      },
+      {
+        no: 3,
+        baslik: 'Linda ile evlilik, Brooklyn evinin taksitle alınması',
+        sahneRef: 'Linda: "Bu ay son taksiti de ödedik."',
+        yuk: 'Sevgi + yük. Korunan ama aynı zamanda taşınan bir adam olmanın ağırlığı.',
+        yansimaSorusu: "Linda'nın koruyuculuğu Willy için sığınak mı, yoksa yenilginin aynası mı?",
+      },
+      {
+        no: 4,
+        baslik: 'Genç satıcı yılları — Singleman efsanesi',
+        sahneRef: 'Willy: "Yeşil kadife terlikleri vardı..."',
+        yuk: 'Sevilerek, tanınarak ölmenin hayali. Willy\'nin satıcılığa yüklediği tüm anlam.',
+        yansimaSorusu: "84 yaşında telefonla sipariş alan o adamın görüntüsü Willy'de hangi arzuyu kışkırtıyor?",
+      },
+      {
+        no: 5,
+        baslik: 'Biff ve Happy\'nin altın çağı — çocukluk',
+        sahneRef: 'Bellek: araba parlatma, futbol maçı, "Loman kardeşler!"',
+        yuk: 'Kayıp cennet. Her şeyin hâlâ mümkün olduğu, Biff\'in henüz hayal kırıklığı olmadığı zaman.',
+        yansimaSorusu: "O altın çocukluğun sıcaklığı, şimdiki yıkımla yan yana geldiğinde ne oluyor?",
+      },
+      {
+        no: 6,
+        baslik: 'Boston\'da Kadın\'la ilişkinin başlaması',
+        sahneRef: 'Bellek: otel odası, çoraplar, kadının gülüşü.',
+        yuk: 'Yalnızlığın bahanesi. Yolda olmanın getirdiği boşluğu doldurma — ve gizlenen suç.',
+        yansimaSorusu: "Yoldaki yalnızlık Willy'yi oraya iterken, içinde neyi susturuyordu?",
+      },
+      {
+        no: 7,
+        baslik: "Biff'in Boston otelinde babasını yakalaması (1932)",
+        sahneRef: 'Biff: "Sahtekarsın sen!" — kapı açılır.',
+        yuk: 'İlişkinin sonsuza dek kırıldığı an. Willy\'nin taşıdığı en derin ahlaki yara.',
+        yansimaSorusu: "O kapının açıldığı an, Willy'nin bedeninde hâlâ kapanmadan duran şey ne?",
+      },
+      {
+        no: 8,
+        baslik: "Boston sonrası kayıp yıllar — Biff'in dağılışı, batı, hapis",
+        sahneRef: 'Bernard: "Boston\'dan döndükten sonra hiç toparlanamadı."',
+        yuk: 'Babanın kendini suçladığı çöküş. Biff\'in başarısızlığını kendi günahı sayma.',
+        yansimaSorusu: "Biff'in dağılışını Willy ne kadar kendi üzerine alıyor — ve bunu kime itiraf edebiliyor?",
+      },
+    ],
+    iliskiler: [
+      {
+        no: 1, ad: 'Linda', rol: 'EŞ',
+        gecmis: 'Genç evlilik, birlikte kurulan ev, taşınan umutlar.',
+        simdi: 'Onu yıllardır taşıyan, koruyan, gören. Hortumu bulan ama söylemeyen.',
+        iz: 'Şefkat + sessiz çaresizlik, aynı bedende.',
+        yansimaSorusu: "Linda yanına geldiğinde Willy'nin omuzları iner mi, yoksa daha mı gerilir?",
+      },
+      {
+        no: 2, ad: 'Biff', rol: 'BÜYÜK OĞUL',
+        gecmis: 'Altın çocuk, babanın gururu, futbol yıldızı.',
+        simdi: 'Boston\'dan beri kırık. Willy\'nin hem en büyük umudu hem en derin yarası.',
+        iz: 'Tutkulu sevgi + ihanet hissi, çözülemeyen düğüm.',
+        yansimaSorusu: "Biff'e baktığında Willy hangi yaşı görüyor — 17'yi mi, şimdiki 34'ü mü?",
+      },
+      {
+        no: 3, ad: 'Happy', rol: 'KÜÇÜK OĞUL',
+        gecmis: 'Gölgede kalan ikinci oğul, hep ilgi arayan.',
+        simdi: 'Babasını taklit eden, yalanları sürdüren — ama hiç gerçekten görülmeyen.',
+        iz: 'Görülmek isteyen ama hep ıskalanan bir çocuk.',
+        yansimaSorusu: "Happy 'Ben evleniyorum baba!' dediğinde Willy onu gerçekten duyuyor mu?",
+      },
+      {
+        no: 4, ad: 'Ben', rol: 'AĞABEY (HAYALET)',
+        gecmis: 'Ormana giren, zengin çıkan, erken ölen efsane.',
+        simdi: 'Hayalet olarak ziyaret eden iç ses — başarının ve kaçışın çağrısı.',
+        iz: 'Hayranlık + yetersizlik, ölçülemeyen ölçüt.',
+        yansimaSorusu: "Ben 'Gel benimle' dediğinde Willy'nin içinde neresi titriyor?",
+      },
+      {
+        no: 5, ad: 'Baba', rol: 'TERK EDEN',
+        gecmis: 'Willy bebekken giden, hatırlanmayan adam.',
+        simdi: 'Bir boşluk olarak var — flüt sesinin geldiği yer.',
+        iz: 'Tanınmayan bir özlem, adı konmamış bir eksiklik.',
+        yansimaSorusu: "Flüt sesi duyulduğunda Willy bunu fark ediyor mu, yoksa sadece bedeni mi tepki veriyor?",
+      },
+      {
+        no: 6, ad: 'Charley', rol: 'KOMŞU',
+        gecmis: 'Yıllardır komşu, sessiz sadık dost.',
+        simdi: 'Sürekli borç verdiği, iş teklif ettiği — ama Willy\'nin gururuna dokunan adam.',
+        iz: 'Minnet + kıskançlık + reddedilen yardım.',
+        yansimaSorusu: "Charley'den parayı alırken Willy gözünü nereye kaçırıyor?",
+      },
+      {
+        no: 7, ad: 'Bernard', rol: 'KOMŞUNUN OĞLU',
+        gecmis: '"Çalışkan ama sevilmeyen" çocuk; Biff\'in zıttı.',
+        simdi: 'Başarılı avukat — Willy\'nin oğlu için hayal ettiği her şey, ama Biff değil.',
+        iz: 'Yanlış ölçütün canlı kanıtı; acı bir karşılaştırma.',
+        yansimaSorusu: "Bernard'ın başarısı Willy'ye Biff hakkında hangi soruyu sessizce sorduruyor?",
+      },
+      {
+        no: 8, ad: 'Howard', rol: 'PATRON',
+        gecmis: 'Willy\'nin adını koyduğu, babasının şirketini devralan genç.',
+        simdi: 'Onu 34 yıl sonra kovan otorite. Teyp makinesiyle oynayan, dinlemeyen.',
+        iz: 'İhanet edilen sadakat; değersizleştirilen bir ömür.',
+        yansimaSorusu: "'34 yılımı verdim' derken Willy aslında kime sesleniyor?",
+      },
+      {
+        no: 9, ad: 'Boston\'daki Kadın', rol: 'GEÇMİŞTEKİ İLİŞKİ',
+        gecmis: 'Yoldaki yalnızlığı dolduran, çorapları alan kadın.',
+        simdi: 'Sahnede görünen bir bellek — Biff\'in keşfinin tanığı, suçun somut yüzü.',
+        iz: 'Anlık teselli + ömür boyu utanç.',
+        yansimaSorusu: "Kadın güldüğünde Willy'nin içinde hangi kapı kapanıyor?",
+      },
+    ],
+  },
+
+  // ─── AKIŞ HATLARI (Willy'ye özgü — 3 hat) ─────────────────────────────────
+  // Hamlet'in 5 perde teması yerine Willy 3 akış hattıyla okunur (Miller'ın
+  // lineer-olmayan yapısı). Timeline sayfası bu hatları üst-bant olarak kullanır.
+
+  perdeTemalari: [
+    { perde: 'I',   baslik: 'Sızıntı',  altyazi: 'Geçmiş şimdiye sızıyor', sahneAraligi: '1-5' },
+    { perde: 'II',  baslik: 'Patlama',  altyazi: 'Bastırılan açığa çıkıyor', sahneAraligi: '6-9' },
+    { perde: 'III', baslik: 'Bedel',    altyazi: 'Ödenen ve geride kalan',  sahneAraligi: '10-11' },
+  ],
+
+  // ─── SAHNELER — WORKBOOK FORMATI · 11 BİRİM (Timeline sayfası kullanır) ────
+  // Orijinal oyunda numaralı sahne yoktur (Miller, sürekli akış + örülü bellek).
+  // Bellek parçaları örüldükleri şimdiki birime katıldığında 11 dramatik birim
+  // çıkar. 3 akış hattı: Sızıntı (1-5) · Patlama (6-9) · Bedel (10-11).
+  // (Eski 14'lü `sahneler` dizisi Hamlet kalıbı artefaktıydı — aşağıda korundu,
+  //  Yazarın Çerçevesi/eski sayfa için; A-4 sayfa refactor'ında retire edilecek.)
+
+  sahnelerWorkbook: [
+    {
+      no: 1, yasamSirasi: 4, perde: 1, perdeRomen: 'I',
+      baslik: 'Eve dönüş',
+      konum: 'I. Perde · Gece',
+      olay: 'Willy yola çıktı ama dönmek zorunda kaldı; arabayı sürmeyi beceremedi. Linda kapıda karşılar. Biff eve gelmiştir. "Bu sefer olmadı."',
+      icsel: 'Kabul edemediği bir yorgunluk. Bedeni teslim, zihni hâlâ direnişte.',
+      onerilenSicaklik: 4,
+      yuk: 'Yarının hâlâ vaatle dolu olduğuna inanması gereken bir adamın, ilk kez sezdiği yenilgi.',
+    },
+    {
+      no: 2, yasamSirasi: 1, perde: 1, perdeRomen: 'I',
+      baslik: 'Parlak günler — çocukluk belleği',
+      konum: 'I. Perde · Bellek',
+      olay: 'Biff ve Happy küçük; araba parlatılıyor, futbol topu, "Loman kardeşler". Her şeyin hâlâ mümkün olduğu, sevilmenin başarı sandığı zaman.',
+      icsel: 'Kayıp cennetin sıcaklığı — ama şimdiki yıkımın yanında acıya dönüşen.',
+      onerilenSicaklik: 5,
+      yuk: 'Geçmiş şimdiye sızıyor; Willy o sıcaklığa kaçtıkça şimdiki boşluk büyüyor.',
+    },
+    {
+      no: 3, yasamSirasi: 5, perde: 1, perdeRomen: 'I',
+      baslik: 'Charley\'le kart, Ben hayaleti',
+      konum: 'I. Perde · Mutfak / Bellek',
+      olay: 'Charley kart oynamaya gelir. Aynı anda Ben hayaleti belirir — "Ormana girdim, zengin çıktım." İki düzlem üst üste biner.',
+      icsel: 'Şimdiki yardım (Charley) reddedilirken, ulaşılamayan başarı miti (Ben) çağırıyor.',
+      onerilenSicaklik: 5,
+      yuk: 'Gerçek dost gururuna dokunurken, ölü ağabeyin efsanesi onu hayata değil kaçışa çağırıyor.',
+    },
+    {
+      no: 4, yasamSirasi: 6, perde: 1, perdeRomen: 'I',
+      baslik: 'Linda ve hortum',
+      konum: 'I. Perde · Salon',
+      olay: 'Linda oğullara babalarının hâlini, intihar girişimlerini, sakladığı gaz hortumunu anlatır. "Dikkat edilmesi gereken bir insan o."',
+      icsel: 'Willy sahnede yok ama her cümle onun üstüne. Görülmenin hem koruması hem ağırlığı.',
+      onerilenSicaklik: 6,
+      yuk: 'Bir kadının taşıdığı sessiz dehşet; oğulların yüzleşmek zorunda kaldığı gerçek.',
+    },
+    {
+      no: 5, yasamSirasi: 7, perde: 1, perdeRomen: 'I',
+      baslik: 'Biff\'in kararı — yeni umut',
+      konum: 'I. Perde · Kapanış',
+      olay: 'Biff, Bill Oliver\'dan borç isteyip iş kurma planını açar. Willy birden coşar, akıl verir. Perde umutla kapanır — sahte ama gerçek bir umut.',
+      icsel: 'Willy için bu plan kurtuluş; Biff için babayı yatıştırma. İki ayrı umut, aynı masada.',
+      onerilenSicaklik: 5,
+      yuk: 'En tehlikeli an coşkudur — çünkü düşülecek yer en yüksek oradadır.',
+    },
+    {
+      no: 6, yasamSirasi: 9, perde: 2, perdeRomen: 'II',
+      baslik: 'Yeni gün — sahte umut',
+      konum: 'II. Perde · Sabah',
+      olay: 'Sabah. Willy iyimser; Howard\'dan New York\'ta bir masa işi isteyecek. Linda taksitlerin bittiğini söyler. Her şey düzelecek gibi.',
+      icsel: 'Bir gece önceki coşkunun sabah ışığındaki kırılgan devamı.',
+      onerilenSicaklik: 5,
+      yuk: 'Umudun en parlak hâli, düşüşten hemen önce.',
+    },
+    {
+      no: 7, yasamSirasi: 10, perde: 2, perdeRomen: 'II',
+      baslik: 'Howard ofiste — kovulma',
+      konum: 'II. Perde · Howard\'ın ofisi',
+      olay: 'Willy masa işi ister; Howard teyp makinesiyle oynar, dinlemez. "34 yılımı verdim bu şirkete." Sonunda kovulur.',
+      icsel: 'Bir ömrün değersizleştiği an. Yalvarma ile öfke arasında salınan beden.',
+      onerilenSicaklik: 7,
+      yuk: 'İhanet edilen sadakat; adını koyduğu çocuğun onu silmesi.',
+      travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 1,
+    },
+    {
+      no: 8, yasamSirasi: 11, perde: 2, perdeRomen: 'II',
+      baslik: 'Charley ofisi + Ben\'in Alaska teklifi',
+      konum: 'II. Perde · Charley\'in ofisi / Bellek',
+      olay: 'Willy borç istemeye gelir; Bernard\'ın başarısıyla karşılaşır. Araya Ben\'in Alaska teklifini reddettiği bellek girer — "Gelseydim her şey farklı olurdu."',
+      icsel: 'Bernard, Biff için hayal ettiği her şeyin canlı kanıtı. Ben, seçmediği yolun hayaleti.',
+      onerilenSicaklik: 6,
+      yuk: 'Yanlış ölçütle ölçülen bir hayatın, geç gelen "ya seçmeseydim" pişmanlığı.',
+    },
+    {
+      no: 9, yasamSirasi: 12, perde: 2, perdeRomen: 'II',
+      baslik: 'Frank\'s Chop House + Boston otel belleği',
+      konum: 'II. Perde · Lokanta / Boston belleği',
+      olay: 'Lokantada Biff gerçeği söylemeye çalışır; Willy dinleyemez ve Boston otelindeki belleğe düşer — Kadın, çoraplar, kapının açılışı, "Sahtekarsın sen!". Oğullar onu tuvalette bırakıp gider.',
+      icsel: 'Şimdi ile geçmiş çöker; en derin ahlaki yara tam burada, herkesin içinde patlar.',
+      onerilenSicaklik: 9,
+      yuk: 'İlişkinin sonsuza dek kırıldığı anın, yıllar sonra aynı şiddetle yeniden yaşanması.',
+      travmaKategorileri: ['ihanet', 'ahlaki_yara'], travmaSeviyesi: 3,
+    },
+    {
+      no: 10, yasamSirasi: 14, perde: 2, perdeRomen: 'III',
+      baslik: 'Bahçe + Biff\'le son yüzleşme',
+      konum: 'II. Perde · Gece · Bahçe ve mutfak',
+      olay: 'Willy gece bahçeye tohum eker — bir şey büyütme çırpınışı. Ben\'le sigorta planını konuşur. Sonra Biff\'le son yüzleşme: Biff "Ben hiçbir şeyim baba" der, ağlar. Willy bunu yanlış anlar: "He likes me!"',
+      icsel: 'Karanlıkta bir şey ekme ihtiyacı; ve oğlunun gözyaşını sevgi sanma — son yanılsama.',
+      onerilenSicaklik: 8,
+      yuk: 'Bir babanın, oğlunun çıplak gerçeğini bile kendi rüyasına çevirme zorunluluğu.',
+      travmaKategorileri: ['varolussal'], travmaSeviyesi: 2,
+    },
+    {
+      no: 11, yasamSirasi: 15, perde: 2, perdeRomen: 'III',
+      baslik: 'Son — arabayla gidiş',
+      konum: 'II. Perde · Gece · Son',
+      olay: 'Herkes yattıktan sonra Willy ayaktadır. Ben\'in çağrısı, "elmas" metaforu. Arabaya biner ve sürer. Motor sesi, sonra sessizlik — yalnızca flüt sesi kalır.',
+      icsel: 'Kendini bir armağana dönüştürme yanılsaması: ölümü, oğluna bırakacağı son satış.',
+      onerilenSicaklik: 9,
+      yuk: 'Willy\'nin sahnedeki son anı — yolculuk burada biter. (Requiem karaktere ait değil; dahil değil.)',
+      travmaKategorileri: ['varolussal', 'kayip'], travmaSeviyesi: 2,
+    },
+  ],
+
+  // ─── TERCİHLER · 5 SAHNELEME KARARI (Yazarın Çerçevesi sayfası) ───────────
+  // Metnin en tartışmalı 5 noktası; oyuncu Yaratımsal Doğru seçer (Spine §3.11).
+  // Alıntılar: Hira Tekindor çevirisi (Ocak 2026). NOT: bu çeviride Ben = "Tom Amca".
+
+  tercihler: [
+    {
+      no: 1,
+      konu: 'Ben (Tom Amca)',
+      baslik: 'Ben gerçek bir hatıra mı, Willy\'nin miti mi?',
+      cokluSecim: false,
+      sahneNolari: [3, 8],
+      isaretler: [
+        { ref: "I. Perde · Tom Amca'nın gelişi", sahneNo: 3, metin: 'Tom (Ben) belirir; "elmas madenlerinin sahibi olarak" anılır (Tekindor s.36, s.43). Yalnız Willy\'nin dünyasında var.' },
+        { ref: 'Alaska teklifi', sahneNo: 8, metin: 'Willy "abimle Alaska\'ya gitseydim… tam dahiydi o" der (s.35). Ben hep çağıran, hiç ulaşılamayan ses.' },
+      ],
+      sentez: 'Ben sahnede yalnız Willy\'nin zihninde belirir — kanıtlanamaz ama Willy için en gerçek figür. Oyuncu onun gerçeklik derecesine karar verir.',
+      yorumlar: [
+        { harf: 'A', baslik: 'Gerçek ağabey anısı', aciklama: 'Ben yaşamış, gerçek bir adam; Willy onu olduğu gibi hatırlıyor. Başarı çağrısı dışarıdan gelir.' },
+        { harf: 'B', baslik: 'İçsel mit', aciklama: 'Willy başarısızlığını ölçtüğü bir put yaratmış; Ben gerçeklikten çok bir ihtiyaç. Çağrı içeriden gelir.' },
+        { harf: 'C', baslik: 'İkisi birden', aciklama: 'Gerçek bir adamın anısı zamanla efsaneye dönüşmüş; oyuncu anı ile mit arasındaki kaymayı oynar.' },
+      ],
+    },
+    {
+      no: 2,
+      konu: 'Geçmişe Kayışlar',
+      baslik: 'Willy geçmişe nasıl kayıyor — bunama mı, bilinç akışı mı, bedensel tetik mi?',
+      cokluSecim: false,
+      sahneNolari: [1, 2, 9],
+      isaretler: [
+        { ref: '1. Perde açılış · flüt', sahneNo: 1, metin: 'Açılışta flüt melodisi; yönerge: "Willy müziği duyar ama farkında değildir" (s.3). Geçmişin kapısı sesle açılır.' },
+        { ref: 'Geçiş yönergeleri', sahneNo: 2, metin: 'Flüt yaklaşır/uzaklaşır, ışık değişir; Willy şimdiyle geçmiş arasında kayar (s.4, s.11).' },
+        { ref: 'Lokanta · Boston patlaması', sahneNo: 9, metin: 'En sert kayış: lokantadan Boston oteline düşer (s.111 civarı). Kontrolü tamamen kaybeder.' },
+      ],
+      sentez: 'Miller geçişleri flüt + ışıkla yazar, "neden"ini açıklamaz. Kayışın doğasını oyuncu seçer.',
+      yorumlar: [
+        { harf: 'A', baslik: 'Klinik çözülme', aciklama: 'Yaşlılık/zihinsel dağılma; kayışlar kontrolsüz, korkutucu, irade dışı.' },
+        { harf: 'B', baslik: 'Bilinç akışı', aciklama: 'Bilinçli olmasa da anlamlı; bastırılan geçmiş yüzeye vuruyor, zihnin kendi mantığı var.' },
+        { harf: 'C', baslik: 'Bedensel tetik', aciklama: 'Bir ses ya da nesne (flüt, çorap, çakmak) anıyı tetikler; kayış bedende başlar, sonra zihne yayılır.' },
+      ],
+    },
+    {
+      no: 3,
+      konu: 'Linda + Kadın',
+      baslik: 'Linda ve Kadın hattı nasıl oynanır?',
+      cokluSecim: false,
+      sahneNolari: [4, 9],
+      isaretler: [
+        { ref: 'Çoraplar', sahneNo: 4, metin: 'Linda eski çorapları yamar; Willy buna tahammül edemez (s.30, s.33-34). Çorap, Boston\'ın suçunu sahnede sessizce taşır.' },
+        { ref: 'Boston · Kadın', sahneNo: 9, metin: 'Kadın belleği "tül perdenin arkasında" belirir (s.32); ifşada "Kapı çalıyor galiba!" (s.111).' },
+      ],
+      sentez: 'İki kadın, bir suç ekseni. Çorap motifi ikisini sessizce bağlar — Willy Kadın\'a çorap verdi, Linda\'nınkini yamatmaya kıyamaz.',
+      yorumlar: [
+        { harf: 'A', baslik: 'Sevgi vs bağımlılık', aciklama: 'Linda saf koruma ve sevgi; Kadın yoldaki yalnızlığın kaçışı. İki ayrı ihtiyaç.' },
+        { harf: 'B', baslik: 'Suç ekseni', aciklama: 'Linda masumiyetin, Kadın günahın yüzü; oyuncu ikisini çorap motifiyle tek hatta bağlar.' },
+        { harf: 'C', baslik: 'Feminist okuma', aciklama: 'Linda sistemin görünmez emekçisi; Kadın metalaşmış teselli. İkisi de Willy\'nin dünyasının kurbanı.' },
+      ],
+    },
+    {
+      no: 4,
+      konu: 'İntiharın Motivasyonu',
+      baslik: 'Willy neden ölür — sigorta mı, onur mu, utanç mı?',
+      cokluSecim: false,
+      sahneNolari: [10, 11],
+      isaretler: [
+        { ref: 'Hortum ve sigorta', sahneNo: 4, metin: 'Linda lastik hortumu ve sigorta meselesini açıklar (s.54-55). Ölüm aylar önce tasarlanmış.' },
+        { ref: 'Elmas imgesi', sahneNo: 10, metin: 'Ben/Tom "elmas" imgesiyle çağırır (s.36, s.43); Willy ölümü Biff\'e bırakacağı somut bir armağan olarak görür.' },
+      ],
+      sentez: 'Metin üç gerekçeyi de besler: 20.000 dolarlık sigorta, satıcı onuru, Boston utancı. Oyuncu hangisini öne çıkarır?',
+      yorumlar: [
+        { harf: 'A', baslik: 'Sigorta — sevgi eylemi', aciklama: 'Biff\'e sermaye bırakmak; pratik, hesaplı bir fedakârlık. Ölüm bir yatırım.' },
+        { harf: 'B', baslik: 'Onur — son satış', aciklama: 'Kendini "değerli" kanıtlama ihtiyacı; ölüm bir performans, kalabalık bir cenaze hayali.' },
+        { harf: 'C', baslik: 'Utanç — kaçış', aciklama: 'Boston\'ın, kovulmanın, görülmenin yükünden kurtulma. Ölüm bir teslim.' },
+      ],
+    },
+    {
+      no: 5,
+      konu: 'Son An',
+      baslik: 'Willy son anında ne taşır — yenilgi mi, barış mı, yanılsama mı?',
+      cokluSecim: false,
+      sahneNolari: [11],
+      isaretler: [
+        { ref: 'Son — arabayla gidiş', sahneNo: 11, metin: 'Ben/Tom çağrısı, "elmas" imgesi, arabaya biniş; motor sesi, sonra yalnızca flüt kalır (s.138 yönergesi).' },
+        { ref: 'Ağıt (yalnız sahneleme notu)', sahneNo: 11, metin: 'Linda mezar başında "Hiç borcumuz kalmadı… Özgürüz" der (s.138). NOT: Ağıt Willy öldükten sonradır — yolculuğa DAHİL DEĞİL, yalnız sahneleme yorumu.' },
+      ],
+      sentez: 'Willy\'nin son nefesinde taşıdığı duygu metinde yazılmaz. Yenilgi mi, kurtuluş yanılsaması mı, bir an huzur mu?',
+      yorumlar: [
+        { harf: 'A', baslik: 'Yenilgi', aciklama: 'Kırılmış, kovulmuş, oğlunu kaybetmiş bir adam karanlığa teslim olur. Son an çöküştür.' },
+        { harf: 'B', baslik: 'Yanılsama', aciklama: 'Ben\'in elmasına, Biff\'i kurtaracağı rüyaya inanarak gider. Trajik körlük son ana taşınır.' },
+        { harf: 'C', baslik: 'Bir an barış', aciklama: 'Biff\'in onu hâlâ sevdiğini anladığı kısa aydınlanmayla gider. Son an bir huzurdur.' },
+      ],
+    },
+  ],
+
+  // ─── BOŞLUK SETİ · 4 BOŞLUK (Senin Çerçeven sayfası kullanır) ─────────────
+  // Sahnede temsil EDİLMEMİŞ ama bedende yaşanmış geçişler (Spine §3.13).
+  // Eski 5. boşluk (bahçeden son arabaya) sahnede VAR → boşluk değil, çıkarıldı.
+  // Ölüm-sonrası boşluk yok (yolculuk son sahne anıyla biter — kayıt dışı karar).
+  // `yasamSirasi`: karakterin HAYAT kronolojisindeki yer (sahne sırası ≠ hayat sırası).
+  // Modül III (Yolculuk) bu indeksle sahne+boşlukları tek diziye dizecek.
+
+  boslukSet: [
+    {
+      no: 1,
+      baslik: "Boston otelinden Brooklyn'e dönüş",
+      sinif: 'Zaman/Mekân Boşluğu',
+      konum: 'Boston oteli (Birim 9 belleği) → eve dönüş',
+      yasamSirasi: 3,
+      sonraSahneNo: 9,
+      onceBaslik: 'Boston Oteli (1932)',
+      onceMetin:
+        'Biff kapıyı açtı, babasını Kadın\'la gördü. "Sahtekarsın sen!" Çoraplar yerde. Biff ağlayarak koridorda gitti. Willy otelde tek başına kaldı.',
+      boslukMetin:
+        'Otelden çıkış · trenle Brooklyn\'e dönüş yolu · aynı eve dönmek ama Biff\'le artık aynı dünyada olmamak · ne söyleyeceğini bilememek · suçun bedene yerleşmesi.',
+      sonraBaslik: 'Yıllar süren sessizlik',
+      sonraMetin:
+        'Eve döndü, ama Biff\'le bir daha o eski hâlleri hiç olmadı. Bu dönüş yolu, sürecek kopuşun başlangıcıydı.',
+      sentez:
+        'Miller bu yolculuğu yazmaz — yalnızca sonucunu (kırık ilişki) gösterir. Willy o yolda ne düşündü, kendine hangi yalanı kurdu?',
+      altSorular: [
+        { no: 1, baslik: 'Beden', soru: 'Otel kapısı kapandığında bedeni ne yaptı — eli, omzu, nefesi nerede durdu?' },
+        { no: 2, baslik: 'İçsel', soru: "Brooklyn'e varana dek kendine hangi açıklamayı kurdu? Hangi cümleyle eve girdi?" },
+        { no: 3, baslik: 'İlişkisel', soru: 'Biff\'le ilk kez yeniden yüz yüze geldiğinde gözünü nereye kaçırdı?' },
+      ],
+    },
+    {
+      no: 2,
+      baslik: "Ben'in Alaska teklifini reddetme anı",
+      sinif: 'Karar Boşluğu',
+      konum: 'Ben belleği (Birim 8) — teklif anı',
+      yasamSirasi: 2,
+      sonraSahneNo: 8,
+      onceBaslik: "Ben'in teklifi",
+      onceMetin:
+        'Ben, Alaska\'da topraklar olduğunu, gelirse zengin olacağını söyler. "Gel benimle Willy — orada bir adam adam gibi yaşar."',
+      boslukMetin:
+        'Teklifi tartma · Linda\'nın "burada her şeyin var" sözüne tutunma · satıcılık hayaline, Singleman olma rüyasına sığınma · gitmeme kararını verme anı.',
+      sonraBaslik: 'Kalma kararı',
+      sonraMetin:
+        'Willy kaldı. Ama o "hayır" ömür boyu içinde "ya gitseydim?" olarak yaşadı.',
+      sentez:
+        'Sahnede Ben teklifi söyler, Willy reddeder — ama reddin İÇİ boşluktur. O "hayır"ı verirken neye tutundu?',
+      altSorular: [
+        { no: 1, baslik: 'İçsel', soru: '"Hayır" derken aslında neye "evet" diyordu?' },
+        { no: 2, baslik: 'İlişkisel', soru: 'Kararı verirken Linda\'nın yüzüne mi baktı, Ben\'in yüzüne mi?' },
+        { no: 3, baslik: 'Beden', soru: 'O kararın ağırlığı yıllar sonra hangi anlarda bedenine geri döner?' },
+      ],
+    },
+    {
+      no: 3,
+      baslik: "Howard'la görüşme öncesi gece",
+      sinif: 'Hazırlık Boşluğu',
+      konum: 'Birim 5 (umut) → Birim 7 (Howard)',
+      yasamSirasi: 8,
+      sonraSahneNo: 7,
+      onceBaslik: "Biff'in planıyla gelen umut",
+      onceMetin:
+        'Biff, Oliver\'a gidecek; Willy, Howard\'dan New York\'ta bir masa isteyecek. Gece yatmadan önce her şey düzelecek gibi.',
+      boslukMetin:
+        'Uykusuz gece · söyleyeceğini prova etme · 34 yılı, Howard\'ın babasını, adını kendi koyduğu çocuğu hatırlama · sabaha güvenle mi korkuyla mı uyanacağını bilememe.',
+      sonraBaslik: "Howard'ın ofisi",
+      sonraMetin:
+        'Sabah Howard\'a gider. Teyp makinesi. Dinlenmez. Kovulur.',
+      sentez:
+        'Sahnede sabah doğrudan ofise geçeriz. Ama o gece — umutla korku arasındaki saatler — yazılmamıştır.',
+      altSorular: [
+        { no: 1, baslik: 'İçsel', soru: 'O gece kafasında Howard\'a hangi cümleyi kurdu — sabah hangisini söyleyebildi?' },
+        { no: 2, baslik: 'Beden', soru: 'Yatağında uyumaya çalışırken bedeni neredeydi — gergin mi, ağır mı, hafif mi?' },
+        { no: 3, baslik: 'İlişkisel', soru: 'Linda uyurken ona baktı mı? Baktıysa ne düşündü?' },
+      ],
+    },
+    {
+      no: 4,
+      baslik: 'Restoran tuvaletinde geçen süre',
+      sinif: 'Kopuş Boşluğu',
+      konum: 'Birim 9 (lokanta) içinde — Willy tuvalette',
+      yasamSirasi: 13,
+      sonraSahneNo: 10,
+      onceBaslik: 'Lokanta — Boston belleği patlar',
+      onceMetin:
+        'Biff gerçeği söylemeye çalışır; Willy Boston belleğine düşer; oğullar onu bırakıp kadınlarla gider. Willy tuvalete kaçar.',
+      boslukMetin:
+        'Tuvalette geçen dakikalar · belleğin içinden çıkamama · "Sahtekarsın sen!"in yankısı · oğullarının onu bıraktığını fark etme · aynaya bakma ya da bakamama · yapayalnız.',
+      sonraBaslik: 'Bahçe',
+      sonraMetin:
+        'Eve döner; gece bahçeye tohum ekmeye çalışır — karanlıkta bir şey büyütme çırpınışı.',
+      sentez:
+        'Sahnede Willy tuvalete girer, sonra onu evde bahçede görürüz. Arada — en yalnız anı — boşluktur.',
+      altSorular: [
+        { no: 1, baslik: 'Beden', soru: 'Tuvaletin içinde bedeni ne yaptı — ayakta mı, çömelmiş mi, aynada mı?' },
+        { no: 2, baslik: 'İçsel', soru: 'Oğullarının onu bıraktığını ne zaman, nasıl anladı?' },
+        { no: 3, baslik: 'Zamansal', soru: 'Geçmiş (Boston) ile şimdi (lokanta) onun zihninde nasıl iç içe geçti?' },
+      ],
+    },
+  ],
+
+  // ─── 14 SAHNE (DEPRECATED — Hamlet kalıbı, A-4'te retire) ─────────────────
 
   sahneler: [
     {

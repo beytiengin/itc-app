@@ -5,8 +5,8 @@
 
 const TON = 'var(--onay)'; // Senin Çerçeven yeşili — eski boşluk renginden devam.
 
-export default function HamletBoslukKart({ bosluk, yazilanSayisi }) {
-  const yol = `/antrenman/karakter/hamlet/senin-cerceven/${bosluk.no}`;
+export default function HamletBoslukKart({ bosluk, yazilanSayisi, kokYol }) {
+  const yol = `${kokYol}/senin-cerceven/${bosluk.no}`;
   const tamamenYazilmis = yazilanSayisi >= 3;
   const kismiYazilmis = yazilanSayisi > 0 && yazilanSayisi < 3;
 

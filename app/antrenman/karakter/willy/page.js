@@ -1,210 +1,452 @@
 // app/antrenman/karakter/willy/page.js
-// ITC Actor's Gym — Willy Loman karakter sayfası (yeni mimari)
+// ITC Actor's Gym — Willy Loman karakter sayfası (hub)
+//
+// Modül II generic mimari (A-2 kararı: generic + Timeline Willy modu):
+//   - Karakter kimliği (karakter MBTI'si yazılmaz — tip kaldırıldı)
+//   - Doğrular (Bölüm 1)
+//   - 4 alt-bölüm kartı (Oyun Öncesi · Timeline · Yazarın Çerçevesi · Senin Çerçeven)
+//   - Modül III · Yolculuk Modu CTA (yakında)
+//
+// Hamlet ile aynı yapı (Spine §3.5); fark veride (willy.js). Eski tek-sayfa
+// (kalibrasyon + 4 kart + ZihinselAntrenman) retire edildi; eski veri
+// (sahneler/bosluklar/antrenmanlar) willy.js'de korunuyor.
 
 'use client';
 
-import { useState, useEffect } from 'react';
-import { getKalibrasyonProfili } from '../../../lib/kalibrasyon';
-import { supabase } from '../../../lib/supabase';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import willy from '../../../../data/karakterler/willy';
 import DogrularKarti from '../../../../components/DogrularKarti';
-import TimelineYatay from '../../../../components/TimelineYatay';
-import SeciliSahnePaneli from '../../../../components/SeciliSahnePaneli';
-import YazarinCercevesi from '../../../../components/YazarinCercevesi';
-import SeninCerceven from '../../../../components/SeninCerceven';
-import ZihinselAntrenman from '../../../../components/ZihinselAntrenman';
+import HamletAltSayfaHeader from '../../../../components/HamletAltSayfaHeader';
+
+const TON = 'var(--accent)';
+const KOK = '/antrenman/karakter/willy';
 
 export default function WillySayfasi() {
-  const [kalibrasyon, setKalibrasyon] = useState(null);
-  const [yukleniyor, setYukleniyor] = useState(true);
-  const [seciliSahneId, setSeciliSahneId] = useState(null);
+  const router = useRouter();
 
+  // Eski hash'leri yeni route'lara yönlendir.
   useEffect(() => {
-    async function yukle() {
-      const profil = await getKalibrasyonProfili();
-      setKalibrasyon(profil);
-      setYukleniyor(false);
-    }
-    yukle();
-  }, []);
-
-  useEffect(() => {
-    if (yukleniyor || typeof window === 'undefined') return;
+    if (typeof window === 'undefined') return;
     const hash = window.location.hash;
     if (!hash) return;
-    setTimeout(() => {
-      if (hash === '#bosluklar') {
-        document.getElementById('bosluklar')?.scrollIntoView({ behavior: 'smooth' });
-      } else if (hash === '#antrenman' || hash === '#egzersizler') {
-        document.getElementById('antrenman')?.scrollIntoView({ behavior: 'smooth' });
-      } else if (hash.startsWith('#bosluk-') || hash.startsWith('#sahne-')) {
-        document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 200);
-  }, [yukleniyor]);
-
-  const seciliSahne = (willy.sahneler || []).find((s) => s.id === seciliSahneId) || null;
-  const vakBaskini = kalibrasyon?.vak?.baskin ? String(kalibrasyon.vak.baskin).toLowerCase() : null;
-  const psikolojikPuan = kalibrasyon?.yildiz?.psikolojik ?? null;
-
-  if (yukleniyor) {
-    return (
-      <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.7rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>Hazırlanıyor…</span>
-      </main>
-    );
-  }
+    if (hash === '#bosluklar' || hash.startsWith('#bosluk-')) {
+      router.replace(`${KOK}/senin-cerceven`);
+    } else if (hash === '#antrenman' || hash === '#egzersizler') {
+      router.replace(`${KOK}/senin-cerceven`);
+    } else if (hash === '#sahneler' || hash.startsWith('#sahne-')) {
+      router.replace(`${KOK}/timeline`);
+    }
+  }, [router]);
 
   return (
-    <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', flexDirection: 'column' }}>
-      <KarakterHeader />
+    <main
+      style={{
+        minHeight: '100vh',
+        backgroundColor: 'var(--bg-base)',
+        color: 'var(--ink)',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <HamletAltSayfaHeader />
 
-      <section style={{ padding: '3rem 2rem 2rem', maxWidth: '1100px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
+      {/* Karakter kimliği */}
+      <section
+        style={{
+          padding: '3rem 2rem 2rem',
+          maxWidth: '1100px',
+          margin: '0 auto',
+          width: '100%',
+          boxSizing: 'border-box',
+        }}
+      >
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(2.2rem, 6vw, 3.2rem)', color: 'var(--ink)', margin: 0, lineHeight: 1.1, letterSpacing: '0.02em' }}>
+          <span
+            style={{
+              fontFamily: 'Jost, sans-serif',
+              fontWeight: 200,
+              fontSize: '0.6rem',
+              letterSpacing: '0.35em',
+              color: TON,
+              textTransform: 'uppercase',
+            }}
+          >
+            Modül II · Karakterini İnşa Et
+          </span>
+          <h1
+            style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontStyle: 'italic',
+              fontWeight: 300,
+              fontSize: 'clamp(2.2rem, 6vw, 3.2rem)',
+              color: 'var(--ink)',
+              margin: 0,
+              lineHeight: 1.1,
+              letterSpacing: '0.02em',
+            }}
+          >
             {willy.ad}
           </h1>
-          <div style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.8rem', color: 'var(--ink-muted)', letterSpacing: '0.12em' }}>
-            {willy.yazar} · {willy.donem} · {willy.tip} · {willy.tur}
+          <div
+            style={{
+              fontFamily: 'Jost, sans-serif',
+              fontWeight: 200,
+              fontSize: '0.8rem',
+              color: 'var(--ink-muted)',
+              letterSpacing: '0.12em',
+            }}
+          >
+            {willy.yazar} · {willy.donem} · {willy.tur}
           </div>
           {willy.ozet && (
-            <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.05rem', color: 'var(--ink-soft)', maxWidth: '700px', lineHeight: 1.7, margin: '0.8rem 0 0 0' }}>
+            <p
+              style={{
+                fontFamily: 'Cormorant Garamond, serif',
+                fontStyle: 'italic',
+                fontSize: '1.05rem',
+                color: 'var(--ink-soft)',
+                maxWidth: '700px',
+                lineHeight: 1.7,
+                margin: '0.8rem 0 0 0',
+              }}
+            >
               {willy.ozet}
             </p>
           )}
         </div>
       </section>
 
-      <section style={{ padding: '0 2rem', maxWidth: '1100px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
+      {/* Bölüm 1 · Doğrular */}
+      <section
+        style={{
+          padding: '0 2rem',
+          maxWidth: '1100px',
+          margin: '0 auto',
+          width: '100%',
+          boxSizing: 'border-box',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'baseline',
+            gap: '0.9rem',
+            marginBottom: '1rem',
+            flexWrap: 'wrap',
+          }}
+        >
+          <span
+            style={{
+              fontFamily: 'Jost, sans-serif',
+              fontWeight: 200,
+              fontSize: '0.55rem',
+              letterSpacing: '0.35em',
+              color: TON,
+              textTransform: 'uppercase',
+            }}
+          >
+            Bölüm 1
+          </span>
+          <span
+            style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontStyle: 'italic',
+              fontWeight: 300,
+              fontSize: '1.4rem',
+              color: 'var(--ink)',
+            }}
+          >
+            Değiştirilemez Doğrular
+          </span>
+        </div>
         <DogrularKarti dogrular={willy.dogrular} />
       </section>
 
-      <section style={{ padding: '3rem 2rem 0.5rem', maxWidth: '1100px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
+      {/* Bölümler 2-5 — Alt sayfalar */}
+      <section
+        style={{
+          padding: '3rem 2rem 0',
+          maxWidth: '1100px',
+          margin: '0 auto',
+          width: '100%',
+          boxSizing: 'border-box',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1.4rem',
+        }}
+      >
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-          <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontWeight: 300, fontSize: '1.5rem', color: 'var(--accent)', letterSpacing: '0.05em' }}>
-            Timeline
+          <span
+            style={{
+              fontFamily: 'Jost, sans-serif',
+              fontWeight: 200,
+              fontSize: '0.55rem',
+              letterSpacing: '0.35em',
+              color: TON,
+              textTransform: 'uppercase',
+            }}
+          >
+            Bölümler 2 — 5
           </span>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-muted)', fontStyle: 'italic' }}>
-            Karakterin yaşam çizgisi — sahnelere tıklayarak detayları gör.
+          <span
+            style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontStyle: 'italic',
+              fontWeight: 300,
+              fontSize: '1.4rem',
+              color: 'var(--ink)',
+            }}
+          >
+            Karakter koordinatları
           </span>
         </div>
+        <BolumKartlari />
       </section>
 
-      <section style={{ padding: '0', width: '100%' }}>
-        <TimelineYatay
-          sahneler={willy.sahneler}
-          seciliSahneId={seciliSahneId}
-          onSahneSec={setSeciliSahneId}
-        />
-      </section>
-
-      <section style={{ padding: '0 2rem 1rem', maxWidth: '1100px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
-        <SeciliSahnePaneli sahne={seciliSahne} />
-      </section>
-
-      <hr style={{ border: 'none', borderTop: '1px solid var(--bg-elevated)', margin: '3rem 2rem 0', maxWidth: '1100px', width: 'calc(100% - 4rem)', alignSelf: 'center' }} />
-
-      <section style={{ padding: '3rem 2rem 5rem', maxWidth: '1100px', margin: '0 auto', width: '100%', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', gap: '4rem' }}>
-        <div id="sahneler">
-          <YazarinCercevesi
-            sahneler={willy.sahneler}
-            karakterId={willy.id}
-            onSahneSec={setSeciliSahneId}
-          />
-        </div>
-
-        <div id="bosluklar">
-          <SeninCerceven
-            bosluklar={willy.bosluklar}
-            kalibrasyon={kalibrasyon}
-            karakterId={willy.id}
-          />
-        </div>
-
-        <div id="antrenman">
-          <ZihinselAntrenman
-            antrenmanlar={willy.antrenmanlar || []}
-            karakterId={willy.id}
-            vakBaskini={vakBaskini}
-            travmaProfili={psikolojikPuan}
-          />
-        </div>
+      {/* Modül III · Yolculuk Modu CTA */}
+      <section
+        style={{
+          padding: '4rem 2rem 5rem',
+          maxWidth: '1100px',
+          margin: '0 auto',
+          width: '100%',
+          boxSizing: 'border-box',
+        }}
+      >
+        <ModulIIICta />
       </section>
     </main>
   );
 }
 
-function KarakterHeader() {
-  async function cikisYap() {
-    try {
-      await supabase.auth.signOut();
-    } finally {
-      if (typeof window !== 'undefined') window.location.href = '/';
-    }
-  }
+// ─── BÖLÜM KARTLARI ─────────────────────────────────────────────────────────
 
-  const navLink = {
-    fontFamily: 'Jost, sans-serif',
-    fontWeight: 200,
-    fontSize: '0.6rem',
-    letterSpacing: '0.25em',
-    color: 'var(--ink-soft)',
-    textTransform: 'uppercase',
-    textDecoration: 'none',
-    transition: 'color 0.25s ease',
-  };
+function BolumKartlari() {
+  const kartlar = [
+    {
+      etiket: 'Bölüm 2',
+      baslik: 'Oyun Öncesi Yaşam',
+      altyazi: 'Sahneye çıkmadan önce ne yaşandı',
+      aciklama:
+        "Sekiz olay, dokuz ilişki — Willy'nin bedeninde taşıdığı geçmiş.",
+      yol: `${KOK}/oyun-oncesi-yasam`,
+    },
+    {
+      etiket: 'Bölüm 3',
+      baslik: 'Zaman Çizgisi',
+      altyazi: "Willy'nin bedensel zinciri",
+      aciklama:
+        'On bir birim, üç akış hattı (Sızıntı · Patlama · Bedel). Sahne sırası ile hayat sırası ayrı.',
+      yol: `${KOK}/timeline`,
+    },
+    {
+      etiket: 'Bölüm 4',
+      baslik: 'Yazarın Çerçevesi',
+      altyazi: 'Beş tercih, beş kavşak',
+      aciklama:
+        "Ben, geçmişe kayışlar, Linda+Kadın, intihar, son an — Miller'ın açık uçlarına seninkini koy.",
+      yol: `${KOK}/yazarin-cercevesi`,
+    },
+    {
+      etiket: 'Bölüm 5',
+      baslik: 'Senin Çerçeven',
+      altyazi: "Miller'ın sustuğu yer",
+      aciklama:
+        'Dört boşluk, on iki alt-soru. Sahnelerin altında akan görünmez metni sen yaz.',
+      yol: `${KOK}/senin-cerceven`,
+    },
+  ];
 
   return (
-    <header
+    <div
       style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '1.6rem 2rem',
-        borderBottom: '1px solid var(--rule)',
-        flexWrap: 'wrap',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
         gap: '1rem',
       }}
     >
-      <a
-        href="/"
+      {kartlar.map((k) => (
+        <a
+          key={k.yol}
+          href={k.yol}
+          style={{
+            border: '1px solid var(--rule)',
+            padding: '1.6rem 1.8rem',
+            backgroundColor: 'var(--bg-elevated)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.6rem',
+            textDecoration: 'none',
+            color: 'var(--ink)',
+            transition: 'all 0.25s ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = TON;
+            e.currentTarget.style.backgroundColor = 'var(--accent-bg-deep)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = 'var(--rule)';
+            e.currentTarget.style.backgroundColor = 'var(--bg-elevated)';
+          }}
+        >
+          <span
+            style={{
+              fontFamily: 'Jost, sans-serif',
+              fontWeight: 200,
+              fontSize: '0.55rem',
+              letterSpacing: '0.35em',
+              color: TON,
+              textTransform: 'uppercase',
+            }}
+          >
+            {k.etiket}
+          </span>
+          <span
+            style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontStyle: 'italic',
+              fontWeight: 300,
+              fontSize: '1.5rem',
+              color: 'var(--ink)',
+              lineHeight: 1.2,
+            }}
+          >
+            {k.baslik}
+          </span>
+          <span
+            style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontStyle: 'italic',
+              fontSize: '0.95rem',
+              color: 'var(--ink-muted)',
+            }}
+          >
+            {k.altyazi}
+          </span>
+          <p
+            style={{
+              fontFamily: 'Jost, sans-serif',
+              fontWeight: 300,
+              fontSize: '0.82rem',
+              color: 'var(--ink-soft)',
+              lineHeight: 1.7,
+              margin: '0.4rem 0 0 0',
+            }}
+          >
+            {k.aciklama}
+          </p>
+          <span
+            style={{
+              fontFamily: 'Jost, sans-serif',
+              fontWeight: 200,
+              fontSize: '0.6rem',
+              letterSpacing: '0.3em',
+              color: TON,
+              textTransform: 'uppercase',
+              marginTop: '0.4rem',
+            }}
+          >
+            Aç →
+          </span>
+        </a>
+      ))}
+    </div>
+  );
+}
+
+// ─── MODÜL III · YOLCULUK MODU CTA ──────────────────────────────────────────
+
+function ModulIIICta() {
+  return (
+    <div
+      style={{
+        border: `1px solid color-mix(in srgb, ${TON} 20%, transparent)`,
+        backgroundColor: 'var(--accent-bg-deep)',
+        padding: '2.2rem 2.4rem',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+      }}
+    >
+      <span
         style={{
           fontFamily: 'Jost, sans-serif',
           fontWeight: 200,
-          fontSize: '0.65rem',
-          letterSpacing: '0.3em',
-          color: 'var(--accent)',
+          fontSize: '0.6rem',
+          letterSpacing: '0.4em',
+          color: TON,
           textTransform: 'uppercase',
-          textDecoration: 'none',
         }}
       >
-        Inside The Character
-      </a>
-      <nav style={{ display: 'flex', gap: '1.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
-        <a href="/kalibrasyon" style={navLink}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
-          Kalibrasyon
-        </a>
-        <a href="/kulis" style={navLink}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
-          Kulis
-        </a>
-        <a href="/antrenman/karakter" style={{ ...navLink, color: 'var(--ink)' }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}>
-          ← Karakterler
-        </a>
-        <button
-          onClick={cikisYap}
-          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, ...navLink, color: 'var(--ink-muted)' }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
+        Modül III · Yolculuk Modu
+      </span>
+
+      <h2
+        style={{
+          fontFamily: 'Cormorant Garamond, serif',
+          fontStyle: 'italic',
+          fontWeight: 300,
+          fontSize: 'clamp(1.6rem, 4vw, 2.2rem)',
+          color: 'var(--ink)',
+          margin: 0,
+          lineHeight: 1.2,
+        }}
+      >
+        Willy'nin tüm yaşamı, baştan sona
+      </h2>
+
+      <p
+        style={{
+          fontFamily: 'Cormorant Garamond, serif',
+          fontStyle: 'italic',
+          fontSize: '1.05rem',
+          color: 'var(--ink-soft)',
+          lineHeight: 1.8,
+          margin: 0,
+          maxWidth: '700px',
+        }}
+      >
+        Modül II'yi tamamladığında karakter koordinatları kurulmuş olur. Modül III,
+        Willy'nin tüm yaşamını — pre-senaryodan sahnedeki son anına — bedeninle bir kez
+        baştan sona dolaşman için tasarlandı. Sahneler ve aralarındaki boşluklar, hayat
+        sırasına dizilir; AI Dış Ses eşlik eder.
+      </p>
+
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '1rem',
+          paddingTop: '0.6rem',
+          flexWrap: 'wrap',
+        }}
+      >
+        <span
+          style={{
+            fontFamily: 'Jost, sans-serif',
+            fontWeight: 200,
+            fontSize: '0.65rem',
+            letterSpacing: '0.3em',
+            color: 'var(--ink-muted)',
+            textTransform: 'uppercase',
+            padding: '0.4rem 0.9rem',
+            border: '1px solid var(--rule)',
+          }}
         >
-          Çıkış
-        </button>
-      </nav>
-    </header>
+          Yakında
+        </span>
+        <span
+          style={{
+            fontFamily: 'Cormorant Garamond, serif',
+            fontStyle: 'italic',
+            fontSize: '0.9rem',
+            color: 'var(--ink-muted)',
+          }}
+        >
+          Modül II tamamlandığında açılacak.
+        </span>
+      </div>
+    </div>
   );
 }

@@ -1,16 +1,16 @@
-// app/antrenman/karakter/hamlet/senin-cerceven/page.js
-// ITC Actor's Gym — Modül II Hamlet · Senin Çerçeven (5 Boşluk)
+// app/antrenman/karakter/willy/senin-cerceven/page.js
+// ITC Actor's Gym — Modül II Willy · Senin Çerçeven (5 Boşluk)
 //
 // Workbook s.106-125 birebir karşılığı.
 
 'use client';
 
 import { useState, useEffect } from 'react';
-import hamlet from '../../../../../data/karakterler/hamlet';
+import willy from '../../../../../data/karakterler/willy';
 import { altSoruYansimalariniGetir } from '../../../../lib/hamlet-veri';
-import HamletAltSayfaHeader from '../../../../../components/HamletAltSayfaHeader';
-import HamletBoslukKart from '../../../../../components/HamletBoslukKart';
-import HamletBolumGecisi from '../../../../../components/HamletBolumGecisi';
+import WillyAltSayfaHeader from '../../../../../components/WillyAltSayfaHeader';
+import WillyBoslukKart from '../../../../../components/WillyBoslukKart';
+import WillyBolumGecisi from '../../../../../components/WillyBolumGecisi';
 
 const TON = 'var(--onay)';
 const ALTIN = 'var(--accent)';
@@ -21,14 +21,14 @@ export default function SeninCerceveAnaSayfa() {
 
   useEffect(() => {
     async function yukle() {
-      const veri = await altSoruYansimalariniGetir(hamlet.id);
+      const veri = await altSoruYansimalariniGetir(willy.id);
       setYansimalar(veri);
       setYukleniyor(false);
     }
     yukle();
   }, []);
 
-  const bosluklar = hamlet.boslukSet || [];
+  const bosluklar = willy.boslukSet || [];
 
   function yazilanSayisi(boslukNo) {
     const set = yansimalar[boslukNo] || {};
@@ -58,7 +58,7 @@ export default function SeninCerceveAnaSayfa() {
         flexDirection: 'column',
       }}
     >
-      <HamletAltSayfaHeader />
+      <WillyAltSayfaHeader />
 
       <article
         style={{
@@ -75,26 +75,26 @@ export default function SeninCerceveAnaSayfa() {
         {/* Açılış */}
         <header style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
           <a
-            href="/antrenman/karakter/hamlet"
+            href="/antrenman/karakter/willy"
             style={geriLink}
             onMouseEnter={(e) => { e.currentTarget.style.color = ALTIN; }}
             onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
           >
-            ← Hamlet
+            ← Willy Loman
           </a>
           <span style={{ ...etiket, color: TON }}>Modül II · Bölüm 5</span>
           <h1 style={baslik}>◇ Senin Çerçeven</h1>
-          <p style={altyazi}>Shakespeare'in sustuğu yer</p>
+          <p style={altyazi}>Miller'ın sustuğu yer</p>
         </header>
 
         <p style={paragraf}>
-          Yazarın Çerçevesi'nde Shakespeare'in yazdığını okudun. Şimdi, son bölümde,
+          Yazarın Çerçevesi'nde Miller'ın yazdığını okudun. Şimdi, son bölümde,
           onun yazmadığını yazacaksın.
         </p>
         <p style={paragraf}>
-          Hamlet metninde sahnelerin arasında büyük boşluklar var. Hamlet bir sahnede
-          çıkıyor, sonraki sahnede başka bir Hamlet olarak giriyor. Aralarda bir şeyler
-          yaşandı — Shakespeare bunların çoğunu yazmadı. Ama yaşandı. Karakter bedeninde
+          Willy metninde sahnelerin arasında büyük boşluklar var. Willy bir sahnede
+          çıkıyor, sonraki sahnede başka bir Willy olarak giriyor. Aralarda bir şeyler
+          yaşandı — Miller bunların çoğunu yazmadı. Ama yaşandı. Karakter bedeninde
           taşıyor.
         </p>
 
@@ -166,7 +166,7 @@ export default function SeninCerceveAnaSayfa() {
               margin: 0,
             }}
           >
-            Yazarken Hamlet'in zihninde misafirsin. Senin acından beslenmiyor —
+            Yazarken Willy'nin zihninde misafirsin. Senin acından beslenmiyor —
             onun verisinden besleniyor.
           </p>
         </div>
@@ -215,7 +215,7 @@ export default function SeninCerceveAnaSayfa() {
               Sahne öncesi nerede bitti, sahne sonrası nerede başlıyor — iki ucu net gör.
             </YontemAdim>
             <YontemAdim no="2" baslik="Soruları Aç">
-              "Burada ne oldu?" değil, "Hamlet'in bedeninde ne oldu?" diye sor.
+              "Burada ne oldu?" değil, "Willy'nin bedeninde ne oldu?" diye sor.
             </YontemAdim>
             <YontemAdim no="3" baslik="Duyusal Yaz">
               Soyut kavramlardan kaç. "Üzüldü" değil, "sol elinin parmaklarını sıktı".
@@ -251,9 +251,9 @@ export default function SeninCerceveAnaSayfa() {
               margin: 0,
             }}
           >
-            Yazdıkların "doğru" olmak zorunda değil — Shakespeare'in niyetiyle örtüşmek
-            de zorunda değil. Çünkü Shakespeare niyetini sustu. Yazdıkların{' '}
-            <em>senin Hamlet'in için</em> doğru olmalı.
+            Yazdıkların "doğru" olmak zorunda değil — Miller'ın niyetiyle örtüşmek
+            de zorunda değil. Çünkü Miller niyetini sustu. Yazdıkların{' '}
+            <em>senin Willy'nin için</em> doğru olmalı.
           </p>
           <p
             style={{
@@ -280,7 +280,7 @@ export default function SeninCerceveAnaSayfa() {
             borderTop: '1px solid var(--bg-elevated)',
           }}
         >
-          <span style={{ ...etiket, color: TON }}>Beş Boşluk</span>
+          <span style={{ ...etiket, color: TON }}>Dört Boşluk</span>
           <span
             style={{
               fontFamily: 'Cormorant Garamond, serif',
@@ -301,11 +301,11 @@ export default function SeninCerceveAnaSayfa() {
         {/* Boşluk kartları */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {bosluklar.map((b) => (
-            <HamletBoslukKart
+            <WillyBoslukKart
               key={b.no}
               bosluk={b}
               yazilanSayisi={yazilanSayisi(b.no)}
-              kokYol="/antrenman/karakter/hamlet"
+              kokYol="/antrenman/karakter/willy"
             />
           ))}
         </div>
@@ -313,7 +313,7 @@ export default function SeninCerceveAnaSayfa() {
         {/* Sentez kartı */}
         {tamamlananBosluk > 0 && (
           <a
-            href="/antrenman/karakter/hamlet/senin-cerceven/sentez"
+            href="/antrenman/karakter/willy/senin-cerceven/sentez"
             style={{
               border: `1px solid ${hepsiBaslamis ? TON : TON + '55'}`,
               backgroundColor: 'var(--bg-elevated)',
@@ -340,7 +340,7 @@ export default function SeninCerceveAnaSayfa() {
                 color: 'var(--ink)',
               }}
             >
-              Beş Boşluk, Bir Karakter
+              Dört Boşluk, Bir Karakter
             </span>
             <p
               style={{
@@ -370,10 +370,10 @@ export default function SeninCerceveAnaSayfa() {
           </a>
         )}
 
-        <HamletBolumGecisi
+        <WillyBolumGecisi
           oncekiEtiket="Bölüm 4"
           oncekiBaslik="Yazarın Çerçevesi"
-          oncekiYol="/antrenman/karakter/hamlet/yazarin-cercevesi"
+          oncekiYol="/antrenman/karakter/willy/yazarin-cercevesi"
           sonrakiBaslik="Modül III · Yolculuk Modu"
           sonrakiYakinda
         />
