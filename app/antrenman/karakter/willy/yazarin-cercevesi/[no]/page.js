@@ -1,5 +1,5 @@
-// app/antrenman/karakter/hamlet/yazarin-cercevesi/[no]/page.js
-// ITC Actor's Gym — Modül II Hamlet · Yazarın Çerçevesi · Tek Tercih Detayı
+// app/antrenman/karakter/willy/yazarin-cercevesi/[no]/page.js
+// ITC Actor's Gym — Modül II Willy · Yazarın Çerçevesi · Tek Tercih Detayı
 //
 // Dinamik route: /yazarin-cercevesi/1 ... /5
 // İçerik HamletTercihSecim bileşeni tarafından render edilir.
@@ -8,7 +8,7 @@
 
 import { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
-import hamlet from '../../../../../../data/karakterler/hamlet';
+import willy from '../../../../../../data/karakterler/willy';
 import { tercihleriGetir } from '../../../../../lib/hamlet-veri';
 import HamletAltSayfaHeader from '../../../../../../components/HamletAltSayfaHeader';
 import HamletTercihSecim from '../../../../../../components/HamletTercihSecim';
@@ -23,12 +23,12 @@ export default function TercihDetaySayfasi({ params }) {
   const [secimler, setSecimler] = useState({});
   const [yukleniyor, setYukleniyor] = useState(true);
 
-  const tercihler = hamlet.tercihler || [];
+  const tercihler = willy.tercihler || [];
   const tercih = tercihler.find((t) => t.no === tercihNo);
 
   useEffect(() => {
     async function yukle() {
-      const veri = await tercihleriGetir(hamlet.id);
+      const veri = await tercihleriGetir(willy.id);
       setSecimler(veri);
       setYukleniyor(false);
     }
@@ -38,7 +38,7 @@ export default function TercihDetaySayfasi({ params }) {
   // Geçersiz tercih no — ana sayfaya yönlendir
   useEffect(() => {
     if (!yukleniyor && !tercih) {
-      router.replace('/antrenman/karakter/hamlet/yazarin-cercevesi');
+      router.replace('/antrenman/karakter/willy/yazarin-cercevesi');
     }
   }, [yukleniyor, tercih, router]);
 
@@ -91,7 +91,7 @@ export default function TercihDetaySayfasi({ params }) {
         {/* Üst başlık */}
         <header style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <a
-            href="/antrenman/karakter/hamlet/yazarin-cercevesi"
+            href="/antrenman/karakter/willy/yazarin-cercevesi"
             style={{
               fontFamily: 'Jost, sans-serif',
               fontWeight: 200,
@@ -155,8 +155,8 @@ export default function TercihDetaySayfasi({ params }) {
         <HamletTercihSecim
           tercih={tercih}
           baslangic={secimler[tercih.no]}
-          karakterId={hamlet.id}
-          kokYol="/antrenman/karakter/hamlet"
+          karakterId={willy.id}
+          kokYol="/antrenman/karakter/willy"
         />
 
         {/* Navigasyon */}
@@ -171,7 +171,7 @@ export default function TercihDetaySayfasi({ params }) {
         >
           {oncekiNo ? (
             <a
-              href={`/antrenman/karakter/hamlet/yazarin-cercevesi/${oncekiNo}`}
+              href={`/antrenman/karakter/willy/yazarin-cercevesi/${oncekiNo}`}
               style={navButonStili()}
               onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
@@ -182,7 +182,7 @@ export default function TercihDetaySayfasi({ params }) {
 
           {sonrakiNo ? (
             <a
-              href={`/antrenman/karakter/hamlet/yazarin-cercevesi/${sonrakiNo}`}
+              href={`/antrenman/karakter/willy/yazarin-cercevesi/${sonrakiNo}`}
               style={navButonStili()}
               onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
@@ -191,7 +191,7 @@ export default function TercihDetaySayfasi({ params }) {
             </a>
           ) : (
             <a
-              href="/antrenman/karakter/hamlet/yazarin-cercevesi/sentez"
+              href="/antrenman/karakter/willy/yazarin-cercevesi/sentez"
               style={{
                 ...navButonStili(),
                 color: TON,

@@ -10,7 +10,6 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { sahneYansimasiKaydet } from '../app/lib/hamlet-veri';
-import hamlet from '../data/karakterler/hamlet';
 import HamletSicaklikSecici from './HamletSicaklikSecici';
 
 const TON = 'var(--accent)';
@@ -20,6 +19,9 @@ export default function HamletSahneDetay({
   baslangic,        // { sicaklik, metin, anladi }
   toplamSahne,
   karakterId,
+  tercihler = [],   // bağlı tercihler (Yazarın Çerçevesi köprüsü)
+  boslukSet = [],   // bağlı boşluklar (Senin Çerçeven köprüsü)
+  kokYol,           // örn. /antrenman/karakter/willy
   onOnceki,
   onSonraki,
 }) {
@@ -41,12 +43,12 @@ export default function HamletSahneDetay({
   if (!sahne) return null;
 
   // Bu sahneyi etkileyen tercihler — Yazarın Çerçevesi köprüsü
-  const bagliTercihler = (hamlet.tercihler || []).filter(
+  const bagliTercihler = (tercihler || []).filter(
     (t) => (t.sahneNolari || []).includes(sahne.no)
   );
 
   // Bu sahneye gelen / bu sahneden çıkan boşluklar — Senin Çerçeven köprüsü
-  const bagliBosluklar = (hamlet.boslukSet || []).filter(
+  const bagliBosluklar = (boslukSet || []).filter(
     (b) => b.sonraSahneNo === sahne.no
   );
 
@@ -195,7 +197,7 @@ export default function HamletSahneDetay({
                 {bagliTercihler.map((t) => (
                   <a
                     key={t.no}
-                    href={`/antrenman/karakter/hamlet/yazarin-cercevesi/${t.no}`}
+                    href={`${kokYol}/yazarin-cercevesi/${t.no}`}
                     style={{
                       fontFamily: 'Jost, sans-serif',
                       fontWeight: 200,
@@ -241,7 +243,7 @@ export default function HamletSahneDetay({
                 {bagliBosluklar.map((b) => (
                   <a
                     key={b.no}
-                    href={`/antrenman/karakter/hamlet/senin-cerceven/${b.no}`}
+                    href={`${kokYol}/senin-cerceven/${b.no}`}
                     style={{
                       fontFamily: 'Jost, sans-serif',
                       fontWeight: 200,

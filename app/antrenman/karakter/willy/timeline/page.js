@@ -1,14 +1,15 @@
-// app/antrenman/karakter/hamlet/timeline/page.js
-// ITC Actor's Gym — Modül II Hamlet · Timeline · 14 Sahne
+// app/antrenman/karakter/willy/timeline/page.js
+// ITC Actor's Gym — Modül II Willy · Timeline · 11 Birim
 //
-// Workbook s.66-85 birebir karşılığı.
-// 14 sahne, etkileşimli sıcaklık, perde tema bandı, sahne detay paneli.
+// Generic mimari (A-2): Hamlet ile aynı yapı; fark veride (willy.js).
+// Willy modu: perdeRomen akış-hattı id'sidir (I=Sızıntı, II=Patlama, III=Bedel),
+// sayısal perde ile karışmaz. 11 birim, etkileşimli sıcaklık, akış-hattı bandı.
 
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
 import { supabase } from '../../../../lib/supabase';
-import hamlet from '../../../../../data/karakterler/hamlet';
+import willy from '../../../../../data/karakterler/willy';
 import { sahneYansimalariniGetir } from '../../../../lib/hamlet-veri';
 import HamletSahneKuresi from '../../../../../components/HamletSahneKuresi';
 import HamletPerdeBandi from '../../../../../components/HamletPerdeBandi';
@@ -16,6 +17,7 @@ import HamletSahneDetay from '../../../../../components/HamletSahneDetay';
 import HamletBolumGecisi from '../../../../../components/HamletBolumGecisi';
 
 const TON = 'var(--accent)';
+const KOK = '/antrenman/karakter/willy';
 
 export default function TimelineSayfasi() {
   const [yansimalar, setYansimalar] = useState({});
@@ -25,19 +27,19 @@ export default function TimelineSayfasi() {
   const sahneRefs = useRef({});
   const timelineRef = useRef(null);
 
-  const sahneler = hamlet.sahnelerWorkbook || [];
-  const perdeler = hamlet.perdeTemalari || [];
+  const sahneler = willy.sahnelerWorkbook || [];
+  const perdeler = willy.perdeTemalari || [];
 
   useEffect(() => {
     async function yukle() {
-      const veri = await sahneYansimalariniGetir(hamlet.id);
+      const veri = await sahneYansimalariniGetir(willy.id);
       setYansimalar(veri);
       setYukleniyor(false);
     }
     yukle();
   }, []);
 
-  // Hash deep-link: #sahne-N → ilgili sahneyi seç ve scroll
+  // Hash deep-link: #sahne-N → ilgili birimi seç ve scroll
   useEffect(() => {
     if (yukleniyor || typeof window === 'undefined') return;
     const hash = window.location.hash;
@@ -64,7 +66,6 @@ export default function TimelineSayfasi() {
   }
 
   function perdeyeGit(perdeRomen) {
-    // Perdedeki ilk sahneye scroll
     const ilkSahne = sahneler.find((s) => s.perdeRomen === perdeRomen);
     if (ilkSahne) sahneSec(ilkSahne.no);
   }
@@ -122,7 +123,7 @@ export default function TimelineSayfasi() {
       >
         <header style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
           <a
-            href="/antrenman/karakter/hamlet"
+            href={KOK}
             style={{
               fontFamily: 'Jost, sans-serif',
               fontWeight: 200,
@@ -137,7 +138,7 @@ export default function TimelineSayfasi() {
             onMouseEnter={(e) => { e.currentTarget.style.color = TON; }}
             onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
           >
-            ← Hamlet
+            ← Willy Loman
           </a>
 
           <span
@@ -175,14 +176,15 @@ export default function TimelineSayfasi() {
               margin: 0,
             }}
           >
-            Hamlet'in bedensel zinciri
+            Willy'nin bedensel zinciri — üç akış hattı
           </p>
         </header>
 
         <p style={paragrafStili}>
-          Bir karakter, sahnelerini ayrı ayrı yaşamaz. Her sahneye bir öncekinden
-          bir şey taşır; her sahneden bir sonrakine bir şey bırakır. Bu zincire
-          <em> içsel zaman çizgisi</em> diyoruz.
+          Bir karakter, sahnelerini ayrı ayrı yaşamaz. Her birime bir öncekinden
+          bir şey taşır; her birimden bir sonrakine bir şey bırakır. Bu zincire
+          <em> içsel zaman çizgisi</em> diyoruz. Willy'de zincir düz değildir —
+          geçmiş şimdiye sızar, patlar, bedelini ödetir.
         </p>
 
         <div
@@ -202,7 +204,7 @@ export default function TimelineSayfasi() {
               margin: 0,
             }}
           >
-            "Her sahne, bir önceki sahnenin bedendeki devamıdır."
+            "Her birim, bir önceki birimin bedendeki devamıdır."
           </p>
         </div>
 
@@ -227,18 +229,18 @@ export default function TimelineSayfasi() {
               textTransform: 'uppercase',
             }}
           >
-            Bir Sahne Kartında Ne Var?
+            Bir Birim Kartında Ne Var?
           </span>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-            <AnatomiSatiri etiket="Olay">Sahnede ne oluyor — Shakespeare'in metnine sadık özet</AnatomiSatiri>
-            <AnatomiSatiri etiket="İçsel">Hamlet'in o sahnede taşıdığı duygusal ton</AnatomiSatiri>
+            <AnatomiSatiri etiket="Olay">Birimde ne oluyor — Miller'ın metnine sadık özet</AnatomiSatiri>
+            <AnatomiSatiri etiket="İçsel">Willy'nin o birimde taşıdığı duygusal ton</AnatomiSatiri>
             <AnatomiSatiri etiket="Sıcaklık">1'den 10'a — soğuk, donmuş; sıcak, patlamada</AnatomiSatiri>
-            <AnatomiSatiri etiket="Yük">Bir sonraki sahneye taşıdığı şey</AnatomiSatiri>
+            <AnatomiSatiri etiket="Yük">Bir sonraki birime taşıdığı şey</AnatomiSatiri>
           </div>
         </div>
       </article>
 
-      {/* ─── Perde Bandı ─── */}
+      {/* ─── Akış Hattı Bandı ─── */}
       <section
         style={{
           maxWidth: '1100px',
@@ -321,7 +323,7 @@ export default function TimelineSayfasi() {
         <Rozet etiket="Anlaşıldı"           deger={`${anladiSayisi} / ${sahneler.length}`} />
       </section>
 
-      {/* ─── Sahne Detayı ─── */}
+      {/* ─── Birim Detayı ─── */}
       <section
         ref={detayRef}
         style={{
@@ -337,10 +339,10 @@ export default function TimelineSayfasi() {
             sahne={seciliSahne}
             baslangic={seciliYansima}
             toplamSahne={sahneler.length}
-            karakterId={hamlet.id}
-            tercihler={hamlet.tercihler}
-            boslukSet={hamlet.boslukSet}
-            kokYol="/antrenman/karakter/hamlet"
+            karakterId={willy.id}
+            tercihler={willy.tercihler}
+            boslukSet={willy.boslukSet}
+            kokYol={KOK}
             onOnceki={() => sahneSec(seciliSahne.no - 1)}
             onSonraki={() => sahneSec(seciliSahne.no + 1)}
           />
@@ -360,7 +362,7 @@ export default function TimelineSayfasi() {
                 color: 'var(--ink-muted)',
               }}
             >
-              Bir sahneye tıklayarak detaylarını gör
+              Bir birime tıklayarak detaylarını gör
             </span>
           </div>
         )}
@@ -411,9 +413,9 @@ export default function TimelineSayfasi() {
               alignSelf: 'center',
             }}
           >
-            14 sahnenin bedensel zincirini gördün. Her sahnenin sıcaklığını okudun,
-            kendi yorumunu işaretledin. Bu zincir bedeninde yerleşene kadar buraya
-            geri dönebilirsin.
+            On bir birimin bedensel zincirini gördün — Sızıntı, Patlama, Bedel.
+            Her birimin sıcaklığını okudun, kendi yorumunu işaretledin. Bu zincir
+            bedeninde yerleşene kadar buraya geri dönebilirsin.
           </p>
 
         </section>
@@ -421,10 +423,10 @@ export default function TimelineSayfasi() {
         <HamletBolumGecisi
           oncekiEtiket="Bölüm 2"
           oncekiBaslik="Oyun Öncesi Yaşam"
-          oncekiYol="/antrenman/karakter/hamlet/oyun-oncesi-yasam"
+          oncekiYol={`${KOK}/oyun-oncesi-yasam`}
           sonrakiEtiket="Bölüm 4"
           sonrakiBaslik="Yazarın Çerçevesi"
-          sonrakiYol="/antrenman/karakter/hamlet/yazarin-cercevesi"
+          sonrakiYol={`${KOK}/yazarin-cercevesi`}
         />
       </article>
     </main>
@@ -588,6 +590,7 @@ function KarakterHeader() {
           ← Karakterler
         </a>
         <button
+          type="button"
           onClick={cikisYap}
           style={{
             background: 'none',

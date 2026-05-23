@@ -12,7 +12,7 @@ import { tercihKaydet } from '../app/lib/hamlet-veri';
 
 const TON = 'var(--accent)';
 
-export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
+export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYol }) {
   const [secimler, setSecimler] = useState(baslangic?.secimler || []);
   const [ozelYorum, setOzelYorum] = useState(baslangic?.ozelYorum || '');
   const [kayitDurumu, setKayitDurumu] = useState(null);
@@ -95,7 +95,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId }) {
                 </span>
                 {isaret.sahneNo && (
                   <a
-                    href={`/antrenman/karakter/hamlet/timeline#sahne-${isaret.sahneNo}`}
+                    href={`${kokYol}/timeline#sahne-${isaret.sahneNo}`}
                     style={{
                       fontFamily: 'Jost, sans-serif',
                       fontWeight: 200,
