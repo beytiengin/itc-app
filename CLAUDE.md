@@ -333,12 +333,12 @@ export default macbeth;
    
    `app/lib/kalibrasyon.js` içindeki `vakDili()` fonksiyonu
 
-2. Yildiz.psikolojik (1-7) → Etik koruma
-   ≥5: tüm seviyeler açık
-   3-5: Seviye 3 uyarılı
-   <3: Seviye 2-3 kilitli
-   
-   `app/lib/travma.js` içindeki `sahneErisimi()` fonksiyonu
+2. Yildiz.psikolojik (1-7) → SADECE pedagojik öz-farkındalık (Karar 21)
+   Travma erişimini ETKİLEMEZ. Hiçbir sahne/egzersiz/boşluk profile göre
+   kilitlenmez. Travma sistemi profil-bağımsız, sahne-level uyarı:
+   - `app/lib/travma.js` → `sahneUyarisi(sahne)`  (uyarı — gate değil, kilit yok)
+   - `topraklanmaGerekli(yogunluk)` → yoğunluk ≥2 (Tanıklık/İcra) sonrası topraklanma
+   (Karar 21 öncesi ≥5/3-5/<3 eşikli `sahneErisimi()` gate'i geri çekildi.)
 
 3. Arketip.tip (MBTI) → Gap analizi (gelecekte Blueprint'te)
    Karakter MBTI ile karşılaştırılır
@@ -365,7 +365,7 @@ export default macbeth;
 - Hiçbir sahne oyuncu profili nedeniyle kilitlenmez — gate yok
 - Yoğunluk 2 (Tanıklık) veya 3 (İcra) sahneler sonrası Topraklanma Protokolü otomatik tetiklenir (kategori- ve profil-bağımsız)
 
-> **İş 2 — uygulama beklemede:** `sahneErisimi(sahne, yildiz)` fonksiyonu hâlâ eski gate mantığında (psikolojik puan kontrolü). Refactor planı: `sahneUyarisi(sahne)` + `topraklanmaGerekli(yogunluk)` olarak ikiye ayrılacak; yıldız parametresi kaldırılacak. Detay: `kararlar/2026-05-15-yildiz-travma-ayrismasi/04-app-degisiklik-listesi.md` (canon repo).
+> **İş 2 — TAMAMLANDI (Karar 21 app refactor):** `sahneErisimi(sahne, yildiz)` gate'i kaldırıldı; yerine `sahneUyarisi(sahne)` (profil-bağımsız uyarı) + `topraklanmaGerekli(yogunluk)` (yoğunluk ≥2 tetik) geldi. Yıldız parametresi kalktı; hiçbir içerik psikolojik skora göre kilitlenmiyor. Detay: `kararlar/2026-05-15-yildiz-travma-ayrismasi/04-app-degisiklik-listesi.md` (canon repo).
 
 **Topraklanma protokolü:** Yoğunluk 2-3 sahneleri tamamladıktan sonra otomatik açılan 6 adımlı çıkış (deroling). Tetikleyici sahne-içeriği temellidir; oyuncu profili etkilemez.
 

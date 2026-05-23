@@ -45,7 +45,6 @@ export default function WillySayfasi() {
 
   const seciliSahne = (willy.sahneler || []).find((s) => s.id === seciliSahneId) || null;
   const vakBaskini = kalibrasyon?.vak?.baskin ? String(kalibrasyon.vak.baskin).toLowerCase() : null;
-  const psikolojikPuan = kalibrasyon?.yildiz?.psikolojik ?? null;
 
   if (yukleniyor) {
     return (
@@ -126,7 +125,6 @@ export default function WillySayfasi() {
             antrenmanlar={willy.antrenmanlar || []}
             karakterId={willy.id}
             vakBaskini={vakBaskini}
-            travmaProfili={psikolojikPuan}
           />
         </div>
       </section>

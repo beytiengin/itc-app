@@ -12,7 +12,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { sahneErisimi } from '../app/lib/travma';
+import { sahneUyarisi, topraklanmaGerekli } from '../app/lib/travma';
 import {
   antrenmanAdimiKaydet,
   antrenmanYansimalariniGetir,
@@ -26,7 +26,7 @@ import IlerlemeRozet from './IlerlemeRozet';
 const TON = 'var(--kanal-kahve)';
 const TON_HOVER = 'var(--accent-rule)';
 
-export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini, travmaProfili }) {
+export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini }) {
   // Liste/Sayfa görünüm
   const [mode, setMode] = useState('list'); // 'list' | 'resume' | 'sayfa'
   const [acikAntrenman, setAcikAntrenman] = useState(null); // antrenman objesi
@@ -78,13 +78,11 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
 
   // ─── Yardımcılar ─────────────────────────────────────────────────────────
 
-  const yildizBenzeri = travmaProfili != null ? { psikolojik: travmaProfili } : null;
-
-  function antrenmanErisimi(antrenman) {
-    return sahneErisimi(
-      { travmaSeviyesi: antrenman.travmaSeviyesi || 0 },
-      yildizBenzeri
-    );
+  function antrenmanUyarisi(antrenman) {
+    return sahneUyarisi({
+      travmaSeviyesi: antrenman.travmaSeviyesi || 0,
+      travmaKategorileri: antrenman.travmaKategorileri || [],
+    });
   }
 
   async function antrenmanaGir(antrenman, modeBaslangic = 'auto') {
@@ -117,14 +115,15 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
   }
 
   function antrenmanKart(antrenman) {
-    const erisim = antrenmanErisimi(antrenman);
+    const erisim = antrenmanUyarisi(antrenman);
     const tamamlandi = tamamlananIdler.includes(antrenman.id);
     const sonAdim = sonAdimMap[antrenman.id] || 0;
     const toplamAdim = (antrenman.adimlar || []).length;
     const yarimKaldi = !tamamlandi && sonAdim > 0;
 
     const onClick = () => {
-      if (erisim.kilitli) {
+      // Yoğunluk 2-3 sahnelerde hazırlık notu gösterilir — kilit DEĞİL, devam edilebilir.
+      if (erisim.seviye >= 2) {
         setTravmaUyariFor(antrenman);
         return;
       }
@@ -138,7 +137,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
           border: `1px solid ${tamamlandi ? TON_HOVER : 'var(--rule)'}`,
           backgroundColor: 'transparent',
           transition: 'all 0.3s ease',
-          opacity: erisim.kilitli ? 0.65 : 1,
+          opacity: 1,
         }}
       >
         <button
@@ -262,18 +261,6 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                   Travma {antrenman.travmaSeviyesi}
                 </span>
               )}
-              {erisim.kilitli && (
-                <span
-                  style={{
-                    fontFamily: 'Cormorant Garamond, serif',
-                    fontStyle: 'italic',
-                    fontSize: '0.78rem',
-                    color: 'var(--accent)',
-                  }}
-                >
-                  Hazır olduğunda
-                </span>
-              )}
             </div>
           </div>
         </button>
@@ -321,7 +308,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
     if (!acikAntrenman) return;
     await egzersiziTamamla(karakterId, acikAntrenman.id);
     setTamamlananIdler((prev) => prev.includes(acikAntrenman.id) ? prev : [...prev, acikAntrenman.id]);
-    if ((acikAntrenman.travmaSeviyesi || 0) >= 2) {
+    if (topraklanmaGerekli(acikAntrenman.travmaSeviyesi)) {
       setTopraklanmaIcin(acikAntrenman);
       // listeyi açacağız topraklanma kapanınca
     } else {

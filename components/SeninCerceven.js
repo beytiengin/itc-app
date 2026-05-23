@@ -7,14 +7,14 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { sahneErisimi } from '../app/lib/travma';
+import { sahneUyarisi } from '../app/lib/travma';
 import { boslukYansimasiKaydet, boslukYansimalariniGetir } from '../app/lib/kulis';
 import IlerlemeRozet from './IlerlemeRozet';
 
 const TON = 'var(--onay)';
 const TON_HOVER = 'var(--onay-rule)';
 
-export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
+export default function SeninCerceven({ bosluklar, karakterId }) {
   const [acik, setAcik] = useState(null);
   const [yansimalar, setYansimalar] = useState({});
   const [kayitDurumu, setKayitDurumu] = useState({});
@@ -128,15 +128,14 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
         {(bosluklar || []).map((bosluk, i) => {
           const tip = tipBilgisi[bosluk.tip] || tipBilgisi.ara;
-          const sahneBenzeri = { travmaSeviyesi: bosluk.travmaSeviyesi || 0 };
-          const erisim = sahneErisimi(sahneBenzeri, kalibrasyon?.yildiz);
+          const sahneBenzeri = { travmaSeviyesi: bosluk.travmaSeviyesi || 0, travmaKategorileri: bosluk.travmaKategorileri || [] };
+          const erisim = sahneUyarisi(sahneBenzeri);
           const aktif = acik === bosluk.id;
           const yansimaMevcut = yansimalar[bosluk.id]?.length > 0;
 
           let borderColor = 'var(--rule)';
           if (aktif) borderColor = TON;
           else if (yansimaMevcut) borderColor = TON_HOVER;
-          else if (erisim.kilitli) borderColor = 'var(--accent-rule)';
 
           return (
             <div
@@ -146,12 +145,11 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
                 border: `1px solid ${borderColor}`,
                 backgroundColor: aktif ? 'var(--bg-elevated)' : 'transparent',
                 transition: 'all 0.25s ease',
-                opacity: erisim.kilitli ? 0.65 : 1,
+                opacity: 1,
               }}
             >
               <button
-                onClick={erisim.kilitli ? null : () => setAcik(aktif ? null : bosluk.id)}
-                disabled={erisim.kilitli}
+                onClick={() => setAcik(aktif ? null : bosluk.id)}
                 style={{
                   display: 'flex',
                   alignItems: 'flex-start',
@@ -161,12 +159,12 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
                   backgroundColor: 'transparent',
                   border: 'none',
                   textAlign: 'left',
-                  cursor: erisim.kilitli ? 'not-allowed' : 'pointer',
+                  cursor: 'pointer',
                   color: 'var(--ink)',
                   fontFamily: 'inherit',
                 }}
-                onMouseEnter={(e) => { if (!aktif && !erisim.kilitli) e.currentTarget.parentElement.style.borderColor = TON; }}
-                onMouseLeave={(e) => { if (!aktif && !erisim.kilitli) e.currentTarget.parentElement.style.borderColor = yansimaMevcut ? TON_HOVER : 'var(--rule)'; }}
+                onMouseEnter={(e) => { if (!aktif) e.currentTarget.parentElement.style.borderColor = TON; }}
+                onMouseLeave={(e) => { if (!aktif) e.currentTarget.parentElement.style.borderColor = yansimaMevcut ? TON_HOVER : 'var(--rule)'; }}
               >
                 <span
                   style={{
@@ -230,30 +228,20 @@ export default function SeninCerceven({ bosluklar, kalibrasyon, karakterId }) {
                   </p>
                 </div>
 
-                {!erisim.kilitli && (
-                  <span
-                    style={{
-                      fontSize: '0.7rem',
-                      color: 'var(--ink-muted)',
-                      marginTop: '0.3rem',
-                      transform: aktif ? 'rotate(180deg)' : 'rotate(0deg)',
-                      transition: 'transform 0.3s ease',
-                    }}
-                  >
-                    ▾
-                  </span>
-                )}
+                <span
+                  style={{
+                    fontSize: '0.7rem',
+                    color: 'var(--ink-muted)',
+                    marginTop: '0.3rem',
+                    transform: aktif ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.3s ease',
+                  }}
+                >
+                  ▾
+                </span>
               </button>
 
-              {erisim.kilitli && (
-                <div style={{ padding: '0 1.4rem 1.2rem 1.4rem', borderTop: '1px solid var(--uyari)', paddingTop: '0.9rem' }}>
-                  <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.75rem', color: 'var(--accent)', lineHeight: 1.7, margin: 0 }}>
-                    {erisim.mesaj}
-                  </p>
-                </div>
-              )}
-
-              {aktif && !erisim.kilitli && (
+              {aktif && (
                 <div
                   style={{
                     padding: '0 1.4rem 1.4rem 1.4rem',
