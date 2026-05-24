@@ -8,10 +8,15 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { olayYansimasiKaydet } from '../app/lib/hamlet-veri';
+import { useDil } from '../app/lib/dil';
 
 const TON = 'var(--accent)';
 
 export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
+  const { dil } = useDil();
+  const t = dil === 'en'
+    ? { yuk: 'Burden', yansimaSorusu: 'Reflection Question', yansiman: 'Your Reflection', icsellestirildi: '✓ Internalised', yazildi: '✓ Written', icsellestir: 'I have internalised this burden', placeholder: 'Where does it settle in your body? You can start with a single word.' }
+    : { yuk: 'Yük', yansimaSorusu: 'Yansıma Sorusu', yansiman: 'Yansıman', icsellestirildi: '✓ İçselleştirildi', yazildi: '✓ Yazıldı', icsellestir: 'Bu yükü içselleştirdim', placeholder: 'Bedeninde nereye yerleşiyor? Bir kelimeden başlayabilirsin.' };
   const [acik, setAcik] = useState(false);
   const [metin, setMetin] = useState(baslangic?.metin || '');
   const [icselKabul, setIcselKabul] = useState(baslangic?.icselKabul || false);
@@ -123,9 +128,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
                   padding: '0.15rem 0.55rem',
                   border: `1px solid color-mix(in srgb, ${TON} 33%, transparent)`,
                 }}
-              >
-                ✓ İçselleştirildi
-              </span>
+              >{t.icsellestirildi}</span>
             )}
             {!icselKabul && yansimaMevcut && (
               <span
@@ -139,9 +142,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
                   padding: '0.15rem 0.55rem',
                   border: '1px solid var(--accent-rule)',
                 }}
-              >
-                ✓ Yazıldı
-              </span>
+              >{t.yazildi}</span>
             )}
           </div>
         </div>
@@ -180,9 +181,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
                 color: TON,
                 textTransform: 'uppercase',
               }}
-            >
-              Yük
-            </span>
+            >{t.yuk}</span>
             <p
               style={{
                 fontFamily: 'Cormorant Garamond, serif',
@@ -207,9 +206,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
                 color: 'var(--onay)',
                 textTransform: 'uppercase',
               }}
-            >
-              Yansıma Sorusu
-            </span>
+            >{t.yansimaSorusu}</span>
             <p
               style={{
                 fontFamily: 'Cormorant Garamond, serif',
@@ -235,15 +232,13 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
                   color: TON,
                   textTransform: 'uppercase',
                 }}
-              >
-                Yansıman
-              </span>
+              >{t.yansiman}</span>
               <KayitRozet durum={kayitDurumu} />
             </div>
             <textarea
               value={metin}
               onChange={(e) => metinDegistir(e.target.value)}
-              placeholder="Bedeninde nereye yerleşiyor? Bir kelimeden başlayabilirsin."
+              placeholder={t.placeholder}
               rows={5}
               style={{
                 width: '100%',
@@ -295,9 +290,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
                 color: icselKabul ? TON : 'var(--ink-soft)',
                 letterSpacing: '0.05em',
               }}
-            >
-              Bu yükü içselleştirdim
-            </span>
+            >{t.icsellestir}</span>
           </label>
         </div>
       )}
@@ -306,14 +299,15 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
 }
 
 function KayitRozet({ durum }) {
+  const { dil } = useDil();
   if (!durum || durum === 'yaziliyor') {
     return <span style={{ minHeight: '1em' }} />;
   }
   const renk = durum === 'hata' ? 'var(--uyari)' : 'var(--accent)';
   const mesaj =
-    durum === 'kaydediliyor' ? 'Kaydediliyor…' :
-    durum === 'kaydedildi' ? '✓ Kaydedildi' :
-    '⚠ Kaydedilemedi';
+    durum === 'kaydediliyor' ? (dil === 'en' ? 'Saving…' : 'Kaydediliyor…') :
+    durum === 'kaydedildi' ? (dil === 'en' ? '✓ Saved' : '✓ Kaydedildi') :
+    (dil === 'en' ? '⚠ Could not save' : '⚠ Kaydedilemedi');
   return (
     <span
       style={{
