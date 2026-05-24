@@ -1,6 +1,7 @@
 import "./globals.css";
 import { cormorant, jost } from "./fonts";
 import { ThemeProvider } from "./lib/theme";
+import { LangProvider } from "./lib/lang";
 import TemaToggleFloat from "../components/TemaToggleFloat";
 
 export const metadata = {
@@ -47,17 +48,31 @@ const temaScript = `
 })();
 `;
 
+const dilScript = `
+(function() {
+  try {
+    var saved = localStorage.getItem('itc-lang');
+    if (saved === 'tr' || saved === 'en') {
+      document.documentElement.setAttribute('lang', saved);
+    }
+  } catch (e) {}
+})();
+`;
+
 export default function RootLayout({ children }) {
   return (
     <html lang="tr" className={`${cormorant.variable} ${jost.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: temaScript }} />
+        <script dangerouslySetInnerHTML={{ __html: dilScript }} />
       </head>
       <body>
-        <ThemeProvider>
-          {children}
-          <TemaToggleFloat />
-        </ThemeProvider>
+        <LangProvider>
+          <ThemeProvider>
+            {children}
+            <TemaToggleFloat />
+          </ThemeProvider>
+        </LangProvider>
       </body>
     </html>
   );

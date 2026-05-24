@@ -4,6 +4,7 @@
 'use client';
 
 import { supabase } from '../app/lib/supabase';
+import DilSecici from './DilSecici';
 
 export default function HamletAltSayfaHeader() {
   async function cikisYap() {
@@ -76,6 +77,7 @@ export default function HamletAltSayfaHeader() {
         >
           ← Karakterler
         </a>
+        <DilSecici />
         <button
           onClick={cikisYap}
           style={{
