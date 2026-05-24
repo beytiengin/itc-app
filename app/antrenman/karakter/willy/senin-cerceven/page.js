@@ -1,7 +1,7 @@
 // app/antrenman/karakter/willy/senin-cerceven/page.js
-// ITC Actor's Gym — Modül II Willy · Senin Çerçeven (5 Boşluk)
+// ITC Actor's Gym — Modül II Willy · Senin Çerçeven (4 Boşluk)
 //
-// Workbook s.106-125 birebir karşılığı.
+// Miller'ın sustuğu 4 boşluk — oyuncu eş-yazar olarak doldurur.
 
 'use client';
 
@@ -352,7 +352,7 @@ export default function SeninCerceveAnaSayfa() {
                 margin: 0,
               }}
             >
-              Beş boşluğu birleştirip sahnelerin altında akan görünmez çizgiyi gör.
+              Dört boşluğu birleştirip sahnelerin altında akan görünmez çizgiyi gör.
             </p>
             <span
               style={{

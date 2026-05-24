@@ -115,12 +115,12 @@ export default function SeninCerceveSentez() {
 
           <p style={paragraf}>
             {hepsiBaslamis
-              ? "Beş boşluğu yazdın. Şimdi bunlar bir araya gelip, sahnelerin altında akan görünmez bir çizgi oluşturuyor: senin Willy'nin iç hayatı."
+              ? "Dört boşluğu yazdın. Şimdi bunlar bir araya gelip, sahnelerin altında akan görünmez bir çizgi oluşturuyor: senin Willy'nin iç hayatı."
               : 'Şu ana kadar yazdığın boşluklara bak. Eksik kalanlara geri dönebilirsin.'}
           </p>
         </header>
 
-        {/* 5 Boşluk Özeti */}
+        {/* 4 Boşluk Özeti */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
           {bosluklar.map((b) => {
             const ozet = boslukOzeti(b.no);
@@ -273,7 +273,7 @@ export default function SeninCerceveSentez() {
               margin: 0,
             }}
           >
-            Yazdıkların kâğıt için değil, beden için. Şimdi şunu dene: yazdığın beş
+            Yazdıkların kâğıt için değil, beden için. Şimdi şunu dene: yazdığın dört
             boşluğu okurken, gözlerini kapat ve onları kısa imgeler olarak kaydet. Bir
             his, bir koku, bir el hareketi, bir bakış.
           </p>

@@ -90,8 +90,13 @@ itc-app/
 │   │       │       ├── page.js          # 5 boşluk listesi
 │   │       │       ├── [no]/page.js     # Dinamik boşluk detayı
 │   │       │       └── sentez/page.js
-│   │       ├── willy/page.js
-│   │       └── biff/page.js
+│   │       ├── willy/                  # Willy — Workbook refactor (Hamlet ile aynı alt-sayfa yapısı)
+│   │       │   ├── page.js
+│   │       │   ├── oyun-oncesi-yasam/page.js
+│   │       │   ├── timeline/page.js
+│   │       │   ├── yazarin-cercevesi/{page.js, [no]/page.js, sentez/page.js}
+│   │       │   └── senin-cerceven/{page.js, [no]/page.js, sentez/page.js}
+│   │       └── biff/page.js            # Henüz eski tek-sayfa yapısında
 │   └── lib/
 │       ├── supabase.js                  # Cookie tabanlı browser client
 │       ├── kalibrasyon.js               # Profil okuma + akıllı giriş mesajı
@@ -418,12 +423,16 @@ Bu ilkeler kod kararlarını etkiler. **Mutlaka oku:**
 - ✅ Topraklanma protokolü (travma 2-3 sonrası otomatik)
 - ✅ "Hazır değil" yumuşak dili
 - ✅ Emojisiz arayüz
-- ✅ **Modül II · Hamlet Workbook Refactor** (Sprint 1-5, 2026-05)
+- ✅ **Modül II · Workbook Refactor — Hamlet + Willy** (Sprint 1-5, 2026-05)
   - 5 alt-bölüm yapısı: Doğrular · Oyun Öncesi Yaşam · Timeline · Yazarın Çerçevesi · Senin Çerçeven
   - Eski 9 antrenman, sahne tabanlı Yazarın Çerçevesi, 12 alanlı Senin Çerçeven retire edildi (veri korundu)
   - Modül III · Yolculuk Modu CTA (yakında durumunda)
   - Çapraz atıflar: tercih ↔ sahne, boşluk ↔ sahne, sahne → tercih + boşluk bağlantıları
-  - Sadece Hamlet için yapıldı — Macbeth/Willy/Biff aynı yapıda (eski) çalışmaya devam ediyor
+  - **Hamlet (5 boşluk / 5 tercih) ve Willy (4 boşluk / 5 tercih)** bu yapıda. Macbeth + Biff
+    henüz eski tek-sayfa yapısında çalışıyor.
+  - Bileşenler `Hamlet*` önekiyle paylaşılıyor; karakter farkı sadece veride (`willy.js` vb.).
+    Willy sayfaları Hamlet'ten kopyalanırken kalan "5 boşluk" metin kalıntıları
+    2026-05-24'te temizlendi (Willy'de 4 boşluk).
 - ✅ **Tasarım Migrasyonu Sprint** (Dalga 1-3, 2026-05-07)
   - Dual mode: dark (mevcut kimlik) + krem (Workbook ruhu, bordo aksan)
   - CSS değişken sistemi: yapı + semantik + sıcak zemin + kategori paleti
@@ -453,8 +462,8 @@ Bu ilkeler kod kararlarını etkiler. **Mutlaka oku:**
 
 ### Orta vade
 
-**C-WB — Macbeth/Willy/Biff için Workbook refactor**
-- Hamlet'te yapılan refactor'un (Oyun Öncesi · Timeline · Yazarın Çerçevesi · Senin Çerçeven) diğer 3 karaktere de uygulanması.
+**C-WB — Macbeth/Biff için Workbook refactor**
+- Hamlet + Willy'de yapılan refactor'un (Oyun Öncesi · Timeline · Yazarın Çerçevesi · Senin Çerçeven) kalan 2 karaktere de uygulanması.
 - İçerik üretimi büyük iş — her karakter için workbook hazırlamak gerekir.
 - Mimari ve veri katmanı hazır (karakter_id ile parametrik).
 
@@ -527,4 +536,37 @@ Bu öneriler ileride uygulanacak — şimdilik dokunma:
 
 ---
 
-**Son güncelleme:** 2026-05-07 (Tasarım Migrasyonu Sprint — Dalga 1-3 tamamlandı, dual mode canlı)
+**Son güncelleme:** 2026-05-24 (Willy copy-bug temizliği + CLAUDE.md gerçeğe hizalama)
+
+---
+
+## 🎯 Aktif Hedef — Çift Dilli Willy Prototipi (2026-05-24)
+
+Birkaç önemli uluslararası oyuncu / yönetmen / tiyatro akademisyenine (ilk alıcı:
+Rufus Norris) gönderilmek üzere **tek vitrin karakter** prototipi.
+
+**Stratejik kapsam daraltması:** Dört karakteri çevirmek yerine **yalnızca Willy**
+uçtan uca çift dilli (TR/EN) yapılacak; Hamlet/Macbeth/Biff "yakında" kalır.
+Geniş-yarım yerine tek-kusursuz yol hedefleniyor.
+
+**Kararlar:**
+- Vitrin karakter: **Willy Loman** (Death of a Salesman — Beyti şu an bu prodüksiyonda
+  Charley rolünde, Rufus Norris yönetiminde; anlatı bağı güçlü).
+- Erişim: **kalibrasyonsuz açık önizleme yolu.** Reviewer üyelik/kalibrasyon duvarına
+  çarpmamalı. ANCAK kalibrasyon bağı tamamen koparılmayacak — kişiselleştirme katmanı
+  (`vakDili` vb.) korunur, kalibrasyon yoksa **nötr varsayıma** düşer (kırılmaz).
+- Dil mekanizması: ağır i18n yok. Mevcut tema-toggle deseni (React context + localStorage)
+  `lang` (tr/en) için kopyalanır; header'a geçiş düğmesi. Asıl iş = çeviri, kod değil.
+
+**Sıra (en hızlı mantıklı):**
+1. ✅ Willy copy-bug + CLAUDE.md (bu commit)
+2. `lang` context + header toggle iskeleti
+3. Vitrin yolun çevirisi: chrome + Willy verisi + paylaşılan didaktik bloklar
+   (manifesto, 5 adım, etik çerçeve). Beyti EN taslağı gözden geçirip finalize eder.
+4. Reviewer cilası (sadece bu yola): hub'da ilerleme görünürlüğü · didaktik blokları
+   profesyonel için varsayılan KATLI · tam-ekran "Hazırlanıyor" yerine iskelet.
+5. Kalibrasyonsuz önizleme erişim yolu (nötr fallback ile).
+
+**Bilinçli ertelenenler (prototipi geciktirmesin):** diğer 3 karakter çevirisi,
+`Hamlet*` bileşenlerini parametrikleştirme, "geçen sefer yazdığın" dönüş kancası,
+kalibrasyon ekranlarının çevirisi.
