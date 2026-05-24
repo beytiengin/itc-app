@@ -9,6 +9,8 @@
 
 'use client';
 
+import { useDil } from '../app/lib/dil';
+
 export function sicaklikRengi(sicaklik) {
   if (sicaklik == null) return 'var(--rule)';
   if (sicaklik <= 3) return 'var(--sicak-soguk)';
@@ -16,8 +18,13 @@ export function sicaklikRengi(sicaklik) {
   return 'var(--sicak-sicak)';
 }
 
-export function sicaklikEtiketi(sicaklik) {
+export function sicaklikEtiketi(sicaklik, dil) {
   if (sicaklik == null) return null;
+  if (dil === 'en') {
+    if (sicaklik <= 3) return 'Cold';
+    if (sicaklik <= 6) return 'Medium';
+    return 'Hot';
+  }
   if (sicaklik <= 3) return 'Soğuk';
   if (sicaklik <= 6) return 'Orta';
   return 'Sıcak';
@@ -30,6 +37,8 @@ export default function HamletSahneKuresi({
   onClick,
   innerRef,
 }) {
+  const { dil } = useDil();
+  const sahneKelime = dil === 'en' ? 'Scene' : 'Sahne';
   const gosterilenSicaklik = oyuncuSicaklik ?? sahne.onerilenSicaklik;
   const renk = sicaklikRengi(gosterilenSicaklik);
   const oyuncuVar = oyuncuSicaklik != null;
@@ -38,7 +47,7 @@ export default function HamletSahneKuresi({
     <button
       ref={innerRef}
       onClick={onClick}
-      title={`${sahne.no}. ${sahne.baslik} — sıcaklık ${gosterilenSicaklik}/10`}
+      title={dil === 'en' ? `${sahne.no}. ${sahne.baslik} — temperature ${gosterilenSicaklik}/10` : `${sahne.no}. ${sahne.baslik} — sıcaklık ${gosterilenSicaklik}/10`}
       style={{
         width: '100px',
         minWidth: '100px',
@@ -69,7 +78,7 @@ export default function HamletSahneKuresi({
           textTransform: 'uppercase',
         }}
       >
-        Sahne {sahne.no}
+        {sahneKelime} {sahne.no}
       </span>
 
       <div

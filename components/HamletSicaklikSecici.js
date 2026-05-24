@@ -7,12 +7,17 @@
 'use client';
 
 import { sicaklikRengi, sicaklikEtiketi } from './HamletSahneKuresi';
+import { useDil } from '../app/lib/dil';
 
 export default function HamletSicaklikSecici({
   oneri,             // 1-10 (Workbook önerisi)
   oyuncuSicaklik,    // null veya 1-10
   onDegistir,        // (yeniDeger | null) => void
 }) {
+  const { dil } = useDil();
+  const t = dil === 'en'
+    ? { oneri: 'Workbook Suggestion', seninYorumun: 'Your Reading', henuz: 'Not marked yet', sifirla: 'Reset', donmus: '1 · Frozen', patlama: '10 · Eruption' }
+    : { oneri: 'Workbook Önerisi', seninYorumun: 'Senin Yorumun', henuz: 'Henüz işaretlenmedi', sifirla: 'Sıfırla', donmus: '1 · Donmuş', patlama: '10 · Patlama' };
   const aktifDeger = oyuncuSicaklik ?? oneri;
   const renk = sicaklikRengi(aktifDeger);
   const oyuncuVar = oyuncuSicaklik != null;
@@ -32,7 +37,7 @@ export default function HamletSicaklikSecici({
             minWidth: '110px',
           }}
         >
-          Workbook Önerisi
+          {t.oneri}
         </span>
         <div
           style={{
@@ -51,7 +56,7 @@ export default function HamletSicaklikSecici({
             color: 'var(--ink-muted)',
           }}
         >
-          {oneri}/10 — {sicaklikEtiketi(oneri)}
+          {oneri}/10 — {sicaklikEtiketi(oneri, dil)}
         </span>
       </div>
 
@@ -69,7 +74,7 @@ export default function HamletSicaklikSecici({
               minWidth: '110px',
             }}
           >
-            Senin Yorumun
+            {t.seninYorumun}
           </span>
           <div
             style={{
@@ -88,7 +93,7 @@ export default function HamletSicaklikSecici({
               color: oyuncuVar ? 'var(--ink)' : 'var(--ink-muted)',
             }}
           >
-            {oyuncuVar ? `${oyuncuSicaklik}/10 — ${sicaklikEtiketi(oyuncuSicaklik)}` : 'Henüz işaretlenmedi'}
+            {oyuncuVar ? `${oyuncuSicaklik}/10 — ${sicaklikEtiketi(oyuncuSicaklik, dil)}` : t.henuz}
           </span>
           {oyuncuVar && (
             <button
@@ -109,7 +114,7 @@ export default function HamletSicaklikSecici({
               onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
             >
-              Sıfırla
+              {t.sifirla}
             </button>
           )}
         </div>
@@ -140,9 +145,9 @@ export default function HamletSicaklikSecici({
             textTransform: 'uppercase',
           }}
         >
-          <span>1 · Donmuş</span>
+          <span>{t.donmus}</span>
           <span>5</span>
-          <span>10 · Patlama</span>
+          <span>{t.patlama}</span>
         </div>
       </div>
     </div>

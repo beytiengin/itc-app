@@ -11,6 +11,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { sahneYansimasiKaydet } from '../app/lib/hamlet-veri';
 import HamletSicaklikSecici from './HamletSicaklikSecici';
+import { useDil } from '../app/lib/dil';
 
 const TON = 'var(--accent)';
 
@@ -26,6 +27,10 @@ export default function HamletSahneDetay({
   onOnceki,
   onSonraki,
 }) {
+  const { dil } = useDil();
+  const t = dil === 'en'
+    ? { olay: 'Event', icsel: 'Inner', sicaklik: 'Temperature', yuk: 'Burden', etkiler: "Affects the Author's Frame choices:", tercih: 'Choice', ardindan: 'Follows the gap in Your Frame:', bosluk: 'Gap', seninYansiman: 'Your Reflection', soruPre: 'How hot do you think ', soruPost: " is in this scene? Where does it settle in your body?", placeholder: 'Where does it settle in your body? You can start with a single word.', anladim: 'I understood this scene', sahne: 'Scene' }
+    : { olay: 'Olay', icsel: 'İçsel', sicaklik: 'Sıcaklık', yuk: 'Yük', etkiler: 'Yazarın Çerçevesi tercihlerini etkiler:', tercih: 'Tercih', ardindan: 'Senin Çerçeven boşluğunun ardından gelir:', bosluk: 'Boşluk', seninYansiman: 'Senin Yansıman', soruPre: 'Bu sahnede ', soruPost: ' sıcaklığı sence kaç? Bedeninde nereye yerleşiyor?', placeholder: 'Bedeninde nereye yerleşiyor? Bir kelimeden başlayabilirsin.', anladim: 'Bu sahneyi anladım', sahne: 'Sahne' };
   const [sicaklik, setSicaklik] = useState(baslangic?.sicaklik ?? null);
   const [metin, setMetin] = useState(baslangic?.metin || '');
   const [anladi, setAnladi] = useState(baslangic?.anladi || false);
@@ -133,17 +138,17 @@ export default function HamletSahneDetay({
       </span>
 
       {/* OLAY */}
-      <Bolum etiket="Olay">
+      <Bolum etiket={t.olay}>
         <p style={duzMetin}>{sahne.olay}</p>
       </Bolum>
 
       {/* İÇSEL */}
-      <Bolum etiket="İçsel">
+      <Bolum etiket={t.icsel}>
         <p style={duzMetin}>{sahne.icsel}</p>
       </Bolum>
 
       {/* SICAKLIK */}
-      <Bolum etiket="Sıcaklık">
+      <Bolum etiket={t.sicaklik}>
         <HamletSicaklikSecici
           oneri={sahne.onerilenSicaklik}
           oyuncuSicaklik={sicaklik}
@@ -152,7 +157,7 @@ export default function HamletSahneDetay({
       </Bolum>
 
       {/* YÜK */}
-      <Bolum etiket="Yük">
+      <Bolum etiket={t.yuk}>
         <p style={{ ...duzMetin, fontStyle: 'italic', color: 'var(--ink-soft)' }}>{sahne.yuk}</p>
       </Bolum>
 
@@ -192,13 +197,13 @@ export default function HamletSahneDetay({
                   letterSpacing: '0.05em',
                 }}
               >
-                Yazarın Çerçevesi tercihlerini etkiler:
+                {t.etkiler}
               </span>
               <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                {bagliTercihler.map((t) => (
+                {bagliTercihler.map((tr) => (
                   <a
-                    key={t.no}
-                    href={`${kokYol}/yazarin-cercevesi/${t.no}`}
+                    key={tr.no}
+                    href={`${kokYol}/yazarin-cercevesi/${tr.no}`}
                     style={{
                       fontFamily: 'Jost, sans-serif',
                       fontWeight: 200,
@@ -220,7 +225,7 @@ export default function HamletSahneDetay({
                       e.currentTarget.style.borderColor = 'var(--rule)';
                     }}
                   >
-                    Tercih {t.no} · {t.konu}
+                    {t.tercih} {tr.no} · {tr.konu}
                   </a>
                 ))}
               </div>
@@ -238,7 +243,7 @@ export default function HamletSahneDetay({
                   letterSpacing: '0.05em',
                 }}
               >
-                Senin Çerçeven boşluğunun ardından gelir:
+                {t.ardindan}
               </span>
               <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                 {bagliBosluklar.map((b) => (
@@ -266,7 +271,7 @@ export default function HamletSahneDetay({
                       e.currentTarget.style.borderColor = 'var(--rule)';
                     }}
                   >
-                    Boşluk {b.no} · {b.baslik}
+                    {t.bosluk} {b.no} · {b.baslik}
                   </a>
                 ))}
               </div>
@@ -296,7 +301,7 @@ export default function HamletSahneDetay({
               textTransform: 'uppercase',
             }}
           >
-            Senin Yansıman
+            {t.seninYansiman}
           </span>
           <KayitRozet durum={kayitDurumu} />
         </div>
@@ -310,12 +315,12 @@ export default function HamletSahneDetay({
             margin: 0,
           }}
         >
-          Bu sahnede {iyelik(karakterAd)} sıcaklığı sence kaç? Bedeninde nereye yerleşiyor?
+          {t.soruPre}{dil === 'en' ? karakterAd : iyelik(karakterAd)}{t.soruPost}
         </p>
         <textarea
           value={metin}
           onChange={(e) => metinDegistir(e.target.value)}
-          placeholder="Bedeninde nereye yerleşiyor? Bir kelimeden başlayabilirsin."
+          placeholder={t.placeholder}
           rows={5}
           style={{
             width: '100%',
@@ -367,7 +372,7 @@ export default function HamletSahneDetay({
             letterSpacing: '0.05em',
           }}
         >
-          Bu sahneyi anladım
+          {t.anladim}
         </span>
       </label>
 
@@ -388,7 +393,7 @@ export default function HamletSahneDetay({
           onMouseEnter={(e) => { if (sahne.no > 1) e.currentTarget.style.color = 'var(--ink)'; }}
           onMouseLeave={(e) => { if (sahne.no > 1) e.currentTarget.style.color = 'var(--ink-soft)'; }}
         >
-          ← Sahne {sahne.no - 1}
+          ← {t.sahne} {sahne.no - 1}
         </button>
         <button
           onClick={onSonraki}
@@ -397,7 +402,7 @@ export default function HamletSahneDetay({
           onMouseEnter={(e) => { if (sahne.no < toplamSahne) e.currentTarget.style.color = 'var(--ink)'; }}
           onMouseLeave={(e) => { if (sahne.no < toplamSahne) e.currentTarget.style.color = 'var(--ink-soft)'; }}
         >
-          Sahne {sahne.no + 1} →
+          {t.sahne} {sahne.no + 1} →
         </button>
       </div>
     </div>
@@ -461,12 +466,13 @@ function navButonStili(disabled) {
 }
 
 function KayitRozet({ durum }) {
+  const { dil } = useDil();
   if (!durum || durum === 'yaziliyor') return <span style={{ minHeight: '1em' }} />;
   const renk = durum === 'hata' ? 'var(--uyari)' : 'var(--accent)';
   const mesaj =
-    durum === 'kaydediliyor' ? 'Kaydediliyor…' :
-    durum === 'kaydedildi' ? '✓ Kaydedildi' :
-    '⚠ Kaydedilemedi';
+    durum === 'kaydediliyor' ? (dil === 'en' ? 'Saving…' : 'Kaydediliyor…') :
+    durum === 'kaydedildi' ? (dil === 'en' ? '✓ Saved' : '✓ Kaydedildi') :
+    (dil === 'en' ? '⚠ Could not save' : '⚠ Kaydedilemedi');
   return (
     <span
       style={{

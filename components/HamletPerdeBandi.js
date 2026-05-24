@@ -3,9 +3,13 @@
 
 'use client';
 
+import { useDil } from '../app/lib/dil';
+
 const TON = 'var(--accent)';
 
 export default function HamletPerdeBandi({ perdeler, aktifPerde, onPerdeTikla }) {
+  const { dil } = useDil();
+  const sahneKelime = dil === 'en' ? 'Scene' : 'Sahne';
   return (
     <div
       style={{
@@ -71,7 +75,7 @@ export default function HamletPerdeBandi({ perdeler, aktifPerde, onPerdeTikla })
                 textTransform: 'uppercase',
               }}
             >
-              Sahne {p.sahneAraligi}
+              {sahneKelime} {p.sahneAraligi}
             </span>
           </button>
         );
