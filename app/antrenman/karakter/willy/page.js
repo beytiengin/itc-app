@@ -1,29 +1,51 @@
 // app/antrenman/karakter/willy/page.js
 // ITC Actor's Gym — Willy Loman karakter sayfası (hub)
 //
-// Modül II generic mimari (A-2 kararı: generic + Timeline Willy modu):
-//   - Karakter kimliği (karakter MBTI'si yazılmaz — tip kaldırıldı)
-//   - Doğrular (Bölüm 1)
-//   - 4 alt-bölüm kartı (Oyun Öncesi · Timeline · Yazarın Çerçevesi · Senin Çerçeven)
-//   - Modül III · Yolculuk Modu CTA (yakında)
-//
-// Hamlet ile aynı yapı (Spine §3.5); fark veride (willy.js). Eski tek-sayfa
-// (kalibrasyon + 4 kart + ZihinselAntrenman) retire edildi; eski veri
-// (sahneler/bosluklar/antrenmanlar) willy.js'de korunuyor.
+// Modül II generic mimari (A-2). Çift dilli (TR/EN) vitrin: chrome metinleri
+// data/willy-i18n.js sözlüğünden gelir; içerik (Doğrular) henüz willy.js (TR).
+// Bölüm kartlarında ilerleme göstergesi: Supabase'den arkada yüklenir, sayfa
+// bloklanmaz. Oturum yoksa (anonim önizleme) tüm bölümler "başlanmadı" görünür.
 
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import willy from '../../../../data/karakterler/willy';
+import willyI18n from '../../../../data/willy-i18n';
+import { useDil, ceviri } from '../../../../app/lib/dil';
+import {
+  olayYansimalariniGetir,
+  iliskiYansimalariniGetir,
+  sahneYansimalariniGetir,
+  tercihleriGetir,
+  altSoruYansimalariniGetir,
+} from '../../../../app/lib/hamlet-veri';
 import DogrularKarti from '../../../../components/DogrularKarti';
 import HamletAltSayfaHeader from '../../../../components/HamletAltSayfaHeader';
 
 const TON = 'var(--accent)';
 const KOK = '/antrenman/karakter/willy';
 
+// Bölüm rotaları — sözlükteki kartlarla (hub.kartlar) sıra-hizalı.
+const BOLUM_YOLLARI = [
+  `${KOK}/oyun-oncesi-yasam`,
+  `${KOK}/timeline`,
+  `${KOK}/yazarin-cercevesi`,
+  `${KOK}/senin-cerceven`,
+];
+
+function metinSayisi(obj) {
+  return Object.values(obj || {}).filter((v) => (v.metin?.length || 0) > 0).length;
+}
+
 export default function WillySayfasi() {
   const router = useRouter();
+  const { dil } = useDil();
+  const s = ceviri(willyI18n, dil);
+  const t = s.hub;
+  const ic = s.icerik;
+
+  const [ilerleme, setIlerleme] = useState(null); // null = henüz yüklenmedi
 
   // Eski hash'leri yeni route'lara yönlendir.
   useEffect(() => {
@@ -38,6 +60,49 @@ export default function WillySayfasi() {
       router.replace(`${KOK}/timeline`);
     }
   }, [router]);
+
+  // İlerlemeyi arkada yükle (sayfayı bloklamaz).
+  useEffect(() => {
+    let iptal = false;
+    async function yukle() {
+      const [olay, iliski, sahne, tercih, altSoru] = await Promise.all([
+        olayYansimalariniGetir(willy.id),
+        iliskiYansimalariniGetir(willy.id),
+        sahneYansimalariniGetir(willy.id),
+        tercihleriGetir(willy.id),
+        altSoruYansimalariniGetir(willy.id),
+      ]);
+      if (iptal) return;
+
+      const olayToplam = (willy.oyunOncesi?.olaylar || []).length;
+      const iliskiToplam = (willy.oyunOncesi?.iliskiler || []).length;
+      const sahneToplam = (willy.sahnelerWorkbook || []).length;
+      const tercihToplam = (willy.tercihler || []).length;
+      const boslukToplam = (willy.boslukSet || []).length;
+
+      const sahneDokunulan = Object.values(sahne).filter(
+        (v) => v.sicaklik != null || (v.metin?.length || 0) > 0,
+      ).length;
+
+      const tercihYapilan = Object.values(tercih).filter(
+        (v) => (v.secimler?.length || 0) > 0 || (v.ozelYorum?.length || 0) > 0,
+      ).length;
+
+      const boslukYazilan = (willy.boslukSet || []).filter((b) => {
+        const set = altSoru[b.no] || {};
+        return Object.values(set).some((y) => (y.metin?.length || 0) > 0);
+      }).length;
+
+      setIlerleme([
+        { yapilan: metinSayisi(olay) + metinSayisi(iliski), toplam: olayToplam + iliskiToplam },
+        { yapilan: sahneDokunulan, toplam: sahneToplam },
+        { yapilan: tercihYapilan, toplam: tercihToplam },
+        { yapilan: boslukYazilan, toplam: boslukToplam },
+      ]);
+    }
+    yukle();
+    return () => { iptal = true; };
+  }, []);
 
   return (
     <main
@@ -72,7 +137,7 @@ export default function WillySayfasi() {
               textTransform: 'uppercase',
             }}
           >
-            Modül II · Karakterini İnşa Et
+            {t.ustEtiket}
           </span>
           <h1
             style={{
@@ -86,7 +151,7 @@ export default function WillySayfasi() {
               letterSpacing: '0.02em',
             }}
           >
-            {willy.ad}
+            {ic.ad}
           </h1>
           <div
             style={{
@@ -97,9 +162,9 @@ export default function WillySayfasi() {
               letterSpacing: '0.12em',
             }}
           >
-            {willy.yazar} · {willy.donem} · {willy.tur}
+            {ic.yazar} · {ic.donem} · {ic.tur}
           </div>
-          {willy.ozet && (
+          {ic.ozet && (
             <p
               style={{
                 fontFamily: 'Cormorant Garamond, serif',
@@ -111,7 +176,7 @@ export default function WillySayfasi() {
                 margin: '0.8rem 0 0 0',
               }}
             >
-              {willy.ozet}
+              {ic.ozet}
             </p>
           )}
         </div>
@@ -146,7 +211,7 @@ export default function WillySayfasi() {
               textTransform: 'uppercase',
             }}
           >
-            Bölüm 1
+            {t.bolum1Etiket}
           </span>
           <span
             style={{
@@ -157,7 +222,7 @@ export default function WillySayfasi() {
               color: 'var(--ink)',
             }}
           >
-            Değiştirilemez Doğrular
+            {t.bolum1Baslik}
           </span>
         </div>
         <DogrularKarti dogrular={willy.dogrular} />
@@ -187,7 +252,7 @@ export default function WillySayfasi() {
               textTransform: 'uppercase',
             }}
           >
-            Bölümler 2 — 5
+            {t.koordinatEtiket}
           </span>
           <span
             style={{
@@ -198,10 +263,10 @@ export default function WillySayfasi() {
               color: 'var(--ink)',
             }}
           >
-            Karakter koordinatları
+            {t.koordinatBaslik}
           </span>
         </div>
-        <BolumKartlari />
+        <BolumKartlari kartlar={t.kartlar} acMetin={t.ac} ilerleme={ilerleme} dil={dil} />
       </section>
 
       {/* Modül III · Yolculuk Modu CTA */}
@@ -214,7 +279,7 @@ export default function WillySayfasi() {
           boxSizing: 'border-box',
         }}
       >
-        <ModulIIICta />
+        <ModulIIICta t={t} />
       </section>
     </main>
   );
@@ -222,42 +287,7 @@ export default function WillySayfasi() {
 
 // ─── BÖLÜM KARTLARI ─────────────────────────────────────────────────────────
 
-function BolumKartlari() {
-  const kartlar = [
-    {
-      etiket: 'Bölüm 2',
-      baslik: 'Oyun Öncesi Yaşam',
-      altyazi: 'Sahneye çıkmadan önce ne yaşandı',
-      aciklama:
-        "Sekiz olay, dokuz ilişki — Willy'nin bedeninde taşıdığı geçmiş.",
-      yol: `${KOK}/oyun-oncesi-yasam`,
-    },
-    {
-      etiket: 'Bölüm 3',
-      baslik: 'Zaman Çizgisi',
-      altyazi: "Willy'nin bedensel zinciri",
-      aciklama:
-        'On bir birim, üç akış hattı (Sızıntı · Patlama · Bedel). Sahne sırası ile hayat sırası ayrı.',
-      yol: `${KOK}/timeline`,
-    },
-    {
-      etiket: 'Bölüm 4',
-      baslik: 'Yazarın Çerçevesi',
-      altyazi: 'Beş tercih, beş kavşak',
-      aciklama:
-        "Ben, geçmişe kayışlar, Linda+Kadın, intihar, son an — Miller'ın açık uçlarına seninkini koy.",
-      yol: `${KOK}/yazarin-cercevesi`,
-    },
-    {
-      etiket: 'Bölüm 5',
-      baslik: 'Senin Çerçeven',
-      altyazi: "Miller'ın sustuğu yer",
-      aciklama:
-        'Dört boşluk, on iki alt-soru. Sahnelerin altında akan görünmez metni sen yaz.',
-      yol: `${KOK}/senin-cerceven`,
-    },
-  ];
-
+function BolumKartlari({ kartlar, acMetin, ilerleme, dil }) {
   return (
     <div
       style={{
@@ -266,10 +296,10 @@ function BolumKartlari() {
         gap: '1rem',
       }}
     >
-      {kartlar.map((k) => (
+      {kartlar.map((k, i) => (
         <a
-          key={k.yol}
-          href={k.yol}
+          key={BOLUM_YOLLARI[i]}
+          href={BOLUM_YOLLARI[i]}
           style={{
             border: '1px solid var(--rule)',
             padding: '1.6rem 1.8rem',
@@ -336,6 +366,9 @@ function BolumKartlari() {
           >
             {k.aciklama}
           </p>
+
+          <BolumDurum durum={ilerleme ? ilerleme[i] : null} dil={dil} />
+
           <span
             style={{
               fontFamily: 'Jost, sans-serif',
@@ -344,10 +377,10 @@ function BolumKartlari() {
               letterSpacing: '0.3em',
               color: TON,
               textTransform: 'uppercase',
-              marginTop: '0.4rem',
+              marginTop: '0.2rem',
             }}
           >
-            Aç →
+            {acMetin}
           </span>
         </a>
       ))}
@@ -355,9 +388,74 @@ function BolumKartlari() {
   );
 }
 
+// ─── BÖLÜM İLERLEME GÖSTERGESİ ──────────────────────────────────────────────
+// Zanaat dili — puan/rozet değil. Yüklenmeden önce yer tutmaz (sayfa bloklanmaz).
+
+function BolumDurum({ durum, dil }) {
+  if (!durum) return null; // henüz yüklenmedi
+  const { yapilan, toplam } = durum;
+  const tamam = toplam > 0 && yapilan >= toplam;
+  const oran = toplam > 0 ? Math.min(yapilan / toplam, 1) : 0;
+
+  if (yapilan === 0) {
+    return (
+      <span
+        style={{
+          fontFamily: 'Jost, sans-serif',
+          fontWeight: 200,
+          fontSize: '0.6rem',
+          letterSpacing: '0.2em',
+          color: 'var(--ink-muted)',
+          textTransform: 'uppercase',
+          marginTop: '0.4rem',
+        }}
+      >
+        {dil === 'en' ? 'Not started yet' : 'Henüz başlanmadı'}
+      </span>
+    );
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', marginTop: '0.5rem' }}>
+      <div
+        style={{
+          height: '2px',
+          width: '100%',
+          backgroundColor: 'var(--rule)',
+          position: 'relative',
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            height: '100%',
+            width: `${oran * 100}%`,
+            backgroundColor: tamam ? 'var(--onay)' : TON,
+            transition: 'width 0.4s ease',
+          }}
+        />
+      </div>
+      <span
+        style={{
+          fontFamily: 'Jost, sans-serif',
+          fontWeight: 200,
+          fontSize: '0.6rem',
+          letterSpacing: '0.2em',
+          color: tamam ? 'var(--onay)' : 'var(--ink-soft)',
+          textTransform: 'uppercase',
+        }}
+      >
+        {tamam ? (dil === 'en' ? '✓ Complete' : '✓ Tamamlandı') : `${yapilan} / ${toplam}`}
+      </span>
+    </div>
+  );
+}
+
 // ─── MODÜL III · YOLCULUK MODU CTA ──────────────────────────────────────────
 
-function ModulIIICta() {
+function ModulIIICta({ t }) {
   return (
     <div
       style={{
@@ -379,7 +477,7 @@ function ModulIIICta() {
           textTransform: 'uppercase',
         }}
       >
-        Modül III · Yolculuk Modu
+        {t.modul3Etiket}
       </span>
 
       <h2
@@ -393,7 +491,7 @@ function ModulIIICta() {
           lineHeight: 1.2,
         }}
       >
-        Willy'nin tüm yaşamı, baştan sona
+        {t.modul3Baslik}
       </h2>
 
       <p
@@ -407,10 +505,7 @@ function ModulIIICta() {
           maxWidth: '700px',
         }}
       >
-        Modül II'yi tamamladığında karakter koordinatları kurulmuş olur. Modül III,
-        Willy'nin tüm yaşamını — pre-senaryodan sahnedeki son anına — bedeninle bir kez
-        baştan sona dolaşman için tasarlandı. Sahneler ve aralarındaki boşluklar, hayat
-        sırasına dizilir; AI Dış Ses eşlik eder.
+        {t.modul3Metin}
       </p>
 
       <div
@@ -434,7 +529,7 @@ function ModulIIICta() {
             border: '1px solid var(--rule)',
           }}
         >
-          Yakında
+          {t.modul3Rozet}
         </span>
         <span
           style={{
@@ -444,7 +539,7 @@ function ModulIIICta() {
             color: 'var(--ink-muted)',
           }}
         >
-          Modül II tamamlandığında açılacak.
+          {t.modul3Not}
         </span>
       </div>
     </div>
