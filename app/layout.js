@@ -1,7 +1,7 @@
 import "./globals.css";
 import { cormorant, jost } from "./fonts";
 import { ThemeProvider } from "./lib/theme";
-import { LangProvider } from "./lib/lang";
+import { DilProvider } from "./lib/dil";
 import TemaToggleFloat from "../components/TemaToggleFloat";
 
 export const metadata = {
@@ -52,10 +52,12 @@ const dilScript = `
 (function() {
   try {
     var saved = localStorage.getItem('itc-lang');
-    if (saved === 'tr' || saved === 'en') {
-      document.documentElement.setAttribute('lang', saved);
-    }
-  } catch (e) {}
+    var dil = (saved === 'en' || saved === 'tr') ? saved : 'tr';
+    document.documentElement.setAttribute('data-lang', dil);
+    document.documentElement.setAttribute('lang', dil);
+  } catch (e) {
+    document.documentElement.setAttribute('data-lang', 'tr');
+  }
 })();
 `;
 
@@ -67,12 +69,12 @@ export default function RootLayout({ children }) {
         <script dangerouslySetInnerHTML={{ __html: dilScript }} />
       </head>
       <body>
-        <LangProvider>
-          <ThemeProvider>
+        <ThemeProvider>
+          <DilProvider>
             {children}
             <TemaToggleFloat />
-          </ThemeProvider>
-        </LangProvider>
+          </DilProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

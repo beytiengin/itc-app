@@ -4,9 +4,14 @@
 'use client';
 
 import { supabase } from '../app/lib/supabase';
-import DilSecici from './DilSecici';
+import { useDil, ceviri } from '../app/lib/dil';
+import willyI18n from '../data/willy-i18n';
+import DilToggle from './DilToggle';
 
 export default function HamletAltSayfaHeader() {
+  const { dil } = useDil();
+  const t = ceviri(willyI18n, dil).nav;
+
   async function cikisYap() {
     try {
       await supabase.auth.signOut();
@@ -59,7 +64,7 @@ export default function HamletAltSayfaHeader() {
           onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
           onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
         >
-          Kalibrasyon
+          {t.kalibrasyon}
         </a>
         <a
           href="/kulis"
@@ -67,7 +72,7 @@ export default function HamletAltSayfaHeader() {
           onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
           onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
         >
-          Kulis
+          {t.kulis}
         </a>
         <a
           href="/antrenman/karakter"
@@ -75,9 +80,8 @@ export default function HamletAltSayfaHeader() {
           onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
           onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
         >
-          ← Karakterler
+          {t.karakterler}
         </a>
-        <DilSecici />
         <button
           onClick={cikisYap}
           style={{
@@ -91,8 +95,9 @@ export default function HamletAltSayfaHeader() {
           onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
           onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
         >
-          Çıkış
+          {t.cikis}
         </button>
+        <DilToggle />
       </nav>
     </header>
   );
