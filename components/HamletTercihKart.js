@@ -8,9 +8,15 @@
 
 'use client';
 
+import { useDil } from '../app/lib/dil';
+
 const TON = 'var(--accent)';
 
 export default function HamletTercihKart({ tercih, secim, kokYol }) {
+  const { dil } = useDil();
+  const t = dil === 'en'
+    ? { ozelYorum: '+ Custom note', henuzSecim: 'No choice yet', duzenle: 'Edit →', ac: 'Open →' }
+    : { ozelYorum: '+ Özel yorum', henuzSecim: 'Henüz seçim yok', duzenle: 'Düzenle →', ac: 'Aç →' };
   const secilmis = secim?.secimler?.length > 0 || (secim?.ozelYorum?.length || 0) > 0;
   const harfler = secim?.secimler || [];
   const ozelVar = (secim?.ozelYorum?.length || 0) > 0;
@@ -104,7 +110,7 @@ export default function HamletTercihKart({ tercih, secim, kokYol }) {
                   textTransform: 'uppercase',
                 }}
               >
-                + Özel yorum
+                {t.ozelYorum}
               </span>
             )}
           </>
@@ -119,7 +125,7 @@ export default function HamletTercihKart({ tercih, secim, kokYol }) {
               fontStyle: 'italic',
             }}
           >
-            Henüz seçim yok
+            {t.henuzSecim}
           </span>
         )}
       </div>
@@ -135,7 +141,7 @@ export default function HamletTercihKart({ tercih, secim, kokYol }) {
           marginTop: '0.4rem',
         }}
       >
-        {secilmis ? 'Düzenle →' : 'Aç →'}
+{secilmis ? t.duzenle : t.ac}
       </span>
     </a>
   );

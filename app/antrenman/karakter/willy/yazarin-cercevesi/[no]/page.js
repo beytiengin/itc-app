@@ -10,7 +10,8 @@ import { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
 import willyRaw from '../../../../../../data/karakterler/willy';
 import { willyIcerik } from '../../../../../../data/willy-i18n';
-import { useDil } from '../../../../../lib/dil';
+import willyI18n from '../../../../../../data/willy-i18n';
+import { useDil, ceviri } from '../../../../../lib/dil';
 import { tercihleriGetir } from '../../../../../lib/hamlet-veri';
 import HamletAltSayfaHeader from '../../../../../../components/HamletAltSayfaHeader';
 import HamletTercihSecim from '../../../../../../components/HamletTercihSecim';
@@ -24,6 +25,7 @@ export default function TercihDetaySayfasi({ params }) {
   const router = useRouter();
   const { dil } = useDil();
   const willy = willyIcerik(dil, willyRaw);
+  const sa = ceviri(willyI18n, dil).yazarinCercevesi.altSayfa;
 
   const [secimler, setSecimler] = useState({});
   const [yukleniyor, setYukleniyor] = useState(true);
@@ -96,7 +98,7 @@ export default function TercihDetaySayfasi({ params }) {
             onMouseEnter={(e) => { e.currentTarget.style.color = TON; }}
             onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
           >
-            ← Yazarın Çerçevesi
+            {sa.geri}
           </a>
 
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.9rem', flexWrap: 'wrap' }}>
@@ -110,7 +112,7 @@ export default function TercihDetaySayfasi({ params }) {
                 textTransform: 'uppercase',
               }}
             >
-              Tercih {tercih.no} · {tercih.konu}
+              {sa.tercihKelime} {tercih.no} · {tercih.konu}
             </span>
             <span
               style={{
@@ -166,7 +168,7 @@ export default function TercihDetaySayfasi({ params }) {
               onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
             >
-              ← Tercih {oncekiNo}
+              {sa.oncekiTercih} {oncekiNo}
             </a>
           ) : <span />}
 
@@ -177,7 +179,7 @@ export default function TercihDetaySayfasi({ params }) {
               onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
             >
-              Tercih {sonrakiNo} →
+              {sa.sonrakiTercih} {sonrakiNo} →
             </a>
           ) : (
             <a
@@ -188,7 +190,7 @@ export default function TercihDetaySayfasi({ params }) {
                 borderColor: TON,
               }}
             >
-              Sentez →
+              {sa.sentezLink}
             </a>
           )}
         </div>

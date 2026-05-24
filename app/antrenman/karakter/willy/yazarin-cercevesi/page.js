@@ -9,7 +9,8 @@
 import { useState, useEffect } from 'react';
 import willyRaw from '../../../../../data/karakterler/willy';
 import { willyIcerik } from '../../../../../data/willy-i18n';
-import { useDil } from '../../../../lib/dil';
+import willyI18n from '../../../../../data/willy-i18n';
+import { useDil, ceviri } from '../../../../lib/dil';
 import { tercihleriGetir } from '../../../../lib/hamlet-veri';
 import HamletAltSayfaHeader from '../../../../../components/HamletAltSayfaHeader';
 import HamletTercihKart from '../../../../../components/HamletTercihKart';
@@ -22,6 +23,7 @@ const KOK = '/antrenman/karakter/willy';
 export default function YazarinCerceveSAnaSayfa() {
   const { dil } = useDil();
   const willy = willyIcerik(dil, willyRaw);
+  const yc = ceviri(willyI18n, dil).yazarinCercevesi;
   const [secimler, setSecimler] = useState({});
   const [yukleniyor, setYukleniyor] = useState(true);
 
@@ -78,16 +80,13 @@ export default function YazarinCerceveSAnaSayfa() {
           >
             ← Willy Loman
           </a>
-          <span style={etiketStili}>Modül II · Bölüm 4</span>
-          <h1 style={baslikStili}>Yazarın Çerçevesi</h1>
-          <p style={altyaziStili}>İçine girdiğin oda</p>
+          <span style={etiketStili}>{yc.etiket}</span>
+          <h1 style={baslikStili}>{yc.baslik}</h1>
+          <p style={altyaziStili}>{yc.altyazi}</p>
         </header>
 
         <p style={paragrafStili}>
-          Bu bölümde beş kritik tercih var. Her biri Willy'nin yıllardır
-          tartışılan açık uçlarından biri. Her tercihte: Miller'ın metinde
-          bıraktığı işaretleri okuyacaksın, olası yorumları göreceksin — ve
-          seninkini işaretleyeceksin.
+          {yc.acilis}
         </p>
 
         <div
@@ -107,7 +106,7 @@ export default function YazarinCerceveSAnaSayfa() {
               margin: 0,
             }}
           >
-            "Doğru cevap yok. Senin Willy'nin cevabı var."
+            {yc.vurgu}
           </p>
         </div>
 
@@ -120,7 +119,7 @@ export default function YazarinCerceveSAnaSayfa() {
             borderTop: '1px solid var(--bg-elevated)',
           }}
         >
-          <span style={etiketStili}>Beş Kavşak</span>
+          <span style={etiketStili}>{yc.kavsakEtiket}</span>
           <span
             style={{
               fontFamily: 'Cormorant Garamond, serif',
@@ -175,7 +174,7 @@ export default function YazarinCerceveSAnaSayfa() {
                 color: 'var(--ink)',
               }}
             >
-              Beş Cümle, Bir Willy
+              {yc.sentezKartBaslik}
             </span>
             <p
               style={{
@@ -188,8 +187,8 @@ export default function YazarinCerceveSAnaSayfa() {
               }}
             >
               {hepsiTamam
-                ? 'Beş tercihin de hazır. Şimdi onları birleştir: senin Willy\'in.'
-                : 'Şu ana kadar yaptığın seçimleri görebilirsin. Hepsini tamamladığında tam sentez açılır.'}
+                ? yc.sentezKartTam
+                : yc.sentezKartKismi}
             </p>
             <span
               style={{
@@ -202,17 +201,17 @@ export default function YazarinCerceveSAnaSayfa() {
                 marginTop: '0.4rem',
               }}
             >
-              Sentezi Aç →
+              {yc.sentezKartLink}
             </span>
           </a>
         )}
 
         <HamletBolumGecisi
-          oncekiEtiket="Bölüm 3"
-          oncekiBaslik="Zaman Çizgisi"
+          oncekiEtiket={yc.gecisOncekiEtiket}
+          oncekiBaslik={yc.gecisOncekiBaslik}
           oncekiYol="/antrenman/karakter/willy/timeline"
-          sonrakiEtiket="Bölüm 5"
-          sonrakiBaslik="Senin Çerçeven"
+          sonrakiEtiket={yc.gecisSonrakiEtiket}
+          sonrakiBaslik={yc.gecisSonrakiBaslik}
           sonrakiYol="/antrenman/karakter/willy/senin-cerceven"
         />
       </article>

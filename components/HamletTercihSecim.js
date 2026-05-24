@@ -9,10 +9,15 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { tercihKaydet } from '../app/lib/hamlet-veri';
+import { useDil } from '../app/lib/dil';
 
 const TON = 'var(--accent)';
 
 export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYol }) {
+  const { dil } = useDil();
+  const t = dil === 'en'
+    ? { olasiYorum: 'Possible Interpretations', yaDaKendi: 'Or Your Own Interpretation', aciklama: 'If none of the above fits exactly, write your own. You can also do both.', placeholder: 'What is your interpretation?' }
+    : { olasiYorum: 'Olası Yorum', yaDaKendi: 'Ya da Kendi Yorumun', aciklama: 'Yukarıdakilerden hiçbirine tam uymuyorsa kendi yorumunu yaz. İkisini birlikte de yapabilirsin.', placeholder: 'Senin yorumun nasıl?' };
   const [secimler, setSecimler] = useState(baslangic?.secimler || []);
   const [ozelYorum, setOzelYorum] = useState(baslangic?.ozelYorum || '');
   const [kayitDurumu, setKayitDurumu] = useState(null);
@@ -162,7 +167,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYo
               textTransform: 'uppercase',
             }}
           >
-            {tercih.cokluSecim ? `${tercih.yorumlar.length} Olası Yorum` : `${tercih.yorumlar.length} Olası Yorum`}
+            {`${tercih.yorumlar.length} ${t.olasiYorum}`}
           </span>
           <KayitRozet durum={kayitDurumu} />
         </div>
@@ -272,7 +277,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYo
             textTransform: 'uppercase',
           }}
         >
-          Ya da Kendi Yorumun
+          {t.yaDaKendi}
         </span>
         <p
           style={{
@@ -284,12 +289,12 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYo
             margin: 0,
           }}
         >
-          Yukarıdakilerden hiçbirine tam uymuyorsa kendi yorumunu yaz. İkisini birlikte de yapabilirsin.
+          {t.aciklama}
         </p>
         <textarea
           value={ozelYorum}
           onChange={(e) => ozelYorumDegistir(e.target.value)}
-          placeholder="Senin yorumun nasıl?"
+          placeholder={t.placeholder}
           rows={5}
           style={{
             width: '100%',
@@ -332,12 +337,13 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYo
 }
 
 function KayitRozet({ durum }) {
+  const { dil } = useDil();
   if (!durum || durum === 'yaziliyor') return <span style={{ minHeight: '1em' }} />;
   const renk = durum === 'hata' ? 'var(--uyari)' : 'var(--accent)';
   const mesaj =
-    durum === 'kaydediliyor' ? 'Kaydediliyor…' :
-    durum === 'kaydedildi' ? '✓ Kaydedildi' :
-    '⚠ Kaydedilemedi';
+    durum === 'kaydediliyor' ? (dil === 'en' ? 'Saving…' : 'Kaydediliyor…') :
+    durum === 'kaydedildi' ? (dil === 'en' ? '✓ Saved' : '✓ Kaydedildi') :
+    (dil === 'en' ? '⚠ Could not save' : '⚠ Kaydedilemedi');
   return (
     <span
       style={{
