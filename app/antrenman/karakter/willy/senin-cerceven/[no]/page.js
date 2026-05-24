@@ -8,7 +8,9 @@
 
 import { useState, useEffect, useRef, use } from 'react';
 import { useRouter } from 'next/navigation';
-import willy from '../../../../../../data/karakterler/willy';
+import willyRaw from '../../../../../../data/karakterler/willy';
+import { willyIcerik } from '../../../../../../data/willy-i18n';
+import { useDil } from '../../../../../lib/dil';
 import {
   altSoruYansimalariniGetir,
   boslukGenelMetinleriGetir,
@@ -25,6 +27,8 @@ export default function BoslukDetaySayfasi({ params }) {
   const { no } = use(params);
   const boslukNo = parseInt(no, 10);
   const router = useRouter();
+  const { dil } = useDil();
+  const willy = willyIcerik(dil, willyRaw);
 
   const [yansimalar, setYansimalar] = useState({});
   const [genelMetin, setGenelMetin] = useState('');

@@ -7,7 +7,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import willy from '../../../../../../data/karakterler/willy';
+import willyRaw from '../../../../../../data/karakterler/willy';
+import { willyIcerik } from '../../../../../../data/willy-i18n';
+import { useDil } from '../../../../../lib/dil';
 import {
   altSoruYansimalariniGetir,
   boslukGenelMetinleriGetir,
@@ -19,6 +21,8 @@ const TON = 'var(--onay)';
 const ALTIN = 'var(--accent)';
 
 export default function SeninCerceveSentez() {
+  const { dil } = useDil();
+  const willy = willyIcerik(dil, willyRaw);
   const [yansimalar, setYansimalar] = useState({});
   const [genelMetinler, setGenelMetinler] = useState({});
   const [yukleniyor, setYukleniyor] = useState(true);

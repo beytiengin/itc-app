@@ -8,7 +8,9 @@
 
 import { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
-import willy from '../../../../../../data/karakterler/willy';
+import willyRaw from '../../../../../../data/karakterler/willy';
+import { willyIcerik } from '../../../../../../data/willy-i18n';
+import { useDil } from '../../../../../lib/dil';
 import { tercihleriGetir } from '../../../../../lib/hamlet-veri';
 import HamletAltSayfaHeader from '../../../../../../components/HamletAltSayfaHeader';
 import HamletTercihSecim from '../../../../../../components/HamletTercihSecim';
@@ -19,6 +21,8 @@ export default function TercihDetaySayfasi({ params }) {
   const { no } = use(params);
   const tercihNo = parseInt(no, 10);
   const router = useRouter();
+  const { dil } = useDil();
+  const willy = willyIcerik(dil, willyRaw);
 
   const [secimler, setSecimler] = useState({});
   const [yukleniyor, setYukleniyor] = useState(true);

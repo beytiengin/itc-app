@@ -9,7 +9,9 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { supabase } from '../../../../lib/supabase';
-import willy from '../../../../../data/karakterler/willy';
+import willyRaw from '../../../../../data/karakterler/willy';
+import { willyIcerik } from '../../../../../data/willy-i18n';
+import { useDil } from '../../../../lib/dil';
 import { sahneYansimalariniGetir } from '../../../../lib/hamlet-veri';
 import HamletSahneKuresi from '../../../../../components/HamletSahneKuresi';
 import HamletPerdeBandi from '../../../../../components/HamletPerdeBandi';
@@ -20,6 +22,8 @@ const TON = 'var(--accent)';
 const KOK = '/antrenman/karakter/willy';
 
 export default function TimelineSayfasi() {
+  const { dil } = useDil();
+  const willy = willyIcerik(dil, willyRaw);
   const [yansimalar, setYansimalar] = useState({});
   const [seciliSahneNo, setSeciliSahneNo] = useState(null);
   const [yukleniyor, setYukleniyor] = useState(true);

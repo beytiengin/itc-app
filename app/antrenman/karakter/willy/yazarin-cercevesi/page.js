@@ -7,7 +7,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import willy from '../../../../../data/karakterler/willy';
+import willyRaw from '../../../../../data/karakterler/willy';
+import { willyIcerik } from '../../../../../data/willy-i18n';
+import { useDil } from '../../../../lib/dil';
 import { tercihleriGetir } from '../../../../lib/hamlet-veri';
 import HamletAltSayfaHeader from '../../../../../components/HamletAltSayfaHeader';
 import HamletTercihKart from '../../../../../components/HamletTercihKart';
@@ -17,6 +19,8 @@ const TON = 'var(--accent)';
 const KOK = '/antrenman/karakter/willy';
 
 export default function YazarinCerceveSAnaSayfa() {
+  const { dil } = useDil();
+  const willy = willyIcerik(dil, willyRaw);
   const [secimler, setSecimler] = useState({});
   const [yukleniyor, setYukleniyor] = useState(true);
 

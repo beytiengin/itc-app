@@ -9,7 +9,9 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from '../../../../lib/supabase';
-import willy from '../../../../../data/karakterler/willy';
+import willyRaw from '../../../../../data/karakterler/willy';
+import { willyIcerik } from '../../../../../data/willy-i18n';
+import { useDil } from '../../../../lib/dil';
 import {
   olayYansimalariniGetir,
   iliskiYansimalariniGetir,
@@ -21,6 +23,8 @@ import HamletBolumGecisi from '../../../../../components/HamletBolumGecisi';
 const TON = 'var(--accent)';
 
 export default function OyunOncesiYasamSayfasi() {
+  const { dil } = useDil();
+  const willy = willyIcerik(dil, willyRaw);
   const [olayYansimalari, setOlayYansimalari] = useState({});
   const [iliskiYansimalari, setIliskiYansimalari] = useState({});
   const [yukleniyor, setYukleniyor] = useState(true);

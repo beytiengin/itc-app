@@ -10,8 +10,8 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import willy from '../../../../data/karakterler/willy';
-import willyI18n from '../../../../data/willy-i18n';
+import willyRaw from '../../../../data/karakterler/willy';
+import willyI18n, { willyIcerik } from '../../../../data/willy-i18n';
 import { useDil, ceviri } from '../../../../app/lib/dil';
 import {
   olayYansimalariniGetir,
@@ -41,6 +41,7 @@ function metinSayisi(obj) {
 export default function WillySayfasi() {
   const router = useRouter();
   const { dil } = useDil();
+  const willy = willyIcerik(dil, willyRaw);
   const s = ceviri(willyI18n, dil);
   const t = s.hub;
   const ic = s.icerik;

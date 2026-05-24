@@ -8,7 +8,9 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import willy from '../../../../../../data/karakterler/willy';
+import willyRaw from '../../../../../../data/karakterler/willy';
+import { willyIcerik } from '../../../../../../data/willy-i18n';
+import { useDil } from '../../../../../lib/dil';
 import { tercihleriGetir, tercihKaydet } from '../../../../../lib/hamlet-veri';
 import HamletAltSayfaHeader from '../../../../../../components/HamletAltSayfaHeader';
 import HamletBolumGecisi from '../../../../../../components/HamletBolumGecisi';
@@ -16,6 +18,8 @@ import HamletBolumGecisi from '../../../../../../components/HamletBolumGecisi';
 const TON = 'var(--accent)';
 
 export default function SentezSayfasi() {
+  const { dil } = useDil();
+  const willy = willyIcerik(dil, willyRaw);
   const [secimler, setSecimler] = useState({});
   const [yukleniyor, setYukleniyor] = useState(true);
   const [kayitDurumlari, setKayitDurumlari] = useState({});

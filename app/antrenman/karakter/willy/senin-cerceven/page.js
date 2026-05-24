@@ -8,8 +8,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import willy from '../../../../../data/karakterler/willy';
-import willyI18n from '../../../../../data/willy-i18n';
+import willyRaw from '../../../../../data/karakterler/willy';
+import willyI18n, { willyIcerik } from '../../../../../data/willy-i18n';
 import { useDil, ceviri } from '../../../../../app/lib/dil';
 import { altSoruYansimalariniGetir } from '../../../../lib/hamlet-veri';
 import HamletAltSayfaHeader from '../../../../../components/HamletAltSayfaHeader';
@@ -21,6 +21,7 @@ const ALTIN = 'var(--accent)';
 
 export default function SeninCerceveAnaSayfa() {
   const { dil } = useDil();
+  const willy = willyIcerik(dil, willyRaw);
   const sozluk = ceviri(willyI18n, dil);
   const sc = sozluk.seninCerceven;
   const o = sozluk.ortak;
