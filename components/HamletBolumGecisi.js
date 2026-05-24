@@ -8,6 +8,8 @@
 
 'use client';
 
+import { useDil } from '../app/lib/dil';
+
 const TON = 'var(--accent)';
 
 export default function HamletBolumGecisi({
@@ -19,6 +21,10 @@ export default function HamletBolumGecisi({
   sonrakiYol,           // null verilirse "Yakında" gösterilir
   sonrakiYakinda = false,
 }) {
+  const { dil } = useDil();
+  const t = dil === 'en'
+    ? { onceki: '← Previous', siradaki: 'Next', siradakiOk: 'Next →', modul3Yakinda: 'Module III · Soon' }
+    : { onceki: '← Önceki', siradaki: 'Sıradaki', siradakiOk: 'Sıradaki →', modul3Yakinda: 'Modül III · Yakında' };
   return (
     <nav
       style={{
@@ -37,7 +43,7 @@ export default function HamletBolumGecisi({
           onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
           onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
         >
-          <span style={altEtiketStili}>← Önceki</span>
+          <span style={altEtiketStili}>{t.onceki}</span>
           <span style={oncekiUstStili}>
             {oncekiEtiket ? `${oncekiEtiket} · ` : ''}{oncekiBaslik}
           </span>
@@ -53,9 +59,9 @@ export default function HamletBolumGecisi({
             textAlign: 'right',
           }}
         >
-          <span style={altEtiketStili}>Sıradaki</span>
+          <span style={altEtiketStili}>{t.siradaki}</span>
           <span style={{ ...sonrakiUstStili, color: 'var(--ink-muted)' }}>
-            {sonrakiBaslik || 'Modül III · Yakında'}
+            {sonrakiBaslik || t.modul3Yakinda}
           </span>
         </span>
       ) : (
@@ -65,7 +71,7 @@ export default function HamletBolumGecisi({
           onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.7'; }}
           onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
         >
-          <span style={{ ...altEtiketStili, color: TON }}>Sıradaki →</span>
+          <span style={{ ...altEtiketStili, color: TON }}>{t.siradakiOk}</span>
           <span style={sonrakiUstStili}>
             {sonrakiEtiket ? `${sonrakiEtiket} · ` : ''}{sonrakiBaslik}
           </span>

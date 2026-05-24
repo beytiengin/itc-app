@@ -3,9 +3,15 @@
 
 'use client';
 
+import { useDil } from '../app/lib/dil';
+
 const TON = 'var(--onay)'; // Senin Çerçeven yeşili — eski boşluk renginden devam.
 
 export default function HamletBoslukKart({ bosluk, yazilanSayisi, kokYol }) {
+  const { dil } = useDil();
+  const t = dil === 'en'
+    ? { bosluk: '◇ Gap', once: 'Before', sonra: 'After', ac: 'Open →', yazildi: (n) => `${n} / 3 sub-questions written` }
+    : { bosluk: '◇ Boşluk', once: 'Önce', sonra: 'Sonra', ac: 'Aç →', yazildi: (n) => `${n} / 3 alt-soru yazıldı` };
   const yol = `${kokYol}/senin-cerceven/${bosluk.no}`;
   const tamamenYazilmis = yazilanSayisi >= 3;
   const kismiYazilmis = yazilanSayisi > 0 && yazilanSayisi < 3;
@@ -54,7 +60,7 @@ export default function HamletBoslukKart({ bosluk, yazilanSayisi, kokYol }) {
             textTransform: 'uppercase',
           }}
         >
-          ◇ Boşluk
+          {t.bosluk}
         </span>
         {bosluk.sinif && (
           <span
@@ -99,7 +105,7 @@ export default function HamletBoslukKart({ bosluk, yazilanSayisi, kokYol }) {
             textTransform: 'uppercase',
           }}
         >
-          Önce
+          {t.once}
         </span>
         <span
           style={{
@@ -124,7 +130,7 @@ export default function HamletBoslukKart({ bosluk, yazilanSayisi, kokYol }) {
             textTransform: 'uppercase',
           }}
         >
-          Sonra
+          {t.sonra}
         </span>
         <span
           style={{
@@ -157,7 +163,7 @@ export default function HamletBoslukKart({ bosluk, yazilanSayisi, kokYol }) {
             textTransform: 'uppercase',
           }}
         >
-          {yazilanSayisi} / 3 alt-soru yazıldı
+          {t.yazildi(yazilanSayisi)}
         </span>
         <span
           style={{
@@ -169,7 +175,7 @@ export default function HamletBoslukKart({ bosluk, yazilanSayisi, kokYol }) {
             textTransform: 'uppercase',
           }}
         >
-          Aç →
+          {t.ac}
         </span>
       </div>
     </a>

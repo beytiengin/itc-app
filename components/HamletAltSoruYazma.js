@@ -7,6 +7,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { altSoruYansimasiKaydet } from '../app/lib/hamlet-veri';
+import { useDil } from '../app/lib/dil';
 
 const TON = 'var(--onay)';
 
@@ -16,6 +17,10 @@ export default function HamletAltSoruYazma({
   baslangic,       // {metin, acildi}
   karakterId,
 }) {
+  const { dil } = useDil();
+  const t = dil === 'en'
+    ? { placeholder: "A word, a moment, a bodily sensation — that's enough.", acildi: 'This moment opened' }
+    : { placeholder: 'Bir kelime, bir an, bir bedensel duyu — yeter.', acildi: 'Bu an açıldı' };
   const [metin, setMetin] = useState(baslangic?.metin || '');
   const [acildi, setAcildi] = useState(baslangic?.acildi || false);
   const [kayitDurumu, setKayitDurumu] = useState(null);
@@ -149,7 +154,7 @@ export default function HamletAltSoruYazma({
         <textarea
           value={metin}
           onChange={(e) => metinDegistir(e.target.value)}
-          placeholder="Bir kelime, bir an, bir bedensel duyu — yeter."
+          placeholder={t.placeholder}
           rows={4}
           style={{
             width: '100%',
@@ -200,7 +205,7 @@ export default function HamletAltSoruYazma({
             letterSpacing: '0.05em',
           }}
         >
-          Bu an açıldı
+          {t.acildi}
         </span>
       </label>
     </div>
@@ -208,12 +213,13 @@ export default function HamletAltSoruYazma({
 }
 
 function KayitRozet({ durum }) {
+  const { dil } = useDil();
   if (!durum || durum === 'yaziliyor') return <span style={{ minHeight: '1em' }} />;
   const renk = durum === 'hata' ? 'var(--uyari)' : 'var(--onay)';
   const mesaj =
-    durum === 'kaydediliyor' ? 'Kaydediliyor…' :
-    durum === 'kaydedildi' ? '✓ Kaydedildi' :
-    '⚠ Kaydedilemedi';
+    durum === 'kaydediliyor' ? (dil === 'en' ? 'Saving…' : 'Kaydediliyor…') :
+    durum === 'kaydedildi' ? (dil === 'en' ? '✓ Saved' : '✓ Kaydedildi') :
+    (dil === 'en' ? '⚠ Could not save' : '⚠ Kaydedilemedi');
   return (
     <span
       style={{
