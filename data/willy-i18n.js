@@ -79,6 +79,7 @@ const willyI18n = {
       kaydediliyor: 'kaydediliyor…',
       kaydedildi: '✓ kaydedildi',
       hata: 'kaydedilemedi',
+      yukleniyor: 'Hazırlanıyor…',
     },
 
     seninCerceven: {
@@ -203,6 +204,7 @@ const willyI18n = {
       kaydediliyor: 'saving…',
       kaydedildi: '✓ saved',
       hata: 'could not save',
+      yukleniyor: 'Loading…',
     },
 
     seninCerceven: {

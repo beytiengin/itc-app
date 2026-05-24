@@ -19,6 +19,7 @@ import {
 } from '../../../../../lib/hamlet-veri';
 import HamletAltSayfaHeader from '../../../../../../components/HamletAltSayfaHeader';
 import HamletAltSoruYazma from '../../../../../../components/HamletAltSoruYazma';
+import SayfaIskelet from '../../../../../../components/SayfaIskelet';
 
 const TON = 'var(--onay)';
 const ALTIN = 'var(--accent)';
@@ -76,11 +77,7 @@ export default function BoslukDetaySayfasi({ params }) {
   }
 
   if (yukleniyor || !bosluk) {
-    return (
-      <main style={ekranStili}>
-        <span style={yukleniyorMetin}>Hazırlanıyor…</span>
-      </main>
-    );
+    return <SayfaIskelet />;
   }
 
   const oncekiNo = boslukNo > 1 ? boslukNo - 1 : null;

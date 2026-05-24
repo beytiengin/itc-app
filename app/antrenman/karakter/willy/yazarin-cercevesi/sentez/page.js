@@ -14,6 +14,7 @@ import { useDil } from '../../../../../lib/dil';
 import { tercihleriGetir, tercihKaydet } from '../../../../../lib/hamlet-veri';
 import HamletAltSayfaHeader from '../../../../../../components/HamletAltSayfaHeader';
 import HamletBolumGecisi from '../../../../../../components/HamletBolumGecisi';
+import SayfaIskelet from '../../../../../../components/SayfaIskelet';
 
 const TON = 'var(--accent)';
 
@@ -61,22 +62,7 @@ export default function SentezSayfasi() {
   }
 
   if (yukleniyor) {
-    return (
-      <main style={ekranStili}>
-        <span
-          style={{
-            fontFamily: 'Jost, sans-serif',
-            fontWeight: 200,
-            fontSize: '0.7rem',
-            letterSpacing: '0.3em',
-            color: 'var(--ink-muted)',
-            textTransform: 'uppercase',
-          }}
-        >
-          Hazırlanıyor…
-        </span>
-      </main>
-    );
+    return <SayfaIskelet />;
   }
 
   const tamamlananSayisi = tercihler.filter((t) => {

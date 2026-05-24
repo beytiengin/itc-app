@@ -14,6 +14,7 @@ import { useDil } from '../../../../../lib/dil';
 import { tercihleriGetir } from '../../../../../lib/hamlet-veri';
 import HamletAltSayfaHeader from '../../../../../../components/HamletAltSayfaHeader';
 import HamletTercihSecim from '../../../../../../components/HamletTercihSecim';
+import SayfaIskelet from '../../../../../../components/SayfaIskelet';
 
 const TON = 'var(--accent)';
 
@@ -47,22 +48,7 @@ export default function TercihDetaySayfasi({ params }) {
   }, [yukleniyor, tercih, router]);
 
   if (yukleniyor || !tercih) {
-    return (
-      <main style={ekranStili}>
-        <span
-          style={{
-            fontFamily: 'Jost, sans-serif',
-            fontWeight: 200,
-            fontSize: '0.7rem',
-            letterSpacing: '0.3em',
-            color: 'var(--ink-muted)',
-            textTransform: 'uppercase',
-          }}
-        >
-          Hazırlanıyor…
-        </span>
-      </main>
-    );
+    return <SayfaIskelet />;
   }
 
   const oncekiNo = tercihNo > 1 ? tercihNo - 1 : null;

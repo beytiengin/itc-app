@@ -16,6 +16,7 @@ import {
 } from '../../../../../lib/hamlet-veri';
 import HamletAltSayfaHeader from '../../../../../../components/HamletAltSayfaHeader';
 import HamletBolumGecisi from '../../../../../../components/HamletBolumGecisi';
+import SayfaIskelet from '../../../../../../components/SayfaIskelet';
 
 const TON = 'var(--onay)';
 const ALTIN = 'var(--accent)';
@@ -43,11 +44,7 @@ export default function SeninCerceveSentez() {
   }, []);
 
   if (yukleniyor) {
-    return (
-      <main style={ekranStili}>
-        <span style={yukleniyorMetin}>Hazırlanıyor…</span>
-      </main>
-    );
+    return <SayfaIskelet />;
   }
 
   function boslukOzeti(boslukNo) {

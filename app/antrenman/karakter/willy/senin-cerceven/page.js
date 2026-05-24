@@ -15,6 +15,8 @@ import { altSoruYansimalariniGetir } from '../../../../lib/hamlet-veri';
 import HamletAltSayfaHeader from '../../../../../components/HamletAltSayfaHeader';
 import HamletBoslukKart from '../../../../../components/HamletBoslukKart';
 import HamletBolumGecisi from '../../../../../components/HamletBolumGecisi';
+import Katlanir from '../../../../../components/Katlanir';
+import SayfaIskelet from '../../../../../components/SayfaIskelet';
 
 const TON = 'var(--onay)';
 const ALTIN = 'var(--accent)';
@@ -51,11 +53,7 @@ export default function SeninCerceveAnaSayfa() {
   const hepsiBaslamis = tamamlananBosluk >= bosluklar.length;
 
   if (yukleniyor) {
-    return (
-      <main style={ekranStili}>
-        <span style={yukleniyorMetin}>{dil === 'en' ? 'Loading…' : 'Hazırlanıyor…'}</span>
-      </main>
-    );
+    return <SayfaIskelet />;
   }
 
   return (
@@ -121,29 +119,8 @@ export default function SeninCerceveAnaSayfa() {
           </p>
         </div>
 
-        {/* Substitution sınır cümlesi — ITC etik DNA */}
-        <div
-          style={{
-            borderLeft: '3px solid var(--uyari)',
-            padding: '1.2rem 1.5rem',
-            backgroundColor: 'var(--uyari-bg)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '0.7rem',
-          }}
-        >
-          <span
-            style={{
-              fontFamily: 'Jost, sans-serif',
-              fontWeight: 300,
-              fontSize: '0.6rem',
-              letterSpacing: '0.35em',
-              color: 'var(--uyari)',
-              textTransform: 'uppercase',
-            }}
-          >
-            {sc.sinirEtiket}
-          </span>
+        {/* Substitution sınır cümlesi — ITC etik DNA · varsayılan KATLI (reviewer cilası) */}
+        <Katlanir baslik={sc.sinirEtiket}>
           <p
             style={{
               fontFamily: 'Cormorant Garamond, serif',
@@ -171,21 +148,10 @@ export default function SeninCerceveAnaSayfa() {
           >
             {sc.sinir2}
           </p>
-        </div>
+        </Katlanir>
 
-        {/* ITC Manifestosu — Üç İlke (3. ilke aktif) */}
-        <div
-          style={{
-            border: '1px solid var(--rule)',
-            padding: '1.6rem 1.8rem',
-            backgroundColor: 'var(--bg-elevated)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '1.4rem',
-          }}
-        >
-          <span style={{ ...etiket, color: ALTIN }}>{sc.manifestoEtiket}</span>
-
+        {/* ITC Manifestosu — Üç İlke (3. ilke aktif) · varsayılan KATLI */}
+        <Katlanir baslik={sc.manifestoEtiket}>
           <IlkeSatiri no="1" baslik={sc.ilke1Baslik} metin={sc.ilke1Metin} />
           <IlkeSatiri no="2" baslik={sc.ilke2Baslik} metin={sc.ilke2Metin} />
           <IlkeSatiri
@@ -196,11 +162,10 @@ export default function SeninCerceveAnaSayfa() {
             aktif
             aktifNot={sc.ilke3AktifNot}
           />
-        </div>
+        </Katlanir>
 
-        {/* Yöntem — 5 Adım */}
-        <section style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <span style={{ ...etiket, color: ALTIN }}>{sc.yontemEtiket}</span>
+        {/* Yöntem — 5 Adım · varsayılan KATLI */}
+        <Katlanir baslik={sc.yontemEtiket}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
             <YontemAdim no="1" baslik={sc.adim1Baslik}>{sc.adim1Metin}</YontemAdim>
             <YontemAdim no="2" baslik={sc.adim2Baslik}>{sc.adim2Metin}</YontemAdim>
@@ -208,20 +173,10 @@ export default function SeninCerceveAnaSayfa() {
             <YontemAdim no="4" baslik={sc.adim4Baslik}>{sc.adim4Metin}</YontemAdim>
             <YontemAdim no="5" baslik={sc.adim5Baslik}>{sc.adim5Metin}</YontemAdim>
           </div>
-        </section>
+        </Katlanir>
 
-        {/* Uyarı */}
-        <div
-          style={{
-            border: '1px solid var(--rule)',
-            padding: '1.4rem 1.6rem',
-            backgroundColor: 'var(--bg-elevated)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '0.7rem',
-          }}
-        >
-          <span style={{ ...etiket, color: TON }}>{sc.dogruEtiket}</span>
+        {/* Uyarı · varsayılan KATLI */}
+        <Katlanir baslik={sc.dogruEtiket}>
           <p
             style={{
               fontFamily: 'Cormorant Garamond, serif',
@@ -248,7 +203,7 @@ export default function SeninCerceveAnaSayfa() {
           >
             {sc.dogru2}
           </p>
-        </div>
+        </Katlanir>
 
         {/* İlerleme */}
         <div

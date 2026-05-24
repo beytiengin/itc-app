@@ -17,6 +17,7 @@ import HamletSahneKuresi from '../../../../../components/HamletSahneKuresi';
 import HamletPerdeBandi from '../../../../../components/HamletPerdeBandi';
 import HamletSahneDetay from '../../../../../components/HamletSahneDetay';
 import HamletBolumGecisi from '../../../../../components/HamletBolumGecisi';
+import SayfaIskelet from '../../../../../components/SayfaIskelet';
 
 const TON = 'var(--accent)';
 const KOK = '/antrenman/karakter/willy';
@@ -82,22 +83,7 @@ export default function TimelineSayfasi() {
   const anladiSayisi = Object.values(yansimalar).filter((y) => y.anladi).length;
 
   if (yukleniyor) {
-    return (
-      <main style={ekranStili}>
-        <span
-          style={{
-            fontFamily: 'Jost, sans-serif',
-            fontWeight: 200,
-            fontSize: '0.7rem',
-            letterSpacing: '0.3em',
-            color: 'var(--ink-muted)',
-            textTransform: 'uppercase',
-          }}
-        >
-          Hazırlanıyor…
-        </span>
-      </main>
-    );
+    return <SayfaIskelet />;
   }
 
   return (
