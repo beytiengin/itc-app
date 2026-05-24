@@ -552,21 +552,37 @@ Geniş-yarım yerine tek-kusursuz yol hedefleniyor.
 **Kararlar:**
 - Vitrin karakter: **Willy Loman** (Death of a Salesman — Beyti şu an bu prodüksiyonda
   Charley rolünde, Rufus Norris yönetiminde; anlatı bağı güçlü).
-- Erişim: **kalibrasyonsuz açık önizleme yolu.** Reviewer üyelik/kalibrasyon duvarına
-  çarpmamalı. ANCAK kalibrasyon bağı tamamen koparılmayacak — kişiselleştirme katmanı
-  (`vakDili` vb.) korunur, kalibrasyon yoksa **nötr varsayıma** düşer (kırılmaz).
+- Erişim: **çift kanal.** (a) Kilit reviewer'lar için Beyti'nin önceden kalibre ettiği
+  hazır demo hesabı — sürtünmesiz, kürate profil. (b) Öğrenci QA turu için reviewer
+  kendi hesap + tam kalibrasyon — kalibrasyon süreci ITC pedagojisinin parçası,
+  sürtünme değil. Kalibrasyonsuz erişim 24 May akşamı iptal edildi (RLS + eş-yazarlık
+  çelişkisi; canon `karar-33 §8`).
 - Dil mekanizması: ağır i18n yok. Mevcut tema-toggle deseni (React context + localStorage)
   `lang` (tr/en) için kopyalanır; header'a geçiş düğmesi. Asıl iş = çeviri, kod değil.
 
 **Sıra (en hızlı mantıklı):**
-1. ✅ Willy copy-bug + CLAUDE.md (bu commit)
-2. `lang` context + header toggle iskeleti
-3. Vitrin yolun çevirisi: chrome + Willy verisi + paylaşılan didaktik bloklar
-   (manifesto, 5 adım, etik çerçeve). Beyti EN taslağı gözden geçirip finalize eder.
-4. Reviewer cilası (sadece bu yola): hub'da ilerleme görünürlüğü · didaktik blokları
-   profesyonel için varsayılan KATLI · tam-ekran "Hazırlanıyor" yerine iskelet.
-5. Kalibrasyonsuz önizleme erişim yolu (nötr fallback ile).
+1. ✅ Willy copy-bug + CLAUDE.md
+2. ✅ `lang` context + header toggle iskeleti
+3. ✅ Vitrin yolun çevirisi: chrome + Willy verisi + paylaşılan didaktik bloklar
+   (manifesto, 5 adım, etik çerçeve) — EN çeviri tamamlandı (AI taslak; **öğrenci
+   QA turuyla doğrulanacak**), `willy-i18n.js` `seninCerceven` + `icerik` dalları
+   tam. Paylaşılan bileşenler (`HamletBoslukKart` · `HamletBolumGecisi` ·
+   `HamletAltSoruYazma`) dil-duyarlı.
+4. ✅ Reviewer cilası: hub'da ilerleme rozetleri (Supabase'den arkada yüklenen X/Y;
+   ✅ canlı), didaktik bloklar varsayılan KATLI (`Katlanir`), tam-ekran
+   "Hazırlanıyor" yerine `SayfaIskelet`.
+5. ~~Kalibrasyonsuz erişim yolu~~ **— İPTAL (24 May akşam revizyonu).** Erişim çift
+   kanala döndü; demo hesabı + öğrenci kanalı. Kod değişikliği yok. Detay: canon
+   `karar-33-vitrin-willy-prototipi.md §8`.
+
+**Kalan teknik iş (Karar 33 Adım 3 artık-kapsamı):** Senin Çerçeven `[no]` ve `sentez`
+alt-sayfaları + Yazarın Çerçevesi alt-sayfalarındaki **inline TR chrome metinleri**
+sözlüğe (`willy-i18n.seninCerceven.altSayfa` / `seninCerceven.sentez` +
+`yazarinCercevesi.altSayfa` / `.sentez`) bağlanır. Veri tarafı (boşluk/tercih
+içeriği) zaten EN; sadece sayfa başlığı/etiketler/intro paragrafları kaldı.
 
 **Bilinçli ertelenenler (prototipi geciktirmesin):** diğer 3 karakter çevirisi,
 `Hamlet*` bileşenlerini parametrikleştirme, "geçen sefer yazdığın" dönüş kancası,
-kalibrasyon ekranlarının çevirisi.
+kalibrasyon ekranlarının çevirisi (öğrenci kanalı için ileride istenebilir).
+**C seçeneği — minimal kalibrasyon** 24 May akşamı iptal (tasarım borcu olarak
+edge'de tutuluyor).
