@@ -10,11 +10,11 @@
 
 const TON = 'var(--accent)';
 
-export default function HamletTercihKart({ tercih, secim }) {
+export default function HamletTercihKart({ tercih, secim, kokYol }) {
   const secilmis = secim?.secimler?.length > 0 || (secim?.ozelYorum?.length || 0) > 0;
   const harfler = secim?.secimler || [];
   const ozelVar = (secim?.ozelYorum?.length || 0) > 0;
-  const yol = `/antrenman/karakter/hamlet/yazarin-cercevesi/${tercih.no}`;
+  const yol = `${kokYol}/yazarin-cercevesi/${tercih.no}`;
 
   return (
     <a

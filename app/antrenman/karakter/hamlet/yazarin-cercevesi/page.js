@@ -149,6 +149,7 @@ export default function YazarinCerceveSAnaSayfa() {
               key={t.no}
               tercih={t}
               secim={secimler[t.no]}
+              kokYol="/antrenman/karakter/hamlet"
             />
           ))}
         </div>

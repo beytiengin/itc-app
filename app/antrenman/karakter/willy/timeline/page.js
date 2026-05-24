@@ -340,6 +340,7 @@ export default function TimelineSayfasi() {
             baslangic={seciliYansima}
             toplamSahne={sahneler.length}
             karakterId={willy.id}
+            karakterAd={willy.ad}
             tercihler={willy.tercihler}
             boslukSet={willy.boslukSet}
             kokYol={KOK}

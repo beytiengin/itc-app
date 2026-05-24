@@ -338,6 +338,7 @@ export default function TimelineSayfasi() {
             baslangic={seciliYansima}
             toplamSahne={sahneler.length}
             karakterId={hamlet.id}
+            karakterAd={hamlet.ad}
             tercihler={hamlet.tercihler}
             boslukSet={hamlet.boslukSet}
             kokYol="/antrenman/karakter/hamlet"

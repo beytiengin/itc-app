@@ -14,6 +14,7 @@ import HamletTercihKart from '../../../../../components/HamletTercihKart';
 import HamletBolumGecisi from '../../../../../components/HamletBolumGecisi';
 
 const TON = 'var(--accent)';
+const KOK = '/antrenman/karakter/willy';
 
 export default function YazarinCerceveSAnaSayfa() {
   const [secimler, setSecimler] = useState({});
@@ -149,6 +150,7 @@ export default function YazarinCerceveSAnaSayfa() {
               key={t.no}
               tercih={t}
               secim={secimler[t.no]}
+              kokYol={KOK}
             />
           ))}
         </div>

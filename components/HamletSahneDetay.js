@@ -19,6 +19,7 @@ export default function HamletSahneDetay({
   baslangic,        // { sicaklik, metin, anladi }
   toplamSahne,
   karakterId,
+  karakterAd,       // örn. "Hamlet" / "Willy" — yansıma sorusunda kullanılır
   tercihler = [],   // bağlı tercihler (Yazarın Çerçevesi köprüsü)
   boslukSet = [],   // bağlı boşluklar (Senin Çerçeven köprüsü)
   kokYol,           // örn. /antrenman/karakter/willy
@@ -309,7 +310,7 @@ export default function HamletSahneDetay({
             margin: 0,
           }}
         >
-          Bu sahnede Hamlet'in sıcaklığı sence kaç? Bedeninde nereye yerleşiyor?
+          Bu sahnede {iyelik(karakterAd)} sıcaklığı sence kaç? Bedeninde nereye yerleşiyor?
         </p>
         <textarea
           value={metin}
@@ -404,6 +405,15 @@ export default function HamletSahneDetay({
 }
 
 // ─── Yardımcılar ────────────────────────────────────────────────────────────
+
+// Türkçe iyelik eki: vokalle (ya da y ile) biten isim → "'nin", diğerleri → "'in".
+// karakterAd verilmezse "karakterin" döner.
+function iyelik(ad) {
+  if (!ad) return 'karakterin';
+  const son = ad.slice(-1).toLowerCase();
+  const yumusak = ['a', 'e', 'ı', 'i', 'o', 'ö', 'u', 'ü', 'y'];
+  return yumusak.includes(son) ? `${ad}'nin` : `${ad}'in`;
+}
 
 function Bolum({ etiket, children }) {
   return (
