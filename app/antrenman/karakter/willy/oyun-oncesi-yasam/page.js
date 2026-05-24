@@ -8,10 +8,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { supabase } from '../../../../lib/supabase';
 import willyRaw from '../../../../../data/karakterler/willy';
 import { willyIcerik } from '../../../../../data/willy-i18n';
-import { useDil } from '../../../../lib/dil';
+import willyI18n from '../../../../../data/willy-i18n';
+import { useDil, ceviri } from '../../../../lib/dil';
 import {
   olayYansimalariniGetir,
   iliskiYansimalariniGetir,
@@ -19,6 +19,7 @@ import {
 import OyunOncesiOlayKart from '../../../../../components/OyunOncesiOlayKart';
 import OyunOncesiIliskiKart from '../../../../../components/OyunOncesiIliskiKart';
 import HamletBolumGecisi from '../../../../../components/HamletBolumGecisi';
+import HamletAltSayfaHeader from '../../../../../components/HamletAltSayfaHeader';
 import SayfaIskelet from '../../../../../components/SayfaIskelet';
 
 const TON = 'var(--accent)';
@@ -26,6 +27,7 @@ const TON = 'var(--accent)';
 export default function OyunOncesiYasamSayfasi() {
   const { dil } = useDil();
   const willy = willyIcerik(dil, willyRaw);
+  const oc = ceviri(willyI18n, dil).oyunOncesi;
   const [olayYansimalari, setOlayYansimalari] = useState({});
   const [iliskiYansimalari, setIliskiYansimalari] = useState({});
   const [yukleniyor, setYukleniyor] = useState(true);
@@ -63,7 +65,7 @@ export default function OyunOncesiYasamSayfasi() {
         flexDirection: 'column',
       }}
     >
-      <KarakterHeader />
+      <HamletAltSayfaHeader />
 
       <article
         style={{
@@ -95,7 +97,7 @@ export default function OyunOncesiYasamSayfasi() {
             onMouseEnter={(e) => { e.currentTarget.style.color = TON; }}
             onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
           >
-            ← Willy Loman
+            {oc.geri}
           </a>
 
           <span
@@ -108,7 +110,7 @@ export default function OyunOncesiYasamSayfasi() {
               textTransform: 'uppercase',
             }}
           >
-            Modül II · Bölüm 2
+            {oc.etiket}
           </span>
 
           <h1
@@ -122,7 +124,7 @@ export default function OyunOncesiYasamSayfasi() {
               lineHeight: 1.1,
             }}
           >
-            Oyun Öncesi Yaşam
+            {oc.baslik}
           </h1>
           <p
             style={{
@@ -133,20 +135,17 @@ export default function OyunOncesiYasamSayfasi() {
               margin: 0,
             }}
           >
-            Sahneye çıkmadan önce ne yaşandı
+            {oc.altyazi}
           </p>
         </header>
 
         {/* ─── Açılış metni ─── */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <p style={paragrafStili}>
-            Miller'ın oyunu kronolojik bir başlangıçla açılmaz. Seyirci olayların
-            ortasına bırakılır. Babası ölmüştür, annesi yeniden evlenmiştir, bir
-            hayalet surlarda dolaşır. Bütün bunlar oyunun hareket noktasıdır, ama
-            hiçbiri sahnede gösterilmez.
+            {oc.acilis1}
           </p>
           <p style={paragrafStili}>
-            Sahneye ilk çıktığın an, Willy zaten kırılmış bir dünyada yaşıyordur.
+            {oc.acilis2}
           </p>
 
           {/* Vurgu kutusu */}
@@ -167,7 +166,7 @@ export default function OyunOncesiYasamSayfasi() {
                 margin: 0,
               }}
             >
-              "Willy sahneye ilk çıktığı an, bütün geçmiş ağırlığını bedeninde taşır."
+              {oc.vurgu}
             </p>
           </div>
 
@@ -192,7 +191,7 @@ export default function OyunOncesiYasamSayfasi() {
                 textTransform: 'uppercase',
               }}
             >
-              İpucu
+              {oc.ipucuEtiket}
             </span>
             <span
               style={{
@@ -204,8 +203,7 @@ export default function OyunOncesiYasamSayfasi() {
                 minWidth: '220px',
               }}
             >
-              Bu sekiz olay sahnede gösterilmez — ama Zaman Çizgisi'nin ilk iki
-              sahnesinde Willy'nin bedeninde olur.
+              {oc.ipucuMetin}
             </span>
             <a
               href="/antrenman/karakter/willy/timeline"
@@ -223,7 +221,7 @@ export default function OyunOncesiYasamSayfasi() {
               onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.7'; }}
               onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
             >
-              Zaman Çizgisi →
+              {oc.ipucuLink}
             </a>
           </div>
 
@@ -248,7 +246,7 @@ export default function OyunOncesiYasamSayfasi() {
                 textTransform: 'uppercase',
               }}
             >
-              ITC İlkesi · Görmediğimizi Taşımak
+              {oc.ilkeEtiket}
             </span>
             <p
               style={{
@@ -260,8 +258,7 @@ export default function OyunOncesiYasamSayfasi() {
                 margin: 0,
               }}
             >
-              ITC yaklaşımının çekirdeklerinden biri budur: karakterin sahnede
-              gösterilmeyen geçmişini, oyuncunun sahnede taşıması.
+              {oc.ilke1}
             </p>
             <p
               style={{
@@ -273,10 +270,7 @@ export default function OyunOncesiYasamSayfasi() {
                 margin: 0,
               }}
             >
-              Willy'nin ilk hâli — <em>"Ölüyorum yorgunluktan"</em>
-              {' '}— eğer arkasında iki ay önce ölmüş bir baba, iki ay sonra evlenen bir
-              anne, gasp edilmiş bir taht yoksa, sadece bir cümle kalır. Eğer varsa —
-              bir insanın cümlesi olur.
+              {oc.ilke2pre}<em>{oc.ilke2alinti}</em>{oc.ilke2post}
             </p>
           </div>
         </section>
@@ -284,10 +278,10 @@ export default function OyunOncesiYasamSayfasi() {
         {/* ─── 8 OLAY ─── */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <BolumBasligi
-            etiket="Birinci Bölüm"
-            baslik="Sekiz Olay"
-            altyazi="Willy sahneye ilk çıktığında, hepsi bedeninde."
-            ilerleme={`${olayIcselSayisi} / ${olaylar.length} içselleştirildi`}
+            etiket={oc.bolum1Etiket}
+            baslik={oc.bolum1Baslik}
+            altyazi={oc.bolum1Altyazi}
+            ilerleme={`${olayIcselSayisi} / ${olaylar.length} ${oc.bolum1Ilerleme}`}
           />
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
@@ -302,17 +296,17 @@ export default function OyunOncesiYasamSayfasi() {
           </div>
 
           <KapanisKutusu>
-            Sekiz olay, sekiz yük. Willy sahneye ilk çıktığında, hepsi bedeninde.
+            {oc.kapanis1}
           </KapanisKutusu>
         </section>
 
         {/* ─── 8 İLİŞKİ ─── */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <BolumBasligi
-            etiket="İkinci Bölüm"
-            baslik="Dokuz İlişki"
-            altyazi="Geçmiş → Şimdi → İz"
-            ilerleme={`${iliskiTanidiSayisi} / ${iliskiler.length} tanındı`}
+            etiket={oc.bolum2Etiket}
+            baslik={oc.bolum2Baslik}
+            altyazi={oc.bolum2Altyazi}
+            ilerleme={`${iliskiTanidiSayisi} / ${iliskiler.length} ${oc.bolum2Ilerleme}`}
           />
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
@@ -327,7 +321,7 @@ export default function OyunOncesiYasamSayfasi() {
           </div>
 
           <KapanisKutusu>
-            Willy, sahneye sekiz olayla değil — sekiz olay ve dokuz ilişkiyle çıkıyor.
+            {oc.kapanis2}
           </KapanisKutusu>
         </section>
 
@@ -353,7 +347,7 @@ export default function OyunOncesiYasamSayfasi() {
               textTransform: 'uppercase',
             }}
           >
-            ✓ Buraya kadar
+            {oc.sonEtiket}
           </span>
           <p
             style={{
@@ -367,17 +361,16 @@ export default function OyunOncesiYasamSayfasi() {
               alignSelf: 'center',
             }}
           >
-            Willy'nin koordinatlarını kurdun. Doğruları gördün, oyun öncesini tanıdın,
-            ilişkileri haritaladın. Şimdilik bunlar bedeninde otursun. Bir nefes ver.
+            {oc.sonMetin}
           </p>
         </section>
 
         <HamletBolumGecisi
-          oncekiEtiket="Bölüm 1"
-          oncekiBaslik="Doğrular"
+          oncekiEtiket={oc.gecisOncekiEtiket}
+          oncekiBaslik={oc.gecisOncekiBaslik}
           oncekiYol="/antrenman/karakter/willy"
-          sonrakiEtiket="Bölüm 3"
-          sonrakiBaslik="Zaman Çizgisi"
+          sonrakiEtiket={oc.gecisSonrakiEtiket}
+          sonrakiBaslik={oc.gecisSonrakiBaslik}
           sonrakiYol="/antrenman/karakter/willy/timeline"
         />
       </article>
@@ -486,95 +479,4 @@ const paragrafStili = {
   margin: 0,
 };
 
-const ekranStili = {
-  minHeight: '100vh',
-  backgroundColor: 'var(--bg-base)',
-  color: 'var(--ink)',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
 
-// ─── HEADER ─────────────────────────────────────────────────────────────────
-
-function KarakterHeader() {
-  async function cikisYap() {
-    try {
-      await supabase.auth.signOut();
-    } finally {
-      if (typeof window !== 'undefined') window.location.href = '/';
-    }
-  }
-
-  const navLink = {
-    fontFamily: 'Jost, sans-serif',
-    fontWeight: 200,
-    fontSize: '0.6rem',
-    letterSpacing: '0.25em',
-    color: 'var(--ink-soft)',
-    textTransform: 'uppercase',
-    textDecoration: 'none',
-    transition: 'color 0.25s ease',
-  };
-
-  return (
-    <header
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '1.6rem 2rem',
-        borderBottom: '1px solid var(--rule)',
-        flexWrap: 'wrap',
-        gap: '1rem',
-      }}
-    >
-      <a
-        href="/"
-        style={{
-          fontFamily: 'Jost, sans-serif',
-          fontWeight: 200,
-          fontSize: '0.65rem',
-          letterSpacing: '0.3em',
-          color: 'var(--accent)',
-          textTransform: 'uppercase',
-          textDecoration: 'none',
-        }}
-      >
-        Inside The Character
-      </a>
-      <nav style={{ display: 'flex', gap: '1.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
-        <a href="/kalibrasyon" style={navLink}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
-          Kalibrasyon
-        </a>
-        <a href="/kulis" style={navLink}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
-          Kulis
-        </a>
-        <a href="/antrenman/karakter" style={{ ...navLink, color: 'var(--ink)' }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}>
-          ← Karakterler
-        </a>
-        <button
-          onClick={cikisYap}
-          style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: 0,
-            ...navLink,
-            color: 'var(--ink-muted)',
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
-        >
-          Çıkış
-        </button>
-      </nav>
-    </header>
-  );
-}
