@@ -9,8 +9,8 @@
 import { useState, useEffect, useRef, use } from 'react';
 import { useRouter } from 'next/navigation';
 import willyRaw from '../../../../../../data/karakterler/willy';
-import { willyIcerik } from '../../../../../../data/willy-i18n';
-import { useDil } from '../../../../../lib/dil';
+import willyI18n, { willyIcerik } from '../../../../../../data/willy-i18n';
+import { useDil, ceviri } from '../../../../../lib/dil';
 import {
   altSoruYansimalariniGetir,
   boslukGenelMetinleriGetir,
@@ -30,6 +30,7 @@ export default function BoslukDetaySayfasi({ params }) {
   const router = useRouter();
   const { dil } = useDil();
   const willy = willyIcerik(dil, willyRaw);
+  const sa = ceviri(willyI18n, dil).seninCerceven.altSayfa;
 
   const [yansimalar, setYansimalar] = useState({});
   const [genelMetin, setGenelMetin] = useState('');
@@ -128,7 +129,7 @@ export default function BoslukDetaySayfasi({ params }) {
             onMouseEnter={(e) => { e.currentTarget.style.color = ALTIN; }}
             onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
           >
-            ← Senin Çerçeven
+            {sa.geri}
           </a>
 
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.9rem', flexWrap: 'wrap' }}>
@@ -183,19 +184,19 @@ export default function BoslukDetaySayfasi({ params }) {
 
         {/* Önce → Boşluk → Sonra */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <CerceveBolumu etiket={`Önce — ${bosluk.onceBaslik}`} renk={ALTIN}>
+          <CerceveBolumu etiket={`${sa.oncePrefix}${bosluk.onceBaslik}`} renk={ALTIN}>
             {bosluk.onceMetin}
           </CerceveBolumu>
 
           <Ok />
 
-          <CerceveBolumu etiket="Boşluk" renk={TON} ozel>
+          <CerceveBolumu etiket={sa.boslukKelime} renk={TON} ozel>
             {bosluk.boslukMetin}
           </CerceveBolumu>
 
           <Ok />
 
-          <CerceveBolumu etiket={`Sonra — ${bosluk.sonraBaslik}`} renk={ALTIN}>
+          <CerceveBolumu etiket={`${sa.sonraPrefix}${bosluk.sonraBaslik}`} renk={ALTIN}>
             {bosluk.sonraMetin}
             {bosluk.sonraSahneNo && (
               <a
@@ -217,7 +218,7 @@ export default function BoslukDetaySayfasi({ params }) {
                 onMouseEnter={(e) => { e.currentTarget.style.borderColor = ALTIN; }}
                 onMouseLeave={(e) => { e.currentTarget.style.borderColor = ALTIN + '55'; }}
               >
-                → Zaman Çizgisi · Sahne {bosluk.sonraSahneNo}
+                {sa.zamanCizgisiSahne} {bosluk.sonraSahneNo}
               </a>
             )}
           </CerceveBolumu>
@@ -243,7 +244,7 @@ export default function BoslukDetaySayfasi({ params }) {
         {/* 3 ALT-SORU */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            <span style={{ ...etiket, color: TON }}>Senin Willy'nin İçin Bu Boşluk</span>
+            <span style={{ ...etiket, color: TON }}>{sa.altSorularBaslik}</span>
             <p
               style={{
                 fontFamily: 'Cormorant Garamond, serif',
@@ -254,8 +255,7 @@ export default function BoslukDetaySayfasi({ params }) {
                 margin: 0,
               }}
             >
-              Üç anı yaz. Her biri için bir alt-soru. Hepsini yazma zorunlu değil — biri açılır,
-              diğeri yarın açılır.
+              {sa.altSorularAciklama}
             </p>
           </div>
 
@@ -283,7 +283,7 @@ export default function BoslukDetaySayfasi({ params }) {
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-            <span style={{ ...etiket, color: TON }}>Bu Boşluğun Bütünü</span>
+            <span style={{ ...etiket, color: TON }}>{sa.genelBaslik}</span>
             <KayitRozet durum={genelKayitDurumu} renk={TON} />
           </div>
           <p
@@ -296,13 +296,12 @@ export default function BoslukDetaySayfasi({ params }) {
               margin: 0,
             }}
           >
-            Opsiyonel. Üç alt-soru yerine boşluğu bir bütün olarak yazmak istersen burası.
-            Ya da alt-soruları tamamladıktan sonra bunları birleştiren bir paragraf.
+            {sa.genelAciklama}
           </p>
           <textarea
             value={genelMetin}
             onChange={(e) => genelMetinDegistir(e.target.value)}
-            placeholder="Boşluğun bütünü — sahne arasında akan görünmez metin."
+            placeholder={sa.genelPlaceholder}
             rows={6}
             style={{
               width: '100%',
@@ -337,7 +336,7 @@ export default function BoslukDetaySayfasi({ params }) {
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-              <span style={{ ...etiket, color: ALTIN }}>Senin Willy'ninde</span>
+              <span style={{ ...etiket, color: ALTIN }}>{sa.tercihBaslik}</span>
               <a
                 href="/antrenman/karakter/willy/yazarin-cercevesi"
                 style={{
@@ -352,9 +351,7 @@ export default function BoslukDetaySayfasi({ params }) {
                 }}
                 onMouseEnter={(e) => { e.currentTarget.style.color = ALTIN; }}
                 onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
-              >
-                Yazarın Çerçevesi →
-              </a>
+              >{sa.yazarinLink}</a>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               {tercihOzetleri.map((t) => (
@@ -401,7 +398,7 @@ export default function BoslukDetaySayfasi({ params }) {
                           paddingTop: '0.2rem',
                         }}
                       >
-                        + Özel
+                        {sa.ozel}
                       </span>
                     )}
                   </div>
@@ -418,7 +415,7 @@ export default function BoslukDetaySayfasi({ params }) {
                 margin: '0.4rem 0 0 0',
               }}
             >
-              Yazdığın boşluk bunlarla uyumlu mu?
+              {sa.uyumSorusu}
             </p>
           </section>
         )}
@@ -440,7 +437,7 @@ export default function BoslukDetaySayfasi({ params }) {
               onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
             >
-              ← Boşluk {oncekiNo}
+              ← {sa.boslukKelime} {oncekiNo}
             </a>
           ) : <span />}
 
@@ -451,15 +448,13 @@ export default function BoslukDetaySayfasi({ params }) {
               onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
             >
-              Boşluk {sonrakiNo} →
+              {sa.boslukKelime} {sonrakiNo} →
             </a>
           ) : (
             <a
               href="/antrenman/karakter/willy/senin-cerceven/sentez"
               style={{ ...navButonStili(), color: TON, borderColor: TON }}
-            >
-              Sentez →
-            </a>
+            >{sa.sentezLink}</a>
           )}
         </div>
       </article>
@@ -533,12 +528,14 @@ function navButonStili() {
 }
 
 function KayitRozet({ durum, renk }) {
+  const { dil } = useDil();
+  const sa = ceviri(willyI18n, dil).seninCerceven.altSayfa;
   if (!durum || durum === 'yaziliyor') return <span style={{ minHeight: '1em' }} />;
   const r = durum === 'hata' ? 'var(--uyari)' : (renk || 'var(--accent)');
   const mesaj =
-    durum === 'kaydediliyor' ? 'Kaydediliyor…' :
-    durum === 'kaydedildi' ? '✓ Kaydedildi' :
-    '⚠ Kaydedilemedi';
+    durum === 'kaydediliyor' ? sa.kaydediliyor :
+    durum === 'kaydedildi' ? sa.kaydedildi :
+    sa.kaydedilemedi;
   return (
     <span
       style={{

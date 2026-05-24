@@ -8,8 +8,8 @@
 
 import { useState, useEffect } from 'react';
 import willyRaw from '../../../../../../data/karakterler/willy';
-import { willyIcerik } from '../../../../../../data/willy-i18n';
-import { useDil } from '../../../../../lib/dil';
+import willyI18n, { willyIcerik } from '../../../../../../data/willy-i18n';
+import { useDil, ceviri } from '../../../../../lib/dil';
 import {
   altSoruYansimalariniGetir,
   boslukGenelMetinleriGetir,
@@ -24,6 +24,7 @@ const ALTIN = 'var(--accent)';
 export default function SeninCerceveSentez() {
   const { dil } = useDil();
   const willy = willyIcerik(dil, willyRaw);
+  const ss = ceviri(willyI18n, dil).seninCerceven.sentez;
   const [yansimalar, setYansimalar] = useState({});
   const [genelMetinler, setGenelMetinler] = useState({});
   const [yukleniyor, setYukleniyor] = useState(true);
@@ -101,23 +102,23 @@ export default function SeninCerceveSentez() {
             onMouseEnter={(e) => { e.currentTarget.style.color = ALTIN; }}
             onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
           >
-            ← Senin Çerçeven
+            {ss.geri}
           </a>
 
           {hepsiBaslamis ? (
-            <span style={{ ...etiket, color: TON }}>✓ Dört Boşluk Yazıldı</span>
+            <span style={{ ...etiket, color: TON }}>{ss.hepsiYazildi}</span>
           ) : (
             <span style={{ ...etiket, color: 'var(--ink-muted)' }}>
-              Sentez · {tamamlananBosluk} / {bosluklar.length} boşluk yazıldı
+              {ss.kismiOnce}{tamamlananBosluk} / {bosluklar.length}{ss.kismiSonra}
             </span>
           )}
 
-          <h1 style={baslik}>Dört Boşluk, Bir Karakter</h1>
+          <h1 style={baslik}>{ss.baslik}</h1>
 
           <p style={paragraf}>
             {hepsiBaslamis
-              ? "Dört boşluğu yazdın. Şimdi bunlar bir araya gelip, sahnelerin altında akan görünmez bir çizgi oluşturuyor: senin Willy'nin iç hayatı."
-              : 'Şu ana kadar yazdığın boşluklara bak. Eksik kalanlara geri dönebilirsin.'}
+              ? ss.girisTam
+              : ss.girisKismi}
           </p>
         </header>
 
@@ -176,7 +177,7 @@ export default function SeninCerceveSentez() {
                     onMouseEnter={(e) => { e.currentTarget.style.color = TON; }}
                     onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
                   >
-                    {ozet.yapilmis ? 'Düzenle →' : 'Yaz →'}
+                    {ozet.yapilmis ? ss.duzenle : ss.yaz}
                   </a>
                 </div>
 
@@ -192,7 +193,7 @@ export default function SeninCerceveSentez() {
                       margin: 0,
                     }}
                   >
-                    Sahne {b.sonraSahneNo} ({b.sonraBaslik}) zemini bu boşlukta yazıldı.
+                    {ss.sahneZeminiOnce}{b.sonraSahneNo} ({b.sonraBaslik}){ss.sahneZeminiSonra}
                   </p>
                 )}
 
@@ -223,8 +224,8 @@ export default function SeninCerceveSentez() {
                         textTransform: 'uppercase',
                       }}
                     >
-                      {ozet.altSoruSayisi} alt-soru yazıldı
-                      {ozet.genelVar ? ' · genel metin var' : ''}
+                      {ozet.altSoruSayisi}{ss.altSoruYazildi}
+                      {ozet.genelVar ? ss.genelMetinVar : ''}
                     </span>
                   </div>
                 ) : (
@@ -238,13 +239,11 @@ export default function SeninCerceveSentez() {
                       margin: 0,
                     }}
                   >
-                    Henüz yazılmadı —{' '}
+                    {ss.henuzYazilmadi}{' '}
                     <a
                       href={`/antrenman/karakter/willy/senin-cerceven/${b.no}`}
                       style={{ color: TON, textDecoration: 'none' }}
-                    >
-                      yazmaya başla →
-                    </a>
+                    >{ss.yazmayaBasla}</a>
                   </p>
                 )}
               </div>
@@ -263,7 +262,7 @@ export default function SeninCerceveSentez() {
             gap: '1rem',
           }}
         >
-          <span style={{ ...etiket, color: ALTIN }}>Yazdıklarını sahneye taşımak</span>
+          <span style={{ ...etiket, color: ALTIN }}>{ss.tasimaBaslik}</span>
           <p
             style={{
               fontFamily: 'Cormorant Garamond, serif',
@@ -274,9 +273,7 @@ export default function SeninCerceveSentez() {
               margin: 0,
             }}
           >
-            Yazdıkların kâğıt için değil, beden için. Şimdi şunu dene: yazdığın dört
-            boşluğu okurken, gözlerini kapat ve onları kısa imgeler olarak kaydet. Bir
-            his, bir koku, bir el hareketi, bir bakış.
+            {ss.tasima1}
           </p>
           <p
             style={{
@@ -288,9 +285,7 @@ export default function SeninCerceveSentez() {
               margin: 0,
             }}
           >
-            Sahnede bu imgeleri bilinçli olarak çağırmak gerekmez. Sadece bedeninde
-            kayıtlı olsunlar yeterli. Sahne karakteri sürüklediğinde, onlar arka planda
-            taşınırlar.
+            {ss.tasima2}
           </p>
           <p
             style={{
@@ -304,7 +299,7 @@ export default function SeninCerceveSentez() {
               borderTop: `1px solid color-mix(in srgb, ${ALTIN} 20%, transparent)`,
             }}
           >
-            "Yazdıkların sahnenin altındaki nehirdir."
+            {ss.tasimaAlinti}
           </p>
         </section>
 
@@ -330,7 +325,7 @@ export default function SeninCerceveSentez() {
                 letterSpacing: '0.45em',
               }}
             >
-              ✓ Modül II Tamamlandı
+              {ss.modulTamam}
             </span>
             <div
               style={{
@@ -344,11 +339,11 @@ export default function SeninCerceveSentez() {
                 lineHeight: 1.6,
               }}
             >
-              <span>Doğruları gördün.</span>
-              <span>Oyun öncesini tanıdın.</span>
-              <span>Zaman Çizgisi'ni dolaştın.</span>
-              <span>Yazarın çerçevesini sahiplendin.</span>
-              <span style={{ color: TON }}><em>Boşlukları yazdın.</em></span>
+              <span>{ss.recap1}</span>
+              <span>{ss.recap2}</span>
+              <span>{ss.recap3}</span>
+              <span>{ss.recap4}</span>
+              <span style={{ color: TON }}><em>{ss.recap5}</em></span>
             </div>
             <p
               style={{
@@ -360,7 +355,7 @@ export default function SeninCerceveSentez() {
                 margin: '0.6rem 0 0 0',
               }}
             >
-              Karakter koordinatları kuruldu.
+              {ss.koordinat}
             </p>
             <p
               style={{
@@ -383,9 +378,7 @@ export default function SeninCerceveSentez() {
                 margin: 0,
               }}
             >
-              Bu kısım bir kez yazılıp bitmez. Yıllarca, farklı Willy'lerinde
-              geri dönüp yeniden yazabilirsin. Her yeni sahnelemede yeni boşluklar,
-              yeni cevaplar.
+              {ss.kapanis}
             </p>
             <p
               style={{
@@ -397,7 +390,7 @@ export default function SeninCerceveSentez() {
                 margin: '0.6rem 0 0 0',
               }}
             >
-              Hazır mısın?
+              {ss.hazirMi}
             </p>
             <p
               style={{
@@ -409,17 +402,16 @@ export default function SeninCerceveSentez() {
                 margin: 0,
               }}
             >
-              Modül III · Yolculuk Modu seni bekliyor. Willy'nin tüm yaşamını
-              bedeninle bir kez baştan sona dolaşacaksın.
+              {ss.modul3Davet}
             </p>
           </section>
         )}
 
         <HamletBolumGecisi
-          oncekiEtiket="Bölüm 5"
-          oncekiBaslik="Senin Çerçeven"
+          oncekiEtiket={ss.gecisOnceki}
+          oncekiBaslik={ss.gecisOncekiBaslik}
           oncekiYol="/antrenman/karakter/willy/senin-cerceven"
-          sonrakiBaslik="Modül III · Yolculuk Modu"
+          sonrakiBaslik={ss.gecisSonraki}
           sonrakiYakinda
         />
       </article>
