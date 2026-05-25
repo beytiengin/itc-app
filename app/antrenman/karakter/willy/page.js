@@ -14,12 +14,12 @@ import willyRaw from '../../../../data/karakterler/willy';
 import willyI18n, { willyIcerik } from '../../../../data/willy-i18n';
 import { useDil, ceviri } from '../../../../app/lib/dil';
 import {
-  olayYansimalariniGetir,
-  iliskiYansimalariniGetir,
-  sahneYansimalariniGetir,
-  tercihleriGetir,
-  altSoruYansimalariniGetir,
-} from '../../../../app/lib/hamlet-veri';
+  ilerlemeGetir,
+  kartlariKur,
+  kartDurumu,
+  durumMetni,
+  sinyalEtiketi,
+} from '../../../../app/lib/ilerleme';
 import DogrularKarti from '../../../../components/DogrularKarti';
 import HamletAltSayfaHeader from '../../../../components/HamletAltSayfaHeader';
 
@@ -33,10 +33,6 @@ const BOLUM_YOLLARI = [
   `${KOK}/yazarin-cercevesi`,
   `${KOK}/senin-cerceven`,
 ];
-
-function metinSayisi(obj) {
-  return Object.values(obj || {}).filter((v) => (v.metin?.length || 0) > 0).length;
-}
 
 export default function WillySayfasi() {
   const router = useRouter();
@@ -62,44 +58,20 @@ export default function WillySayfasi() {
     }
   }, [router]);
 
-  // İlerlemeyi arkada yükle (sayfayı bloklamaz).
+  // İlerlemeyi arkada yükle (sayfayı bloklamaz). Tek kaynak: karakter_ilerleme VIEW.
   useEffect(() => {
     let iptal = false;
     async function yukle() {
-      const [olay, iliski, sahne, tercih, altSoru] = await Promise.all([
-        olayYansimalariniGetir(willy.id),
-        iliskiYansimalariniGetir(willy.id),
-        sahneYansimalariniGetir(willy.id),
-        tercihleriGetir(willy.id),
-        altSoruYansimalariniGetir(willy.id),
-      ]);
+      const v = await ilerlemeGetir(willy.id);
       if (iptal) return;
-
-      const olayToplam = (willy.oyunOncesi?.olaylar || []).length;
-      const iliskiToplam = (willy.oyunOncesi?.iliskiler || []).length;
-      const sahneToplam = (willy.sahnelerWorkbook || []).length;
-      const tercihToplam = (willy.tercihler || []).length;
-      const boslukToplam = (willy.boslukSet || []).length;
-
-      const sahneDokunulan = Object.values(sahne).filter(
-        (v) => v.sicaklik != null || (v.metin?.length || 0) > 0,
-      ).length;
-
-      const tercihYapilan = Object.values(tercih).filter(
-        (v) => (v.secimler?.length || 0) > 0 || (v.ozelYorum?.length || 0) > 0,
-      ).length;
-
-      const boslukYazilan = (willy.boslukSet || []).filter((b) => {
-        const set = altSoru[b.no] || {};
-        return Object.values(set).some((y) => (y.metin?.length || 0) > 0);
-      }).length;
-
-      setIlerleme([
-        { yapilan: metinSayisi(olay) + metinSayisi(iliski), toplam: olayToplam + iliskiToplam },
-        { yapilan: sahneDokunulan, toplam: sahneToplam },
-        { yapilan: tercihYapilan, toplam: tercihToplam },
-        { yapilan: boslukYazilan, toplam: boslukToplam },
-      ]);
+      const toplamlar = {
+        olay:   (willy.oyunOncesi?.olaylar || []).length,
+        iliski: (willy.oyunOncesi?.iliskiler || []).length,
+        sahne:  (willy.sahnelerWorkbook || []).length,
+        tercih: (willy.tercihler || []).length,
+        bosluk: (willy.boslukSet || []).length,
+      };
+      setIlerleme(kartlariKur(v, toplamlar));
     }
     yukle();
     return () => { iptal = true; };
@@ -368,7 +340,7 @@ function BolumKartlari({ kartlar, acMetin, ilerleme, dil }) {
             {k.aciklama}
           </p>
 
-          <BolumDurum durum={ilerleme ? ilerleme[i] : null} dil={dil} />
+          <BolumDurum kart={ilerleme ? ilerleme[i] : null} dil={dil} />
 
           <span
             style={{
@@ -392,64 +364,52 @@ function BolumKartlari({ kartlar, acMetin, ilerleme, dil }) {
 // ─── BÖLÜM İLERLEME GÖSTERGESİ ──────────────────────────────────────────────
 // Zanaat dili — puan/rozet değil. Yüklenmeden önce yer tutmaz (sayfa bloklanmaz).
 
-function BolumDurum({ durum, dil }) {
-  if (!durum) return null; // henüz yüklenmedi
-  const { yapilan, toplam } = durum;
-  const tamam = toplam > 0 && yapilan >= toplam;
-  const oran = toplam > 0 ? Math.min(yapilan / toplam, 1) : 0;
+function BolumDurum({ kart, dil }) {
+  if (!kart) return null; // henüz yüklenmedi
 
-  if (yapilan === 0) {
-    return (
-      <span
-        style={{
-          fontFamily: 'Jost, sans-serif',
-          fontWeight: 200,
-          fontSize: '0.6rem',
-          letterSpacing: '0.2em',
-          color: 'var(--ink-muted)',
-          textTransform: 'uppercase',
-          marginTop: '0.4rem',
-        }}
-      >
-        {dil === 'en' ? 'Not started yet' : 'Henüz başlanmadı'}
-      </span>
-    );
-  }
+  const durum = kartDurumu(kart); // 'bos' | 'basladi' | 'tam'
+  const cumle = durumMetni(kart.tip, durum, dil);
+  const renk =
+    durum === 'tam' ? 'var(--onay)' : durum === 'bos' ? 'var(--ink-muted)' : 'var(--ink-soft)';
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', marginTop: '0.5rem' }}>
-      <div
-        style={{
-          height: '2px',
-          width: '100%',
-          backgroundColor: 'var(--rule)',
-          position: 'relative',
-        }}
-      >
-        <div
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            height: '100%',
-            width: `${oran * 100}%`,
-            backgroundColor: tamam ? 'var(--onay)' : TON,
-            transition: 'width 0.4s ease',
-          }}
-        />
-      </div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', marginTop: '0.5rem' }}>
+      {/* Activation cümlesi — completion değil, zanaat dili */}
       <span
         style={{
-          fontFamily: 'Jost, sans-serif',
-          fontWeight: 200,
-          fontSize: '0.6rem',
-          letterSpacing: '0.2em',
-          color: tamam ? 'var(--onay)' : 'var(--ink-soft)',
-          textTransform: 'uppercase',
+          fontFamily: 'Cormorant Garamond, serif',
+          fontStyle: 'italic',
+          fontSize: '0.92rem',
+          color: renk,
         }}
       >
-        {tamam ? (dil === 'en' ? '✓ Complete' : '✓ Tamamlandı') : `${yapilan} / ${toplam}`}
+        {cumle}
       </span>
+
+      {/* Navigasyon sayıları — tek sinyal ya da Keşfet'te iki ayrı sinyal */}
+      <div style={{ display: 'flex', gap: '1.1rem', flexWrap: 'wrap' }}>
+        {kart.sinyaller.map((sn, j) => {
+          const etk = sn.etiket ? sinyalEtiketi(sn.etiket, dil) : null;
+          return (
+            <span
+              key={j}
+              style={{
+                fontFamily: 'Jost, sans-serif',
+                fontWeight: 200,
+                fontSize: '0.6rem',
+                letterSpacing: '0.18em',
+                color: 'var(--ink-muted)',
+                textTransform: 'uppercase',
+              }}
+            >
+              {etk ? `${etk} ` : ''}
+              <span style={{ color: 'var(--ink-soft)' }}>
+                {sn.aktif} / {sn.toplam}
+              </span>
+            </span>
+          );
+        })}
+      </div>
     </div>
   );
 }
