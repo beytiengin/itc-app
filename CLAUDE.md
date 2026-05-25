@@ -216,13 +216,24 @@ sağ-alt floating toggle'dan değiştirebilir. localStorage'da persist.
 **Alpha overlay'leri:** `${TON}33` gibi alpha-suffix YASAK — CSS'te
 geçersiz. Yerine: `color-mix(in srgb, ${TON} 20%, transparent)`.
 
-### Tipografi
+### Tipografi (Karar 35 — Fraunces + Inter, 25 May 2026)
 - **Self-hosted** via `next/font/google` (build time):
-  Cormorant Garamond + Jost.
-- **Başlıklar:** `Cormorant Garamond, serif` — `fontWeight: 300`, çoğu italic
-- **Gövde + UI:** `Jost, sans-serif` — `fontWeight: 200` veya `300`
-- **Krem mode override:** weight 200→400, 300→500 (CSS attribute selector)
-- **Alt başlıklar/etiketler:** Jost, küçük (0.6rem), büyük harf, `letterSpacing: 0.3em`
+  Fraunces (display) + Inter (body). `Cormorant Garamond` + `Jost` geçişten önce.
+- **Başlıklar:** `Cormorant Garamond, serif` font-stack referansı **korundu** —
+  Next.js `--font-display` variable üstünden Fraunces yüklenir; CSS fallback chain
+  aynı. `fontWeight: 300`, çoğu italic — Fraunces italic'i devreye girer.
+- **Gövde + UI:** `Jost, sans-serif` font-stack referansı **korundu** — Next.js
+  `--font-body` variable üstünden Inter yüklenir. `fontWeight: 300` veya `400`.
+  Inter ince ağırlıklarda Jost'tan daha okunaklı.
+- **Krem mode override:** weight 200→400, 300→500 (CSS attribute selector).
+  Inter min weight 300; eski `fontWeight: 200` referansları en yakın 300'e düşer
+  (next/font otomatik fallback). Karar 34 BolumDurum revizyonunda Jost-200 → 400
+  yapılmıştı; benzer şekilde diğer kritik UI yerlerinde 200 yerine 300/400 tercih.
+- **Alt başlıklar/etiketler:** sans-serif (Inter via Jost variable), küçük
+  (0.6rem), büyük harf, `letterSpacing: 0.3em`.
+- **Bilinçli teknik borç:** `fonts.js` export adları (`cormorant`, `jost`)
+  içerikle uyuşmuyor (artık Fraunces/Inter). Tüm component'ler bu adlardan
+  import ettiği için korundu; rename refactor'ü (`display`/`body`) ileride.
 
 ### Tasarım Prensipleri
 - **MİNİMAL** — boşluk önemli, ferah olsun
