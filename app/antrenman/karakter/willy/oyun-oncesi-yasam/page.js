@@ -275,38 +275,13 @@ export default function OyunOncesiYasamSayfasi() {
           </div>
         </section>
 
-        {/* ─── 8 OLAY ─── */}
+        {/* ─── 9 İLİŞKİ (önce) ─── */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <BolumBasligi
             etiket={oc.bolum1Etiket}
             baslik={oc.bolum1Baslik}
             altyazi={oc.bolum1Altyazi}
-            ilerleme={`${olayIcselSayisi} / ${olaylar.length} ${oc.bolum1Ilerleme}`}
-          />
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
-            {olaylar.map((olay) => (
-              <OyunOncesiOlayKart
-                key={olay.no}
-                olay={olay}
-                karakterId={willy.id}
-                baslangic={olayYansimalari[olay.no]}
-              />
-            ))}
-          </div>
-
-          <KapanisKutusu>
-            {oc.kapanis1}
-          </KapanisKutusu>
-        </section>
-
-        {/* ─── 8 İLİŞKİ ─── */}
-        <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-          <BolumBasligi
-            etiket={oc.bolum2Etiket}
-            baslik={oc.bolum2Baslik}
-            altyazi={oc.bolum2Altyazi}
-            ilerleme={`${iliskiTanidiSayisi} / ${iliskiler.length} ${oc.bolum2Ilerleme}`}
+            ilerleme={`${iliskiTanidiSayisi} / ${iliskiler.length} ${oc.bolum1Ilerleme}`}
           />
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
@@ -316,6 +291,31 @@ export default function OyunOncesiYasamSayfasi() {
                 iliski={iliski}
                 karakterId={willy.id}
                 baslangic={iliskiYansimalari[iliski.no]}
+              />
+            ))}
+          </div>
+
+          <KapanisKutusu>
+            {oc.kapanis1}
+          </KapanisKutusu>
+        </section>
+
+        {/* ─── 8 OLAY (sonra) ─── */}
+        <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <BolumBasligi
+            etiket={oc.bolum2Etiket}
+            baslik={oc.bolum2Baslik}
+            altyazi={oc.bolum2Altyazi}
+            ilerleme={`${olayIcselSayisi} / ${olaylar.length} ${oc.bolum2Ilerleme}`}
+          />
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+            {olaylar.map((olay) => (
+              <OyunOncesiOlayKart
+                key={olay.no}
+                olay={olay}
+                karakterId={willy.id}
+                baslangic={olayYansimalari[olay.no]}
               />
             ))}
           </div>
@@ -478,5 +478,3 @@ const paragrafStili = {
   lineHeight: 1.8,
   margin: 0,
 };
-
-
