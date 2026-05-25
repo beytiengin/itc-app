@@ -7,7 +7,7 @@
 // İLKE: activation, completion değil. Navigasyon sayısı "kaç birime yazı
 // girildi" (yazıldı/değinildi); derin onay (içselleştirildi/tanındı/anladı)
 // view'da ayrıca durur, ileride iki katmanlı gösterim için. Durum metinleri
-// "✓ Tamamlandı" demez — "geçmiş bedende", "çizgi tamam" gibi zanaat dili.
+// "✓ Tamamlandı" demez — "geçmiş bedende", "çizgi tam" gibi zanaat dili.
 
 import { supabase } from './supabase';
 
@@ -108,7 +108,7 @@ const DURUM = {
   haritala: {
     bos:     { tr: 'Çizgi henüz boş',       en: 'The line is still empty' },
     basladi: { tr: 'Çizgi genişliyor',      en: 'The line is widening' },
-    tam:     { tr: 'Çizgi tamamlandı',      en: 'The line is whole' },
+    tam:     { tr: 'Çizgi tam',             en: 'The line is whole' },
   },
   yorumla: {
     bos:     { tr: 'Tercihler bekliyor',    en: 'The choices wait' },

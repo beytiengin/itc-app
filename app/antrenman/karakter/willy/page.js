@@ -369,17 +369,20 @@ function BolumDurum({ kart, dil }) {
 
   const durum = kartDurumu(kart); // 'bos' | 'basladi' | 'tam'
   const cumle = durumMetni(kart.tip, durum, dil);
+  // Adım 1 — okunabilirlik: 'bos' artık ink-muted (çok soluk) değil, ink-soft.
+  // Hiçbir durum okunamayacak kadar soluk olmamalı.
   const renk =
-    durum === 'tam' ? 'var(--onay)' : durum === 'bos' ? 'var(--ink-muted)' : 'var(--ink-soft)';
+    durum === 'tam' ? 'var(--onay)' : 'var(--ink-soft)';
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', marginTop: '0.5rem' }}>
       {/* Activation cümlesi — completion değil, zanaat dili */}
       <span
         style={{
-          fontFamily: 'Cormorant Garamond, serif',
-          fontStyle: 'italic',
-          fontSize: '0.92rem',
+          fontFamily: 'Jost, sans-serif',
+          fontWeight: 400,
+          fontSize: '0.95rem',
+          letterSpacing: '0.01em',
           color: renk,
         }}
       >
@@ -395,15 +398,15 @@ function BolumDurum({ kart, dil }) {
               key={j}
               style={{
                 fontFamily: 'Jost, sans-serif',
-                fontWeight: 200,
-                fontSize: '0.6rem',
-                letterSpacing: '0.18em',
-                color: 'var(--ink-muted)',
+                fontWeight: 400,
+                fontSize: '0.65rem',
+                letterSpacing: '0.16em',
+                color: 'var(--ink-soft)',
                 textTransform: 'uppercase',
               }}
             >
               {etk ? `${etk} ` : ''}
-              <span style={{ color: 'var(--ink-soft)' }}>
+              <span style={{ color: 'var(--ink)', fontWeight: 500 }}>
                 {sn.aktif} / {sn.toplam}
               </span>
             </span>
