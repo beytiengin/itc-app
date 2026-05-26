@@ -19,6 +19,8 @@ import {
   kartDurumu,
   durumMetni,
   sinyalEtiketi,
+  siradakiAdim,
+  selamMetni,
 } from '../../../../app/lib/ilerleme';
 import DogrularKarti from '../../../../components/DogrularKarti';
 import HamletAltSayfaHeader from '../../../../components/HamletAltSayfaHeader';
@@ -239,6 +241,7 @@ export default function WillySayfasi() {
             {t.koordinatBaslik}
           </span>
         </div>
+        <KarsilayanBlok kartlar={t.kartlar} ilerleme={ilerleme} dil={dil} davet={t.davet} />
         <BolumKartlari kartlar={t.kartlar} acMetin={t.ac} ilerleme={ilerleme} dil={dil} />
       </section>
 
@@ -259,6 +262,89 @@ export default function WillySayfasi() {
 }
 
 // ─── BÖLÜM KARTLARI ─────────────────────────────────────────────────────────
+
+// ─── ADIM 3 — Karşılayan blok: sistem "şu an buradasın" der (yumuşak davet) ─
+function KarsilayanBlok({ kartlar, ilerleme, dil, davet }) {
+  // İlerleme henüz yüklenmediyse blok gösterme (kartlar yine de altta görünür).
+  if (!ilerleme) return null;
+
+  const adim = siradakiAdim(ilerleme); // { faz, index, tip }
+  const sl = selamMetni(adim.faz, dil);
+
+  // Sıradaki istasyonun adı (i18n kartından) + rotası (BOLUM_YOLLARI).
+  const hedefKart = kartlar[adim.index];
+  const hedefAd = hedefKart?.etiket || hedefKart?.baslik || ''; // fiil-omurgası: 'Keşfet'
+  const hedefYol = adim.faz === 'son' ? '/kulis' : BOLUM_YOLLARI[adim.index];
+
+  // {ad} yer tutucusunu gerçek istasyon adıyla doldur.
+  const altMetin = sl.alt.replace('{ad}', hedefAd);
+  const selamMet = sl.selam.replace('{ad}', hedefAd);
+
+  // Davet metni sözlükten — istasyon tipine göre (kesfet/haritala/yorumla/yarat/son).
+  // Türkçe ünlü uyumu sözlükte elle çekimli; concat ('{ad}'a git) yok.
+  const davetAnahtar = adim.faz === 'son' ? 'son' : adim.tip;
+  const davetMet = (davet && davet[davetAnahtar]) || '';
+
+  return (
+    <a
+      href={hedefYol}
+      style={{
+        display: 'block',
+        border: `1px solid ${TON}`,
+        backgroundColor: 'var(--accent-bg-deep)',
+        borderRadius: '2px',
+        padding: '1.8rem 2rem',
+        marginBottom: '1.5rem',
+        textDecoration: 'none',
+        color: 'var(--ink)',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      {/* sol kenar altın vurgu */}
+      <span
+        style={{
+          position: 'absolute', top: 0, left: 0, width: '3px', height: '100%',
+          background: `linear-gradient(180deg, ${TON}, transparent)`,
+        }}
+      />
+      <div
+        style={{
+          fontFamily: 'Cormorant Garamond, serif',
+          fontSize: '1.35rem',
+          color: 'var(--ink)',
+          marginBottom: '0.4rem',
+          lineHeight: 1.3,
+        }}
+      >
+        {selamMet}
+      </div>
+      <div
+        style={{
+          fontFamily: 'Jost, sans-serif',
+          fontWeight: 400,
+          fontSize: '0.92rem',
+          color: 'var(--ink-soft)',
+          marginBottom: '1.1rem',
+        }}
+      >
+        {altMetin}
+      </div>
+      <span
+        style={{
+          fontFamily: 'Jost, sans-serif',
+          fontWeight: 500,
+          fontSize: '0.7rem',
+          letterSpacing: '0.12em',
+          textTransform: 'uppercase',
+          color: TON,
+        }}
+      >
+        {davetMet}
+      </span>
+    </a>
+  );
+}
 
 function BolumKartlari({ kartlar, acMetin, ilerleme, dil }) {
   return (

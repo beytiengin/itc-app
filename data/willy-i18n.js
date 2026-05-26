@@ -66,6 +66,15 @@ const willyI18n = {
           aciklama: 'Dört boşluk, on iki alt-soru. Sahnelerin altında akan görünmez metni sen yaz.',
         },
       ],
+      // Karşılayan blok davet metinleri — istasyon tipi → tam çekimli string.
+      // Türkçe ünlü uyumu burada elle çözüldü; sabit concat ('{ad}'a git) yok.
+      davet: {
+        kesfet:   "Keşfet'e git →",
+        haritala: "Haritala'ya git →",
+        yorumla:  "Yorumla'ya git →",
+        yarat:    "Yarat'a git →",
+        son:      "Kendi Willy'ni gör →",
+      },
       modul3Etiket: 'Modül III · Yolculuk Modu',
       modul3Baslik: "Willy'nin tüm yaşamı, baştan sona",
       modul3Metin:
@@ -360,6 +369,15 @@ const willyI18n = {
           aciklama: 'Four gaps, twelve sub-questions. You write the invisible text that runs beneath the scenes.',
         },
       ],
+      // Invitation strings — station type → full string. TR side needs vowel-harmony
+      // handling; EN uniform.
+      davet: {
+        kesfet:   'Go to Discover →',
+        haritala: 'Go to Map →',
+        yorumla:  'Go to Interpret →',
+        yarat:    'Go to Create →',
+        son:      'See your Willy →',
+      },
       modul3Etiket: 'Module III · Journey Mode',
       modul3Baslik: "Willy's whole life, end to end",
       modul3Metin:
