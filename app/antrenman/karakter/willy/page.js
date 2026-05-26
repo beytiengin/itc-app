@@ -19,8 +19,6 @@ import {
   kartDurumu,
   durumMetni,
   sinyalEtiketi,
-  siradakiAdim,
-  selamMetni,
 } from '../../../../app/lib/ilerleme';
 import DogrularKarti from '../../../../components/DogrularKarti';
 import HamletAltSayfaHeader from '../../../../components/HamletAltSayfaHeader';
@@ -157,6 +155,52 @@ export default function WillySayfasi() {
         </div>
       </section>
 
+      {/* Bölüm 1 · Doğrular */}
+      <section
+        style={{
+          padding: '0 2rem',
+          maxWidth: '1100px',
+          margin: '0 auto',
+          width: '100%',
+          boxSizing: 'border-box',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'baseline',
+            gap: '0.9rem',
+            marginBottom: '1rem',
+            flexWrap: 'wrap',
+          }}
+        >
+          <span
+            style={{
+              fontFamily: 'Jost, sans-serif',
+              fontWeight: 200,
+              fontSize: '0.55rem',
+              letterSpacing: '0.35em',
+              color: TON,
+              textTransform: 'uppercase',
+            }}
+          >
+            {t.bolum1Etiket}
+          </span>
+          <span
+            style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontStyle: 'italic',
+              fontWeight: 300,
+              fontSize: '1.4rem',
+              color: 'var(--ink)',
+            }}
+          >
+            {t.bolum1Baslik}
+          </span>
+        </div>
+        <DogrularKarti dogrular={willy.dogrular} />
+      </section>
+
       {/* Bölümler 2-5 — Alt sayfalar */}
       <section
         style={{
@@ -170,7 +214,6 @@ export default function WillySayfasi() {
           gap: '1.4rem',
         }}
       >
-        <KarsilayanBlok kartlar={t.kartlar} ilerleme={ilerleme} dil={dil} davet={t.davet} />
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
           <span
             style={{
@@ -196,7 +239,6 @@ export default function WillySayfasi() {
             {t.koordinatBaslik}
           </span>
         </div>
-        <TaniAccordion etiket={t.bolum1Etiket} baslik={t.bolum1Baslik} dogrular={willy.dogrular} />
         <BolumKartlari kartlar={t.kartlar} acMetin={t.ac} ilerleme={ilerleme} dil={dil} />
       </section>
 
@@ -217,168 +259,6 @@ export default function WillySayfasi() {
 }
 
 // ─── BÖLÜM KARTLARI ─────────────────────────────────────────────────────────
-
-// ─── Tanı (Doğrular) — yerinde açılır referans kartı (accordion) ───
-// Diğer dört istasyon sayfaya gider; Tanı referans olduğu için tıkla-aç:
-// kapalıyken kompakt, açıkken DogrularKarti içeriğini gösterir.
-function TaniAccordion({ etiket, baslik, dogrular }) {
-  const [acik, setAcik] = useState(false);
-
-  return (
-    <div
-      style={{
-        border: '1px solid var(--rule)',
-        backgroundColor: 'var(--bg-elevated)',
-        borderRadius: '2px',
-        overflow: 'hidden',
-      }}
-    >
-      {/* Kapalı başlık — her zaman görünür, tıklanınca açar/kapar */}
-      <button
-        onClick={() => setAcik((v) => !v)}
-        style={{
-          width: '100%',
-          background: 'none',
-          border: 'none',
-          cursor: 'pointer',
-          padding: '1.4rem 1.8rem',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.9rem',
-          textAlign: 'left',
-          color: 'var(--ink)',
-        }}
-      >
-        <span
-          style={{
-            fontFamily: 'Jost, sans-serif',
-            fontWeight: 200,
-            fontSize: '0.55rem',
-            letterSpacing: '0.35em',
-            color: TON,
-            textTransform: 'uppercase',
-          }}
-        >
-          {etiket}
-        </span>
-        <span
-          style={{
-            fontFamily: 'Cormorant Garamond, serif',
-            fontStyle: 'italic',
-            fontWeight: 300,
-            fontSize: '1.25rem',
-            color: 'var(--ink)',
-            flex: 1,
-          }}
-        >
-          {baslik}
-        </span>
-        {/* aç/kapa işareti */}
-        <span
-          style={{
-            fontFamily: 'Jost, sans-serif',
-            fontSize: '1rem',
-            color: 'var(--ink-soft)',
-            transform: acik ? 'rotate(180deg)' : 'rotate(0deg)',
-            transition: 'transform 0.25s ease',
-          }}
-        >
-          ▾
-        </span>
-      </button>
-
-      {/* Açık içerik — sadece açıkken render */}
-      {acik && (
-        <div style={{ padding: '0 1.8rem 1.8rem' }}>
-          <DogrularKarti dogrular={dogrular} baslikGizle={true} />
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ─── ADIM 3 — Karşılayan blok: sistem "şu an buradasın" der (yumuşak davet) ─
-function KarsilayanBlok({ kartlar, ilerleme, dil, davet }) {
-  // İlerleme henüz yüklenmediyse blok gösterme (kartlar yine de altta görünür).
-  if (!ilerleme) return null;
-
-  const adim = siradakiAdim(ilerleme); // { faz, index, tip }
-  const sl = selamMetni(adim.faz, dil);
-
-  // Sıradaki istasyonun adı (i18n kartından) + rotası (BOLUM_YOLLARI).
-  const hedefKart = kartlar[adim.index];
-  const hedefAd = hedefKart?.etiket || hedefKart?.baslik || ''; // fiil-omurgası: 'Keşfet'
-  const hedefYol = adim.faz === 'son' ? '/kulis' : BOLUM_YOLLARI[adim.index];
-
-  // {ad} yer tutucusunu gerçek istasyon adıyla doldur.
-  const altMetin = sl.alt.replace('{ad}', hedefAd);
-  const selamMet = sl.selam.replace('{ad}', hedefAd);
-
-  // Davet metni sözlükten — istasyon tipine göre (kesfet/haritala/yorumla/yarat/son).
-  // Türkçe ünlü uyumu sözlükte elle çekimli; concat ('{ad}'a git) yok.
-  const davetAnahtar = adim.faz === 'son' ? 'son' : adim.tip;
-  const davetMet = (davet && davet[davetAnahtar]) || '';
-
-  return (
-    <a
-      href={hedefYol}
-      style={{
-        display: 'block',
-        border: `1px solid ${TON}`,
-        backgroundColor: 'var(--accent-bg-deep)',
-        borderRadius: '2px',
-        padding: '1.8rem 2rem',
-        marginBottom: '1.5rem',
-        textDecoration: 'none',
-        color: 'var(--ink)',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
-      {/* sol kenar altın vurgu */}
-      <span
-        style={{
-          position: 'absolute', top: 0, left: 0, width: '3px', height: '100%',
-          background: `linear-gradient(180deg, ${TON}, transparent)`,
-        }}
-      />
-      <div
-        style={{
-          fontFamily: 'Cormorant Garamond, serif',
-          fontSize: '1.35rem',
-          color: 'var(--ink)',
-          marginBottom: '0.4rem',
-          lineHeight: 1.3,
-        }}
-      >
-        {selamMet}
-      </div>
-      <div
-        style={{
-          fontFamily: 'Jost, sans-serif',
-          fontWeight: 400,
-          fontSize: '0.92rem',
-          color: 'var(--ink-soft)',
-          marginBottom: '1.1rem',
-        }}
-      >
-        {altMetin}
-      </div>
-      <span
-        style={{
-          fontFamily: 'Jost, sans-serif',
-          fontWeight: 500,
-          fontSize: '0.7rem',
-          letterSpacing: '0.12em',
-          textTransform: 'uppercase',
-          color: TON,
-        }}
-      >
-        {davetMet}
-      </span>
-    </a>
-  );
-}
 
 function BolumKartlari({ kartlar, acMetin, ilerleme, dil }) {
   return (
@@ -489,20 +369,17 @@ function BolumDurum({ kart, dil }) {
 
   const durum = kartDurumu(kart); // 'bos' | 'basladi' | 'tam'
   const cumle = durumMetni(kart.tip, durum, dil);
-  // Adım 1 — okunabilirlik: 'bos' artık ink-muted (çok soluk) değil, ink-soft.
-  // Hiçbir durum okunamayacak kadar soluk olmamalı.
   const renk =
-    durum === 'tam' ? 'var(--onay)' : 'var(--ink-soft)';
+    durum === 'tam' ? 'var(--onay)' : durum === 'bos' ? 'var(--ink-muted)' : 'var(--ink-soft)';
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', marginTop: '0.5rem' }}>
       {/* Activation cümlesi — completion değil, zanaat dili */}
       <span
         style={{
-          fontFamily: 'Jost, sans-serif',
-          fontWeight: 400,
-          fontSize: '0.95rem',
-          letterSpacing: '0.01em',
+          fontFamily: 'Cormorant Garamond, serif',
+          fontStyle: 'italic',
+          fontSize: '0.92rem',
           color: renk,
         }}
       >
@@ -518,15 +395,15 @@ function BolumDurum({ kart, dil }) {
               key={j}
               style={{
                 fontFamily: 'Jost, sans-serif',
-                fontWeight: 400,
-                fontSize: '0.65rem',
-                letterSpacing: '0.16em',
-                color: 'var(--ink-soft)',
+                fontWeight: 200,
+                fontSize: '0.6rem',
+                letterSpacing: '0.18em',
+                color: 'var(--ink-muted)',
                 textTransform: 'uppercase',
               }}
             >
               {etk ? `${etk} ` : ''}
-              <span style={{ color: 'var(--ink)', fontWeight: 500 }}>
+              <span style={{ color: 'var(--ink-soft)' }}>
                 {sn.aktif} / {sn.toplam}
               </span>
             </span>

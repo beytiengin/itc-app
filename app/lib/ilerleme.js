@@ -7,7 +7,7 @@
 // İLKE: activation, completion değil. Navigasyon sayısı "kaç birime yazı
 // girildi" (yazıldı/değinildi); derin onay (içselleştirildi/tanındı/anladı)
 // view'da ayrıca durur, ileride iki katmanlı gösterim için. Durum metinleri
-// "✓ Tamamlandı" demez — "geçmiş bedende", "çizgi tam" gibi zanaat dili.
+// "✓ Tamamlandı" demez — "geçmiş bedende", "çizgi tamam" gibi zanaat dili.
 
 import { supabase } from './supabase';
 
@@ -108,7 +108,7 @@ const DURUM = {
   haritala: {
     bos:     { tr: 'Çizgi henüz boş',       en: 'The line is still empty' },
     basladi: { tr: 'Çizgi genişliyor',      en: 'The line is widening' },
-    tam:     { tr: 'Çizgi tam',             en: 'The line is whole' },
+    tam:     { tr: 'Çizgi tamamlandı',      en: 'The line is whole' },
   },
   yorumla: {
     bos:     { tr: 'Tercihler bekliyor',    en: 'The choices wait' },
@@ -126,56 +126,4 @@ export function durumMetni(tip, durum, dil) {
   const d = DURUM[tip]?.[durum];
   if (!d) return '';
   return dil === 'en' ? d.en : d.tr;
-}
-
-// ─── ADIM 3 — Karşılayan blok mantığı ────────────────────────────
-// "Sıradaki eksik istasyon": kartlar (kesfet→haritala→yorumla→yarat)
-// soldan taranır, ilk 'tam' OLMAYAN istasyon sıradakidir. Tanı dahil
-// değil (referans, kartlar dizisinde yok). Yumuşak davet — emir değil.
-//
-// Dönen: { faz, index, tip }
-//   faz: 'ilk' (hiçbiri başlamamış) | 'devam' (biri eksik) | 'son' (hepsi tam)
-//   index: kartlar dizisindeki sıradaki istasyon (BOLUM_YOLLARI ile hizalı)
-//   tip: o istasyonun tipi ('kesfet' vb.) | null (son fazda)
-export function siradakiAdim(kartlar) {
-  if (!Array.isArray(kartlar) || kartlar.length === 0) {
-    return { faz: 'ilk', index: 0, tip: kartlar?.[0]?.tip ?? null };
-  }
-  const durumlar = kartlar.map((k) => kartDurumu(k)); // 'bos'|'basladi'|'tam'
-
-  // Hepsi tam mı — son faz
-  if (durumlar.every((d) => d === 'tam')) {
-    return { faz: 'son', index: kartlar.length - 1, tip: null };
-  }
-  // Hiçbiri başlamamış mı (hepsi bos) — ilk giriş
-  if (durumlar.every((d) => d === 'bos')) {
-    return { faz: 'ilk', index: 0, tip: kartlar[0].tip };
-  }
-  // Aksi halde: soldan ilk 'tam' olmayan istasyon — devam
-  const i = durumlar.findIndex((d) => d !== 'tam');
-  const idx = i === -1 ? 0 : i;
-  return { faz: 'devam', index: idx, tip: kartlar[idx].tip };
-}
-
-// Karşılayan selam metni — faz × dil. Yumuşak davet dili.
-// İstasyon adları i18n'den geleceği için burada {ad} yer tutucu kullanılır;
-// hub bileşeni gerçek istasyon adını yerleştirir.
-const SELAM = {
-  ilk: {
-    tr: { selam: 'Willy henüz bir sayfa. Onu tanımaya nereden başlamak istersin?', alt: 'İstersen {ad} ile başla — ya da kendi yolunu seç.' },
-    en: { selam: 'Willy is still a page. Where would you like to begin knowing him?', alt: 'You could start with {ad} — or choose your own way.' },
-  },
-  devam: {
-    tr: { selam: '{ad} seni bekliyor.', alt: 'Buradan devam edebilirsin — ya da başka bir istasyona geç.' },
-    en: { selam: '{ad} is waiting for you.', alt: 'You can continue here — or move to another station.' },
-  },
-  son: {
-    tr: { selam: "Willy'nin koordinatları kuruldu.", alt: 'Yazdığın her şey bir arada — kendi Willy\'ni görmek ister misin?' },
-    en: { selam: "Willy's coordinates are set.", alt: 'Everything you wrote, together — would you like to see your own Willy?' },
-  },
-};
-
-export function selamMetni(faz, dil) {
-  const f = SELAM[faz] || SELAM.devam;
-  return dil === 'en' ? f.en : f.tr;
 }
