@@ -6,7 +6,7 @@
 
 'use client';
 
-export default function DogrularKarti({ dogrular }) {
+export default function DogrularKarti({ dogrular, baslikGizle = false }) {
   // Kategorileri ilk görüldükleri sırayla topla
   const kategoriler = [];
   const seen = new Set();
@@ -20,41 +20,43 @@ export default function DogrularKarti({ dogrular }) {
   return (
     <div
       style={{
-        backgroundColor: 'var(--bg-elevated)',
-        border: '1px solid var(--rule)',
-        padding: '2rem',
+        backgroundColor: baslikGizle ? 'transparent' : 'var(--bg-elevated)',
+        border: baslikGizle ? 'none' : '1px solid var(--rule)',
+        padding: baslikGizle ? '0' : '2rem',
         display: 'flex',
         flexDirection: 'column',
         gap: '1.4rem',
       }}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-        <span
-          style={{
-            fontFamily: 'Cormorant Garamond, serif',
-            fontStyle: 'italic',
-            fontWeight: 300,
-            fontSize: '0.85rem',
-            letterSpacing: '0.4em',
-            color: 'var(--accent)',
-            textTransform: 'uppercase',
-          }}
-        >
-          Değiştirilemez Doğrular
-        </span>
-        <span
-          style={{
-            fontFamily: 'Jost, sans-serif',
-            fontWeight: 200,
-            fontSize: '0.78rem',
-            color: 'var(--ink-muted)',
-            fontStyle: 'italic',
-            lineHeight: 1.6,
-          }}
-        >
-          Yazarın belirlediği sabitler — yorum gerektirmez.
-        </span>
-      </div>
+      {!baslikGizle && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+          <span
+            style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontStyle: 'italic',
+              fontWeight: 300,
+              fontSize: '0.85rem',
+              letterSpacing: '0.4em',
+              color: 'var(--accent)',
+              textTransform: 'uppercase',
+            }}
+          >
+            Değiştirilemez Doğrular
+          </span>
+          <span
+            style={{
+              fontFamily: 'Jost, sans-serif',
+              fontWeight: 200,
+              fontSize: '0.78rem',
+              color: 'var(--ink-muted)',
+              fontStyle: 'italic',
+              lineHeight: 1.6,
+            }}
+          >
+            Yazarın belirlediği sabitler — yorum gerektirmez.
+          </span>
+        </div>
+      )}
 
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         {kategoriler.map((kat, i) => {

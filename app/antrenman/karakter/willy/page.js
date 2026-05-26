@@ -157,52 +157,6 @@ export default function WillySayfasi() {
         </div>
       </section>
 
-      {/* Bölüm 1 · Doğrular */}
-      <section
-        style={{
-          padding: '0 2rem',
-          maxWidth: '1100px',
-          margin: '0 auto',
-          width: '100%',
-          boxSizing: 'border-box',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'baseline',
-            gap: '0.9rem',
-            marginBottom: '1rem',
-            flexWrap: 'wrap',
-          }}
-        >
-          <span
-            style={{
-              fontFamily: 'Jost, sans-serif',
-              fontWeight: 200,
-              fontSize: '0.55rem',
-              letterSpacing: '0.35em',
-              color: TON,
-              textTransform: 'uppercase',
-            }}
-          >
-            {t.bolum1Etiket}
-          </span>
-          <span
-            style={{
-              fontFamily: 'Cormorant Garamond, serif',
-              fontStyle: 'italic',
-              fontWeight: 300,
-              fontSize: '1.4rem',
-              color: 'var(--ink)',
-            }}
-          >
-            {t.bolum1Baslik}
-          </span>
-        </div>
-        <DogrularKarti dogrular={willy.dogrular} />
-      </section>
-
       {/* Bölümler 2-5 — Alt sayfalar */}
       <section
         style={{
@@ -216,6 +170,7 @@ export default function WillySayfasi() {
           gap: '1.4rem',
         }}
       >
+        <KarsilayanBlok kartlar={t.kartlar} ilerleme={ilerleme} dil={dil} davet={t.davet} />
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
           <span
             style={{
@@ -241,7 +196,7 @@ export default function WillySayfasi() {
             {t.koordinatBaslik}
           </span>
         </div>
-        <KarsilayanBlok kartlar={t.kartlar} ilerleme={ilerleme} dil={dil} davet={t.davet} />
+        <TaniAccordion etiket={t.bolum1Etiket} baslik={t.bolum1Baslik} dogrular={willy.dogrular} />
         <BolumKartlari kartlar={t.kartlar} acMetin={t.ac} ilerleme={ilerleme} dil={dil} />
       </section>
 
@@ -262,6 +217,85 @@ export default function WillySayfasi() {
 }
 
 // ─── BÖLÜM KARTLARI ─────────────────────────────────────────────────────────
+
+// ─── Tanı (Doğrular) — yerinde açılır referans kartı (accordion) ───
+// Diğer dört istasyon sayfaya gider; Tanı referans olduğu için tıkla-aç:
+// kapalıyken kompakt, açıkken DogrularKarti içeriğini gösterir.
+function TaniAccordion({ etiket, baslik, dogrular }) {
+  const [acik, setAcik] = useState(false);
+
+  return (
+    <div
+      style={{
+        border: '1px solid var(--rule)',
+        backgroundColor: 'var(--bg-elevated)',
+        borderRadius: '2px',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Kapalı başlık — her zaman görünür, tıklanınca açar/kapar */}
+      <button
+        onClick={() => setAcik((v) => !v)}
+        style={{
+          width: '100%',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          padding: '1.4rem 1.8rem',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.9rem',
+          textAlign: 'left',
+          color: 'var(--ink)',
+        }}
+      >
+        <span
+          style={{
+            fontFamily: 'Jost, sans-serif',
+            fontWeight: 200,
+            fontSize: '0.55rem',
+            letterSpacing: '0.35em',
+            color: TON,
+            textTransform: 'uppercase',
+          }}
+        >
+          {etiket}
+        </span>
+        <span
+          style={{
+            fontFamily: 'Cormorant Garamond, serif',
+            fontStyle: 'italic',
+            fontWeight: 300,
+            fontSize: '1.25rem',
+            color: 'var(--ink)',
+            flex: 1,
+          }}
+        >
+          {baslik}
+        </span>
+        {/* aç/kapa işareti */}
+        <span
+          style={{
+            fontFamily: 'Jost, sans-serif',
+            fontSize: '1rem',
+            color: 'var(--ink-soft)',
+            transform: acik ? 'rotate(180deg)' : 'rotate(0deg)',
+            transition: 'transform 0.25s ease',
+          }}
+        >
+          ▾
+        </span>
+      </button>
+
+      {/* Açık içerik — sadece açıkken render */}
+      {acik && (
+        <div style={{ padding: '0 1.8rem 1.8rem' }}>
+          <DogrularKarti dogrular={dogrular} baslikGizle={true} />
+        </div>
+      )}
+    </div>
+  );
+}
 
 // ─── ADIM 3 — Karşılayan blok: sistem "şu an buradasın" der (yumuşak davet) ─
 function KarsilayanBlok({ kartlar, ilerleme, dil, davet }) {
