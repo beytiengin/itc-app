@@ -14,8 +14,9 @@
 //
 // DURUM:
 //   ✅ nav / hub / ortak  → chrome metinleri, iki dilde TAM (Claude tohumladı)
-//   ⏳ icerik             → edebi içerik. ozet örnek olarak çevrildi; gerisi
-//                           "__TODO_EN__" işaretli. Beyti EN'i finalize edecek.
+//   ✅ icerik             → edebi içerik EN tam (dogrular, oyunOncesi, perdeTemalari,
+//                           sahnelerWorkbook, tercihler, boslukSet). AI taslak;
+//                           öğrenci QA turuyla doğrulanacak (canon karar-33 §8).
 //
 // NOT: Karakter VERİSİ hâlâ data/karakterler/willy.js içinde (TR kaynak).
 // EN'e geçişte ilgili sayfa, veri yerine bu sözlüğün `icerik` dalını okur.

@@ -3,14 +3,13 @@
 //
 // Workbook s.58-65 birebir karşılığı.
 // Sahneye çıkmadan önce ne yaşandı — Willy'nin bedeninde taşıdığı geçmiş.
-// 8 olay + 9 ilişki kartı (her biri açılır/kapanır, yansıma + onay).
+// 9 ilişki + 8 olay kartı (her biri açılır/kapanır, yansıma + onay).
 
 'use client';
 
 import { useState, useEffect } from 'react';
 import willyRaw from '../../../../../data/karakterler/willy';
-import { willyIcerik } from '../../../../../data/willy-i18n';
-import willyI18n from '../../../../../data/willy-i18n';
+import willyI18n, { willyIcerik } from '../../../../../data/willy-i18n';
 import { useDil, ceviri } from '../../../../lib/dil';
 import {
   olayYansimalariniGetir,
