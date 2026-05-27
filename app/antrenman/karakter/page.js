@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { tumKarakterIlerlemeleri } from '../../lib/kulis';
+import { ilerlemeGetir, kartlariKur, siradakiAdim } from '../../lib/ilerleme';
+import hamletRaw from '../../../data/karakterler/hamlet';
+import willyRaw from '../../../data/karakterler/willy';
 import IlerlemeRozet from '../../../components/IlerlemeRozet';
 
 // Karakter listesi — sade vitrin.
@@ -40,6 +43,27 @@ const YAKINDA = [
   { ad: 'Medea',          yazar: 'Euripides',           aciklama: 'Öfke, ihanet ve radikal eylem.' },
   { ad: 'Blanche DuBois', yazar: 'Tennessee Williams',  aciklama: 'Yanılsama kalkanı ve kırılganlık.' },
 ];
+
+// Sıradaki adım CTA — istasyon tipi → kullanıcıya gösterilecek istasyon adı.
+// Hub'daki kart başlıklarıyla hizalı.
+const ISTASYON_ADI = {
+  kesfet:   'Oyun Öncesi Yaşam',
+  haritala: 'Zaman Çizgisi',
+  yorumla:  'Yazarın Çerçevesi',
+  yarat:    'Senin Çerçeven',
+};
+
+// Aktif karakter için sıradaki adım hesabı: ilerleme view + içerik toplamları
+// → kartlar → siradakiAdim. Hub mantığının aynısı.
+function karakterToplamlari(raw) {
+  return {
+    olay:   (raw.oyunOncesi?.olaylar || []).length,
+    iliski: (raw.oyunOncesi?.iliskiler || []).length,
+    sahne:  (raw.sahnelerWorkbook || []).length,
+    tercih: (raw.tercihler || []).length,
+    bosluk: (raw.boslukSet || []).length,
+  };
+}
 
 function EtiketBloku({ karakterId }) {
   const meta = KARAKTER_META[karakterId];
@@ -142,29 +166,87 @@ function IlerlemeBloku({ karakterId, ilerlemeler }) {
   );
 }
 
+// Sıradaki adım göstergesi — kart click hub'a gittiği için bu görsel/bilgi
+// amaçlı (nested <a> yasak). Hub'a girince aynı bilgi gerçek link olarak
+// KarsilayanBlok'ta belirir.
+function SiradakiAdimCTA({ adim }) {
+  if (!adim) return null;
+  let etiket;
+  if (adim.faz === 'son') {
+    etiket = 'Tamamlandı';
+  } else {
+    const ad = ISTASYON_ADI[adim.tip] || '';
+    const onek = adim.faz === 'ilk' ? 'Başla' : 'Şu an';
+    etiket = `${onek}: ${ad}`;
+  }
+  return (
+    <span style={{
+      marginTop: '0.3rem',
+      fontFamily: 'Jost, sans-serif',
+      fontWeight: 200,
+      fontSize: '0.7rem',
+      letterSpacing: '0.1em',
+      color: 'var(--accent)',
+    }}>
+      → {etiket}
+    </span>
+  );
+}
+
 export default function KarakterListesi() {
   const [ilerlemeler, setIlerlemeler] = useState({});
+  const [adimlar, setAdimlar] = useState({}); // { hamlet: {faz,index,tip}, willy: {...} }
 
   useEffect(() => {
+    let iptal = false;
     async function veriYukle() {
-      const veri = await tumKarakterIlerlemeleri();
-      setIlerlemeler(veri);
+      const [tumIlerleme, hamletView, willyView] = await Promise.all([
+        tumKarakterIlerlemeleri(),
+        ilerlemeGetir('hamlet'),
+        ilerlemeGetir('willy'),
+      ]);
+      if (iptal) return;
+      setIlerlemeler(tumIlerleme);
+
+      const hamletKartlar = kartlariKur(hamletView, karakterToplamlari(hamletRaw));
+      const willyKartlar = kartlariKur(willyView, karakterToplamlari(willyRaw));
+      setAdimlar({
+        hamlet: siradakiAdim(hamletKartlar),
+        willy:  siradakiAdim(willyKartlar),
+      });
     }
     veriYukle();
+    return () => { iptal = true; };
   }, []);
+
+  const navLink = (active) => ({
+    fontFamily: 'Jost, sans-serif',
+    fontWeight: 200,
+    fontSize: '0.6rem',
+    letterSpacing: '0.25em',
+    color: active ? 'var(--ink)' : 'var(--ink-soft)',
+    textTransform: 'uppercase',
+    textDecoration: 'none',
+  });
 
   return (
     <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', flexDirection: 'column' }}>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2rem 3rem', borderBottom: '1px solid var(--rule)' }}>
+      <header style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '1.6rem 2rem',
+        borderBottom: '1px solid var(--rule)',
+        flexWrap: 'wrap',
+        gap: '1rem',
+      }}>
         <a href="/" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', letterSpacing: '0.3em', color: 'var(--accent)', textTransform: 'uppercase', textDecoration: 'none' }}>Actor's Gym</a>
-        <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-          <a href="/kalibrasyon" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.25s ease' }}
-            onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'}
-            onMouseLeave={e => e.currentTarget.style.color = 'var(--ink-soft)'}>
-            Kalibrasyon
-          </a>
-          <a href="/antrenman" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink)', textTransform: 'uppercase', textDecoration: 'none' }}>← Antrenman</a>
-        </div>
+        <nav style={{ display: 'flex', gap: '1.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
+          <a href="/antrenman/karakter" style={navLink(true)}>Karakterler</a>
+          <a href="/kalibrasyon" style={navLink(false)}>Kalibrasyon</a>
+          <a href="/kulis" style={navLink(false)}>Kulis</a>
+          <a href="/profil" style={navLink(false)}>Profil</a>
+        </nav>
       </header>
 
       <section style={{ flex: 1, padding: '3rem 2rem', maxWidth: '680px', margin: '0 auto', width: '100%', display: 'flex', flexDirection: 'column', gap: '3rem' }}>
@@ -194,6 +276,7 @@ export default function KarakterListesi() {
             </p>
             <EtiketBloku karakterId="hamlet" />
             <IlerlemeBloku karakterId="hamlet" ilerlemeler={ilerlemeler} />
+            <SiradakiAdimCTA adim={adimlar.hamlet} />
           </a>
 
           {/* Willy Loman — aktif */}
@@ -210,6 +293,7 @@ export default function KarakterListesi() {
             </p>
             <EtiketBloku karakterId="willy" />
             <IlerlemeBloku karakterId="willy" ilerlemeler={ilerlemeler} />
+            <SiradakiAdimCTA adim={adimlar.willy} />
           </a>
 
           {/* Yakında — Macbeth, Biff, Medea, Blanche (tıklanmaz, pasif) */}
