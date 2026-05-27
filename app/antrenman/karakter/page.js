@@ -305,6 +305,25 @@ export default function KarakterListesi() {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
 
+          {/* Willy Loman — vitrin karakter (Karar 33, TR/EN) */}
+          <a href="/antrenman/karakter/willy"
+            style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', padding: '2rem', border: '1px solid var(--rule)', textDecoration: 'none', transition: 'all 0.3s ease' }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.backgroundColor = 'var(--bg-elevated)'; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; e.currentTarget.style.backgroundColor = 'transparent'; }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+                <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>Willy Loman</span>
+                <MetaSatiri karakterId="willy" />
+              </div>
+              <DurumGostergesi karakterId="willy" />
+            </div>
+            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>
+              Yanılsama ve kimlik çöküşü. Geçmiş ile şimdinin aynı anda yaşandığı bir zihin.
+            </p>
+            <EtiketBloku karakterId="willy" />
+            <IlerlemeBloku karakterId="willy" ilerlemeler={ilerlemeler} />
+          </a>
+
           {/* Hamlet */}
           <a href="/antrenman/karakter/hamlet"
             style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', padding: '2rem', border: '1px solid var(--rule)', textDecoration: 'none', transition: 'all 0.3s ease' }}
@@ -324,44 +343,6 @@ export default function KarakterListesi() {
             <IlerlemeBloku karakterId="hamlet" ilerlemeler={ilerlemeler} />
           </a>
 
-          {/* Macbeth */}
-          <a href="/antrenman/karakter/macbeth"
-            style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', padding: '2rem', border: '1px solid var(--rule)', textDecoration: 'none', transition: 'all 0.3s ease' }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.backgroundColor = 'var(--bg-elevated)'; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; e.currentTarget.style.backgroundColor = 'transparent'; }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>Macbeth</span>
-                <MetaSatiri karakterId="macbeth" />
-              </div>
-              <DurumGostergesi karakterId="macbeth" />
-            </div>
-            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>
-              Kral Duncan'ın generali. Bir kehanet, bir karar, bir yıkım. İktidar hırsı, suçluluk ve paranoyanın iç çöküşü.
-            </p>
-            <EtiketBloku karakterId="macbeth" />
-            <IlerlemeBloku karakterId="macbeth" ilerlemeler={ilerlemeler} />
-          </a>
-
-          {/* Willy Loman */}
-          <a href="/antrenman/karakter/willy"
-            style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', padding: '2rem', border: '1px solid var(--rule)', textDecoration: 'none', transition: 'all 0.3s ease' }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.backgroundColor = 'var(--bg-elevated)'; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; e.currentTarget.style.backgroundColor = 'transparent'; }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>Willy Loman</span>
-                <MetaSatiri karakterId="willy" />
-              </div>
-              <DurumGostergesi karakterId="willy" />
-            </div>
-            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>
-              Yanılsama ve kimlik çöküşü. Geçmiş ile şimdinin aynı anda yaşandığı bir zihin.
-            </p>
-            <EtiketBloku karakterId="willy" />
-            <IlerlemeBloku karakterId="willy" ilerlemeler={ilerlemeler} />
-          </a>
-
           {/* Biff Loman */}
           <a href="/antrenman/karakter/biff"
             style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', padding: '2rem', border: '1px solid var(--rule)', textDecoration: 'none', transition: 'all 0.3s ease' }}
@@ -379,6 +360,25 @@ export default function KarakterListesi() {
             </p>
             <EtiketBloku karakterId="biff" />
             <IlerlemeBloku karakterId="biff" ilerlemeler={ilerlemeler} />
+          </a>
+
+          {/* Macbeth */}
+          <a href="/antrenman/karakter/macbeth"
+            style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', padding: '2rem', border: '1px solid var(--rule)', textDecoration: 'none', transition: 'all 0.3s ease' }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.backgroundColor = 'var(--bg-elevated)'; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; e.currentTarget.style.backgroundColor = 'transparent'; }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+                <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>Macbeth</span>
+                <MetaSatiri karakterId="macbeth" />
+              </div>
+              <DurumGostergesi karakterId="macbeth" />
+            </div>
+            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>
+              Kral Duncan'ın generali. Bir kehanet, bir karar, bir yıkım. İktidar hırsı, suçluluk ve paranoyanın iç çöküşü.
+            </p>
+            <EtiketBloku karakterId="macbeth" />
+            <IlerlemeBloku karakterId="macbeth" ilerlemeler={ilerlemeler} />
           </a>
 
           {/* Yakında */}
