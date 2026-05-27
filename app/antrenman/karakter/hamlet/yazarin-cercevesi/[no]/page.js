@@ -3,22 +3,31 @@
 //
 // Dinamik route: /yazarin-cercevesi/1 ... /5
 // İçerik HamletTercihSecim bileşeni tarafından render edilir.
+// NOT: KOK eklendi; willy yolları ona bağlandı.
 
 'use client';
 
 import { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
-import hamlet from '../../../../../../data/karakterler/hamlet';
+import hamletRaw from '../../../../../../data/karakterler/hamlet';
+import { hamletIcerik } from '../../../../../../data/hamlet-i18n';
+import hamletI18n from '../../../../../../data/hamlet-i18n';
+import { useDil, ceviri } from '../../../../../lib/dil';
 import { tercihleriGetir } from '../../../../../lib/hamlet-veri';
 import HamletAltSayfaHeader from '../../../../../../components/HamletAltSayfaHeader';
 import HamletTercihSecim from '../../../../../../components/HamletTercihSecim';
+import SayfaIskelet from '../../../../../../components/SayfaIskelet';
 
 const TON = 'var(--accent)';
+const KOK = '/antrenman/karakter/hamlet';
 
 export default function TercihDetaySayfasi({ params }) {
   const { no } = use(params);
   const tercihNo = parseInt(no, 10);
   const router = useRouter();
+  const { dil } = useDil();
+  const hamlet = hamletIcerik(dil, hamletRaw);
+  const sa = ceviri(hamletI18n, dil).yazarinCercevesi.altSayfa;
 
   const [secimler, setSecimler] = useState({});
   const [yukleniyor, setYukleniyor] = useState(true);
@@ -38,27 +47,12 @@ export default function TercihDetaySayfasi({ params }) {
   // Geçersiz tercih no — ana sayfaya yönlendir
   useEffect(() => {
     if (!yukleniyor && !tercih) {
-      router.replace('/antrenman/karakter/hamlet/yazarin-cercevesi');
+      router.replace(`${KOK}/yazarin-cercevesi`);
     }
   }, [yukleniyor, tercih, router]);
 
   if (yukleniyor || !tercih) {
-    return (
-      <main style={ekranStili}>
-        <span
-          style={{
-            fontFamily: 'Jost, sans-serif',
-            fontWeight: 200,
-            fontSize: '0.7rem',
-            letterSpacing: '0.3em',
-            color: 'var(--ink-muted)',
-            textTransform: 'uppercase',
-          }}
-        >
-          Hazırlanıyor…
-        </span>
-      </main>
-    );
+    return <SayfaIskelet />;
   }
 
   const oncekiNo = tercihNo > 1 ? tercihNo - 1 : null;
@@ -91,7 +85,7 @@ export default function TercihDetaySayfasi({ params }) {
         {/* Üst başlık */}
         <header style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <a
-            href="/antrenman/karakter/hamlet/yazarin-cercevesi"
+            href={`${KOK}/yazarin-cercevesi`}
             style={{
               fontFamily: 'Jost, sans-serif',
               fontWeight: 200,
@@ -106,7 +100,7 @@ export default function TercihDetaySayfasi({ params }) {
             onMouseEnter={(e) => { e.currentTarget.style.color = TON; }}
             onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
           >
-            ← Yazarın Çerçevesi
+            {sa.geri}
           </a>
 
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.9rem', flexWrap: 'wrap' }}>
@@ -120,7 +114,7 @@ export default function TercihDetaySayfasi({ params }) {
                 textTransform: 'uppercase',
               }}
             >
-              Tercih {tercih.no} · {tercih.konu}
+              {sa.tercihKelime} {tercih.no} · {tercih.konu}
             </span>
             <span
               style={{
@@ -156,7 +150,7 @@ export default function TercihDetaySayfasi({ params }) {
           tercih={tercih}
           baslangic={secimler[tercih.no]}
           karakterId={hamlet.id}
-          kokYol="/antrenman/karakter/hamlet"
+          kokYol={KOK}
         />
 
         {/* Navigasyon */}
@@ -171,34 +165,34 @@ export default function TercihDetaySayfasi({ params }) {
         >
           {oncekiNo ? (
             <a
-              href={`/antrenman/karakter/hamlet/yazarin-cercevesi/${oncekiNo}`}
+              href={`${KOK}/yazarin-cercevesi/${oncekiNo}`}
               style={navButonStili()}
               onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
             >
-              ← Tercih {oncekiNo}
+              {sa.oncekiTercih} {oncekiNo}
             </a>
           ) : <span />}
 
           {sonrakiNo ? (
             <a
-              href={`/antrenman/karakter/hamlet/yazarin-cercevesi/${sonrakiNo}`}
+              href={`${KOK}/yazarin-cercevesi/${sonrakiNo}`}
               style={navButonStili()}
               onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
             >
-              Tercih {sonrakiNo} →
+              {sa.sonrakiTercih} {sonrakiNo} →
             </a>
           ) : (
             <a
-              href="/antrenman/karakter/hamlet/yazarin-cercevesi/sentez"
+              href={`${KOK}/yazarin-cercevesi/sentez`}
               style={{
                 ...navButonStili(),
                 color: TON,
                 borderColor: TON,
               }}
             >
-              Sentez →
+              {sa.sentezLink}
             </a>
           )}
         </div>
@@ -223,12 +217,3 @@ function navButonStili() {
     transition: 'color 0.25s ease',
   };
 }
-
-const ekranStili = {
-  minHeight: '100vh',
-  backgroundColor: 'var(--bg-base)',
-  color: 'var(--ink)',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-};

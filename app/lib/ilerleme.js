@@ -158,24 +158,36 @@ export function siradakiAdim(kartlar) {
 }
 
 // Karşılayan selam metni — faz × dil. Yumuşak davet dili.
-// İstasyon adları i18n'den geleceği için burada {ad} yer tutucu kullanılır;
-// hub bileşeni gerçek istasyon adını yerleştirir.
+// İstasyon adları için {ad} yer tutucu kullanılır; hub bileşeni gerçek istasyon
+// adını yerleştirir. Karakter adı için {karakter} (nominatif), {karakterIn}
+// (tamlayan/ilgi hâli — "Hamlet'in"), {karakterIni} (kendi X-ni biçimi —
+// "Hamlet'ini") yer tutucuları kullanılır; selamMetni() çağıranın geçtiği
+// karakter bilgisinden doldurur.
 const SELAM = {
   ilk: {
-    tr: { selam: 'Willy henüz bir sayfa. Onu tanımaya nereden başlamak istersin?', alt: 'İstersen {ad} ile başla — ya da kendi yolunu seç.' },
-    en: { selam: 'Willy is still a page. Where would you like to begin knowing him?', alt: 'You could start with {ad} — or choose your own way.' },
+    tr: { selam: '{karakter} henüz boş bir sayfa. Onu tanımaya nereden başlamak istersin?', alt: 'İstersen {ad} ile başla — ya da kendi yolunu seç.' },
+    en: { selam: '{karakter} is still an empty page. Where would you like to begin knowing him?', alt: 'You could start with {ad} — or choose your own way.' },
   },
   devam: {
     tr: { selam: '{ad} seni bekliyor.', alt: 'Buradan devam edebilirsin — ya da başka bir istasyona geç.' },
     en: { selam: '{ad} is waiting for you.', alt: 'You can continue here — or move to another station.' },
   },
   son: {
-    tr: { selam: "Willy'nin koordinatları kuruldu.", alt: 'Yazdığın her şey bir arada — kendi Willy\'ni görmek ister misin?' },
-    en: { selam: "Willy's coordinates are set.", alt: 'Everything you wrote, together — would you like to see your own Willy?' },
+    tr: { selam: "{karakterIn} koordinatları kuruldu.", alt: 'Yazdığın her şey bir arada — kendi {karakterIni} görmek ister misin?' },
+    en: { selam: "{karakter}'s coordinates are set.", alt: 'Everything you wrote, together — would you like to see your own {karakter}?' },
   },
 };
 
-export function selamMetni(faz, dil) {
+export function selamMetni(faz, dil, karakter = {}) {
   const f = SELAM[faz] || SELAM.devam;
-  return dil === 'en' ? f.en : f.tr;
+  const t = dil === 'en' ? f.en : f.tr;
+  const { ad = '', karakterIn = '', karakterIni = '' } = karakter;
+  return {
+    selam: t.selam
+      .replace('{karakter}', ad)
+      .replace('{karakterIn}', karakterIn),
+    alt: t.alt
+      .replace('{karakter}', ad)
+      .replace('{karakterIni}', karakterIni),
+  };
 }

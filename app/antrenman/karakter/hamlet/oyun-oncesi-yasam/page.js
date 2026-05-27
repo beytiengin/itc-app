@@ -1,15 +1,17 @@
 // app/antrenman/karakter/hamlet/oyun-oncesi-yasam/page.js
 // ITC Actor's Gym — Modül II Hamlet · Oyun Öncesi Yaşam
 //
-// Workbook s.58-65 birebir karşılığı.
 // Sahneye çıkmadan önce ne yaşandı — Hamlet'in bedeninde taşıdığı geçmiş.
-// 8 olay + 8 ilişki kartı (her biri açılır/kapanır, yansıma + onay).
+// 8 ilişki + 8 olay kartı (her biri açılır/kapanır, yansıma + onay).
+// NOT: Willy versiyonunda yollar elle "willy" stringiyle yazılmıştı; burada
+// KOK sabiti eklendi ve tüm yollar ona bağlandı.
 
 'use client';
 
 import { useState, useEffect } from 'react';
-import { supabase } from '../../../../lib/supabase';
-import hamlet from '../../../../../data/karakterler/hamlet';
+import hamletRaw from '../../../../../data/karakterler/hamlet';
+import hamletI18n, { hamletIcerik } from '../../../../../data/hamlet-i18n';
+import { useDil, ceviri } from '../../../../lib/dil';
 import {
   olayYansimalariniGetir,
   iliskiYansimalariniGetir,
@@ -17,10 +19,16 @@ import {
 import OyunOncesiOlayKart from '../../../../../components/OyunOncesiOlayKart';
 import OyunOncesiIliskiKart from '../../../../../components/OyunOncesiIliskiKart';
 import HamletBolumGecisi from '../../../../../components/HamletBolumGecisi';
+import HamletAltSayfaHeader from '../../../../../components/HamletAltSayfaHeader';
+import SayfaIskelet from '../../../../../components/SayfaIskelet';
 
 const TON = 'var(--accent)';
+const KOK = '/antrenman/karakter/hamlet';
 
 export default function OyunOncesiYasamSayfasi() {
+  const { dil } = useDil();
+  const hamlet = hamletIcerik(dil, hamletRaw);
+  const oc = ceviri(hamletI18n, dil).oyunOncesi;
   const [olayYansimalari, setOlayYansimalari] = useState({});
   const [iliskiYansimalari, setIliskiYansimalari] = useState({});
   const [yukleniyor, setYukleniyor] = useState(true);
@@ -45,22 +53,7 @@ export default function OyunOncesiYasamSayfasi() {
   const iliskiTanidiSayisi = Object.values(iliskiYansimalari).filter((y) => y.tanidi).length;
 
   if (yukleniyor) {
-    return (
-      <main style={ekranStili}>
-        <span
-          style={{
-            fontFamily: 'Jost, sans-serif',
-            fontWeight: 200,
-            fontSize: '0.7rem',
-            letterSpacing: '0.3em',
-            color: 'var(--ink-muted)',
-            textTransform: 'uppercase',
-          }}
-        >
-          Hazırlanıyor…
-        </span>
-      </main>
-    );
+    return <SayfaIskelet />;
   }
 
   return (
@@ -73,7 +66,7 @@ export default function OyunOncesiYasamSayfasi() {
         flexDirection: 'column',
       }}
     >
-      <KarakterHeader />
+      <HamletAltSayfaHeader />
 
       <article
         style={{
@@ -90,7 +83,7 @@ export default function OyunOncesiYasamSayfasi() {
         {/* ─── Açılış ─── */}
         <header style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
           <a
-            href="/antrenman/karakter/hamlet"
+            href={KOK}
             style={{
               fontFamily: 'Jost, sans-serif',
               fontWeight: 200,
@@ -105,7 +98,7 @@ export default function OyunOncesiYasamSayfasi() {
             onMouseEnter={(e) => { e.currentTarget.style.color = TON; }}
             onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
           >
-            ← Hamlet
+            {oc.geri}
           </a>
 
           <span
@@ -118,7 +111,7 @@ export default function OyunOncesiYasamSayfasi() {
               textTransform: 'uppercase',
             }}
           >
-            Modül II · Bölüm 2
+            {oc.etiket}
           </span>
 
           <h1
@@ -132,7 +125,7 @@ export default function OyunOncesiYasamSayfasi() {
               lineHeight: 1.1,
             }}
           >
-            Oyun Öncesi Yaşam
+            {oc.baslik}
           </h1>
           <p
             style={{
@@ -143,20 +136,17 @@ export default function OyunOncesiYasamSayfasi() {
               margin: 0,
             }}
           >
-            Sahneye çıkmadan önce ne yaşandı
+            {oc.altyazi}
           </p>
         </header>
 
         {/* ─── Açılış metni ─── */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <p style={paragrafStili}>
-            Shakespeare'in Hamlet oyunu ilk sahnesinde başlamaz. Seyirci olayların
-            ortasına bırakılır. Babası ölmüştür, annesi yeniden evlenmiştir, bir
-            hayalet surlarda dolaşır. Bütün bunlar oyunun hareket noktasıdır, ama
-            hiçbiri sahnede gösterilmez.
+            {oc.acilis1}
           </p>
           <p style={paragrafStili}>
-            Sahneye ilk çıktığın an, Hamlet zaten kırılmış bir dünyada yaşıyordur.
+            {oc.acilis2}
           </p>
 
           {/* Vurgu kutusu */}
@@ -177,7 +167,7 @@ export default function OyunOncesiYasamSayfasi() {
                 margin: 0,
               }}
             >
-              "Hamlet sahneye ilk çıktığı an, bütün geçmiş ağırlığını bedeninde taşır."
+              {oc.vurgu}
             </p>
           </div>
 
@@ -202,7 +192,7 @@ export default function OyunOncesiYasamSayfasi() {
                 textTransform: 'uppercase',
               }}
             >
-              İpucu
+              {oc.ipucuEtiket}
             </span>
             <span
               style={{
@@ -214,11 +204,10 @@ export default function OyunOncesiYasamSayfasi() {
                 minWidth: '220px',
               }}
             >
-              Bu sekiz olay sahnede gösterilmez — ama Zaman Çizgisi'nin ilk iki
-              sahnesinde Hamlet'in bedeninde olur.
+              {oc.ipucuMetin}
             </span>
             <a
-              href="/antrenman/karakter/hamlet/timeline"
+              href={`${KOK}/timeline`}
               style={{
                 fontFamily: 'Jost, sans-serif',
                 fontWeight: 200,
@@ -233,7 +222,7 @@ export default function OyunOncesiYasamSayfasi() {
               onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.7'; }}
               onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
             >
-              Zaman Çizgisi →
+              {oc.ipucuLink}
             </a>
           </div>
 
@@ -258,7 +247,7 @@ export default function OyunOncesiYasamSayfasi() {
                 textTransform: 'uppercase',
               }}
             >
-              ITC İlkesi · Görmediğimizi Taşımak
+              {oc.ilkeEtiket}
             </span>
             <p
               style={{
@@ -270,8 +259,7 @@ export default function OyunOncesiYasamSayfasi() {
                 margin: 0,
               }}
             >
-              ITC yaklaşımının çekirdeklerinden biri budur: karakterin sahnede
-              gösterilmeyen geçmişini, oyuncunun sahnede taşıması.
+              {oc.ilke1}
             </p>
             <p
               style={{
@@ -283,46 +271,18 @@ export default function OyunOncesiYasamSayfasi() {
                 margin: 0,
               }}
             >
-              Hamlet'in ilk repliği — <em>"Yeğenden biraz fazla, oğuldan bir hayli az"</em>
-              {' '}— eğer arkasında iki ay önce ölmüş bir baba, iki ay sonra evlenen bir
-              anne, gasp edilmiş bir taht yoksa, sadece bir cümle kalır. Eğer varsa —
-              bir insanın cümlesi olur.
+              {oc.ilke2pre}<em>{oc.ilke2alinti}</em>{oc.ilke2post}
             </p>
           </div>
         </section>
 
-        {/* ─── 8 OLAY ─── */}
+        {/* ─── 8 İLİŞKİ (önce) ─── */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <BolumBasligi
-            etiket="Birinci Bölüm"
-            baslik="Sekiz Olay"
-            altyazi="Hamlet sahneye ilk çıktığında, hepsi bedeninde."
-            ilerleme={`${olayIcselSayisi} / ${olaylar.length} içselleştirildi`}
-          />
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
-            {olaylar.map((olay) => (
-              <OyunOncesiOlayKart
-                key={olay.no}
-                olay={olay}
-                karakterId={hamlet.id}
-                baslangic={olayYansimalari[olay.no]}
-              />
-            ))}
-          </div>
-
-          <KapanisKutusu>
-            Sekiz olay, sekiz yük. Hamlet sahneye ilk çıktığında, hepsi bedeninde.
-          </KapanisKutusu>
-        </section>
-
-        {/* ─── 8 İLİŞKİ ─── */}
-        <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-          <BolumBasligi
-            etiket="İkinci Bölüm"
-            baslik="Sekiz İlişki"
-            altyazi="Geçmiş → Şimdi → İz"
-            ilerleme={`${iliskiTanidiSayisi} / ${iliskiler.length} tanındı`}
+            etiket={oc.bolum1Etiket}
+            baslik={oc.bolum1Baslik}
+            altyazi={oc.bolum1Altyazi}
+            ilerleme={`${iliskiTanidiSayisi} / ${iliskiler.length} ${oc.bolum1Ilerleme}`}
           />
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
@@ -337,7 +297,32 @@ export default function OyunOncesiYasamSayfasi() {
           </div>
 
           <KapanisKutusu>
-            Hamlet, sahneye sekiz olayla değil — sekiz olay ve sekiz ilişkiyle çıkıyor.
+            {oc.kapanis1}
+          </KapanisKutusu>
+        </section>
+
+        {/* ─── 8 OLAY (sonra) ─── */}
+        <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <BolumBasligi
+            etiket={oc.bolum2Etiket}
+            baslik={oc.bolum2Baslik}
+            altyazi={oc.bolum2Altyazi}
+            ilerleme={`${olayIcselSayisi} / ${olaylar.length} ${oc.bolum2Ilerleme}`}
+          />
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+            {olaylar.map((olay) => (
+              <OyunOncesiOlayKart
+                key={olay.no}
+                olay={olay}
+                karakterId={hamlet.id}
+                baslangic={olayYansimalari[olay.no]}
+              />
+            ))}
+          </div>
+
+          <KapanisKutusu>
+            {oc.kapanis2}
           </KapanisKutusu>
         </section>
 
@@ -363,7 +348,7 @@ export default function OyunOncesiYasamSayfasi() {
               textTransform: 'uppercase',
             }}
           >
-            ✓ Buraya kadar
+            {oc.sonEtiket}
           </span>
           <p
             style={{
@@ -377,18 +362,17 @@ export default function OyunOncesiYasamSayfasi() {
               alignSelf: 'center',
             }}
           >
-            Hamlet'in koordinatlarını kurdun. Doğruları gördün, oyun öncesini tanıdın,
-            ilişkileri haritaladın. Şimdilik bunlar bedeninde otursun. Bir nefes ver.
+            {oc.sonMetin}
           </p>
         </section>
 
         <HamletBolumGecisi
-          oncekiEtiket="Bölüm 1"
-          oncekiBaslik="Doğrular"
-          oncekiYol="/antrenman/karakter/hamlet"
-          sonrakiEtiket="Bölüm 3"
-          sonrakiBaslik="Zaman Çizgisi"
-          sonrakiYol="/antrenman/karakter/hamlet/timeline"
+          oncekiEtiket={oc.gecisOncekiEtiket}
+          oncekiBaslik={oc.gecisOncekiBaslik}
+          oncekiYol={KOK}
+          sonrakiEtiket={oc.gecisSonrakiEtiket}
+          sonrakiBaslik={oc.gecisSonrakiBaslik}
+          sonrakiYol={`${KOK}/timeline`}
         />
       </article>
     </main>
@@ -495,96 +479,3 @@ const paragrafStili = {
   lineHeight: 1.8,
   margin: 0,
 };
-
-const ekranStili = {
-  minHeight: '100vh',
-  backgroundColor: 'var(--bg-base)',
-  color: 'var(--ink)',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
-
-// ─── HEADER ─────────────────────────────────────────────────────────────────
-
-function KarakterHeader() {
-  async function cikisYap() {
-    try {
-      await supabase.auth.signOut();
-    } finally {
-      if (typeof window !== 'undefined') window.location.href = '/';
-    }
-  }
-
-  const navLink = {
-    fontFamily: 'Jost, sans-serif',
-    fontWeight: 200,
-    fontSize: '0.6rem',
-    letterSpacing: '0.25em',
-    color: 'var(--ink-soft)',
-    textTransform: 'uppercase',
-    textDecoration: 'none',
-    transition: 'color 0.25s ease',
-  };
-
-  return (
-    <header
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '1.6rem 2rem',
-        borderBottom: '1px solid var(--rule)',
-        flexWrap: 'wrap',
-        gap: '1rem',
-      }}
-    >
-      <a
-        href="/"
-        style={{
-          fontFamily: 'Jost, sans-serif',
-          fontWeight: 200,
-          fontSize: '0.65rem',
-          letterSpacing: '0.3em',
-          color: 'var(--accent)',
-          textTransform: 'uppercase',
-          textDecoration: 'none',
-        }}
-      >
-        Inside The Character
-      </a>
-      <nav style={{ display: 'flex', gap: '1.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
-        <a href="/kalibrasyon" style={navLink}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
-          Kalibrasyon
-        </a>
-        <a href="/kulis" style={navLink}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
-          Kulis
-        </a>
-        <a href="/antrenman/karakter" style={{ ...navLink, color: 'var(--ink)' }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}>
-          ← Karakterler
-        </a>
-        <button
-          onClick={cikisYap}
-          style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: 0,
-            ...navLink,
-            color: 'var(--ink-muted)',
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
-        >
-          Çıkış
-        </button>
-      </nav>
-    </header>
-  );
-}

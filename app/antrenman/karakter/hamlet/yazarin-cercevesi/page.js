@@ -2,20 +2,29 @@
 // ITC Actor's Gym — Modül II Hamlet · Yazarın Çerçevesi (5 Tercih)
 //
 // Ana sayfa: 5 tercih kartı + sentez sayfasına link.
-// Workbook s.86-105 birebir karşılığı.
+// NOT: Willy versiyonunda geri linki / sentez linki / geçiş yolları elle
+// "willy" stringiyle yazılmıştı. Burada hepsi KOK'a bağlandı — kaçak yok.
 
 'use client';
 
 import { useState, useEffect } from 'react';
-import hamlet from '../../../../../data/karakterler/hamlet';
+import hamletRaw from '../../../../../data/karakterler/hamlet';
+import { hamletIcerik } from '../../../../../data/hamlet-i18n';
+import hamletI18n from '../../../../../data/hamlet-i18n';
+import { useDil, ceviri } from '../../../../lib/dil';
 import { tercihleriGetir } from '../../../../lib/hamlet-veri';
 import HamletAltSayfaHeader from '../../../../../components/HamletAltSayfaHeader';
 import HamletTercihKart from '../../../../../components/HamletTercihKart';
 import HamletBolumGecisi from '../../../../../components/HamletBolumGecisi';
+import SayfaIskelet from '../../../../../components/SayfaIskelet';
 
 const TON = 'var(--accent)';
+const KOK = '/antrenman/karakter/hamlet';
 
 export default function YazarinCerceveSAnaSayfa() {
+  const { dil } = useDil();
+  const hamlet = hamletIcerik(dil, hamletRaw);
+  const yc = ceviri(hamletI18n, dil).yazarinCercevesi;
   const [secimler, setSecimler] = useState({});
   const [yukleniyor, setYukleniyor] = useState(true);
 
@@ -36,22 +45,7 @@ export default function YazarinCerceveSAnaSayfa() {
   const hepsiTamam = tamamlananSayisi >= tercihler.length;
 
   if (yukleniyor) {
-    return (
-      <main style={ekranStili}>
-        <span
-          style={{
-            fontFamily: 'Jost, sans-serif',
-            fontWeight: 200,
-            fontSize: '0.7rem',
-            letterSpacing: '0.3em',
-            color: 'var(--ink-muted)',
-            textTransform: 'uppercase',
-          }}
-        >
-          Hazırlanıyor…
-        </span>
-      </main>
-    );
+    return <SayfaIskelet />;
   }
 
   return (
@@ -80,23 +74,20 @@ export default function YazarinCerceveSAnaSayfa() {
       >
         <header style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
           <a
-            href="/antrenman/karakter/hamlet"
+            href={KOK}
             style={geriLinkStili}
             onMouseEnter={(e) => { e.currentTarget.style.color = TON; }}
             onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
           >
             ← Hamlet
           </a>
-          <span style={etiketStili}>Modül II · Bölüm 4</span>
-          <h1 style={baslikStili}>Yazarın Çerçevesi</h1>
-          <p style={altyaziStili}>İçine girdiğin oda</p>
+          <span style={etiketStili}>{yc.etiket}</span>
+          <h1 style={baslikStili}>{yc.baslik}</h1>
+          <p style={altyaziStili}>{yc.altyazi}</p>
         </header>
 
         <p style={paragrafStili}>
-          Bu bölümde beş kritik tercih var. Her biri Hamlet'in dört yüzyıldır
-          tartışılan açık uçlarından biri. Her tercihte: Shakespeare'in metinde
-          bıraktığı işaretleri okuyacaksın, olası yorumları göreceksin — ve
-          seninkini işaretleyeceksin.
+          {yc.acilis}
         </p>
 
         <div
@@ -116,7 +107,7 @@ export default function YazarinCerceveSAnaSayfa() {
               margin: 0,
             }}
           >
-            "Doğru cevap yok. Senin Hamlet'inin cevabı var."
+            {yc.vurgu}
           </p>
         </div>
 
@@ -129,7 +120,7 @@ export default function YazarinCerceveSAnaSayfa() {
             borderTop: '1px solid var(--bg-elevated)',
           }}
         >
-          <span style={etiketStili}>Beş Kavşak</span>
+          <span style={etiketStili}>{yc.kavsakEtiket}</span>
           <span
             style={{
               fontFamily: 'Cormorant Garamond, serif',
@@ -149,7 +140,7 @@ export default function YazarinCerceveSAnaSayfa() {
               key={t.no}
               tercih={t}
               secim={secimler[t.no]}
-              kokYol="/antrenman/karakter/hamlet"
+              kokYol={KOK}
             />
           ))}
         </div>
@@ -157,7 +148,7 @@ export default function YazarinCerceveSAnaSayfa() {
         {/* Sentez kartı */}
         {tamamlananSayisi > 0 && (
           <a
-            href="/antrenman/karakter/hamlet/yazarin-cercevesi/sentez"
+            href={`${KOK}/yazarin-cercevesi/sentez`}
             style={{
               border: `1px solid ${hepsiTamam ? TON : TON + '55'}`,
               backgroundColor: hepsiTamam ? 'var(--accent-bg-deep)' : 'var(--bg-elevated)',
@@ -184,7 +175,7 @@ export default function YazarinCerceveSAnaSayfa() {
                 color: 'var(--ink)',
               }}
             >
-              Beş Cümle, Bir Hamlet
+              {yc.sentezKartBaslik}
             </span>
             <p
               style={{
@@ -197,8 +188,8 @@ export default function YazarinCerceveSAnaSayfa() {
               }}
             >
               {hepsiTamam
-                ? 'Beş tercihin de hazır. Şimdi onları birleştir: senin Hamlet\'in.'
-                : 'Şu ana kadar yaptığın seçimleri görebilirsin. Hepsini tamamladığında tam sentez açılır.'}
+                ? yc.sentezKartTam
+                : yc.sentezKartKismi}
             </p>
             <span
               style={{
@@ -211,18 +202,18 @@ export default function YazarinCerceveSAnaSayfa() {
                 marginTop: '0.4rem',
               }}
             >
-              Sentezi Aç →
+              {yc.sentezKartLink}
             </span>
           </a>
         )}
 
         <HamletBolumGecisi
-          oncekiEtiket="Bölüm 3"
-          oncekiBaslik="Zaman Çizgisi"
-          oncekiYol="/antrenman/karakter/hamlet/timeline"
-          sonrakiEtiket="Bölüm 5"
-          sonrakiBaslik="Senin Çerçeven"
-          sonrakiYol="/antrenman/karakter/hamlet/senin-cerceven"
+          oncekiEtiket={yc.gecisOncekiEtiket}
+          oncekiBaslik={yc.gecisOncekiBaslik}
+          oncekiYol={`${KOK}/timeline`}
+          sonrakiEtiket={yc.gecisSonrakiEtiket}
+          sonrakiBaslik={yc.gecisSonrakiBaslik}
+          sonrakiYol={`${KOK}/senin-cerceven`}
         />
       </article>
     </main>
@@ -277,13 +268,4 @@ const paragrafStili = {
   color: 'var(--ink-soft)',
   lineHeight: 1.8,
   margin: 0,
-};
-
-const ekranStili = {
-  minHeight: '100vh',
-  backgroundColor: 'var(--bg-base)',
-  color: 'var(--ink)',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
 };

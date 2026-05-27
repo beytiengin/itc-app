@@ -3,12 +3,15 @@
 //
 // Önce → Boşluk → Sonra (sahne linki) + 3 alt-soru + opsiyonel genel metin.
 // Yan panelde Yazarın Çerçevesi seçimleri hatırlatılır.
+// NOT: KOK eklendi; willy yolları ona bağlandı. KayitRozet artık hamletI18n okuyor.
 
 'use client';
 
 import { useState, useEffect, useRef, use } from 'react';
 import { useRouter } from 'next/navigation';
-import hamlet from '../../../../../../data/karakterler/hamlet';
+import hamletRaw from '../../../../../../data/karakterler/hamlet';
+import hamletI18n, { hamletIcerik } from '../../../../../../data/hamlet-i18n';
+import { useDil, ceviri } from '../../../../../lib/dil';
 import {
   altSoruYansimalariniGetir,
   boslukGenelMetinleriGetir,
@@ -17,14 +20,19 @@ import {
 } from '../../../../../lib/hamlet-veri';
 import HamletAltSayfaHeader from '../../../../../../components/HamletAltSayfaHeader';
 import HamletAltSoruYazma from '../../../../../../components/HamletAltSoruYazma';
+import SayfaIskelet from '../../../../../../components/SayfaIskelet';
 
 const TON = 'var(--onay)';
 const ALTIN = 'var(--accent)';
+const KOK = '/antrenman/karakter/hamlet';
 
 export default function BoslukDetaySayfasi({ params }) {
   const { no } = use(params);
   const boslukNo = parseInt(no, 10);
   const router = useRouter();
+  const { dil } = useDil();
+  const hamlet = hamletIcerik(dil, hamletRaw);
+  const sa = ceviri(hamletI18n, dil).seninCerceven.altSayfa;
 
   const [yansimalar, setYansimalar] = useState({});
   const [genelMetin, setGenelMetin] = useState('');
@@ -53,7 +61,7 @@ export default function BoslukDetaySayfasi({ params }) {
 
   useEffect(() => {
     if (!yukleniyor && !bosluk) {
-      router.replace('/antrenman/karakter/hamlet/senin-cerceven');
+      router.replace(`${KOK}/senin-cerceven`);
     }
   }, [yukleniyor, bosluk, router]);
 
@@ -72,11 +80,7 @@ export default function BoslukDetaySayfasi({ params }) {
   }
 
   if (yukleniyor || !bosluk) {
-    return (
-      <main style={ekranStili}>
-        <span style={yukleniyorMetin}>Hazırlanıyor…</span>
-      </main>
-    );
+    return <SayfaIskelet />;
   }
 
   const oncekiNo = boslukNo > 1 ? boslukNo - 1 : null;
@@ -122,17 +126,17 @@ export default function BoslukDetaySayfasi({ params }) {
         {/* Üst başlık */}
         <header style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <a
-            href="/antrenman/karakter/hamlet/senin-cerceven"
+            href={`${KOK}/senin-cerceven`}
             style={geriLink}
             onMouseEnter={(e) => { e.currentTarget.style.color = ALTIN; }}
             onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
           >
-            ← Senin Çerçeven
+            {sa.geri}
           </a>
 
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.9rem', flexWrap: 'wrap' }}>
             <span style={{ ...etiket, color: TON }}>
-              Boşluk {bosluk.no}
+              {sa.boslukKelime} {bosluk.no}
             </span>
             <span
               style={{
@@ -182,23 +186,23 @@ export default function BoslukDetaySayfasi({ params }) {
 
         {/* Önce → Boşluk → Sonra */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <CerceveBolumu etiket={`Önce — ${bosluk.onceBaslik}`} renk={ALTIN}>
+          <CerceveBolumu etiket={`${sa.oncePrefix}${bosluk.onceBaslik}`} renk={ALTIN}>
             {bosluk.onceMetin}
           </CerceveBolumu>
 
           <Ok />
 
-          <CerceveBolumu etiket="Boşluk" renk={TON} ozel>
+          <CerceveBolumu etiket={sa.boslukKelime} renk={TON} ozel>
             {bosluk.boslukMetin}
           </CerceveBolumu>
 
           <Ok />
 
-          <CerceveBolumu etiket={`Sonra — ${bosluk.sonraBaslik}`} renk={ALTIN}>
+          <CerceveBolumu etiket={`${sa.sonraPrefix}${bosluk.sonraBaslik}`} renk={ALTIN}>
             {bosluk.sonraMetin}
             {bosluk.sonraSahneNo && (
               <a
-                href={`/antrenman/karakter/hamlet/timeline#sahne-${bosluk.sonraSahneNo}`}
+                href={`${KOK}/timeline#sahne-${bosluk.sonraSahneNo}`}
                 style={{
                   display: 'inline-block',
                   marginTop: '0.7rem',
@@ -216,7 +220,7 @@ export default function BoslukDetaySayfasi({ params }) {
                 onMouseEnter={(e) => { e.currentTarget.style.borderColor = ALTIN; }}
                 onMouseLeave={(e) => { e.currentTarget.style.borderColor = ALTIN + '55'; }}
               >
-                → Zaman Çizgisi · Sahne {bosluk.sonraSahneNo}
+                {sa.zamanCizgisiSahne} {bosluk.sonraSahneNo}
               </a>
             )}
           </CerceveBolumu>
@@ -242,7 +246,7 @@ export default function BoslukDetaySayfasi({ params }) {
         {/* 3 ALT-SORU */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            <span style={{ ...etiket, color: TON }}>Senin Hamlet'in İçin Bu Boşluk</span>
+            <span style={{ ...etiket, color: TON }}>{sa.altSorularBaslik}</span>
             <p
               style={{
                 fontFamily: 'Cormorant Garamond, serif',
@@ -253,8 +257,7 @@ export default function BoslukDetaySayfasi({ params }) {
                 margin: 0,
               }}
             >
-              Üç anı yaz. Her biri için bir alt-soru. Hepsini yazma zorunlu değil — biri açılır,
-              diğeri yarın açılır.
+              {sa.altSorularAciklama}
             </p>
           </div>
 
@@ -282,7 +285,7 @@ export default function BoslukDetaySayfasi({ params }) {
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-            <span style={{ ...etiket, color: TON }}>Bu Boşluğun Bütünü</span>
+            <span style={{ ...etiket, color: TON }}>{sa.genelBaslik}</span>
             <KayitRozet durum={genelKayitDurumu} renk={TON} />
           </div>
           <p
@@ -295,13 +298,12 @@ export default function BoslukDetaySayfasi({ params }) {
               margin: 0,
             }}
           >
-            Opsiyonel. Üç alt-soru yerine boşluğu bir bütün olarak yazmak istersen burası.
-            Ya da alt-soruları tamamladıktan sonra bunları birleştiren bir paragraf.
+            {sa.genelAciklama}
           </p>
           <textarea
             value={genelMetin}
             onChange={(e) => genelMetinDegistir(e.target.value)}
-            placeholder="Boşluğun bütünü — sahne arasında akan görünmez metin."
+            placeholder={sa.genelPlaceholder}
             rows={6}
             style={{
               width: '100%',
@@ -336,9 +338,9 @@ export default function BoslukDetaySayfasi({ params }) {
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-              <span style={{ ...etiket, color: ALTIN }}>Senin Hamlet'inde</span>
+              <span style={{ ...etiket, color: ALTIN }}>{sa.tercihBaslik}</span>
               <a
-                href="/antrenman/karakter/hamlet/yazarin-cercevesi"
+                href={`${KOK}/yazarin-cercevesi`}
                 style={{
                   fontFamily: 'Jost, sans-serif',
                   fontWeight: 200,
@@ -351,9 +353,7 @@ export default function BoslukDetaySayfasi({ params }) {
                 }}
                 onMouseEnter={(e) => { e.currentTarget.style.color = ALTIN; }}
                 onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
-              >
-                Yazarın Çerçevesi →
-              </a>
+              >{sa.yazarinLink}</a>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               {tercihOzetleri.map((t) => (
@@ -400,7 +400,7 @@ export default function BoslukDetaySayfasi({ params }) {
                           paddingTop: '0.2rem',
                         }}
                       >
-                        + Özel
+                        {sa.ozel}
                       </span>
                     )}
                   </div>
@@ -417,7 +417,7 @@ export default function BoslukDetaySayfasi({ params }) {
                 margin: '0.4rem 0 0 0',
               }}
             >
-              Yazdığın boşluk bunlarla uyumlu mu?
+              {sa.uyumSorusu}
             </p>
           </section>
         )}
@@ -434,31 +434,29 @@ export default function BoslukDetaySayfasi({ params }) {
         >
           {oncekiNo ? (
             <a
-              href={`/antrenman/karakter/hamlet/senin-cerceven/${oncekiNo}`}
+              href={`${KOK}/senin-cerceven/${oncekiNo}`}
               style={navButonStili()}
               onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
             >
-              ← Boşluk {oncekiNo}
+              ← {sa.boslukKelime} {oncekiNo}
             </a>
           ) : <span />}
 
           {sonrakiNo ? (
             <a
-              href={`/antrenman/karakter/hamlet/senin-cerceven/${sonrakiNo}`}
+              href={`${KOK}/senin-cerceven/${sonrakiNo}`}
               style={navButonStili()}
               onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
             >
-              Boşluk {sonrakiNo} →
+              {sa.boslukKelime} {sonrakiNo} →
             </a>
           ) : (
             <a
-              href="/antrenman/karakter/hamlet/senin-cerceven/sentez"
+              href={`${KOK}/senin-cerceven/sentez`}
               style={{ ...navButonStili(), color: TON, borderColor: TON }}
-            >
-              Sentez →
-            </a>
+            >{sa.sentezLink}</a>
           )}
         </div>
       </article>
@@ -532,12 +530,14 @@ function navButonStili() {
 }
 
 function KayitRozet({ durum, renk }) {
+  const { dil } = useDil();
+  const sa = ceviri(hamletI18n, dil).seninCerceven.altSayfa;
   if (!durum || durum === 'yaziliyor') return <span style={{ minHeight: '1em' }} />;
   const r = durum === 'hata' ? 'var(--uyari)' : (renk || 'var(--accent)');
   const mesaj =
-    durum === 'kaydediliyor' ? 'Kaydediliyor…' :
-    durum === 'kaydedildi' ? '✓ Kaydedildi' :
-    '⚠ Kaydedilemedi';
+    durum === 'kaydediliyor' ? sa.kaydediliyor :
+    durum === 'kaydedildi' ? sa.kaydedildi :
+    sa.kaydedilemedi;
   return (
     <span
       style={{
@@ -571,22 +571,4 @@ const etiket = {
   fontSize: '0.65rem',
   letterSpacing: '0.35em',
   textTransform: 'uppercase',
-};
-
-const yukleniyorMetin = {
-  fontFamily: 'Jost, sans-serif',
-  fontWeight: 200,
-  fontSize: '0.7rem',
-  letterSpacing: '0.3em',
-  color: 'var(--ink-muted)',
-  textTransform: 'uppercase',
-};
-
-const ekranStili = {
-  minHeight: '100vh',
-  backgroundColor: 'var(--bg-base)',
-  color: 'var(--ink)',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
 };

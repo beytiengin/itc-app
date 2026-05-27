@@ -1,43 +1,86 @@
 // app/antrenman/karakter/hamlet/page.js
-// ITC Actor's Gym — Hamlet karakter sayfası
+// ITC Actor's Gym — Hamlet karakter sayfası (hub)
 //
-// Modül II Hamlet Refactor (Sprint 4) sonrası mimari:
-//   - Karakter kimliği
-//   - Doğrular (Bölüm 1)
-//   - 4 alt-bölüm kartı (Oyun Öncesi · Timeline · Yazarın Çerçevesi · Senin Çerçeven)
-//   - Modül III · Yolculuk Modu CTA (yakında)
-//
-// Eski 9 antrenman, eski sahne-tabanlı Yazarın Çerçevesi ve 12 alanlı Senin Çerçeven
-// retire edildi. Veri (sahneler/bosluklar/antrenmanlar) hamlet.js'de korunuyor —
-// gelecekte gerektiğinde geri alınabilir.
+// Modül II generic mimari (A-2). Willy hub'ının birebir karşılığı; fark yalnızca
+// karakter bağlantısında (hamlet.js + hamlet-i18n.js + KOK). Hamlet TR-only:
+// dil EN'e çevrilse bile ceviri() TR'ye düşer (hamlet-i18n.js'te en dalı yok).
 
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import hamlet from '../../../../data/karakterler/hamlet';
+import hamletRaw from '../../../../data/karakterler/hamlet';
+import hamletI18n, { hamletIcerik } from '../../../../data/hamlet-i18n';
+import { useDil, ceviri } from '../../../../app/lib/dil';
+import {
+  ilerlemeGetir,
+  kartlariKur,
+  kartDurumu,
+  durumMetni,
+  sinyalEtiketi,
+  siradakiAdim,
+  selamMetni,
+} from '../../../../app/lib/ilerleme';
 import DogrularKarti from '../../../../components/DogrularKarti';
 import HamletAltSayfaHeader from '../../../../components/HamletAltSayfaHeader';
 
 const TON = 'var(--accent)';
+const KOK = '/antrenman/karakter/hamlet';
+
+// Selam metni için karakter adı çekimleri (Türkçe morfolojisi sondan eklenir;
+// generik substitusyon yapılamadığı için hub her karakter için açık geçer).
+const KARAKTER = { ad: 'Hamlet', karakterIn: "Hamlet'in", karakterIni: "Hamlet'ini" };
+
+// Bölüm rotaları — sözlükteki kartlarla (hub.kartlar) sıra-hizalı.
+const BOLUM_YOLLARI = [
+  `${KOK}/oyun-oncesi-yasam`,
+  `${KOK}/timeline`,
+  `${KOK}/yazarin-cercevesi`,
+  `${KOK}/senin-cerceven`,
+];
 
 export default function HamletSayfasi() {
   const router = useRouter();
+  const { dil } = useDil();
+  const hamlet = hamletIcerik(dil, hamletRaw);
+  const s = ceviri(hamletI18n, dil);
+  const t = s.hub;
+  const ic = s.icerik;
+
+  const [ilerleme, setIlerleme] = useState(null); // null = henüz yüklenmedi
 
   // Eski hash'leri yeni route'lara yönlendir.
-  // (#bosluklar → /senin-cerceven, #antrenman → /senin-cerceven, vs.)
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const hash = window.location.hash;
     if (!hash) return;
     if (hash === '#bosluklar' || hash.startsWith('#bosluk-')) {
-      router.replace('/antrenman/karakter/hamlet/senin-cerceven');
+      router.replace(`${KOK}/senin-cerceven`);
     } else if (hash === '#antrenman' || hash === '#egzersizler') {
-      router.replace('/antrenman/karakter/hamlet/senin-cerceven');
+      router.replace(`${KOK}/senin-cerceven`);
     } else if (hash === '#sahneler' || hash.startsWith('#sahne-')) {
-      router.replace('/antrenman/karakter/hamlet/timeline');
+      router.replace(`${KOK}/timeline`);
     }
   }, [router]);
+
+  // İlerlemeyi arkada yükle (sayfayı bloklamaz). Tek kaynak: karakter_ilerleme VIEW.
+  useEffect(() => {
+    let iptal = false;
+    async function yukle() {
+      const v = await ilerlemeGetir(hamlet.id);
+      if (iptal) return;
+      const toplamlar = {
+        olay:   (hamlet.oyunOncesi?.olaylar || []).length,
+        iliski: (hamlet.oyunOncesi?.iliskiler || []).length,
+        sahne:  (hamlet.sahnelerWorkbook || []).length,
+        tercih: (hamlet.tercihler || []).length,
+        bosluk: (hamlet.boslukSet || []).length,
+      };
+      setIlerleme(kartlariKur(v, toplamlar));
+    }
+    yukle();
+    return () => { iptal = true; };
+  }, []);
 
   return (
     <main
@@ -72,7 +115,7 @@ export default function HamletSayfasi() {
               textTransform: 'uppercase',
             }}
           >
-            Modül II · Karakterini İnşa Et
+            {t.ustEtiket}
           </span>
           <h1
             style={{
@@ -86,7 +129,7 @@ export default function HamletSayfasi() {
               letterSpacing: '0.02em',
             }}
           >
-            {hamlet.ad}
+            {ic.ad}
           </h1>
           <div
             style={{
@@ -97,9 +140,9 @@ export default function HamletSayfasi() {
               letterSpacing: '0.12em',
             }}
           >
-            {hamlet.yazar} · {hamlet.donem} · {hamlet.tip} · {hamlet.tur}
+            {ic.yazar} · {ic.donem} · {ic.tur}
           </div>
-          {hamlet.ozet && (
+          {ic.ozet && (
             <p
               style={{
                 fontFamily: 'Cormorant Garamond, serif',
@@ -111,56 +154,10 @@ export default function HamletSayfasi() {
                 margin: '0.8rem 0 0 0',
               }}
             >
-              {hamlet.ozet}
+              {ic.ozet}
             </p>
           )}
         </div>
-      </section>
-
-      {/* Bölüm 1 · Doğrular */}
-      <section
-        style={{
-          padding: '0 2rem',
-          maxWidth: '1100px',
-          margin: '0 auto',
-          width: '100%',
-          boxSizing: 'border-box',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'baseline',
-            gap: '0.9rem',
-            marginBottom: '1rem',
-            flexWrap: 'wrap',
-          }}
-        >
-          <span
-            style={{
-              fontFamily: 'Jost, sans-serif',
-              fontWeight: 200,
-              fontSize: '0.55rem',
-              letterSpacing: '0.35em',
-              color: TON,
-              textTransform: 'uppercase',
-            }}
-          >
-            Bölüm 1
-          </span>
-          <span
-            style={{
-              fontFamily: 'Cormorant Garamond, serif',
-              fontStyle: 'italic',
-              fontWeight: 300,
-              fontSize: '1.4rem',
-              color: 'var(--ink)',
-            }}
-          >
-            Değiştirilemez Doğrular
-          </span>
-        </div>
-        <DogrularKarti dogrular={hamlet.dogrular} />
       </section>
 
       {/* Bölümler 2-5 — Alt sayfalar */}
@@ -176,6 +173,7 @@ export default function HamletSayfasi() {
           gap: '1.4rem',
         }}
       >
+        <KarsilayanBlok kartlar={t.kartlar} ilerleme={ilerleme} dil={dil} davet={t.davet} karakter={KARAKTER} />
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
           <span
             style={{
@@ -187,7 +185,7 @@ export default function HamletSayfasi() {
               textTransform: 'uppercase',
             }}
           >
-            Bölümler 2 — 5
+            {t.koordinatEtiket}
           </span>
           <span
             style={{
@@ -198,10 +196,11 @@ export default function HamletSayfasi() {
               color: 'var(--ink)',
             }}
           >
-            Karakter koordinatları
+            {t.koordinatBaslik}
           </span>
         </div>
-        <BolumKartlari />
+        <TaniAccordion etiket={t.bolum1Etiket} baslik={t.bolum1Baslik} dogrular={hamlet.dogrular} />
+        <BolumKartlari kartlar={t.kartlar} acMetin={t.ac} ilerleme={ilerleme} dil={dil} />
       </section>
 
       {/* Modül III · Yolculuk Modu CTA */}
@@ -214,7 +213,7 @@ export default function HamletSayfasi() {
           boxSizing: 'border-box',
         }}
       >
-        <ModulIIICta />
+        <ModulIIICta t={t} />
       </section>
     </main>
   );
@@ -222,41 +221,158 @@ export default function HamletSayfasi() {
 
 // ─── BÖLÜM KARTLARI ─────────────────────────────────────────────────────────
 
-function BolumKartlari() {
-  const kartlar = [
-    {
-      etiket: 'Bölüm 2',
-      baslik: 'Oyun Öncesi Yaşam',
-      altyazi: 'Sahneye çıkmadan önce ne yaşandı',
-      aciklama:
-        "Sekiz olay, sekiz ilişki — Hamlet'in bedeninde taşıdığı geçmiş.",
-      yol: '/antrenman/karakter/hamlet/oyun-oncesi-yasam',
-    },
-    {
-      etiket: 'Bölüm 3',
-      baslik: 'Zaman Çizgisi',
-      altyazi: "Hamlet'in bedensel zinciri",
-      aciklama: '14 sahnenin sıcaklık haritası. Kendi yorumunu işaretle.',
-      yol: '/antrenman/karakter/hamlet/timeline',
-    },
-    {
-      etiket: 'Bölüm 4',
-      baslik: 'Yazarın Çerçevesi',
-      altyazi: 'Beş tercih, beş kavşak',
-      aciklama:
-        "Hayalet, delilik, Ophelia, erteleme, son — Shakespeare'in açık uçlarına seninkini koy.",
-      yol: '/antrenman/karakter/hamlet/yazarin-cercevesi',
-    },
-    {
-      etiket: 'Bölüm 5',
-      baslik: 'Senin Çerçeven',
-      altyazi: "Shakespeare'in sustuğu yer",
-      aciklama:
-        'Beş boşluk, on beş alt-soru. Sahnelerin altında akan görünmez metni sen yaz.',
-      yol: '/antrenman/karakter/hamlet/senin-cerceven',
-    },
-  ];
+// ─── Tanı (Doğrular) — yerinde açılır referans kartı (accordion) ───
+function TaniAccordion({ etiket, baslik, dogrular }) {
+  const [acik, setAcik] = useState(false);
 
+  return (
+    <div
+      style={{
+        border: '1px solid var(--rule)',
+        backgroundColor: 'var(--bg-elevated)',
+        borderRadius: '2px',
+        overflow: 'hidden',
+      }}
+    >
+      <button
+        onClick={() => setAcik((v) => !v)}
+        style={{
+          width: '100%',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          padding: '1.4rem 1.8rem',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.9rem',
+          textAlign: 'left',
+          color: 'var(--ink)',
+        }}
+      >
+        <span
+          style={{
+            fontFamily: 'Jost, sans-serif',
+            fontWeight: 200,
+            fontSize: '0.55rem',
+            letterSpacing: '0.35em',
+            color: TON,
+            textTransform: 'uppercase',
+          }}
+        >
+          {etiket}
+        </span>
+        <span
+          style={{
+            fontFamily: 'Cormorant Garamond, serif',
+            fontStyle: 'italic',
+            fontWeight: 300,
+            fontSize: '1.25rem',
+            color: 'var(--ink)',
+            flex: 1,
+          }}
+        >
+          {baslik}
+        </span>
+        <span
+          style={{
+            fontFamily: 'Jost, sans-serif',
+            fontSize: '1rem',
+            color: 'var(--ink-soft)',
+            transform: acik ? 'rotate(180deg)' : 'rotate(0deg)',
+            transition: 'transform 0.25s ease',
+          }}
+        >
+          ▾
+        </span>
+      </button>
+
+      {acik && (
+        <div style={{ padding: '0 1.8rem 1.8rem' }}>
+          <DogrularKarti dogrular={dogrular} baslikGizle={true} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── ADIM 3 — Karşılayan blok ───
+function KarsilayanBlok({ kartlar, ilerleme, dil, davet, karakter }) {
+  if (!ilerleme) return null;
+
+  const adim = siradakiAdim(ilerleme);
+  const sl = selamMetni(adim.faz, dil, karakter);
+
+  const hedefKart = kartlar[adim.index];
+  const hedefAd = hedefKart?.etiket || hedefKart?.baslik || '';
+  const hedefYol = adim.faz === 'son' ? '/kulis' : BOLUM_YOLLARI[adim.index];
+
+  const altMetin = sl.alt.replace('{ad}', hedefAd);
+  const selamMet = sl.selam.replace('{ad}', hedefAd);
+
+  const davetAnahtar = adim.faz === 'son' ? 'son' : adim.tip;
+  const davetMet = (davet && davet[davetAnahtar]) || '';
+
+  return (
+    <a
+      href={hedefYol}
+      style={{
+        display: 'block',
+        border: `1px solid ${TON}`,
+        backgroundColor: 'var(--accent-bg-deep)',
+        borderRadius: '2px',
+        padding: '1.8rem 2rem',
+        marginBottom: '1.5rem',
+        textDecoration: 'none',
+        color: 'var(--ink)',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      <span
+        style={{
+          position: 'absolute', top: 0, left: 0, width: '3px', height: '100%',
+          background: `linear-gradient(180deg, ${TON}, transparent)`,
+        }}
+      />
+      <div
+        style={{
+          fontFamily: 'Cormorant Garamond, serif',
+          fontSize: '1.35rem',
+          color: 'var(--ink)',
+          marginBottom: '0.4rem',
+          lineHeight: 1.3,
+        }}
+      >
+        {selamMet}
+      </div>
+      <div
+        style={{
+          fontFamily: 'Jost, sans-serif',
+          fontWeight: 400,
+          fontSize: '0.92rem',
+          color: 'var(--ink-soft)',
+          marginBottom: '1.1rem',
+        }}
+      >
+        {altMetin}
+      </div>
+      <span
+        style={{
+          fontFamily: 'Jost, sans-serif',
+          fontWeight: 500,
+          fontSize: '0.7rem',
+          letterSpacing: '0.12em',
+          textTransform: 'uppercase',
+          color: TON,
+        }}
+      >
+        {davetMet}
+      </span>
+    </a>
+  );
+}
+
+function BolumKartlari({ kartlar, acMetin, ilerleme, dil }) {
   return (
     <div
       style={{
@@ -265,10 +381,10 @@ function BolumKartlari() {
         gap: '1rem',
       }}
     >
-      {kartlar.map((k) => (
+      {kartlar.map((k, i) => (
         <a
-          key={k.yol}
-          href={k.yol}
+          key={BOLUM_YOLLARI[i]}
+          href={BOLUM_YOLLARI[i]}
           style={{
             border: '1px solid var(--rule)',
             padding: '1.6rem 1.8rem',
@@ -335,6 +451,9 @@ function BolumKartlari() {
           >
             {k.aciklama}
           </p>
+
+          <BolumDurum kart={ilerleme ? ilerleme[i] : null} dil={dil} />
+
           <span
             style={{
               fontFamily: 'Jost, sans-serif',
@@ -343,10 +462,10 @@ function BolumKartlari() {
               letterSpacing: '0.3em',
               color: TON,
               textTransform: 'uppercase',
-              marginTop: '0.4rem',
+              marginTop: '0.2rem',
             }}
           >
-            Aç →
+            {acMetin}
           </span>
         </a>
       ))}
@@ -354,9 +473,60 @@ function BolumKartlari() {
   );
 }
 
+// ─── BÖLÜM İLERLEME GÖSTERGESİ ──────────────────────────────────────────────
+
+function BolumDurum({ kart, dil }) {
+  if (!kart) return null;
+
+  const durum = kartDurumu(kart);
+  const cumle = durumMetni(kart.tip, durum, dil);
+  const renk =
+    durum === 'tam' ? 'var(--onay)' : 'var(--ink-soft)';
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', marginTop: '0.5rem' }}>
+      <span
+        style={{
+          fontFamily: 'Jost, sans-serif',
+          fontWeight: 400,
+          fontSize: '0.95rem',
+          letterSpacing: '0.01em',
+          color: renk,
+        }}
+      >
+        {cumle}
+      </span>
+
+      <div style={{ display: 'flex', gap: '1.1rem', flexWrap: 'wrap' }}>
+        {kart.sinyaller.map((sn, j) => {
+          const etk = sn.etiket ? sinyalEtiketi(sn.etiket, dil) : null;
+          return (
+            <span
+              key={j}
+              style={{
+                fontFamily: 'Jost, sans-serif',
+                fontWeight: 400,
+                fontSize: '0.65rem',
+                letterSpacing: '0.16em',
+                color: 'var(--ink-soft)',
+                textTransform: 'uppercase',
+              }}
+            >
+              {etk ? `${etk} ` : ''}
+              <span style={{ color: 'var(--ink)', fontWeight: 500 }}>
+                {sn.aktif} / {sn.toplam}
+              </span>
+            </span>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 // ─── MODÜL III · YOLCULUK MODU CTA ──────────────────────────────────────────
 
-function ModulIIICta() {
+function ModulIIICta({ t }) {
   return (
     <div
       style={{
@@ -378,7 +548,7 @@ function ModulIIICta() {
           textTransform: 'uppercase',
         }}
       >
-        Modül III · Yolculuk Modu
+        {t.modul3Etiket}
       </span>
 
       <h2
@@ -392,7 +562,7 @@ function ModulIIICta() {
           lineHeight: 1.2,
         }}
       >
-        Hamlet'in tüm yaşamı, baştan sona
+        {t.modul3Baslik}
       </h2>
 
       <p
@@ -406,10 +576,7 @@ function ModulIIICta() {
           maxWidth: '700px',
         }}
       >
-        Modül II'yi tamamladığında karakter koordinatları kurulmuş olur. Modül III,
-        Hamlet'in tüm yaşamını — pre-senaryodan post-senaryoya — bedeninle bir kez
-        baştan sona dolaşman için tasarlandı. AI Dış Ses rehberli yaklaşık 110 dakikalık
-        bir yolculuk.
+        {t.modul3Metin}
       </p>
 
       <div
@@ -433,7 +600,7 @@ function ModulIIICta() {
             border: '1px solid var(--rule)',
           }}
         >
-          Yakında
+          {t.modul3Rozet}
         </span>
         <span
           style={{
@@ -443,7 +610,7 @@ function ModulIIICta() {
             color: 'var(--ink-muted)',
           }}
         >
-          Modül II tamamlandığında açılacak.
+          {t.modul3Not}
         </span>
       </div>
     </div>

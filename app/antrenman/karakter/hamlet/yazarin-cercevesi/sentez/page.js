@@ -2,20 +2,28 @@
 // ITC Actor's Gym — Modül II Hamlet · Yazarın Çerçevesi · Sentez
 //
 // "Beş Cümle, Bir Hamlet" — beş tercihin birleştiği yer.
-// Her tercih için: senin seçimin + sentez cümlesi yazma alanı.
-// Tercih → Sahne yansıması bölümü Timeline'a köprü kurar.
+// NOT: KOK eklendi; willy yolları ona bağlandı. textarea placeholder'ındaki
+// elle yazılı "Willy" → "Hamlet" düzeltildi.
 
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import hamlet from '../../../../../../data/karakterler/hamlet';
+import hamletRaw from '../../../../../../data/karakterler/hamlet';
+import { hamletIcerik } from '../../../../../../data/hamlet-i18n';
+import hamletI18n from '../../../../../../data/hamlet-i18n';
+import { useDil, ceviri } from '../../../../../lib/dil';
 import { tercihleriGetir, tercihKaydet } from '../../../../../lib/hamlet-veri';
 import HamletAltSayfaHeader from '../../../../../../components/HamletAltSayfaHeader';
 import HamletBolumGecisi from '../../../../../../components/HamletBolumGecisi';
+import SayfaIskelet from '../../../../../../components/SayfaIskelet';
 
 const TON = 'var(--accent)';
+const KOK = '/antrenman/karakter/hamlet';
 
 export default function SentezSayfasi() {
+  const { dil } = useDil();
+  const hamlet = hamletIcerik(dil, hamletRaw);
+  const ss = ceviri(hamletI18n, dil).yazarinCercevesi.sentez;
   const [secimler, setSecimler] = useState({});
   const [yukleniyor, setYukleniyor] = useState(true);
   const [kayitDurumlari, setKayitDurumlari] = useState({});
@@ -57,22 +65,7 @@ export default function SentezSayfasi() {
   }
 
   if (yukleniyor) {
-    return (
-      <main style={ekranStili}>
-        <span
-          style={{
-            fontFamily: 'Jost, sans-serif',
-            fontWeight: 200,
-            fontSize: '0.7rem',
-            letterSpacing: '0.3em',
-            color: 'var(--ink-muted)',
-            textTransform: 'uppercase',
-          }}
-        >
-          Hazırlanıyor…
-        </span>
-      </main>
-    );
+    return <SayfaIskelet />;
   }
 
   const tamamlananSayisi = tercihler.filter((t) => {
@@ -107,7 +100,7 @@ export default function SentezSayfasi() {
       >
         <header style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <a
-            href="/antrenman/karakter/hamlet/yazarin-cercevesi"
+            href={`${KOK}/yazarin-cercevesi`}
             style={{
               fontFamily: 'Jost, sans-serif',
               fontWeight: 200,
@@ -122,7 +115,7 @@ export default function SentezSayfasi() {
             onMouseEnter={(e) => { e.currentTarget.style.color = TON; }}
             onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
           >
-            ← Yazarın Çerçevesi
+            {ss.geri}
           </a>
 
           {hepsiTamam ? (
@@ -136,7 +129,7 @@ export default function SentezSayfasi() {
                 textTransform: 'uppercase',
               }}
             >
-              ✓ Beş Tercih Tamamlandı
+              {ss.hepsiTamam}
             </span>
           ) : (
             <span
@@ -149,7 +142,7 @@ export default function SentezSayfasi() {
                 textTransform: 'uppercase',
               }}
             >
-              Sentez · {tamamlananSayisi} / {tercihler.length} tercih hazır
+              {ss.kismiOnce}{tamamlananSayisi} / {tercihler.length}{ss.kismiSonra}
             </span>
           )}
 
@@ -164,18 +157,16 @@ export default function SentezSayfasi() {
               lineHeight: 1.1,
             }}
           >
-            Beş Cümle, Bir Hamlet
+            {ss.baslik}
           </h1>
 
           {hepsiTamam ? (
             <p style={paragrafStili}>
-              Beş tercihte de seçimini yaptın (ya da kendi yorumunu yazdın). Şimdi
-              bu beş seçim birleşip senin Hamlet'ini ortaya çıkarıyor.
+              {ss.girisTam}
             </p>
           ) : (
             <p style={paragrafStili}>
-              Henüz tüm tercihler tamamlanmadı. Şu ana kadar yaptığın seçimleri
-              görebilirsin — eksik kalanlara geri dönüp tamamlayabilirsin.
+              {ss.girisKismi}
             </p>
           )}
         </header>
@@ -229,7 +220,7 @@ export default function SentezSayfasi() {
                     {tercih.konu}
                   </span>
                   <a
-                    href={`/antrenman/karakter/hamlet/yazarin-cercevesi/${tercih.no}`}
+                    href={`${KOK}/yazarin-cercevesi/${tercih.no}`}
                     style={{
                       marginLeft: 'auto',
                       fontFamily: 'Jost, sans-serif',
@@ -300,7 +291,7 @@ export default function SentezSayfasi() {
                             paddingTop: '0.15rem',
                           }}
                         >
-                          Özel
+                          {ss.ozel}
                         </span>
                         <p
                           style={{
@@ -329,12 +320,12 @@ export default function SentezSayfasi() {
                       margin: 0,
                     }}
                   >
-                    Henüz seçim yapılmadı —{' '}
+                    {ss.henuzSecim}{' '}
                     <a
-                      href={`/antrenman/karakter/hamlet/yazarin-cercevesi/${tercih.no}`}
+                      href={`${KOK}/yazarin-cercevesi/${tercih.no}`}
                       style={{ color: TON, textDecoration: 'none' }}
                     >
-                      tamamlamak için aç →
+                      {ss.tamamlamakAc}
                     </a>
                   </p>
                 )}
@@ -353,14 +344,14 @@ export default function SentezSayfasi() {
                           textTransform: 'uppercase',
                         }}
                       >
-                        Senin Cümlen
+                        {ss.seninCumlen}
                       </span>
                       <KayitRozet durum={kayitDurumlari[tercih.no]} />
                     </div>
                     <textarea
                       value={s.sentezCumle || ''}
                       onChange={(e) => sentezCumleDegistir(tercih.no, e.target.value)}
-                      placeholder={`Benim Hamlet'imde ${tercih.konu.toLowerCase()} ___, çünkü ___`}
+                      placeholder={dil === 'en' ? `In my Hamlet, ${tercih.konu.toLowerCase()} ___, because ___` : `Benim Hamlet'imde ${tercih.konu.toLowerCase()} ___, çünkü ___`}
                       rows={3}
                       style={{
                         width: '100%',
@@ -479,7 +470,7 @@ export default function SentezSayfasi() {
                       {sahneNolari.map((no) => (
                         <a
                           key={no}
-                          href={`/antrenman/karakter/hamlet/timeline#sahne-${no}`}
+                          href={`${KOK}/timeline#sahne-${no}`}
                           style={{
                             fontFamily: 'Jost, sans-serif',
                             fontWeight: 200,
@@ -536,7 +527,7 @@ export default function SentezSayfasi() {
                 textTransform: 'uppercase',
               }}
             >
-              Buraya kadar
+              {ss.kapanisEtiket}
             </span>
             <p
               style={{
@@ -548,9 +539,7 @@ export default function SentezSayfasi() {
                 margin: 0,
               }}
             >
-              Doğruları gördün. Oyun öncesini tanıdın. Zaman Çizgisi'ni dolaştın.
-              Şimdi <em style={{ color: TON }}>yazarın çerçevesini</em> sahiplendin —
-              Shakespeare'in açık uçlarından kendi yorumunu çıkardın.
+              {ss.kapanis1pre}<em style={{ color: TON }}>{ss.kapanis1em}</em>{ss.kapanis1post}
             </p>
             <p
               style={{
@@ -562,8 +551,7 @@ export default function SentezSayfasi() {
                 margin: 0,
               }}
             >
-              Bunlar senin Hamlet'inin <em style={{ color: TON }}>omurgası</em>.
-              Sahneye çıktığında, beş tercihinin hepsi bedeninde olacak.
+              {ss.kapanis2pre}<em style={{ color: TON }}>{ss.kapanis2em}</em>{ss.kapanis2post}
             </p>
             <p
               style={{
@@ -586,19 +574,19 @@ export default function SentezSayfasi() {
                 margin: 0,
               }}
             >
-              Bir nefes ver. Sıradaki son bölüm.
+              {ss.kapanis3}
             </p>
           </section>
         )}
 
         {/* Bölüm geçişi — her zaman görünür */}
         <HamletBolumGecisi
-          oncekiEtiket="Bölüm 4"
-          oncekiBaslik="Yazarın Çerçevesi"
-          oncekiYol="/antrenman/karakter/hamlet/yazarin-cercevesi"
-          sonrakiEtiket="Bölüm 5"
-          sonrakiBaslik="Senin Çerçeven"
-          sonrakiYol="/antrenman/karakter/hamlet/senin-cerceven"
+          oncekiEtiket={ss.gecisOncekiEtiket}
+          oncekiBaslik={ss.gecisOncekiBaslik}
+          oncekiYol={`${KOK}/yazarin-cercevesi`}
+          sonrakiEtiket={ss.gecisSonrakiEtiket}
+          sonrakiBaslik={ss.gecisSonrakiBaslik}
+          sonrakiYol={`${KOK}/senin-cerceven`}
         />
       </article>
     </main>
@@ -606,12 +594,13 @@ export default function SentezSayfasi() {
 }
 
 function KayitRozet({ durum }) {
+  const { dil } = useDil();
   if (!durum || durum === 'yaziliyor') return <span style={{ minHeight: '1em' }} />;
   const renk = durum === 'hata' ? 'var(--uyari)' : 'var(--accent)';
   const mesaj =
-    durum === 'kaydediliyor' ? 'Kaydediliyor…' :
-    durum === 'kaydedildi' ? '✓ Kaydedildi' :
-    '⚠ Kaydedilemedi';
+    durum === 'kaydediliyor' ? (dil === 'en' ? 'Saving…' : 'Kaydediliyor…') :
+    durum === 'kaydedildi' ? (dil === 'en' ? '✓ Saved' : '✓ Kaydedildi') :
+    (dil === 'en' ? '⚠ Could not save' : '⚠ Kaydedilemedi');
   return (
     <span
       style={{
@@ -634,13 +623,4 @@ const paragrafStili = {
   color: 'var(--ink-soft)',
   lineHeight: 1.8,
   margin: 0,
-};
-
-const ekranStili = {
-  minHeight: '100vh',
-  backgroundColor: 'var(--bg-base)',
-  color: 'var(--ink)',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
 };

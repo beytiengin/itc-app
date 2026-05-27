@@ -205,11 +205,11 @@ const hamlet = {
   // ─── PERDE TEMALARI (Workbook s.66-67) ────────────────────────────────────
 
   perdeTemalari: [
-    { perde: 'I',   baslik: 'Şüphe ve Pasif Yas',  sahneAraligi: '1-2'  },
-    { perde: 'II',  baslik: 'Plan ve Gözlem',      sahneAraligi: '3-4'  },
-    { perde: 'III', baslik: 'Eylem ve Patlama',    sahneAraligi: '5-8'  },
-    { perde: 'IV',  baslik: 'Sürgün ve Kıyaslama', sahneAraligi: '9-11' },
-    { perde: 'V',   baslik: 'Kabul ve Son',        sahneAraligi: '12-14'},
+    { perde: 'I',   baslik: 'Şüphe ve Pasif Yas',  altyazi: 'Yas içe kapanır, kuşku doğar',     sahneAraligi: '1-2'  },
+    { perde: 'II',  baslik: 'Plan ve Gözlem',      altyazi: 'Kanıt aranır, eylem ertelenir',    sahneAraligi: '3-4'  },
+    { perde: 'III', baslik: 'Eylem ve Patlama',    altyazi: 'Erteleme kırılır, ilk kan akar',   sahneAraligi: '5-8'  },
+    { perde: 'IV',  baslik: 'Sürgün ve Kıyaslama', altyazi: 'Uzaklık kendine bakış getirir',    sahneAraligi: '9-11' },
+    { perde: 'V',   baslik: 'Kabul ve Son',        altyazi: 'Direniş biter, hazır oluş gelir',  sahneAraligi: '12-14'},
   ],
 
   // ─── 14 SAHNE — WORKBOOK FORMATI (s.66-85) ────────────────────────────────

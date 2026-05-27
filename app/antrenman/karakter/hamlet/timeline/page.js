@@ -1,23 +1,32 @@
 // app/antrenman/karakter/hamlet/timeline/page.js
 // ITC Actor's Gym — Modül II Hamlet · Timeline · 14 Sahne
 //
-// Workbook s.66-85 birebir karşılığı.
-// 14 sahne, etkileşimli sıcaklık, perde tema bandı, sahne detay paneli.
+// Generic mimari (A-2): Willy ile aynı yapı; fark veride (hamlet.js).
+// Hamlet modu: perdeRomen akış-hattı id'sidir (I–V). 14 sahne, 5 perde,
+// etkileşimli sıcaklık, perde bandı.
 
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { supabase } from '../../../../lib/supabase';
-import hamlet from '../../../../../data/karakterler/hamlet';
+import hamletRaw from '../../../../../data/karakterler/hamlet';
+import { hamletIcerik } from '../../../../../data/hamlet-i18n';
+import hamletI18n from '../../../../../data/hamlet-i18n';
+import { useDil, ceviri } from '../../../../lib/dil';
 import { sahneYansimalariniGetir } from '../../../../lib/hamlet-veri';
 import HamletSahneKuresi from '../../../../../components/HamletSahneKuresi';
 import HamletPerdeBandi from '../../../../../components/HamletPerdeBandi';
 import HamletSahneDetay from '../../../../../components/HamletSahneDetay';
 import HamletBolumGecisi from '../../../../../components/HamletBolumGecisi';
+import HamletAltSayfaHeader from '../../../../../components/HamletAltSayfaHeader';
+import SayfaIskelet from '../../../../../components/SayfaIskelet';
 
 const TON = 'var(--accent)';
+const KOK = '/antrenman/karakter/hamlet';
 
 export default function TimelineSayfasi() {
+  const { dil } = useDil();
+  const hamlet = hamletIcerik(dil, hamletRaw);
+  const tl = ceviri(hamletI18n, dil).timeline;
   const [yansimalar, setYansimalar] = useState({});
   const [seciliSahneNo, setSeciliSahneNo] = useState(null);
   const [yukleniyor, setYukleniyor] = useState(true);
@@ -64,7 +73,6 @@ export default function TimelineSayfasi() {
   }
 
   function perdeyeGit(perdeRomen) {
-    // Perdedeki ilk sahneye scroll
     const ilkSahne = sahneler.find((s) => s.perdeRomen === perdeRomen);
     if (ilkSahne) sahneSec(ilkSahne.no);
   }
@@ -77,22 +85,7 @@ export default function TimelineSayfasi() {
   const anladiSayisi = Object.values(yansimalar).filter((y) => y.anladi).length;
 
   if (yukleniyor) {
-    return (
-      <main style={ekranStili}>
-        <span
-          style={{
-            fontFamily: 'Jost, sans-serif',
-            fontWeight: 200,
-            fontSize: '0.7rem',
-            letterSpacing: '0.3em',
-            color: 'var(--ink-muted)',
-            textTransform: 'uppercase',
-          }}
-        >
-          Hazırlanıyor…
-        </span>
-      </main>
-    );
+    return <SayfaIskelet />;
   }
 
   return (
@@ -105,7 +98,7 @@ export default function TimelineSayfasi() {
         flexDirection: 'column',
       }}
     >
-      <KarakterHeader />
+      <HamletAltSayfaHeader />
 
       {/* ─── Açılış ─── */}
       <article
@@ -122,7 +115,7 @@ export default function TimelineSayfasi() {
       >
         <header style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
           <a
-            href="/antrenman/karakter/hamlet"
+            href={KOK}
             style={{
               fontFamily: 'Jost, sans-serif',
               fontWeight: 200,
@@ -137,7 +130,7 @@ export default function TimelineSayfasi() {
             onMouseEnter={(e) => { e.currentTarget.style.color = TON; }}
             onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
           >
-            ← Hamlet
+            {tl.geri}
           </a>
 
           <span
@@ -150,7 +143,7 @@ export default function TimelineSayfasi() {
               textTransform: 'uppercase',
             }}
           >
-            Modül II · Bölüm 3
+            {tl.etiket}
           </span>
 
           <h1
@@ -164,7 +157,7 @@ export default function TimelineSayfasi() {
               lineHeight: 1.1,
             }}
           >
-            Zaman Çizgisi
+            {tl.baslik}
           </h1>
           <p
             style={{
@@ -175,14 +168,12 @@ export default function TimelineSayfasi() {
               margin: 0,
             }}
           >
-            Hamlet'in bedensel zinciri
+            {tl.altyazi}
           </p>
         </header>
 
         <p style={paragrafStili}>
-          Bir karakter, sahnelerini ayrı ayrı yaşamaz. Her sahneye bir öncekinden
-          bir şey taşır; her sahneden bir sonrakine bir şey bırakır. Bu zincire
-          <em> içsel zaman çizgisi</em> diyoruz.
+          {tl.acilis}
         </p>
 
         <div
@@ -202,7 +193,7 @@ export default function TimelineSayfasi() {
               margin: 0,
             }}
           >
-            "Her sahne, bir önceki sahnenin bedendeki devamıdır."
+            {tl.vurgu}
           </p>
         </div>
 
@@ -227,13 +218,13 @@ export default function TimelineSayfasi() {
               textTransform: 'uppercase',
             }}
           >
-            Bir Sahne Kartında Ne Var?
+            {tl.anatomiBaslik}
           </span>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-            <AnatomiSatiri etiket="Olay">Sahnede ne oluyor — Shakespeare'in metnine sadık özet</AnatomiSatiri>
-            <AnatomiSatiri etiket="İçsel">Hamlet'in o sahnede taşıdığı duygusal ton</AnatomiSatiri>
-            <AnatomiSatiri etiket="Sıcaklık">1'den 10'a — soğuk, donmuş; sıcak, patlamada</AnatomiSatiri>
-            <AnatomiSatiri etiket="Yük">Bir sonraki sahneye taşıdığı şey</AnatomiSatiri>
+            <AnatomiSatiri etiket={tl.anatomiOlayEt}>{tl.anatomiOlay}</AnatomiSatiri>
+            <AnatomiSatiri etiket={tl.anatomiIcselEt}>{tl.anatomiIcsel}</AnatomiSatiri>
+            <AnatomiSatiri etiket={tl.anatomiSicaklikEt}>{tl.anatomiSicaklik}</AnatomiSatiri>
+            <AnatomiSatiri etiket={tl.anatomiYukEt}>{tl.anatomiYuk}</AnatomiSatiri>
           </div>
         </div>
       </article>
@@ -317,8 +308,8 @@ export default function TimelineSayfasi() {
           justifyContent: 'center',
         }}
       >
-        <Rozet etiket="Sıcaklık işaretlendi" deger={`${sicaklikIsaretliSayisi} / ${sahneler.length}`} />
-        <Rozet etiket="Anlaşıldı"           deger={`${anladiSayisi} / ${sahneler.length}`} />
+        <Rozet etiket={tl.rozetSicaklik} deger={`${sicaklikIsaretliSayisi} / ${sahneler.length}`} />
+        <Rozet etiket={tl.rozetAnlasildi} deger={`${anladiSayisi} / ${sahneler.length}`} />
       </section>
 
       {/* ─── Sahne Detayı ─── */}
@@ -341,7 +332,7 @@ export default function TimelineSayfasi() {
             karakterAd={hamlet.ad}
             tercihler={hamlet.tercihler}
             boslukSet={hamlet.boslukSet}
-            kokYol="/antrenman/karakter/hamlet"
+            kokYol={KOK}
             onOnceki={() => sahneSec(seciliSahne.no - 1)}
             onSonraki={() => sahneSec(seciliSahne.no + 1)}
           />
@@ -361,7 +352,7 @@ export default function TimelineSayfasi() {
                 color: 'var(--ink-muted)',
               }}
             >
-              Bir sahneye tıklayarak detaylarını gör
+              {tl.tikla}
             </span>
           </div>
         )}
@@ -398,7 +389,7 @@ export default function TimelineSayfasi() {
               textTransform: 'uppercase',
             }}
           >
-            ✓ Buraya kadar
+            {tl.sonEtiket}
           </span>
           <p
             style={{
@@ -412,20 +403,18 @@ export default function TimelineSayfasi() {
               alignSelf: 'center',
             }}
           >
-            14 sahnenin bedensel zincirini gördün. Her sahnenin sıcaklığını okudun,
-            kendi yorumunu işaretledin. Bu zincir bedeninde yerleşene kadar buraya
-            geri dönebilirsin.
+            {tl.sonMetin}
           </p>
 
         </section>
 
         <HamletBolumGecisi
-          oncekiEtiket="Bölüm 2"
-          oncekiBaslik="Oyun Öncesi Yaşam"
-          oncekiYol="/antrenman/karakter/hamlet/oyun-oncesi-yasam"
-          sonrakiEtiket="Bölüm 4"
-          sonrakiBaslik="Yazarın Çerçevesi"
-          sonrakiYol="/antrenman/karakter/hamlet/yazarin-cercevesi"
+          oncekiEtiket={tl.gecisOncekiEtiket}
+          oncekiBaslik={tl.gecisOncekiBaslik}
+          oncekiYol={`${KOK}/oyun-oncesi-yasam`}
+          sonrakiEtiket={tl.gecisSonrakiEtiket}
+          sonrakiBaslik={tl.gecisSonrakiBaslik}
+          sonrakiYol={`${KOK}/yazarin-cercevesi`}
         />
       </article>
     </main>
@@ -514,96 +503,3 @@ const paragrafStili = {
   lineHeight: 1.8,
   margin: 0,
 };
-
-const ekranStili = {
-  minHeight: '100vh',
-  backgroundColor: 'var(--bg-base)',
-  color: 'var(--ink)',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
-
-// ─── HEADER ─────────────────────────────────────────────────────────────────
-
-function KarakterHeader() {
-  async function cikisYap() {
-    try {
-      await supabase.auth.signOut();
-    } finally {
-      if (typeof window !== 'undefined') window.location.href = '/';
-    }
-  }
-
-  const navLink = {
-    fontFamily: 'Jost, sans-serif',
-    fontWeight: 200,
-    fontSize: '0.6rem',
-    letterSpacing: '0.25em',
-    color: 'var(--ink-soft)',
-    textTransform: 'uppercase',
-    textDecoration: 'none',
-    transition: 'color 0.25s ease',
-  };
-
-  return (
-    <header
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '1.6rem 2rem',
-        borderBottom: '1px solid var(--rule)',
-        flexWrap: 'wrap',
-        gap: '1rem',
-      }}
-    >
-      <a
-        href="/"
-        style={{
-          fontFamily: 'Jost, sans-serif',
-          fontWeight: 200,
-          fontSize: '0.65rem',
-          letterSpacing: '0.3em',
-          color: 'var(--accent)',
-          textTransform: 'uppercase',
-          textDecoration: 'none',
-        }}
-      >
-        Inside The Character
-      </a>
-      <nav style={{ display: 'flex', gap: '1.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
-        <a href="/kalibrasyon" style={navLink}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
-          Kalibrasyon
-        </a>
-        <a href="/kulis" style={navLink}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
-          Kulis
-        </a>
-        <a href="/antrenman/karakter" style={{ ...navLink, color: 'var(--ink)' }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}>
-          ← Karakterler
-        </a>
-        <button
-          onClick={cikisYap}
-          style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: 0,
-            ...navLink,
-            color: 'var(--ink-muted)',
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
-        >
-          Çıkış
-        </button>
-      </nav>
-    </header>
-  );
-}

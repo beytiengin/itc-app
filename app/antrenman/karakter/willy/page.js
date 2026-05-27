@@ -28,6 +28,10 @@ import HamletAltSayfaHeader from '../../../../components/HamletAltSayfaHeader';
 const TON = 'var(--accent)';
 const KOK = '/antrenman/karakter/willy';
 
+// Selam metni için karakter adı çekimleri (Türkçe morfolojisi sondan eklenir;
+// generik substitusyon yapılamadığı için hub her karakter için açık geçer).
+const KARAKTER = { ad: 'Willy', karakterIn: "Willy'nin", karakterIni: "Willy'ni" };
+
 // Bölüm rotaları — sözlükteki kartlarla (hub.kartlar) sıra-hizalı.
 const BOLUM_YOLLARI = [
   `${KOK}/oyun-oncesi-yasam`,
@@ -170,7 +174,7 @@ export default function WillySayfasi() {
           gap: '1.4rem',
         }}
       >
-        <KarsilayanBlok kartlar={t.kartlar} ilerleme={ilerleme} dil={dil} davet={t.davet} />
+        <KarsilayanBlok kartlar={t.kartlar} ilerleme={ilerleme} dil={dil} davet={t.davet} karakter={KARAKTER} />
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
           <span
             style={{
@@ -298,12 +302,12 @@ function TaniAccordion({ etiket, baslik, dogrular }) {
 }
 
 // ─── ADIM 3 — Karşılayan blok: sistem "şu an buradasın" der (yumuşak davet) ─
-function KarsilayanBlok({ kartlar, ilerleme, dil, davet }) {
+function KarsilayanBlok({ kartlar, ilerleme, dil, davet, karakter }) {
   // İlerleme henüz yüklenmediyse blok gösterme (kartlar yine de altta görünür).
   if (!ilerleme) return null;
 
   const adim = siradakiAdim(ilerleme); // { faz, index, tip }
-  const sl = selamMetni(adim.faz, dil);
+  const sl = selamMetni(adim.faz, dil, karakter);
 
   // Sıradaki istasyonun adı (i18n kartından) + rotası (BOLUM_YOLLARI).
   const hedefKart = kartlar[adim.index];
