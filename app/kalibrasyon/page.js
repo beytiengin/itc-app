@@ -1,540 +1,757 @@
 // app/kalibrasyon/page.js
-// ITC Actor's Gym — Kalibrasyon (Modül I) ana sayfası
+// ITC Actor's Gym — Kalibrasyon (Modül I) tek lineer akış · Karar 36
 //
-// 6 bölüm: Karşılama → İlerleme rozet → 3 test kartı (dinamik durum) →
-// Yöntem ve Etik → Alt CTA (üç durumlu) → Profil bağlantısı
+// Beş bölüm Filiz sırasında: Oyuncu Profili → Beceri Haritası →
+// Öğrenme Stili → Yaratıcı Yetenekler → Duygu Haritası → Profil özeti.
+// İki dilli (TR/EN) — üstteki toggle ile içerik dili değişir.
+// Tüm renkler var(--*) (CLAUDE.md). Profili gör butonunda atomik kayıt.
 
 'use client';
 
-import { useState, useEffect } from 'react';
-import { getKalibrasyonProfili } from '../lib/kalibrasyon';
-import IlerlemeRozet from '../../components/IlerlemeRozet';
+import { useState, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
+import { kalibrasyonKaydet } from '../lib/kalibrasyon-kaydet';
 
-const KANAL_AD = { V: 'Görsel', A: 'İşitsel', K: 'Kinestetik' };
+/* ─── i18n helper ─────────────────────────────────────────────── */
+const tx = (o, lang) => (o == null ? '' : typeof o === 'string' ? o : o[lang] ?? o.tr ?? o.en);
 
-// ─── Paylaşılan stil objeleri ──────────────────────────────────────────────
+/* ─── DATA (bilingual) ────────────────────────────────────────── */
 
-const ustEtiketStili = {
-  fontFamily: 'Jost, sans-serif',
-  fontSize: '0.6rem',
-  fontWeight: 300,
-  letterSpacing: '0.4em',
-  textTransform: 'uppercase',
-  color: 'var(--ink-muted)',
-  marginBottom: '1rem',
+const VAK_ITEMS = [
+  { en: 'I can remember best by listening to a lecture that includes information, explanations and discussions.', tr: 'En iyi; bilgi, açıklama ve tartışma içeren bir dersi dinleyerek hatırlarım.' },
+  { en: 'I prefer to see information written on the board and supplemented by visual aids and assigned readings.', tr: 'Bilginin tahtaya yazılmasını; görsel araçlar ve verilen okumalarla desteklenmesini tercih ederim.' },
+  { en: 'I like to write things down or take notes for visual review.', tr: 'Görsel olarak gözden geçirmek için bir şeyleri yazmayı ya da not almayı severim.' },
+  { en: 'I prefer to use posters, models, or actual practice and other activities in class.', tr: 'Derste poster, model ya da bizzat uygulama ve diğer etkinlikleri kullanmayı tercih ederim.' },
+  { en: 'I require explanations of diagrams, graphs, or visual directions.', tr: 'Diyagramların, grafiklerin ya da görsel yönergelerin sözlü açıklanmasına ihtiyaç duyarım.' },
+  { en: 'I enjoy working with my hands or making things.', tr: 'Ellerimle çalışmaktan ya da bir şeyler üretmekten keyif alırım.' },
+  { en: 'I am skillful with and enjoy developing making graphs and charts.', tr: 'Grafik ve çizelge oluşturmada beceriliyimdir ve bunu geliştirmekten keyif alırım.' },
+  { en: 'I can tell if sounds match when presented with pairs of sounds.', tr: 'Bana çiftler hâlinde sesler verildiğinde, bu seslerin uyuşup uyuşmadığını ayırt edebilirim.' },
+  { en: 'I can remember best by writing things down several times.', tr: 'En iyi, bir şeyleri birkaç kez yazarak hatırlarım.' },
+  { en: 'I can easily understand and follow directions on a map.', tr: 'Bir haritadaki yönleri kolaylıkla anlar ve izleyebilirim.' },
+  { en: 'I do best in academic subjects by listening to lectures and tapes.', tr: 'Akademik konularda en iyi; dersleri ve ses kayıtlarını dinleyerek başarılı olurum.' },
+  { en: 'I play with coins or keys in my pocket.', tr: 'Cebimdeki bozuk paralar ya da anahtarlarla oynarım.' },
+  { en: 'I learn to spell better by repeating words out loud than by writing the words on paper.', tr: 'Kelimelerin yazılışını, kâğıda yazmaktansa yüksek sesle tekrarlayarak daha iyi öğrenirim.' },
+  { en: 'I can understand a news article better by reading about it rather than by listening to a report.', tr: 'Bir haberi, dinlemektense okuyarak daha iyi anlarım.' },
+  { en: 'I chew gum, smoke or snack while studying.', tr: 'Çalışırken sakız çiğnerim, sigara içerim ya da atıştırırım.' },
+  { en: 'I think the best way to remember something is to picture it in my mind.', tr: 'Bir şeyi hatırlamanın en iyi yolunun, onu zihnimde canlandırmak olduğunu düşünürüm.' },
+  { en: 'I learn the spelling of words by "finger spelling" them.', tr: 'Kelimelerin yazılışını, parmağımla harf harf "havada yazarak" öğrenirim.' },
+  { en: 'I would rather listen to a good lecture or speech than read about the same material.', tr: 'Aynı içeriği okumaktansa, iyi bir dersi ya da konuşmayı dinlemeyi yeğlerim.' },
+  { en: 'I am good at working and solving jigsaw puzzles and mazes.', tr: 'Yapboz ve labirent çözmede ustayımdır.' },
+  { en: 'I grip objects in my hands during learning periods.', tr: 'Öğrenme sırasında elimde bir nesneyi tutar/sıkarım.' },
+  { en: 'I prefer listening to the news on the radio rather than reading about it.', tr: 'Haberleri okumaktansa radyodan dinlemeyi tercih ederim.' },
+  { en: 'I prefer obtaining information about an interesting subject by reading about it.', tr: 'İlgi çekici bir konu hakkında bilgiyi okuyarak edinmeyi tercih ederim.' },
+  { en: 'I feel very comfortable touching others, hugging, handshaking, etc.', tr: 'Başkalarına dokunma, sarılma, el sıkışma gibi temaslarda kendimi çok rahat hissederim.' },
+  { en: 'I follow oral directions better than written ones.', tr: 'Sözlü yönergeleri, yazılı olanlardan daha iyi izlerim.' },
+];
+const VAK_GROUPS = { 'Görsel': [2, 3, 7, 10, 14, 16, 19, 22], 'İşitsel': [1, 5, 8, 11, 13, 18, 21, 24], 'Kinestetik': [4, 6, 9, 12, 15, 17, 20, 23] };
+const VAK_SCALE = [
+  { val: 5, tr: 'Sık sık', en: 'Often' },
+  { val: 3, tr: 'Bazen', en: 'Sometimes' },
+  { val: 1, tr: 'Nadiren', en: 'Seldom' },
+];
+
+const SKILLS_ITEMS = [
+  { en: 'I am a good observer and researcher.', tr: 'İyi bir gözlemci ve araştırmacıyımdır.' },
+  { en: 'I have high self-confidence as an acting performer.', tr: 'Bir oyuncu olarak özgüvenim yüksektir.' },
+  { en: 'I have good understanding of dramatic techniques.', tr: 'Dramatik teknikleri iyi kavrarım.' },
+  { en: 'I am a talented actor.', tr: 'Yetenekli bir oyuncuyumdur.' },
+  { en: 'I love my job as an actor and passionate about it.', tr: 'Oyunculuk mesleğimi severim ve ona tutkuyla bağlıyımdır.' },
+  { en: 'I have good memorization skills.', tr: 'Ezberleme becerim güçlüdür.' },
+  { en: 'I am good at controlling my focus.', tr: 'Odağımı denetlemekte iyiyimdir.' },
+  { en: 'I can easily express different emotions.', tr: 'Farklı duyguları kolaylıkla ifade edebilirim.' },
+  { en: 'I am good at imagination.', tr: 'Hayal gücüm kuvvetlidir.' },
+  { en: 'I am open to learning.', tr: 'Öğrenmeye açığımdır.' },
+  { en: 'I trust my skills as an actor.', tr: 'Bir oyuncu olarak becerilerime güvenirim.' },
+  { en: 'I work hard on my performance.', tr: 'Performansım üzerine çok çalışırım.' },
+  { en: 'My acting performance is authentic and natural.', tr: 'Oyunculuk performansım hakiki ve doğaldır.' },
+  { en: 'I can express myself well bodily and I have good control on my movements.', tr: 'Kendimi bedensel olarak iyi ifade ederim; hareketlerim üzerinde iyi bir denetimim vardır.' },
+  { en: 'I can express myself well verbally and I have good articulation.', tr: 'Kendimi sözel olarak iyi ifade ederim; boğumlamam/diksiyonum iyidir.' },
+  { en: 'I can relax my body easily.', tr: 'Bedenimi kolaylıkla gevşetebilirim.' },
+  { en: 'I have good time-management skills.', tr: 'Zaman yönetimi becerim iyidir.' },
+  { en: 'I am self-disciplined in my profession.', tr: 'Mesleğimde öz disiplinliyimdir.' },
+  { en: 'I have high levels of motivation for my profession.', tr: 'Mesleğime dair motivasyonum yüksektir.' },
+  { en: 'I can express myself well vocally and I have good control on my voice.', tr: 'Kendimi sessel olarak iyi ifade ederim; sesim üzerinde iyi bir denetimim vardır.' },
+  { en: 'I have high emotional intelligence.', tr: 'Duygusal zekâm yüksektir.' },
+  { en: 'I am patient and resilient.', tr: 'Sabırlı ve dayanıklıyımdır.' },
+  { en: 'I am open to both positive and negative feedback.', tr: 'Hem olumlu hem olumsuz geri bildirime açığımdır.' },
+  { en: 'I am curious about my profession.', tr: 'Mesleğime karşı meraklıyımdır.' },
+  { en: 'I am collaborative, can manage well to work with a team.', tr: 'İş birliğine yatkınımdır; bir ekiple çalışmayı iyi yürütürüm.' },
+  { en: 'I have good interpersonal skills.', tr: 'Kişilerarası ilişki becerilerim iyidir.' },
+  { en: 'I have good stage presence.', tr: 'Sahne hâkimiyetim güçlüdür.' },
+  { en: 'I have good vocal presence.', tr: 'Ses hâkimiyetim güçlüdür.' },
+  { en: 'I have ability to enter into another character easily.', tr: 'Bir başka karaktere kolaylıkla girebilme yetisine sahibim.' },
+  { en: 'I have ability to memorise lines effectively.', tr: 'Replikleri etkili biçimde ezberleyebilme yetisine sahibim.' },
+  { en: 'I have high energy to perform.', tr: 'Sahneye çıkmak için yüksek enerjim vardır.' },
+  { en: 'I have the dedication for acting performance.', tr: 'Oyunculuk performansına adanmışlığım vardır.' },
+  { en: 'I have creative insight on acting.', tr: 'Oyunculuğa dair yaratıcı bir sezgim vardır.' },
+  { en: 'I trust my craft.', tr: 'Zanaatıma güvenirim.' },
+  { en: 'I have good listening skills.', tr: 'Dinleme becerim iyidir.' },
+  { en: 'I am good at interpreting and analyzing characters.', tr: 'Karakterleri yorumlamada ve çözümlemede iyiyimdir.' },
+  { en: 'I have the capacity to work well in teams.', tr: 'Ekip hâlinde iyi çalışabilme kapasitem vardır.' },
+];
+const SKILLS_GROUPS = {
+  'Mesleki Güven': [2, 4, 11, 13, 23, 29, 30, 33, 34],
+  'Teknik': [3, 14, 15, 20, 27, 28, 36],
+  'Zihinsel': [1, 6, 7, 9, 10, 17, 35],
+  'Duygusal': [8, 21, 22],
+  'Motivasyonel': [5, 12, 18, 19, 24, 31, 32],
+  'Rahatlama': [16],
+  'İlişkisel': [25, 26, 37],
 };
 
-const altBaslikStili = {
-  fontFamily: 'Cormorant Garamond, serif',
-  fontStyle: 'italic',
-  fontSize: '1.3rem',
-  color: 'var(--accent)',
-  fontWeight: 300,
-  margin: '0 0 1rem 0',
+const PANK_ITEMS = [
+  { en: 'People who know me would say I am a very fun-loving person.', tr: 'Beni tanıyanlar, çok neşeli/eğlenmeyi seven biri olduğumu söylerdi.' },
+  { en: 'When I am frustrated, I usually get angry.', tr: 'Canım sıkıldığında genellikle öfkelenirim.' },
+  { en: 'I am usually not highly curious.', tr: 'Genellikle pek meraklı değilimdir.' },
+  { en: 'I am the kind of person that likes to touch and hug people.', tr: 'İnsanlara dokunmayı ve sarılmayı seven türden biriyimdir.' },
+  { en: 'I rarely get angry enough to want to hit someone.', tr: 'Birine vurmak isteyecek kadar öfkelendiğim nadirdir.' },
+  { en: 'I rarely worry about my future.', tr: 'Geleceğim için nadiren kaygılanırım.' },
+  { en: 'I rarely become sad.', tr: 'Nadiren üzülürüm.' },
+  { en: 'I seldom experience sadness or despair.', tr: 'Hüzün ya da umutsuzluğu seyrek yaşarım.' },
+  { en: 'I am very playful.', tr: 'Çok oyunbazımdır.' },
+  { en: 'I often have the feeling that I am going to cry.', tr: 'Çoğu zaman ağlayacakmışım gibi hissederim.' },
+  { en: 'My friends would probably describe me as hotheaded.', tr: 'Arkadaşlarım beni muhtemelen çabuk parlayan biri olarak tanımlardı.' },
+  { en: 'I do not feel lonely very often.', tr: 'Pek sık yalnızlık hissetmem.' },
+  { en: 'I like to kid around with other people.', tr: 'İnsanlarla şakalaşmayı severim.' },
+  { en: 'I often feel the urge to nurture those closest to me.', tr: 'Bana en yakın olanları koruyup kollama isteğini sık sık duyarım.' },
+  { en: 'I often worry about the future.', tr: 'Gelecek için sık sık kaygılanırım.' },
+  { en: 'I am not particularly affectionate.', tr: 'Pek sevecen biri değilimdir.' },
+  { en: 'There are very few things that make me anxious.', tr: 'Beni kaygılandıran çok az şey vardır.' },
+  { en: 'I often feel lonely.', tr: 'Sık sık yalnızlık hissederim.' },
+  { en: 'I am a person who is easily amused and laughs a lot.', tr: 'Kolayca neşelenen ve çok gülen biriyimdir.' },
+  { en: 'People who know me well would say I almost never become angry.', tr: 'Beni iyi tanıyanlar neredeyse hiç öfkelenmediğimi söylerdi.' },
+  { en: 'I am usually not interested in solving problems and puzzles just for the sake of solving them.', tr: 'Sırf çözmüş olmak için problem ve bulmaca çözmeye genellikle ilgi duymam.' },
+  { en: 'I do not particularly enjoy kidding around and exchanging "wisecracks."', tr: 'Şakalaşmaktan ve karşılıklı nükteli laf atışmalarından pek hoşlanmam.' },
+  { en: 'I sometimes cannot stop worrying about my problems.', tr: 'Bazen sorunlarımı kaygıyla düşünmeyi durduramam.' },
+  { en: 'I hardly ever become so angry at someone that I feel like yelling at them.', tr: 'Birine bağırmak isteyecek kadar öfkelendiğim hemen hiç olmaz.' },
+  { en: 'I am not an extremely inquisitive person.', tr: 'Aşırı meraklı/sorgulayıcı biri değilimdir.' },
+  { en: 'When someone makes me angry, I tend to remain fired up for a long time.', tr: 'Biri beni öfkelendirdiğinde uzun süre kızgın kalmaya meyilliyimdir.' },
+  { en: 'I do not especially want people to be emotionally close to me.', tr: 'İnsanların bana duygusal olarak yakın olmasını özellikle istemem.' },
+  { en: 'My curiosity drives me to do things.', tr: 'Merakım beni bir şeyler yapmaya iter.' },
+  { en: 'My friends would probably describe me as being too serious.', tr: 'Arkadaşlarım beni muhtemelen fazla ciddi biri olarak tanımlardı.' },
+  { en: 'I have very few fears in my life.', tr: 'Hayatımda çok az korkum vardır.' },
+  { en: 'I enjoy finding new solutions to problems.', tr: 'Sorunlara yeni çözümler bulmaktan keyif alırım.' },
+  { en: 'I often feel sad.', tr: 'Sık sık hüzünlenirim.' },
+  { en: 'I like to think outside of the box.', tr: 'Kalıpların dışında düşünmeyi severim.' },
+];
+const PANK_REVERSED = new Set([3, 5, 6, 7, 8, 12, 16, 17, 20, 21, 22, 24, 25, 27, 29, 30]);
+const PANK_GROUPS = {
+  'Oyun · Play': [1, 9, 13, 19, 22, 29],
+  'Öfke · Anger': [2, 5, 11, 20, 24, 26],
+  'Arayış · Seek': [3, 21, 25, 28, 31, 33],
+  'Şefkat · Care': [4, 14, 16, 27],
+  'Korku · Fear': [6, 15, 17, 23, 30],
+  'Hüzün · Sadness': [7, 8, 10, 12, 18, 32],
+};
+const PANK_SCALE = [
+  { val: 1, en: 'Strongly Disagree', tr: 'Kesinlikle Katılmıyorum' },
+  { val: 2, en: 'Disagree', tr: 'Katılmıyorum' },
+  { val: 3, en: 'Neither', tr: 'Kararsızım' },
+  { val: 4, en: 'Agree', tr: 'Katılıyorum' },
+  { val: 5, en: 'Strongly Agree', tr: 'Kesinlikle Katılıyorum' },
+];
+
+const GROUP_LABELS = {
+  'Görsel': { en: 'Visual' }, 'İşitsel': { en: 'Auditory' }, 'Kinestetik': { en: 'Kinesthetic' },
+  'Mesleki Güven': { en: 'Professional Confidence' }, 'Teknik': { en: 'Technical' },
+  'Zihinsel': { en: 'Mental' }, 'Duygusal': { en: 'Emotional' }, 'Motivasyonel': { en: 'Motivational' },
+  'Rahatlama': { en: 'Relaxation' }, 'İlişkisel': { en: 'Interpersonal' },
+};
+const glabel = (key, lang) => (lang === 'tr' ? key : (GROUP_LABELS[key]?.en || key));
+
+const MBTI_AXES = [
+  {
+    key: 'EI', left: 'E', right: 'I',
+    title: { tr: 'Vaktini hangi dünyada geçirmeyi tercih edersin?', en: 'In which world do you prefer to spend your time?' },
+    leftHead: { tr: 'Dışadönük dünya', en: 'Extraverted world' }, rightHead: { tr: 'İçedönük dünya', en: 'Introverted world' },
+    rows: [
+      { l: { en: 'Get your energy from interaction with the world around you', tr: 'Enerjini çevrendeki dünyayla kurduğun etkileşimden alırsın' }, r: { en: 'Get your energy from yourself, your own activities and thoughts', tr: 'Enerjini kendinden; kendi uğraş ve düşüncelerinden alırsın' } },
+      { l: { en: 'Focus attention outward: on people, things and action', tr: 'Dikkatini dışa yöneltirsin: insanlara, nesnelere ve eyleme' }, r: { en: 'Focus attention inward: on concepts, ideals and feelings', tr: 'Dikkatini içe yöneltirsin: kavramlara, ideallere ve duygulara' } },
+      { l: { en: 'Value external sharing and relationships', tr: 'Dışa dönük paylaşıma ve ilişkilere değer verirsin' }, r: { en: 'Value internal interpretation and understanding', tr: 'İçsel yoruma ve anlamaya değer verirsin' } },
+      { l: { en: 'Develop creative ideas with others, externally', tr: 'Yaratıcı fikirleri başkalarıyla, dışarıda geliştirirsin' }, r: { en: 'Develop creative ideas independently, internally', tr: 'Yaratıcı fikirleri tek başına, içeride geliştirirsin' } },
+      { l: { en: 'Have a breadth and variety of interests', tr: 'İlgi alanların geniş ve çeşitlidir' }, r: { en: 'Have a depth and focus to interests', tr: 'İlgi alanların derin ve odaklıdır' } },
+      { l: { en: 'Prefer interaction, interruptions and meetings', tr: 'Etkileşimi, araya girmeleri ve toplantıları tercih edersin' }, r: { en: 'Prefer concentration, pauses and solitude', tr: 'Yoğunlaşmayı, duraklamaları ve yalnızlığı tercih edersin' } },
+      { l: { en: 'Be public and out loud', tr: 'Açık ve sesli olursun' }, r: { en: 'Be private and intense', tr: 'Mahrem ve yoğun olursun' } },
+      { l: { en: 'Communicate by talking', tr: 'Konuşarak iletişim kurarsın' }, r: { en: 'Communicate by writing', tr: 'Yazarak iletişim kurarsın' } },
+      { l: { en: 'Value action', tr: 'Eyleme değer verirsin' }, r: { en: 'Value reflection', tr: 'Tefekküre değer verirsin' } },
+      { l: { en: 'Speak rapidly; volunteer information', tr: 'Hızlı konuşur, bilgiyi kendiliğinden verirsin' }, r: { en: 'Provide information as needed', tr: 'Bilgiyi gerektikçe verirsin' } },
+      { l: { en: 'Have an interest in external events', tr: 'Dış olaylara ilgi duyarsın' }, r: { en: 'Have an interest in internal reactions', tr: 'İçsel tepkilere ilgi duyarsın' } },
+      { l: { en: 'Plunge in', tr: 'Hemen atılırsın' }, r: { en: 'Pause and consider', tr: 'Durup düşünürsün' } },
+      { l: { en: 'Ask questions to clarify expectations', tr: 'Beklentileri netleştirmek için soru sorarsın' }, r: { en: 'Ask questions for understanding', tr: 'Anlamak için soru sorarsın' } },
+      { l: { en: 'Accept standards of others', tr: 'Başkalarının ölçütlerini benimsersin' }, r: { en: 'Set your own standards', tr: 'Kendi ölçütlerini koyarsın' } },
+      { l: { en: 'Enjoy alone time but get bored with too much calm', tr: 'Biraz yalnız vakitten hoşlanır ama sakin ortamda fazla kalınca sıkılırsın' }, r: { en: 'Enjoy socializing but need time alone to recharge', tr: 'Sosyalleşmekten hoşlanır ama güç toplamak için yalnız kalmaya ihtiyaç duyarsın' } },
+    ],
+  },
+  {
+    key: 'SN', left: 'S', right: 'N',
+    title: { tr: 'Algılama işlevlerinden hangisini en sık tercih edersin?', en: 'Which of the perceiving functions do you prefer most consistently?' },
+    leftHead: { tr: 'Duyumsama (Sensation)', en: 'Sensation' }, rightHead: { tr: 'Sezgi (Intuition)', en: 'Intuition' },
+    rows: [
+      { l: { en: 'Get information from observing, measuring and experience', tr: 'Bilgiyi gözlemleyerek, ölçerek ve deneyimleyerek edinirsin' }, r: { en: 'Get information from explanation, reasoning and abstract understanding', tr: 'Bilgiyi açıklama, akıl yürütme ve soyut kavrayışla edinirsin' } },
+      { l: { en: 'Use your body and your senses to know', tr: 'Bilmek için bedenini ve duyularını kullanırsın' }, r: { en: 'Know without knowing how you know', tr: 'Nasıl bildiğini bilmeden bilirsin' } },
+      { l: { en: 'Have realistic pictures of what is happening', tr: 'Olup biten hakkında gerçekçi tablolar kurarsın' }, r: { en: 'Develop visions of what could happen', tr: 'Olabilecekler hakkında imgeler geliştirirsin' } },
+      { l: { en: 'Look at specific parts, facts and details', tr: 'Belirli parçalara, olgulara ve ayrıntılara bakarsın' }, r: { en: 'Look at patterns, relationships and possibilities', tr: 'Örüntülere, ilişkilere ve olasılıklara bakarsın' } },
+      { l: { en: 'Prefer clearly defined expectations and specific instructions', tr: 'Açıkça tanımlanmış beklentileri ve belirli yönergeleri tercih edersin' }, r: { en: 'Prefer an overall rationale with options to explore', tr: 'Genel bir gerekçeyi, keşfedecek bolca seçenekle tercih edersin' } },
+      { l: { en: 'Focus on here and now or connections to the past', tr: 'Şimdiye, buraya ya da geçmişle bağlara odaklanırsın' }, r: { en: 'Focus on the future, the unknown and the unseen', tr: 'Geleceğe, bilinmeyene ve görünmeyene odaklanırsın' } },
+      { l: { en: 'Be seen as pragmatic, concrete and down to earth', tr: 'Pragmatik, somut ve ayakları yere basan biri olarak görülürsün' }, r: { en: 'Be seen as abstract, theoretical, head in the clouds', tr: 'Soyut, kuramsal ve başı göklerde biri olarak görülürsün' } },
+      { l: { en: 'Provide precise descriptions and definitions', tr: 'Kesin betimlemeler ve tanımlar sunarsın' }, r: { en: 'Provide general terms, meanings and interpretations', tr: 'Genel kavramlar, anlamlar ve yorumlar sunarsın' } },
+      { l: { en: 'Learn and work sequentially and methodically', tr: 'Sıralı ve yöntemli öğrenir ve çalışırsın' }, r: { en: 'Learn and work rapidly and randomly', tr: 'Hızlı ve rastgele öğrenir ve çalışırsın' } },
+      { l: { en: 'Value hard work', tr: 'Sıkı çalışmaya değer verirsin' }, r: { en: 'Value inspiration', tr: 'İlhama değer verirsin' } },
+      { l: { en: 'Rely on tangible experience to solve problems', tr: 'Sorunları çözmek için somut deneyime güvenirsin' }, r: { en: 'Rely on intangible ingenuity to solve problems', tr: 'Sorunları çözmek için elle tutulmayan bir yaratıcılığa güvenirsin' } },
+      { l: { en: 'Like to make things work', tr: 'Bir şeyleri işler kılmayı seversin' }, r: { en: 'Like to understand', tr: 'Anlamayı seversin' } },
+      { l: { en: 'Build on what has already been done', tr: 'Yapılmış olanın üzerine inşa edersin' }, r: { en: 'Prefer to do things differently', tr: 'İşleri farklı yapmayı tercih edersin' } },
+      { l: { en: 'Ask "What?" and "How?"', tr: '"Ne?" ve "Nasıl?" diye sorarsın' }, r: { en: 'Ask "Why not?" and "In what ways might I?"', tr: '"Neden olmasın?" ve "Hangi yollarla yapabilirim?" diye sorarsın' } },
+      { l: { en: 'Imagine pictures with specific colors, shapes, textures', tr: 'Belirli renk, biçim ve dokuları olan tablolar hayal edersin' }, r: { en: 'Imagine unusual images and connections', tr: 'Sıra dışı imgeler ve bağlantılar hayal edersin' } },
+      { l: { en: 'Focus on the facts of the present', tr: 'Bugünün olgularına odaklanırsın' }, r: { en: 'Focus on abstract ideas and theories', tr: 'Soyut fikirlere ve kuramlara odaklanırsın' } },
+      { l: { en: 'Distrust guesses not rooted in logic and facts', tr: 'Mantığa ve olgulara dayanmayan tahminlere güvenmezsin' }, r: { en: 'Tend to daydream, forgetful with practical details', tr: 'Hayallere dalar, pratik ayrıntılarda unutkan olursun' } },
+    ],
+  },
+  {
+    key: 'TF', left: 'T', right: 'F',
+    title: { tr: 'Yargılama işlevlerinden hangisini tercih edersin?', en: 'Which of the judging functions do you prefer?' },
+    leftHead: { tr: 'Düşünme (Thinking)', en: 'Thinking' }, rightHead: { tr: 'Hissetme (Feeling)', en: 'Feeling' },
+    rows: [
+      { l: { en: 'Decide by way of ratio, logic and given criteria', tr: 'Akıl, mantık ve verili ölçütlerle karar verirsin' }, r: { en: 'Decide by context, interests and what feels right', tr: 'Bağlama, çıkarlara ve doğru hissettiren şeye bakarak karar verirsin' } },
+      { l: { en: 'Base decisions on objective, impersonal principles', tr: 'Kararlarını nesnel, kişisel olmayan ilkelere dayandırırsın' }, r: { en: 'Base decisions on subjective, personal values', tr: 'Kararlarını öznel, kişisel ve kültürel değerlere dayandırırsın' } },
+      { l: { en: 'Appreciate justice, fairness and equity', tr: 'Adaleti, hakkaniyeti ve eşitliği önemsersin' }, r: { en: 'Appreciate mercy, empathy and loyalty', tr: 'Merhameti, empatiyi ve sadakati önemsersin' } },
+      { l: { en: 'Categorize; think "either-or"', tr: 'Sınıflandırırsın; "ya o ya bu" diye düşünürsün' }, r: { en: 'Harmonize; consider "both-and"', tr: 'Uyumlarsın; "hem o hem bu" diye düşünürsün' } },
+      { l: { en: 'Question, analyze and problem solve', tr: 'Sorgular, çözümler ve sorun çözersin' }, r: { en: 'Sympathize, relate and share', tr: 'Anlayış gösterir, bağ kurar ve paylaşırsın' } },
+      { l: { en: 'Weigh the evidence', tr: 'Kanıtı tartarsın' }, r: { en: 'Determine the worth and importance', tr: 'Değerini ve önemini belirlersin' } },
+      { l: { en: 'Use logic; focus on consequences', tr: 'Mantığı kullanır, sonuçlara odaklanırsın' }, r: { en: 'Consider the impact on people and relationships', tr: 'İnsanlar ve ilişkiler üzerindeki etkiyi gözetirsin' } },
+      { l: { en: 'Anticipate and plan for obstacles', tr: 'Engelleri öngörür ve plan yaparsın' }, r: { en: "Anticipate people's needs and reactions", tr: 'İnsanların ihtiyaç ve tepkilerini öngörürsün' } },
+      { l: { en: 'Make classifications', tr: 'Sınıflandırmalar yaparsın' }, r: { en: 'Make connections', tr: 'Bağlantılar kurarsın' } },
+      { l: { en: 'Be concise when speaking and writing', tr: 'Konuşur ve yazarken özlü olursun' }, r: { en: 'Be expressive when speaking and writing', tr: 'Konuşur ve yazarken ifade gücü yüksek olursun' } },
+      { l: { en: 'Prefer clarity in decision making', tr: 'Karar ve planlamada netliği tercih edersin' }, r: { en: 'Prefer involvement in planning', tr: 'Planlama ve uygulamaya dâhil olmayı tercih edersin' } },
+      { l: { en: 'Focus on goals, objectives and structure', tr: 'Hedeflere, amaçlara ve yapıya odaklanırsın' }, r: { en: 'Focus on how personal needs will be met', tr: 'Kişisel ihtiyaçların nasıl karşılanacağına odaklanırsın' } },
+      { l: { en: 'Create strategies and designs', tr: 'Stratejiler ve tasarımlar kurarsın' }, r: { en: 'Create nurturing environments', tr: 'Besleyip büyüten ortamlar yaratırsın' } },
+      { l: { en: 'Ask "Why?"', tr: '"Neden?" diye sorarsın' }, r: { en: 'Ask "Who?"', tr: '"Kim?" diye sorarsın' } },
+      { l: { en: 'Find the most logical, consistent solution', tr: 'En mantıklı ve tutarlı çözümü bulursun' }, r: { en: 'Find the most balanced, harmonious solution', tr: 'En dengeli, en uyumlu çözümü bulursun' } },
+    ],
+  },
+  {
+    key: 'JP', left: 'J', right: 'P',
+    title: { tr: 'Dış dünyada hangi işlevi kullanırsın?', en: 'Which function do you use in the external world?' },
+    leftHead: { tr: 'Yargılama (Judging)', en: 'Judging' }, rightHead: { tr: 'Algılama (Perceiving)', en: 'Perceiving' },
+    rows: [
+      { l: { en: 'Feel comfortable when things go as planned', tr: 'İşler planlandığı gibi gittiğinde rahat hissedersin' }, r: { en: 'Feel comfortable when things stay flexible and open', tr: 'İşler esnekken, akışına bıraktığında rahat hissedersin' } },
+      { l: { en: 'Want to know what is going to happen to prepare', tr: 'Hazırlanmak için ne olacağını bilmek istersin' }, r: { en: 'Want to be more spontaneous', tr: 'Daha doğaçlama olmak istersin' } },
+      { l: { en: 'Prefer closure', tr: 'Sonuçlandırmayı tercih edersin' }, r: { en: 'Keep options open', tr: 'Seçenekleri açık tutarsın' } },
+      { l: { en: 'Limit options to get them off your mind', tr: 'Aklını meşgul etmesin diye seçenekleri sınırlarsın' }, r: { en: 'Never feel you have enough information', tr: 'Hiçbir zaman yeterince bilgin olduğunu hissetmezsin' } },
+      { l: { en: 'Enjoy the product', tr: 'Üründen keyif alırsın' }, r: { en: 'Enjoy the process', tr: 'Süreçten keyif alırsın' } },
+      { l: { en: 'Plan ahead and follow schedules', tr: 'Önceden plan yapar ve programlara uyarsın' }, r: { en: 'Adapt as you go', tr: 'İlerledikçe uyum sağlarsın' } },
+      { l: { en: 'Prefer decisions settled and completed', tr: 'Kararların yerleşmiş ve tamamlanmış olmasını tercih edersin' }, r: { en: 'Prefer decisions open, pending and emergent', tr: 'Kararların açık, askıda ve oluş hâlinde olmasını tercih edersin' } },
+      { l: { en: 'Be seen as deliberate, purposeful and decisive', tr: 'Ölçülü, amaçlı ve kararlı biri olarak görülürsün' }, r: { en: 'Be seen as flexible, adaptable and curious', tr: 'Esnek, uyum sağlayan ve meraklı biri olarak görülürsün' } },
+      { l: { en: 'Build a hypothesis first, then collect data', tr: 'Önce bir hipotez kurar, sonra veri toplarsın' }, r: { en: 'Collect data, then build the model', tr: 'Önce veri toplar, sonra modeli kurarsın' } },
+      { l: { en: 'Want to manage', tr: 'Yönetmek istersin' }, r: { en: 'Want to understand', tr: 'Anlamak istersin' } },
+      { l: { en: 'Believe in project plans and timetables', tr: 'Proje planlarına ve çizelgelere inanırsın' }, r: { en: 'Believe in explorations', tr: 'Keşiflere inanırsın' } },
+      { l: { en: 'Prefer few surprises', tr: 'Az sürpriz tercih edersin' }, r: { en: 'Be ready for anything', tr: 'Her şeye hazır olursun' } },
+      { l: { en: 'Be viewed as self-disciplined and organized', tr: 'Öz disiplinli ve düzenli biri olarak görülürsün' }, r: { en: 'Welcome new light on situations', tr: 'Zorluklara dair yeni bir ışığı memnuniyetle karşılarsın' } },
+      { l: { en: 'Control events', tr: 'Olayları denetlersin' }, r: { en: 'Respond to the moment', tr: 'Ana karşılık verirsin' } },
+      { l: { en: 'Like to find solutions and explain why', tr: 'Çözüm bulur, nedenini açıklarsın' }, r: { en: 'Like to leave things open and keep observing', tr: 'İşleri açık bırakır, gözlemi sürdürürsün' } },
+      { l: { en: 'Enjoy getting things done ahead of time', tr: 'İşleri vaktinden önce bitirmekten keyif alırsın' }, r: { en: 'Mix work and play; struggle with procrastination', tr: 'İşi ve oyunu harmanlar, ertelemeyle boğuşursun' } },
+    ],
+  },
+];
+const MBTI_ARCHETYPES = {
+  ESTP: { tr: 'Maceracı / Mucit', en: 'Adventurer / Inventor' }, ESFP: { tr: 'Maceracı / Şair', en: 'Adventurer / Poet' },
+  ISTJ: { tr: 'Kılavuz / Kaptan', en: 'Navigator / Pilot' }, ISFJ: { tr: 'Kılavuz / Uyumlayıcı', en: 'Navigator / Harmonizer' },
+  ENTP: { tr: 'Kâşif / Mucit', en: 'Explorer / Inventor' }, ENFP: { tr: 'Kâşif / Şair', en: 'Explorer / Poet' },
+  INTJ: { tr: 'Vizyoner / Kaptan', en: 'Visionary / Pilot' }, INFJ: { tr: 'Vizyoner / Uyumlayıcı', en: 'Visionary / Harmonizer' },
+  ESTJ: { tr: 'Kaptan / Kılavuz', en: 'Pilot / Navigator' }, ENTJ: { tr: 'Kaptan / Vizyoner', en: 'Pilot / Visionary' },
+  ISTP: { tr: 'Mucit / Maceracı', en: 'Inventor / Adventurer' }, INTP: { tr: 'Mucit / Kâşif', en: 'Inventor / Explorer' },
+  ESFJ: { tr: 'Uyumlayıcı / Kılavuz', en: 'Harmonizer / Navigator' }, ENFJ: { tr: 'Uyumlayıcı / Vizyoner', en: 'Harmonizer / Visionary' },
+  ISFP: { tr: 'Şair / Maceracı', en: 'Poet / Adventurer' }, INFP: { tr: 'Şair / Kâşif', en: 'Poet / Explorer' },
 };
 
-const paragrafStili = {
-  fontFamily: 'Jost, sans-serif',
-  fontSize: '0.95rem',
-  fontWeight: 300,
-  lineHeight: 1.85,
-  color: 'var(--ink-soft)',
-  margin: 0,
+/* ─── FLOW (Filiz sırası) ─────────────────────────────────────── */
+const FLOW = [
+  {
+    key: 'basics', n: '01', welcome: true,
+    title: { tr: 'Oyuncu Profili', en: 'Actor Profile' },
+    sub: { tr: 'Kim olduğun · deneyim · hedefler', en: 'Who you are · experience · goals' },
+    intro: {
+      tr: 'Sevgili dostum, aramıza hoş geldin. Yollarımızın kesişmesine çok sevindik; bunun ilham verici bir yolculuk olmasını diliyoruz. Oyunculuk performansını geliştirmek istiyorsan, doğru yerdesin.',
+      en: 'Dear friend, welcome aboard. We are very happy that our paths crossed and hope it will be an inspiring adventure. If you want to improve your acting performance, you are in the right place.',
+    },
+  },
+  {
+    key: 'skills', n: '02',
+    title: { tr: 'Beceri Haritası', en: 'Skill Map' },
+    sub: { tr: 'Öznel beceri değerlendirmesi · 37 madde', en: 'Subjective skills assessment · 37 items' },
+    intro: {
+      tr: 'Bir önceki bölümdeki yanıtların için teşekkürler. Şimdi sıra, oyunculuk becerilerine dair öznel değerlendirmende. Her ifadeyi sana ne kadar uyduğuna göre puanla: 1 = HİÇ DOĞRU DEĞİL, 7 = KESİNLİKLE DOĞRU.',
+      en: 'Thank you for your answers on the previous section. Now is your subjective assessment about your skills in acting. Rate each statement for how much it applies to you: 1 = NOT AT ALL, 7 = ABSOLUTELY TRUE.',
+    },
+  },
+  {
+    key: 'vak', n: '03',
+    title: { tr: 'Öğrenme Stili', en: 'Learning Style' },
+    sub: { tr: 'Görsel · İşitsel · Kinestetik · 24 madde', en: 'Visual · Auditory · Kinesthetic · 24 items' },
+    intro: {
+      tr: 'Bir önceki bölümdeki yanıtların için teşekkürler. Şimdi öğrenme stiline yönelik değerlendirme. Her ifadeyi sana ne sıklıkta uyduğuna göre puanla.',
+      en: 'Thank you for your answers on the previous section. Now the assessment for your learning style. Rate each statement for how often it applies to you.',
+    },
+  },
+  {
+    key: 'mbti', n: '04',
+    title: { tr: 'Yaratıcı Yetenekler', en: 'Creative Talents' },
+    sub: { tr: '16 enstrüman profili · 63 ikili seçim', en: '16 instrument profiles · 63 forced choices' },
+    intro: {
+      tr: 'Yaratıcı yeteneklerini keşfedelim! Kişilik özelliklerin; bakış açılarını, varsayımlarını ve yaratıcı çözümlere yaklaşımını etkiler. Her satırda seni en iyi tanımlayan birini seç.',
+      en: "Let's discover your creative talents! Personality traits influence your perspectives, assumptions and approaches to creative solutions. Choose the one in each line that best describes you.",
+    },
+  },
+  {
+    key: 'pank', n: '05',
+    title: { tr: 'Duygu Haritası', en: 'Emotion Map' },
+    sub: { tr: 'Altı sistem · Panksepp · 33 madde', en: 'Six systems · Panksepp · 33 items' },
+    intro: {
+      tr: 'Bir önceki bölümdeki yanıtların için teşekkürler. Şimdi duygu sistemlerine dair sorulara geldi sıra. Her ifadeye ne kadar katılıp katılmadığını belirt.',
+      en: 'Thank you for your answers on the previous section. Now come the questions about your affective system. Indicate how much you agree or disagree with each statement.',
+    },
+  },
+];
+
+/* ─── UI sözlüğü ──────────────────────────────────────────────── */
+const UI = {
+  brand: 'Inside The Character',
+  calib: { tr: 'Kalibrasyon', en: 'Calibration' },
+  module: { tr: 'Modül I · Kalibrasyon', en: 'Module I · Calibration' },
+  heroTitle: { tr: 'Enstrümanını kalibre et', en: 'Calibrate your instrument' },
+  basicsLead: { tr: 'Tanışalım. Bu bölüm profilini ve sonraki bölümlerin sana göre şekillenmesini besler.', en: "Let's get to know you. This section feeds your profile and how later sections adapt to you." },
+  section: { tr: 'Bölüm', en: 'Section' },
+  answered: { tr: 'yanıtlandı', en: 'answered' },
+  rowsHint: { tr: 'satır · her satırda sana en yakın olanı seç', en: 'rows · pick the option closest to you in each row' },
+  back: { tr: 'Geri', en: 'Back' },
+  nextSection: { tr: 'Sonraki bölüm →', en: 'Next section →' },
+  seeProfile: { tr: 'Profili gör →', en: 'See profile →' },
+  backToLast: { tr: '← son bölüme dön', en: '← back to last section' },
+  restart: { tr: '↻ baştan başla', en: '↻ start over' },
+  resultLabel: { tr: 'Kalibrasyon Sonucu', en: 'Calibration Result' },
+  profileTitle: { tr: 'Enstrüman Profilin', en: 'Your Instrument Profile' },
+  profileLead: { tr: 'Bu dört harita, sonraki modüllerde her egzersizi sessizce yönlendirir. Sen çalışmaya odaklanırsın; uyarlanma görünmez.', en: 'These four maps silently guide every exercise in later modules. You focus on the work; the adaptation stays invisible.' },
+  skillCardTitle: { tr: 'Beceri Haritası · 7 Beceri Alanı', en: 'Skill Map · 7 Skill Areas' },
+  skillCardDesc: { tr: 'Öz-değerlendirme haritan (1–7). Bir yargı değil, içgörü pusulan — dönemsel olarak tekrar edilir.', en: 'Your self-assessment map (1–7). Not a verdict but an insight compass — repeated periodically.' },
+  vakCardTitle: { tr: 'Öğrenme Stili · VAK', en: 'Learning Style · VAK' },
+  vakDominant: { tr: 'Baskın kanalın:', en: 'Your dominant channel:' },
+  vakCardDesc: { tr: 'Antrenmanların derinleşme adımı bu kanaldan kurulur.', en: 'The deepening step of your training is built through this channel.' },
+  mbtiCardTitle: { tr: 'Yaratıcı Yetenekler · MBTI', en: 'Creative Talents · MBTI' },
+  mbtiCardDesc: { tr: 'Bu profil senin "varsayılan ayarın". Karakter inşasında gerçek iş, kendi profilinle karakterinki arasındaki mesafeyi görmektir — Karakter-Oyuncu Gap\'i.', en: 'This profile is your "default setting." In character-building, the real work is seeing the distance between your own profile and the character\'s — the Character–Actor Gap.' },
+  pankCardTitle: { tr: 'Duygu Haritası · Panksepp', en: 'Emotion Map · Panksepp' },
+  pankCardDesc: { tr: 'Altı duygusal sistemin profili — bir mizaç haritası, bir teşhis değil. Karaktere hangi duygusal kapıdan girdiğini anlamana yardım eder.', en: 'A profile of your six emotional systems — a temperament map, not a diagnosis. It helps you see which emotional door you enter a character through.' },
+  saving: { tr: 'Kaydediliyor…', en: 'Saving…' },
+  saveError: { tr: 'Kayıt sırasında bir hata oldu. Lütfen tekrar dene.', en: 'There was an error saving. Please try again.' },
 };
 
-const ctaButonStili = {
-  display: 'inline-block',
-  padding: '1rem 2.5rem',
-  background: 'transparent',
-  border: '1px solid var(--accent)',
-  color: 'var(--accent)',
-  fontFamily: 'Jost, sans-serif',
-  fontSize: '0.85rem',
-  fontWeight: 300,
-  letterSpacing: '0.25em',
-  textTransform: 'uppercase',
-  textDecoration: 'none',
-  transition: 'all 0.3s ease',
-  cursor: 'pointer',
-};
-function ctaHoverIn(e) { e.currentTarget.style.background = 'var(--accent)'; e.currentTarget.style.color = 'var(--bg-base)'; }
-function ctaHoverOut(e) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--accent)'; }
+/* ─── SCORING ─────────────────────────────────────────────────── */
+function scoreVAK(ans) {
+  const out = {};
+  for (const [g, idx] of Object.entries(VAK_GROUPS)) out[g] = idx.reduce((s, i) => s + (ans[i - 1] ?? 0), 0);
+  const dom = Object.entries(out).sort((a, b) => b[1] - a[1])[0][0];
+  return { scores: out, dominant: dom, max: 40 };
+}
+function scoreSkills(ans) {
+  const out = {};
+  for (const [g, idx] of Object.entries(SKILLS_GROUPS)) out[g] = idx.reduce((s, i) => s + (ans[i - 1] ?? 0), 0) / idx.length;
+  return { scores: out, max: 7 };
+}
+function scorePanksepp(ans) {
+  const out = {};
+  for (const [g, idx] of Object.entries(PANK_GROUPS)) {
+    let sum = 0;
+    idx.forEach((i) => { const raw = ans[i - 1] ?? 0; if (!raw) return; sum += PANK_REVERSED.has(i) ? 6 - raw : raw; });
+    out[g] = { sum, norm: Math.round((sum / (idx.length * 5)) * 100) };
+  }
+  return { scores: out };
+}
+function scoreMBTI(picks) {
+  let code = ''; const detail = {};
+  MBTI_AXES.forEach((ax) => {
+    const arr = picks[ax.key] || [];
+    const right = arr.filter((x) => x === 1).length;
+    const left = arr.filter((x) => x === 0).length;
+    const letter = left >= right ? ax.left : ax.right;
+    code += letter; detail[ax.key] = { left, right, letter };
+  });
+  return { code, archetype: MBTI_ARCHETYPES[code] || { tr: '—', en: '—' }, detail };
+}
 
-// ─── Test Kartı (inline component) ─────────────────────────────────────────
+/* ─── UI parçaları ────────────────────────────────────────────── */
 
-function TestKarti({ url, baslik, altbaslik, aciklama, meta, tamamlandi, sonuc }) {
+const serif = 'Cormorant Garamond, serif';
+const body = 'Jost, sans-serif';
+
+function Etiket({ children }) {
+  return <div style={{ fontFamily: body, fontWeight: 500, fontSize: '0.68rem', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: '0.7rem' }}>{children}</div>;
+}
+
+function Cubuk({ etiket, deger, max, renk, son }) {
+  const pct = Math.max(2, Math.round((deger / max) * 100));
+  const gosterim = typeof deger === 'number' ? deger.toFixed(deger % 1 ? 1 : 0) : deger;
   return (
-    <a
-      href={url}
-      style={{
-        display: 'block',
-        background: 'var(--bg-elevated)',
-        border: '1px solid var(--rule)',
-        padding: '2rem 2.5rem',
-        marginBottom: '1.5rem',
-        textDecoration: 'none',
-        transition: 'all 0.3s ease',
-      }}
-      onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
-      onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; }}
-    >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '0.6rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-        <div style={{
-          fontFamily: 'Jost, sans-serif',
-          fontSize: '0.7rem',
-          fontWeight: 300,
-          letterSpacing: '0.3em',
-          textTransform: 'uppercase',
-          color: 'var(--ink)',
-        }}>
-          {baslik}
-        </div>
-        {tamamlandi ? (
-          <div style={{
-            fontFamily: 'Jost, sans-serif',
-            fontSize: '0.6rem',
-            fontWeight: 300,
-            letterSpacing: '0.25em',
-            textTransform: 'uppercase',
-            color: 'var(--onay)',
-          }}>
-            ✓ Tamamlandı
-          </div>
-        ) : (
-          <div style={{
-            fontFamily: 'Jost, sans-serif',
-            fontSize: '0.7rem',
-            fontWeight: 300,
-            color: 'var(--accent)',
-            letterSpacing: '0.1em',
-          }}>
-            Yap →
-          </div>
-        )}
+    <div style={{ marginBottom: '1.05rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '0.3rem' }}>
+        <span style={{ fontFamily: body, fontWeight: 400, fontSize: '1.02rem', color: 'var(--ink)' }}>{etiket}</span>
+        <span style={{ fontFamily: body, fontWeight: 500, fontSize: '0.82rem', color: 'var(--ink-soft)' }}>{gosterim}{son || ''}</span>
       </div>
-
-      <div style={{
-        fontFamily: 'Cormorant Garamond, serif',
-        fontStyle: 'italic',
-        fontSize: '1.05rem',
-        color: 'var(--accent)',
-        marginBottom: '1rem',
-      }}>
-        {altbaslik}
+      <div style={{ height: 7, background: 'var(--bg-elevated)', borderRadius: 6, overflow: 'hidden' }}>
+        <div style={{ width: pct + '%', height: '100%', background: renk, borderRadius: 6, transition: 'width .9s cubic-bezier(.2,.8,.2,1)' }} />
       </div>
-
-      <p style={{
-        fontFamily: 'Jost, sans-serif',
-        fontSize: '0.88rem',
-        fontWeight: 300,
-        lineHeight: 1.7,
-        color: 'var(--ink-soft)',
-        marginTop: 0,
-        marginBottom: '1rem',
-      }}>
-        {aciklama}
-      </p>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
-        <div style={{
-          fontFamily: 'Jost, sans-serif',
-          fontSize: '0.7rem',
-          fontWeight: 300,
-          color: 'var(--ink-muted)',
-          letterSpacing: '0.1em',
-        }}>
-          {meta}
-        </div>
-        {sonuc && (
-          <div style={{
-            fontFamily: 'Jost, sans-serif',
-            fontSize: '0.75rem',
-            fontWeight: 300,
-            color: 'var(--onay)',
-            letterSpacing: '0.05em',
-          }}>
-            {sonuc}
-          </div>
-        )}
-      </div>
-    </a>
+    </div>
   );
 }
 
-// ─── Ana Sayfa ─────────────────────────────────────────────────────────────
+function OlcekSatiri({ n, text, scale, value, onPick, compact, lang }) {
+  return (
+    <div style={{ padding: '1.1rem 0', borderBottom: '1px solid var(--rule)' }}>
+      <div style={{ display: 'flex', gap: '0.7rem', marginBottom: '0.7rem' }}>
+        <span style={{ fontFamily: body, fontWeight: 500, fontSize: '0.8rem', color: 'var(--accent-soft)', minWidth: 22 }}>{n}.</span>
+        <span style={{ fontFamily: body, fontWeight: 400, fontSize: '1.05rem', lineHeight: 1.45, color: 'var(--ink)' }}>{text}</span>
+      </div>
+      <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', paddingLeft: 29 }}>
+        {scale.map((s) => {
+          const on = value === s.val;
+          return (
+            <button key={s.val} onClick={() => onPick(s.val)} style={{
+              cursor: 'pointer',
+              border: `1px solid ${on ? 'var(--accent)' : 'var(--rule)'}`,
+              background: on ? 'var(--accent)' : 'transparent',
+              color: on ? 'var(--bg-base)' : 'var(--ink-soft)',
+              borderRadius: 999,
+              padding: compact ? '0.32rem 0.7rem' : '0.38rem 0.85rem',
+              fontFamily: body,
+              fontWeight: 400,
+              fontSize: compact ? '0.8rem' : '0.86rem',
+              transition: 'all .15s',
+            }}>{tx(s, lang)}</button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
-export default function Kalibrasyon() {
-  const [profil, setProfil] = useState(null);
-  const [yukleniyor, setYukleniyor] = useState(true);
+function ListeTesti({ items, scale, answers, setAnswers, compact, lang }) {
+  const done = answers.filter((a) => a != null).length;
+  return (
+    <div>
+      <div style={{ position: 'sticky', top: 56, zIndex: 5, background: 'var(--bg-base)', padding: '0.6rem 0 0.9rem', borderBottom: '2px solid var(--ink)' }}>
+        <div style={{ fontFamily: body, fontWeight: 400, fontSize: '0.9rem', color: 'var(--ink-soft)' }}>
+          {done} / {items.length} {tx(UI.answered, lang)}
+          <div style={{ height: 4, background: 'var(--bg-elevated)', borderRadius: 4, marginTop: '0.4rem', overflow: 'hidden' }}>
+            <div style={{ width: (done / items.length) * 100 + '%', height: '100%', background: 'var(--accent)', transition: 'width .9s cubic-bezier(.2,.8,.2,1)' }} />
+          </div>
+        </div>
+      </div>
+      {items.map((t, i) => (
+        <OlcekSatiri key={i} n={i + 1} text={tx(t, lang)} scale={scale} value={answers[i]} compact={compact} lang={lang}
+          onPick={(v) => { const c = [...answers]; c[i] = v; setAnswers(c); }} />
+      ))}
+    </div>
+  );
+}
 
-  useEffect(() => {
-    async function yukle() {
-      const p = await getKalibrasyonProfili();
-      setProfil(p);
-      setYukleniyor(false);
+function MBTITesti({ picks, setPicks, lang }) {
+  const total = MBTI_AXES.reduce((s, a) => s + a.rows.length, 0);
+  const done = MBTI_AXES.reduce((s, a) => s + (picks[a.key] || []).filter((x) => x != null).length, 0);
+  return (
+    <div>
+      <div style={{ position: 'sticky', top: 56, zIndex: 5, background: 'var(--bg-base)', padding: '0.6rem 0 0.9rem', borderBottom: '2px solid var(--ink)' }}>
+        <div style={{ fontFamily: body, fontWeight: 400, fontSize: '0.9rem', color: 'var(--ink-soft)' }}>
+          {done} / {total} {tx(UI.rowsHint, lang)}
+          <div style={{ height: 4, background: 'var(--bg-elevated)', borderRadius: 4, marginTop: '0.4rem', overflow: 'hidden' }}>
+            <div style={{ width: (done / total) * 100 + '%', height: '100%', background: 'var(--accent)', transition: 'width .9s cubic-bezier(.2,.8,.2,1)' }} />
+          </div>
+        </div>
+      </div>
+      {MBTI_AXES.map((ax) => (
+        <div key={ax.key} style={{ marginTop: '1.8rem' }}>
+          <Etiket>{tx(ax.title, lang)}</Etiket>
+          <div style={{ display: 'flex', gap: '0.5rem', margin: '0.2rem 0 0.9rem', fontFamily: body, fontWeight: 500, fontSize: '0.8rem', color: 'var(--ink-soft)' }}>
+            <span style={{ flex: 1 }}>← {tx(ax.leftHead, lang)}</span>
+            <span style={{ flex: 1, textAlign: 'right' }}>{tx(ax.rightHead, lang)} →</span>
+          </div>
+          {ax.rows.map((row, i) => {
+            const cur = (picks[ax.key] || [])[i];
+            const set = (side) => { const c = { ...picks, [ax.key]: [...(picks[ax.key] || [])] }; c[ax.key][i] = side; setPicks(c); };
+            const cells = [row.l, row.r];
+            return (
+              <div key={i} style={{ display: 'flex', gap: '0.5rem', padding: '0.5rem 0', borderBottom: '1px solid var(--rule)' }}>
+                {[0, 1].map((side) => {
+                  const on = cur === side;
+                  return (
+                    <button key={side} onClick={() => set(side)} style={{
+                      flex: 1,
+                      textAlign: side ? 'right' : 'left',
+                      cursor: 'pointer',
+                      border: `1px solid ${on ? 'var(--accent)' : 'var(--rule)'}`,
+                      background: on ? 'var(--accent-bg-deep)' : 'transparent',
+                      borderLeft: on && side === 0 ? '3px solid var(--accent)' : `1px solid ${on ? 'var(--accent)' : 'var(--rule)'}`,
+                      borderRight: on && side === 1 ? '3px solid var(--accent)' : `1px solid ${on ? 'var(--accent)' : 'var(--rule)'}`,
+                      borderRadius: 8,
+                      padding: '0.55rem 0.7rem',
+                      fontFamily: body,
+                      fontWeight: 400,
+                      fontSize: '0.92rem',
+                      lineHeight: 1.35,
+                      color: on ? 'var(--ink)' : 'var(--ink-soft)',
+                      transition: 'all .15s',
+                    }}>{tx(cells[side], lang)}</button>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ─── INTAKE ──────────────────────────────────────────────────── */
+
+const EDU = { tr: ['Lise', 'Üniversite', 'Yüksek Lisans', 'Doktora'], en: ['High School', 'University', 'Masters', 'Doctorate'] };
+const EXP = { tr: ['Yok', '1-2 yıl', '3-5 yıl', '5-10 yıl', '10-15 yıl', '15+ yıl'], en: ['None', '1-2 yrs', '3-5 yrs', '5-10 yrs', '10-15 yrs', '15+ yrs'] };
+const AREAS = { tr: ['Tiyatro', 'Sinema', 'Televizyon', 'Seslendirme', 'Diğer'], en: ['Theatre', 'Film', 'Television', 'Voice Acting', 'Other'] };
+const INTAKE_T = {
+  name: { tr: 'Ad / Sahne Adı', en: 'Name / Stage Name' },
+  country: { tr: 'Ülke', en: 'Country' }, city: { tr: 'Şehir', en: 'City' },
+  edu: { tr: 'Eğitim Düzeyi', en: 'Education Level' }, exp: { tr: 'Oyunculuk Deneyimi', en: 'Acting Experience' },
+  areas: { tr: 'Deneyim Alanları (çoklu)', en: 'Areas of Experience (multi)' },
+  fav: { tr: 'Kariyerindeki en sevdiğin rol ve nedeni', en: 'Your favorite role and why' },
+  favPh: { tr: 'Açık uçlu — 500 kelimeye kadar', en: 'Open-ended — up to 500 words' },
+};
+
+function Chip({ on, onClick, children }) {
+  return (
+    <button onClick={onClick} style={{
+      cursor: 'pointer',
+      border: `1px solid ${on ? 'var(--accent)' : 'var(--rule)'}`,
+      background: on ? 'var(--accent)' : 'transparent',
+      color: on ? 'var(--bg-base)' : 'var(--ink-soft)',
+      borderRadius: 999,
+      padding: '0.42rem 0.9rem',
+      fontFamily: body,
+      fontWeight: 400,
+      fontSize: '0.9rem',
+      transition: 'all .15s',
+    }}>{children}</button>
+  );
+}
+
+function Intake({ data, setData, lang }) {
+  const set = (k, v) => setData({ ...data, [k]: v });
+  const toggle = (k, v) => { const a = data[k] || []; set(k, a.includes(v) ? a.filter((x) => x !== v) : [...a, v]); };
+  const field = { fontFamily: body, fontWeight: 400, fontSize: '1rem', color: 'var(--ink)', background: 'var(--bg-base)', border: '1px solid var(--rule)', borderRadius: 8, padding: '0.6rem 0.8rem', width: '100%' };
+  return (
+    <div style={{ display: 'grid', gap: '1.4rem' }}>
+      <div><Etiket>{tx(INTAKE_T.name, lang)}</Etiket><input style={field} value={data.name || ''} onChange={(e) => set('name', e.target.value)} placeholder="…" /></div>
+      <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+        <div style={{ flex: 1, minWidth: 140 }}><Etiket>{tx(INTAKE_T.country, lang)}</Etiket><input style={field} value={data.country || ''} onChange={(e) => set('country', e.target.value)} /></div>
+        <div style={{ flex: 1, minWidth: 140 }}><Etiket>{tx(INTAKE_T.city, lang)}</Etiket><input style={field} value={data.city || ''} onChange={(e) => set('city', e.target.value)} /></div>
+      </div>
+      <div><Etiket>{tx(INTAKE_T.edu, lang)}</Etiket><div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>{EDU[lang].map((e) => <Chip key={e} on={data.edu === e} onClick={() => set('edu', e)}>{e}</Chip>)}</div></div>
+      <div><Etiket>{tx(INTAKE_T.exp, lang)}</Etiket><div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>{EXP[lang].map((e) => <Chip key={e} on={data.exp === e} onClick={() => set('exp', e)}>{e}</Chip>)}</div></div>
+      <div><Etiket>{tx(INTAKE_T.areas, lang)}</Etiket><div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>{AREAS[lang].map((a) => <Chip key={a} on={(data.areas || []).includes(a)} onClick={() => toggle('areas', a)}>{a}</Chip>)}</div></div>
+      <div><Etiket>{tx(INTAKE_T.fav, lang)}</Etiket><textarea style={{ ...field, minHeight: 90, resize: 'vertical' }} value={data.favRole || ''} onChange={(e) => set('favRole', e.target.value)} placeholder={tx(INTAKE_T.favPh, lang)} /></div>
+    </div>
+  );
+}
+
+/* ─── PROFILE ─────────────────────────────────────────────────── */
+
+const COLORS = ['var(--accent)', 'var(--accent-soft)', 'var(--kanal-1)', 'var(--kanal-4)', 'var(--kanal-3)', 'var(--kanal-2)', 'var(--kanal-5)'];
+
+function Kart({ children }) {
+  return <div style={{ border: '1px solid var(--rule)', borderRadius: 12, padding: '1.5rem 1.6rem', background: 'var(--bg-elevated)' }}>{children}</div>;
+}
+
+function Profile({ vak, mbti, skills, pank, lang }) {
+  return (
+    <div style={{ display: 'grid', gap: '2.4rem' }}>
+      <div style={{ textAlign: 'center' }}>
+        <Etiket>{tx(UI.resultLabel, lang)}</Etiket>
+        <h2 style={{ fontFamily: serif, fontWeight: 500, fontStyle: 'italic', fontSize: '2.1rem', color: 'var(--ink)', margin: '0.2rem 0' }}>{tx(UI.profileTitle, lang)}</h2>
+        <p style={{ fontFamily: body, fontWeight: 400, fontSize: '1rem', lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 560, margin: '0 auto' }}>{tx(UI.profileLead, lang)}</p>
+      </div>
+
+      <Kart>
+        <Etiket>{tx(UI.skillCardTitle, lang)}</Etiket>
+        <p style={{ fontFamily: body, fontWeight: 400, fontSize: '0.95rem', lineHeight: 1.5, color: 'var(--ink-soft)', marginTop: 0 }}>{tx(UI.skillCardDesc, lang)}</p>
+        {Object.entries(skills.scores).sort((a, b) => b[1] - a[1]).map(([g, v], i) => (
+          <Cubuk key={g} etiket={glabel(g, lang)} deger={v} max={skills.max} renk={COLORS[i % COLORS.length]} son=" / 7" />
+        ))}
+      </Kart>
+
+      <Kart>
+        <Etiket>{tx(UI.vakCardTitle, lang)}</Etiket>
+        <p style={{ fontFamily: body, fontWeight: 400, fontSize: '1.05rem', lineHeight: 1.5, color: 'var(--ink)', marginTop: 0 }}>
+          {tx(UI.vakDominant, lang)} <strong style={{ color: 'var(--accent)' }}>{glabel(vak.dominant, lang)}</strong>. {tx(UI.vakCardDesc, lang)}
+        </p>
+        {Object.entries(vak.scores).map(([g, v], i) => (
+          <Cubuk key={g} etiket={glabel(g, lang)} deger={v} max={vak.max} renk={COLORS[i % COLORS.length]} son={` / ${vak.max}`} />
+        ))}
+      </Kart>
+
+      <Kart>
+        <Etiket>{tx(UI.mbtiCardTitle, lang)}</Etiket>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', flexWrap: 'wrap' }}>
+          <span style={{ fontFamily: serif, fontWeight: 500, fontSize: '2.6rem', letterSpacing: '0.1em', color: 'var(--accent)' }}>{mbti.code}</span>
+          <span style={{ fontFamily: serif, fontStyle: 'italic', fontWeight: 400, fontSize: '1.3rem', color: 'var(--ink)' }}>{tx(mbti.archetype, lang)}</span>
+        </div>
+        <p style={{ fontFamily: body, fontWeight: 400, fontSize: '0.95rem', lineHeight: 1.5, color: 'var(--ink-soft)' }}>{tx(UI.mbtiCardDesc, lang)}</p>
+        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', fontFamily: body, fontWeight: 400, fontSize: '0.82rem', color: 'var(--ink-soft)' }}>
+          {MBTI_AXES.map((ax) => (
+            <span key={ax.key} style={{ border: '1px solid var(--rule)', borderRadius: 6, padding: '0.25rem 0.55rem' }}>
+              {ax.left} {mbti.detail[ax.key].left} · {mbti.detail[ax.key].right} {ax.right}
+            </span>
+          ))}
+        </div>
+      </Kart>
+
+      <Kart>
+        <Etiket>{tx(UI.pankCardTitle, lang)}</Etiket>
+        <p style={{ fontFamily: body, fontWeight: 400, fontSize: '0.95rem', lineHeight: 1.5, color: 'var(--ink-soft)', marginTop: 0 }}>{tx(UI.pankCardDesc, lang)}</p>
+        {Object.entries(pank.scores).map(([g, o], i) => (
+          <Cubuk key={g} etiket={g} deger={o.norm} max={100} renk={COLORS[i % COLORS.length]} son="%" />
+        ))}
+      </Kart>
+    </div>
+  );
+}
+
+/* ─── APP ─────────────────────────────────────────────────────── */
+
+const backBtn = { cursor: 'pointer', border: 'none', background: 'none', color: 'var(--ink-soft)', fontFamily: body, fontWeight: 400, fontSize: '0.9rem', padding: 0 };
+const cta = { cursor: 'pointer', border: '1px solid var(--ink)', background: 'var(--ink)', color: 'var(--bg-base)', borderRadius: 999, padding: '0.7rem 1.8rem', fontFamily: body, fontWeight: 400, fontSize: '1rem' };
+const ctaDisabled = { ...cta, opacity: 0.5, cursor: 'not-allowed' };
+
+export default function KalibrasyonSayfasi() {
+  const router = useRouter();
+  const [lang, setLang] = useState('tr');
+  const [pos, setPos] = useState(1);
+  const [intake, setIntake] = useState({});
+  const [vakA, setVakA] = useState(Array(24).fill(null));
+  const [skillA, setSkillA] = useState(Array(37).fill(null));
+  const [pankA, setPankA] = useState(Array(33).fill(null));
+  const [picks, setPicks] = useState({});
+  const [kayitDurumu, setKayitDurumu] = useState(null); // null | 'kaydediliyor' | 'hata'
+
+  const vakRes = useMemo(() => scoreVAK(vakA), [vakA]);
+  const skillRes = useMemo(() => scoreSkills(skillA), [skillA]);
+  const pankRes = useMemo(() => scorePanksepp(pankA), [pankA]);
+  const mbtiRes = useMemo(() => scoreMBTI(picks), [picks]);
+
+  const go = (p) => { setPos(p); if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  const inner = { maxWidth: 720, margin: '0 auto', padding: '2rem 1.4rem 5rem' };
+  const section = pos >= 1 && pos <= FLOW.length ? FLOW[pos - 1] : null;
+  const skillsScale = [1, 2, 3, 4, 5, 6, 7].map((v) => ({ val: v, tr: String(v), en: String(v) }));
+
+  // Son bölümün CTA tıklaması: önce kalibrasyonKaydet, başarılıysa Profile göster.
+  const profileGor = async () => {
+    setKayitDurumu('kaydediliyor');
+    try {
+      await kalibrasyonKaydet({
+        profil: intake,
+        vak: vakRes,
+        mbti: mbtiRes,
+        beceri: skillRes,
+        panksepp: pankRes,
+      });
+      setKayitDurumu(null);
+      go(FLOW.length + 1);
+    } catch (e) {
+      console.error('Kalibrasyon kayıt hatası:', e);
+      setKayitDurumu('hata');
     }
-    yukle();
-  }, []);
+  };
 
-  const vak = profil?.vak || null;
-  const arketip = profil?.arketip || null;
-  const yildiz = profil?.yildiz || null;
-
-  const tamamlananSayisi = (vak ? 1 : 0) + (arketip ? 1 : 0) + (yildiz ? 1 : 0);
-
-  // Sonuç metinleri
-  const vakSonucMetni = vak
-    ? `Baskın: ${KANAL_AD[vak.baskin] || vak.baskin}`
-    : null;
-  const arketipSonucMetni = arketip
-    ? (arketip.ad ? `${arketip.tip} · ${arketip.ad}` : `Tip: ${arketip.tip}`)
-    : null;
-  const yildizSonucMetni = yildiz && typeof yildiz.genel_yuzde === 'number'
-    ? `Genel: ${yildiz.genel_yuzde}%`
-    : null;
+  const LangToggle = () => (
+    <div style={{ display: 'inline-flex', border: '1px solid var(--rule)', borderRadius: 999, overflow: 'hidden' }}>
+      {['tr', 'en'].map((l) => (
+        <button key={l} onClick={() => setLang(l)} style={{
+          cursor: 'pointer', border: 'none',
+          background: lang === l ? 'var(--ink)' : 'transparent',
+          color: lang === l ? 'var(--bg-base)' : 'var(--ink-soft)',
+          fontFamily: body, fontWeight: 500, fontSize: '0.72rem', letterSpacing: '0.1em',
+          padding: '0.3rem 0.7rem',
+        }}>{l.toUpperCase()}</button>
+      ))}
+    </div>
+  );
 
   return (
-    <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', flexDirection: 'column' }}>
-
-      {/* HEADER */}
-      <header style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '1.6rem 2rem',
-        borderBottom: '1px solid var(--bg-elevated)',
-        flexWrap: 'wrap',
-        gap: '1rem',
-      }}>
-        <a href="/" style={{
-          fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem',
-          letterSpacing: '0.3em', color: 'var(--accent)', textTransform: 'uppercase', textDecoration: 'none',
-        }}>
-          Inside The Character
-        </a>
-        <a href="/" style={{
-          fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem',
-          letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none',
-          transition: 'color 0.25s ease',
-        }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
-          ← Ana Ekran
-        </a>
-      </header>
-
-      {/* BÖLÜM 1 — KARŞILAMA */}
-      <section style={{
-        padding: 'clamp(3.5rem, 7vw, 5rem) 2rem 2.5rem',
-        textAlign: 'center',
-        maxWidth: '900px',
-        margin: '0 auto',
-        width: '100%',
-        boxSizing: 'border-box',
-      }}>
-        <div style={{ width: '1px', height: '50px', backgroundColor: 'var(--accent)', opacity: 0.4, margin: '0 auto 1.8rem' }} />
-        <div style={ustEtiketStili}>Modül I</div>
-        <h1 style={{
-          fontFamily: 'Cormorant Garamond, serif',
-          fontStyle: 'italic',
-          fontSize: 'clamp(2.3rem, 5vw, 3.4rem)',
-          fontWeight: 300,
-          color: 'var(--ink)',
-          margin: '0 0 1.4rem 0',
-          lineHeight: 1.2,
-          letterSpacing: '0.02em',
-        }}>
-          Kendini Tanı
-        </h1>
-        <p style={{
-          fontFamily: 'Cormorant Garamond, serif',
-          fontStyle: 'italic',
-          fontSize: 'clamp(1rem, 2vw, 1.15rem)',
-          color: 'var(--ink-soft)',
-          maxWidth: '600px',
-          margin: 0,
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          lineHeight: 1.7,
-        }}>
-          Üç analiz, tek bir enstrüman profili. Önerilen sıra: Duyusal Kanal → Kişilik Tipi → Yıldız Oyuncu. Tamamlamak şart değil — dilediğin yerden başlayabilirsin.
-        </p>
-      </section>
-
-      {/* BÖLÜM 2 — İLERLEME ROZETİ */}
-      <section style={{
-        padding: '0 2rem 2.5rem',
-        maxWidth: '900px',
-        margin: '0 auto',
-        width: '100%',
-        boxSizing: 'border-box',
-        display: 'flex',
-        justifyContent: 'center',
-      }}>
-        {!yukleniyor && (
-          <IlerlemeRozet
-            etiket="Toplam"
-            mevcut={tamamlananSayisi}
-            toplam={3}
-            renk="var(--accent)"
-          />
-        )}
-      </section>
-
-      {/* BÖLÜM 3 — ÜÇ TEST KARTI */}
-      <section style={{
-        padding: '0 2rem',
-        maxWidth: '780px',
-        margin: '0 auto',
-        width: '100%',
-        boxSizing: 'border-box',
-      }}>
-        <TestKarti
-          url="/kalibrasyon/vak"
-          baslik="Duyusal Kanal Tercihi"
-          altbaslik="Görsel · İşitsel · Kinestetik"
-          aciklama="Hangi duyusal kanaldan dünyaya öncelikle bağlandığını gösterir. Yöntem bu tercihe göre farklı kapılar sunar."
-          meta="27 soru · ~5 dk"
-          tamamlandi={vak !== null}
-          sonuc={vakSonucMetni}
-        />
-        <TestKarti
-          url="/kalibrasyon/arketip"
-          baslik="Kişilik Tipi Analizi"
-          altbaslik="16 Enstrüman Profili"
-          aciklama="Jungiyen temelli sahne senaryolarıyla enstrüman arketipini belirler."
-          meta="12 senaryo · ~5 dk"
-          tamamlandi={arketip !== null}
-          sonuc={arketipSonucMetni}
-        />
-        <TestKarti
-          url="/kalibrasyon/yildiz"
-          baslik="Yıldız Oyuncu Analizi"
-          altbaslik="Parlayan yönlerin · Gelişim alanların · Yol planın"
-          aciklama="Altı boyutlu öz-farkındalık haritan + karaktere yaklaşım kılavuzun."
-          meta="37 kriter · ~5 dk"
-          tamamlandi={yildiz !== null}
-          sonuc={yildizSonucMetni}
-        />
-      </section>
-
-      {/* BÖLÜM 4 — YÖNTEM VE ETİK */}
-      <section style={{
-        padding: 'clamp(3rem, 7vw, 5rem) 2rem',
-        marginTop: '3rem',
-        borderTop: '1px solid var(--bg-elevated)',
-        background: 'var(--bg-elevated)',
-      }}>
-        <div style={{ maxWidth: '780px', margin: '0 auto' }}>
-
-          {/* Üst başlık */}
-          <div style={{ textAlign: 'center', marginBottom: 'clamp(2.5rem, 5vw, 4rem)' }}>
-            <div style={ustEtiketStili}>Yöntem</div>
-            <h2 style={{
-              fontFamily: 'Cormorant Garamond, serif',
-              fontStyle: 'italic',
-              fontSize: 'clamp(1.6rem, 3vw, 2rem)',
-              color: 'var(--ink)',
-              fontWeight: 300,
-              margin: 0,
-            }}>
-              Kalibrasyon
-            </h2>
+    <div style={{ minHeight: '100vh', background: 'var(--bg-base)', color: 'var(--ink)', fontFamily: body }}>
+      <div style={{ borderBottom: '1px solid var(--rule)', background: 'var(--bg-base)', position: 'sticky', top: 0, zIndex: 20, height: 56 }}>
+        <div style={{ maxWidth: 720, margin: '0 auto', padding: '0 1.4rem', height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <a href="/" style={{ fontFamily: serif, fontWeight: 500, fontStyle: 'italic', fontSize: '1.3rem', color: 'var(--ink)', textDecoration: 'none' }}>{UI.brand}</a>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+            <span style={{ fontFamily: body, fontWeight: 400, fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--accent)' }}>{tx(UI.calib, lang)}</span>
+            <LangToggle />
           </div>
+        </div>
+      </div>
 
-          {/* Alt-bölüm 1 — Yöntem nasıl çalışır */}
-          <div style={{ marginBottom: '4rem' }}>
-            <p style={paragrafStili}>
-              ITC'nin merkezinde şu fikir var: Aynı sahneye herkes aynı kapıdan girmez. Bir oyuncu için görsel imge bir geçit olabilir, başkası için bedensel bir duyum, bir başkası için bir iç ses. Bu üç analiz, sana özgü kapıların haritasını çıkarır. Sonraki modüllerde her egzersiz, her yönlendirme, her soru — sessizce senin haritanı takip eder. Sen sadece çalışmaya odaklanırsın; uyarlanma görünmez.
-            </p>
-
-            <div style={{ marginTop: '2.5rem' }}>
-              <h3 style={altBaslikStili}>◆ Duyusal Kanal Tercihin</h3>
-              <p style={paragrafStili}>
-                Hangi duyusal kanaldan dünyaya öncelikle bağlandığını gösterir: görsel, işitsel ya da kinestetik. Karakteri inşa ederken, bedensel antrenmanların derinleşme aşaması senin baskın kanalına göre şekillenir. Bir karakteri "görerek" mi, "duyarak" mı, yoksa "hissederek" mi içine alıyorsun — yöntem buna göre kendini ayarlar. Bu bir öğrenme yetisi değil, bir tercihtir. Sahnede klişelere düşmemenin ilk adımı budur — çünkü oyuncuya hiç ait olmayan bir kanaldan içeriden çalışmak, dış imitasyon doğurur.
-              </p>
-            </div>
-
-            <div style={{ marginTop: '2.5rem' }}>
-              <h3 style={altBaslikStili}>◆ Kişilik Tipin</h3>
-              <p style={paragrafStili}>
-                Düşünme biçimini, karar verme yapını ve dünyaya bakış açını gösteren bir enstrüman profili. Bu profil senin "varsayılan ayarın" — karakter inşasında gerçek iş, kendi profilin ile karakterin profili arasındaki mesafeyi görmektir. Mesafeyi görmek, esneme yönünü görmektir. Hangi kasları gerip hangilerini gevşetmen gerektiğini bilirsin. Modül II'nin ilerleyen aşamalarında bu mesafe görselleşecek.
-              </p>
-            </div>
-
-            <div style={{ marginTop: '2.5rem' }}>
-              <h3 style={altBaslikStili}>◆ Yıldız Oyuncu Profilin</h3>
-              <p style={paragrafStili}>
-                Altı boyutlu bir öz-farkındalık haritası — teknik donanımın, psikolojik sağlamlığın, mesleki tutumun, yaratıcı kapasiten, entelektüel derinliğin, ilişki ve ifade gücün. Hangi eksenlerin parladığını, hangilerinin gelişmeyi beklediğini görürsün; kendine bir rota çizebilirsin. Karakter çalışırken bu harita "açık kapıların" gösterir — güçlü eksenler karaktere giriş yolun olur, zayıf eksenler yapıyı geliştirebileceğin alanları işaretler.
-              </p>
-            </div>
-          </div>
-
-          {/* Ayraç */}
-          <hr style={{ border: 'none', borderTop: '1px solid var(--bg-elevated)', margin: '4rem 0' }} />
-
-          {/* Alt-bölüm 2 — Güvenli Karakter İnşası */}
+      <div style={inner}>
+        {section && (
           <div>
-            <div style={{ marginBottom: '2rem' }}>
-              <div style={{
-                fontFamily: 'Jost, sans-serif',
-                fontSize: '0.6rem',
-                fontWeight: 300,
-                letterSpacing: '0.4em',
-                textTransform: 'uppercase',
-                color: 'var(--ink-muted)',
-                marginBottom: '0.8rem',
-              }}>
-                Güvenli Karakter İnşası
+            {section.welcome && (
+              <div style={{ textAlign: 'center', marginBottom: '2.6rem' }}>
+                <Etiket>{tx(UI.module, lang)}</Etiket>
+                <h1 style={{ fontFamily: serif, fontWeight: 400, fontStyle: 'italic', fontSize: 'clamp(2rem,5.5vw,3rem)', color: 'var(--ink)', margin: '0.3rem 0 1.2rem', lineHeight: 1.05 }}>{tx(UI.heroTitle, lang)}</h1>
+                <p style={{ fontFamily: body, fontWeight: 400, fontSize: '1.08rem', lineHeight: 1.7, color: 'var(--ink)', maxWidth: 540, margin: '0 auto' }}>{tx(section.intro, lang)}</p>
               </div>
-              <h3 style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontStyle: 'italic',
-                fontSize: '1.6rem',
-                color: 'var(--ink)',
-                fontWeight: 300,
-                margin: 0,
-              }}>
-                Seni koruyan bir zemin
-              </h3>
+            )}
+
+            <Etiket>{tx(UI.section, lang)} {section.n}</Etiket>
+            <h2 style={{ fontFamily: serif, fontWeight: 400, fontStyle: 'italic', fontSize: '2rem', color: 'var(--ink)', margin: '0.2rem 0 0.3rem' }}>{tx(section.title, lang)}</h2>
+            <div style={{ fontFamily: body, fontWeight: 400, fontSize: '0.9rem', color: 'var(--ink-soft)', marginBottom: '1.1rem' }}>{tx(section.sub, lang)}</div>
+
+            {!section.welcome && (
+              <p style={{ fontFamily: body, fontWeight: 400, fontSize: '1rem', lineHeight: 1.6, color: 'var(--ink)', fontStyle: 'italic', borderLeft: '3px solid var(--accent-soft)', paddingLeft: '1rem', margin: '0 0 1.8rem' }}>{tx(section.intro, lang)}</p>
+            )}
+            {section.welcome && (
+              <p style={{ fontFamily: body, fontWeight: 400, fontSize: '1rem', lineHeight: 1.6, color: 'var(--ink-soft)', margin: '0 0 1.8rem' }}>{tx(UI.basicsLead, lang)}</p>
+            )}
+
+            {section.key === 'basics' && <Intake data={intake} setData={setIntake} lang={lang} />}
+            {section.key === 'skills' && <ListeTesti items={SKILLS_ITEMS} scale={skillsScale} answers={skillA} setAnswers={setSkillA} compact lang={lang} />}
+            {section.key === 'vak' && <ListeTesti items={VAK_ITEMS} scale={VAK_SCALE} answers={vakA} setAnswers={setVakA} lang={lang} />}
+            {section.key === 'mbti' && <MBTITesti picks={picks} setPicks={setPicks} lang={lang} />}
+            {section.key === 'pank' && <ListeTesti items={PANK_ITEMS} scale={PANK_SCALE} answers={pankA} setAnswers={setPankA} compact lang={lang} />}
+
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2.4rem', gap: '1rem' }}>
+              {pos > 1 ? <button onClick={() => go(pos - 1)} style={backBtn}>← {tx(UI.back, lang)}</button> : <span />}
+              {pos === FLOW.length ? (
+                <button
+                  onClick={profileGor}
+                  disabled={kayitDurumu === 'kaydediliyor'}
+                  style={kayitDurumu === 'kaydediliyor' ? ctaDisabled : cta}
+                >
+                  {kayitDurumu === 'kaydediliyor' ? tx(UI.saving, lang) : tx(UI.seeProfile, lang)}
+                </button>
+              ) : (
+                <button onClick={() => go(pos + 1)} style={cta}>{tx(UI.nextSection, lang)}</button>
+              )}
             </div>
 
-            <p style={paragrafStili}>
-              Karakter çalışırken oyuncuyu kendi yaralarına bakmaya zorlayan yöntemler vardır. Acıyı acıdan çıkarmaya çalışırlar. Bu, kapatmayı bilmeyen bir kapı açmaktır.
-            </p>
-
-            <p style={{ ...paragrafStili, marginTop: '1.5rem' }}>
-              ITC bu kapıdan girmez. Bunun yerine karakterin verisi üzerinden çalışır — Macbeth'in suçluluğu, Hamlet'in yası, Willy'nin yorgunluğu yazarın yazdığı, metinde duran verilerdir. Sen oraya gider, oyuncu olarak inşa eder, ve bedeninle birlikte çıkarsın.
-            </p>
-
-            <p style={{ ...paragrafStili, marginTop: '1.5rem' }}>
-              Çıkmak da bir performanstır. Her egzersiz bir çıkış adımıyla biter; derin yerlere giden egzersizlerden sonra otomatik bir topraklanma protokolü başlar: nefes, bedene dönüş, isim, tarih, etrafı görmek.
-            </p>
-
-            <p style={{ ...paragrafStili, marginTop: '1.5rem' }}>
-              Bu güvenlik sahnenin içeriğinden gelir. Karakterin sahnesi yoğun bir travma kategorisi taşıyorsa sistem seni önceden uyarır; yoğun sahneler sonrası otomatik topraklanma adımına geçer. ITC'nin temeli şu cümledir: <em style={{ color: 'var(--accent)' }}>Karakter senin kişisel travmalarınla inşa edilmez.</em> Karakterin kendi verisi vardır. Senin yaraların seninle kalır.
-            </p>
+            {kayitDurumu === 'hata' && (
+              <p style={{ marginTop: '1rem', textAlign: 'center', fontFamily: body, fontWeight: 400, fontSize: '0.9rem', color: 'var(--uyari)' }}>{tx(UI.saveError, lang)}</p>
+            )}
           </div>
+        )}
 
-        </div>
-      </section>
-
-      {/* BÖLÜM 5 — ALT CTA */}
-      <section style={{
-        padding: 'clamp(3rem, 7vw, 5rem) 2rem',
-        textAlign: 'center',
-        borderTop: '1px solid var(--bg-elevated)',
-      }}>
-        <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-          {tamamlananSayisi === 3 ? (
-            <>
-              <h2 style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontStyle: 'italic',
-                fontSize: 'clamp(1.6rem, 3vw, 2rem)',
-                color: 'var(--ink)',
-                fontWeight: 300,
-                margin: '0 0 1rem 0',
-              }}>
-                Profilin hazır.
-              </h2>
-              <p style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontStyle: 'italic',
-                fontSize: '1.1rem',
-                color: 'var(--ink-soft)',
-                margin: '0 0 2.5rem 0',
-              }}>
-                Şimdi karakteri içeriden inşa etme zamanı.
-              </p>
-              <a
-                href="/antrenman/karakter"
-                style={ctaButonStili}
-                onMouseEnter={ctaHoverIn}
-                onMouseLeave={ctaHoverOut}
-              >
-                Modül II'ye Geç →
-              </a>
-            </>
-          ) : tamamlananSayisi > 0 ? (
-            <>
-              <h2 style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontStyle: 'italic',
-                fontSize: 'clamp(1.5rem, 3vw, 1.8rem)',
-                color: 'var(--ink)',
-                fontWeight: 300,
-                margin: '0 0 1rem 0',
-              }}>
-                {3 - tamamlananSayisi} test kaldı.
-              </h2>
-              <p style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontStyle: 'italic',
-                fontSize: '1.05rem',
-                color: 'var(--ink-soft)',
-                margin: 0,
-              }}>
-                Devam etmeye hazır mısın?
-              </p>
-            </>
-          ) : (
-            <>
-              <h2 style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontStyle: 'italic',
-                fontSize: 'clamp(1.5rem, 3vw, 1.8rem)',
-                color: 'var(--ink)',
-                fontWeight: 300,
-                margin: '0 0 1rem 0',
-              }}>
-                Hazır olduğunda başla.
-              </h2>
-              <p style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontStyle: 'italic',
-                fontSize: '1.05rem',
-                color: 'var(--ink-soft)',
-                margin: 0,
-              }}>
-                On beş dakika. Üç test. Bir profil.
-              </p>
-            </>
-          )}
-        </div>
-      </section>
-
-      {/* BÖLÜM 6 — PROFİL BİLGİLENDİRMESİ */}
-      <section style={{
-        padding: '2rem',
-        textAlign: 'center',
-        borderTop: '1px solid var(--bg-elevated)',
-      }}>
-        <p style={{
-          fontFamily: 'Jost, sans-serif',
-          fontSize: '0.78rem',
-          fontWeight: 300,
-          color: 'var(--ink-muted)',
-          margin: 0,
-        }}>
-          Detaylı sonuçlarını dilediğin zaman{' '}
-          <a
-            href="/profil"
-            style={{
-              color: 'var(--ink-muted)',
-              borderBottom: '1px solid var(--rule)',
-              textDecoration: 'none',
-              transition: 'color 0.25s ease',
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
-          >
-            profilinde
-          </a>
-          {' '}bulabilirsin.
-        </p>
-      </section>
-
-    </main>
+        {pos === FLOW.length + 1 && (
+          <div>
+            <button onClick={() => go(FLOW.length)} style={{ ...backBtn, marginBottom: '1.2rem', display: 'block' }}>{tx(UI.backToLast, lang)}</button>
+            <Profile vak={vakRes} mbti={mbtiRes} skills={skillRes} pank={pankRes} lang={lang} />
+            <div style={{ textAlign: 'center', marginTop: '2.4rem', display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
+              <button onClick={() => go(1)} style={backBtn}>{tx(UI.restart, lang)}</button>
+              <button onClick={() => router.push('/profil')} style={backBtn}>← /profil</button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
