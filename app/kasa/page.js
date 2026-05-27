@@ -12,28 +12,27 @@ export default function Kasa() {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '2rem 3rem',
-        borderBottom: '1px solid var(--bg-elevated)',
+        padding: '1.6rem 2rem',
+        borderBottom: '1px solid var(--rule)',
+        flexWrap: 'wrap',
+        gap: '1rem',
       }}>
-        <span style={{
+        <a href="/" style={{
           fontWeight: 200,
           fontSize: '0.65rem',
           letterSpacing: '0.3em',
           color: 'var(--accent)',
           textTransform: 'uppercase',
-        }}>
-          Actor's Gym
-        </span>
-        <a href="/" style={{
-          fontWeight: 200,
-          fontSize: '0.6rem',
-          letterSpacing: '0.25em',
-          color: 'var(--ink-muted)',
-          textTransform: 'uppercase',
           textDecoration: 'none',
         }}>
-          ← Ana Ekran
+          Actor's Gym
         </a>
+        <nav style={{ display: 'flex', gap: '1.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
+          <a href="/antrenman/karakter" style={{ fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink)', textTransform: 'uppercase', textDecoration: 'none' }}>Karakterler</a>
+          <a href="/kalibrasyon" style={{ fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none' }}>Kalibrasyon</a>
+          <a href="/kulis" style={{ fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none' }}>Kulis</a>
+          <a href="/profil" style={{ fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none' }}>Profil</a>
+        </nav>
       </header>
       <section style={{
         flex: 1,

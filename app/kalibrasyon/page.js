@@ -682,13 +682,16 @@ export default function KalibrasyonSayfasi() {
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-base)', color: 'var(--ink)', fontFamily: body }}>
-      <div style={{ borderBottom: '1px solid var(--rule)', background: 'var(--bg-base)', position: 'sticky', top: 0, zIndex: 20, height: 56 }}>
-        <div style={{ maxWidth: 720, margin: '0 auto', padding: '0 1.4rem', height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div style={{ borderBottom: '1px solid var(--rule)', background: 'var(--bg-base)', position: 'sticky', top: 0, zIndex: 20 }}>
+        <div style={{ maxWidth: 720, margin: '0 auto', padding: '0.6rem 1.4rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.8rem', flexWrap: 'wrap' }}>
           <a href="/" style={{ fontFamily: serif, fontWeight: 500, fontStyle: 'italic', fontSize: '1.3rem', color: 'var(--ink)', textDecoration: 'none' }}>{UI.brand}</a>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+          <nav style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', flexWrap: 'wrap' }}>
+            <a href="/antrenman/karakter" style={{ fontFamily: body, fontWeight: 400, fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--ink-soft)', textDecoration: 'none' }}>{lang === 'tr' ? 'Karakterler' : 'Characters'}</a>
+            <a href="/kulis" style={{ fontFamily: body, fontWeight: 400, fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--ink-soft)', textDecoration: 'none' }}>{lang === 'tr' ? 'Kulis' : 'Backstage'}</a>
+            <a href="/profil" style={{ fontFamily: body, fontWeight: 400, fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--ink-soft)', textDecoration: 'none' }}>{lang === 'tr' ? 'Profil' : 'Profile'}</a>
             <span style={{ fontFamily: body, fontWeight: 400, fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--accent)' }}>{tx(UI.calib, lang)}</span>
             <LangToggle />
-          </div>
+          </nav>
         </div>
       </div>
 
