@@ -4,42 +4,42 @@ import { useState, useEffect } from 'react';
 import { tumKarakterIlerlemeleri } from '../../lib/kulis';
 import IlerlemeRozet from '../../../components/IlerlemeRozet';
 
-// Hamlet refactor sonrası: 5 boşluk (her biri 3 alt-soru, hibrit yapı).
-// Diğer karakterler eski 12 alanlı yapıda. Antrenman sayıları her karakter için
-// kendi data dosyasındaki egzersizler dizisinin uzunluğu.
+// Karakter listesi — sade vitrin.
 //
-// Mizaç: psikometrik (MBTI + Yıldız profili göstergeleri)
-// Tema:  içerik havuzu (yas, suçluluk, iktidar, vb.)
+// AKTİF: Hamlet, Willy (yeni şemada, sayfalar tam çalışıyor).
+// PASİF: Macbeth, Biff (eski şemada; veri Willy şemasına yeniden yazılacak —
+//        Filiz klinik gözden geçirimiyle. O bitene kadar Medea/Blanche gibi
+//        "Yakında" konumunda tıklanamaz dururlar).
+//
+// KARARLAR (Beyti):
+// - Macbeth/Biff: tamamen pasif (gri, tıklanmaz, "Yakında") — kırık dosyaya
+//   tıklatmaktan iyi.
+// - "ITC öğrenme zinciri" bloğu kaldırıldı (kalabalık yapıyordu).
+// - "Refactor Bekliyor" / "Tam Yapı" durum göstergesi kaldırıldı (kullanıcı
+//   için anlamsız bir iç not).
 const KARAKTER_META = {
   hamlet: {
     yazar: 'William Shakespeare', donem: '1600', tur: 'Trajedi',
     boslukSayisi: 5, antrenmanSayisi: 0,
-    durum: 'tam', // tam yapi (refactor edildi) | eski (refactor bekliyor)
     mizac: ['empati yüksek', 'analiz yüksek', 'yas yorgunluğu'],
     tema:  ['yas', 'intikam', 'yanılsama', 'varoluş', 'ihanet'],
-  },
-  macbeth: {
-    yazar: 'William Shakespeare', donem: '1606', tur: 'Trajedi',
-    boslukSayisi: 12, antrenmanSayisi: 8,
-    durum: 'eski',
-    mizac: ['hırs yüksek', 'paranoya', 'ahlaki çöküş'],
-    tema:  ['iktidar', 'suçluluk', 'ihanet', 'şiddet'],
   },
   willy: {
     yazar: 'Arthur Miller', donem: '1949', tur: 'Trajedi',
     boslukSayisi: 12, antrenmanSayisi: 7,
-    durum: 'eski',
     mizac: ['yanılsamacı', 'zaman kayması', 'kimlik kırılması'],
     tema:  ['yanılsama', 'kimlik', 'çöküş', 'baba-oğul'],
   },
-  biff: {
-    yazar: 'Arthur Miller', donem: '1949', tur: 'Trajedi',
-    boslukSayisi: 12, antrenmanSayisi: 6,
-    durum: 'eski',
-    mizac: ['kırık kahraman', 'gerçeklik arayışı'],
-    tema:  ['yas', 'kimlik', 'özgürleşme', 'baba-oğul'],
-  },
 };
+
+// Tıklanmaz "Yakında" listesi — Macbeth/Biff geçici olarak burada,
+// Medea/Blanche kalıcı olarak burada.
+const YAKINDA = [
+  { ad: 'Macbeth',        yazar: 'William Shakespeare', aciklama: 'İktidar hırsı, suçluluk ve paranoyanın iç çöküşü.' },
+  { ad: 'Biff Loman',     yazar: 'Arthur Miller',       aciklama: 'Babanın rüyasından uyanış. Kırılma ve özgürleşme arasında bir adamın gerçeği arama yolculuğu.' },
+  { ad: 'Medea',          yazar: 'Euripides',           aciklama: 'Öfke, ihanet ve radikal eylem.' },
+  { ad: 'Blanche DuBois', yazar: 'Tennessee Williams',  aciklama: 'Yanılsama kalkanı ve kırılganlık.' },
+];
 
 function EtiketBloku({ karakterId }) {
   const meta = KARAKTER_META[karakterId];
@@ -93,105 +93,6 @@ function EtiketBloku({ karakterId }) {
   );
 }
 
-function OgrenmeZinciri() {
-  const TON = 'var(--accent)';
-  const halkalar = [
-    { fiil: 'Gör', aciklama: 'Doğruları' },
-    { fiil: 'Tanı', aciklama: 'İlişkileri' },
-    { fiil: 'Anla', aciklama: 'Sahneleri' },
-    { fiil: 'İşaretle', aciklama: 'Tercihleri' },
-    { fiil: 'Yaz', aciklama: 'Boşlukları' },
-    { fiil: 'İçselleştir', aciklama: 'Yükü' },
-  ];
-  return (
-    <div
-      style={{
-        border: '1px solid var(--rule)',
-        backgroundColor: 'var(--bg-elevated)',
-        padding: '1.4rem 1.6rem',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '1rem',
-      }}
-    >
-      <span
-        style={{
-          fontFamily: 'Jost, sans-serif',
-          fontWeight: 200,
-          fontSize: '0.55rem',
-          letterSpacing: '0.35em',
-          color: 'var(--ink-muted)',
-          textTransform: 'uppercase',
-        }}
-      >
-        ITC öğrenme zinciri
-      </span>
-      <ol
-        style={{
-          listStyle: 'none',
-          padding: 0,
-          margin: 0,
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '0.4rem',
-          alignItems: 'baseline',
-        }}
-      >
-        {halkalar.map((h, i) => (
-          <li
-            key={h.fiil}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'baseline',
-              gap: '0.5rem',
-              padding: '0.4rem 0.7rem',
-              backgroundColor: 'var(--bg-base)',
-              border: '1px solid var(--bg-elevated)',
-            }}
-          >
-            <span
-              style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontStyle: 'italic',
-                fontSize: '1.05rem',
-                color: TON,
-              }}
-            >
-              {h.fiil}
-            </span>
-            <span
-              style={{
-                fontFamily: 'Jost, sans-serif',
-                fontWeight: 200,
-                fontSize: '0.7rem',
-                color: 'var(--ink-soft)',
-              }}
-            >
-              {h.aciklama}
-            </span>
-            {i < halkalar.length - 1 && (
-              <span style={{ color: 'var(--ink-muted)', marginLeft: '0.3rem', fontSize: '0.7rem' }}>→</span>
-            )}
-          </li>
-        ))}
-      </ol>
-      <p
-        style={{
-          fontFamily: 'Cormorant Garamond, serif',
-          fontStyle: 'italic',
-          fontSize: '0.85rem',
-          color: 'var(--ink-muted)',
-          lineHeight: 1.7,
-          margin: 0,
-        }}
-      >
-        Her bölüm farklı bir bilişsel eylem ister. Sayılar tamamladığını değil,
-        kaçında <em style={{ color: 'var(--ink-soft)' }}>karakterle temas ettiğini</em> gösterir.
-      </p>
-    </div>
-  );
-}
-
 function MetaSatiri({ karakterId }) {
   const meta = KARAKTER_META[karakterId];
   if (!meta) return null;
@@ -204,30 +105,6 @@ function MetaSatiri({ karakterId }) {
       letterSpacing: '0.1em',
     }}>
       {meta.yazar} · {meta.donem} · {meta.tur}
-    </span>
-  );
-}
-
-function DurumGostergesi({ karakterId }) {
-  const meta = KARAKTER_META[karakterId];
-  if (!meta) return null;
-  const tam = meta.durum === 'tam';
-  const isim = tam ? '✓ Tam Yapı' : '○ Refactor Bekliyor';
-  const detay = tam ? `${meta.boslukSayisi} Bölüm` : 'Eski Yapı';
-  return (
-    <span style={{
-      fontFamily: 'Jost, sans-serif',
-      fontWeight: 200,
-      fontSize: '0.6rem',
-      color: tam ? 'var(--accent)' : 'var(--ink-muted)',
-      letterSpacing: '0.1em',
-      textTransform: 'uppercase',
-      flexShrink: 0,
-      textAlign: 'right',
-    }}>
-      {isim}
-      <br />
-      <span style={{ color: 'var(--ink-muted)', fontSize: '0.55rem' }}>{detay}</span>
     </span>
   );
 }
@@ -301,40 +178,16 @@ export default function KarakterListesi() {
           </p>
         </div>
 
-        <OgrenmeZinciri />
-
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
 
-          {/* Willy Loman — vitrin karakter (Karar 33, TR/EN) */}
-          <a href="/antrenman/karakter/willy"
-            style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', padding: '2rem', border: '1px solid var(--rule)', textDecoration: 'none', transition: 'all 0.3s ease' }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.backgroundColor = 'var(--bg-elevated)'; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; e.currentTarget.style.backgroundColor = 'transparent'; }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>Willy Loman</span>
-                <MetaSatiri karakterId="willy" />
-              </div>
-              <DurumGostergesi karakterId="willy" />
-            </div>
-            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>
-              Yanılsama ve kimlik çöküşü. Geçmiş ile şimdinin aynı anda yaşandığı bir zihin.
-            </p>
-            <EtiketBloku karakterId="willy" />
-            <IlerlemeBloku karakterId="willy" ilerlemeler={ilerlemeler} />
-          </a>
-
-          {/* Hamlet */}
+          {/* Hamlet — aktif */}
           <a href="/antrenman/karakter/hamlet"
             style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', padding: '2rem', border: '1px solid var(--rule)', textDecoration: 'none', transition: 'all 0.3s ease' }}
             onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.backgroundColor = 'var(--bg-elevated)'; }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; e.currentTarget.style.backgroundColor = 'transparent'; }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>Hamlet</span>
-                <MetaSatiri karakterId="hamlet" />
-              </div>
-              <DurumGostergesi karakterId="hamlet" />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+              <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>Hamlet</span>
+              <MetaSatiri karakterId="hamlet" />
             </div>
             <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>
               Yas, ihanet ve varoluşsal sorgulama. Düşünce ile eylem arasında sıkışmış bir prensin görünmeyen yolculuğu.
@@ -343,58 +196,33 @@ export default function KarakterListesi() {
             <IlerlemeBloku karakterId="hamlet" ilerlemeler={ilerlemeler} />
           </a>
 
-          {/* Biff Loman */}
-          <a href="/antrenman/karakter/biff"
+          {/* Willy Loman — aktif */}
+          <a href="/antrenman/karakter/willy"
             style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', padding: '2rem', border: '1px solid var(--rule)', textDecoration: 'none', transition: 'all 0.3s ease' }}
             onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.backgroundColor = 'var(--bg-elevated)'; }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; e.currentTarget.style.backgroundColor = 'transparent'; }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>Biff Loman</span>
-                <MetaSatiri karakterId="biff" />
-              </div>
-              <DurumGostergesi karakterId="biff" />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+              <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>Willy Loman</span>
+              <MetaSatiri karakterId="willy" />
             </div>
             <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>
-              Babanın rüyasından uyanış. Kırılma ve özgürleşme arasında sıkışmış bir adamın gerçeği arama yolculuğu.
+              Yanılsama ve kimlik çöküşü. Geçmiş ile şimdinin aynı anda yaşandığı bir zihin.
             </p>
-            <EtiketBloku karakterId="biff" />
-            <IlerlemeBloku karakterId="biff" ilerlemeler={ilerlemeler} />
+            <EtiketBloku karakterId="willy" />
+            <IlerlemeBloku karakterId="willy" ilerlemeler={ilerlemeler} />
           </a>
 
-          {/* Macbeth */}
-          <a href="/antrenman/karakter/macbeth"
-            style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', padding: '2rem', border: '1px solid var(--rule)', textDecoration: 'none', transition: 'all 0.3s ease' }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.backgroundColor = 'var(--bg-elevated)'; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; e.currentTarget.style.backgroundColor = 'transparent'; }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>Macbeth</span>
-                <MetaSatiri karakterId="macbeth" />
-              </div>
-              <DurumGostergesi karakterId="macbeth" />
-            </div>
-            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>
-              Kral Duncan'ın generali. Bir kehanet, bir karar, bir yıkım. İktidar hırsı, suçluluk ve paranoyanın iç çöküşü.
-            </p>
-            <EtiketBloku karakterId="macbeth" />
-            <IlerlemeBloku karakterId="macbeth" ilerlemeler={ilerlemeler} />
-          </a>
-
-          {/* Yakında */}
-          {[
-            { ad: 'Medea', yazar: 'Euripides', aciklama: 'Öfke, ihanet ve radikal eylem.' },
-            { ad: 'Blanche DuBois', yazar: 'Tennessee Williams', aciklama: 'Yanılsama kalkanı ve kırılganlık.' },
-          ].map((karakter, i) => (
+          {/* Yakında — Macbeth, Biff, Medea, Blanche (tıklanmaz, pasif) */}
+          {YAKINDA.map((k, i) => (
             <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', padding: '2rem', border: '1px solid var(--bg-elevated)', opacity: 0.4 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                  <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>{karakter.ad}</span>
-                  <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--ink-muted)', letterSpacing: '0.1em' }}>{karakter.yazar}</span>
+                  <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>{k.ad}</span>
+                  <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--ink-muted)', letterSpacing: '0.1em' }}>{k.yazar}</span>
                 </div>
                 <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', color: 'var(--ink-muted)', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>Yakında</span>
               </div>
-              <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>{karakter.aciklama}</p>
+              <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>{k.aciklama}</p>
             </div>
           ))}
 
