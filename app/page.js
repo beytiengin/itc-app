@@ -5,6 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from './lib/supabase';
+import { getKalibrasyonProfili } from './lib/kalibrasyon';
 import { useDil, ceviri } from './lib/dil';
 import chromeI18n from '../data/chrome-i18n';
 
@@ -169,6 +170,7 @@ export default function AnaSayfa() {
   const { dil } = useDil();
   const s = ceviri(chromeI18n, dil).anaSayfa;
   const [kullanici, setKullanici] = useState(null);
+  const [profil, setProfil] = useState(null); // null = anonim ya da yükleniyor
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -180,11 +182,40 @@ export default function AnaSayfa() {
     return () => subscription.unsubscribe();
   }, []);
 
-  const ctaHref = kullanici ? '/kalibrasyon' : '/giris';
-  const ctaMetni = kullanici ? s.ctaUye : s.ctaBasla;
-  const ctaKapanisMetni = kullanici ? s.ctaUye : s.ctaKapanisAnonim;
-  const kapanisBaslik = kullanici ? s.kapanisBaslikUye : s.kapanisBaslikAnonim;
-  const kapanisAlt = kullanici ? s.kapanisAltUye : s.kapanisAltAnonim;
+  // Üye girince kalibrasyon profilini sessizce çek; CTA'lar durum-duyarlı.
+  useEffect(() => {
+    if (!kullanici) { setProfil(null); return; }
+    getKalibrasyonProfili().then(setProfil);
+  }, [kullanici]);
+
+  // Akıllı CTA — dört durum: anonim · üye hicYok · üye yarım · üye tam.
+  // hicYok ile "üye ama profil yok" durumlarını ctaUye (Modül I'e Git) ile karşıla.
+  let ctaHref, ctaMetni, ctaKapanisMetni, kapanisBaslik, kapanisAlt;
+  if (!kullanici) {
+    ctaHref = '/giris';
+    ctaMetni = s.ctaBasla;
+    ctaKapanisMetni = s.ctaKapanisAnonim;
+    kapanisBaslik = s.kapanisBaslikAnonim;
+    kapanisAlt = s.kapanisAltAnonim;
+  } else if (!profil || profil.hicYok) {
+    ctaHref = '/kalibrasyon';
+    ctaMetni = s.ctaUye;
+    ctaKapanisMetni = s.ctaUye;
+    kapanisBaslik = s.kapanisBaslikUye;
+    kapanisAlt = s.kapanisAltUyeKalibrasyonEksik;
+  } else if (!profil.tamMi) {
+    ctaHref = '/kalibrasyon';
+    ctaMetni = s.ctaUyeKalibrasyonDevam;
+    ctaKapanisMetni = s.ctaUyeKalibrasyonDevam;
+    kapanisBaslik = s.kapanisBaslikUye;
+    kapanisAlt = s.kapanisAltUyeKalibrasyonEksik;
+  } else {
+    ctaHref = '/antrenman/karakter';
+    ctaMetni = s.ctaUyeKarakter;
+    ctaKapanisMetni = s.ctaUyeKarakter;
+    kapanisBaslik = s.kapanisBaslikUye;
+    kapanisAlt = s.kapanisAltUyeTam;
+  }
 
   return (
     <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', flexDirection: 'column' }}>
