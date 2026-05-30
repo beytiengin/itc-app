@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { tumKarakterIlerlemeleri } from '../../lib/kulis';
 import { ilerlemeGetir, kartlariKur, siradakiAdim } from '../../lib/ilerleme';
+import { useDil, ceviri } from '../../lib/dil';
+import chromeI18n from '../../../data/chrome-i18n';
 import hamletRaw from '../../../data/karakterler/hamlet';
 import willyRaw from '../../../data/karakterler/willy';
 import IlerlemeRozet from '../../../components/IlerlemeRozet';
@@ -22,35 +24,13 @@ import IlerlemeRozet from '../../../components/IlerlemeRozet';
 //   için anlamsız bir iç not).
 const KARAKTER_META = {
   hamlet: {
-    yazar: 'William Shakespeare', donem: '1600', tur: 'Trajedi',
+    yazar: 'William Shakespeare', donem: '1600', turKey: 'Trajedi',
     boslukSayisi: 5, antrenmanSayisi: 0,
-    mizac: ['empati yüksek', 'analiz yüksek', 'yas yorgunluğu'],
-    tema:  ['yas', 'intikam', 'yanılsama', 'varoluş', 'ihanet'],
   },
   willy: {
-    yazar: 'Arthur Miller', donem: '1949', tur: 'Trajedi',
+    yazar: 'Arthur Miller', donem: '1949', turKey: 'Trajedi',
     boslukSayisi: 12, antrenmanSayisi: 7,
-    mizac: ['yanılsamacı', 'zaman kayması', 'kimlik kırılması'],
-    tema:  ['yanılsama', 'kimlik', 'çöküş', 'baba-oğul'],
   },
-};
-
-// Tıklanmaz "Yakında" listesi — Macbeth/Biff geçici olarak burada,
-// Medea/Blanche kalıcı olarak burada.
-const YAKINDA = [
-  { ad: 'Macbeth',        yazar: 'William Shakespeare', aciklama: 'İktidar hırsı, suçluluk ve paranoyanın iç çöküşü.' },
-  { ad: 'Biff Loman',     yazar: 'Arthur Miller',       aciklama: 'Babanın rüyasından uyanış. Kırılma ve özgürleşme arasında bir adamın gerçeği arama yolculuğu.' },
-  { ad: 'Medea',          yazar: 'Euripides',           aciklama: 'Öfke, ihanet ve radikal eylem.' },
-  { ad: 'Blanche DuBois', yazar: 'Tennessee Williams',  aciklama: 'Yanılsama kalkanı ve kırılganlık.' },
-];
-
-// Sıradaki adım CTA — istasyon tipi → kullanıcıya gösterilecek istasyon adı.
-// Hub'daki kart başlıklarıyla hizalı.
-const ISTASYON_ADI = {
-  kesfet:   'Oyun Öncesi Yaşam',
-  haritala: 'Zaman Çizgisi',
-  yorumla:  'Yazarın Çerçevesi',
-  yarat:    'Senin Çerçeven',
 };
 
 // Aktif karakter için sıradaki adım hesabı: ilerleme view + içerik toplamları
@@ -65,9 +45,10 @@ function karakterToplamlari(raw) {
   };
 }
 
-function EtiketBloku({ karakterId }) {
+function EtiketBloku({ karakterId, t }) {
   const meta = KARAKTER_META[karakterId];
-  if (!meta) return null;
+  const karakterI18n = t[karakterId];
+  if (!meta || !karakterI18n) return null;
   const TON = 'var(--accent)';
   const baslikStili = {
     fontFamily: 'Jost, sans-serif',
@@ -102,24 +83,25 @@ function EtiketBloku({ karakterId }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
       <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'baseline' }}>
-        <span style={baslikStili}>Mizaç</span>
-        {meta.mizac.map((m) => (
+        <span style={baslikStili}>{t.mizacBaslik}</span>
+        {karakterI18n.mizac.map((m) => (
           <span key={m} style={mizacEtiketStili}>{m}</span>
         ))}
       </div>
       <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'baseline' }}>
-        <span style={baslikStili}>Tema</span>
-        {meta.tema.map((t) => (
-          <span key={t} style={temaEtiketStili}>{t}</span>
+        <span style={baslikStili}>{t.temaBaslik}</span>
+        {karakterI18n.tema.map((tm) => (
+          <span key={tm} style={temaEtiketStili}>{tm}</span>
         ))}
       </div>
     </div>
   );
 }
 
-function MetaSatiri({ karakterId }) {
+function MetaSatiri({ karakterId, t }) {
   const meta = KARAKTER_META[karakterId];
   if (!meta) return null;
+  const turCevirisi = t.tur?.[meta.turKey] || meta.turKey;
   return (
     <span style={{
       fontFamily: 'Jost, sans-serif',
@@ -128,12 +110,12 @@ function MetaSatiri({ karakterId }) {
       color: 'var(--accent)',
       letterSpacing: '0.1em',
     }}>
-      {meta.yazar} · {meta.donem} · {meta.tur}
+      {meta.yazar} · {meta.donem} · {turCevirisi}
     </span>
   );
 }
 
-function IlerlemeBloku({ karakterId, ilerlemeler }) {
+function IlerlemeBloku({ karakterId, ilerlemeler, t }) {
   const meta = KARAKTER_META[karakterId];
   if (!meta) return null;
   const veri = ilerlemeler[karakterId] || { bosluk: 0, antrenman: 0 };
@@ -148,7 +130,7 @@ function IlerlemeBloku({ karakterId, ilerlemeler }) {
     }}>
       <IlerlemeRozet
         ikon="◇"
-        etiket="Senin Çerçeven"
+        etiket={t.rozetSeninCerceven}
         mevcut={veri.bosluk}
         toplam={meta.boslukSayisi}
         renk="var(--onay)"
@@ -156,7 +138,7 @@ function IlerlemeBloku({ karakterId, ilerlemeler }) {
       {meta.antrenmanSayisi > 0 && (
         <IlerlemeRozet
           ikon="○"
-          etiket="Zihinsel Antrenman"
+          etiket={t.rozetZihinselAntrenman}
           mevcut={veri.antrenman}
           toplam={meta.antrenmanSayisi}
           renk="var(--kanal-kahve)"
@@ -169,14 +151,14 @@ function IlerlemeBloku({ karakterId, ilerlemeler }) {
 // Sıradaki adım göstergesi — kart click hub'a gittiği için bu görsel/bilgi
 // amaçlı (nested <a> yasak). Hub'a girince aynı bilgi gerçek link olarak
 // KarsilayanBlok'ta belirir.
-function SiradakiAdimCTA({ adim }) {
+function SiradakiAdimCTA({ adim, t }) {
   if (!adim) return null;
   let etiket;
   if (adim.faz === 'son') {
-    etiket = 'Tamamlandı';
+    etiket = t.tamamlandi;
   } else {
-    const ad = ISTASYON_ADI[adim.tip] || '';
-    const onek = adim.faz === 'ilk' ? 'Başla' : 'Şu an';
+    const ad = t.istasyon?.[adim.tip] || '';
+    const onek = adim.faz === 'ilk' ? t.basla : t.suAn;
     etiket = `${onek}: ${ad}`;
   }
   return (
@@ -194,6 +176,8 @@ function SiradakiAdimCTA({ adim }) {
 }
 
 export default function KarakterListesi() {
+  const { dil } = useDil();
+  const t = ceviri(chromeI18n, dil).karakterListesi;
   const [ilerlemeler, setIlerlemeler] = useState({});
   const [adimlar, setAdimlar] = useState({}); // { hamlet: {faz,index,tip}, willy: {...} }
 
@@ -219,44 +203,18 @@ export default function KarakterListesi() {
     return () => { iptal = true; };
   }, []);
 
-  const navLink = (active) => ({
-    fontFamily: 'Jost, sans-serif',
-    fontWeight: 200,
-    fontSize: '0.6rem',
-    letterSpacing: '0.25em',
-    color: active ? 'var(--ink)' : 'var(--ink-soft)',
-    textTransform: 'uppercase',
-    textDecoration: 'none',
-  });
-
   return (
     <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', flexDirection: 'column' }}>
-      <header style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '1.6rem 2rem',
-        borderBottom: '1px solid var(--rule)',
-        flexWrap: 'wrap',
-        gap: '1rem',
-      }}>
-        <a href="/" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', letterSpacing: '0.3em', color: 'var(--accent)', textTransform: 'uppercase', textDecoration: 'none' }}>Actor's Gym</a>
-        <nav style={{ display: 'flex', gap: '1.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
-          <a href="/antrenman/karakter" style={navLink(true)}>Karakterler</a>
-          <a href="/kalibrasyon" style={navLink(false)}>Kalibrasyon</a>
-          <a href="/kulis" style={navLink(false)}>Kulis</a>
-          <a href="/profil" style={navLink(false)}>Profil</a>
-        </nav>
-      </header>
+      {/* Üst nav artık global — components/Navigasyon.js */}
 
       <section style={{ flex: 1, padding: '3rem 2rem', maxWidth: '680px', margin: '0 auto', width: '100%', display: 'flex', flexDirection: 'column', gap: '3rem' }}>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
           <div style={{ width: '1px', height: '50px', backgroundColor: 'var(--accent)', opacity: 0.4 }} />
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.4em', color: 'var(--accent)', textTransform: 'uppercase' }}>02 — Antrenman Odası</span>
-          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--ink)', margin: 0 }}>Karakterler</h1>
+          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.4em', color: 'var(--accent)', textTransform: 'uppercase' }}>{t.ustEtiket}</span>
+          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--ink)', margin: 0 }}>{t.baslik}</h1>
           <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.8, margin: 0 }}>
-            Her karakter ITC metodolojisiyle derinlemesine inşa edilmiştir. Çalışmak istediğin karakteri seç.
+            {t.intro}
           </p>
         </div>
 
@@ -269,14 +227,14 @@ export default function KarakterListesi() {
             onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; e.currentTarget.style.backgroundColor = 'transparent'; }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
               <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>Hamlet</span>
-              <MetaSatiri karakterId="hamlet" />
+              <MetaSatiri karakterId="hamlet" t={t} />
             </div>
             <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>
-              Yas, ihanet ve varoluşsal sorgulama. Düşünce ile eylem arasında sıkışmış bir prensin görünmeyen yolculuğu.
+              {t.hamlet.aciklama}
             </p>
-            <EtiketBloku karakterId="hamlet" />
-            <IlerlemeBloku karakterId="hamlet" ilerlemeler={ilerlemeler} />
-            <SiradakiAdimCTA adim={adimlar.hamlet} />
+            <EtiketBloku karakterId="hamlet" t={t} />
+            <IlerlemeBloku karakterId="hamlet" ilerlemeler={ilerlemeler} t={t} />
+            <SiradakiAdimCTA adim={adimlar.hamlet} t={t} />
           </a>
 
           {/* Willy Loman — aktif */}
@@ -286,25 +244,25 @@ export default function KarakterListesi() {
             onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; e.currentTarget.style.backgroundColor = 'transparent'; }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
               <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>Willy Loman</span>
-              <MetaSatiri karakterId="willy" />
+              <MetaSatiri karakterId="willy" t={t} />
             </div>
             <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>
-              Yanılsama ve kimlik çöküşü. Geçmiş ile şimdinin aynı anda yaşandığı bir zihin.
+              {t.willy.aciklama}
             </p>
-            <EtiketBloku karakterId="willy" />
-            <IlerlemeBloku karakterId="willy" ilerlemeler={ilerlemeler} />
-            <SiradakiAdimCTA adim={adimlar.willy} />
+            <EtiketBloku karakterId="willy" t={t} />
+            <IlerlemeBloku karakterId="willy" ilerlemeler={ilerlemeler} t={t} />
+            <SiradakiAdimCTA adim={adimlar.willy} t={t} />
           </a>
 
           {/* Yakında — Macbeth, Biff, Medea, Blanche (tıklanmaz, pasif) */}
-          {YAKINDA.map((k, i) => (
+          {t.yakinda.map((k, i) => (
             <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', padding: '2rem', border: '1px solid var(--bg-elevated)', opacity: 0.4 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
                   <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>{k.ad}</span>
                   <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--ink-muted)', letterSpacing: '0.1em' }}>{k.yazar}</span>
                 </div>
-                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', color: 'var(--ink-muted)', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>Yakında</span>
+                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', color: 'var(--ink-muted)', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>{t.yakindaEtiket}</span>
               </div>
               <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>{k.aciklama}</p>
             </div>

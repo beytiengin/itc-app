@@ -1,11 +1,18 @@
 // app/hakkimizda/page.js
 // Marka sayfasi: ITC nedir, kim kurdu, 2005'ten bugune.
 // Anasayfada bio kisaltildi - tam bio'lar burada.
+//
+// Kanon hizalama (Karar 16/20/31 + Spine S3.17):
+// - Beyti her zaman onceki sirada (Karar 20).
+// - "Es Kurucu ve Es Egitmen" simetrik unvan (Karar 16, FKA es kurucu).
+// - Rakam yasak (Spine S3.17): "1000'i askin oyuncu" / "20 yillik pratik"
+//   ifadeleri kaldirildi.
+// - "Modul III (AI sesli yolculuk)" -> "Modul III (sesli yolculuk)" (Karar 31).
 
 'use client';
 
-import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import { useDil, ceviri } from '../lib/dil';
+import chromeI18n from '../../data/chrome-i18n';
 
 // ─── Stil Objeleri (anasayfa pattern'i) ─────────────────────────────────────
 
@@ -179,91 +186,12 @@ const katmanMetinStili = {
 // ─── Bilesen ────────────────────────────────────────────────────────────────
 
 export default function Hakkimizda() {
-  const [kullanici, setKullanici] = useState(null);
-
-  useEffect(() => {
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      setKullanici(user || null);
-    });
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setKullanici(session?.user ?? null);
-    });
-    return () => subscription.unsubscribe();
-  }, []);
-
-  async function cikisYap() {
-    await supabase.auth.signOut();
-    setKullanici(null);
-  }
+  const { dil } = useDil();
+  const t = ceviri(chromeI18n, dil).hakkimizda;
 
   return (
     <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', flexDirection: 'column' }}>
-
-      {/* HEADER (anasayfa pattern'i, auth-aware) */}
-      <header style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '1.6rem 2rem',
-        borderBottom: '1px solid var(--bg-elevated)',
-        flexWrap: 'wrap',
-        gap: '1rem',
-      }}>
-        <a href="/" style={{
-          fontFamily: 'Jost, sans-serif',
-          fontWeight: 200,
-          fontSize: '0.65rem',
-          letterSpacing: '0.3em',
-          color: 'var(--accent)',
-          textTransform: 'uppercase',
-          textDecoration: 'none',
-        }}>
-          Inside The Character
-        </a>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.6rem', flexWrap: 'wrap' }}>
-          <a href="/hakkimizda" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--accent)', textTransform: 'uppercase', textDecoration: 'none', borderBottom: '1px solid var(--accent)', paddingBottom: '2px' }}>
-            Hakkımızda
-          </a>
-          {kullanici ? (
-            <>
-              <a href="/kulis" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.25s ease' }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
-                Kulis
-              </a>
-              <a href="/profil" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.25s ease' }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
-                {kullanici.user_metadata?.ad || kullanici.email}
-              </a>
-              <button
-                onClick={cikisYap}
-                style={{
-                  background: 'none', border: 'none', cursor: 'pointer', padding: 0,
-                  fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem',
-                  letterSpacing: '0.25em', color: 'var(--ink-muted)', textTransform: 'uppercase',
-                  transition: 'color 0.25s ease',
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
-              >
-                Çıkış
-              </button>
-            </>
-          ) : (
-            <a href="/giris" style={{
-              fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem',
-              letterSpacing: '0.25em', color: 'var(--ink)', textTransform: 'uppercase',
-              textDecoration: 'none', transition: 'color 0.25s ease',
-            }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}>
-              Giriş Yap
-            </a>
-          )}
-        </div>
-      </header>
+      {/* Üst nav artık global — components/Navigasyon.js */}
 
       {/* BÖLÜM 1 — ITC NEDİR? (Hero) */}
       <section style={{
@@ -285,7 +213,7 @@ export default function Hakkimizda() {
           marginBottom: '2rem',
           textTransform: 'uppercase',
         }}>
-          20 yıllık pratik · 2005'ten bugüne
+          {t.heroUstEtiket}
         </div>
 
         <h1 style={{
@@ -298,7 +226,7 @@ export default function Hakkimizda() {
           marginTop: 0,
           lineHeight: 1.2,
         }}>
-          Inside The Character
+          {t.heroBaslik}
         </h1>
 
         <p style={{
@@ -311,8 +239,7 @@ export default function Hakkimizda() {
           margin: '0 auto 1.5rem',
           lineHeight: 1.7,
         }}>
-          ITC, oyuncuların karakterin zihinsel haritasına psikolojik güvenlikle giriş
-          yaptığı bir oyunculuk metodolojisidir.
+          {t.heroAlt1}
         </p>
 
         <p style={{
@@ -324,10 +251,7 @@ export default function Hakkimizda() {
           margin: '0 auto',
           lineHeight: 1.8,
         }}>
-          Geleneksel yöntemler oyuncuya "ne yapacağını" söyler. ITC ise
-          "nasıl düşündüğünü" sorar. 2005'ten bu yana 1000'i aşkın oyuncuyla
-          denenmiş, HMDK Stuttgart ve Berlin Chubbuck Studio gibi kurumlarda
-          atölyelerle geliştirilmiştir.
+          {t.heroAlt2}
         </p>
       </section>
 
@@ -340,8 +264,8 @@ export default function Hakkimizda() {
         <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
 
           <div style={{ textAlign: 'center', marginBottom: 'clamp(2rem, 4vw, 3rem)' }}>
-            <div style={ustEtiketStili}>Üç İlke</div>
-            <h2 style={bolumBaslikStili}>Yöntemin Temeli</h2>
+            <div style={ustEtiketStili}>{t.ilkeUstEtiket}</div>
+            <h2 style={bolumBaslikStili}>{t.ilkeBaslik}</h2>
           </div>
 
           <div style={{
@@ -351,36 +275,27 @@ export default function Hakkimizda() {
           }}>
             <div style={ilkeKartiStili}>
               <div style={ilkeNumarasiStili}>01</div>
-              <h3 style={ilkeBaslikStili}>Psikolojik Güvenlik</h3>
-              <p style={ilkeMetinStili}>
-                Karakter çalışırken oyuncuyu kendi yaralarına bakmaya zorlamayız.
-                Yöntemin merkezinde oyuncunun duygusal güvenliği vardır.
-              </p>
+              <h3 style={ilkeBaslikStili}>{t.ilke01Baslik}</h3>
+              <p style={ilkeMetinStili}>{t.ilke01Metin}</p>
             </div>
 
             <div style={ilkeKartiStili}>
               <div style={ilkeNumarasiStili}>02</div>
-              <h3 style={ilkeBaslikStili}>Bireysel Rota</h3>
-              <p style={ilkeMetinStili}>
-                Aynı sahneye herkes aynı kapıdan girmez. Her oyuncuya kişiselleştirilmiş
-                giriş kapıları sunulur.
-              </p>
+              <h3 style={ilkeBaslikStili}>{t.ilke02Baslik}</h3>
+              <p style={ilkeMetinStili}>{t.ilke02Metin}</p>
             </div>
 
             <div style={ilkeKartiStili}>
               <div style={ilkeNumarasiStili}>03</div>
-              <h3 style={ilkeBaslikStili}>Bilimsel Altyapı</h3>
-              <p style={ilkeMetinStili}>
-                Sezgi değil — yöntem. Nörobilim, psikoloji ve sahne pedagojisi
-                üzerine inşa edilir, kendini günceller.
-              </p>
+              <h3 style={ilkeBaslikStili}>{t.ilke03Baslik}</h3>
+              <p style={ilkeMetinStili}>{t.ilke03Metin}</p>
             </div>
           </div>
 
         </div>
       </section>
 
-      {/* BÖLÜM 3 — İKİ EŞ KURUCU (FULL BIOS) */}
+      {/* BÖLÜM 3 — İKİ EŞ KURUCU (FULL BIOS) — Beyti önce (Karar 20) */}
       <section style={{
         padding: 'clamp(3rem, 7vw, 5rem) 2rem',
         maxWidth: '1100px',
@@ -389,8 +304,8 @@ export default function Hakkimizda() {
         boxSizing: 'border-box',
       }}>
         <div style={{ textAlign: 'center', marginBottom: 'clamp(2.5rem, 5vw, 4rem)' }}>
-          <div style={ustEtiketStili}>İki Eş Kurucu</div>
-          <h2 style={bolumBaslikStili}>ITC'nin Arkasındaki İsimler</h2>
+          <div style={ustEtiketStili}>{t.kurucuUstEtiket}</div>
+          <h2 style={bolumBaslikStili}>{t.kurucuBaslik}</h2>
         </div>
 
         <div style={{
@@ -401,52 +316,24 @@ export default function Hakkimizda() {
 
           {/* Beyti Engin */}
           <div>
-            <div style={kisiEtiketStili}>Oyuncu · Eğitmen · Yöntem Sahibi</div>
-            <h3 style={kisiAdStili}>Beyti Engin</h3>
+            <div style={kisiEtiketStili}>{t.beytiEtiket}</div>
+            <h3 style={kisiAdStili}>{t.beytiAd}</h3>
             <div style={{ ...kisiMetinStili, marginTop: '1.5rem' }}>
-              <p style={{ marginBottom: '1rem', marginTop: 0 }}>
-                Afife Tiyatro Ödülü sahibi. Dostlar Tiyatrosu'ndan Bakırköy Belediye
-                Tiyatroları'na, oradan Oyun Atölyesi'ne uzanan bir yolculukla, Türkiye
-                tiyatrosunun çağdaş çizgisinde yer almıştır.
-              </p>
-              <p style={{ marginBottom: '1rem' }}>
-                Nassim Soleimanpour'un "White Rabbit Red Rabbit" eserini Türkiye'de ilk
-                kez sahneleyen cesur bir performansçıdır. 2025-26 sezonunda Rufus Norris
-                yönetimindeki "Satıcının Ölümü" ve Nagihan Gürkan'ın yönettiği "Güneşin
-                Oğlu" ile oyunculuk kariyerine devam etmektedir.
-              </p>
-              <p style={{ margin: 0 }}>
-                ITC metodolojisini Filiz Kaya Ataklı ile birlikte 2005'te kurdu ve
-                o günden bu yana 1000'i aşkın oyuncuya uygulayarak geliştirmeye devam ediyor.
-              </p>
-              <p style={kisiNotStili}>
-                Atölyeler · HMDK Stuttgart 2022 · Berlin Chubbuck Studio 2022-24
-              </p>
+              <p style={{ marginBottom: '1rem', marginTop: 0 }}>{t.beytiBio1}</p>
+              <p style={{ marginBottom: '1rem' }}>{t.beytiBio2}</p>
+              <p style={{ margin: 0 }}>{t.beytiBio3}</p>
+              <p style={kisiNotStili}>{t.beytiAtolyeNot}</p>
             </div>
           </div>
 
           {/* Filiz Kaya Ataklı */}
           <div>
-            <div style={kisiEtiketStili}>Klinik Psikolog · Yöntem Eş Sahibi</div>
-            <h3 style={kisiAdStili}>Filiz Kaya Ataklı</h3>
+            <div style={kisiEtiketStili}>{t.filizEtiket}</div>
+            <h3 style={kisiAdStili}>{t.filizAd}</h3>
             <div style={{ ...kisiMetinStili, marginTop: '1.5rem' }}>
-              <p style={{ marginBottom: '1rem', marginTop: 0 }}>
-                İstanbul Üniversitesi Psikoloji Bölümü mezunu. Aynı üniversitede Adli
-                Bilimler yüksek lisansını tamamladı. Çift ve Evlilik Terapisi
-                eğitimlerini John ve Julie Gottman'dan alan Kaya Ataklı, Türkiye'nin
-                Gottman Çift Terapisi Usta Eğitmenlerinden (Master Trainer) biridir.
-              </p>
-              <p style={{ marginBottom: '1rem' }}>
-                Meslek eğitimleri arasında Sensorimotor Psikoterapi, EMDR, PACT, Mental
-                Training ve Duygu Odaklı Terapi yer alır. Psikoloji İstanbul'un
-                kurucularındandır.
-              </p>
-              <p style={{ margin: 0 }}>
-                Oyuncularla "Karakter Tasarımı" odaklı çalışmalar yapmakta, oyunculuk
-                ve performans geliştirme üzerine dünyanın çeşitli ülkelerinde eğitimler
-                vermektedir. ITC metodolojisinin Beyti Engin ile birlikte kurucusu,
-                klinik altyapısının mimarıdır.
-              </p>
+              <p style={{ marginBottom: '1rem', marginTop: 0 }}>{t.filizBio1}</p>
+              <p style={{ marginBottom: '1rem' }}>{t.filizBio2}</p>
+              <p style={{ margin: 0 }}>{t.filizBio3}</p>
             </div>
           </div>
 
@@ -462,46 +349,19 @@ export default function Hakkimizda() {
         <div style={{ maxWidth: '900px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
 
           <div style={{ textAlign: 'center', marginBottom: 'clamp(2.5rem, 5vw, 4rem)' }}>
-            <div style={ustEtiketStili}>2005'ten Bugüne</div>
-            <h2 style={bolumBaslikStili}>Yöntemin Yolculuğu</h2>
+            <div style={ustEtiketStili}>{t.tarihceUstEtiket}</div>
+            <h2 style={bolumBaslikStili}>{t.tarihceBaslik}</h2>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
 
-            {[
-              {
-                yil: '2005',
-                baslik: 'İlk pratik',
-                metin: 'Beyti Engin ve Filiz Kaya Ataklı, oyunculuk ile klinik psikoloji kesişiminde çalışmaya başlar.',
-              },
-              {
-                yil: '2010-2020',
-                baslik: 'Atölye yılları',
-                metin: 'Pozitif Atölye, çeşitli stüdyolar ve birebir çalışmalarla 1000\'i aşkın oyuncuya uygulanır, geliştirilir.',
-              },
-              {
-                yil: '2022',
-                baslik: 'Kurumsal bağlantılar',
-                metin: 'HMDK Stuttgart atölyesi. Berlin Chubbuck Studio iki yıllık altı atölye serisine davet.',
-              },
-              {
-                yil: '2024',
-                baslik: 'Yöntemin yazımı',
-                metin: '"Inside The Hamlet" çalışma kitabı yayımlanır. Method Kitabı üzerinde çalışmalar başlar.',
-              },
-              {
-                yil: '2026',
-                baslik: 'ITC Actor\'s Gym',
-                metin: 'Yöntemin dijital sürümü olan ITC Actor\'s Gym beta sürümüyle yayında. Modül III (AI sesli yolculuk) önümüzdeki ay açılacak.',
-                aktif: true,
-              },
-            ].map((m, i) => (
+            {t.milestone.map((m, i) => (
               <div key={i} style={{
                 display: 'grid',
                 gridTemplateColumns: 'minmax(110px, 140px) 1fr',
                 gap: '1.5rem',
                 paddingBottom: '1.5rem',
-                borderBottom: i < 4 ? '1px solid var(--rule)' : 'none',
+                borderBottom: i < t.milestone.length - 1 ? '1px solid var(--rule)' : 'none',
               }}>
                 <span style={{ ...yilStili, color: m.aktif ? 'var(--accent)' : 'var(--ink-muted)' }}>
                   {m.yil}
@@ -528,8 +388,8 @@ export default function Hakkimizda() {
       }}>
 
         <div style={{ textAlign: 'center', marginBottom: 'clamp(2rem, 4vw, 3rem)' }}>
-          <div style={ustEtiketStili}>Yöntemin Üç Katmanı</div>
-          <h2 style={bolumBaslikStili}>ITC Ekosistemi</h2>
+          <div style={ustEtiketStili}>{t.katmanUstEtiket}</div>
+          <h2 style={bolumBaslikStili}>{t.katmanBaslik}</h2>
           <p style={{
             fontFamily: 'Cormorant Garamond, serif',
             fontStyle: 'italic',
@@ -539,7 +399,7 @@ export default function Hakkimizda() {
             maxWidth: '600px',
             lineHeight: 1.7,
           }}>
-            ITC tek bir ürün değil — birbirini tamamlayan üç katman.
+            {t.katmanIntro}
           </p>
         </div>
 
@@ -549,35 +409,14 @@ export default function Hakkimizda() {
           gap: '1.5rem',
         }}>
 
-          <article style={katmanKartStili}>
-            <span style={durumStili}>Yakında</span>
-            <h3 style={katmanAdStili}>Method Kitabı</h3>
-            <p style={katmanAltBaslikStili}>Inside The Character</p>
-            <p style={katmanMetinStili}>
-              ~320 sayfa kuramsal ve pratik kitap. Eğitmenler ve ileri oyuncular için
-              yöntemin kavramsal otoritesi.
-            </p>
-          </article>
-
-          <article style={katmanKartStili}>
-            <span style={durumStili}>Yayımlandı</span>
-            <h3 style={katmanAdStili}>Hamlet Workbook</h3>
-            <p style={katmanAltBaslikStili}>Inside The Hamlet</p>
-            <p style={katmanMetinStili}>
-              314 sayfa basılı çalışma kitabı. Hamlet karakteri üzerinden yöntemin
-              tek karaktere derinleşmiş hâli.
-            </p>
-          </article>
-
-          <article style={{ ...katmanKartStili, borderColor: 'var(--accent)' }}>
-            <span style={durumAktifStili}>Canlı Beta</span>
-            <h3 style={katmanAdStili}>ITC App</h3>
-            <p style={katmanAltBaslikStili}>Actor's Gym</p>
-            <p style={katmanMetinStili}>
-              Web uygulaması. Günlük antrenman yapan oyuncu için dijital pratik.
-              Şu an okuduğun yer.
-            </p>
-          </article>
+          {t.katmanlar.map((k, i) => (
+            <article key={i} style={k.aktif ? { ...katmanKartStili, borderColor: 'var(--accent)' } : katmanKartStili}>
+              <span style={k.aktif ? durumAktifStili : durumStili}>{k.durum}</span>
+              <h3 style={katmanAdStili}>{k.ad}</h3>
+              <p style={katmanAltBaslikStili}>{k.altBaslik}</p>
+              <p style={katmanMetinStili}>{k.metin}</p>
+            </article>
+          ))}
 
         </div>
       </section>
@@ -591,8 +430,8 @@ export default function Hakkimizda() {
         <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
 
           <div style={{ textAlign: 'center', marginBottom: 'clamp(2rem, 4vw, 3rem)' }}>
-            <div style={ustEtiketStili}>Kurumsal Bağlantılar</div>
-            <h2 style={bolumBaslikStili}>Yöntemin Geçtiği Kurumlar</h2>
+            <div style={ustEtiketStili}>{t.kurumUstEtiket}</div>
+            <h2 style={bolumBaslikStili}>{t.kurumBaslik}</h2>
           </div>
 
           <div style={{
@@ -601,23 +440,7 @@ export default function Hakkimizda() {
             gap: '1.5rem',
           }}>
 
-            {[
-              {
-                ad: 'HMDK Stuttgart',
-                aciklama: 'Hochschule für Musik und Darstellende Kunst',
-                not: 'Atölye · 2022 · Almanya',
-              },
-              {
-                ad: 'Berlin Chubbuck Studio',
-                aciklama: 'İki yıllık, altı atölye serisi',
-                not: 'Atölye · 2022-24 · Almanya',
-              },
-              {
-                ad: 'Pozitif Atölye',
-                aciklama: 'İstanbul\'da uzun yıllar sürdürülen pratik',
-                not: 'Stüdyo · 2010+ · Türkiye',
-              },
-            ].map((k, i) => (
+            {t.kurumlar.map((k, i) => (
               <div key={i} style={{
                 background: 'var(--bg-base)',
                 border: '1px solid var(--rule)',
@@ -662,8 +485,8 @@ export default function Hakkimizda() {
         boxSizing: 'border-box',
         textAlign: 'center',
       }}>
-        <div style={ustEtiketStili}>İletişim</div>
-        <h2 style={bolumBaslikStili}>Bize Ulaş</h2>
+        <div style={ustEtiketStili}>{t.iletisimUstEtiket}</div>
+        <h2 style={bolumBaslikStili}>{t.iletisimBaslik}</h2>
 
         <p style={{
           fontFamily: 'Jost, sans-serif',
@@ -673,8 +496,7 @@ export default function Hakkimizda() {
           margin: '1.5rem auto 2rem',
           lineHeight: 1.8,
         }}>
-          ITC ile ilgili sorular, kurumsal işbirlikleri veya atölye talepleri için
-          iletişime geçebilirsiniz.
+          {t.iletisimIntro}
         </p>
 
         <p style={{
@@ -717,7 +539,7 @@ export default function Hakkimizda() {
             beytienginstudio.com
           </a>
           <span style={{ margin: '0 0.8rem' }}>·</span>
-          <span>Beyti Engin'in kişisel web sitesi</span>
+          <span>{t.kisiselSiteAciklama}</span>
         </p>
       </section>
 
@@ -732,7 +554,7 @@ export default function Hakkimizda() {
         color: 'var(--ink-muted)',
         letterSpacing: '0.1em',
       }}>
-        <span>ITC Yöntemi · 2005'ten bu yana</span>
+        <span>{t.footerSlogan}</span>
       </footer>
 
     </main>

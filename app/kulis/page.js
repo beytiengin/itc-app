@@ -11,6 +11,8 @@
 import { useState, useEffect } from 'react';
 import { tumTamamlananEgzersizleriGetir, tumBoslukYansimalariniGetir } from '../lib/kulis';
 import { getKalibrasyonProfili } from '../lib/kalibrasyon';
+import { useDil, ceviri } from '../lib/dil';
+import chromeI18n from '../../data/chrome-i18n';
 import macbeth from '../../data/karakterler/macbeth';
 import hamlet from '../../data/karakterler/hamlet';
 import willy from '../../data/karakterler/willy';
@@ -20,6 +22,8 @@ const KARAKTERLER = { hamlet, macbeth, willy, biff };
 const KARAKTER_SIRASI = ['hamlet', 'macbeth', 'willy', 'biff'];
 
 export default function KulisSayfasi() {
+  const { dil } = useDil();
+  const t = ceviri(chromeI18n, dil).kulis;
   const [yukleniyor, setYukleniyor] = useState(true);
   const [kalibrasyon, setKalibrasyon] = useState(null);
   const [veri, setVeri] = useState({});
@@ -44,8 +48,8 @@ export default function KulisSayfasi() {
         const g = grupla[kayit.karakter_id];
         if (!g) return;
         g.egzersizIdleri.push(kayit.egzersiz_id);
-        const t = new Date(kayit.tarih);
-        if (!g.sonAktivite || t > g.sonAktivite) g.sonAktivite = t;
+        const ts = new Date(kayit.tarih);
+        if (!g.sonAktivite || ts > g.sonAktivite) g.sonAktivite = ts;
       });
 
       yansimalar.forEach((kayit) => {
@@ -53,8 +57,8 @@ export default function KulisSayfasi() {
         if (!g) return;
         if (kayit.metin && kayit.metin.length > 0) {
           g.yansimalar[kayit.bosluk_id] = kayit.metin;
-          const t = new Date(kayit.son_guncelleme || kayit.tarih);
-          if (!g.sonAktivite || t > g.sonAktivite) g.sonAktivite = t;
+          const ts = new Date(kayit.son_guncelleme || kayit.tarih);
+          if (!g.sonAktivite || ts > g.sonAktivite) g.sonAktivite = ts;
         }
       });
 
@@ -67,17 +71,17 @@ export default function KulisSayfasi() {
   function gunOnce(tarih) {
     if (!tarih) return null;
     const fark = Math.floor((Date.now() - tarih.getTime()) / (1000 * 60 * 60 * 24));
-    if (fark === 0) return 'Bugün';
-    if (fark === 1) return 'Dün';
-    if (fark < 7) return `${fark} gün önce`;
-    if (fark < 30) return `${Math.floor(fark / 7)} hafta önce`;
-    return `${Math.floor(fark / 30)} ay önce`;
+    if (fark === 0) return t.bugun;
+    if (fark === 1) return t.dun;
+    if (fark < 7) return `${fark} ${t.gunOnce}`;
+    if (fark < 30) return `${Math.floor(fark / 7)} ${t.haftaOnce}`;
+    return `${Math.floor(fark / 30)} ${t.ayOnce}`;
   }
 
   if (yukleniyor) {
     return (
       <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.7rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>Hazırlanıyor…</span>
+        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.7rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.hazirlaniyor}</span>
       </main>
     );
   }
@@ -92,35 +96,25 @@ export default function KulisSayfasi() {
 
   return (
     <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', flexDirection: 'column' }}>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2rem 3rem', borderBottom: '1px solid var(--rule)' }}>
-        <a href="/" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', letterSpacing: '0.3em', color: 'var(--accent)', textTransform: 'uppercase', textDecoration: 'none' }}>Actor's Gym</a>
-        <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-          <a href="/kalibrasyon" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.25s ease' }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent)')}
-            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--ink-soft)')}>
-            Kalibrasyon
-          </a>
-          <a href="/antrenman/karakter" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink)', textTransform: 'uppercase', textDecoration: 'none' }}>← Ana Ekran</a>
-        </div>
-      </header>
+      {/* Üst nav artık global — components/Navigasyon.js */}
 
       <section style={{ flex: 1, padding: '3rem 2rem', maxWidth: '680px', margin: '0 auto', width: '100%', display: 'flex', flexDirection: 'column', gap: '3rem' }}>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
           <div style={{ width: '1px', height: '50px', backgroundColor: 'var(--accent)', opacity: 0.4 }} />
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.4em', color: 'var(--accent)', textTransform: 'uppercase' }}>Kulis</span>
-          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--ink)', margin: 0 }}>İz Bıraktıkların</h1>
+          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.4em', color: 'var(--accent)', textTransform: 'uppercase' }}>{t.etiket}</span>
+          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--ink)', margin: 0 }}>{t.baslik}</h1>
           <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.8, margin: 0 }}>
-            Karakterlere değdiğin yerler. Tamamladığın egzersizler ve yazdığın boşluklar — kaldığın yerden devam et.
+            {t.intro}
           </p>
         </div>
 
         {hicVeriYok && kalibrasyonEksik && (
-          <EmptyKalibrasyon />
+          <EmptyKalibrasyon t={t} />
         )}
 
         {hicVeriYok && !kalibrasyonEksik && (
-          <EmptyMacbethBasla />
+          <EmptyKarakter t={t} />
         )}
 
         {!hicVeriYok && (
@@ -143,6 +137,7 @@ export default function KulisSayfasi() {
                   ilerleme={ilerleme}
                   isAcik={isAcik}
                   setAcik={() => setAcik(isAcik ? null : id)}
+                  t={t}
                 />
               );
             })}
@@ -156,7 +151,7 @@ export default function KulisSayfasi() {
 
 // ─── KARAKTER KARTI ─────────────────────────────────────────────────────────
 
-function KarakterKarti({ karakter, egzersizSayisi, yansimaSayisi, aktivite, ilerleme, isAcik, setAcik }) {
+function KarakterKarti({ karakter, egzersizSayisi, yansimaSayisi, aktivite, ilerleme, isAcik, setAcik, t }) {
   const egzersizToplam = karakter.egzersizler?.length || 7;
   const boslukToplam = karakter.bosluklar?.length || 12;
 
@@ -202,12 +197,12 @@ function KarakterKarti({ karakter, egzersizSayisi, yansimaSayisi, aktivite, iler
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', marginTop: '0.5rem' }}>
-          <IlerlemeSatiri etiket="Egzersizler" deger={egzersizSayisi} toplam={egzersizToplam} renk="var(--accent)" />
-          <IlerlemeSatiri etiket="Boşluklar" deger={yansimaSayisi} toplam={boslukToplam} renk="var(--onay-soft)" />
+          <IlerlemeSatiri etiket={t.ilerlemeEgzersizler} deger={egzersizSayisi} toplam={egzersizToplam} renk="var(--accent)" />
+          <IlerlemeSatiri etiket={t.ilerlemeBosluklar} deger={yansimaSayisi} toplam={boslukToplam} renk="var(--onay-soft)" />
         </div>
 
         <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', color: 'var(--ink-muted)', letterSpacing: '0.2em', textTransform: 'uppercase', alignSelf: 'flex-end', marginTop: '0.3rem' }}>
-          {isAcik ? 'Kapat ▴' : 'Detay ▾'}
+          {isAcik ? t.kapat : t.detay}
         </span>
       </button>
 
@@ -217,7 +212,7 @@ function KarakterKarti({ karakter, egzersizSayisi, yansimaSayisi, aktivite, iler
           {tamamlananEgzersizler.length > 0 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
               <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.3em', color: 'var(--accent)', textTransform: 'uppercase' }}>
-                Tamamlanan Egzersizler
+                {t.tamamlananEgzersizler}
               </span>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                 {tamamlananEgzersizler.map((e) => (
@@ -234,7 +229,7 @@ function KarakterKarti({ karakter, egzersizSayisi, yansimaSayisi, aktivite, iler
           {yazilanBosluklar.length > 0 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
               <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.3em', color: 'var(--onay-soft)', textTransform: 'uppercase' }}>
-                Yazılan Boşluklar
+                {t.yazilanBosluklar}
               </span>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
                 {yazilanBosluklar.map(({ boslukId, metin, bosluk }) => {
@@ -252,7 +247,7 @@ function KarakterKarti({ karakter, egzersizSayisi, yansimaSayisi, aktivite, iler
                           style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.8rem', color: 'var(--accent)', textDecoration: 'none', whiteSpace: 'nowrap' }}
                           onClick={(ev) => ev.stopPropagation()}
                         >
-                          Devam Et →
+                          {t.devamEt}
                         </a>
                       </div>
                       <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.7, margin: 0 }}>
@@ -288,12 +283,12 @@ function IlerlemeSatiri({ etiket, deger, toplam, renk }) {
 
 // ─── EMPTY STATE'LER ────────────────────────────────────────────────────────
 
-function EmptyKalibrasyon() {
+function EmptyKalibrasyon({ t }) {
   return (
     <div style={{ border: '1px solid var(--rule)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', gap: '1.2rem', alignItems: 'center', textAlign: 'center' }}>
-      <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.4em', color: 'var(--accent)', textTransform: 'uppercase' }}>Önce Kalibrasyon</span>
+      <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.4em', color: 'var(--accent)', textTransform: 'uppercase' }}>{t.emptyKalibrasyonEtiket}</span>
       <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.1rem', color: 'var(--ink-soft)', lineHeight: 1.7, margin: 0, maxWidth: '420px' }}>
-        Karakterlere geçmeden önce enstrümanını akort etmen gerek. Kalibrasyon, sana özel egzersiz dilini ve etik koruma seviyeni belirler.
+        {t.emptyKalibrasyonMetin}
       </p>
       <a
         href="/kalibrasyon"
@@ -301,18 +296,18 @@ function EmptyKalibrasyon() {
         onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-hover)'; }}
         onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent)'; }}
       >
-        Kalibrasyona Git →
+        {t.emptyKalibrasyonCta}
       </a>
     </div>
   );
 }
 
-function EmptyMacbethBasla() {
+function EmptyKarakter({ t }) {
   return (
     <div style={{ border: '1px solid var(--rule)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', gap: '1.2rem', alignItems: 'center', textAlign: 'center' }}>
-      <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.4em', color: 'var(--accent)', textTransform: 'uppercase' }}>Henüz İz Yok</span>
+      <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.4em', color: 'var(--accent)', textTransform: 'uppercase' }}>{t.emptyKarakterEtiket}</span>
       <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.1rem', color: 'var(--ink-soft)', lineHeight: 1.7, margin: 0, maxWidth: '420px' }}>
-        Bir karakterle çalışmaya başla — egzersizleri tamamladıkça, boşluklara yazdıkça burada izleri görünür.
+        {t.emptyKarakterMetin}
       </p>
       <a
         href="/antrenman/karakter"
@@ -320,7 +315,7 @@ function EmptyMacbethBasla() {
         onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-hover)'; }}
         onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent)'; }}
       >
-        Karakter Kasasına Git →
+        {t.emptyKarakterCta}
       </a>
     </div>
   );

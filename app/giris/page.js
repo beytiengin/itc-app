@@ -3,12 +3,16 @@
 import { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { supabase } from '../lib/supabase';
+import { useDil, ceviri } from '../lib/dil';
+import chromeI18n from '../../data/chrome-i18n';
 
 // Supabase Google OAuth config'i (Client Secret + redirect URI) onarilana
 // kadar Google butonu gizli. true yapinca buton + "veya" ayirici geri donusur.
 const GOOGLE_AKTIF = false;
 
 function GirisIcerik() {
+  const { dil } = useDil();
+  const t = ceviri(chromeI18n, dil).giris;
   const searchParams = useSearchParams();
   const geri = searchParams.get('geri') || '/';
   const oauthHata = searchParams.get('hata') || '';
@@ -17,12 +21,12 @@ function GirisIcerik() {
   const [email, setEmail] = useState('');
   const [sifre, setSifre] = useState('');
   const [ad, setAd] = useState('');
-  const [hata, setHata] = useState(oauthHata ? `Google girişi başarısız: ${oauthHata}` : '');
+  const [hata, setHata] = useState(oauthHata ? `${t.googleHataPrefix}${oauthHata}` : '');
   const [yukleniyor, setYukleniyor] = useState(false);
   const [mesaj, setMesaj] = useState('');
 
   async function kayitOl() {
-    if (!ad.trim()) { setHata('Adını girmeden devam edemezsin.'); return; }
+    if (!ad.trim()) { setHata(t.adZorunlu); return; }
     setYukleniyor(true);
     setHata('');
     const { error } = await supabase.auth.signUp({
@@ -33,7 +37,7 @@ function GirisIcerik() {
     if (error) {
       setHata(error.message);
     } else {
-      setMesaj('Email adresine bir onay linki gönderdik. Onayladıktan sonra giriş yapabilirsin.');
+      setMesaj(t.onayMesaji);
     }
     setYukleniyor(false);
   }
@@ -45,13 +49,13 @@ function GirisIcerik() {
     if (error) {
       // Supabase'in gercek hata mesajini goster - jenerik 'sifre hatali' yerine
       // 'Email not confirmed', 'Invalid login credentials', rate limit vb. gorunsun
-      const msg = error.message || 'Bilinmeyen hata';
+      const msg = error.message || '';
       if (msg.toLowerCase().includes('email not confirmed')) {
-        setHata('Email henüz onaylanmamış. Kayıt olurken gönderilen onay linkine tıkla.');
+        setHata(t.emailOnaylanmadi);
       } else if (msg.toLowerCase().includes('invalid login')) {
-        setHata('Email veya şifre hatalı.');
+        setHata(t.emailSifreHatali);
       } else {
-        setHata('Giriş başarısız: ' + msg);
+        setHata(t.girisBasarisiz + msg);
       }
     } else {
       window.location.href = geri;
@@ -69,7 +73,7 @@ function GirisIcerik() {
       },
     });
     if (error) {
-      setHata('Google ile giriş başarısız: ' + error.message);
+      setHata(t.googleBasarisiz + error.message);
       setYukleniyor(false);
     }
   }
@@ -90,17 +94,7 @@ function GirisIcerik() {
 
   return (
     <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', flexDirection: 'column' }}>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2rem 3rem', borderBottom: '1px solid var(--rule)' }}>
-        <a href="/" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', letterSpacing: '0.3em', color: 'var(--accent)', textTransform: 'uppercase', textDecoration: 'none' }}>
-          Inside The Character
-        </a>
-        <a href="/" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink)', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.3s ease' }}
-          onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'}
-          onMouseLeave={e => e.currentTarget.style.color = 'var(--ink)'}
-        >
-          ← Ana Ekran
-        </a>
-      </header>
+      {/* Üst nav artık global — components/Navigasyon.js */}
 
       <section style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '3rem 2rem' }}>
 
@@ -109,10 +103,10 @@ function GirisIcerik() {
           <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
             <div style={{ width: '1px', height: '50px', backgroundColor: 'var(--accent)', opacity: 0.4, margin: '0 auto' }} />
             <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '2.5rem', color: 'var(--ink)', margin: 0 }}>
-              {mod === 'giris' ? 'Giriş Yap' : 'Hesap Oluştur'}
+              {mod === 'giris' ? t.basliGiris : t.basliKayit}
             </h1>
             <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.8rem', color: 'var(--ink-soft)', margin: 0 }}>
-              {mod === 'giris' ? 'Enstrümanına dön.' : "Inside The Character'a katıl."}
+              {mod === 'giris' ? t.altGiris : t.altKayit}
             </p>
           </div>
 
@@ -154,13 +148,13 @@ function GirisIcerik() {
                       <path d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.547 0 9s.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
                       <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
                     </svg>
-                    {yukleniyor ? 'Bekle...' : 'Google ile Devam Et'}
+                    {yukleniyor ? t.bekle : t.googleIleDevam}
                   </button>
 
                   {/* AYIRICI */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', margin: '0.5rem 0' }}>
                     <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--rule)' }} />
-                    <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>veya</span>
+                    <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.veya}</span>
                     <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--rule)' }} />
                   </div>
                 </>
@@ -172,7 +166,7 @@ function GirisIcerik() {
                 {mod === 'kayit' && (
                   <input
                     type="text"
-                    placeholder="Adın"
+                    placeholder={t.placeholderAd}
                     value={ad}
                     onChange={e => setAd(e.target.value)}
                     style={inputStil}
@@ -181,7 +175,7 @@ function GirisIcerik() {
 
                 <input
                   type="email"
-                  placeholder="Email"
+                  placeholder={t.placeholderEmail}
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   style={inputStil}
@@ -189,7 +183,7 @@ function GirisIcerik() {
 
                 <input
                   type="password"
-                  placeholder="Şifre"
+                  placeholder={t.placeholderSifre}
                   value={sifre}
                   onChange={e => setSifre(e.target.value)}
                   style={inputStil}
@@ -206,19 +200,19 @@ function GirisIcerik() {
                   onMouseEnter={e => { if (!yukleniyor) { e.currentTarget.style.backgroundColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--bg-base)'; }}}
                   onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--accent)'; }}
                 >
-                  {yukleniyor ? 'Bekle...' : mod === 'giris' ? 'Giriş Yap' : 'Hesap Oluştur'}
+                  {yukleniyor ? t.bekle : mod === 'giris' ? t.basliGiris : t.basliKayit}
                 </button>
 
               </div>
             </>
           )}
 
-          {/* MOD DEĞİŞİM — belirginleştirilmiş */}
+          {/* MOD DEĞİŞİM */}
           <div style={{ textAlign: 'center', borderTop: '1px solid var(--rule)', paddingTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             {mod === 'giris' ? (
               <>
                 <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', margin: 0 }}>
-                  Henüz hesabın yok mu?
+                  {t.hesabinYokMu}
                 </p>
                 <button
                   onClick={() => { setMod('kayit'); setHata(''); setMesaj(''); }}
@@ -226,13 +220,13 @@ function GirisIcerik() {
                   onMouseEnter={e => e.currentTarget.style.color = 'var(--accent-hover)'}
                   onMouseLeave={e => e.currentTarget.style.color = 'var(--accent)'}
                 >
-                  Hesap Oluştur →
+                  {t.hesapOlusturCta}
                 </button>
               </>
             ) : (
               <>
                 <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', margin: 0 }}>
-                  Zaten hesabın var mı?
+                  {t.hesabinVarMi}
                 </p>
                 <button
                   onClick={() => { setMod('giris'); setHata(''); setMesaj(''); }}
@@ -240,7 +234,7 @@ function GirisIcerik() {
                   onMouseEnter={e => e.currentTarget.style.color = 'var(--accent-hover)'}
                   onMouseLeave={e => e.currentTarget.style.color = 'var(--accent)'}
                 >
-                  ← Giriş Yap
+                  {t.girisYapGeri}
                 </button>
               </>
             )}
