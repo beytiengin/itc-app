@@ -1191,7 +1191,7 @@ const hamlet = {
   ],
 
   // ─── ESKİ 9 ANTRENMAN — RETIRE EDİLDİ (Sprint 4) ─────────────────────────
-  // UI'da artık kullanılmıyor — Modül III · Yolculuk Modu (110 dk AI Dış Ses)
+  // UI'da artık kullanılmıyor — Modül III · Yolculuk Modu (110 dk Dış Ses · Karar 31)
   // bunların yerini alacak. Veri korundu — gerekirse Yolculuk Modu içeriğine
   // tohumluk olarak referans alınabilir.
 

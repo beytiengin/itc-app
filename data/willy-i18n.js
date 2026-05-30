@@ -78,7 +78,7 @@ const willyI18n = {
       modul3Etiket: 'Modül III · Yolculuk Modu',
       modul3Baslik: "Willy'nin tüm yaşamı, baştan sona",
       modul3Metin:
-        "Modül II'yi tamamladığında karakter koordinatları kurulmuş olur. Modül III, Willy'nin tüm yaşamını — pre-senaryodan sahnedeki son anına — bedeninle bir kez baştan sona dolaşman için tasarlandı. Sahneler ve aralarındaki boşluklar, hayat sırasına dizilir; AI Dış Ses eşlik eder.",
+        "Modül II'yi tamamladığında karakter koordinatları kurulmuş olur. Modül III, Willy'nin tüm yaşamını — pre-senaryodan sahnedeki son anına — bedeninle bir kez baştan sona dolaşman için tasarlandı. Sahneler ve aralarındaki boşluklar, hayat sırasına dizilir; Dış Ses eşlik eder.",
       modul3Rozet: 'Yakında',
       modul3Not: 'Modül II tamamlandığında açılacak.',
     },
@@ -381,7 +381,7 @@ const willyI18n = {
       modul3Etiket: 'Module III · Journey Mode',
       modul3Baslik: "Willy's whole life, end to end",
       modul3Metin:
-        "Once you complete Module II, the character's coordinates are set. Module III is designed for you to walk through Willy's entire life — from pre-script to his final moment on stage — once, in your body. The scenes and the gaps between them are arranged in life order; an AI Outer Voice accompanies you.",
+        "Once you complete Module II, the character's coordinates are set. Module III is designed for you to walk through Willy's entire life — from pre-script to his final moment on stage — once, in your body. The scenes and the gaps between them are arranged in life order; an Outer Voice accompanies you.",
       modul3Rozet: 'Soon',
       modul3Not: 'Unlocks when Module II is complete.',
     },
