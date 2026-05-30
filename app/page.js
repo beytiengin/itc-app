@@ -176,11 +176,6 @@ export default function AnaSayfa() {
     return () => subscription.unsubscribe();
   }, []);
 
-  async function cikisYap() {
-    await supabase.auth.signOut();
-    setKullanici(null);
-  }
-
   const ctaHref = kullanici ? '/kalibrasyon' : '/giris';
   const ctaMetni = kullanici ? "Modül I'e Git →" : 'Başla →';
   const ctaKapanisMetni = kullanici ? "Modül I'e Git →" : 'Kayıt Ol / Giriş Yap →';
@@ -192,72 +187,7 @@ export default function AnaSayfa() {
   return (
     <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', flexDirection: 'column' }}>
 
-      {/* HEADER */}
-      <header style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '1.6rem 2rem',
-        borderBottom: '1px solid var(--bg-elevated)',
-        flexWrap: 'wrap',
-        gap: '1rem',
-      }}>
-        <span style={{
-          fontFamily: 'Jost, sans-serif',
-          fontWeight: 200,
-          fontSize: '0.65rem',
-          letterSpacing: '0.3em',
-          color: 'var(--accent)',
-          textTransform: 'uppercase',
-        }}>
-          Inside The Character
-        </span>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.6rem', flexWrap: 'wrap' }}>
-          <a href="/hakkimizda" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.25s ease' }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
-            Hakkımızda
-          </a>
-          {kullanici ? (
-            <>
-              <a href="/kulis" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.25s ease' }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
-                Kulis
-              </a>
-              <a href="/profil" style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none', transition: 'color 0.25s ease' }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}>
-                {kullanici.user_metadata?.ad || kullanici.email}
-              </a>
-              <button
-                onClick={cikisYap}
-                style={{
-                  background: 'none', border: 'none', cursor: 'pointer', padding: 0,
-                  fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem',
-                  letterSpacing: '0.25em', color: 'var(--ink-muted)', textTransform: 'uppercase',
-                  transition: 'color 0.25s ease',
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
-              >
-                Çıkış
-              </button>
-            </>
-          ) : (
-            <a href="/giris" style={{
-              fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem',
-              letterSpacing: '0.25em', color: 'var(--ink)', textTransform: 'uppercase',
-              textDecoration: 'none', transition: 'color 0.25s ease',
-            }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}>
-              Giriş Yap
-            </a>
-          )}
-        </div>
-      </header>
+      {/* Üst navigasyon artık global — components/Navigasyon.js (app/layout.js) */}
 
       {/* BÖLÜM 1 — KARŞILAMA (HERO) */}
       <section style={{

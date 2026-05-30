@@ -3,6 +3,7 @@ import { cormorant, jost } from "./fonts";
 import { ThemeProvider } from "./lib/theme";
 import { DilProvider } from "./lib/dil";
 import TemaToggleFloat from "../components/TemaToggleFloat";
+import Navigasyon from "../components/Navigasyon";
 
 export const metadata = {
   metadataBase: new URL('https://itc-app-six.vercel.app'),
@@ -71,6 +72,7 @@ export default function RootLayout({ children }) {
       <body>
         <ThemeProvider>
           <DilProvider>
+            <Navigasyon />
             {children}
             <TemaToggleFloat />
           </DilProvider>
