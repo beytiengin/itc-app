@@ -837,7 +837,7 @@ const hamletI18n = {
           no: 7, perde: 3, perdeRomen: 'III',
           baslik: 'Claudius at Prayer',
           konum: 'III.iii',
-          olay: 'Claudius kneels to confess. Hamlet behind him, sword drawn — but he does not strike. "Now might I do it pat, now he is praying… am I then revenged…?" He postpones.',
+          olay: 'Claudius kneels to confess. Hamlet behind him, sword drawn — but he does not strike. "Now might I do it pat, now he is praying. And now I\'ll do\'t. And so a\' goes to heaven, and so am I revenged. That would be scanned." He postpones.',
           icsel: 'Conscience + a sense of justice + delay. The mind producing reasons.',
           onerilenSicaklik: 6,
           yuk: 'The habit of delay is set. From now on, it will always be like this.',
@@ -952,7 +952,7 @@ const hamletI18n = {
             {
               ref: 'I.v · End',
               sahneNo: 3,
-              metin: 'Hamlet tells Horatio his plan: "How strange or odd soe\'er I bear myself… I perchance hereafter shall think meet / To put an antic disposition on." — a conscious decision.',
+              metin: 'Hamlet tells Horatio his plan: "How strange or odd soe\'er I bear myself — / As I perchance hereafter shall think meet / To put an antic disposition on—" — a conscious decision.',
             },
             {
               ref: "III.iv · The Queen's Chamber",
@@ -1036,7 +1036,7 @@ const hamletI18n = {
             {
               ref: 'III.iii · Claudius at prayer',
               sahneNo: 7,
-              metin: 'The sword is drawn — and he does not strike. "Now might I do it pat… am I then revenged…?" — reasons are being produced.',
+              metin: 'The sword is drawn — and he does not strike. "Now might I do it pat, now he is praying. And now I\'ll do\'t. And so am I revenged. That would be scanned." — reasons are being produced.',
             },
             {
               ref: 'IV.iv · After Fortinbras',
@@ -1079,7 +1079,7 @@ const hamletI18n = {
             {
               ref: 'V.ii · Before the Duel',
               sahneNo: 14,
-              metin: 'Horatio warns: "If your mind dislike anything, obey it." Hamlet: "Let be! The readiness is all."',
+              metin: 'Horatio warns: "If your mind dislike anything, obey it." Hamlet: "Let be."',
             },
             {
               ref: 'V.ii · Last Words',
