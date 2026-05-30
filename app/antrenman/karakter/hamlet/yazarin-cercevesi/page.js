@@ -14,6 +14,7 @@ import hamletI18n from '../../../../../data/hamlet-i18n';
 import { useDil, ceviri } from '../../../../lib/dil';
 import { tercihleriGetir } from '../../../../lib/hamlet-veri';
 import HamletAltSayfaHeader from '../../../../../components/HamletAltSayfaHeader';
+import MikroBlokKart from '../../../../../components/MikroBlokKart';
 import HamletTercihKart from '../../../../../components/HamletTercihKart';
 import HamletBolumGecisi from '../../../../../components/HamletBolumGecisi';
 import SayfaIskelet from '../../../../../components/SayfaIskelet';
@@ -85,6 +86,8 @@ export default function YazarinCerceveSAnaSayfa() {
           <h1 style={baslikStili}>{yc.baslik}</h1>
           <p style={altyaziStili}>{yc.altyazi}</p>
         </header>
+
+        <MikroBlokKart veri={yc.mikroBlok} />
 
         <p style={paragrafStili}>
           {yc.acilis}

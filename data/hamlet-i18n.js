@@ -36,6 +36,11 @@ const hamletI18n = {
     },
 
     hub: {
+      mikroBlok: {
+        neredesin: "Hamlet'i dört istasyonda kuracaksın — doğrular, oyun öncesi, zaman çizgisi, yazarın çerçevesi, ve senin çerçeven.",
+        neYapacaksin: 'Önce değiştirilemez doğruları gör. Sonra dört istasyonu sırayla dolaş.',
+        hatirla: 'Karakter senin kişisel travmalarınla inşa edilmez. Karakterin kendi verisi vardır.',
+      },
       ustEtiket: 'Modül II · Karakterini İnşa Et',
       bolum1Etiket: 'Tanı',
       bolum1Baslik: 'Değiştirilemez Doğrular',
@@ -95,6 +100,11 @@ const hamletI18n = {
     },
 
     seninCerceven: {
+      mikroBlok: {
+        neredesin: "Shakespeare'in sustuğu yere geldin — boşlukları sen yazacaksın.",
+        neYapacaksin: 'Beş boşluk, on beş alt-soru. Her boşluk için bir an yaz.',
+        hatirla: 'Karakter senin yaranla inşa edilmez. Yazdıkların karakterin verisinden çıkar.',
+      },
       etiket: 'Modül II · Bölüm 5',
       baslik: '◇ Senin Çerçeven',
       altyazi: "Shakespeare'in sustuğu yer",
@@ -200,6 +210,11 @@ const hamletI18n = {
     },
 
     oyunOncesi: {
+      mikroBlok: {
+        neredesin: "Sahneye çıkmadan önce Hamlet'in bedeninde ne taşıdığını okuyacaksın.",
+        neYapacaksin: 'Sekiz olay, sekiz ilişki — her birine kendi yorumunu işaretle.',
+        hatirla: 'Oyun öncesi yaşam metinde gösterilmez — ama bedene yazılır.',
+      },
       geri: '← Hamlet',
       etiket: 'Modül II · Bölüm 2',
       baslik: 'Oyun Öncesi Yaşam',
@@ -234,6 +249,11 @@ const hamletI18n = {
     },
 
     yazarinCercevesi: {
+      mikroBlok: {
+        neredesin: "Shakespeare'in açık uçlarını okuyacaksın — beş tercih, beş kavşak.",
+        neYapacaksin: 'Her tercihte yazarın bıraktığı işaretleri oku, kendi yorumunu seç.',
+        hatirla: 'Doğru cevap yoktur, iyi yapılmış analiz vardır.',
+      },
       etiket: 'Modül II · Bölüm 4',
       baslik: 'Yazarın Çerçevesi',
       altyazi: 'İçine girdiğin oda',
@@ -285,6 +305,11 @@ const hamletI18n = {
     },
 
     timeline: {
+      mikroBlok: {
+        neredesin: "Hamlet'in sahnelerinin bedensel zincirini haritalayacaksın.",
+        neYapacaksin: 'On dört sahneyi sıcaklık ve yük üzerinden oku, kendi yorumunu işaretle.',
+        hatirla: 'Her sahne, bir önceki sahnenin bedendeki devamıdır.',
+      },
       geri: '← Hamlet',
       etiket: 'Modül II · Bölüm 3',
       baslik: 'Zaman Çizgisi',
@@ -333,6 +358,11 @@ const hamletI18n = {
     },
 
     hub: {
+      mikroBlok: {
+        neredesin: "You will build Hamlet across four stations — truths, pre-play life, timeline, the author's frame, and then your frame.",
+        neYapacaksin: 'First, see the unchangeable truths. Then walk through the four stations in order.',
+        hatirla: 'A character is not built from your personal trauma. The character has its own data.',
+      },
       ustEtiket: 'Module II · Build Your Character',
       bolum1Etiket: 'Recognize',
       bolum1Baslik: 'Unchangeable Truths',
@@ -390,6 +420,11 @@ const hamletI18n = {
     },
 
     seninCerceven: {
+      mikroBlok: {
+        neredesin: 'You have arrived where Shakespeare fell silent — you will write the gaps.',
+        neYapacaksin: 'Five gaps, fifteen sub-questions. Write one moment for each gap.',
+        hatirla: "A character is not built from your wound. What you write comes from the character's data.",
+      },
       etiket: 'Module II · Part 5',
       baslik: '◇ Your Frame',
       altyazi: 'Where Shakespeare fell silent',
@@ -495,6 +530,11 @@ const hamletI18n = {
     },
 
     oyunOncesi: {
+      mikroBlok: {
+        neredesin: "You will read what Hamlet carries in his body before stepping onto the stage.",
+        neYapacaksin: 'Eight events, eight relationships — mark your own reading on each.',
+        hatirla: 'Pre-play life is not shown in the text — but it is written in the body.',
+      },
       geri: '← Hamlet',
       etiket: 'Module II · Part 2',
       baslik: 'Pre-Play Life',
@@ -529,6 +569,11 @@ const hamletI18n = {
     },
 
     yazarinCercevesi: {
+      mikroBlok: {
+        neredesin: "You will read Shakespeare's open ends — five choices, five crossroads.",
+        neYapacaksin: 'In each choice, read the signs the author left, and mark your own.',
+        hatirla: 'There is no correct analysis; there is only well-done analysis.',
+      },
       etiket: 'Module II · Part 4',
       baslik: "Author's Frame",
       altyazi: 'The room you enter',
@@ -580,6 +625,11 @@ const hamletI18n = {
     },
 
     timeline: {
+      mikroBlok: {
+        neredesin: "You will map the embodied chain of Hamlet's scenes.",
+        neYapacaksin: 'Read the fourteen scenes through temperature and burden, mark your own reading.',
+        hatirla: "Each scene is the body's continuation of the one before.",
+      },
       geri: '← Hamlet',
       etiket: 'Module II · Part 3',
       baslik: 'Timeline',

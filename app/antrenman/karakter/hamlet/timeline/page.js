@@ -18,6 +18,7 @@ import HamletPerdeBandi from '../../../../../components/HamletPerdeBandi';
 import HamletSahneDetay from '../../../../../components/HamletSahneDetay';
 import HamletBolumGecisi from '../../../../../components/HamletBolumGecisi';
 import HamletAltSayfaHeader from '../../../../../components/HamletAltSayfaHeader';
+import MikroBlokKart from '../../../../../components/MikroBlokKart';
 import SayfaIskelet from '../../../../../components/SayfaIskelet';
 
 const TON = 'var(--accent)';
@@ -171,6 +172,8 @@ export default function TimelineSayfasi() {
             {tl.altyazi}
           </p>
         </header>
+
+        <MikroBlokKart veri={tl.mikroBlok} />
 
         <p style={paragrafStili}>
           {tl.acilis}
