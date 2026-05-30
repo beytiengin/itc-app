@@ -14,37 +14,13 @@
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { supabase } from '../app/lib/supabase';
-import { useDil } from '../app/lib/dil';
+import { useDil, ceviri } from '../app/lib/dil';
+import chromeI18n from '../data/chrome-i18n';
 import DilToggle from './DilToggle';
-
-// Oyuncu-yüzü etiketler (çift dil). Mevcut willy-i18n.nav'da olmayanlar
-// (profil/antrenman/hakkimizda/giris) için kendi içinde kapalı sözlük.
-const ETIKET = {
-  tr: {
-    marka: 'Inside The Character',
-    kalibrasyon: 'Kalibrasyon',
-    antrenman: 'Antrenman',
-    kulis: 'Kulis',
-    profil: 'Profil',
-    hakkimizda: 'Hakkımızda',
-    giris: 'Giriş Yap',
-    cikis: 'Çıkış',
-  },
-  en: {
-    marka: 'Inside The Character',
-    kalibrasyon: 'Calibration',
-    antrenman: 'Training',
-    kulis: 'Backstage',
-    profil: 'Profile',
-    hakkimizda: 'About',
-    giris: 'Sign in',
-    cikis: 'Sign out',
-  },
-};
 
 export default function Navigasyon() {
   const { dil } = useDil();
-  const t = ETIKET[dil] || ETIKET.tr;
+  const t = ceviri(chromeI18n, dil).nav;
   const pathname = usePathname() || '/';
 
   // undefined = auth henüz çözülmedi (flash önleme); null = anonim; obje = üye.

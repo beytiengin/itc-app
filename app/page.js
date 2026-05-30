@@ -5,6 +5,8 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from './lib/supabase';
+import { useDil, ceviri } from './lib/dil';
+import chromeI18n from '../data/chrome-i18n';
 
 // ─── Paylaşılan Stil Objeleri ───────────────────────────────────────────────
 
@@ -164,6 +166,8 @@ function ctaHoverOut(e) {
 // ─── Ana Sayfa Bileşeni ─────────────────────────────────────────────────────
 
 export default function AnaSayfa() {
+  const { dil } = useDil();
+  const s = ceviri(chromeI18n, dil).anaSayfa;
   const [kullanici, setKullanici] = useState(null);
 
   useEffect(() => {
@@ -177,12 +181,10 @@ export default function AnaSayfa() {
   }, []);
 
   const ctaHref = kullanici ? '/kalibrasyon' : '/giris';
-  const ctaMetni = kullanici ? "Modül I'e Git →" : 'Başla →';
-  const ctaKapanisMetni = kullanici ? "Modül I'e Git →" : 'Kayıt Ol / Giriş Yap →';
-  const kapanisBaslik = kullanici ? 'Devam edelim.' : 'Hazır mısın?';
-  const kapanisAlt = kullanici
-    ? 'Modül I — Kendini Tanı.'
-    : 'Önce kalibrasyon. Üç kısa test, on beş dakika.';
+  const ctaMetni = kullanici ? s.ctaUye : s.ctaBasla;
+  const ctaKapanisMetni = kullanici ? s.ctaUye : s.ctaKapanisAnonim;
+  const kapanisBaslik = kullanici ? s.kapanisBaslikUye : s.kapanisBaslikAnonim;
+  const kapanisAlt = kullanici ? s.kapanisAltUye : s.kapanisAltAnonim;
 
   return (
     <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', flexDirection: 'column' }}>
@@ -209,7 +211,7 @@ export default function AnaSayfa() {
           marginBottom: '2rem',
           textTransform: 'uppercase',
         }}>
-          ITC Yöntemi · 2005'ten bu yana
+          {s.ustEtiket}
         </div>
 
         <h1 style={{
@@ -223,8 +225,8 @@ export default function AnaSayfa() {
           lineHeight: 1.2,
           letterSpacing: '0.02em',
         }}>
-          Karakterin zihnine gir.<br />
-          Sahici ol.
+          {s.heroBaslik1}<br />
+          {s.heroBaslik2}
         </h1>
 
         <p style={{
@@ -237,8 +239,7 @@ export default function AnaSayfa() {
           margin: '0 auto 3rem',
           lineHeight: 1.7,
         }}>
-          Oyuncunun zihinsel haritasını, bedensel hafızasını ve psikolojik
-          derinliğini merkeze alan özgün bir oyunculuk metodolojisi.
+          {s.heroAlt}
         </p>
 
         <a
@@ -269,9 +270,9 @@ export default function AnaSayfa() {
           margin: '0 auto',
           lineHeight: 1.6,
         }}>
-          Geleneksel yöntemler oyuncuya <span style={{ color: 'var(--ink-muted)' }}>"ne yapacağını"</span> söyler.
+          {s.vurusGelenekOnce} <span style={{ color: 'var(--ink-muted)' }}>{s.vurusGelenek}</span>{s.vurusGelenekSonra}
           <br /><br />
-          ITC ise <span style={{ color: 'var(--accent)' }}>"nasıl düşündüğünü"</span> sorar.
+          {s.vurusITCOnce} <span style={{ color: 'var(--accent)' }}>{s.vurusITC}</span>{s.vurusITCSonra}
         </p>
       </section>
 
@@ -284,54 +285,53 @@ export default function AnaSayfa() {
         <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
 
           <div style={{ textAlign: 'center', marginBottom: 'clamp(2.5rem, 5vw, 4rem)' }}>
-            <div style={ustEtiketStili}>Yapı</div>
-            <h2 style={bolumBaslikStili}>Üç Modül</h2>
+            <div style={ustEtiketStili}>{s.yapiEtiket}</div>
+            <h2 style={bolumBaslikStili}>{s.yapiBaslik}</h2>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
 
-            {/* Modül I */}
-            <div style={modulKartiStili}>
+            {/* Modül I — tıklanabilir */}
+            <a
+              href="/kalibrasyon"
+              style={{ ...modulKartiStili, textDecoration: 'none', display: 'block' }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; }}
+            >
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '1.5rem', marginBottom: '0.8rem', flexWrap: 'wrap' }}>
-                <span style={modulRomenStili}>I</span>
-                <h3 style={modulBaslikStili}>Kendini Tanı</h3>
-                <span style={modulAltStili}>Kalibrasyon</span>
+                <span style={modulRomenStili}>{s.mod1Roma}</span>
+                <h3 style={modulBaslikStili}>{s.mod1Baslik}</h3>
+                <span style={modulAltStili}>{s.mod1Altyazi}</span>
               </div>
-              <p style={modulMetinStili}>
-                Üç kısa test ile duyusal kanal tercihin, psikolojik haritan ve kişilik tipin çıkar.
-                Bu veriler sonraki modüllerde sessizce kişiselleştirme yapar — meta-açıklama yok,
-                sadece sana uyan akış.
-              </p>
-              <div style={modulMetaStili}>3 test · ~15 dakika</div>
-            </div>
+              <p style={modulMetinStili}>{s.mod1Metin}</p>
+              <div style={modulMetaStili}>{s.mod1Meta}</div>
+            </a>
 
-            {/* Modül II */}
-            <div style={modulKartiStili}>
+            {/* Modül II — tıklanabilir */}
+            <a
+              href="/antrenman/karakter"
+              style={{ ...modulKartiStili, textDecoration: 'none', display: 'block' }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; }}
+            >
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '1.5rem', marginBottom: '0.8rem', flexWrap: 'wrap' }}>
-                <span style={modulRomenStili}>II</span>
-                <h3 style={modulBaslikStili}>Karakterini İnşa Et</h3>
-                <span style={modulAltStili}>Antrenman</span>
+                <span style={modulRomenStili}>{s.mod2Roma}</span>
+                <h3 style={modulBaslikStili}>{s.mod2Baslik}</h3>
+                <span style={modulAltStili}>{s.mod2Altyazi}</span>
               </div>
-              <p style={modulMetinStili}>
-                Dört klasik karakter — Hamlet, Macbeth, Willy Loman, Biff Loman. Her karakter için
-                değiştirilemez doğrular, oyun öncesi yaşam, zaman çizgisi, yazarın çerçevesi
-                (beş tercih) ve senin çerçeven (boşluklar).
-              </p>
-              <div style={modulMetaStili}>4 klasik karakter · ~25 dk/oturum</div>
-            </div>
+              <p style={modulMetinStili}>{s.mod2Metin}</p>
+              <div style={modulMetaStili}>{s.mod2Meta}</div>
+            </a>
 
-            {/* Modül III */}
+            {/* Modül III — pasif (Yakında) */}
             <div style={{ ...modulKartiStili, opacity: 0.6 }}>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '1.5rem', marginBottom: '0.8rem', flexWrap: 'wrap' }}>
-                <span style={modulRomenStili}>III</span>
-                <h3 style={modulBaslikStili}>Sahnele</h3>
-                <span style={modulAltStili}>Yolculuk</span>
+                <span style={modulRomenStili}>{s.mod3Roma}</span>
+                <h3 style={modulBaslikStili}>{s.mod3Baslik}</h3>
+                <span style={modulAltStili}>{s.mod3Altyazi}</span>
               </div>
-              <p style={modulMetinStili}>
-                Karakterin pre-senaryo anından post-senaryoya kadar tüm yaşamını sıralı tek seansta
-                AI sesli yönlendirmeyle dolaşan bir modül. Antrenmandan sahneye çıkış.
-              </p>
-              <div style={modulMetaStili}>~110 dakika · AI Dış Ses · Yakında</div>
+              <p style={modulMetinStili}>{s.mod3Metin}</p>
+              <div style={modulMetaStili}>{s.mod3Meta}</div>
             </div>
 
           </div>
@@ -347,8 +347,8 @@ export default function AnaSayfa() {
         boxSizing: 'border-box',
       }}>
         <div style={{ textAlign: 'center', marginBottom: 'clamp(2rem, 4vw, 3rem)' }}>
-          <div style={ustEtiketStili}>2005'ten Bu Yana</div>
-          <h2 style={bolumBaslikStili}>İki Eş Kurucu</h2>
+          <div style={ustEtiketStili}>{s.ekipEtiket}</div>
+          <h2 style={bolumBaslikStili}>{s.ekipBaslik}</h2>
         </div>
 
         <div style={{
@@ -358,23 +358,21 @@ export default function AnaSayfa() {
           marginBottom: 'clamp(2rem, 4vw, 3rem)',
         }}>
 
-          {/* Beyti Engin — kisa */}
+          {/* Beyti Engin */}
           <div>
-            <div style={kisiEtiketStili}>Oyuncu · Eğitmen</div>
-            <h3 style={kisiAdStili}>Beyti Engin</h3>
+            <div style={kisiEtiketStili}>{s.beytiEtiket}</div>
+            <h3 style={kisiAdStili}>{s.beytiAd}</h3>
             <p style={{ ...kisiMetinStili, marginTop: '1rem', margin: 0 }}>
-              Afife Ödüllü oyuncu. ITC metodolojisini 2005'te Filiz Kaya Ataklı ile
-              kurdu, 1000'i aşkın oyuncuyla geliştirdi.
+              {s.beytiMetin}
             </p>
           </div>
 
-          {/* Filiz Kaya Ataklı — kisa */}
+          {/* Filiz Kaya Ataklı */}
           <div>
-            <div style={kisiEtiketStili}>Klinik Psikolog</div>
-            <h3 style={kisiAdStili}>Filiz Kaya Ataklı</h3>
+            <div style={kisiEtiketStili}>{s.filizEtiket}</div>
+            <h3 style={kisiAdStili}>{s.filizAd}</h3>
             <p style={{ ...kisiMetinStili, marginTop: '1rem', margin: 0 }}>
-              Gottman Master Trainer. ITC'nin klinik altyapısının mimarı, yöntemin
-              eş kurucusu.
+              {s.filizMetin}
             </p>
           </div>
 
@@ -396,7 +394,7 @@ export default function AnaSayfa() {
           }}
             onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; e.currentTarget.style.color = 'var(--ink)'; }}>
-            Hakkımızda Daha Fazla →
+            {s.hakkindaCta}
           </a>
         </div>
       </section>
@@ -463,7 +461,7 @@ export default function AnaSayfa() {
               beytienginstudio.com
             </a>
             <span style={{ margin: '0 1rem', color: 'var(--ink-muted)' }}>·</span>
-            <span>2005'ten bu yana</span>
+            <span>{s.footerSlogan}</span>
           </div>
         </div>
       </section>

@@ -12,7 +12,7 @@ export const metadata = {
     template: '%s · ITC Yöntemi',
   },
   description:
-    "ITC, oyuncuların karakterin zihinsel-bedensel haritasına psikolojik güvenlikle giriş yaptığı dijital antrenman platformudur. Beyti Engin × Filiz Kaya Ataklı, 2005.",
+    "ITC, oyuncuların karakterin zihinsel-bedensel haritasına psikolojik güvenlikle giriş yaptığı dijital antrenman platformudur. Beyti Engin & Filiz Kaya Ataklı, 2005.",
   applicationName: "Actor's Gym",
   authors: [{ name: 'Beyti Engin' }, { name: 'Filiz Kaya Ataklı' }],
   keywords: ['oyunculuk', 'ITC', 'karakter çalışması', 'aktör eğitimi', 'sahne pedagojisi'],
