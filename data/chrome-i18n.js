@@ -122,6 +122,15 @@ const chromeI18n = {
         { ad: 'Blanche DuBois', yazar: 'Tennessee Williams',  aciklama: 'Yanılsama kalkanı ve kırılganlık.' },
       ],
     },
+    // Workbook "neden çerçevesi" — Hamlet Workbook 2. baskı `bolum_i_tam.html`
+    // açılış deseninin dijital karşılığı: 3 mikro-blok her karakter istasyonunda
+    // yer alır (hub + 4 alt sayfa). Spine §3 ilke 3 ("metot görünmez") kanon
+    // sınırı: rotayı ve amacı anlat, mekanizmayı anlatma.
+    mikroBlok: {
+      neredesin: 'Şu an neredesin',
+      neYapacaksin: 'Ne yapacaksın',
+      hatirla: 'Hatırla',
+    },
     kulis: {
       hazirlaniyor: 'Hazırlanıyor…',
       etiket: 'Kulis',
@@ -359,6 +368,11 @@ const chromeI18n = {
         { ad: 'Medea',          yazar: 'Euripides',           aciklama: 'Rage, betrayal, and radical action.' },
         { ad: 'Blanche DuBois', yazar: 'Tennessee Williams',  aciklama: 'The shield of illusion and fragility.' },
       ],
+    },
+    mikroBlok: {
+      neredesin: 'Where you are now',
+      neYapacaksin: 'What you will do',
+      hatirla: 'Remember',
     },
     kulis: {
       hazirlaniyor: 'Loading…',

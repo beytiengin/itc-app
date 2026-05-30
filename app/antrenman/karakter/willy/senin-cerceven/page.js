@@ -13,6 +13,7 @@ import willyI18n, { willyIcerik } from '../../../../../data/willy-i18n';
 import { useDil, ceviri } from '../../../../../app/lib/dil';
 import { altSoruYansimalariniGetir } from '../../../../lib/hamlet-veri';
 import HamletAltSayfaHeader from '../../../../../components/HamletAltSayfaHeader';
+import MikroBlokKart from '../../../../../components/MikroBlokKart';
 import HamletBoslukKart from '../../../../../components/HamletBoslukKart';
 import HamletBolumGecisi from '../../../../../components/HamletBolumGecisi';
 import Katlanir from '../../../../../components/Katlanir';
@@ -94,6 +95,8 @@ export default function SeninCerceveAnaSayfa() {
           <h1 style={baslik}>{sc.baslik}</h1>
           <p style={altyazi}>{sc.altyazi}</p>
         </header>
+
+        <MikroBlokKart veri={sc.mikroBlok} />
 
         <p style={paragraf}>{sc.giris1}</p>
         <p style={paragraf}>{sc.giris2}</p>

@@ -34,6 +34,11 @@ const willyI18n = {
     },
 
     hub: {
+      mikroBlok: {
+        neredesin: "Willy Loman'ı dört istasyonda kuracaksın — doğrular, oyun öncesi, zaman çizgisi, yazarın çerçevesi, ve senin çerçeven.",
+        neYapacaksin: 'Önce değiştirilemez doğruları gör. Sonra dört istasyonu sırayla dolaş.',
+        hatirla: 'Karakter senin kişisel travmalarınla inşa edilmez. Karakterin kendi verisi vardır.',
+      },
       ustEtiket: 'Modül II · Karakterini İnşa Et',
       bolum1Etiket: 'Tanı',
       bolum1Baslik: 'Değiştirilemez Doğrular',
@@ -93,6 +98,11 @@ const willyI18n = {
     },
 
     seninCerceven: {
+      mikroBlok: {
+        neredesin: "Miller'ın sustuğu yere geldin — boşlukları sen yazacaksın.",
+        neYapacaksin: 'Dört boşluk, on iki alt-soru. Her boşluk için bir an yaz.',
+        hatirla: 'Karakter senin yaranla inşa edilmez. Yazdıkların karakterin verisinden çıkar.',
+      },
       etiket: 'Modül II · Bölüm 5',
       baslik: '◇ Senin Çerçeven',
       altyazi: "Miller'ın sustuğu yer",
@@ -198,6 +208,11 @@ const willyI18n = {
     },
 
     oyunOncesi: {
+      mikroBlok: {
+        neredesin: "Sahneye çıkmadan önce Willy'nin bedeninde ne taşıdığını okuyacaksın.",
+        neYapacaksin: 'Sekiz olay, dokuz ilişki — her birine kendi yorumunu işaretle.',
+        hatirla: 'Oyun öncesi yaşam metinde gösterilmez — ama bedene yazılır.',
+      },
       geri: '← Willy Loman',
       etiket: 'Modül II · Bölüm 2',
       baslik: 'Oyun Öncesi Yaşam',
@@ -232,6 +247,11 @@ const willyI18n = {
     },
 
     yazarinCercevesi: {
+      mikroBlok: {
+        neredesin: "Miller'ın açık uçlarını okuyacaksın — beş tercih, beş kavşak.",
+        neYapacaksin: 'Her tercihte yazarın bıraktığı işaretleri oku, kendi yorumunu seç.',
+        hatirla: 'Doğru cevap yoktur, iyi yapılmış analiz vardır.',
+      },
       etiket: 'Modül II · Bölüm 4',
       baslik: 'Yazarın Çerçevesi',
       altyazi: 'İçine girdiğin oda',
@@ -283,6 +303,11 @@ const willyI18n = {
     },
 
     timeline: {
+      mikroBlok: {
+        neredesin: "Willy'nin sahnelerinin bedensel zincirini haritalayacaksın.",
+        neYapacaksin: 'On bir birimi sıcaklık ve yük üzerinden oku, kendi yorumunu işaretle.',
+        hatirla: 'Her sahne, bir önceki sahnenin bedendeki devamıdır.',
+      },
       geri: '← Willy Loman',
       etiket: 'Modül II · Bölüm 3',
       baslik: 'Zaman Çizgisi',
@@ -337,6 +362,11 @@ const willyI18n = {
     },
 
     hub: {
+      mikroBlok: {
+        neredesin: "You will build Willy Loman across four stations — truths, pre-play life, timeline, the author's frame, and then your frame.",
+        neYapacaksin: 'First, see the unchangeable truths. Then walk through the four stations in order.',
+        hatirla: 'A character is not built from your personal trauma. The character has its own data.',
+      },
       ustEtiket: 'Module II · Build Your Character',
       bolum1Etiket: 'Know',
       bolum1Baslik: 'Immutable Truths',
@@ -396,6 +426,11 @@ const willyI18n = {
     },
 
     seninCerceven: {
+      mikroBlok: {
+        neredesin: 'You have arrived where Miller fell silent — you will write the gaps.',
+        neYapacaksin: 'Four gaps, twelve sub-questions. Write one moment for each gap.',
+        hatirla: "A character is not built from your wound. What you write comes from the character's data.",
+      },
       etiket: 'Module II · Part 5',
       baslik: '◇ Your Frame',
       altyazi: 'Where Miller stays silent',
@@ -501,6 +536,11 @@ const willyI18n = {
     },
 
     oyunOncesi: {
+      mikroBlok: {
+        neredesin: "You will read what Willy carries in his body before stepping onto the stage.",
+        neYapacaksin: 'Eight events, nine relationships — mark your own reading on each.',
+        hatirla: 'Pre-play life is not shown in the text — but it is written in the body.',
+      },
       geri: '← Willy Loman',
       etiket: 'Module II · Part 2',
       baslik: 'The Pre-Play Life',
@@ -535,6 +575,11 @@ const willyI18n = {
     },
 
     yazarinCercevesi: {
+      mikroBlok: {
+        neredesin: "You will read Miller's open ends — five choices, five crossroads.",
+        neYapacaksin: 'In each choice, read the signs the author left, and mark your own.',
+        hatirla: 'There is no correct analysis; there is only well-done analysis.',
+      },
       etiket: 'Module II · Part 4',
       baslik: "The Author's Frame",
       altyazi: 'The room you step into',
@@ -586,6 +631,11 @@ const willyI18n = {
     },
 
     timeline: {
+      mikroBlok: {
+        neredesin: "You will map the bodily chain of Willy's scenes.",
+        neYapacaksin: 'Read the eleven units through temperature and burden, mark your own reading.',
+        hatirla: "Each scene is the body's continuation of the one before.",
+      },
       geri: '← Willy Loman',
       etiket: 'Module II · Part 3',
       baslik: 'Timeline',

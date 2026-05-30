@@ -24,6 +24,7 @@ import {
 } from '../../../../app/lib/ilerleme';
 import DogrularKarti from '../../../../components/DogrularKarti';
 import HamletAltSayfaHeader from '../../../../components/HamletAltSayfaHeader';
+import MikroBlokKart from '../../../../components/MikroBlokKart';
 
 const TON = 'var(--accent)';
 const KOK = '/antrenman/karakter/willy';
@@ -174,6 +175,7 @@ export default function WillySayfasi() {
           gap: '1.4rem',
         }}
       >
+        <MikroBlokKart veri={t.mikroBlok} />
         <KarsilayanBlok kartlar={t.kartlar} ilerleme={ilerleme} dil={dil} davet={t.davet} karakter={KARAKTER} />
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
           <span

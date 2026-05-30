@@ -20,6 +20,7 @@ import OyunOncesiIliskiKart from '../../../../../components/OyunOncesiIliskiKart
 import HamletBolumGecisi from '../../../../../components/HamletBolumGecisi';
 import HamletAltSayfaHeader from '../../../../../components/HamletAltSayfaHeader';
 import SayfaIskelet from '../../../../../components/SayfaIskelet';
+import MikroBlokKart from '../../../../../components/MikroBlokKart';
 
 const TON = 'var(--accent)';
 
@@ -140,6 +141,7 @@ export default function OyunOncesiYasamSayfasi() {
 
         {/* ─── Açılış metni ─── */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <MikroBlokKart veri={oc.mikroBlok} />
           <p style={paragrafStili}>
             {oc.acilis1}
           </p>
