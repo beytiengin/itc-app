@@ -389,16 +389,22 @@ export default macbeth;
 
 ## 🔐 Auth Gating
 
-`middleware.ts` üç rotayı korur:
-- `/kalibrasyon` ve alt yolları
-- `/antrenman` ve alt yolları
-- `/profil`
+**Şu anki durum (Karar 33 · vitrin demo kanalı):** Auth gating **devre dışı**.
+`middleware.ts` no-op'a indirilmiş (commit `848fc89`); Supabase çağrısı bile
+yapmıyor, tüm sayfalar herkese açık. Anonim kullanıcı korunan rotalara
+(`/kalibrasyon`, `/antrenman`, `/profil`, `/kulis`) doğrudan girebilir —
+demo reviewer akışı için bilinçli karar.
 
-**Anonim kullanıcı:** Sadece `/` (ana ekran), `/giris`, `/api/*` görür.
+Gating'i geri açmak için: `middleware.ts` içindeki yorumlanmış "ESKİ" bloğu
+no-op middleware'in yerine koy. `KORUMALI_ROTALAR` listesi orada hazır
+(`/kalibrasyon`, `/antrenman`, `/profil`, `/kulis`).
 
-**Üye:** Tüm sayfalar açık. Kalibrasyon eksikse içeride yumuşak uyarı gösterilir (kilitleme yok).
+**Üye akışı (gating açıldığında):** Tüm sayfalar açık; kalibrasyon eksikse
+içeride yumuşak uyarı (kilitleme yok).
 
-**Note:** Next.js 15 ile birlikte `middleware.ts` deprecated oldu, yerine `proxy.ts` öneriliyor. Şu an çalışıyor ama gelecekte taşınacak.
+**Framework notu:** Next.js 16.2.4 ile koşuyor; `middleware.ts` konvansiyonu
+hâlâ destekleniyor (eski docs'daki "proxy.ts'e taşınacak" notu güncelliğini
+yitirdi).
 
 ---
 
@@ -427,7 +433,7 @@ Bu ilkeler kod kararlarını etkiler. **Mutlaka oku:**
 
 - ✅ Modül I tamamen çalışır (3 test, Supabase kayıt)
 - ✅ Modül II tamamen çalışır (4 karakter, her biri tam yapıda)
-- ✅ Auth gating (middleware + Google OAuth)
+- ✅ Auth (Google OAuth + email/şifre) · gating Karar 33 ile devre dışı, geri açılabilir hazır blok middleware.ts'de
 - ✅ Kulis veri katmanı (`tamamlanan_egzersizler`, `bosluk_yansimalari` tabloları + kayıt mantığı)
 - ✅ Egzersiz tamamlama izleri Supabase'e gidiyor, "✓ Tamamlandı" rozeti çalışıyor
 - ✅ Boşluklara yazma alanı + otomatik kayıt + "✓ Yazıldı" rozeti
