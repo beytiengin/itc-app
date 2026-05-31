@@ -80,6 +80,12 @@ const willyI18n = {
         yarat:    "Yarat'a git →",
         son:      "Kendi Willy'ni gör →",
       },
+      elYazmasiKart: {
+        etiket: 'Yeni görünüm',
+        baslik: 'El yazması',
+        aciklama: 'Dört istasyonun tek okunabilir akışı — sahne, boşluk ve senin çerçeven yan yana.',
+        cta: 'El yazmasını aç →',
+      },
       modul3Etiket: 'Modül III · Yolculuk Modu',
       modul3Baslik: "Willy'nin tüm yaşamı, baştan sona",
       modul3Metin:
@@ -95,6 +101,46 @@ const willyI18n = {
       kaydedildi: '✓ kaydedildi',
       hata: 'kaydedilemedi',
       yukleniyor: 'Hazırlanıyor…',
+    },
+
+    // El yazması karakter sayfası — Katman 1 (Karar 41 Aşama 1).
+    // Dört eski sayfayı (oyun-oncesi-yasam · timeline · yazarin-cercevesi ·
+    // senin-cerceven) tek okunabilir akışa birleştirir. Eski sayfalar
+    // SİLİNMEZ — kademeli geçiş. Yapı: doğrular künyesi → ilişkiler künyesi
+    // (katlanır) → açık giriş kapısı (Aşama 3 dinamik) → oyun öncesi fasıl
+    // (katlanır) → senaryo akışı (sahne + boşluk yasamSirasi sıralı).
+    elYazmasi: {
+      altyazi: 'El yazması',
+      dogrularBaslik: 'Değiştirilemez Doğrular',
+      iliskilerBaslik: "Willy'nin Dünyası · İlişkiler",
+      iliskilerSayim: 'kişi',
+      dokunAc: 'dokun, aç',
+      kapat: 'kapat',
+      girisKapisiEtiket: 'Açık giriş kapısı',
+      girisKapisiAciklama: 'Kalibrasyonun bildiği yön — sessiz işaret, kilit değil.',
+      girisKapisiBilissel: 'Bilişsel',
+      girisKapisiBedensel: 'Bedensel',
+      girisKapisiDuygusal: 'Duygusal',
+      oyunOncesiBaslik: 'Oyun Öncesi',
+      oyunOncesiAltyazi: 'Sahneye çıkmadan önce ne yaşandı',
+      oyunOncesiSayim: 'olay',
+      senaryoBaslik: 'Senaryo Akışı',
+      senaryoAltyazi: 'Hayat sırasında sahneler ve aralarındaki boşluklar',
+      sahneEtiket: 'Sahne',
+      boslukEtiket: 'Boşluk',
+      yansimaEtiketOluyor: 'Yaşam sırası',
+      panelYazarBaslik: 'Yazarın Çerçevesi',
+      panelSeninBaslik: 'Senin Çerçeven',
+      panelKapat: 'Paneli kapat',
+      panelYazarHenuz: 'Manuscript çerçevesi yakında yedirilecek.',
+      soruEtiket: 'Soru',
+      soruJenerikSahne: "Bu sahnede Willy'nin bedeninde ne yaşandı?",
+      yorumEtiket: 'Senin yorumun',
+      yorumPlaceholder: 'Bu anı kendi sözcüklerinle yaz…',
+      neAciyorEtiket: 'Ne açıyor?',
+      neAciyorPlaceholder: 'Bir sonraki sahneye ne taşıyor?',
+      yazildi: '✓ yazıldı',
+      yazilmadi: '○',
     },
 
     seninCerceven: {
@@ -408,6 +454,12 @@ const willyI18n = {
         yarat:    'Go to Create →',
         son:      'See your Willy →',
       },
+      elYazmasiKart: {
+        etiket: 'New view',
+        baslik: 'Manuscript',
+        aciklama: 'The four stations read as one continuous flow — scene, gap and your frame side by side.',
+        cta: 'Open the manuscript →',
+      },
       modul3Etiket: 'Module III · Journey Mode',
       modul3Baslik: "Willy's whole life, end to end",
       modul3Metin:
@@ -423,6 +475,40 @@ const willyI18n = {
       kaydedildi: '✓ saved',
       hata: 'could not save',
       yukleniyor: 'Loading…',
+    },
+
+    elYazmasi: {
+      altyazi: 'Manuscript',
+      dogrularBaslik: 'Unchangeable Truths',
+      iliskilerBaslik: "Willy's World · Relationships",
+      iliskilerSayim: 'people',
+      dokunAc: 'tap to open',
+      kapat: 'close',
+      girisKapisiEtiket: 'Open entry door',
+      girisKapisiAciklama: 'The direction your calibration knows — a quiet sign, not a lock.',
+      girisKapisiBilissel: 'Cognitive',
+      girisKapisiBedensel: 'Bodily',
+      girisKapisiDuygusal: 'Emotional',
+      oyunOncesiBaslik: 'Pre-Play Life',
+      oyunOncesiAltyazi: 'What was lived before the stage',
+      oyunOncesiSayim: 'events',
+      senaryoBaslik: 'Scenario Flow',
+      senaryoAltyazi: 'Scenes and the gaps between them, in life order',
+      sahneEtiket: 'Scene',
+      boslukEtiket: 'Gap',
+      yansimaEtiketOluyor: 'Life order',
+      panelYazarBaslik: "Author's Frame",
+      panelSeninBaslik: 'Your Frame',
+      panelKapat: 'Close panel',
+      panelYazarHenuz: 'The manuscript frame will be folded in soon.',
+      soruEtiket: 'Question',
+      soruJenerikSahne: "What was lived in Willy's body in this scene?",
+      yorumEtiket: 'Your reading',
+      yorumPlaceholder: 'Write this moment in your own words…',
+      neAciyorEtiket: 'What does it open?',
+      neAciyorPlaceholder: 'What does it carry into the next scene?',
+      yazildi: '✓ written',
+      yazilmadi: '○',
     },
 
     seninCerceven: {

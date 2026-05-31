@@ -177,6 +177,29 @@ export default function WillySayfasi() {
       >
         <MikroBlokKart veri={t.mikroBlok} />
         <KarsilayanBlok kartlar={t.kartlar} ilerleme={ilerleme} dil={dil} davet={t.davet} karakter={KARAKTER} />
+        {t.elYazmasiKart && (
+          <a
+            href="/antrenman/karakter/willy/el-yazmasi"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.4rem',
+              padding: '1.2rem 1.4rem',
+              border: '1px dashed var(--rule)',
+              background: 'var(--bg-elevated)',
+              textDecoration: 'none',
+              color: 'var(--ink)',
+              transition: 'border 0.25s ease, background 0.25s ease',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = TON; e.currentTarget.style.borderStyle = 'solid'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; e.currentTarget.style.borderStyle = 'dashed'; }}
+          >
+            <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.58rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>{t.elYazmasiKart.etiket}</span>
+            <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.3rem', color: 'var(--ink)' }}>{t.elYazmasiKart.baslik}</span>
+            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.82rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.55 }}>{t.elYazmasiKart.aciklama}</p>
+            <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.72rem', letterSpacing: '0.12em', color: TON, marginTop: '0.2rem' }}>{t.elYazmasiKart.cta}</span>
+          </a>
+        )}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
           <span
             style={{
