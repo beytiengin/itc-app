@@ -82,19 +82,23 @@ export default function ElYazmasiSayfasi() {
   const ortak = s.ortak;
   const data = willyIcerik(dil, willyRaw);
 
-  // Birleşik akış: sahnelerWorkbook + boslukSet → yasamSirasi sıralı tek dizi.
+  // Birleşik akış — OYUN SIRASI (Karar 41 v2):
+  // - Sahneler `no` 1→11 sıralı (yasamSirasi DEĞİL).
+  // - Her boşluk `sonraSahneNo`'daki sahnenin ÖNÜNE yerleşir.
+  // - Aynı sahneye birden fazla boşluk varsa: `boslukSet` dizisinin FİZİKSEL
+  //   sırası geçerli (özellikle Sahne 9 önü B5→B1→B10 ve Sahne 10 önü
+  //   B4→B11→B8 swap'ları için kritik).
+  // - `no` ALANI KAYIT KİMLİĞİ — sıralama için ASLA kullanılmaz.
   const akis = useMemo(() => {
-    const sahneler = (data.sahnelerWorkbook || []).map((sa) => ({
-      tip: 'sahne',
-      yasamSirasi: sa.yasamSirasi ?? sa.no,
-      veri: sa,
-    }));
-    const bosluklar = (data.boslukSet || []).map((b) => ({
-      tip: 'bosluk',
-      yasamSirasi: b.yasamSirasi ?? 0,
-      veri: b,
-    }));
-    return [...sahneler, ...bosluklar].sort((a, b) => a.yasamSirasi - b.yasamSirasi);
+    const sahneSirali = [...(data.sahnelerWorkbook || [])].sort((a, b) => a.no - b.no);
+    const bosluklar = data.boslukSet || []; // dizi fiziksel sırası korunur — sort YOK
+    const dugumler = [];
+    for (const sahne of sahneSirali) {
+      const sahneOncesi = bosluklar.filter((b) => b.sonraSahneNo === sahne.no);
+      for (const b of sahneOncesi) dugumler.push({ tip: 'bosluk', veri: b });
+      dugumler.push({ tip: 'sahne', veri: sahne });
+    }
+    return dugumler;
   }, [data]);
 
   const [acikPanel, setAcikPanel] = useState(null); // { tip, no } | null

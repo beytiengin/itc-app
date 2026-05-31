@@ -393,60 +393,74 @@ const willy = {
     },
   ],
 
-  // ─── BOŞLUK SETİ · 4 BOŞLUK (Senin Çerçeven sayfası kullanır) ─────────────
+  // ─── BOŞLUK SETİ · 11 BOŞLUK (Karar 41 v2 — El Yazması esas görünüm) ──────
   // Sahnede temsil EDİLMEMİŞ ama bedende yaşanmış geçişler (Spine §3.13).
-  // Eski 5. boşluk (bahçeden son arabaya) sahnede VAR → boşluk değil, çıkarıldı.
-  // Ölüm-sonrası boşluk yok (yolculuk son sahne anıyla biter — kayıt dışı karar).
-  // `yasamSirasi`: karakterin HAYAT kronolojisindeki yer (sahne sırası ≠ hayat sırası).
-  // Modül III (Yolculuk) bu indeksle sahne+boşlukları tek diziye dizecek.
+  //
+  // SIRA = bu dizinin FİZİKSEL sırası. `no` = KALICI KAYIT KİMLİĞİ — ASLA
+  // sıralama için kullanma. `boslukSet`'i `no`'ya göre sıralarsan kullanıcının
+  // yazdıkları kayar/bozulur (`b.no` Supabase kayıt anahtarı; el yazmasında
+  // `elyazma-bosluk-${no}`).
+  //
+  // El yazması her boşluğu `sonraSahneNo`'daki sahnenin ÖNÜNE yerleştirir;
+  // aynı sahneye birden fazla boşluk düşerse bu dizideki fiziksel sıra geçerli
+  // (özellikle Sahne 9 önü B5→B1→B10 ve Sahne 10 önü B4→B11→B8 swap'ları).
+  //
+  // `yasamSirasi`: bu görünüm için KULLANILMIYOR (Karar 41 v2 — sahne `no`'ya göre).
+  // Veri korundu — Zaman Çizgisi / Katman 2 (oyuncunun yeniden kurduğu kronoloji)
+  // için durur.
 
   boslukSet: [
+    // ── no 6 · "Eve Dönüş — Hiç Aynı Olmayan Şey" → S1 (eski b-2) ─────────
     {
-      no: 1,
-      baslik: "Boston otelinden Brooklyn'e dönüş",
-      sinif: 'Zaman/Mekân Boşluğu',
-      konum: 'Boston oteli (Birim 9 belleği) → eve dönüş',
-      yasamSirasi: 3,
-      sonraSahneNo: 9,
-      onceBaslik: 'Boston Oteli (1932)',
+      no: 6,
+      baslik: 'Eve Dönüş — Hiç Aynı Olmayan Şey',
+      sinif: 'Kopuş',
+      konum: 'Boston sonrası, yıllar (1932→) → Sahne 1 (eve dönüş)',
+      yasamSirasi: 5,
+      sonraSahneNo: 1,
+      onceBaslik: 'Boston otel — ifşa',
       onceMetin:
-        'Biff kapıyı açtı, babasını Kadın\'la gördü. "Sahtekarsın sen!" Çoraplar yerde. Biff ağlayarak koridorda gitti. Willy otelde tek başına kaldı.',
+        'Biff babasını Kadın\'la gördü, "sahtekar" dedi, kaçtı. Willy Boston\'dan Brooklyn\'e döndü.',
       boslukMetin:
-        'Otelden çıkış · trenle Brooklyn\'e dönüş yolu · aynı eve dönmek ama Biff\'le artık aynı dünyada olmamak · ne söyleyeceğini bilememek · suçun bedene yerleşmesi.',
-      sonraBaslik: 'Yıllar süren sessizlik',
+        'eve giren adam · konuşmayan Biff · hiçbir şey bilmeyen Linda · göz göze gelememe · "kendini topla" diyebilmek ama nedenini söyleyememek · aylara yayılan sessizlik',
+      sonraBaslik: 'Oyunun bugünü — yorgun dönüş',
       sonraMetin:
-        'Eve döndü, ama Biff\'le bir daha o eski hâlleri hiç olmadı. Bu dönüş yolu, sürecek kopuşun başlangıcıydı.',
+        'Sahne 1\'de Willy yine eve döner; "Ölüyorum yorgunluktan." Biff\'le aralarındaki onarılmamış soğukluk artık evin havasıdır — Sahne 1\'in altındaki görünmez yük.',
       sentez:
-        'Miller bu yolculuğu yazmaz — yalnızca sonucunu (kırık ilişki) gösterir. Willy o yolda ne düşündü, kendine hangi yalanı kurdu?',
+        'Miller, Boston ile oyunun bugünü arasındaki 15 yılı sahnede atlar; biz sadece soğukluğun sonucunu görürüz. Oyuncu bu boşlukta soğukluğun nasıl yerleştiğini kurar — Biff\'le her sahnedeki sessizlik bu doldurulamayan eve-dönüşten beslenir. Sahne 1\'deki yorgunluk fiziksel değil, bu yükün adı.',
       altSorular: [
-        { no: 1, baslik: 'Beden', soru: 'Otel kapısı kapandığında bedeni ne yaptı — eli, omzu, nefesi nerede durdu?' },
-        { no: 2, baslik: 'İçsel', soru: "Brooklyn'e varana dek kendine hangi açıklamayı kurdu? Hangi cümleyle eve girdi?" },
-        { no: 3, baslik: 'İlişkisel', soru: 'Biff\'le ilk kez yeniden yüz yüze geldiğinde gözünü nereye kaçırdı?' },
+        { no: 1, baslik: 'İlişkisel', soru: 'Boston\'dan sonra eve girdiği ilk akşam Willy, Biff\'le göz göze gelebildi mi — bakışını nereye kaçırdı?' },
+        { no: 2, baslik: 'İçsel', soru: 'Linda\'nın hiçbir şey bilmediğini Willy gerçekten düşündü mü, yoksa görmemeyi mi seçti?' },
+        { no: 3, baslik: 'Beden', soru: 'O dönemde aynaya baktığı bir an oldu mu — kendi yüzüne bakabildi mi, yoksa baktı da göremedi mi?' },
       ],
     },
+
+    // ── no 7 · "Ben Hayaletinin Doğuşu" → S3 (eski b-3) ──────────────────
     {
-      no: 2,
-      baslik: "Ben'in Alaska teklifini reddetme anı",
-      sinif: 'Karar Boşluğu',
-      konum: 'Ben belleği (Birim 8) — teklif anı',
-      yasamSirasi: 2,
-      sonraSahneNo: 8,
-      onceBaslik: "Ben'in teklifi",
+      no: 7,
+      baslik: 'Ben Hayaletinin Doğuşu',
+      sinif: 'Zaman/Mekân',
+      konum: 'Bellek arası → Sahne 3 (Charley/Ben hayaleti)',
+      yasamSirasi: 6,
+      sonraSahneNo: 3,
+      onceBaslik: 'Charley\'le kâğıt oyunu',
       onceMetin:
-        'Ben, Alaska\'da topraklar olduğunu, gelirse zengin olacağını söyler. "Gel benimle Willy — orada bir adam adam gibi yaşar."',
+        'Willy Charley\'le kâğıt oynar; konuşma sırasında Ben\'in hayaleti zihne girer ve sahne belleğe kayar.',
       boslukMetin:
-        'Teklifi tartma · Linda\'nın "burada her şeyin var" sözüne tutunma · satıcılık hayaline, Singleman olma rüyasına sığınma · gitmeme kararını verme anı.',
-      sonraBaslik: 'Kalma kararı',
+        'gerçekte ölmüş Ben · ilk kez çağrılan ses · bilinçli mi kendiliğinden mi belirsiz · bir karar anında geri dönen abi · Willy\'nin söyleyemediğini söyleyen ağız',
+      sonraBaslik: 'Ben sahnede — "elmas dolu orman"',
       sonraMetin:
-        'Willy kaldı. Ama o "hayır" ömür boyu içinde "ya gitseydim?" olarak yaşadı.',
+        'Sahne 3\'te Ben hayaleti Willy\'ye akıl verir, başarı mitini fısıldar. Bu hayalet artık Willy\'nin bir alışkanlığı — karar anlarında dönen iç ses.',
       sentez:
-        'Sahnede Ben teklifi söyler, Willy reddeder — ama reddin İÇİ boşluktur. O "hayır"ı verirken neye tutundu?',
+        'Miller, Ben\'in hayalete dönüşme anını hiç göstermez — sahneye girdiğinde zaten yerleşik bir alışkanlıktır. Oyuncu bu boşlukta hayaletin ilk doğuşunu kurar: Ben kimin için var? Eğer Ben Willy\'nin söyleyemediklerini söylüyorsa, hayalet bir abi değil, Willy\'nin kendi sesidir. Bu, Sahne 3\'teki her Ben replikinin altına yerleşir.',
       altSorular: [
-        { no: 1, baslik: 'İçsel', soru: '"Hayır" derken aslında neye "evet" diyordu?' },
-        { no: 2, baslik: 'İlişkisel', soru: 'Kararı verirken Linda\'nın yüzüne mi baktı, Ben\'in yüzüne mi?' },
-        { no: 3, baslik: 'Beden', soru: 'O kararın ağırlığı yıllar sonra hangi anlarda bedenine geri döner?' },
+        { no: 1, baslik: 'Zamansal', soru: 'Ben öldüğünde Willy nerede, ne yapıyordu — yokluğunu ilk hangi an bedeninde hissetti?' },
+        { no: 2, baslik: 'İçsel', soru: 'Hayaleti ilk çağırdığı an bilinçli bir çağrı mıydı, yoksa kendiliğinden mi geldi?' },
+        { no: 3, baslik: 'İlişkisel', soru: 'Ben\'in söylediği şey gerçekten Ben\'in mi, yoksa Willy\'nin kendine söyleyemediği şey mi?' },
       ],
     },
+
+    // ── no 3 · "Howard'la görüşme öncesi gece" → S7 (mevcut) ─────────────
     {
       no: 3,
       baslik: "Howard'la görüşme öncesi gece",
@@ -470,6 +484,133 @@ const willy = {
         { no: 3, baslik: 'İlişkisel', soru: 'Linda uyurken ona baktı mı? Baktıysa ne düşündü?' },
       ],
     },
+
+    // ── no 2 · "Ben'in Alaska teklifini reddetme anı" → S8 (mevcut) ──────
+    {
+      no: 2,
+      baslik: "Ben'in Alaska teklifini reddetme anı",
+      sinif: 'Karar Boşluğu',
+      konum: 'Ben belleği (Birim 8) — teklif anı',
+      yasamSirasi: 2,
+      sonraSahneNo: 8,
+      onceBaslik: "Ben'in teklifi",
+      onceMetin:
+        'Ben, Alaska\'da topraklar olduğunu, gelirse zengin olacağını söyler. "Gel benimle Willy — orada bir adam adam gibi yaşar."',
+      boslukMetin:
+        'Teklifi tartma · Linda\'nın "burada her şeyin var" sözüne tutunma · satıcılık hayaline, Singleman olma rüyasına sığınma · gitmeme kararını verme anı.',
+      sonraBaslik: 'Kalma kararı',
+      sonraMetin:
+        'Willy kaldı. Ama o "hayır" ömür boyu içinde "ya gitseydim?" olarak yaşadı.',
+      sentez:
+        'Sahnede Ben teklifi söyler, Willy reddeder — ama reddin İÇİ boşluktur. O "hayır"ı verirken neye tutundu?',
+      altSorular: [
+        { no: 1, baslik: 'İçsel', soru: '"Hayır" derken aslında neye "evet" diyordu?' },
+        { no: 2, baslik: 'İlişkisel', soru: 'Kararı verirken Linda\'nın yüzüne mi baktı, Ben\'in yüzüne mi?' },
+        { no: 3, baslik: 'Beden', soru: 'O kararın ağırlığı yıllar sonra hangi anlarda bedenine geri döner?' },
+      ],
+    },
+
+    // ── no 9 · "Kovulduktan Sonra Sokakta" → S8 (eski b-5) ───────────────
+    {
+      no: 9,
+      baslik: 'Kovulduktan Sonra Sokakta',
+      sinif: 'Kopuş',
+      konum: 'Howard ofisi → Charley ofisi arası, sokak → Sahne 8',
+      yasamSirasi: 8,
+      sonraSahneNo: 8,
+      onceBaslik: 'Howard ofiste — kovulma',
+      onceMetin:
+        'Sahne 7\'de Howard, Willy\'yi kovar. "34 yıl verdim bu şirkete… insan meyve değildir." Willy ofisten çıkar.',
+      boslukMetin:
+        'kapanan ofis kapısı · aynı sokaklar, başka bir adam · "sen bittin"in bedene inişi · bir köşede duran nefes · Charley\'ye gitmeye karar vermeden önceki o süre',
+      sonraBaslik: 'Charley ofisi — Bernard + Ben',
+      sonraMetin:
+        'Sahne 8\'de Willy Charley\'ye gider; Bernard\'ın "Boston\'da ne oldu?" sorusundan kaçar, Ben\'in Alaska teklifini hatırlar, parayı alır.',
+      sentez:
+        'Miller, Howard sahnesinden Charley sahnesine doğrudan keser; Willy\'nin sokakta yürüdüğü o ara hiç yazılmaz. Oyuncu bu boşlukta kovulmanın bedene inişini ve "Charley\'ye gitme" kararının nasıl oluştuğunu kurar. Sahne 8\'e hangi adamın girdiğini bu boşluk belirler — hâlâ ayakta mı, yoksa içten çökmüş bir gövde mi.',
+      altSorular: [
+        { no: 1, baslik: 'Beden', soru: 'Sokağa adım attığında Willy\'nin ilk gördüğü şey neydi — başı yukarıda mıydı, yere mi bakıyordu?' },
+        { no: 2, baslik: 'İçsel', soru: 'Bir köşede durup nefes aldığı bir an oldu mu — o an kendine ne dedi?' },
+        { no: 3, baslik: 'İlişkisel', soru: 'Eve dönmek aklına geldi mi — neden Linda\'nın yanına değil de Charley\'ye gitti?' },
+      ],
+    },
+
+    // ── no 5 · "Kapı Çaldı — Biff'in Sesi" → S9 (eski b-1, SWAP önce) ────
+    {
+      no: 5,
+      baslik: 'Kapı Çaldı — Biff\'in Sesi',
+      sinif: 'Kopuş',
+      konum: 'Boston otel içi → Sahne 9 (Boston belleği)',
+      yasamSirasi: 4,
+      sonraSahneNo: 9,
+      onceBaslik: 'Otel odası — Kadın\'la',
+      onceMetin:
+        'Boston, 1932. Otel odasında Willy ve Kadın. İlişki aylardır sürüyor; bu oda Willy\'nin "yalnızım, sadece bu kadar" yalanının evi.',
+      boslukMetin:
+        'kapının çalışı · "açma" diyen kadın · donan beden · "Baba!" sesi · saklanabileceğini sanan o birkaç saniye · kapıya yürüyen ayaklar',
+      sonraBaslik: 'Kapı açıldı — Biff içeride',
+      sonraMetin:
+        'Biff matematikten kalmış, babasına Boston\'a gelmiş. Kapı açılır, Kadın görünür, çoraplar görünür. "Sahtekar!" Willy yerde kalır — bu an Sahne 9\'da bellek olarak patlar.',
+      sentez:
+        'Miller kapı ile "sahte!" arasını kesip atlar — sahnede Genç Biff girer girmez ifşa olur. Ama o birkaç saniye (kapı çaldı → açıldı) Willy\'nin hayatındaki gerçek kırılma anı. Oyuncu burada "saklanabilir miyim?" yanılsamasının bedende nasıl çöktüğünü kurar; bu çöküş Sahne 9\'daki tüm utancın çekirdeği.',
+      altSorular: [
+        { no: 1, baslik: 'Beden', soru: 'Kapı ilk çaldığında Willy\'nin bedeninde ne hareket etti — nerede dondu, nerede kasıldı?' },
+        { no: 2, baslik: 'İçsel', soru: 'Biff\'in sesini duyduğu an Willy bunu saklayabileceğini sandı mı — o yalanı kendine hangi cümleyle söyledi?' },
+        { no: 3, baslik: 'İlişkisel', soru: 'Kadına "git" derken Willy hangi tonu kullandı — Biff onu duymasın diye mi, Kadın\'dan kurtulmak için mi?' },
+      ],
+    },
+
+    // ── no 1 · "Boston otelinden Brooklyn'e dönüş" → S9 (mevcut) ─────────
+    {
+      no: 1,
+      baslik: "Boston otelinden Brooklyn'e dönüş",
+      sinif: 'Zaman/Mekân Boşluğu',
+      konum: 'Boston oteli (Birim 9 belleği) → eve dönüş',
+      yasamSirasi: 3,
+      sonraSahneNo: 9,
+      onceBaslik: 'Boston Oteli (1932)',
+      onceMetin:
+        'Biff kapıyı açtı, babasını Kadın\'la gördü. "Sahtekarsın sen!" Çoraplar yerde. Biff ağlayarak koridorda gitti. Willy otelde tek başına kaldı.',
+      boslukMetin:
+        'Otelden çıkış · trenle Brooklyn\'e dönüş yolu · aynı eve dönmek ama Biff\'le artık aynı dünyada olmamak · ne söyleyeceğini bilememek · suçun bedene yerleşmesi.',
+      sonraBaslik: 'Yıllar süren sessizlik',
+      sonraMetin:
+        'Eve döndü, ama Biff\'le bir daha o eski hâlleri hiç olmadı. Bu dönüş yolu, sürecek kopuşun başlangıcıydı.',
+      sentez:
+        'Miller bu yolculuğu yazmaz — yalnızca sonucunu (kırık ilişki) gösterir. Willy o yolda ne düşündü, kendine hangi yalanı kurdu?',
+      altSorular: [
+        { no: 1, baslik: 'Beden', soru: 'Otel kapısı kapandığında bedeni ne yaptı — eli, omzu, nefesi nerede durdu?' },
+        { no: 2, baslik: 'İçsel', soru: "Brooklyn'e varana dek kendine hangi açıklamayı kurdu? Hangi cümleyle eve girdi?" },
+        { no: 3, baslik: 'İlişkisel', soru: 'Biff\'le ilk kez yeniden yüz yüze geldiğinde gözünü nereye kaçırdı?' },
+      ],
+    },
+
+    // ── no 10 · "Para Almak ile Ölmek Arasında" → S9 (eski b-6, çapa düzeltildi 8→9) ──
+    {
+      no: 10,
+      baslik: 'Para Almak ile Ölmek Arasında',
+      sinif: 'Karar',
+      konum: 'Charley ofis içi → Sahne 9',
+      yasamSirasi: 8,
+      sonraSahneNo: 9,
+      onceBaslik: 'Charley parayı uzatır',
+      onceMetin:
+        'Sahne 8\'de Charley iş teklif eder, Willy reddeder ama haftalık parayı kabul eder. "Sen benim tek dostumsun."',
+      boslukMetin:
+        'cebe giren para · "tek dostum" cümlesinin ardındaki utanç · sigorta düşüncesinin ilk netleştiği an · saymaktan kaçınılan banknotlar · çıkarken bir an geri dönme isteği',
+      sonraBaslik: 'Ofisten çıkış — karar tohumu',
+      sonraMetin:
+        'Willy ofisten çıkar. Sigorta fikri — kendi ölümünün bir "satış" olabileceği düşüncesi — belki ilk burada bedenine yerleşir; Sahne 10\'daki Ben konuşmasının ("20 bin dolar garanti") zemini.',
+      sentez:
+        'Charley\'den para almak sahnede vardır ama o anın iç hareketi — paranın bir dosttan değil, bir sigortadan, yani kendi ölümünden geçeceği sezgisi — sahne dışıdır. Oyuncu bu kararın tohumunu burada kurar. Willy parayı neden saymaz? Çünkü saymak, onu bir matematiğe çevirir; o matematik Sahne 10\'da "20 bin dolar"a döner.',
+      altSorular: [
+        { no: 1, baslik: 'Beden', soru: 'Parayı cebine koyduğu an elleri nasıldı — o parayı neden saymadı, saymamak bedeninde neye benziyordu?' },
+        { no: 2, baslik: 'İlişkisel', soru: '"Tek dostum" derken Willy, Charley\'nin yüzüne bakabildi mi — yoksa bu cümle bir teşekkür mü, bir itiraf mı?' },
+        { no: 3, baslik: 'İçsel', soru: 'Ofisten çıkarken sigorta düşüncesi zihnine geldiyse, Willy onu bir umut mu yoksa bir karanlık mı olarak duydu?' },
+      ],
+    },
+
+    // ── no 4 · "Restoran tuvaletinde geçen süre" → S10 (mevcut) ──────────
     {
       no: 4,
       baslik: 'Restoran tuvaletinde geçen süre',
@@ -491,6 +632,56 @@ const willy = {
         { no: 1, baslik: 'Beden', soru: 'Tuvaletin içinde bedeni ne yaptı — ayakta mı, çömelmiş mi, aynada mı?' },
         { no: 2, baslik: 'İçsel', soru: 'Oğullarının onu bıraktığını ne zaman, nasıl anladı?' },
         { no: 3, baslik: 'Zamansal', soru: 'Geçmiş (Boston) ile şimdi (lokanta) onun zihninde nasıl iç içe geçti?' },
+      ],
+    },
+
+    // ── no 11 · "Tek Başına — Eve Mi, Başka Yere Mi?" → S10 (eski b-7, SWAP önce, çapa 11→10) ──
+    {
+      no: 11,
+      baslik: 'Tek Başına — Eve Mi, Başka Yere Mi?',
+      sinif: 'Kopuş',
+      konum: 'Frank\'s Chop House sonrası, sokak → Sahne 10 (eve varış öncesi)',
+      yasamSirasi: 9,
+      sonraSahneNo: 10,
+      onceBaslik: 'Restoran — oğullar gitti',
+      onceMetin:
+        'Sahne 9\'da Biff ve Happy, Willy\'yi tuvalette/restoranda bırakıp kadınlarla gittiler. Willy tek başına kaldı.',
+      boslukMetin:
+        'neredeyse boş restoran · ödenip ödenmediği belirsiz hesap · sokağa çıkan ama eve gitmeyen ayaklar · saat 11\'den geceyarısına uzayan süre · bekleyen Linda bilgisi',
+      sonraBaslik: 'Eve varış, sonra bahçe',
+      sonraMetin:
+        'Willy sonunda eve döner (Sahne 10 bahçe). Bu boşluk, oğulların terkinden bahçeye uzanan iç yolun ilk halkası.',
+      sentez:
+        'Miller, restoran terkinden eve dönüşe atlar; sokaktaki o saatler yazılmaz. Oyuncu bu boşlukta "eve mi, başka yere mi?" salınımını kurar — ayakların neden eve gitmediğini. Bu salınım, Sahne 11\'deki son arabanın habercisi: Willy o gece bir kez daha "gidiş"i bedeninde provaladı.',
+      altSorular: [
+        { no: 1, baslik: 'Zamansal', soru: 'Restorandan çıktığında saat kaçtı — o süre Willy\'ye uzun mu, bir anlık mı geldi?' },
+        { no: 2, baslik: 'Beden', soru: 'Bir yere oturdu mu — bir bank, bir köşe? Ayakları neden eve doğru gitmedi?' },
+        { no: 3, baslik: 'İlişkisel', soru: 'Linda\'nın evde beklediğini biliyordu — bu bilgi onu hızlandırdı mı, yoksa daha da yavaşlattı mı?' },
+      ],
+    },
+
+    // ── no 8 · "Geceyarısı Bahçesi" → S10 (eski b-4) ─────────────────────
+    {
+      no: 8,
+      baslik: 'Geceyarısı Bahçesi',
+      sinif: 'Hazırlık',
+      konum: 'Son gece, bahçe → Sahne 10 (Bahçe + Biff\'le son yüzleşme)',
+      yasamSirasi: 9,
+      sonraSahneNo: 10,
+      onceBaslik: 'Restorandan eve dönüş',
+      onceMetin:
+        'Oğullar restoranda Willy\'yi bıraktı. Willy eve döndü; Linda öfkeli, oğulları kovdu. Willy bahçeye çıktı.',
+      boslukMetin:
+        'yataktaki aile · belli etmeden bekleyen Linda · soğuk gece · kazılan toprak · Ben\'le yarı sesli konuşma · kendisiyle baş başa son gerçek saat',
+      sonraBaslik: 'Bahçe — Ben + Biff\'le yüzleşme',
+      sonraMetin:
+        'Sahne 10\'da Willy bahçede tohum eker, Ben\'le 20 bin doları konuşur, sonra Biff iner ve son yüzleşme başlar.',
+      sentez:
+        'Sahne 10 bahçede başlar ama Willy\'nin bahçeye çıkma kararı ve toprağı kazarken zihninden geçenler sahne öncesidir. Oyuncu burada bir adamın kendisiyle baş başa kaldığı son sessiz saati kurar — bu sessizlik, sahnedeki Ben konuşmasının ve Biff yüzleşmesinin altındaki zemin. Tohum ekmek bir umut mu, bir veda mı: oyuncunun bu boşlukta verdiği cevap sahneyi belirler.',
+      altSorular: [
+        { no: 1, baslik: 'İçsel', soru: 'Bahçeye çıkma kararını Willy nasıl verdi — ani bir kalkış mı, uzun süre düşünülmüş bir şey mi?' },
+        { no: 2, baslik: 'Beden', soru: 'Toprağı kazarken elleri ne yapıyordu — aceleyle mi, özenle mi? Soğuk bedeninin neresinde?' },
+        { no: 3, baslik: 'İlişkisel', soru: 'Linda\'nın bahçeden onu izlediğini fark ettiği an — saklanmak mı istedi, yoksa görülmek mi?' },
       ],
     },
   ],
