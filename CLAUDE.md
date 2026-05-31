@@ -37,21 +37,26 @@ Bu dosya Claude Code için referans niteliğindedir. Projenin felsefesini, mimar
 ITC kitabıyla **birebir tutarlı** yapı:
 
 ```
-MODÜL I — Kendini Tanı
-   = /kalibrasyon
-   ├─ Öğrenme Stili Analizi (eski adı: VAK)         → /kalibrasyon/vak
-   ├─ Yıldız Oyuncu Analizi (eski adı: Star Actor)  → /kalibrasyon/yildiz
-   └─ Kişilik Tipi Analizi (eski adı: Arketip)      → /kalibrasyon/arketip
+MODÜL I — Kendini Tanı (Karar 36 · 27 May 2026: 3 test → 5 bölüm tek lineer akış)
+   = /kalibrasyon (tek sayfa, KalibrasyonAkis)
+   ├─ Oyuncu Profili    (intake — silent register köprüsü; ölçüm değil)
+   ├─ Beceri Haritası   (37 madde, 7 boyut · eski Yıldız Oyuncu yeniden adlandırma)
+   ├─ Öğrenme Stili     (VAK, 27 soru)
+   ├─ Kişilik Tipi      (MBTI/Arketip, 12 senaryo)
+   └─ Duygu Haritası    (Panksepp, 33 madde · 6 sistem-LUST hariç · PROVISIONAL —
+                         madde 3/6 FKA klinik onayı Haziran 2026 turunda)
+
+   Eski rotalar (/kalibrasyon/vak · /yildiz · /arketip) retire/redirect.
 
 MODÜL II — Karakterini İnşa Et
    = /antrenman/karakter
-   ├─ Hamlet
-   ├─ Macbeth
-   ├─ Willy Loman
-   └─ Biff Loman
+   ├─ Hamlet       (tam yapı + EN çevirisi — vitrin)
+   ├─ Willy Loman  (tam yapı + EN çevirisi — vitrin)
+   ├─ Macbeth      (pasif "Yakında" — eski şema, refactor bekliyor)
+   └─ Biff Loman   (pasif "Yakında" — eski şema)
 
 MODÜL III — Sahnele (gelecekte)
-   = AI Dış Ses + Journey Modu
+   = Dış Ses + Yolculuk Modu (Karar 31: "AI" öneki kaldırıldı — oyuncu-yüzü)
    └─ "Yakında" durumunda ana ekranda
 ```
 
@@ -68,11 +73,11 @@ itc-app/
 │   ├── layout.js
 │   ├── giris/page.js                    # Login + register + Google
 │   ├── profil/page.js                   # Kullanıcı profili
-│   ├── kalibrasyon/
-│   │   ├── page.js                      # Modül I menü
-│   │   ├── vak/page.js                  # Öğrenme Stili (27 soru)
-│   │   ├── yildiz/page.js               # Yıldız Oyuncu (37 kriter)
-│   │   └── arketip/page.js              # Kişilik Tipi (12 senaryo, MBTI)
+│   ├── kalibrasyon/                     # Karar 36: tek lineer akış (5 bölüm, retire alt rotalar)
+│   │   └── page.js                      # Tek sayfa — Profil → Beceri → VAK → MBTI → Panksepp
+│   ├── fuaye/page.js                    # DONDURULDU (Karar 33 vitrin scope dışı)
+│   ├── kasa/page.js                     # DONDURULDU (Karar 33 vitrin scope dışı)
+│   ├── hakkimizda/page.js               # Marka sayfası (çift dil, Karar 16/20/31/S3.17 hizalı)
 │   ├── antrenman/
 │   │   ├── page.js                      # → /antrenman/karakter (redirect)
 │   │   └── karakter/
@@ -99,37 +104,60 @@ itc-app/
 │   │       └── biff/page.js            # Henüz eski tek-sayfa yapısında
 │   └── lib/
 │       ├── supabase.js                  # Cookie tabanlı browser client
-│       ├── kalibrasyon.js               # Profil okuma + akıllı giriş mesajı
-│       ├── travma.js                    # Etik koruma mantığı
-│       ├── kulis.js                     # Egzersiz/boşluk kayıt fonksiyonları
-│       └── hamlet-veri.js               # Hamlet refactor için yeni tabloların CRUD'u
+│       ├── kalibrasyon.js               # getKalibrasyonProfili (5 bölüm) + vakDili/pankseppYaklasimi (silent overlay)
+│       ├── kalibrasyon-kaydet.js        # Karar 36: 5 bölüm sonuç yazma (oyuncu_profili, beceri/panksepp/vak/arketip)
+│       ├── ilerleme.js                  # Karakter ilerleme view + siradakiAdim CTA
+│       ├── travma.js                    # Etik koruma — sahne-level uyarı + topraklanma tetik (Karar 21)
+│       ├── kulis.js                     # Egzersiz/boşluk kayıt + tum* getter'ları
+│       ├── hamlet-veri.js               # Hamlet refactor tabloları CRUD'u (Sprint 1-3)
+│       ├── theme.js                     # Dual mode tema context
+│       └── dil.js                       # TR/EN dil context + ceviri() helper
 ├── components/
-│   ├── TimelineGorumu.js                # Sahne timeline'ı (Macbeth/Willy/Biff)
-│   ├── KararlarOdasi.js                 # Kararlar Odası egzersizi
-│   ├── EgzersizListesi.js               # Egzersiz akışı + topraklanma
-│   ├── BosluklarGorumu.js               # Boşluklar + yazma alanı (eski)
-│   └── Hamlet*                          # Hamlet refactor bileşenleri (Sprint 1-5)
-│       ├── HamletAltSayfaHeader.js      # Ortak header (4 alt sayfa kullanıyor)
+│   ├── Navigasyon.js                    # Global üst nav (durum-duyarlı, anonim/üye)
+│   ├── DilToggle.js                     # TR | EN dil geçişi segmentli
+│   ├── TemaToggleFloat.js               # Sağ-alt floating tema toggle
+│   ├── TemaSecici.js                    # /profil için tema radyo seçimi
+│   ├── KalibrasyonOzeti.jsx             # Karar 36 — 4 harita özet (Beceri · VAK · MBTI · Panksepp)
+│   ├── MikroBlokKart.js                 # Workbook "neden çerçevesi" 3 mikro-blok kartı (Gün 5)
+│   ├── SayfaIskelet.js                  # Loading skeleton
+│   ├── Katlanir.js                      # Genel açılır/kapanır blok
+│   ├── IlerlemeRozet.js                 # Karakter listesi ilerleme rozetleri
+│   ├── DogrularKarti.js                 # Değiştirilemez Doğrular kartı (Hamlet/Willy)
+│   ├── ZihinselAntrenman.js             # Antrenman/egzersiz akışı (eski karakterler)
+│   ├── TopraklanmaModu.js               # 6 adımlı topraklanma protokolü
+│   ├── SeninCerceven.js                 # Boşluk yazma alanı (eski karakterler)
+│   ├── YazarinCercevesi.js              # Eski tercih listesi (Macbeth/Biff)
+│   ├── TimelineYatay.js                 # Yatay sahne timeline'ı (Macbeth/Biff)
+│   ├── SeciliSahnePaneli.js             # Timeline sahne detay paneli
+│   ├── HamletAltSayfaHeader.js          # DEPRECATED — no-op'a indi (P0 ortak nav)
+│   └── Hamlet*                          # Hamlet refactor bileşenleri (Sprint 1-5, Willy de kullanıyor)
 │       ├── HamletSahneKuresi.js         # Timeline sahne küresi (sıcaklık renkli)
 │       ├── HamletSicaklikSecici.js      # Timeline sıcaklık slider
 │       ├── HamletPerdeBandi.js          # Timeline 5 perde tema bandı
 │       ├── HamletSahneDetay.js          # Timeline sahne detay paneli
+│       ├── HamletBolumGecisi.js         # Alt sayfa kapanış geçişi
 │       ├── OyunOncesiOlayKart.js        # Oyun Öncesi olay kartı
 │       ├── OyunOncesiIliskiKart.js      # Oyun Öncesi ilişki kartı
 │       ├── HamletTercihKart.js          # Yazarın Çerçevesi tercih kartı
 │       ├── HamletTercihSecim.js         # Yazarın Çerçevesi tercih detay seçim
 │       ├── HamletBoslukKart.js          # Senin Çerçeven boşluk kartı
 │       └── HamletAltSoruYazma.js        # Senin Çerçeven alt-soru yazma alanı
-├── data/karakterler/
-│   ├── macbeth.js
-│   ├── hamlet.js                        # Workbook genişletilmiş (oyunOncesi, tercihler, boslukSet, sahnelerWorkbook, perdeTemalari)
-│   ├── willy.js
-│   └── biff.js
+├── data/
+│   ├── chrome-i18n.js                   # Ortak chrome sözlüğü (TR/EN — nav + ana sayfa + hakkimizda + giris + profil + kulis + karakterListesi + mikroBlok)
+│   ├── willy-i18n.js                    # Willy sözlüğü TR/EN (chrome + içerik overlay + mikroBlok)
+│   ├── hamlet-i18n.js                   # Hamlet sözlüğü TR/EN (chrome + içerik overlay + mikroBlok — Gün 3-4)
+│   └── karakterler/
+│       ├── macbeth.js                   # Eski şema, refactor bekliyor
+│       ├── hamlet.js                    # Workbook genişletilmiş (TR base, EN overlay hamlet-i18n'de)
+│       ├── willy.js                     # Workbook genişletilmiş (TR base, EN overlay willy-i18n'de)
+│       └── biff.js                      # Eski şema, refactor bekliyor
 ├── supabase-migrations/                 # SQL migration dosyaları (elle uygulanan)
 │   ├── sprint1-hamlet-refactor.sql
 │   ├── sprint2-yazarin-cercevesi.sql
-│   └── sprint3-senin-cerceven.sql
-├── middleware.ts                        # Auth gating
+│   ├── sprint3-senin-cerceven.sql
+│   ├── sprint4-karakter-ilerleme-view.sql      # Karar 34 — karakter ilerleme view
+│   └── sprint5-karar-36-kalibrasyon-genisleme.sql  # Karar 36 — Modül I 5 bölüm + 3 yeni tablo
+├── middleware.ts                        # Auth gating — DEVRE DIŞI (Karar 33 vitrin demo kanalı, no-op)
 ├── CLAUDE.md                            # Bu dosya
 └── package.json
 ```
@@ -139,11 +167,19 @@ itc-app/
 ## 🗄️ Supabase Tabloları
 
 ```sql
--- Kalibrasyon sonuçları (Modül I)
+-- Kalibrasyon sonuçları (Modül I — Karar 36 yapısı)
 vak_sonuclari       (kullanici_id, gorsel, isitsel, kinestetik, baskin, created_at)
-yildiz_sonuclari    (kullanici_id, teknik, psikolojik, mesleki, yaratici,
-                     entelektuel, iliski, genel_yuzde, created_at)
 arketip_sonuclari   (kullanici_id, tip, ad, created_at)
+oyuncu_profili      (kullanici_id, ad, ulke, sehir, egitim, deneyim, alanlar,
+                     en_sevdigi_rol, son_guncelleme)  -- Karar 36 intake
+beceri_sonuclari    (kullanici_id, mesleki_guven, teknik, zihinsel, duygusal,
+                     motivasyonel, rahatlama, iliskisel, genel_yuzde, tarih)
+                     -- Karar 36: eski Yıldız → Beceri Haritası (aynı 37 madde, 6→7 boyut)
+panksepp_sonuclari  (kullanici_id, oyun, ofke, arayis, bag, korku, huzun, tarih)
+                     -- Karar 36 PROVISIONAL: 6 sistem-LUST hariç (Filiz enstrümanı,
+                     -- madde 3/6 FKA klinik onayı Haziran 2026 turunda)
+yildiz_sonuclari    (ARŞİV — Karar 36 ile retire, veri korunur salt-okur,
+                     yeni profile okunmaz)
 
 -- Kulis verisi (Modül II - klasik 4 karakter)
 tamamlanan_egzersizler   (id, kullanici_id, karakter_id, egzersiz_id, tarih)
@@ -431,7 +467,7 @@ Bu ilkeler kod kararlarını etkiler. **Mutlaka oku:**
 
 ## ✅ Tamamlanan İşler
 
-- ✅ Modül I tamamen çalışır (3 test, Supabase kayıt)
+- ✅ Modül I tek lineer akış (Karar 36 · 27 May 2026): 5 bölüm — Profil/Beceri/VAK/MBTI/Panksepp; 3 yeni tablo (oyuncu_profili, beceri_sonuclari, panksepp_sonuclari); KalibrasyonOzeti dört-harita göstergesi
 - ✅ Modül II tamamen çalışır (4 karakter, her biri tam yapıda)
 - ✅ Auth (Google OAuth + email/şifre) · gating Karar 33 ile devre dışı, geri açılabilir hazır blok middleware.ts'de
 - ✅ Kulis veri katmanı (`tamamlanan_egzersizler`, `bosluk_yansimalari` tabloları + kayıt mantığı)

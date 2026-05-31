@@ -1,3 +1,10 @@
+// app/kasa/page.js
+// DONDURULDU — vitrin scope dışı (Karar 33, 31 May 2026).
+// Bu sayfa hiçbir yerden link almıyor; doğrudan URL girilirse "Yakında Açılacak"
+// pasif sayfası görünür. Fikir korundu — gelecekte Kulis/Blueprint'in mahrem
+// arşiv katmanı olabilir. Çift dil + global Navigasyon uyumu BİLİNÇLİ olarak
+// yapılmadı; Beyti aktive edince çevirim + i18n wiring eklenir.
+
 export default function Kasa() {
   return (
     <main style={{
@@ -8,32 +15,7 @@ export default function Kasa() {
       flexDirection: 'column',
       fontFamily: 'Jost, sans-serif',
     }}>
-      <header style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '1.6rem 2rem',
-        borderBottom: '1px solid var(--rule)',
-        flexWrap: 'wrap',
-        gap: '1rem',
-      }}>
-        <a href="/" style={{
-          fontWeight: 200,
-          fontSize: '0.65rem',
-          letterSpacing: '0.3em',
-          color: 'var(--accent)',
-          textTransform: 'uppercase',
-          textDecoration: 'none',
-        }}>
-          Actor's Gym
-        </a>
-        <nav style={{ display: 'flex', gap: '1.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
-          <a href="/antrenman/karakter" style={{ fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink)', textTransform: 'uppercase', textDecoration: 'none' }}>Karakterler</a>
-          <a href="/kalibrasyon" style={{ fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none' }}>Kalibrasyon</a>
-          <a href="/kulis" style={{ fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none' }}>Kulis</a>
-          <a href="/profil" style={{ fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.25em', color: 'var(--ink-soft)', textTransform: 'uppercase', textDecoration: 'none' }}>Profil</a>
-        </nav>
-      </header>
+      {/* Üst nav artık global — components/Navigasyon.js */}
       <section style={{
         flex: 1,
         display: 'flex',
