@@ -122,6 +122,24 @@ const chromeI18n = {
         { ad: 'Blanche DuBois', yazar: 'Tennessee Williams',  aciklama: 'Yanılsama kalkanı ve kırılganlık.' },
       ],
     },
+    // İlk-giriş Eşik ekranı — sakin bir nefes anı (Karar 39, 31 May 2026).
+    // Calm/Headspace deseni: tek nefes halkası + tek davetkâr satır + tek buton.
+    // "Metot görünmez" — eşik mekanizmayı anlatmaz, sadece bir eşik hissi verir.
+    esik: {
+      ustEtiket: 'Eşik',
+      davet: 'Derin bir nefes al.',
+      altDavet: 'Acele yok.',
+      buton: 'İçeri adım at →',
+    },
+    // Üç-modüllü omurga göstergesi — "neredeyim" hissi (Karar 39).
+    // Kalibrasyon → Antrenman → Yolculuk yayı. Yüzde/streak YOK (psikolojik güvenlik).
+    omurga: {
+      kalibrasyon: 'Kalibrasyon',
+      antrenman: 'Antrenman',
+      yolculuk: 'Yolculuk',
+      yakinda: 'Yakında',
+    },
+
     // Workbook "neden çerçevesi" — Hamlet Workbook 2. baskı `bolum_i_tam.html`
     // açılış deseninin dijital karşılığı: 3 mikro-blok her karakter istasyonunda
     // yer alır (hub + 4 alt sayfa). Spine §3 ilke 3 ("metot görünmez") kanon
@@ -368,6 +386,18 @@ const chromeI18n = {
         { ad: 'Medea',          yazar: 'Euripides',           aciklama: 'Rage, betrayal, and radical action.' },
         { ad: 'Blanche DuBois', yazar: 'Tennessee Williams',  aciklama: 'The shield of illusion and fragility.' },
       ],
+    },
+    esik: {
+      ustEtiket: 'Threshold',
+      davet: 'Take a deep breath.',
+      altDavet: 'No rush.',
+      buton: 'Step inside →',
+    },
+    omurga: {
+      kalibrasyon: 'Calibration',
+      antrenman: 'Training',
+      yolculuk: 'Journey',
+      yakinda: 'Coming soon',
     },
     mikroBlok: {
       neredesin: 'Where you are now',

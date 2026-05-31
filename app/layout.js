@@ -4,6 +4,8 @@ import { ThemeProvider } from "./lib/theme";
 import { DilProvider } from "./lib/dil";
 import TemaToggleFloat from "../components/TemaToggleFloat";
 import Navigasyon from "../components/Navigasyon";
+import Omurga from "../components/Omurga";
+import EsikEkrani from "../components/EsikEkrani";
 
 export const metadata = {
   metadataBase: new URL('https://itc-app-six.vercel.app'),
@@ -72,7 +74,9 @@ export default function RootLayout({ children }) {
       <body>
         <ThemeProvider>
           <DilProvider>
+            <EsikEkrani />
             <Navigasyon />
+            <Omurga />
             {children}
             <TemaToggleFloat />
           </DilProvider>
