@@ -44,6 +44,9 @@ export default function Profil() {
           <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--ink)', margin: 0 }}>
             {kullanici?.user_metadata?.ad || kullanici?.email}
           </h1>
+          <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.7, margin: '0.4rem 0 0' }}>
+            {t.nedenBurada}
+          </p>
         </div>
 
         {/* Karar 36 — Kalibrasyon Özeti (dört harita: Beceri · VAK · MBTI · Panksepp) */}

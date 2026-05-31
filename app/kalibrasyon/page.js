@@ -320,7 +320,13 @@ const UI = {
   heroTitle: { tr: 'Enstrümanını kalibre et', en: 'Calibrate your instrument' },
   basicsLead: { tr: 'Tanışalım. Bu bölüm profilini ve sonraki bölümlerin sana göre şekillenmesini besler.', en: "Let's get to know you. This section feeds your profile and how later sections adapt to you." },
   section: { tr: 'Bölüm', en: 'Section' },
+  category: { tr: 'Kategori', en: 'Category' },
   answered: { tr: 'yanıtlandı', en: 'answered' },
+  nextCategory: { tr: 'Sonraki kategori →', en: 'Next category →' },
+  breathLabel: { tr: 'Bir nefes', en: 'A breath' },
+  breathLead: { tr: 'Devam etmeden önce bir an dur. Derin bir nefes al.', en: 'Pause for a moment before continuing. Take a deep breath.' },
+  breathSub: { tr: 'Hazır olduğunda devam et.', en: 'Continue when you are ready.' },
+  breathBtn: { tr: 'Devam et →', en: 'Continue →' },
   rowsHint: { tr: 'satır · her satırda sana en yakın olanı seç', en: 'rows · pick the option closest to you in each row' },
   back: { tr: 'Geri', en: 'Back' },
   nextSection: { tr: 'Sonraki bölüm →', en: 'Next section →' },
@@ -330,6 +336,8 @@ const UI = {
   resultLabel: { tr: 'Kalibrasyon Sonucu', en: 'Calibration Result' },
   profileTitle: { tr: 'Enstrüman Profilin', en: 'Your Instrument Profile' },
   profileLead: { tr: 'Bu dört harita, sonraki modüllerde her egzersizi sessizce yönlendirir. Sen çalışmaya odaklanırsın; uyarlanma görünmez.', en: 'These four maps silently guide every exercise in later modules. You focus on the work; the adaptation stays invisible.' },
+  ayna: { tr: 'Şu an seni böyle okuyoruz', en: 'This is how we read you now' },
+  aynaCta: { tr: 'Bir karakterle tanış →', en: 'Meet a character →' },
   skillCardTitle: { tr: 'Beceri Haritası · 7 Beceri Alanı', en: 'Skill Map · 7 Skill Areas' },
   skillCardDesc: { tr: 'Öz-değerlendirme haritan (1–7). Bir yargı değil, içgörü pusulan — dönemsel olarak tekrar edilir.', en: 'Your self-assessment map (1–7). Not a verdict but an insight compass — repeated periodically.' },
   vakCardTitle: { tr: 'Öğrenme Stili · VAK', en: 'Learning Style · VAK' },
@@ -431,22 +439,108 @@ function OlcekSatiri({ n, text, scale, value, onPick, compact, lang }) {
   );
 }
 
-function ListeTesti({ items, scale, answers, setAnswers, compact, lang }) {
-  const done = answers.filter((a) => a != null).length;
+function NefesArasi({ lang, onDevam }) {
+  // İki kategori arası kısa bir nefes anı (Karar 40 — uzun bölümlerde yorgunluk azaltma).
+  // TopraklanmaModu tam-ekran overlay; NefesArasi sayfa içinde inline kart.
+  return (
+    <>
+      <style jsx>{`
+        @keyframes itc-nefes-mini {
+          0%, 100% { transform: scale(0.88); opacity: 0.55; }
+          50%      { transform: scale(1.08); opacity: 0.95; }
+        }
+      `}</style>
+      <div style={{
+        border: '1px solid var(--rule)',
+        background: 'var(--bg-elevated)',
+        borderRadius: 12,
+        padding: '2.5rem 1.6rem',
+        textAlign: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '1.4rem',
+        margin: '2rem 0',
+      }}>
+        <div style={{ position: 'relative', width: 90, height: 90 }}>
+          <span aria-hidden style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '1px solid var(--accent)', animation: 'itc-nefes-mini 6s ease-in-out infinite' }} />
+          <span aria-hidden style={{ position: 'absolute', inset: '20%', borderRadius: '50%', backgroundColor: 'var(--accent)', opacity: 0.3, animation: 'itc-nefes-mini 6s ease-in-out infinite' }} />
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxWidth: 360 }}>
+          <span style={{ fontFamily: body, fontWeight: 500, fontSize: '0.65rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'var(--ink-muted)' }}>{tx(UI.breathLabel, lang)}</span>
+          <p style={{ fontFamily: serif, fontStyle: 'italic', fontSize: '1.25rem', color: 'var(--ink)', margin: 0, lineHeight: 1.5 }}>{tx(UI.breathLead, lang)}</p>
+          <p style={{ fontFamily: body, fontWeight: 400, fontSize: '0.85rem', color: 'var(--ink-soft)', margin: 0 }}>{tx(UI.breathSub, lang)}</p>
+        </div>
+        <button onClick={onDevam} style={cta}>{tx(UI.breathBtn, lang)}</button>
+      </div>
+    </>
+  );
+}
+
+function ListeTesti({ items, groups, scale, answers, setAnswers, compact, lang }) {
+  // groups verildiyse adımlı (kategori-kategori) mod, aksi halde tek-uzun-liste.
+  // Adımlı modda: oyuncu "37/31" baskısı görmez; her kategori sıfırdan numaralanır.
+  // Kategoriler arasında kısa bir nefes arası (Karar 40, A-paketi İŞ 1).
+  const [katIdx, setKatIdx] = useState(0);
+  const [nefes, setNefes] = useState(false);
+
+  if (!groups) {
+    // Mevcut tek-liste davranışı (VAK, 24 madde).
+    const done = answers.filter((a) => a != null).length;
+    return (
+      <div>
+        <div style={{ position: 'sticky', top: 56, zIndex: 5, background: 'var(--bg-base)', padding: '0.6rem 0 0.9rem', borderBottom: '2px solid var(--ink)' }}>
+          <div style={{ fontFamily: body, fontWeight: 400, fontSize: '0.9rem', color: 'var(--ink-soft)' }}>
+            {done} / {items.length} {tx(UI.answered, lang)}
+            <div style={{ height: 4, background: 'var(--bg-elevated)', borderRadius: 4, marginTop: '0.4rem', overflow: 'hidden' }}>
+              <div style={{ width: (done / items.length) * 100 + '%', height: '100%', background: 'var(--accent)', transition: 'width .9s cubic-bezier(.2,.8,.2,1)' }} />
+            </div>
+          </div>
+        </div>
+        {items.map((t, i) => (
+          <OlcekSatiri key={i} n={i + 1} text={tx(t, lang)} scale={scale} value={answers[i]} compact={compact} lang={lang}
+            onPick={(v) => { const c = [...answers]; c[i] = v; setAnswers(c); }} />
+        ))}
+      </div>
+    );
+  }
+
+  // Adımlı (kategori) mod — Beceri (7 kategori) ve Panksepp (6 kategori).
+  const groupKeys = Object.keys(groups);
+  const aktifKat = groupKeys[katIdx];
+  const aktifIndices = groups[aktifKat]; // [2, 4, 11, ...] (1-indexed item nolari)
+  const yanitlanan = aktifIndices.filter((i) => answers[i - 1] != null).length;
+  const toplamKat = aktifIndices.length;
+  const sonKategori = katIdx === groupKeys.length - 1;
+
+  if (nefes) {
+    return <NefesArasi lang={lang} onDevam={() => { setNefes(false); setKatIdx(katIdx + 1); if (typeof window !== 'undefined') window.scrollTo({ top: 200, behavior: 'smooth' }); }} />;
+  }
+
   return (
     <div>
       <div style={{ position: 'sticky', top: 56, zIndex: 5, background: 'var(--bg-base)', padding: '0.6rem 0 0.9rem', borderBottom: '2px solid var(--ink)' }}>
-        <div style={{ fontFamily: body, fontWeight: 400, fontSize: '0.9rem', color: 'var(--ink-soft)' }}>
-          {done} / {items.length} {tx(UI.answered, lang)}
-          <div style={{ height: 4, background: 'var(--bg-elevated)', borderRadius: 4, marginTop: '0.4rem', overflow: 'hidden' }}>
-            <div style={{ width: (done / items.length) * 100 + '%', height: '100%', background: 'var(--accent)', transition: 'width .9s cubic-bezier(.2,.8,.2,1)' }} />
-          </div>
+        <div style={{ fontFamily: body, fontWeight: 400, fontSize: '0.9rem', color: 'var(--ink-soft)', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
+          <span>
+            <span style={{ color: 'var(--accent)', fontWeight: 500 }}>{tx(UI.category, lang)} {katIdx + 1} / {groupKeys.length}</span>
+            {' · '}
+            <span style={{ color: 'var(--ink)' }}>{glabel(aktifKat, lang)}</span>
+          </span>
+          <span>{yanitlanan} / {toplamKat} {tx(UI.answered, lang)}</span>
         </div>
       </div>
-      {items.map((t, i) => (
-        <OlcekSatiri key={i} n={i + 1} text={tx(t, lang)} scale={scale} value={answers[i]} compact={compact} lang={lang}
-          onPick={(v) => { const c = [...answers]; c[i] = v; setAnswers(c); }} />
-      ))}
+      {aktifIndices.map((origNo, displayIdx) => {
+        const i = origNo - 1;
+        return (
+          <OlcekSatiri key={i} n={displayIdx + 1} text={tx(items[i], lang)} scale={scale} value={answers[i]} compact={compact} lang={lang}
+            onPick={(v) => { const c = [...answers]; c[i] = v; setAnswers(c); }} />
+        );
+      })}
+      {!sonKategori && (
+        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+          <button onClick={() => setNefes(true)} style={cta}>{tx(UI.nextCategory, lang)}</button>
+        </div>
+      )}
     </div>
   );
 }
@@ -566,7 +660,79 @@ function Kart({ children }) {
   return <div style={{ border: '1px solid var(--rule)', borderRadius: 12, padding: '1.5rem 1.6rem', background: 'var(--bg-elevated)' }}>{children}</div>;
 }
 
-function Profile({ vak, mbti, skills, pank, lang }) {
+// Yansıtıcı Ayna — oyuncunun seçimlerinden türetilmiş 2-3 satır (Karar 40 İŞ 2).
+// "Metot görünmez" (Spine §3 ilke 3): puan/tip/grafik göstermez, mekanizma
+// açıklamaz ("VAK'ta görsel çıktın" yasak). Oyuncu-yüzü, niteliksel.
+// Substitution yok: hiçbir cümle oyuncuyu kendi anısına çekmez.
+const AYNA_VAK = {
+  'Görsel':     { tr: 'Bir sahneye önce gözünle yaklaşıyorsun — imge, renk, mekân.',           en: 'You approach a scene first with your eyes — image, color, space.' },
+  'İşitsel':    { tr: 'Bir sahnenin sesini önce duyuyorsun — ritim, ton, repliğin nefesi.',    en: "You first hear a scene's sound — rhythm, tone, the breath of a line." },
+  'Kinestetik': { tr: 'Bir karaktere önce bedenden uzanıyorsun — duruş, ağırlık, dokunuş.',    en: 'You reach a character through the body first — posture, weight, touch.' },
+};
+const AYNA_PANK = {
+  'Oyun · Play':     { tr: 'Oyun seni canlı tutuyor; ağır olanı bile hafifletmeye eğilimlisin.',           en: 'Play keeps you alive; you tend to lighten even what is heavy.' },
+  'Öfke · Anger':    { tr: 'Bir şey eğri olduğunda hızlı tepki veriyorsun — bu enerji sahnede patlar.',    en: 'When something is off you respond quickly — that energy bursts on stage.' },
+  'Arayış · Seek':   { tr: 'Bilmek senin için bir motor; karakterin nedenlerini eşelemeyi seviyorsun.',    en: "Knowing is your engine; you like digging into a character's reasons." },
+  'Şefkat · Care':   { tr: 'Bağ kurmak ve korumak senin için kolay — karaktere şefkatten girersin.',       en: 'Bonding and protecting come easily — you enter a character through tenderness.' },
+  'Korku · Fear':    { tr: 'Kaygıyı yakından tanıyorsun; sahnede kırılganlık dilini biliyorsun.',          en: 'You know anxiety up close; you understand the language of vulnerability on stage.' },
+  'Hüzün · Sadness': { tr: 'Hüzünle ilişkin sahici; karakterin yas anlarına yaklaşabiliyorsun.',           en: "Your relationship with sadness is honest; you can approach a character's grief." },
+};
+const AYNA_BECERI = {
+  'Mesleki Güven': { tr: 'Sahnede kendine olan güvenin görünür.',                en: 'Your confidence on stage is visible.' },
+  'Teknik':        { tr: 'Tekniğe yatırım yaptığın belli.',                      en: 'Your investment in craft is clear.' },
+  'Zihinsel':      { tr: 'Odak ve hafıza senin için araç değil, alışkanlık.',    en: 'Focus and memory are not tools for you but habits.' },
+  'Duygusal':      { tr: 'Duyguları açmak sende kolay.',                          en: 'Opening emotions comes easily to you.' },
+  'Motivasyonel':  { tr: 'Mesleğine bağlılığın belirgin.',                        en: 'Your commitment to the craft is evident.' },
+  'Rahatlama':     { tr: 'Bedeni gevşetmek alışkanlığın olmuş.',                  en: 'Letting the body settle has become a habit.' },
+  'İlişkisel':     { tr: 'Sahnede dinlemek ve karşılık vermek doğan.',            en: 'Listening and responding on stage come naturally.' },
+};
+
+function aynaCumleleri(vak, pank, skills, lang) {
+  const out = [];
+  if (vak?.dominant && AYNA_VAK[vak.dominant]) out.push(tx(AYNA_VAK[vak.dominant], lang));
+  if (pank?.scores) {
+    const en = Object.entries(pank.scores).sort((a, b) => (b[1]?.norm ?? 0) - (a[1]?.norm ?? 0))[0]?.[0];
+    if (en && AYNA_PANK[en] && (pank.scores[en]?.norm ?? 0) > 0) out.push(tx(AYNA_PANK[en], lang));
+  }
+  if (skills?.scores) {
+    const en = Object.entries(skills.scores).sort((a, b) => (b[1] ?? 0) - (a[1] ?? 0))[0]?.[0];
+    if (en && AYNA_BECERI[en] && (skills.scores[en] ?? 0) > 0) out.push(tx(AYNA_BECERI[en], lang));
+  }
+  return out;
+}
+
+function Ayna({ vak, pank, skills, lang, onCta }) {
+  const cumleler = aynaCumleleri(vak, pank, skills, lang);
+  if (cumleler.length === 0) return null;
+  return (
+    <div style={{
+      border: '1px solid var(--accent)',
+      borderRadius: 12,
+      padding: '1.8rem 1.6rem',
+      background: 'var(--accent-bg)',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '1.1rem',
+    }}>
+      <Etiket>{tx(UI.ayna, lang)}</Etiket>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+        {cumleler.map((c, i) => (
+          <p key={i} style={{
+            fontFamily: serif,
+            fontStyle: 'italic',
+            fontSize: '1.15rem',
+            lineHeight: 1.55,
+            color: 'var(--ink)',
+            margin: 0,
+          }}>{c}</p>
+        ))}
+      </div>
+      <button onClick={onCta} style={{ ...cta, alignSelf: 'flex-start', marginTop: '0.4rem' }}>{tx(UI.aynaCta, lang)}</button>
+    </div>
+  );
+}
+
+function Profile({ vak, mbti, skills, pank, lang, onAynaCta }) {
   return (
     <div style={{ display: 'grid', gap: '2.4rem' }}>
       <div style={{ textAlign: 'center' }}>
@@ -574,6 +740,8 @@ function Profile({ vak, mbti, skills, pank, lang }) {
         <h2 style={{ fontFamily: serif, fontWeight: 500, fontStyle: 'italic', fontSize: '2.1rem', color: 'var(--ink)', margin: '0.2rem 0' }}>{tx(UI.profileTitle, lang)}</h2>
         <p style={{ fontFamily: body, fontWeight: 400, fontSize: '1rem', lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 560, margin: '0 auto' }}>{tx(UI.profileLead, lang)}</p>
       </div>
+
+      <Ayna vak={vak} pank={pank} skills={skills} lang={lang} onCta={onAynaCta} />
 
       <Kart>
         <Etiket>{tx(UI.skillCardTitle, lang)}</Etiket>
@@ -718,10 +886,10 @@ export default function KalibrasyonSayfasi() {
             )}
 
             {section.key === 'basics' && <Intake data={intake} setData={setIntake} lang={lang} />}
-            {section.key === 'skills' && <ListeTesti items={SKILLS_ITEMS} scale={skillsScale} answers={skillA} setAnswers={setSkillA} compact lang={lang} />}
+            {section.key === 'skills' && <ListeTesti items={SKILLS_ITEMS} groups={SKILLS_GROUPS} scale={skillsScale} answers={skillA} setAnswers={setSkillA} compact lang={lang} />}
             {section.key === 'vak' && <ListeTesti items={VAK_ITEMS} scale={VAK_SCALE} answers={vakA} setAnswers={setVakA} lang={lang} />}
             {section.key === 'mbti' && <MBTITesti picks={picks} setPicks={setPicks} lang={lang} />}
-            {section.key === 'pank' && <ListeTesti items={PANK_ITEMS} scale={PANK_SCALE} answers={pankA} setAnswers={setPankA} compact lang={lang} />}
+            {section.key === 'pank' && <ListeTesti items={PANK_ITEMS} groups={PANK_GROUPS} scale={PANK_SCALE} answers={pankA} setAnswers={setPankA} compact lang={lang} />}
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2.4rem', gap: '1rem' }}>
               {pos > 1 ? <button onClick={() => go(pos - 1)} style={backBtn}>← {tx(UI.back, lang)}</button> : <span />}
@@ -747,7 +915,7 @@ export default function KalibrasyonSayfasi() {
         {pos === FLOW.length + 1 && (
           <div>
             <button onClick={() => go(FLOW.length)} style={{ ...backBtn, marginBottom: '1.2rem', display: 'block' }}>{tx(UI.backToLast, lang)}</button>
-            <Profile vak={vakRes} mbti={mbtiRes} skills={skillRes} pank={pankRes} lang={lang} />
+            <Profile vak={vakRes} mbti={mbtiRes} skills={skillRes} pank={pankRes} lang={lang} onAynaCta={() => router.push('/antrenman/karakter')} />
             <div style={{ textAlign: 'center', marginTop: '2.4rem', display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
               <button onClick={() => go(1)} style={backBtn}>{tx(UI.restart, lang)}</button>
               <button onClick={() => router.push('/profil')} style={backBtn}>← /profil</button>

@@ -79,7 +79,7 @@ const chromeI18n = {
       // Kapanış
       kapanisBaslikAnonim: 'Hazır mısın?',
       kapanisBaslikUye: 'Devam edelim.',
-      kapanisAltAnonim: 'Önce kalibrasyon. Üç kısa test, on beş dakika.',
+      kapanisAltAnonim: 'Önce kalibrasyon — kısa bir akış.',
       kapanisAltUyeKalibrasyonEksik: 'Kalibrasyon yarım kaldı. Birkaç dakika içinde tamamlayabilirsin.',
       kapanisAltUyeTam: 'Sıra karakterde.',
       ctaKapanisAnonim: 'Kayıt Ol / Giriş Yap →',
@@ -255,6 +255,7 @@ const chromeI18n = {
     profil: {
       hazirlaniyor: 'Hazırlanıyor…',
       enstrumanProfili: 'Enstrüman Profili',
+      nedenBurada: 'Enstrümanına ve tercihlerine bakabileceğin yer.',
       gorunum: 'Görünüm',
       gorunumYardim: "Karanlık mod uzun seans için. Krem mod Workbook'la aynı kâğıt sıcaklığında.",
       kalibrasyonaGit: 'Kalibrasyona Git',
@@ -345,7 +346,7 @@ const chromeI18n = {
       hakkindaCta: 'More About Us →',
       kapanisBaslikAnonim: 'Ready?',
       kapanisBaslikUye: "Let's continue.",
-      kapanisAltAnonim: 'Calibration first. Three short tests, fifteen minutes.',
+      kapanisAltAnonim: 'Calibration first — a short flow.',
       kapanisAltUyeKalibrasyonEksik: 'Your calibration is unfinished. You can complete it in a few minutes.',
       kapanisAltUyeTam: 'The character is next.',
       ctaKapanisAnonim: 'Sign Up / Sign In →',
@@ -501,6 +502,7 @@ const chromeI18n = {
     profil: {
       hazirlaniyor: 'Loading…',
       enstrumanProfili: 'Instrument Profile',
+      nedenBurada: 'Where you can look at your instrument and preferences.',
       gorunum: 'Appearance',
       gorunumYardim: "Dark mode for long sessions. Cream mode matches the Workbook's paper warmth.",
       kalibrasyonaGit: 'Go to Calibration',
