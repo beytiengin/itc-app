@@ -44,6 +44,14 @@ const KARAKTER = 'willy';
 const SAHNE_ANTRENMAN_PREFIX = 'elyazma-sahne-'; // antrenmanId şeması
 const BOSLUK_ID_PREFIX = 'elyazma-bosluk-';      // boslukId şeması
 
+// ★ kayıt anları — manuscriptlerden teyitli konumlar (Karar 41 Aşama 2).
+// Yapısal "Çapa No" GÖSTERİLMEZ; sadece görsel ★ işaret oyuncuya nüans verir.
+// m12 flüt/babanın terki · m14 Singleman · m16 Boston (EN HASSAS) · m19 Howard
+// "insan meyve değildir" · m21 Son araba.
+const KAYIT_ANI_OYUN_ONCESI = new Set([1, 4]); // olay no: babanın terki, Singleman
+const KAYIT_ANI_SAHNE = new Set([7, 9, 11]);   // sahne no: Howard kovulma, Boston belleği (HASSAS), Son araba
+const SAHNE_HASSAS = new Set([9]);             // m16 Boston — Aşama 3'te güvenli çıkış akışı çağırır
+
 // Debounce yardımcısı — textarea/input'lar için 600ms.
 function useDebouncedCallback(fn, delay = 600) {
   const ref = useRef();
@@ -76,6 +84,7 @@ export default function ElYazmasiSayfasi() {
   }, [data]);
 
   const [acikPanel, setAcikPanel] = useState(null); // { tip, no } | null
+  const [acikOlay, setAcikOlay] = useState(null);   // olay no | null (oyun öncesi)
   const [iliskilerAcik, setIliskilerAcik] = useState(false);
   const [oyunOncesiAcik, setOyunOncesiAcik] = useState(false);
 
@@ -187,20 +196,15 @@ export default function ElYazmasiSayfasi() {
           acik={oyunOncesiAcik}
           setAcik={setOyunOncesiAcik}
         >
-          <ul style={{ marginTop: '0.8rem', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+          <ul style={{ marginTop: '0.8rem', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             {(data.oyunOncesi?.olaylar || []).map((olay) => (
-              <li key={olay.no} style={{
-                border: '1px solid var(--rule)',
-                padding: '0.9rem 1.1rem',
-                background: 'var(--bg-elevated)',
-              }}>
-                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.65rem', letterSpacing: '0.2em', color: TON, textTransform: 'uppercase' }}>
-                  {olay.no}
-                </span>
-                <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.05rem', lineHeight: 1.5, color: 'var(--ink)', margin: '0.4rem 0 0' }}>
-                  {olay.baslik}
-                </p>
-              </li>
+              <OlayDugumu
+                key={olay.no}
+                olay={olay}
+                acik={acikOlay === olay.no}
+                onAc={() => setAcikOlay(acikOlay === olay.no ? null : olay.no)}
+                t={t}
+              />
             ))}
           </ul>
         </BolumKatlanir>
@@ -364,6 +368,91 @@ function GirisKapisiCubugu({ t }) {
   );
 }
 
+// ─── OYUN ÖNCESİ OLAY (sade panel) ─────────────────────────────────────────
+
+function OlayDugumu({ olay, acik, onAc, t }) {
+  const kayitAni = KAYIT_ANI_OYUN_ONCESI.has(olay.no);
+  return (
+    <li style={{ listStyle: 'none' }}>
+      <div style={{ border: '1px solid var(--rule)', background: acik ? 'var(--bg-elevated)' : 'transparent', transition: 'background 0.2s ease' }}>
+        <button
+          onClick={onAc}
+          aria-expanded={acik}
+          style={{
+            width: '100%',
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: '0.9rem',
+            padding: '0.9rem 1.1rem',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            color: 'var(--ink)',
+            textAlign: 'left',
+            fontFamily: 'inherit',
+          }}
+        >
+          <span style={{
+            fontFamily: 'Jost, sans-serif',
+            fontWeight: 300,
+            fontSize: '0.62rem',
+            letterSpacing: '0.22em',
+            color: TON,
+            textTransform: 'uppercase',
+            minWidth: '24px',
+            paddingTop: '0.15rem',
+          }}>{olay.no}</span>
+          <span style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+            <span style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontStyle: 'italic',
+              fontSize: '1.05rem',
+              lineHeight: 1.45,
+              color: 'var(--ink)',
+              display: 'flex',
+              alignItems: 'baseline',
+              gap: '0.5rem',
+              flexWrap: 'wrap',
+            }}>
+              {olay.baslik}
+              {kayitAni && (
+                <span aria-label={t.kayitEtiketi} title={t.kayitEtiketi} style={{ fontFamily: 'Jost, sans-serif', fontStyle: 'normal', fontWeight: 300, fontSize: '0.65rem', color: TON, letterSpacing: '0.05em' }}>★</span>
+              )}
+            </span>
+            {olay.sahneRef && (
+              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.7rem', color: 'var(--ink-muted)', letterSpacing: '0.02em' }}>{olay.sahneRef}</span>
+            )}
+          </span>
+          <span aria-hidden style={{
+            fontFamily: 'Jost, sans-serif',
+            fontWeight: 200,
+            fontSize: '0.85rem',
+            color: TON,
+            transform: acik ? 'rotate(180deg)' : 'rotate(0deg)',
+            transition: 'transform 0.25s ease',
+          }}>▾</span>
+        </button>
+        {acik && (
+          <div style={{ borderTop: '1px solid var(--rule)', padding: '1rem 1.1rem 1.2rem', display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
+            {olay.yuk && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.58rem', letterSpacing: '0.28em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.panelYazarYuk}</span>
+                <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink)', margin: 0, lineHeight: 1.6 }}>{olay.yuk}</p>
+              </div>
+            )}
+            {olay.yansimaSorusu && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', borderLeft: `2px solid ${TON}`, paddingLeft: '0.9rem' }}>
+                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.58rem', letterSpacing: '0.28em', color: TON, textTransform: 'uppercase' }}>{t.panelYazarYansimaSorusu}</span>
+                <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.6 }}>{olay.yansimaSorusu}</p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </li>
+  );
+}
+
 // ─── DÜĞÜM (sahne / boşluk) ────────────────────────────────────────────────
 
 function DugumGrubu({ dugum, acik, onAc, onKapat, t, ortak, boslukYansima, setBoslukYansima, sahneYansima, setSahneYansima }) {
@@ -376,6 +465,7 @@ function DugumGrubu({ dugum, acik, onAc, onKapat, t, ortak, boslukYansima, setBo
   const yazildi = isSahne
     ? !!(sahneYansima[sahneId] && (sahneYansima[sahneId][1] || sahneYansima[sahneId][2]))
     : !!boslukYansima[boslukId];
+  const kayitAni = isSahne && KAYIT_ANI_SAHNE.has(veri.no);
 
   return (
     <div style={{ border: '1px solid var(--rule)', background: acik ? 'var(--bg-elevated)' : 'transparent', transition: 'background 0.2s ease' }}>
@@ -415,7 +505,16 @@ function DugumGrubu({ dugum, acik, onAc, onKapat, t, ortak, boslukYansima, setBo
             fontSize: '1.18rem',
             color: 'var(--ink)',
             lineHeight: 1.35,
-          }}>{veri.baslik}</span>
+            display: 'flex',
+            alignItems: 'baseline',
+            gap: '0.5rem',
+            flexWrap: 'wrap',
+          }}>
+            {veri.baslik}
+            {kayitAni && (
+              <span aria-label={t.kayitEtiketi} title={t.kayitEtiketi} style={{ fontFamily: 'Jost, sans-serif', fontStyle: 'normal', fontWeight: 300, fontSize: '0.7rem', color: TON, letterSpacing: '0.05em' }}>★</span>
+            )}
+          </span>
           {veri.konum && (
             <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.7rem', letterSpacing: '0.05em', color: 'var(--ink-muted)' }}>{veri.konum}</span>
           )}
@@ -483,9 +582,7 @@ function SahnePanel({ veri, t, ortak, sahneYansima, setSahneYansima, onKapat }) 
       </div>
 
       {sekme === 'yazar' ? (
-        <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-muted)', lineHeight: 1.6, margin: 0 }}>
-          {t.panelYazarHenuz}
-        </p>
+        <YazarinCercevesiSahne veri={veri} t={t} />
       ) : (
         <SeninCerceven3Vurus
           t={t}
@@ -498,6 +595,34 @@ function SahnePanel({ veri, t, ortak, sahneYansima, setSahneYansima, onKapat }) 
           durum={durum}
         />
       )}
+    </div>
+  );
+}
+
+function YazarinCercevesiSahne({ veri, t }) {
+  // Sahnenin manuscript dramaturjik verisi — Aşama 2 (Karar 41).
+  // willy.js sahnelerWorkbook'tan: olay (sahnede ne oluyor), icsel (ton),
+  // yuk (sonraki sahneye taşıdığı). Yapısal "Çapa No" GÖSTERİLMEZ.
+  const alanlar = [
+    { etiket: t.panelYazarOlay,  icerik: veri.olay },
+    { etiket: t.panelYazarIcsel, icerik: veri.icsel },
+    { etiket: t.panelYazarYuk,   icerik: veri.yuk },
+  ].filter((a) => a.icerik);
+  if (alanlar.length === 0) {
+    return (
+      <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-muted)', lineHeight: 1.6, margin: 0 }}>
+        {t.panelYazarHenuz}
+      </p>
+    );
+  }
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
+      {alanlar.map((a) => (
+        <div key={a.etiket} style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.28em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{a.etiket}</span>
+          <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.02rem', color: 'var(--ink)', margin: 0, lineHeight: 1.65 }}>{a.icerik}</p>
+        </div>
+      ))}
     </div>
   );
 }
