@@ -32,12 +32,14 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import willyRaw from '../../../../../data/karakterler/willy';
 import willyI18n, { willyIcerik } from '../../../../../data/willy-i18n';
 import { useDil, ceviri } from '../../../../lib/dil';
+import { getKalibrasyonProfili } from '../../../../lib/kalibrasyon';
 import {
   boslukYansimasiKaydet,
   boslukYansimalariniGetir,
   antrenmanAdimiKaydet,
   antrenmanYansimalariniGetir,
 } from '../../../../lib/kulis';
+import TopraklanmaModu from '../../../../../components/TopraklanmaModu';
 
 const TON = 'var(--accent)';
 const KARAKTER = 'willy';
@@ -50,7 +52,19 @@ const BOSLUK_ID_PREFIX = 'elyazma-bosluk-';      // boslukId şeması
 // "insan meyve değildir" · m21 Son araba.
 const KAYIT_ANI_OYUN_ONCESI = new Set([1, 4]); // olay no: babanın terki, Singleman
 const KAYIT_ANI_SAHNE = new Set([7, 9, 11]);   // sahne no: Howard kovulma, Boston belleği (HASSAS), Son araba
-const SAHNE_HASSAS = new Set([9]);             // m16 Boston — Aşama 3'te güvenli çıkış akışı çağırır
+const SAHNE_HASSAS = new Set([9]);             // m16 Boston — Aşama 3 güvenli çıkış akışı çağırır
+const SAHNE_PROVISIONAL = new Set([11]);       // m21 Son araba — Derinleştir arkı klinik onay sonrası (FKA Haziran 2026)
+
+// VAK baskın kanaldan Giriş Kapısı türetme (Karar 41 Aşama 3 yaklaşımı).
+// Beyti notu: "Giriş Kapıları ≠ VAK, ayrımı koru". Şimdilik kalibrasyondan
+// türetiyoruz (V→Bilişsel, K→Bedensel, A→Duygusal) çünkü kanonik bağımsız
+// Giriş Kapıları enstrümanı henüz yok. Skor/sayı GÖSTERİLMEZ (Karar 21/31).
+function acikKapi(vakBaskin) {
+  if (vakBaskin === 'Görsel') return 'bilissel';
+  if (vakBaskin === 'Kinestetik') return 'bedensel';
+  if (vakBaskin === 'İşitsel') return 'duygusal';
+  return null;
+}
 
 // Debounce yardımcısı — textarea/input'lar için 600ms.
 function useDebouncedCallback(fn, delay = 600) {
@@ -93,21 +107,27 @@ export default function ElYazmasiSayfasi() {
   const [sahneYansima, setSahneYansima] = useState({});   // { 'elyazma-sahne-3': { 1: '...', 2: '...' } }
   const [yukleniyor, setYukleniyor] = useState(true);
 
+  // Aşama 3: kalibrasyondan açık kapı (Bilişsel/Bedensel/Duygusal); skor yok.
+  const [acikKapiKey, setAcikKapiKey] = useState(null);
+  // Topraklanma overlay'i için: hangi sahne başlığıyla çağrıldı.
+  const [topraklanma, setTopraklanma] = useState(null);
+
   useEffect(() => {
     let iptal = false;
     async function yukle() {
       try {
-        const [bosluklar, sahneList] = await Promise.all([
+        const [bosluklar, profil] = await Promise.all([
           boslukYansimalariniGetir(KARAKTER),
-          // sahneler için tüm antrenman id'leri tek tek çekmek pahalı — toplu getter yok;
-          // her sahnenin yansımalarını ihtiyaç anında lazy yükleriz. Şimdilik boş.
-          Promise.resolve([]),
+          getKalibrasyonProfili(),
         ]);
         if (iptal) return;
         const bMap = {};
         (bosluklar || []).forEach((b) => { bMap[b.bosluk_id] = b.metin; });
         setBoslukYansima(bMap);
         setSahneYansima({}); // sahne yansımaları panel açılınca lazy yüklenir.
+        // Açık kapı — VAK baskından sessizce türet (skor/sayı yok).
+        const baskin = profil?.vak?.baskin || profil?.vak?.dominant;
+        setAcikKapiKey(acikKapi(baskin));
       } finally {
         if (!iptal) setYukleniyor(false);
       }
@@ -186,8 +206,8 @@ export default function ElYazmasiSayfasi() {
           </div>
         </BolumKatlanir>
 
-        {/* 4. Açık giriş kapısı çubuğu — Aşama 1: statik gösterge */}
-        <GirisKapisiCubugu t={t} />
+        {/* 4. Açık giriş kapısı çubuğu — Aşama 3'te kalibrasyon kapısı vurgulanır */}
+        <GirisKapisiCubugu t={t} acikKapiKey={acikKapiKey} />
 
         {/* 5. Oyun Öncesi fasıl (katlanır) */}
         <BolumKatlanir
@@ -228,12 +248,18 @@ export default function ElYazmasiSayfasi() {
                 setBoslukYansima={setBoslukYansima}
                 sahneYansima={sahneYansima}
                 setSahneYansima={setSahneYansima}
+                acikKapiKey={acikKapiKey}
+                onTopraklanmaAc={(baslik) => setTopraklanma(baslik)}
               />
             ))}
           </div>
         </div>
 
       </section>
+
+      {topraklanma && (
+        <TopraklanmaModu baslik={topraklanma} onKapat={() => setTopraklanma(null)} />
+      )}
     </main>
   );
 }
@@ -342,27 +368,46 @@ function IliskiKart({ iliski }) {
   );
 }
 
-function GirisKapisiCubugu({ t }) {
-  // Aşama 1: statik üç kapı göstergesi. Aşama 3'te kalibrasyon kapısı vurgulanacak.
-  const kapilar = [t.girisKapisiBilissel, t.girisKapisiBedensel, t.girisKapisiDuygusal];
+function GirisKapisiCubugu({ t, acikKapiKey }) {
+  // Aşama 3: kalibrasyondan gelen açık kapı inceden vurgulanır (border + "senin
+  // kapın" rozeti). Skor/sayı GÖSTERİLMEZ (Karar 21/31). Vurgu olsa da kilit
+  // değil — diğer iki kapı aynen erişilebilir (Karar 21).
+  const kapilar = [
+    { key: 'bilissel', label: t.girisKapisiBilissel },
+    { key: 'bedensel', label: t.girisKapisiBedensel },
+    { key: 'duygusal', label: t.girisKapisiDuygusal },
+  ];
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
       <Etiket>{t.girisKapisiEtiket}</Etiket>
       <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-soft)', margin: '0 0 0.3rem', lineHeight: 1.5 }}>{t.girisKapisiAciklama}</p>
       <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-        {kapilar.map((k) => (
-          <span key={k} style={{
-            border: '1px solid var(--rule)',
-            padding: '0.45rem 0.95rem',
-            fontFamily: 'Jost, sans-serif',
-            fontWeight: 300,
-            fontSize: '0.72rem',
-            letterSpacing: '0.15em',
-            color: 'var(--ink-soft)',
-            textTransform: 'uppercase',
-            borderRadius: 999,
-          }}>{k}</span>
-        ))}
+        {kapilar.map((k) => {
+          const seninKapi = acikKapiKey === k.key;
+          return (
+            <span key={k.key} style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.45rem',
+              border: `1px solid ${seninKapi ? TON : 'var(--rule)'}`,
+              background: seninKapi ? 'var(--accent-bg)' : 'transparent',
+              padding: '0.45rem 0.95rem',
+              fontFamily: 'Jost, sans-serif',
+              fontWeight: 300,
+              fontSize: '0.72rem',
+              letterSpacing: '0.15em',
+              color: seninKapi ? 'var(--ink)' : 'var(--ink-soft)',
+              textTransform: 'uppercase',
+              borderRadius: 999,
+              transition: 'border 0.25s ease, background 0.25s ease',
+            }}>
+              {k.label}
+              {seninKapi && (
+                <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.72rem', letterSpacing: 0, color: TON, textTransform: 'none' }}>· {t.kapiSeninRozet}</span>
+              )}
+            </span>
+          );
+        })}
       </div>
     </div>
   );
@@ -455,7 +500,7 @@ function OlayDugumu({ olay, acik, onAc, t }) {
 
 // ─── DÜĞÜM (sahne / boşluk) ────────────────────────────────────────────────
 
-function DugumGrubu({ dugum, acik, onAc, onKapat, t, ortak, boslukYansima, setBoslukYansima, sahneYansima, setSahneYansima }) {
+function DugumGrubu({ dugum, acik, onAc, onKapat, t, ortak, boslukYansima, setBoslukYansima, sahneYansima, setSahneYansima, acikKapiKey, onTopraklanmaAc }) {
   const isSahne = dugum.tip === 'sahne';
   const veri = dugum.veri;
 
@@ -539,7 +584,13 @@ function DugumGrubu({ dugum, acik, onAc, onKapat, t, ortak, boslukYansima, setBo
       </button>
       {acik && (
         isSahne
-          ? <SahnePanel veri={veri} t={t} ortak={ortak} sahneYansima={sahneYansima} setSahneYansima={setSahneYansima} onKapat={onKapat} />
+          ? <SahnePanel veri={veri} t={t} ortak={ortak} sahneYansima={sahneYansima} setSahneYansima={setSahneYansima} onKapat={onKapat}
+              kayitAni={kayitAni}
+              hassas={SAHNE_HASSAS.has(veri.no)}
+              provisional={SAHNE_PROVISIONAL.has(veri.no)}
+              acikKapiKey={acikKapiKey}
+              onTopraklanmaAc={onTopraklanmaAc}
+            />
           : <BoslukPanel veri={veri} t={t} ortak={ortak} boslukYansima={boslukYansima} setBoslukYansima={setBoslukYansima} onKapat={onKapat} />
       )}
     </div>
@@ -548,7 +599,7 @@ function DugumGrubu({ dugum, acik, onAc, onKapat, t, ortak, boslukYansima, setBo
 
 // ─── SAHNE PANELİ (iki sekme: Yazarın Çerçevesi · Senin Çerçeven) ──────────
 
-function SahnePanel({ veri, t, ortak, sahneYansima, setSahneYansima, onKapat }) {
+function SahnePanel({ veri, t, ortak, sahneYansima, setSahneYansima, onKapat, kayitAni, hassas, provisional, acikKapiKey, onTopraklanmaAc }) {
   const [sekme, setSekme] = useState('senin');
   const sahneId = SAHNE_ANTRENMAN_PREFIX + veri.no;
   const mevcut = sahneYansima[sahneId] || {};
@@ -584,17 +635,148 @@ function SahnePanel({ veri, t, ortak, sahneYansima, setSahneYansima, onKapat }) 
       {sekme === 'yazar' ? (
         <YazarinCercevesiSahne veri={veri} t={t} />
       ) : (
-        <SeninCerceven3Vurus
-          t={t}
-          ortak={ortak}
-          soru={t.soruJenerikSahne}
-          yorum={yorum}
-          setYorum={(v) => { setYorum(v); kaydetYorum(v); }}
-          neAciyor={neAciyor}
-          setNeAciyor={(v) => { setNeAciyor(v); kaydetNeAciyor(v); }}
-          durum={durum}
-        />
+        <>
+          <SeninCerceven3Vurus
+            t={t}
+            ortak={ortak}
+            soru={t.soruJenerikSahne}
+            yorum={yorum}
+            setYorum={(v) => { setYorum(v); kaydetYorum(v); }}
+            neAciyor={neAciyor}
+            setNeAciyor={(v) => { setNeAciyor(v); kaydetNeAciyor(v); }}
+            durum={durum}
+          />
+          <DerinlestirArki
+            t={t}
+            kayitAni={kayitAni}
+            hassas={hassas}
+            provisional={provisional}
+            acikKapiKey={acikKapiKey}
+            onTopraklanmaAc={() => onTopraklanmaAc && onTopraklanmaAc(veri.baslik)}
+          />
+        </>
       )}
+    </div>
+  );
+}
+
+// ─── DERİNLEŞTİR ARKI (Aşama 3) ────────────────────────────────────────────
+// Opsiyonel, varsayılan kapalı. Tek "Derinleştir ↓" ile açılır.
+// Yapı: nefes (mikro) → 3 Giriş Kapısı → ★ mühürle (kayıt anı) →
+// Güvenli Çıkış (hassas) → m21 PROVISIONAL kilit.
+// KANON KİLİTLERİ:
+// - Karar 31 oyuncu-yüzü: "Çapa/Kayıt Noktası" terimi YOK; "Bu anı mühürle".
+// - Karar 21: hiçbir vuruş kilit değil — açık kapı sadece sessiz işaret.
+// - Topraklanma metni İCAT EDİLMEZ — mevcut TopraklanmaModu overlay'ine devredilir.
+// - m21 (Son araba) PROVISIONAL: ark tamamen kilitli, "klinik onay sonrası açılır"
+//   notuyla pasif (FKA Haziran 2026).
+// - Egzersiz prompt metinleri TASLAKTIR (i18n'de) — Beyti/Filiz onaylamadan
+//   kanona girmez; şimdilik canlı.
+function DerinlestirArki({ t, kayitAni, hassas, provisional, acikKapiKey, onTopraklanmaAc }) {
+  const [acik, setAcik] = useState(false);
+
+  if (provisional) {
+    return (
+      <div style={{
+        marginTop: '0.4rem',
+        border: '1px dashed var(--rule)',
+        padding: '1rem 1.2rem',
+        background: 'transparent',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '0.45rem',
+      }}>
+        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.provisionalEtiket}</span>
+        <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.55 }}>{t.provisionalMetin}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ marginTop: '0.4rem' }}>
+      <button
+        onClick={() => setAcik(!acik)}
+        aria-expanded={acik}
+        style={{
+          background: 'none',
+          border: `1px solid ${acik ? TON : 'var(--rule)'}`,
+          padding: '0.55rem 1rem',
+          fontFamily: 'Jost, sans-serif',
+          fontWeight: 300,
+          fontSize: '0.7rem',
+          letterSpacing: '0.18em',
+          color: acik ? TON : 'var(--ink-soft)',
+          textTransform: 'uppercase',
+          cursor: 'pointer',
+          transition: 'all 0.25s ease',
+        }}
+      >{acik ? t.derinlestirKapat : t.derinlestirAc}</button>
+
+      {acik && (
+        <div style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          {/* Giriş — nefes (mikro) */}
+          <DerinlestirVurus baslik={t.derinlestirGirisBaslik} metin={t.derinlestirGirisMetin} />
+          {/* 3 Giriş Kapısı */}
+          <DerinlestirVurus baslik={t.kapiBilissel} metin={t.kapiBilisselMetin} aktif={acikKapiKey === 'bilissel'} rozetMetin={t.kapiSeninRozet} />
+          <DerinlestirVurus baslik={t.kapiBedensel} metin={t.kapiBedenselMetin} aktif={acikKapiKey === 'bedensel'} rozetMetin={t.kapiSeninRozet} />
+          <DerinlestirVurus baslik={t.kapiDuygusal} metin={t.kapiDuygusalMetin} aktif={acikKapiKey === 'duygusal'} rozetMetin={t.kapiSeninRozet} />
+          {/* ★ Mühürle — yalnız kayıt anı düğümlerde */}
+          {kayitAni && (
+            <DerinlestirVurus baslik={t.muhurleBaslik} metin={t.muhurleMetin} aksanli />
+          )}
+          {/* Güvenli Çıkış — yalnız hassas düğümlerde; metin icat etmez, Topraklanma'ya devreder */}
+          {hassas && (
+            <div style={{ borderLeft: `2px solid var(--onay-soft)`, paddingLeft: '0.9rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.58rem', letterSpacing: '0.3em', color: 'var(--onay-soft)', textTransform: 'uppercase' }}>{t.guvenliCikisBaslik}</span>
+              <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.55 }}>{t.guvenliCikisMetin}</p>
+              <button
+                onClick={onTopraklanmaAc}
+                style={{
+                  alignSelf: 'flex-start',
+                  marginTop: '0.3rem',
+                  padding: '0.55rem 1.1rem',
+                  background: 'var(--onay-soft)',
+                  color: 'var(--bg-base)',
+                  border: 'none',
+                  fontFamily: 'Jost, sans-serif',
+                  fontWeight: 300,
+                  fontSize: '0.7rem',
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  cursor: 'pointer',
+                  transition: 'background 0.25s ease',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--onay)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--onay-soft)'; }}
+              >{t.guvenliCikisCta}</button>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function DerinlestirVurus({ baslik, metin, aktif, rozetMetin, aksanli }) {
+  return (
+    <div style={{
+      borderLeft: `2px solid ${aktif ? TON : (aksanli ? TON : 'var(--rule)')}`,
+      background: aktif ? 'var(--accent-bg)' : 'transparent',
+      paddingLeft: '0.9rem',
+      paddingTop: '0.3rem',
+      paddingBottom: '0.3rem',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '0.25rem',
+      transition: 'background 0.25s ease',
+    }}>
+      <span style={{ display: 'flex', alignItems: 'baseline', gap: '0.55rem', flexWrap: 'wrap' }}>
+        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.28em', color: aktif || aksanli ? TON : 'var(--ink-muted)', textTransform: 'uppercase' }}>{baslik}</span>
+        {aktif && rozetMetin && (
+          <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.78rem', color: TON }}>· {rozetMetin}</span>
+        )}
+      </span>
+      <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.97rem', color: 'var(--ink)', margin: 0, lineHeight: 1.55 }}>{metin}</p>
     </div>
   );
 }
