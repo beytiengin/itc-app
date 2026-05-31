@@ -153,14 +153,17 @@ export default function KulisSayfasi() {
 
 function KarakterKarti({ karakter, egzersizSayisi, yansimaSayisi, aktivite, ilerleme, isAcik, setAcik, t }) {
   const egzersizToplam = karakter.egzersizler?.length || 7;
-  const boslukToplam = karakter.bosluklar?.length || 12;
+  // Karar 41 v2 — Willy (ve Hamlet) yeni şemada `boslukSet` kullanır; eski
+  // şemadaki Macbeth/Biff hâlâ `bosluklar`. Sayaç hangisi varsa onu kullansın.
+  const boslukKaynak = karakter.boslukSet || karakter.bosluklar || [];
+  const boslukToplam = boslukKaynak.length || 12;
 
   const tamamlananEgzersizler = (karakter.egzersizler || []).filter((e) =>
     ilerleme.egzersizIdleri.includes(e.id)
   );
 
   const yazilanBosluklar = Object.entries(ilerleme.yansimalar).map(([boslukId, metin]) => {
-    const bosluk = (karakter.bosluklar || []).find((b) => b.id === boslukId);
+    const bosluk = boslukKaynak.find((b) => b.id === boslukId);
     return { boslukId, metin, bosluk };
   }).filter((y) => y.bosluk);
 
