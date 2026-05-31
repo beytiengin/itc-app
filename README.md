@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ITC Actor's Gym
 
-## Getting Started
+**Inside The Character** metodunun dijital antrenman platformu — oyuncuların bir
+karakterin zihinsel-bedensel haritasına psikolojik güvenlikle giriş yaptığı, günlük
+pratik için tasarlanmış bir araç.
 
-First, run the development server:
+> Bu bir tüketici uygulaması değil, pedagojik bir araçtır. Geliştirme kanonu (yöntem,
+> içerik, dil ve karar geçmişi) ayrı bir özel depoda (`itc-canon`) tutulur; bu uygulama
+> oranın bir alt modülüdür. Yöntemin otoritesi kanondur — kod, kanonu uygular.
+
+Beyti Engin & Filiz Kaya Ataklı · 20 yılı aşkın araştırma ve pratiğin sentezi.
+
+---
+
+## Ne yapar
+
+Oyuncuyu üç modüllü bir yolculukta ilerletir:
+
+- **Modül I — Kendini Tanı (Kalibrasyon).** Tek lineer akışta beş bölüm: Oyuncu Profili,
+  Beceri Haritası, VAK, Arketip ve Duygu Haritası. Çıktı, sonraki adımları sessizce
+  kişiselleştirmek için kullanılır — oyuncuya "neden" mekanizması gösterilmez.
+- **Modül II — Karakterini İnşa Et (Antrenman).** Karakterin değiştirilemez doğruları,
+  zaman çizgisi, yazarın çerçevesi ve oyuncunun kendi çerçevesi üzerinden, sahneler
+  arasindaki "boşluk"ların yeniden kurulması. Şu an açık karakterler: **Hamlet** ve
+  **Willy Loman** (çift dilli, TR/EN). Diğer karakterler hazır olduğunda açılır.
+- **Modül III — Sahnele.** Gelecek aşama (Dış Ses eşliğinde yolculuk).
+
+Tasarımın üç değişmez ilkesi: karakter oyuncunun kişisel travmasıyla kurulmaz
+(substitution yok); oyuncu eş-yazardır; metot görünmez, oyuncu görünür.
+
+---
+
+## Teknik
+
+| Katman | Seçim |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Dil/UI | JavaScript + React, inline-stil + CSS değişken sistemi (çift tema) |
+| Veritabanı | Supabase (PostgreSQL + RLS) |
+| Auth | Supabase Auth (email + Google OAuth) |
+| Dağıtım | Vercel |
+| Tipografi | Fraunces (display) + Inter (body) |
+
+Çift dil, `app/lib/dil.js` (`useDil` + `ceviri`) ve sözlük dosyaları (`data/*-i18n.js`)
+üzerinden çalışır; tercih `localStorage`'da saklanır.
+
+## Geliştirme
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # uretim derlemesi (push oncesi calistir)
+npm run lint
+npm run format
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ortam değişkenleri (`.env.local`): `NEXT_PUBLIC_SUPABASE_URL`,
+`NEXT_PUBLIC_SUPABASE_ANON_KEY`. Veritabanı şeması `supabase-migrations/sprint*.sql`
+dosyalarındadır (idempotent; Supabase SQL Editor'da uygulanır).
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Katkı kuralları (özet)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Tam kurallar `CLAUDE.md` dosyasındadır. Özet:
 
-## Learn More
+- Her etkileşimli sayfa `'use client';` ile başlar.
+- Tüm renkler `var(--*)` üzerinden gelir — inline hex kullanılmaz.
+- Metin Türkçe ve UTF-8'dir; arayüzde emoji ve kilit ikonu kullanılmaz (yumuşak dil).
+- Yapısal her değişiklik kanona (`itc-canon`) yedirilir; karar geçmişi `decision-log`'da
+  tutulur.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+*Bu depo özeldir ve dış katkıya açık değildir.*
