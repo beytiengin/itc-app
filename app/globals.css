@@ -210,6 +210,16 @@ a {
   }
 }
 
+/* === Navigasyon — Masaüstü/Mobil görünüm anahtarı ===
+   ~720px altında masaüstü yatay nav gizlenir, hamburger gelir. */
+.nav-masaustu { display: flex; }
+.nav-hamburger { display: none; }
+
+@media (max-width: 720px) {
+  .nav-masaustu { display: none !important; }
+  .nav-hamburger { display: inline-flex !important; }
+}
+
 @keyframes fadeUp {
   from {
     opacity: 0;

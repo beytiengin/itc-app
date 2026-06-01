@@ -24,6 +24,8 @@ const chromeI18n = {
       hakkimizda: 'Hakkımızda',
       giris: 'Giriş Yap',
       cikis: 'Çıkış',
+      menuAc: 'Menü',
+      menuKapat: 'Menüyü Kapat',
     },
     anaSayfa: {
       // Hero
@@ -353,6 +355,8 @@ const chromeI18n = {
       hakkimizda: 'About',
       giris: 'Sign in',
       cikis: 'Sign out',
+      menuAc: 'Menu',
+      menuKapat: 'Close menu',
     },
     anaSayfa: {
       ustEtiket: 'The ITC Method · since 2005',
