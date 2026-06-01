@@ -125,9 +125,9 @@ export default function ElYazmasiSayfasi() {
           getKalibrasyonProfili(),
         ]);
         if (iptal) return;
-        const bMap = {};
-        (bosluklar || []).forEach((b) => { bMap[b.bosluk_id] = b.metin; });
-        setBoslukYansima(bMap);
+        // boslukYansimalariniGetir() {boslukId: metin} object döndürür (array değil)
+        // — direkt set, forEach yapma.
+        setBoslukYansima(bosluklar && typeof bosluklar === 'object' ? bosluklar : {});
         setSahneYansima({}); // sahne yansımaları panel açılınca lazy yüklenir.
         // Açık kapı — VAK baskından sessizce türet (skor/sayı yok).
         const baskin = profil?.vak?.baskin || profil?.vak?.dominant;
@@ -145,10 +145,10 @@ export default function ElYazmasiSayfasi() {
     const id = SAHNE_ANTRENMAN_PREFIX + no;
     if (!sahneYansima[id]) {
       try {
-        const adimlar = await antrenmanYansimalariniGetir(KARAKTER, id);
-        const map = {};
-        (adimlar || []).forEach((a) => { map[a.adim_no] = a.metin; });
-        setSahneYansima((prev) => ({ ...prev, [id]: map }));
+        // antrenmanYansimalariniGetir() {hata, yansimalar:{adimNo:metin}} döner — yansimalar al.
+        const sonuc = await antrenmanYansimalariniGetir(KARAKTER, id);
+        const yansimalar = sonuc?.yansimalar && typeof sonuc.yansimalar === 'object' ? sonuc.yansimalar : {};
+        setSahneYansima((prev) => ({ ...prev, [id]: yansimalar }));
       } catch (e) {
         setSahneYansima((prev) => ({ ...prev, [id]: {} }));
       }
