@@ -79,7 +79,7 @@ const chromeI18n = {
       beytiAd: 'Beyti Engin',
       beytiMetin:
         "Afife Ödüllü oyuncu. ITC metodolojisini 2005'te Filiz Kaya Ataklı ile kurdu; 20 yılı aşkın araştırma ve pratiğin sentezi.",
-      filizEtiket: 'Klinik Psikolog',
+      filizEtiket: 'Uzman Psikolog',
       filizAd: 'Filiz Kaya Ataklı',
       filizMetin:
         "Gottman Master Trainer. ITC'nin klinik altyapısının mimarı, yöntemin eş kurucusu.",
@@ -262,7 +262,7 @@ const chromeI18n = {
       beytiBio3:
         'ITC metodolojisini Filiz Kaya Ataklı ile birlikte 2005\'te kurdu ve o günden bu yana atölyeler, karakter çalışmaları ve birebir pratiklerle yöntemi geliştirmeye devam ediyor.',
       beytiAtolyeNot: 'Atölyeler · HMDK Stuttgart 2022 · Berlin Chubbuck Studio 2022-24',
-      filizEtiket: 'Klinik Psikolog · Eş Kurucu ve Eş Eğitmen',
+      filizEtiket: 'Uzman Psikolog · Eş Kurucu ve Eş Eğitmen',
       filizAd: 'Filiz Kaya Ataklı',
       filizBio1:
         "İstanbul Üniversitesi Psikoloji Bölümü mezunu. Aynı üniversitede Adli Bilimler yüksek lisansını tamamladı. Çift ve Evlilik Terapisi eğitimlerini John ve Julie Gottman'dan alan Kaya Ataklı, Türkiye'nin Gottman Çift Terapisi Usta Eğitmenlerinden (Master Trainer) biridir.",
@@ -446,7 +446,7 @@ const chromeI18n = {
       beytiAd: 'Beyti Engin',
       beytiMetin:
         "Afife Award-winning actor. Co-founded the ITC methodology with Filiz Kaya Ataklı in 2005 — a synthesis of over twenty years of research and practice.",
-      filizEtiket: 'Clinical Psychologist',
+      filizEtiket: 'Psychologist',
       filizAd: 'Filiz Kaya Ataklı',
       filizMetin:
         "Gottman Master Trainer. Architect of ITC's clinical foundation, co-founder of the method.",
@@ -612,7 +612,7 @@ const chromeI18n = {
       beytiBio3:
         "He co-founded the ITC methodology with Filiz Kaya Ataklı in 2005 and has been developing it ever since through workshops, character work, and one-on-one practice.",
       beytiAtolyeNot: 'Workshops · HMDK Stuttgart 2022 · Berlin Chubbuck Studio 2022–24',
-      filizEtiket: 'Clinical Psychologist · Co-Founder & Co-Instructor',
+      filizEtiket: 'Psychologist · Co-Founder & Co-Instructor',
       filizAd: 'Filiz Kaya Ataklı',
       filizBio1:
         "Graduate of Istanbul University, Department of Psychology, with a master's in Forensic Sciences from the same institution. Trained in Couples and Marital Therapy by John and Julie Gottman, she is one of Turkey's Gottman Master Trainers in couples therapy.",
