@@ -79,7 +79,7 @@ const chromeI18n = {
       beytiAd: 'Beyti Engin',
       beytiMetin:
         "Afife Ödüllü oyuncu. ITC metodolojisini 2005'te Filiz Kaya Ataklı ile kurdu; 20 yılı aşkın araştırma ve pratiğin sentezi.",
-      filizEtiket: 'Uzman Psikolog',
+      filizEtiket: 'Uzm. Psikolog',
       filizAd: 'Filiz Kaya Ataklı',
       filizMetin:
         "Gottman Master Trainer. ITC'nin klinik altyapısının mimarı, yöntemin eş kurucusu.",
@@ -262,7 +262,7 @@ const chromeI18n = {
       beytiBio3:
         'ITC metodolojisini Filiz Kaya Ataklı ile birlikte 2005\'te kurdu ve o günden bu yana atölyeler, karakter çalışmaları ve birebir pratiklerle yöntemi geliştirmeye devam ediyor.',
       beytiAtolyeNot: 'Atölyeler · HMDK Stuttgart 2022 · Berlin Chubbuck Studio 2022-24',
-      filizEtiket: 'Uzman Psikolog · Eş Kurucu ve Eş Eğitmen',
+      filizEtiket: 'Uzm. Psikolog · Eş Kurucu ve Eş Eğitmen',
       filizAd: 'Filiz Kaya Ataklı',
       filizBio1:
         "İstanbul Üniversitesi Psikoloji Bölümü mezunu. Aynı üniversitede Adli Bilimler yüksek lisansını tamamladı. Çift ve Evlilik Terapisi eğitimlerini John ve Julie Gottman'dan alan Kaya Ataklı, Türkiye'nin Gottman Çift Terapisi Usta Eğitmenlerinden (Master Trainer) biridir.",
