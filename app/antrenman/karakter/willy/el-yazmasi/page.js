@@ -298,18 +298,24 @@ function Etiket({ children }) {
   return (
     <span style={{
       fontFamily: 'Jost, sans-serif',
-      fontWeight: 300,
+      fontWeight: 600,
       fontSize: '0.6rem',
-      letterSpacing: '0.32em',
+      letterSpacing: '0.22em',
       color: TON,
       textTransform: 'uppercase',
     }}>{children}</span>
   );
 }
 
+// Tasarim dili Faz 1: katlanir kunyeler TERTIARY — sol cizgi (kapali:rule,
+// acik:accent), tam kenar yok. Sakin bilgi; acik panel kadar parlak degil.
 function BolumKatlanir({ baslik, altyazi, acik, setAcik, children }) {
   return (
-    <div style={{ border: '1px solid var(--rule)', background: acik ? 'var(--bg-elevated)' : 'transparent', transition: 'background 0.2s ease' }}>
+    <div style={{
+      borderLeft: `2px solid ${acik ? 'var(--accent)' : 'var(--rule)'}`,
+      background: acik ? 'var(--bg-elevated)' : 'transparent',
+      transition: 'background 0.2s ease, border-color 0.25s ease',
+    }}>
       <button
         onClick={() => setAcik(!acik)}
         aria-expanded={acik}
@@ -331,9 +337,9 @@ function BolumKatlanir({ baslik, altyazi, acik, setAcik, children }) {
         <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '0.25rem' }}>
           <span style={{
             fontFamily: 'Jost, sans-serif',
-            fontWeight: 300,
+            fontWeight: 600,
             fontSize: '0.6rem',
-            letterSpacing: '0.3em',
+            letterSpacing: '0.22em',
             color: TON,
             textTransform: 'uppercase',
           }}>{baslik}</span>
