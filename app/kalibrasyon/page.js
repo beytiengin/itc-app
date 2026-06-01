@@ -11,6 +11,7 @@
 import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { kalibrasyonKaydet } from '../lib/kalibrasyon-kaydet';
+import { useDil } from '../lib/dil';
 
 /* ─── i18n helper ─────────────────────────────────────────────── */
 const tx = (o, lang) => (o == null ? '' : typeof o === 'string' ? o : o[lang] ?? o.tr ?? o.en);
@@ -797,7 +798,8 @@ const ctaDisabled = { ...cta, opacity: 0.5, cursor: 'not-allowed' };
 
 export default function KalibrasyonSayfasi() {
   const router = useRouter();
-  const [lang, setLang] = useState('tr');
+  // Dil global DilToggle (Navigasyon) ile senkron — kopya nav kaldirildi.
+  const { dil: lang } = useDil();
   const [pos, setPos] = useState(1);
   const [intake, setIntake] = useState({});
   const [vakA, setVakA] = useState(Array(24).fill(null));
@@ -835,34 +837,10 @@ export default function KalibrasyonSayfasi() {
     }
   };
 
-  const LangToggle = () => (
-    <div style={{ display: 'inline-flex', border: '1px solid var(--rule)', borderRadius: 999, overflow: 'hidden' }}>
-      {['tr', 'en'].map((l) => (
-        <button key={l} onClick={() => setLang(l)} style={{
-          cursor: 'pointer', border: 'none',
-          background: lang === l ? 'var(--ink)' : 'transparent',
-          color: lang === l ? 'var(--bg-base)' : 'var(--ink-soft)',
-          fontFamily: body, fontWeight: 500, fontSize: '0.72rem', letterSpacing: '0.1em',
-          padding: '0.3rem 0.7rem',
-        }}>{l.toUpperCase()}</button>
-      ))}
-    </div>
-  );
-
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-base)', color: 'var(--ink)', fontFamily: body }}>
-      <div style={{ borderBottom: '1px solid var(--rule)', background: 'var(--bg-base)', position: 'sticky', top: 0, zIndex: 20 }}>
-        <div style={{ maxWidth: 720, margin: '0 auto', padding: '0.6rem 1.4rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.8rem', flexWrap: 'wrap' }}>
-          <a href="/" style={{ fontFamily: serif, fontWeight: 500, fontStyle: 'italic', fontSize: '1.3rem', color: 'var(--ink)', textDecoration: 'none' }}>{UI.brand}</a>
-          <nav style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', flexWrap: 'wrap' }}>
-            <a href="/antrenman/karakter" style={{ fontFamily: body, fontWeight: 400, fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--ink-soft)', textDecoration: 'none' }}>{lang === 'tr' ? 'Karakterler' : 'Characters'}</a>
-            <a href="/kulis" style={{ fontFamily: body, fontWeight: 400, fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--ink-soft)', textDecoration: 'none' }}>{lang === 'tr' ? 'Kulis' : 'Backstage'}</a>
-            <a href="/profil" style={{ fontFamily: body, fontWeight: 400, fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--ink-soft)', textDecoration: 'none' }}>{lang === 'tr' ? 'Profil' : 'Profile'}</a>
-            <span style={{ fontFamily: body, fontWeight: 400, fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--accent)' }}>{tx(UI.calib, lang)}</span>
-            <LangToggle />
-          </nav>
-        </div>
-      </div>
+      {/* Kopya nav kaldirildi: global components/Navigasyon.js layout.js'den
+          render ediliyor (sticky + marka italik + mobil hamburger). */}
 
       <div style={inner}>
         {section && (
