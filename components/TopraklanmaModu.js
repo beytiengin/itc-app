@@ -8,18 +8,64 @@
 'use client';
 
 import { useState } from 'react';
+import { useDil } from '../app/lib/dil';
 
 export default function TopraklanmaModu({ baslik, onKapat }) {
   const [adim, setAdim] = useState(0);
+  const { dil } = useDil();
 
-  const adimlar = [
-    'Şimdi bir an dur. Egzersiz bitti, ama sen hâlâ karakterin içindesin.',
-    'Otur. Ayaklarını yere bas. Ağırlığını sandalyenin üzerinde hisset.',
-    'Üç derin nefes al. Yavaş, derin, sayarak.',
-    'Adını yüksek sesle söyle. Yaşını söyle. Bugünün tarihini söyle.',
-    'Etrafına bak. Üç tane farklı renk gör. İki tane farklı ses duy. Bir tane bedensel duyum hisset.',
-    'Su iç. Kalkmadan önce birkaç dakika öylece otur. Buraya tamamen geri dön.',
-  ];
+  const T = {
+    tr: {
+      etiket: 'Topraklanma · Çıkış',
+      baslikH: 'Karakteri bırak',
+      altPre: '"',
+      altPost: '" derin bir çalışmaydı. Günlük hayata dönmeden önce kısa bir topraklanma yapıyoruz.',
+      devam: 'Yaptım · Devam',
+      bitir: 'Buradayım ✓',
+      adimlar: [
+        'Şimdi bir an dur. Egzersiz bitti, ama sen hâlâ karakterin içindesin.',
+        'Otur. Ayaklarını yere bas. Ağırlığını sandalyenin üzerinde hisset.',
+        'Üç derin nefes al. Yavaş, derin, sayarak.',
+        'Adını yüksek sesle söyle. Yaşını söyle. Bugünün tarihini söyle.',
+        'Etrafına bak. Üç tane farklı renk gör. İki tane farklı ses duy. Bir tane bedensel duyum hisset.',
+        'Su iç. Kalkmadan önce birkaç dakika öylece otur. Buraya tamamen geri dön.',
+      ],
+    },
+    en: {
+      etiket: 'Grounding · Exit',
+      baslikH: 'Let the character go',
+      altPre: '"',
+      altPost: '" was deep work. Before returning to daily life, we do a brief grounding.',
+      devam: 'Done · Continue',
+      bitir: 'I am here ✓',
+      adimlar: [
+        'Pause for a moment now. The exercise is over, but you are still inside the character.',
+        'Sit down. Place your feet on the floor. Feel your weight on the chair.',
+        'Take three deep breaths. Slow, deep, counting.',
+        "Say your name aloud. Say your age. Say today's date.",
+        'Look around you. See three different colors. Hear two different sounds. Feel one bodily sensation.',
+        'Drink water. Before getting up, just sit for a few minutes. Come fully back to here.',
+      ],
+    },
+    de: {
+      etiket: 'Erdung · Ausstieg',
+      baslikH: 'Lass die Figur los',
+      altPre: '„',
+      altPost: '" war eine tiefe Arbeit. Bevor du ins tägliche Leben zurückkehrst, machen wir eine kurze Erdung.',
+      devam: 'Erledigt · Weiter',
+      bitir: 'Ich bin hier ✓',
+      adimlar: [
+        'Halte jetzt einen Augenblick inne. Die Übung ist vorbei, aber du bist noch in der Figur.',
+        'Setz dich. Stell deine Füße auf den Boden. Spüre dein Gewicht auf dem Stuhl.',
+        'Atme dreimal tief durch. Langsam, tief, zählend.',
+        'Sag deinen Namen laut. Sag dein Alter. Sag das heutige Datum.',
+        'Sieh dich um. Erkenne drei verschiedene Farben. Höre zwei verschiedene Geräusche. Spüre eine körperliche Empfindung.',
+        'Trink Wasser. Bevor du aufstehst, sitz einfach ein paar Minuten. Komm ganz hierher zurück.',
+      ],
+    },
+  };
+  const L = T[dil] || T.tr;
+  const adimlar = L.adimlar;
 
   return (
     <div
@@ -60,7 +106,7 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
               textTransform: 'uppercase',
             }}
           >
-            Topraklanma · Çıkış
+            {L.etiket}
           </span>
           <h3
             style={{
@@ -71,7 +117,7 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
               margin: 0,
             }}
           >
-            Karakteri bırak
+            {L.baslikH}
           </h3>
           {baslik && (
             <p
@@ -84,7 +130,7 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
                 margin: 0,
               }}
             >
-              "{baslik}" derin bir çalışmaydı. Günlük hayata dönmeden önce kısa bir topraklanma yapıyoruz.
+              {L.altPre}{baslik}{L.altPost}
             </p>
           )}
         </div>
@@ -152,7 +198,7 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
               onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--onay)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--onay-soft)'; }}
             >
-              Yaptım · Devam
+              {L.devam}
             </button>
           ) : (
             <button
@@ -173,7 +219,7 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
               onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--onay)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--onay-soft)'; }}
             >
-              Buradayım ✓
+              {L.bitir}
             </button>
           )}
         </div>
