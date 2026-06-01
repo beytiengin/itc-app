@@ -12,6 +12,11 @@ import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { kalibrasyonKaydet } from '../lib/kalibrasyon-kaydet';
 import { useDil } from '../lib/dil';
+// Almanca dil katmani (index-bazli merge ile asagidaki TR/EN inline verilere
+// .de alanlari eklenir — psikometrik anlam korunur, skorlama anahtarlari TR
+// kalir). Kesme-isareti tuzagindan kacinmak icin string-anchor yerine index
+// kullanildi. Devir notu: CLAUDE_CODE_Kalibrasyon_Almanca.md.
+import * as KDE from './kalibrasyon-de';
 
 /* ─── i18n helper ─────────────────────────────────────────────── */
 const tx = (o, lang) => (o == null ? '' : typeof o === 'string' ? o : o[lang] ?? o.tr ?? o.en);
@@ -158,7 +163,7 @@ const GROUP_LABELS = {
   'Zihinsel': { en: 'Mental' }, 'Duygusal': { en: 'Emotional' }, 'Motivasyonel': { en: 'Motivational' },
   'Rahatlama': { en: 'Relaxation' }, 'İlişkisel': { en: 'Interpersonal' },
 };
-const glabel = (key, lang) => (lang === 'tr' ? key : (GROUP_LABELS[key]?.en || key));
+const glabel = (key, lang) => (lang === 'tr' ? key : (GROUP_LABELS[key]?.[lang] || GROUP_LABELS[key]?.en || key));
 
 const MBTI_AXES = [
   {
@@ -688,6 +693,62 @@ const AYNA_BECERI = {
   'Rahatlama':     { tr: 'Bedeni gevşetmek alışkanlığın olmuş.',                  en: 'Letting the body settle has become a habit.' },
   'İlişkisel':     { tr: 'Sahnede dinlemek ve karşılık vermek doğan.',            en: 'Listening and responding on stage come naturally.' },
 };
+
+/* ─── DE dil katmani (index-bazli mutasyon merge) ─────────────────
+   TR/EN inline verilerine ".de" alanlari eklenir; const referanslar
+   ayni kalir, sadece ic alanlar genisler. Side-effect modul-yuklemede
+   bir kez calisir. */
+(function mergeKalibrasyonDE() {
+  VAK_ITEMS.forEach((o, i) => { o.de = KDE.VAK_DE[i]; });
+  VAK_SCALE.forEach((o, i) => { o.de = KDE.VAK_SCALE_DE[i]; });
+  SKILLS_ITEMS.forEach((o, i) => { o.de = KDE.SKILLS_DE[i]; });
+  PANK_ITEMS.forEach((o, i) => { o.de = KDE.PANK_DE[i]; });
+  PANK_SCALE.forEach((o, i) => { o.de = KDE.PANK_SCALE_DE[i]; });
+  Object.keys(GROUP_LABELS).forEach((k) => {
+    if (KDE.GROUP_LABELS_DE[k]) GROUP_LABELS[k].de = KDE.GROUP_LABELS_DE[k];
+  });
+  MBTI_AXES.forEach((ax) => {
+    const d = KDE.MBTI_DE[ax.key];
+    if (!d) return;
+    ax.title.de = d.title;
+    ax.leftHead.de = d.leftHead;
+    ax.rightHead.de = d.rightHead;
+    ax.rows.forEach((r, i) => {
+      const pair = d.rows[i];
+      if (!pair) return;
+      r.l.de = pair[0];
+      r.r.de = pair[1];
+    });
+  });
+  Object.keys(MBTI_ARCHETYPES).forEach((k) => {
+    if (KDE.MBTI_ARCH_DE[k]) MBTI_ARCHETYPES[k].de = KDE.MBTI_ARCH_DE[k];
+  });
+  FLOW.forEach((f) => {
+    const d = KDE.FLOW_DE[f.key];
+    if (!d) return;
+    f.title.de = d.title;
+    f.sub.de = d.sub;
+    f.intro.de = d.intro;
+  });
+  Object.keys(UI).forEach((k) => {
+    if (typeof UI[k] === 'object' && UI[k] !== null && KDE.UI_DE[k]) UI[k].de = KDE.UI_DE[k];
+  });
+  EDU.de = KDE.EDU_DE;
+  EXP.de = KDE.EXP_DE;
+  AREAS.de = KDE.AREAS_DE;
+  Object.keys(INTAKE_T).forEach((k) => {
+    if (KDE.INTAKE_DE[k]) INTAKE_T[k].de = KDE.INTAKE_DE[k];
+  });
+  Object.keys(AYNA_VAK).forEach((k) => {
+    if (KDE.AYNA_VAK_DE[k]) AYNA_VAK[k].de = KDE.AYNA_VAK_DE[k];
+  });
+  Object.keys(AYNA_PANK).forEach((k) => {
+    if (KDE.AYNA_PANK_DE[k]) AYNA_PANK[k].de = KDE.AYNA_PANK_DE[k];
+  });
+  Object.keys(AYNA_BECERI).forEach((k) => {
+    if (KDE.AYNA_BECERI_DE[k]) AYNA_BECERI[k].de = KDE.AYNA_BECERI_DE[k];
+  });
+})();
 
 function aynaCumleleri(vak, pank, skills, lang) {
   const out = [];
