@@ -1,5 +1,7 @@
 // components/DilToggle.js
-// ITC Actor's Gym — Header için TR | EN dil geçişi. Minimal, segmentli.
+// ITC Actor's Gym — Header için TR · EN · DE dil geçişi. Minimal, segmentli.
+// Almanca (de) altyapı kuruldu (Faz 0); içerik blokları henüz yok — DE seçilince
+// ceviri() fallback ile İngilizce render eder (dil.js'e bak).
 
 'use client';
 
@@ -41,6 +43,8 @@ export default function DilToggle() {
       {seg('tr', 'TR')}
       <span style={{ color: 'var(--rule)', fontSize: '0.6rem' }}>·</span>
       {seg('en', 'EN')}
+      <span style={{ color: 'var(--rule)', fontSize: '0.6rem' }}>·</span>
+      {seg('de', 'DE')}
     </span>
   );
 }

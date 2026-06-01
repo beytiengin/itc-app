@@ -360,6 +360,8 @@ function DrawerDilToggle() {
       {seg('tr', 'TR')}
       <span style={{ width: '1px', background: 'var(--rule)' }} />
       {seg('en', 'EN')}
+      <span style={{ width: '1px', background: 'var(--rule)' }} />
+      {seg('de', 'DE')}
     </div>
   );
 }

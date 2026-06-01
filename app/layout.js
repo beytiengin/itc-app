@@ -55,7 +55,7 @@ const dilScript = `
 (function() {
   try {
     var saved = localStorage.getItem('itc-lang');
-    var dil = (saved === 'en' || saved === 'tr') ? saved : 'tr';
+    var dil = (saved === 'en' || saved === 'tr' || saved === 'de') ? saved : 'tr';
     document.documentElement.setAttribute('data-lang', dil);
     document.documentElement.setAttribute('lang', dil);
   } catch (e) {

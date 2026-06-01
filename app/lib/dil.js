@@ -16,7 +16,7 @@ export function DilProvider({ children }) {
 
   useEffect(() => {
     const aktif = document.documentElement.getAttribute('data-lang');
-    if (aktif === 'tr' || aktif === 'en') {
+    if (aktif === 'tr' || aktif === 'en' || aktif === 'de') {
       setDilState(aktif);
     }
   }, []);
@@ -41,6 +41,9 @@ export const useDil = () => useContext(DilContext);
 
 // Kısa yardımcı: sözlük nesnesinden aktif dili seç.
 // Kullanım: const s = ceviri(willyI18n, dil); s.nav.kalibrasyon
+// Fallback zinciri: aktif dil → en → tr. `de` (Almanca) altyapısı Faz 0'da
+// kuruldu; içerik blokları henüz yok — `de` seçildiğinde sözlük `en`'e düşer
+// (Türkçe değil, çünkü Alman kullanıcı için İngilizce daha yakın).
 export function ceviri(sozluk, dil) {
-  return sozluk[dil] || sozluk.tr;
+  return sozluk[dil] || sozluk.en || sozluk.tr;
 }
