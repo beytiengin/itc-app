@@ -154,7 +154,7 @@ function YorumYuzu({ t, kalib }) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.95rem' }}>
-      <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.32em', color: 'var(--accent)', textTransform: 'uppercase' }}>{t.yorumYuzuEtiket}</span>
+      <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 600, fontSize: '0.6rem', letterSpacing: '0.22em', color: 'var(--accent)', textTransform: 'uppercase' }}>{t.yorumYuzuEtiket}</span>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.95rem' }}>
         {satirlar.map((s, i) => (
           <YorumSatir key={i} baslik={s.baslik} ust={s.ust} body={s.body} />
@@ -181,7 +181,7 @@ function YorumSatir({ baslik, ust, body }) {
 function YorumBosDavet({ t }) {
   return (
     <div style={{ border: '1px solid var(--rule)', padding: '1.8rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'flex-start' }}>
-      <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: 'var(--accent)', textTransform: 'uppercase' }}>{t.yorumYuzuEtiket}</span>
+      <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 600, fontSize: '0.6rem', letterSpacing: '0.22em', color: 'var(--accent)', textTransform: 'uppercase' }}>{t.yorumYuzuEtiket}</span>
       <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.1rem', color: 'var(--ink)', margin: 0, lineHeight: 1.55 }}>{t.yorumYuzuBosBaslik}</p>
       <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.65 }}>{t.yorumYuzuBosMetin}</p>
       <a href="/kalibrasyon" style={{ marginTop: '0.3rem', padding: '0.8rem 1.5rem', backgroundColor: 'var(--accent)', color: 'var(--bg-base)', textDecoration: 'none', fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.68rem', letterSpacing: '0.22em', textTransform: 'uppercase', transition: 'all 0.25s ease' }}

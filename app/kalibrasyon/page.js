@@ -390,7 +390,8 @@ const serif = 'Cormorant Garamond, serif';
 const body = 'Jost, sans-serif';
 
 function Etiket({ children }) {
-  return <div style={{ fontFamily: body, fontWeight: 500, fontSize: '0.68rem', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: '0.7rem' }}>{children}</div>;
+  // Tasarim Dili Faz 4: Etiket weight 500 -> 600 (Faz 1 ile tutarli).
+  return <div style={{ fontFamily: body, fontWeight: 600, fontSize: '0.68rem', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: '0.7rem' }}>{children}</div>;
 }
 
 function Cubuk({ etiket, deger, max, renk, son }) {
