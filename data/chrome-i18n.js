@@ -153,27 +153,71 @@ const chromeI18n = {
       hazirlaniyor: 'Hazırlanıyor…',
       etiket: 'Kulis',
       baslik: 'İz Bıraktıkların',
-      intro: 'Karakterlere değdiğin yerler. Tamamladığın egzersizler ve yazdığın boşluklar — kaldığın yerden devam et.',
+      intro: 'Çalıştığın karakteri seç — kaldığın yerden devam et.',
       bugun: 'Bugün',
       dun: 'Dün',
       gunOnce: 'gün önce',
       haftaOnce: 'hafta önce',
       ayOnce: 'ay önce',
-      tamamlananEgzersizler: 'Tamamlanan Egzersizler',
-      yazilanBosluklar: 'Yazılan Boşluklar',
       devamEt: 'Devam Et →',
-      ilerlemeEgzersizler: 'Egzersizler',
-      ilerlemeBosluklar: 'Boşluklar',
-      detay: 'Detay ▾',
-      kapat: 'Kapat ▴',
+      buAnaGit: 'Bu ana git →',
+      ac: 'Aç →',
+
+      // 1. Karakter seçimi
+      karakterSecEtiket: 'Karakter',
+      karakterDurumDokundun: 'dokundun',
+      karakterDurumYok: '—',
+      karakterDurumYakinda: 'yakında',
+
+      // 2. Nerede Kaldın
+      neredeKaldinEtiket: 'Nerede Kaldın',
+      enSonUzerindeydim: 'En son şurada çalışıyordun:',
+      siradakiDokunulmamis: 'Henüz dokunmadığın:',
+      neredeKaldinBos: 'Bu karaktere henüz başlamadın.',
+      elYazmasiniAc: 'El yazmasını aç →',
+      karaktereGit: 'Karakter sayfasına git →',
+
+      // 3. Zaman Çizgisi
+      zamanCizgisiEtiket: 'Zaman Çizgisi',
+      zamanCizgisiAltyazi: 'Oyun sırasıyla — dokunup ana git.',
+      lejantSahneYazildi: 'Sahne · yazıldı',
+      lejantSahneBos: 'Sahne · boş',
+      lejantBoslukYazildi: 'Boşluk · yazıldı',
+      lejantBoslukBos: 'Boşluk · boş',
+      timelineDugumSahne: 'Sahne',
+      timelineDugumBosluk: 'Boşluk',
+      timelineBos: 'Bu karakterin zaman çizgisi henüz hazır değil.',
+
+      // 4. Biriken Dosya
+      birikenDosyaEtiket: 'Biriken Dosya',
+      birikenDosyaBaslikOnce: 'Senin ',
+      birikenDosyaBaslikSonra: "'in — kendi cümlelerinle.",
+      birikenDosyaBos: 'Henüz boş. Yazdığında karakterin burada belirmeye devam edecek.',
+
+      // 5. Sen ve Karakter
+      senVeKarakterEtiketOnce: 'Sen ve ',
+      acikKapinEtiket: 'Açık kapın',
+      acikKapinBos: 'Kalibrasyonunu tamamladığında açık kapın burada belirir.',
+      kapiBilissel: 'Bilişsel',
+      kapiBedensel: 'Bedensel',
+      kapiDuygusal: 'Duygusal',
+      egilimEtiketOnce: '',
+      egilimEtiketSonra: '\'de eğilimin',
+      egilimSayim: 'boşluğa dokundun',
+      egilimBos: 'Henüz boşluk yazmadın.',
+      cerceveEtiketOnce: '',
+      cerceveEtiketSonra: '\'nin çerçevesi',
+      cerceveBos: 'Çerçeve verisi yok.',
+
+      // 6. Desenler
+      desenlerEtiket: 'Desenler · yakında',
+      desenlerMetin: 'Yazdıkların çoğaldıkça kalibrasyonunla aralarındaki örüntü burada belirecek. (Modül III)',
+
+      // Empty states
       emptyKalibrasyonEtiket: 'Önce Kalibrasyon',
       emptyKalibrasyonMetin:
         'Karakterlere geçmeden önce enstrümanını akort etmen gerek. Kalibrasyon, sana özel egzersiz dilini ve etik koruma seviyeni belirler.',
       emptyKalibrasyonCta: 'Kalibrasyona Git →',
-      emptyKarakterEtiket: 'Henüz İz Yok',
-      emptyKarakterMetin:
-        'Bir karakterle çalışmaya başla — egzersizleri tamamladıkça, boşluklara yazdıkça burada izleri görünür.',
-      emptyKarakterCta: 'Karakter Kasasına Git →',
     },
     hakkimizda: {
       // Hero — Spine §3.17: rakam yasak (eski "20 yıllık pratik" + "1000'i aşkın
@@ -409,27 +453,71 @@ const chromeI18n = {
       hazirlaniyor: 'Loading…',
       etiket: 'Backstage',
       baslik: 'Traces You Left',
-      intro: "The places where you touched the characters. Exercises completed, gaps written — pick up where you left off.",
+      intro: 'Pick the character you are working on — continue where you left off.',
       bugun: 'Today',
       dun: 'Yesterday',
       gunOnce: 'days ago',
       haftaOnce: 'weeks ago',
       ayOnce: 'months ago',
-      tamamlananEgzersizler: 'Completed Exercises',
-      yazilanBosluklar: 'Written Gaps',
       devamEt: 'Continue →',
-      ilerlemeEgzersizler: 'Exercises',
-      ilerlemeBosluklar: 'Gaps',
-      detay: 'Detail ▾',
-      kapat: 'Close ▴',
+      buAnaGit: 'Go to this moment →',
+      ac: 'Open →',
+
+      // 1. Character selection
+      karakterSecEtiket: 'Character',
+      karakterDurumDokundun: 'touched',
+      karakterDurumYok: '—',
+      karakterDurumYakinda: 'soon',
+
+      // 2. Where you left off
+      neredeKaldinEtiket: 'Where You Left Off',
+      enSonUzerindeydim: 'You were last working on:',
+      siradakiDokunulmamis: 'Untouched so far:',
+      neredeKaldinBos: "You haven't started with this character yet.",
+      elYazmasiniAc: 'Open the manuscript →',
+      karaktereGit: 'Go to the character page →',
+
+      // 3. Timeline
+      zamanCizgisiEtiket: 'Timeline',
+      zamanCizgisiAltyazi: 'In play order — touch and go to that moment.',
+      lejantSahneYazildi: 'Scene · written',
+      lejantSahneBos: 'Scene · empty',
+      lejantBoslukYazildi: 'Gap · written',
+      lejantBoslukBos: 'Gap · empty',
+      timelineDugumSahne: 'Scene',
+      timelineDugumBosluk: 'Gap',
+      timelineBos: "This character's timeline isn't ready yet.",
+
+      // 4. Accruing File
+      birikenDosyaEtiket: 'Accruing File',
+      birikenDosyaBaslikOnce: 'Your ',
+      birikenDosyaBaslikSonra: ' — in your own sentences.',
+      birikenDosyaBos: "Still empty. As you write, your character will keep appearing here.",
+
+      // 5. You and the character
+      senVeKarakterEtiketOnce: 'You and ',
+      acikKapinEtiket: 'Your open door',
+      acikKapinBos: 'Your open door will appear here once your calibration is complete.',
+      kapiBilissel: 'Cognitive',
+      kapiBedensel: 'Bodily',
+      kapiDuygusal: 'Emotional',
+      egilimEtiketOnce: 'Your leaning in ',
+      egilimEtiketSonra: '',
+      egilimSayim: 'gaps touched',
+      egilimBos: "You haven't written any gaps yet.",
+      cerceveEtiketOnce: '',
+      cerceveEtiketSonra: "'s frame",
+      cerceveBos: 'No frame data.',
+
+      // 6. Patterns
+      desenlerEtiket: 'Patterns · soon',
+      desenlerMetin: 'As you write more, the pattern between your calibration and your writing will appear here. (Module III)',
+
+      // Empty states
       emptyKalibrasyonEtiket: 'Calibration First',
       emptyKalibrasyonMetin:
         'Before you cross to the characters, your instrument needs tuning. Calibration sets the exercise language and ethical protection that fit you.',
       emptyKalibrasyonCta: 'Go to Calibration →',
-      emptyKarakterEtiket: 'No Traces Yet',
-      emptyKarakterMetin:
-        'Start working with a character — as you complete exercises and write into the gaps, their traces will appear here.',
-      emptyKarakterCta: 'Go to the Character Vault →',
     },
     hakkimizda: {
       heroUstEtiket: 'The Method · since 2005',

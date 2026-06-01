@@ -141,6 +141,23 @@ export default function ElYazmasiSayfasi() {
     return () => { iptal = true; };
   }, []);
 
+  // Kulis "Bu ana git" derin link: #sahne-3 / #bosluk-5 hash'ini parse et,
+  // ilgili paneli aç, o düğüme scroll et. Yükleme bitince bir kez çalışır.
+  useEffect(() => {
+    if (yukleniyor) return;
+    if (typeof window === 'undefined') return;
+    const hash = window.location.hash.replace('#', '');
+    const m = hash.match(/^(sahne|bosluk)-(\d+)$/);
+    if (!m) return;
+    const tip = m[1];
+    const no = Number(m[2]);
+    if (tip === 'sahne') sahnePanelAc(no); else boslukPanelAc(no);
+    requestAnimationFrame(() => {
+      const el = document.getElementById(`${tip}-${no}`);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }, [yukleniyor]);
+
   // Sahne panelini açarken o sahnenin antrenman adımlarını lazy yükle.
   async function sahnePanelAc(no) {
     const id = SAHNE_ANTRENMAN_PREFIX + no;
@@ -248,6 +265,7 @@ export default function ElYazmasiSayfasi() {
             {akis.map((d) => (
               <DugumGrubu
                 key={`${d.tip}-${d.veri.no}`}
+                domId={`${d.tip}-${d.veri.no}`}
                 dugum={d}
                 acik={acikPanel?.tip === d.tip && acikPanel?.no === d.veri.no}
                 onAc={() => d.tip === 'sahne' ? sahnePanelAc(d.veri.no) : boslukPanelAc(d.veri.no)}
@@ -501,7 +519,7 @@ function OlayDugumu({ olay, acik, onAc, t }) {
 
 // ─── DÜĞÜM (sahne / boşluk) ────────────────────────────────────────────────
 
-function DugumGrubu({ dugum, acik, onAc, onKapat, t, ortak, boslukYansima, setBoslukYansima, sahneYansima, setSahneYansima, acikKapiKey, onTopraklanmaAc }) {
+function DugumGrubu({ domId, dugum, acik, onAc, onKapat, t, ortak, boslukYansima, setBoslukYansima, sahneYansima, setSahneYansima, acikKapiKey, onTopraklanmaAc }) {
   const isSahne = dugum.tip === 'sahne';
   const veri = dugum.veri;
 
@@ -514,7 +532,7 @@ function DugumGrubu({ dugum, acik, onAc, onKapat, t, ortak, boslukYansima, setBo
   const kayitAni = isSahne && KAYIT_ANI_SAHNE.has(veri.no);
 
   return (
-    <div style={{ border: '1px solid var(--rule)', background: acik ? 'var(--bg-elevated)' : 'transparent', transition: 'background 0.2s ease' }}>
+    <div id={domId} style={{ border: '1px solid var(--rule)', background: acik ? 'var(--bg-elevated)' : 'transparent', transition: 'background 0.2s ease', scrollMarginTop: '1rem' }}>
       <button
         onClick={acik ? onKapat : onAc}
         aria-expanded={acik}

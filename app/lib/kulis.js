@@ -259,6 +259,59 @@ export async function antrenmanYansimalariniGetir(karakterId, antrenmanId) {
 }
 
 /**
+ * Bir karakterin TÜM boşluk yansımalarını (son_guncelleme dahil) tam kayıt
+ * olarak getir. Kulis "Nerede Kaldın" için: timestamp gerekiyor.
+ * @param {string} karakterId
+ * @returns {Array<{bosluk_id, metin, son_guncelleme}>}
+ */
+export async function karakterBoslukYansimalariniTamGetir(karakterId) {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return [];
+
+    const { data, error } = await supabase
+      .from('bosluk_yansimalari')
+      .select('bosluk_id, metin, son_guncelleme')
+      .eq('kullanici_id', user.id)
+      .eq('karakter_id', karakterId)
+      .not('metin', 'is', null)
+      .neq('metin', '')
+      .order('son_guncelleme', { ascending: false });
+
+    if (error) return [];
+    return data || [];
+  } catch (e) {
+    return [];
+  }
+}
+
+/**
+ * Bir karakterin TÜM antrenman yansımalarını (tüm antrenmanIdleri) getir.
+ * Kulis yeniden tasarımı (Nerede Kaldın bölümü) için: en yeni son_guncelleme
+ * ile sıralanmış kayıtların hepsi.
+ * @param {string} karakterId
+ * @returns {Array<{antrenman_id, adim_no, metin, son_guncelleme}>}
+ */
+export async function karakterAntrenmanYansimalariniGetir(karakterId) {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return [];
+
+    const { data, error } = await supabase
+      .from('antrenman_yansimalari')
+      .select('antrenman_id, adim_no, metin, son_guncelleme')
+      .eq('kullanici_id', user.id)
+      .eq('karakter_id', karakterId)
+      .order('son_guncelleme', { ascending: false });
+
+    if (error) return [];
+    return data || [];
+  } catch (e) {
+    return [];
+  }
+}
+
+/**
  * Yarıda kalmış antrenman için son yazılmış adım numarasını getir.
  * Hiç yansıma yoksa 0 döner.
  * @param {string} karakterId
