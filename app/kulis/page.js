@@ -201,6 +201,44 @@ function KarakterSecimi({ t, ilerlemeler, seciliId, onSec }) {
             : dokunuldu
               ? `${ilerleme.bosluk} ${t.karakterDurumDokundun}`
               : t.karakterDurumYok;
+
+          // Karakter listesi ile hizalama: yeni şemada olmayan karakterler
+          // (Macbeth, Biff) tıklanamaz INERT — kesik kenar + soluk, hover yok.
+          if (!aktif) {
+            return (
+              <div
+                key={id}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  gap: '0.4rem',
+                  padding: '0.9rem 0.95rem',
+                  background: 'transparent',
+                  border: '1px dashed var(--rule)',
+                  cursor: 'default',
+                  color: 'var(--ink)',
+                  textAlign: 'left',
+                  fontFamily: 'inherit',
+                  opacity: 0.6,
+                  pointerEvents: 'none',
+                }}
+              >
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <span aria-hidden style={{
+                    width: '7px',
+                    height: '7px',
+                    borderRadius: '50%',
+                    background: 'var(--ink-muted)',
+                    opacity: 0.5,
+                  }} />
+                  <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.05rem', color: 'var(--ink-soft)', lineHeight: 1.1 }}>{k.ad}</span>
+                </span>
+                <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 600, fontSize: '0.6rem', letterSpacing: '0.22em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{durum}</span>
+              </div>
+            );
+          }
+
           return (
             <button
               key={id}
@@ -217,7 +255,6 @@ function KarakterSecimi({ t, ilerlemeler, seciliId, onSec }) {
                 color: 'var(--ink)',
                 textAlign: 'left',
                 fontFamily: 'inherit',
-                opacity: aktif ? 1 : 0.6,
                 transition: 'all 0.25s ease',
               }}
               onMouseEnter={(e) => { if (!seci) e.currentTarget.style.borderColor = 'var(--accent)'; }}
