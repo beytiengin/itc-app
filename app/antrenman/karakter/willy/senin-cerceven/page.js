@@ -8,7 +8,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import willyRaw from '../../../../../data/karakterler/willy';
+import { karakterGetir } from '../../../../lib/karakterGetir';
 import willyI18n, { willyIcerik } from '../../../../../data/willy-i18n';
 import { useDil, ceviri } from '../../../../../app/lib/dil';
 import { altSoruYansimalariniGetir } from '../../../../lib/hamlet-veri';
@@ -24,7 +24,7 @@ const ALTIN = 'var(--accent)';
 
 export default function SeninCerceveAnaSayfa() {
   const { dil } = useDil();
-  const willy = willyIcerik(dil, willyRaw);
+  const willy = willyIcerik(dil, karakterGetir('willy', dil));
   const sozluk = ceviri(willyI18n, dil);
   const sc = sozluk.seninCerceven;
   const o = sozluk.ortak;

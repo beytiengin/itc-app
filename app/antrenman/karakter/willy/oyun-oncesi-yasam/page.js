@@ -8,7 +8,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import willyRaw from '../../../../../data/karakterler/willy';
+import { karakterGetir } from '../../../../lib/karakterGetir';
 import willyI18n, { willyIcerik } from '../../../../../data/willy-i18n';
 import { useDil, ceviri } from '../../../../lib/dil';
 import {
@@ -26,7 +26,7 @@ const TON = 'var(--accent)';
 
 export default function OyunOncesiYasamSayfasi() {
   const { dil } = useDil();
-  const willy = willyIcerik(dil, willyRaw);
+  const willy = willyIcerik(dil, karakterGetir('willy', dil));
   const oc = ceviri(willyI18n, dil).oyunOncesi;
   const [olayYansimalari, setOlayYansimalari] = useState({});
   const [iliskiYansimalari, setIliskiYansimalari] = useState({});

@@ -7,7 +7,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import willyRaw from '../../../../../../data/karakterler/willy';
+import { karakterGetir } from '../../../../../lib/karakterGetir';
 import willyI18n, { willyIcerik } from '../../../../../../data/willy-i18n';
 import { useDil, ceviri } from '../../../../../lib/dil';
 import {
@@ -23,7 +23,7 @@ const ALTIN = 'var(--accent)';
 
 export default function SeninCerceveSentez() {
   const { dil } = useDil();
-  const willy = willyIcerik(dil, willyRaw);
+  const willy = willyIcerik(dil, karakterGetir('willy', dil));
   const ss = ceviri(willyI18n, dil).seninCerceven.sentez;
   const [yansimalar, setYansimalar] = useState({});
   const [genelMetinler, setGenelMetinler] = useState({});

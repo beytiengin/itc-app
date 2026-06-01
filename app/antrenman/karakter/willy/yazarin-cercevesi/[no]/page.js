@@ -8,7 +8,7 @@
 
 import { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
-import willyRaw from '../../../../../../data/karakterler/willy';
+import { karakterGetir } from '../../../../../lib/karakterGetir';
 import { willyIcerik } from '../../../../../../data/willy-i18n';
 import willyI18n from '../../../../../../data/willy-i18n';
 import { useDil, ceviri } from '../../../../../lib/dil';
@@ -24,7 +24,7 @@ export default function TercihDetaySayfasi({ params }) {
   const tercihNo = parseInt(no, 10);
   const router = useRouter();
   const { dil } = useDil();
-  const willy = willyIcerik(dil, willyRaw);
+  const willy = willyIcerik(dil, karakterGetir('willy', dil));
   const sa = ceviri(willyI18n, dil).yazarinCercevesi.altSayfa;
 
   const [secimler, setSecimler] = useState({});

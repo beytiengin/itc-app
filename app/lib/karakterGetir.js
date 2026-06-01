@@ -13,17 +13,17 @@
 
 import hamletTR from '../../data/karakterler/hamlet';
 import hamletDE from '../../data/karakterler/hamlet.de';
-// import willyTR from '../../data/karakterler/willy';   // çeviri turunda
-// import willyDE from '../../data/karakterler/willy.de'; // çeviri turunda
+import willyTR from '../../data/karakterler/willy';
+import willyDE from '../../data/karakterler/willy.de';
 
 const TABAN = {
   hamlet: hamletTR,
-  // willy: willyTR,
+  willy: willyTR,
 };
 
 const KATMAN = {
   hamlet: { de: hamletDE },
-  // willy: { de: willyDE },
+  willy: { de: willyDE },
 };
 
 // Deep merge: katmandaki dolu (truthy, boş-olmayan) değerler tabanın üzerine

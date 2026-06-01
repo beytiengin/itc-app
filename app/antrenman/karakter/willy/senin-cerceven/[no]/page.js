@@ -8,7 +8,7 @@
 
 import { useState, useEffect, useRef, use } from 'react';
 import { useRouter } from 'next/navigation';
-import willyRaw from '../../../../../../data/karakterler/willy';
+import { karakterGetir } from '../../../../../lib/karakterGetir';
 import willyI18n, { willyIcerik } from '../../../../../../data/willy-i18n';
 import { useDil, ceviri } from '../../../../../lib/dil';
 import {
@@ -29,7 +29,7 @@ export default function BoslukDetaySayfasi({ params }) {
   const boslukNo = parseInt(no, 10);
   const router = useRouter();
   const { dil } = useDil();
-  const willy = willyIcerik(dil, willyRaw);
+  const willy = willyIcerik(dil, karakterGetir('willy', dil));
   const sa = ceviri(willyI18n, dil).seninCerceven.altSayfa;
 
   const [yansimalar, setYansimalar] = useState({});

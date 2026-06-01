@@ -29,7 +29,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import willyRaw from '../../../../../data/karakterler/willy';
+import { karakterGetir } from '../../../../lib/karakterGetir';
 import willyI18n, { willyIcerik } from '../../../../../data/willy-i18n';
 import { useDil, ceviri } from '../../../../lib/dil';
 import { getKalibrasyonProfili } from '../../../../lib/kalibrasyon';
@@ -80,7 +80,7 @@ export default function ElYazmasiSayfasi() {
   const s = ceviri(willyI18n, dil);
   const t = s.elYazmasi;
   const ortak = s.ortak;
-  const data = willyIcerik(dil, willyRaw);
+  const data = willyIcerik(dil, karakterGetir('willy', dil));
 
   // Birleşik akış — OYUN SIRASI (Karar 41 v2):
   // - Sahneler `no` 1→11 sıralı (yasamSirasi DEĞİL).

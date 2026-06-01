@@ -7,7 +7,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import willyRaw from '../../../../../data/karakterler/willy';
+import { karakterGetir } from '../../../../lib/karakterGetir';
 import { willyIcerik } from '../../../../../data/willy-i18n';
 import willyI18n from '../../../../../data/willy-i18n';
 import { useDil, ceviri } from '../../../../lib/dil';
@@ -23,7 +23,7 @@ const KOK = '/antrenman/karakter/willy';
 
 export default function YazarinCerceveSAnaSayfa() {
   const { dil } = useDil();
-  const willy = willyIcerik(dil, willyRaw);
+  const willy = willyIcerik(dil, karakterGetir('willy', dil));
   const yc = ceviri(willyI18n, dil).yazarinCercevesi;
   const [secimler, setSecimler] = useState({});
   const [yukleniyor, setYukleniyor] = useState(true);

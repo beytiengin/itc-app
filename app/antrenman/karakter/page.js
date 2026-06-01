@@ -6,9 +6,6 @@ import { ilerlemeGetir, kartlariKur, siradakiAdim } from '../../lib/ilerleme';
 import { useDil, ceviri } from '../../lib/dil';
 import { karakterGetir } from '../../lib/karakterGetir';
 import chromeI18n from '../../../data/chrome-i18n';
-// Willy çok-dilli katmanı henüz yok; karakterGetir'e eklenince burada da
-// `karakterGetir('willy', dil)` kullanılır.
-import willyRaw from '../../../data/karakterler/willy';
 
 // Karakter listesi — sade vitrin.
 //
@@ -145,7 +142,7 @@ export default function KarakterListesi() {
       setIlerlemeler(tumIlerleme);
 
       const hamletKartlar = kartlariKur(hamletView, karakterToplamlari(karakterGetir('hamlet', dil)));
-      const willyKartlar = kartlariKur(willyView, karakterToplamlari(willyRaw));
+      const willyKartlar = kartlariKur(willyView, karakterToplamlari(karakterGetir('willy', dil)));
       setAdimlar({
         hamlet: siradakiAdim(hamletKartlar),
         willy:  siradakiAdim(willyKartlar),
