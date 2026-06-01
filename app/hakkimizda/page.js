@@ -253,92 +253,7 @@ export default function Hakkimizda() {
         {/* heroAlt2 kaldirildi (ana sayfa vurusu tekrari kirildi) */}
       </section>
 
-      {/* BÖLÜM 2 — ÜÇ İLKE ÖZETİ */}
-      <section style={{
-        padding: 'clamp(3rem, 6vw, 4rem) 2rem',
-        borderTop: '1px solid var(--bg-elevated)',
-        background: 'var(--bg-elevated)',
-      }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
-
-          <div style={{ textAlign: 'center', marginBottom: 'clamp(2rem, 4vw, 3rem)' }}>
-            <div style={ustEtiketStili}>{t.ilkeUstEtiket}</div>
-            <h2 style={bolumBaslikStili}>{t.ilkeBaslik}</h2>
-          </div>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-            gap: '1.5rem',
-          }}>
-            <div style={ilkeKartiStili}>
-              <div style={ilkeNumarasiStili}>01</div>
-              <h3 style={ilkeBaslikStili}>{t.ilke01Baslik}</h3>
-              <p style={ilkeMetinStili}>{t.ilke01Metin}</p>
-            </div>
-
-            <div style={ilkeKartiStili}>
-              <div style={ilkeNumarasiStili}>02</div>
-              <h3 style={ilkeBaslikStili}>{t.ilke02Baslik}</h3>
-              <p style={ilkeMetinStili}>{t.ilke02Metin}</p>
-            </div>
-
-            <div style={ilkeKartiStili}>
-              <div style={ilkeNumarasiStili}>03</div>
-              <h3 style={ilkeBaslikStili}>{t.ilke03Baslik}</h3>
-              <p style={ilkeMetinStili}>{t.ilke03Metin}</p>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* BÖLÜM 3 — İKİ EŞ KURUCU (FULL BIOS) — Beyti önce (Karar 20) */}
-      <section style={{
-        padding: 'clamp(3rem, 7vw, 5rem) 2rem',
-        maxWidth: '1100px',
-        margin: '0 auto',
-        width: '100%',
-        boxSizing: 'border-box',
-      }}>
-        <div style={{ textAlign: 'center', marginBottom: 'clamp(2.5rem, 5vw, 4rem)' }}>
-          <div style={ustEtiketStili}>{t.kurucuUstEtiket}</div>
-          <h2 style={bolumBaslikStili}>{t.kurucuBaslik}</h2>
-        </div>
-
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
-          gap: '2rem',
-        }}>
-
-          {/* Beyti Engin — PRIMARY (sayfanin kalbi, accent sol bant) */}
-          <div style={kurucuKartStili}>
-            <div style={kisiEtiketStili}>{t.beytiEtiket}</div>
-            <h3 style={kisiAdStili}>{t.beytiAd}</h3>
-            <div style={{ ...kisiMetinStili, marginTop: '1.5rem' }}>
-              <p style={{ marginBottom: '1rem', marginTop: 0 }}>{t.beytiBio1}</p>
-              <p style={{ marginBottom: '1rem' }}>{t.beytiBio2}</p>
-              <p style={{ margin: 0 }}>{t.beytiBio3}</p>
-              <p style={kisiNotStili}>{t.beytiAtolyeNot}</p>
-            </div>
-          </div>
-
-          {/* Filiz Kaya Ataklı — PRIMARY */}
-          <div style={kurucuKartStili}>
-            <div style={kisiEtiketStili}>{t.filizEtiket}</div>
-            <h3 style={kisiAdStili}>{t.filizAd}</h3>
-            <div style={{ ...kisiMetinStili, marginTop: '1.5rem' }}>
-              <p style={{ marginBottom: '1rem', marginTop: 0 }}>{t.filizBio1}</p>
-              <p style={{ marginBottom: '1rem' }}>{t.filizBio2}</p>
-              <p style={{ margin: 0 }}>{t.filizBio3}</p>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* BÖLÜM 4 — 2005'TEN BUGÜNE (Yatay Timeline) */}
+      {/* BÖLÜM 2 — 2005'TEN BUGÜNE (Yatay Timeline) — yöntemin yolculuğu */}
       <section style={{
         padding: 'clamp(3rem, 7vw, 5rem) 0',
         borderTop: '1px solid var(--bg-elevated)',
@@ -439,7 +354,7 @@ export default function Hakkimizda() {
         </div>
       </section>
 
-      {/* BÖLÜM 5 — KURUMSAL BAĞLANTILAR (reorder: Ekosistem'den ÖNCE) */}
+      {/* BÖLÜM 3 — KURUMSAL BAĞLANTILAR (yontemin gectigi kurumlar) */}
       <section style={{
         padding: 'clamp(3rem, 7vw, 5rem) 2rem',
         maxWidth: '1100px',
@@ -493,11 +408,53 @@ export default function Hakkimizda() {
         </div>
       </section>
 
-      {/* BÖLÜM 6 — ÜÇ KATMAN (Ekosistem — Kurumlar'dan SONRA) */}
+      {/* BÖLÜM 4 — İKİ EŞ KURUCU (FULL BIOS) — Beyti önce (Karar 20) */}
       <section style={{
         padding: 'clamp(3rem, 7vw, 5rem) 2rem',
         borderTop: '1px solid var(--bg-elevated)',
         background: 'var(--bg-elevated)',
+      }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
+          <div style={{ textAlign: 'center', marginBottom: 'clamp(2.5rem, 5vw, 4rem)' }}>
+            <div style={ustEtiketStili}>{t.kurucuUstEtiket}</div>
+            <h2 style={bolumBaslikStili}>{t.kurucuBaslik}</h2>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+            gap: '2rem',
+          }}>
+
+            {/* Beyti Engin — PRIMARY (sayfanin kalbi, accent sol bant) */}
+            <div style={kurucuKartStili}>
+              <div style={kisiEtiketStili}>{t.beytiEtiket}</div>
+              <h3 style={kisiAdStili}>{t.beytiAd}</h3>
+              <div style={{ ...kisiMetinStili, marginTop: '1.5rem' }}>
+                <p style={{ marginBottom: '1rem', marginTop: 0 }}>{t.beytiBio1}</p>
+                <p style={{ marginBottom: '1rem' }}>{t.beytiBio2}</p>
+                <p style={{ margin: 0 }}>{t.beytiBio3}</p>
+                <p style={kisiNotStili}>{t.beytiAtolyeNot}</p>
+              </div>
+            </div>
+
+            {/* Filiz Kaya Ataklı — PRIMARY */}
+            <div style={kurucuKartStili}>
+              <div style={kisiEtiketStili}>{t.filizEtiket}</div>
+              <h3 style={kisiAdStili}>{t.filizAd}</h3>
+              <div style={{ ...kisiMetinStili, marginTop: '1.5rem' }}>
+                <p style={{ marginBottom: '1rem', marginTop: 0 }}>{t.filizBio1}</p>
+                <p style={{ marginBottom: '1rem' }}>{t.filizBio2}</p>
+                <p style={{ margin: 0 }}>{t.filizBio3}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* BÖLÜM 5 — ÜÇ KATMAN (Ekosistem) */}
+      <section style={{
+        padding: 'clamp(3rem, 7vw, 5rem) 2rem',
       }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
 
@@ -544,6 +501,46 @@ export default function Hakkimizda() {
             })}
 
           </div>
+        </div>
+      </section>
+
+      {/* BÖLÜM 6 — ÜÇ İLKE ÖZETİ (en sona alindi — yontem ozeti) */}
+      <section style={{
+        padding: 'clamp(3rem, 6vw, 4rem) 2rem',
+        borderTop: '1px solid var(--bg-elevated)',
+        background: 'var(--bg-elevated)',
+      }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
+
+          <div style={{ textAlign: 'center', marginBottom: 'clamp(2rem, 4vw, 3rem)' }}>
+            <div style={ustEtiketStili}>{t.ilkeUstEtiket}</div>
+            <h2 style={bolumBaslikStili}>{t.ilkeBaslik}</h2>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+            gap: '1.5rem',
+          }}>
+            <div style={ilkeKartiStili}>
+              <div style={ilkeNumarasiStili}>01</div>
+              <h3 style={ilkeBaslikStili}>{t.ilke01Baslik}</h3>
+              <p style={ilkeMetinStili}>{t.ilke01Metin}</p>
+            </div>
+
+            <div style={ilkeKartiStili}>
+              <div style={ilkeNumarasiStili}>02</div>
+              <h3 style={ilkeBaslikStili}>{t.ilke02Baslik}</h3>
+              <p style={ilkeMetinStili}>{t.ilke02Metin}</p>
+            </div>
+
+            <div style={ilkeKartiStili}>
+              <div style={ilkeNumarasiStili}>03</div>
+              <h3 style={ilkeBaslikStili}>{t.ilke03Baslik}</h3>
+              <p style={ilkeMetinStili}>{t.ilke03Metin}</p>
+            </div>
+          </div>
+
         </div>
       </section>
 
