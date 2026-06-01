@@ -1,14 +1,22 @@
 'use client';
 
 import { useTheme } from '../app/lib/theme';
+import { useDil } from '../app/lib/dil';
 
 export default function TemaSecici({ stil = 'inline' }) {
   const { tema, temaAyarla } = useTheme();
+  const { dil } = useDil();
 
   if (stil === 'radyo') {
+    const T = {
+      tr: { dark: ['Karanlık', 'Uzun seans için göz dostu'], krem: ['Krem', 'Workbook ile uyumlu, kâğıt hissi'] },
+      en: { dark: ['Dark', 'Easy on the eyes for long sessions'], krem: ['Cream', 'Matches the Workbook, a paper feel'] },
+      de: { dark: ['Dunkel', 'Augenschonend für lange Sitzungen'], krem: ['Creme', 'Passend zum Arbeitsbuch, ein Papiergefühl'] },
+    };
+    const L = T[dil] || T.tr;
     const secenekler = [
-      { id: 'dark', ad: 'Karanlık', alt: 'Uzun seans için göz dostu' },
-      { id: 'krem', ad: 'Krem', alt: 'Workbook ile uyumlu, kâğıt hissi' },
+      { id: 'dark', ad: L.dark[0], alt: L.dark[1] },
+      { id: 'krem', ad: L.krem[0], alt: L.krem[1] },
     ];
 
     return (
@@ -63,7 +71,13 @@ export default function TemaSecici({ stil = 'inline' }) {
     <button
       type="button"
       onClick={() => temaAyarla(tema === 'dark' ? 'krem' : 'dark')}
-      aria-label={tema === 'dark' ? 'Krem moda geç' : 'Karanlık moda geç'}
+      aria-label={
+        dil === 'de'
+          ? (tema === 'dark' ? 'Zum Creme-Modus wechseln' : 'Zum Dunkelmodus wechseln')
+          : dil === 'en'
+          ? (tema === 'dark' ? 'Switch to cream mode' : 'Switch to dark mode')
+          : (tema === 'dark' ? 'Krem moda geç' : 'Karanlık moda geç')
+      }
       style={{
         width: '32px',
         height: '32px',

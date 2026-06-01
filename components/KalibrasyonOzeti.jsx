@@ -19,22 +19,22 @@ const COLORS = [
 ];
 
 const GLABEL = {
-  gorsel:        { tr: 'Görsel',              en: 'Visual' },
-  isitsel:       { tr: 'İşitsel',             en: 'Auditory' },
-  kinestetik:    { tr: 'Kinestetik',          en: 'Kinesthetic' },
-  mesleki_guven: { tr: 'Mesleki Güven',       en: 'Professional Confidence' },
-  teknik:        { tr: 'Teknik',              en: 'Technical' },
-  zihinsel:      { tr: 'Zihinsel',            en: 'Mental' },
-  duygusal:      { tr: 'Duygusal',            en: 'Emotional' },
-  motivasyonel:  { tr: 'Motivasyonel',        en: 'Motivational' },
-  rahatlama:     { tr: 'Rahatlama',           en: 'Relaxation' },
-  iliskisel:     { tr: 'İlişkisel',           en: 'Interpersonal' },
-  oyun:          { tr: 'Oyun',                en: 'Play' },
-  ofke:          { tr: 'Öfke',                en: 'Anger' },
-  arayis:        { tr: 'Arayış',              en: 'Seek' },
-  sefkat:        { tr: 'Bağ',                 en: 'Care' },
-  korku:         { tr: 'Korku',               en: 'Fear' },
-  huzun:         { tr: 'Hüzün',               en: 'Sadness' },
+  gorsel:        { tr: 'Görsel',              en: 'Visual', de: 'Visuell' },
+  isitsel:       { tr: 'İşitsel',             en: 'Auditory', de: 'Auditiv' },
+  kinestetik:    { tr: 'Kinestetik',          en: 'Kinesthetic', de: 'Kinästhetisch' },
+  mesleki_guven: { tr: 'Mesleki Güven',       en: 'Professional Confidence', de: 'Berufliches Selbstvertrauen' },
+  teknik:        { tr: 'Teknik',              en: 'Technical', de: 'Technisch' },
+  zihinsel:      { tr: 'Zihinsel',            en: 'Mental', de: 'Mental' },
+  duygusal:      { tr: 'Duygusal',            en: 'Emotional', de: 'Emotional' },
+  motivasyonel:  { tr: 'Motivasyonel',        en: 'Motivational', de: 'Motivational' },
+  rahatlama:     { tr: 'Rahatlama',           en: 'Relaxation', de: 'Entspannung' },
+  iliskisel:     { tr: 'İlişkisel',           en: 'Interpersonal', de: 'Zwischenmenschlich' },
+  oyun:          { tr: 'Oyun',                en: 'Play', de: 'Spiel' },
+  ofke:          { tr: 'Öfke',                en: 'Anger', de: 'Zorn' },
+  arayis:        { tr: 'Arayış',              en: 'Seek', de: 'Suche' },
+  sefkat:        { tr: 'Bağ',                 en: 'Care', de: 'Fürsorge' },
+  korku:         { tr: 'Korku',               en: 'Fear', de: 'Angst' },
+  huzun:         { tr: 'Hüzün',               en: 'Sadness', de: 'Trauer' },
 };
 const lab = (k, lang) => GLABEL[k]?.[lang] ?? GLABEL[k]?.tr ?? k;
 
@@ -85,10 +85,10 @@ export default function KalibrasyonOzeti({ lang = 'tr' }) {
   useEffect(() => { kalibrasyonOku().then(setVeri).catch(() => setVeri(null)); }, []);
 
   if (veri === undefined) {
-    return <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 400, fontSize: '1rem', color: 'var(--ink-soft)' }}>{lang === 'tr' ? 'Yükleniyor…' : 'Loading…'}</p>;
+    return <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 400, fontSize: '1rem', color: 'var(--ink-soft)' }}>{lang === 'tr' ? 'Yükleniyor…' : lang === 'de' ? 'Wird geladen…' : 'Loading…'}</p>;
   }
   if (!veri) {
-    return <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 400, fontSize: '1rem', color: 'var(--ink-soft)' }}>{lang === 'tr' ? 'Kalibrasyon verisi bulunamadı.' : 'No calibration data found.'}</p>;
+    return <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 400, fontSize: '1rem', color: 'var(--ink-soft)' }}>{lang === 'tr' ? 'Kalibrasyon verisi bulunamadı.' : lang === 'de' ? 'Keine Kalibrierungsdaten gefunden.' : 'No calibration data found.'}</p>;
   }
 
   const { profil, vak, arketip, beceri, panksepp } = veri;
@@ -150,7 +150,7 @@ export default function KalibrasyonOzeti({ lang = 'tr' }) {
           <Etiket>{tr ? 'Öğrenme Stili · VAK' : 'Learning Style · VAK'}</Etiket>
           {vakBaskinAd && (
             <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 400, fontSize: '1.02rem', lineHeight: 1.5, color: 'var(--ink)', marginTop: 0 }}>
-              {tr ? 'Baskın kanalın:' : 'Your dominant channel:'} <strong style={{ color: 'var(--accent)' }}>{lab(vakBaskinAd, lang)}</strong>
+              {tr ? 'Baskın kanalın:' : lang === 'de' ? 'Dein dominanter Kanal:' : 'Your dominant channel:'} <strong style={{ color: 'var(--accent)' }}>{lab(vakBaskinAd, lang)}</strong>
             </p>
           )}
           <Cubuk etiket={lab('gorsel', lang)} deger={vak.gorsel ?? 0} max={40} renk={COLORS[0]} son=" / 40" />
