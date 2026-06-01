@@ -102,7 +102,7 @@ export default function SentezSayfasi() {
           <a
             href={`${KOK}/yazarin-cercevesi`}
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.3em',
@@ -121,7 +121,7 @@ export default function SentezSayfasi() {
           {hepsiTamam ? (
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.65rem',
                 letterSpacing: '0.35em',
@@ -134,7 +134,7 @@ export default function SentezSayfasi() {
           ) : (
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.65rem',
                 letterSpacing: '0.35em',
@@ -148,7 +148,7 @@ export default function SentezSayfasi() {
 
           <h1
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: 'clamp(2.2rem, 6vw, 3.4rem)',
@@ -197,7 +197,7 @@ export default function SentezSayfasi() {
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.9rem', flexWrap: 'wrap' }}>
                   <span
                     style={{
-                      fontFamily: 'Cormorant Garamond, serif',
+                      fontFamily: 'var(--font-display), serif',
                       fontStyle: 'italic',
                       fontWeight: 300,
                       fontSize: '1.5rem',
@@ -209,7 +209,7 @@ export default function SentezSayfasi() {
                   </span>
                   <span
                     style={{
-                      fontFamily: 'Jost, sans-serif',
+                      fontFamily: 'var(--font-body), sans-serif',
                       fontWeight: 200,
                       fontSize: '0.6rem',
                       letterSpacing: '0.35em',
@@ -223,7 +223,7 @@ export default function SentezSayfasi() {
                     href={`${KOK}/yazarin-cercevesi/${tercih.no}`}
                     style={{
                       marginLeft: 'auto',
-                      fontFamily: 'Jost, sans-serif',
+                      fontFamily: 'var(--font-body), sans-serif',
                       fontWeight: 200,
                       fontSize: '0.55rem',
                       letterSpacing: '0.25em',
@@ -252,7 +252,7 @@ export default function SentezSayfasi() {
                             borderRadius: tercih.cokluSecim ? '3px' : '50%',
                             backgroundColor: TON,
                             color: 'var(--bg-base)',
-                            fontFamily: 'Jost, sans-serif',
+                            fontFamily: 'var(--font-body), sans-serif',
                             fontWeight: 400,
                             fontSize: '0.65rem',
                             display: 'flex',
@@ -266,7 +266,7 @@ export default function SentezSayfasi() {
                         <span
                           style={{
                             flex: 1,
-                            fontFamily: 'Cormorant Garamond, serif',
+                            fontFamily: 'var(--font-display), serif',
                             fontStyle: 'italic',
                             fontSize: '1rem',
                             color: 'var(--ink-soft)',
@@ -281,7 +281,7 @@ export default function SentezSayfasi() {
                       <div style={{ display: 'flex', gap: '0.7rem', alignItems: 'flex-start' }}>
                         <span
                           style={{
-                            fontFamily: 'Jost, sans-serif',
+                            fontFamily: 'var(--font-body), sans-serif',
                             fontWeight: 200,
                             fontSize: '0.55rem',
                             letterSpacing: '0.25em',
@@ -296,7 +296,7 @@ export default function SentezSayfasi() {
                         <p
                           style={{
                             flex: 1,
-                            fontFamily: 'Cormorant Garamond, serif',
+                            fontFamily: 'var(--font-display), serif',
                             fontStyle: 'italic',
                             fontSize: '0.95rem',
                             color: 'var(--ink-soft)',
@@ -312,7 +312,7 @@ export default function SentezSayfasi() {
                 ) : (
                   <p
                     style={{
-                      fontFamily: 'Jost, sans-serif',
+                      fontFamily: 'var(--font-body), sans-serif',
                       fontWeight: 200,
                       fontSize: '0.8rem',
                       color: 'var(--ink-muted)',
@@ -336,7 +336,7 @@ export default function SentezSayfasi() {
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <span
                         style={{
-                          fontFamily: 'Jost, sans-serif',
+                          fontFamily: 'var(--font-body), sans-serif',
                           fontWeight: 200,
                           fontSize: '0.55rem',
                           letterSpacing: '0.3em',
@@ -359,7 +359,7 @@ export default function SentezSayfasi() {
                         backgroundColor: 'var(--bg-base)',
                         border: '1px solid var(--rule)',
                         color: 'var(--ink)',
-                        fontFamily: 'Cormorant Garamond, serif',
+                        fontFamily: 'var(--font-display), serif',
                         fontStyle: 'italic',
                         fontSize: '0.95rem',
                         lineHeight: 1.7,
@@ -394,7 +394,7 @@ export default function SentezSayfasi() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
               <span
                 style={{
-                  fontFamily: 'Jost, sans-serif',
+                  fontFamily: 'var(--font-body), sans-serif',
                   fontWeight: 200,
                   fontSize: '0.55rem',
                   letterSpacing: '0.35em',
@@ -406,7 +406,7 @@ export default function SentezSayfasi() {
               </span>
               <p
                 style={{
-                  fontFamily: 'Cormorant Garamond, serif',
+                  fontFamily: 'var(--font-display), serif',
                   fontStyle: 'italic',
                   fontSize: '0.95rem',
                   color: 'var(--ink-muted)',
@@ -439,7 +439,7 @@ export default function SentezSayfasi() {
                     <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap', alignItems: 'baseline' }}>
                       <span
                         style={{
-                          fontFamily: 'Jost, sans-serif',
+                          fontFamily: 'var(--font-body), sans-serif',
                           fontWeight: 300,
                           fontSize: '0.75rem',
                           letterSpacing: '0.2em',
@@ -453,7 +453,7 @@ export default function SentezSayfasi() {
                         <span
                           key={h}
                           style={{
-                            fontFamily: 'Jost, sans-serif',
+                            fontFamily: 'var(--font-body), sans-serif',
                             fontWeight: 300,
                             fontSize: '0.65rem',
                             color: TON,
@@ -472,7 +472,7 @@ export default function SentezSayfasi() {
                           key={no}
                           href={`${KOK}/timeline#sahne-${no}`}
                           style={{
-                            fontFamily: 'Jost, sans-serif',
+                            fontFamily: 'var(--font-body), sans-serif',
                             fontWeight: 200,
                             fontSize: '0.6rem',
                             letterSpacing: '0.25em',
@@ -519,7 +519,7 @@ export default function SentezSayfasi() {
           >
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.6rem',
                 letterSpacing: '0.4em',
@@ -531,7 +531,7 @@ export default function SentezSayfasi() {
             </span>
             <p
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontSize: '1.1rem',
                 color: 'var(--ink-soft)',
@@ -543,7 +543,7 @@ export default function SentezSayfasi() {
             </p>
             <p
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontSize: '1.05rem',
                 color: 'var(--ink-soft)',
@@ -555,7 +555,7 @@ export default function SentezSayfasi() {
             </p>
             <p
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontSize: '1.5rem',
                 letterSpacing: '0.6em',
                 color: 'var(--ink-muted)',
@@ -566,7 +566,7 @@ export default function SentezSayfasi() {
             </p>
             <p
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.85rem',
                 color: 'var(--ink-muted)',
@@ -604,7 +604,7 @@ function KayitRozet({ durum }) {
   return (
     <span
       style={{
-        fontFamily: 'Jost, sans-serif',
+        fontFamily: 'var(--font-body), sans-serif',
         fontWeight: 200,
         fontSize: '0.65rem',
         color: renk,
@@ -617,7 +617,7 @@ function KayitRozet({ durum }) {
 }
 
 const paragrafStili = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '1.05rem',
   color: 'var(--ink-soft)',

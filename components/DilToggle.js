@@ -20,7 +20,7 @@ export default function DilToggle() {
           border: 'none',
           cursor: aktif ? 'default' : 'pointer',
           padding: '0 0.15rem',
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 200,
           fontSize: '0.6rem',
           letterSpacing: '0.25em',

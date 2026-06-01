@@ -62,7 +62,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYo
       <section style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
         <span
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 200,
             fontSize: '0.55rem',
             letterSpacing: '0.35em',
@@ -88,7 +88,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYo
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem', flexWrap: 'wrap' }}>
                 <span
                   style={{
-                    fontFamily: 'Jost, sans-serif',
+                    fontFamily: 'var(--font-body), sans-serif',
                     fontWeight: 200,
                     fontSize: '0.6rem',
                     letterSpacing: '0.25em',
@@ -102,7 +102,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYo
                   <a
                     href={`${kokYol}/timeline#sahne-${isaret.sahneNo}`}
                     style={{
-                      fontFamily: 'Jost, sans-serif',
+                      fontFamily: 'var(--font-body), sans-serif',
                       fontWeight: 200,
                       fontSize: '0.55rem',
                       letterSpacing: '0.25em',
@@ -122,7 +122,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYo
               </div>
               <p
                 style={{
-                  fontFamily: 'Cormorant Garamond, serif',
+                  fontFamily: 'var(--font-display), serif',
                   fontStyle: 'italic',
                   fontSize: '1rem',
                   color: 'var(--ink-soft)',
@@ -140,7 +140,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYo
           <div style={{ paddingTop: '0.8rem', borderTop: '1px solid var(--bg-elevated)' }}>
             <p
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontSize: '1.05rem',
                 color: TON,
@@ -159,7 +159,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYo
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '1rem', flexWrap: 'wrap' }}>
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.55rem',
               letterSpacing: '0.35em',
@@ -175,7 +175,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYo
         {tercih.cokluSecim && tercih.cokluSecimNotu && (
           <p
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.78rem',
               color: 'var(--ink-muted)',
@@ -222,7 +222,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYo
                     border: `1.5px solid ${aktif ? TON : 'var(--ink-muted)'}`,
                     backgroundColor: aktif ? TON : 'transparent',
                     color: aktif ? 'var(--bg-base)' : 'var(--ink-muted)',
-                    fontFamily: 'Jost, sans-serif',
+                    fontFamily: 'var(--font-body), sans-serif',
                     fontWeight: 400,
                     fontSize: '0.7rem',
                     display: 'flex',
@@ -237,7 +237,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYo
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                   <span
                     style={{
-                      fontFamily: 'Cormorant Garamond, serif',
+                      fontFamily: 'var(--font-display), serif',
                       fontStyle: 'italic',
                       fontSize: '1.05rem',
                       color: aktif ? 'var(--ink)' : 'var(--ink-soft)',
@@ -248,7 +248,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYo
                   </span>
                   <p
                     style={{
-                      fontFamily: 'Jost, sans-serif',
+                      fontFamily: 'var(--font-body), sans-serif',
                       fontWeight: 300,
                       fontSize: '0.85rem',
                       color: aktif ? 'var(--ink-soft)' : 'var(--ink-soft)',
@@ -269,7 +269,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYo
       <section style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
         <span
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 200,
             fontSize: '0.55rem',
             letterSpacing: '0.35em',
@@ -281,7 +281,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYo
         </span>
         <p
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontSize: '0.95rem',
             color: 'var(--ink-muted)',
@@ -302,7 +302,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYo
             backgroundColor: 'var(--bg-base)',
             border: '1px solid var(--rule)',
             color: 'var(--ink)',
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontSize: '1rem',
             lineHeight: 1.8,
             resize: 'vertical',
@@ -319,7 +319,7 @@ export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYo
       {tercih.kapanis && (
         <p
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontSize: '0.95rem',
             color: 'var(--ink-muted)',
@@ -347,7 +347,7 @@ function KayitRozet({ durum }) {
   return (
     <span
       style={{
-        fontFamily: 'Jost, sans-serif',
+        fontFamily: 'var(--font-body), sans-serif',
         fontWeight: 200,
         fontSize: '0.65rem',
         color: renk,

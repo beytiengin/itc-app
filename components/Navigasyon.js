@@ -65,7 +65,7 @@ export default function Navigasyon() {
   }
 
   const navLink = {
-    fontFamily: 'Jost, sans-serif',
+    fontFamily: 'var(--font-body), sans-serif',
     fontWeight: 400,
     fontSize: '0.7rem',
     letterSpacing: '0.2em',
@@ -111,7 +111,7 @@ export default function Navigasyon() {
           display: 'flex',
           alignItems: 'center',
           padding: '0.95rem 0',
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 400,
           fontSize: '0.95rem',
           letterSpacing: '0.18em',
@@ -164,7 +164,7 @@ export default function Navigasyon() {
         <a
           href="/"
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontWeight: 500,
             fontStyle: 'italic',
             fontSize: '1.3rem',
@@ -262,7 +262,7 @@ export default function Navigasyon() {
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-              <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.1rem', color: 'var(--ink)' }}>{t.marka}</span>
+              <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.1rem', color: 'var(--ink)' }}>{t.marka}</span>
               <button
                 onClick={drawerKapat}
                 aria-label={t.menuKapat}
@@ -287,7 +287,7 @@ export default function Navigasyon() {
                       border: 'none',
                       borderBottom: '1px solid var(--rule)',
                       cursor: 'pointer',
-                      fontFamily: 'Jost, sans-serif',
+                      fontFamily: 'var(--font-body), sans-serif',
                       fontWeight: 400,
                       fontSize: '0.95rem',
                       letterSpacing: '0.18em',
@@ -307,7 +307,7 @@ export default function Navigasyon() {
 
             <div style={{ marginTop: 'auto', paddingTop: '1.4rem', borderTop: '1px solid var(--rule)', display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
               <span style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 600,
                 fontSize: '0.6rem',
                 letterSpacing: '0.22em',
@@ -341,7 +341,7 @@ function DrawerDilToggle() {
           background: aktif ? 'var(--accent)' : 'transparent',
           color: aktif ? 'var(--bg-base)' : 'var(--ink-soft)',
           border: 'none',
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 600,
           fontSize: '0.78rem',
           letterSpacing: '0.22em',

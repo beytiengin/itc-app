@@ -43,7 +43,7 @@ function Satir({ baslik, icerik, vurgu }) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
       <span
         style={{
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 200,
           fontSize: '0.55rem',
           letterSpacing: '0.3em',
@@ -55,7 +55,7 @@ function Satir({ baslik, icerik, vurgu }) {
       </span>
       <p
         style={{
-          fontFamily: vurgu ? 'Cormorant Garamond, serif' : 'Jost, sans-serif',
+          fontFamily: vurgu ? 'var(--font-display), serif' : 'var(--font-body), sans-serif',
           fontStyle: vurgu ? 'italic' : 'normal',
           fontWeight: 300,
           fontSize: vurgu ? '1rem' : '0.92rem',

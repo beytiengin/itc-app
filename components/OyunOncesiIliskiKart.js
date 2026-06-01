@@ -78,7 +78,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
       >
         <span
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontSize: '1.4rem',
             color: tanidi ? TON : (yansimaMevcut ? 'var(--ink-soft)' : 'var(--ink-muted)'),
@@ -93,7 +93,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.8rem', flexWrap: 'wrap' }}>
             <span
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontSize: '1.15rem',
                 color: 'var(--ink)',
@@ -104,7 +104,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
             </span>
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.6rem',
                 letterSpacing: '0.3em',
@@ -120,7 +120,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
               {tanidi && (
                 <span
                   style={{
-                    fontFamily: 'Jost, sans-serif',
+                    fontFamily: 'var(--font-body), sans-serif',
                     fontWeight: 200,
                     fontSize: '0.55rem',
                     letterSpacing: '0.25em',
@@ -134,7 +134,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
               {!tanidi && yansimaMevcut && (
                 <span
                   style={{
-                    fontFamily: 'Jost, sans-serif',
+                    fontFamily: 'var(--font-body), sans-serif',
                     fontWeight: 200,
                     fontSize: '0.55rem',
                     letterSpacing: '0.25em',
@@ -182,7 +182,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
           <div>
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.55rem',
                 letterSpacing: '0.3em',
@@ -192,7 +192,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
             >{t.yansimaSorusu}</span>
             <p
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontSize: '0.95rem',
                 color: 'var(--ink-soft)',
@@ -208,7 +208,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span
                 style={{
-                  fontFamily: 'Jost, sans-serif',
+                  fontFamily: 'var(--font-body), sans-serif',
                   fontWeight: 200,
                   fontSize: '0.55rem',
                   letterSpacing: '0.3em',
@@ -229,7 +229,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
                 backgroundColor: 'var(--bg-base)',
                 border: '1px solid var(--rule)',
                 color: 'var(--ink)',
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontSize: '1rem',
                 lineHeight: 1.8,
                 resize: 'vertical',
@@ -267,7 +267,7 @@ export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) 
             />
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 300,
                 fontSize: '0.8rem',
                 color: tanidi ? TON : 'var(--ink-soft)',
@@ -286,7 +286,7 @@ function KatmanSatiri({ etiket, metin, altinli }) {
     <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
       <span
         style={{
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 200,
           fontSize: '0.55rem',
           letterSpacing: '0.3em',
@@ -301,7 +301,7 @@ function KatmanSatiri({ etiket, metin, altinli }) {
       <p
         style={{
           flex: 1,
-          fontFamily: altinli ? 'Cormorant Garamond, serif' : 'Jost, sans-serif',
+          fontFamily: altinli ? 'var(--font-display), serif' : 'var(--font-body), sans-serif',
           fontStyle: altinli ? 'italic' : 'normal',
           fontWeight: altinli ? 300 : 300,
           fontSize: altinli ? '1rem' : '0.88rem',
@@ -327,7 +327,7 @@ function KayitRozet({ durum }) {
   return (
     <span
       style={{
-        fontFamily: 'Jost, sans-serif',
+        fontFamily: 'var(--font-body), sans-serif',
         fontWeight: 200,
         fontSize: '0.65rem',
         color: renk,

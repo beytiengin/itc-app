@@ -40,7 +40,7 @@ export default function HamletBoslukKart({ bosluk, yazilanSayisi, kokYol }) {
       <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.9rem', flexWrap: 'wrap' }}>
         <span
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontWeight: 300,
             fontSize: '2rem',
@@ -52,7 +52,7 @@ export default function HamletBoslukKart({ bosluk, yazilanSayisi, kokYol }) {
         </span>
         <span
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 200,
             fontSize: '0.55rem',
             letterSpacing: '0.3em',
@@ -65,7 +65,7 @@ export default function HamletBoslukKart({ bosluk, yazilanSayisi, kokYol }) {
         {bosluk.sinif && (
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 300,
               fontSize: '0.55rem',
               letterSpacing: '0.25em',
@@ -83,7 +83,7 @@ export default function HamletBoslukKart({ bosluk, yazilanSayisi, kokYol }) {
 
       <p
         style={{
-          fontFamily: 'Cormorant Garamond, serif',
+          fontFamily: 'var(--font-display), serif',
           fontStyle: 'italic',
           fontSize: '1.2rem',
           color: 'var(--ink)',
@@ -97,7 +97,7 @@ export default function HamletBoslukKart({ bosluk, yazilanSayisi, kokYol }) {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
         <span
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 200,
             fontSize: '0.6rem',
             letterSpacing: '0.25em',
@@ -109,7 +109,7 @@ export default function HamletBoslukKart({ bosluk, yazilanSayisi, kokYol }) {
         </span>
         <span
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontSize: '0.85rem',
             color: 'var(--ink-soft)',
@@ -122,7 +122,7 @@ export default function HamletBoslukKart({ bosluk, yazilanSayisi, kokYol }) {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
         <span
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 200,
             fontSize: '0.6rem',
             letterSpacing: '0.25em',
@@ -134,7 +134,7 @@ export default function HamletBoslukKart({ bosluk, yazilanSayisi, kokYol }) {
         </span>
         <span
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontSize: '0.85rem',
             color: 'var(--ink-soft)',
@@ -155,7 +155,7 @@ export default function HamletBoslukKart({ bosluk, yazilanSayisi, kokYol }) {
       >
         <span
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 200,
             fontSize: '0.6rem',
             letterSpacing: '0.25em',
@@ -167,7 +167,7 @@ export default function HamletBoslukKart({ bosluk, yazilanSayisi, kokYol }) {
         </span>
         <span
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 200,
             fontSize: '0.6rem',
             letterSpacing: '0.3em',

@@ -79,7 +79,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
       >
         <span
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontSize: '1.4rem',
             color: icselKabul ? TON : (yansimaMevcut ? 'var(--ink-soft)' : 'var(--ink-muted)'),
@@ -93,7 +93,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
           <p
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '1rem',
               color: 'var(--ink)',
@@ -106,7 +106,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
           <div style={{ display: 'flex', gap: '0.8rem', alignItems: 'center', flexWrap: 'wrap' }}>
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.6rem',
                 letterSpacing: '0.25em',
@@ -119,7 +119,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
             {icselKabul && (
               <span
                 style={{
-                  fontFamily: 'Jost, sans-serif',
+                  fontFamily: 'var(--font-body), sans-serif',
                   fontWeight: 200,
                   fontSize: '0.55rem',
                   letterSpacing: '0.25em',
@@ -133,7 +133,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
             {!icselKabul && yansimaMevcut && (
               <span
                 style={{
-                  fontFamily: 'Jost, sans-serif',
+                  fontFamily: 'var(--font-body), sans-serif',
                   fontWeight: 200,
                   fontSize: '0.55rem',
                   letterSpacing: '0.25em',
@@ -174,7 +174,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
           <div>
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.55rem',
                 letterSpacing: '0.3em',
@@ -184,7 +184,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
             >{t.yuk}</span>
             <p
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontSize: '1rem',
                 color: 'var(--ink-soft)',
@@ -199,7 +199,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
           <div>
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.55rem',
                 letterSpacing: '0.3em',
@@ -209,7 +209,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
             >{t.yansimaSorusu}</span>
             <p
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontSize: '0.95rem',
                 color: 'var(--ink-soft)',
@@ -225,7 +225,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span
                 style={{
-                  fontFamily: 'Jost, sans-serif',
+                  fontFamily: 'var(--font-body), sans-serif',
                   fontWeight: 200,
                   fontSize: '0.55rem',
                   letterSpacing: '0.3em',
@@ -246,7 +246,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
                 backgroundColor: 'var(--bg-base)',
                 border: '1px solid var(--rule)',
                 color: 'var(--ink)',
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontSize: '1rem',
                 lineHeight: 1.8,
                 resize: 'vertical',
@@ -284,7 +284,7 @@ export default function OyunOncesiOlayKart({ olay, karakterId, baslangic }) {
             />
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 300,
                 fontSize: '0.8rem',
                 color: icselKabul ? TON : 'var(--ink-soft)',
@@ -311,7 +311,7 @@ function KayitRozet({ durum }) {
   return (
     <span
       style={{
-        fontFamily: 'Jost, sans-serif',
+        fontFamily: 'var(--font-body), sans-serif',
         fontWeight: 200,
         fontSize: '0.65rem',
         color: renk,

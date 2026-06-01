@@ -52,7 +52,7 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
         <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.4em',
@@ -64,7 +64,7 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
           </span>
           <h3
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontWeight: 300,
               fontSize: '1.6rem',
               color: 'var(--ink)',
@@ -76,7 +76,7 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
           {baslik && (
             <p
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.72rem',
                 color: 'var(--ink-soft)',
@@ -92,7 +92,7 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.55rem',
               letterSpacing: '0.3em',
@@ -119,7 +119,7 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
 
         <p
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontSize: '1.05rem',
             color: 'var(--ink)',
@@ -141,7 +141,7 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
                 backgroundColor: 'var(--onay-soft)',
                 border: 'none',
                 color: 'var(--bg-base)',
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 300,
                 fontSize: '0.7rem',
                 letterSpacing: '0.25em',
@@ -162,7 +162,7 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
                 backgroundColor: 'var(--onay-soft)',
                 border: 'none',
                 color: 'var(--bg-base)',
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 300,
                 fontSize: '0.7rem',
                 letterSpacing: '0.25em',

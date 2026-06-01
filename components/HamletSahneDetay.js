@@ -96,7 +96,7 @@ export default function HamletSahneDetay({
       <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.9rem', flexWrap: 'wrap' }}>
         <span
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 200,
             fontSize: '0.6rem',
             letterSpacing: '0.3em',
@@ -110,7 +110,7 @@ export default function HamletSahneDetay({
         </span>
         <h3
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontWeight: 300,
             fontSize: '1.55rem',
@@ -125,7 +125,7 @@ export default function HamletSahneDetay({
 
       <span
         style={{
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 200,
           fontSize: '0.6rem',
           letterSpacing: '0.3em',
@@ -175,7 +175,7 @@ export default function HamletSahneDetay({
         >
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.55rem',
               letterSpacing: '0.3em',
@@ -190,7 +190,7 @@ export default function HamletSahneDetay({
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
               <span
                 style={{
-                  fontFamily: 'Jost, sans-serif',
+                  fontFamily: 'var(--font-body), sans-serif',
                   fontWeight: 300,
                   fontSize: '0.7rem',
                   color: 'var(--ink-muted)',
@@ -205,7 +205,7 @@ export default function HamletSahneDetay({
                     key={tr.no}
                     href={`${kokYol}/yazarin-cercevesi/${tr.no}`}
                     style={{
-                      fontFamily: 'Jost, sans-serif',
+                      fontFamily: 'var(--font-body), sans-serif',
                       fontWeight: 200,
                       fontSize: '0.6rem',
                       letterSpacing: '0.2em',
@@ -236,7 +236,7 @@ export default function HamletSahneDetay({
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
               <span
                 style={{
-                  fontFamily: 'Jost, sans-serif',
+                  fontFamily: 'var(--font-body), sans-serif',
                   fontWeight: 300,
                   fontSize: '0.7rem',
                   color: 'var(--ink-muted)',
@@ -251,7 +251,7 @@ export default function HamletSahneDetay({
                     key={b.no}
                     href={`${kokYol}/senin-cerceven/${b.no}`}
                     style={{
-                      fontFamily: 'Jost, sans-serif',
+                      fontFamily: 'var(--font-body), sans-serif',
                       fontWeight: 200,
                       fontSize: '0.6rem',
                       letterSpacing: '0.2em',
@@ -293,7 +293,7 @@ export default function HamletSahneDetay({
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.55rem',
               letterSpacing: '0.3em',
@@ -307,7 +307,7 @@ export default function HamletSahneDetay({
         </div>
         <p
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontSize: '0.95rem',
             color: 'var(--ink-muted)',
@@ -328,7 +328,7 @@ export default function HamletSahneDetay({
             backgroundColor: 'var(--bg-base)',
             border: '1px solid var(--rule)',
             color: 'var(--ink)',
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontSize: '1rem',
             lineHeight: 1.8,
             resize: 'vertical',
@@ -365,7 +365,7 @@ export default function HamletSahneDetay({
         />
         <span
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 300,
             fontSize: '0.8rem',
             color: anladi ? TON : 'var(--ink-soft)',
@@ -425,7 +425,7 @@ function Bolum({ etiket, children }) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
       <span
         style={{
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 200,
           fontSize: '0.55rem',
           letterSpacing: '0.3em',
@@ -441,7 +441,7 @@ function Bolum({ etiket, children }) {
 }
 
 const duzMetin = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '1rem',
   color: 'var(--ink-soft)',
@@ -455,7 +455,7 @@ function navButonStili(disabled) {
     border: '1px solid var(--rule)',
     cursor: disabled ? 'not-allowed' : 'pointer',
     padding: '0.6rem 1.2rem',
-    fontFamily: 'Jost, sans-serif',
+    fontFamily: 'var(--font-body), sans-serif',
     fontWeight: 200,
     fontSize: '0.6rem',
     letterSpacing: '0.25em',
@@ -476,7 +476,7 @@ function KayitRozet({ durum }) {
   return (
     <span
       style={{
-        fontFamily: 'Jost, sans-serif',
+        fontFamily: 'var(--font-body), sans-serif',
         fontWeight: 200,
         fontSize: '0.65rem',
         color: renk,

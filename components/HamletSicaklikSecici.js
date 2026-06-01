@@ -28,7 +28,7 @@ export default function HamletSicaklikSecici({
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.9rem', flexWrap: 'wrap' }}>
         <span
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 200,
             fontSize: '0.55rem',
             letterSpacing: '0.3em',
@@ -50,7 +50,7 @@ export default function HamletSicaklikSecici({
         />
         <span
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontSize: '0.95rem',
             color: 'var(--ink-muted)',
@@ -65,7 +65,7 @@ export default function HamletSicaklikSecici({
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.9rem', flexWrap: 'wrap' }}>
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.55rem',
               letterSpacing: '0.3em',
@@ -87,7 +87,7 @@ export default function HamletSicaklikSecici({
           />
           <span
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '0.95rem',
               color: oyuncuVar ? 'var(--ink)' : 'var(--ink-muted)',
@@ -103,7 +103,7 @@ export default function HamletSicaklikSecici({
                 border: '1px solid var(--rule)',
                 cursor: 'pointer',
                 padding: '0.2rem 0.6rem',
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.55rem',
                 letterSpacing: '0.2em',
@@ -137,7 +137,7 @@ export default function HamletSicaklikSecici({
           style={{
             display: 'flex',
             justifyContent: 'space-between',
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 200,
             fontSize: '0.55rem',
             letterSpacing: '0.15em',

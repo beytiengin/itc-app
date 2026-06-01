@@ -142,7 +142,7 @@ export default function SeninCerceveSentez() {
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.9rem', flexWrap: 'wrap' }}>
                   <span
                     style={{
-                      fontFamily: 'Cormorant Garamond, serif',
+                      fontFamily: 'var(--font-display), serif',
                       fontStyle: 'italic',
                       fontWeight: 300,
                       fontSize: '1.5rem',
@@ -154,7 +154,7 @@ export default function SeninCerceveSentez() {
                   </span>
                   <span
                     style={{
-                      fontFamily: 'Cormorant Garamond, serif',
+                      fontFamily: 'var(--font-display), serif',
                       fontStyle: 'italic',
                       fontSize: '1.15rem',
                       color: 'var(--ink)',
@@ -166,7 +166,7 @@ export default function SeninCerceveSentez() {
                     href={`${KOK}/senin-cerceven/${b.no}`}
                     style={{
                       marginLeft: 'auto',
-                      fontFamily: 'Jost, sans-serif',
+                      fontFamily: 'var(--font-body), sans-serif',
                       fontWeight: 200,
                       fontSize: '0.55rem',
                       letterSpacing: '0.25em',
@@ -186,7 +186,7 @@ export default function SeninCerceveSentez() {
                 {b.sonraSahneNo && (
                   <p
                     style={{
-                      fontFamily: 'Cormorant Garamond, serif',
+                      fontFamily: 'var(--font-display), serif',
                       fontStyle: 'italic',
                       fontSize: '0.85rem',
                       color: 'var(--ink-muted)',
@@ -203,7 +203,7 @@ export default function SeninCerceveSentez() {
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                     <p
                       style={{
-                        fontFamily: 'Cormorant Garamond, serif',
+                        fontFamily: 'var(--font-display), serif',
                         fontStyle: 'italic',
                         fontSize: '1rem',
                         color: 'var(--ink-soft)',
@@ -217,7 +217,7 @@ export default function SeninCerceveSentez() {
                     </p>
                     <span
                       style={{
-                        fontFamily: 'Jost, sans-serif',
+                        fontFamily: 'var(--font-body), sans-serif',
                         fontWeight: 200,
                         fontSize: '0.6rem',
                         letterSpacing: '0.25em',
@@ -232,7 +232,7 @@ export default function SeninCerceveSentez() {
                 ) : (
                   <p
                     style={{
-                      fontFamily: 'Jost, sans-serif',
+                      fontFamily: 'var(--font-body), sans-serif',
                       fontWeight: 200,
                       fontSize: '0.85rem',
                       color: 'var(--ink-muted)',
@@ -266,7 +266,7 @@ export default function SeninCerceveSentez() {
           <span style={{ ...etiket, color: ALTIN }}>{ss.tasimaBaslik}</span>
           <p
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '1rem',
               color: 'var(--ink-soft)',
@@ -278,7 +278,7 @@ export default function SeninCerceveSentez() {
           </p>
           <p
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '0.95rem',
               color: 'var(--ink-soft)',
@@ -290,7 +290,7 @@ export default function SeninCerceveSentez() {
           </p>
           <p
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '1rem',
               color: ALTIN,
@@ -333,7 +333,7 @@ export default function SeninCerceveSentez() {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '0.4rem',
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontSize: '1rem',
                 color: 'var(--ink-soft)',
@@ -348,7 +348,7 @@ export default function SeninCerceveSentez() {
             </div>
             <p
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontSize: '1.05rem',
                 color: 'var(--ink-soft)',
@@ -360,7 +360,7 @@ export default function SeninCerceveSentez() {
             </p>
             <p
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontSize: '1.5rem',
                 letterSpacing: '0.6em',
                 color: 'var(--ink-muted)',
@@ -371,7 +371,7 @@ export default function SeninCerceveSentez() {
             </p>
             <p
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontSize: '0.98rem',
                 color: 'var(--ink-soft)',
@@ -383,7 +383,7 @@ export default function SeninCerceveSentez() {
             </p>
             <p
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.85rem',
                 color: 'var(--ink-muted)',
@@ -395,7 +395,7 @@ export default function SeninCerceveSentez() {
             </p>
             <p
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontSize: '0.95rem',
                 color: 'var(--ink-soft)',
@@ -421,7 +421,7 @@ export default function SeninCerceveSentez() {
 }
 
 const geriLink = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontWeight: 200,
   fontSize: '0.6rem',
   letterSpacing: '0.3em',
@@ -433,7 +433,7 @@ const geriLink = {
 };
 
 const etiket = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontWeight: 200,
   fontSize: '0.65rem',
   letterSpacing: '0.35em',
@@ -441,7 +441,7 @@ const etiket = {
 };
 
 const baslik = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontWeight: 300,
   fontSize: 'clamp(2.2rem, 6vw, 3.4rem)',
@@ -451,7 +451,7 @@ const baslik = {
 };
 
 const paragraf = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '1.05rem',
   color: 'var(--ink-soft)',

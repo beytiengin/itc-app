@@ -124,7 +124,7 @@ function Dugum({ dugum }) {
         display: 'flex',
         alignItems: 'baseline',
         gap: '0.45rem',
-        fontFamily: 'Jost, sans-serif',
+        fontFamily: 'var(--font-body), sans-serif',
         fontWeight: 200,
         fontSize: '0.6rem',
         letterSpacing: '0.25em',

@@ -179,7 +179,7 @@ export default function ElYazmasiSayfasi() {
   if (yukleniyor) {
     return (
       <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.7rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{ortak.yukleniyor}</span>
+        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.7rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{ortak.yukleniyor}</span>
       </main>
     );
   }
@@ -193,14 +193,14 @@ export default function ElYazmasiSayfasi() {
         {/* 1. Başlık */}
         <header style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
           <a href="/antrenman/karakter/willy"
-            style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase', textDecoration: 'none', alignSelf: 'flex-start', transition: 'color 0.25s ease' }}
+            style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase', textDecoration: 'none', alignSelf: 'flex-start', transition: 'color 0.25s ease' }}
             onMouseEnter={(e) => { e.currentTarget.style.color = TON; }}
             onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}>
             {ortak.geriWilly}
           </a>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.35em', color: TON, textTransform: 'uppercase' }}>{s.hub.ustEtiket}</span>
-          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(2.4rem, 6vw, 3.2rem)', color: 'var(--ink)', margin: 0, lineHeight: 1.1 }}>{data.ad || 'Willy Loman'}</h1>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.75rem', letterSpacing: '0.2em', color: 'var(--ink-soft)', textTransform: 'uppercase' }}>{t.altyazi}</span>
+          <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.35em', color: TON, textTransform: 'uppercase' }}>{s.hub.ustEtiket}</span>
+          <h1 style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(2.4rem, 6vw, 3.2rem)', color: 'var(--ink)', margin: 0, lineHeight: 1.1 }}>{data.ad || 'Willy Loman'}</h1>
+          <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.75rem', letterSpacing: '0.2em', color: 'var(--ink-soft)', textTransform: 'uppercase' }}>{t.altyazi}</span>
         </header>
 
         {/* 2. Doğrular künyesi (katlanır) */}
@@ -212,7 +212,7 @@ export default function ElYazmasiSayfasi() {
         >
           <ul style={{ borderLeft: `2px solid ${TON}`, paddingLeft: '1.3rem', margin: '0.8rem 0 0', listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
             {(data.dogrular || []).map((d, i) => (
-              <li key={i} style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.02rem', lineHeight: 1.6, color: 'var(--ink)' }}>
+              <li key={i} style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.02rem', lineHeight: 1.6, color: 'var(--ink)' }}>
                 {typeof d === 'string' ? d : d.madde}
               </li>
             ))}
@@ -259,7 +259,7 @@ export default function ElYazmasiSayfasi() {
         {/* 6. Senaryo akışı */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
           <Etiket>{t.senaryoBaslik}</Etiket>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-soft)', marginBottom: '0.4rem' }}>{t.senaryoAltyazi}</span>
+          <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-soft)', marginBottom: '0.4rem' }}>{t.senaryoAltyazi}</span>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
             {akis.map((d) => (
@@ -297,7 +297,7 @@ export default function ElYazmasiSayfasi() {
 function Etiket({ children }) {
   return (
     <span style={{
-      fontFamily: 'Jost, sans-serif',
+      fontFamily: 'var(--font-body), sans-serif',
       fontWeight: 600,
       fontSize: '0.6rem',
       letterSpacing: '0.22em',
@@ -336,7 +336,7 @@ function BolumKatlanir({ baslik, altyazi, acik, setAcik, children }) {
       >
         <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '0.25rem' }}>
           <span style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 600,
             fontSize: '0.6rem',
             letterSpacing: '0.22em',
@@ -344,11 +344,11 @@ function BolumKatlanir({ baslik, altyazi, acik, setAcik, children }) {
             textTransform: 'uppercase',
           }}>{baslik}</span>
           {altyazi && (
-            <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.72rem', color: 'var(--ink-muted)', letterSpacing: '0.05em' }}>{altyazi}</span>
+            <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.72rem', color: 'var(--ink-muted)', letterSpacing: '0.05em' }}>{altyazi}</span>
           )}
         </span>
         <span aria-hidden style={{
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 200,
           fontSize: '1rem',
           color: TON,
@@ -375,14 +375,14 @@ function IliskiKart({ iliski }) {
       gap: '0.25rem',
     }}>
       <span style={{
-        fontFamily: 'Cormorant Garamond, serif',
+        fontFamily: 'var(--font-display), serif',
         fontStyle: 'italic',
         fontSize: '1.15rem',
         color: 'var(--ink)',
         lineHeight: 1.2,
       }}>{iliski.ad}</span>
       <span style={{
-        fontFamily: 'Jost, sans-serif',
+        fontFamily: 'var(--font-body), sans-serif',
         fontWeight: 200,
         fontSize: '0.62rem',
         letterSpacing: '0.18em',
@@ -405,7 +405,7 @@ function GirisKapisiCubugu({ t, acikKapiKey }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
       <Etiket>{t.girisKapisiEtiket}</Etiket>
-      <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-soft)', margin: '0 0 0.3rem', lineHeight: 1.5 }}>{t.girisKapisiAciklama}</p>
+      <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-soft)', margin: '0 0 0.3rem', lineHeight: 1.5 }}>{t.girisKapisiAciklama}</p>
       <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
         {kapilar.map((k) => {
           const seninKapi = acikKapiKey === k.key;
@@ -417,7 +417,7 @@ function GirisKapisiCubugu({ t, acikKapiKey }) {
               border: `1px solid ${seninKapi ? TON : 'var(--rule)'}`,
               background: seninKapi ? 'var(--accent-bg)' : 'transparent',
               padding: '0.45rem 0.95rem',
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 300,
               fontSize: '0.72rem',
               letterSpacing: '0.15em',
@@ -428,7 +428,7 @@ function GirisKapisiCubugu({ t, acikKapiKey }) {
             }}>
               {k.label}
               {seninKapi && (
-                <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.72rem', letterSpacing: 0, color: TON, textTransform: 'none' }}>· {t.kapiSeninRozet}</span>
+                <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.72rem', letterSpacing: 0, color: TON, textTransform: 'none' }}>· {t.kapiSeninRozet}</span>
               )}
             </span>
           );
@@ -463,7 +463,7 @@ function OlayDugumu({ olay, acik, onAc, t }) {
           }}
         >
           <span style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 300,
             fontSize: '0.62rem',
             letterSpacing: '0.22em',
@@ -474,7 +474,7 @@ function OlayDugumu({ olay, acik, onAc, t }) {
           }}>{olay.no}</span>
           <span style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
             <span style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '1.05rem',
               lineHeight: 1.45,
@@ -486,15 +486,15 @@ function OlayDugumu({ olay, acik, onAc, t }) {
             }}>
               {olay.baslik}
               {kayitAni && (
-                <span aria-label={t.kayitEtiketi} title={t.kayitEtiketi} style={{ fontFamily: 'Jost, sans-serif', fontStyle: 'normal', fontWeight: 300, fontSize: '0.65rem', color: TON, letterSpacing: '0.05em' }}>★</span>
+                <span aria-label={t.kayitEtiketi} title={t.kayitEtiketi} style={{ fontFamily: 'var(--font-body), sans-serif', fontStyle: 'normal', fontWeight: 300, fontSize: '0.65rem', color: TON, letterSpacing: '0.05em' }}>★</span>
               )}
             </span>
             {olay.sahneRef && (
-              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.7rem', color: 'var(--ink-muted)', letterSpacing: '0.02em' }}>{olay.sahneRef}</span>
+              <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.7rem', color: 'var(--ink-muted)', letterSpacing: '0.02em' }}>{olay.sahneRef}</span>
             )}
           </span>
           <span aria-hidden style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 200,
             fontSize: '0.85rem',
             color: TON,
@@ -506,14 +506,14 @@ function OlayDugumu({ olay, acik, onAc, t }) {
           <div style={{ borderTop: '1px solid var(--rule)', padding: '1rem 1.1rem 1.2rem', display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
             {olay.yuk && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.58rem', letterSpacing: '0.28em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.panelYazarYuk}</span>
-                <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink)', margin: 0, lineHeight: 1.6 }}>{olay.yuk}</p>
+                <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.58rem', letterSpacing: '0.28em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.panelYazarYuk}</span>
+                <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink)', margin: 0, lineHeight: 1.6 }}>{olay.yuk}</p>
               </div>
             )}
             {olay.yansimaSorusu && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', borderLeft: `2px solid ${TON}`, paddingLeft: '0.9rem' }}>
-                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.58rem', letterSpacing: '0.28em', color: TON, textTransform: 'uppercase' }}>{t.panelYazarYansimaSorusu}</span>
-                <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.6 }}>{olay.yansimaSorusu}</p>
+                <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.58rem', letterSpacing: '0.28em', color: TON, textTransform: 'uppercase' }}>{t.panelYazarYansimaSorusu}</span>
+                <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.6 }}>{olay.yansimaSorusu}</p>
               </div>
             )}
           </div>
@@ -580,7 +580,7 @@ function DugumGrubu({ domId, dugum, acik, onAc, onKapat, t, ortak, boslukYansima
           display: 'flex',
           alignItems: 'center',
           gap: '0.5rem',
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 500,
           fontSize: '0.6rem',
           letterSpacing: '0.22em',
@@ -594,7 +594,7 @@ function DugumGrubu({ domId, dugum, acik, onAc, onKapat, t, ortak, boslukYansima
         </span>
         <span style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
           <span style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontSize: '1.18rem',
             color: 'var(--ink)',
@@ -606,15 +606,15 @@ function DugumGrubu({ domId, dugum, acik, onAc, onKapat, t, ortak, boslukYansima
           }}>
             {veri.baslik}
             {kayitAni && (
-              <span aria-label={t.kayitEtiketi} title={t.kayitEtiketi} style={{ fontFamily: 'Jost, sans-serif', fontStyle: 'normal', fontWeight: 300, fontSize: '0.7rem', color: TON, letterSpacing: '0.05em' }}>★</span>
+              <span aria-label={t.kayitEtiketi} title={t.kayitEtiketi} style={{ fontFamily: 'var(--font-body), sans-serif', fontStyle: 'normal', fontWeight: 300, fontSize: '0.7rem', color: TON, letterSpacing: '0.05em' }}>★</span>
             )}
           </span>
           {veri.konum && (
-            <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.7rem', letterSpacing: '0.05em', color: 'var(--ink-muted)' }}>{veri.konum}</span>
+            <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.7rem', letterSpacing: '0.05em', color: 'var(--ink-muted)' }}>{veri.konum}</span>
           )}
         </span>
         <span aria-hidden style={{
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 200,
           fontSize: '0.7rem',
           color: yazildi ? 'var(--onay-soft)' : 'var(--ink-muted)',
@@ -622,7 +622,7 @@ function DugumGrubu({ domId, dugum, acik, onAc, onKapat, t, ortak, boslukYansima
           textAlign: 'right',
         }}>{yazildi ? t.yazildi : t.yazilmadi}</span>
         <span aria-hidden style={{
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 200,
           fontSize: '0.95rem',
           color: TON,
@@ -735,8 +735,8 @@ function DerinlestirArki({ t, kayitAni, hassas, provisional, acikKapiKey, onTopr
         flexDirection: 'column',
         gap: '0.45rem',
       }}>
-        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.provisionalEtiket}</span>
-        <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.55 }}>{t.provisionalMetin}</p>
+        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.provisionalEtiket}</span>
+        <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.55 }}>{t.provisionalMetin}</p>
       </div>
     );
   }
@@ -750,7 +750,7 @@ function DerinlestirArki({ t, kayitAni, hassas, provisional, acikKapiKey, onTopr
           background: 'none',
           border: `1px solid ${acik ? TON : 'var(--rule)'}`,
           padding: '0.55rem 1rem',
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 300,
           fontSize: '0.7rem',
           letterSpacing: '0.18em',
@@ -776,8 +776,8 @@ function DerinlestirArki({ t, kayitAni, hassas, provisional, acikKapiKey, onTopr
           {/* Güvenli Çıkış — yalnız hassas düğümlerde; metin icat etmez, Topraklanma'ya devreder */}
           {hassas && (
             <div style={{ borderLeft: `2px solid var(--onay-soft)`, paddingLeft: '0.9rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.58rem', letterSpacing: '0.3em', color: 'var(--onay-soft)', textTransform: 'uppercase' }}>{t.guvenliCikisBaslik}</span>
-              <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.55 }}>{t.guvenliCikisMetin}</p>
+              <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.58rem', letterSpacing: '0.3em', color: 'var(--onay-soft)', textTransform: 'uppercase' }}>{t.guvenliCikisBaslik}</span>
+              <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.55 }}>{t.guvenliCikisMetin}</p>
               <button
                 onClick={onTopraklanmaAc}
                 style={{
@@ -787,7 +787,7 @@ function DerinlestirArki({ t, kayitAni, hassas, provisional, acikKapiKey, onTopr
                   background: 'var(--onay-soft)',
                   color: 'var(--bg-base)',
                   border: 'none',
-                  fontFamily: 'Jost, sans-serif',
+                  fontFamily: 'var(--font-body), sans-serif',
                   fontWeight: 300,
                   fontSize: '0.7rem',
                   letterSpacing: '0.18em',
@@ -820,12 +820,12 @@ function DerinlestirVurus({ baslik, metin, aktif, rozetMetin, aksanli }) {
       transition: 'background 0.25s ease',
     }}>
       <span style={{ display: 'flex', alignItems: 'baseline', gap: '0.55rem', flexWrap: 'wrap' }}>
-        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.28em', color: aktif || aksanli ? TON : 'var(--ink-muted)', textTransform: 'uppercase' }}>{baslik}</span>
+        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.28em', color: aktif || aksanli ? TON : 'var(--ink-muted)', textTransform: 'uppercase' }}>{baslik}</span>
         {aktif && rozetMetin && (
-          <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.78rem', color: TON }}>· {rozetMetin}</span>
+          <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.78rem', color: TON }}>· {rozetMetin}</span>
         )}
       </span>
-      <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.97rem', color: 'var(--ink)', margin: 0, lineHeight: 1.55 }}>{metin}</p>
+      <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.97rem', color: 'var(--ink)', margin: 0, lineHeight: 1.55 }}>{metin}</p>
     </div>
   );
 }
@@ -841,7 +841,7 @@ function YazarinCercevesiSahne({ veri, t }) {
   ].filter((a) => a.icerik);
   if (alanlar.length === 0) {
     return (
-      <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-muted)', lineHeight: 1.6, margin: 0 }}>
+      <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-muted)', lineHeight: 1.6, margin: 0 }}>
         {t.panelYazarHenuz}
       </p>
     );
@@ -850,8 +850,8 @@ function YazarinCercevesiSahne({ veri, t }) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
       {alanlar.map((a) => (
         <div key={a.etiket} style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.28em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{a.etiket}</span>
-          <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.02rem', color: 'var(--ink)', margin: 0, lineHeight: 1.65 }}>{a.icerik}</p>
+          <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.28em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{a.etiket}</span>
+          <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.02rem', color: 'var(--ink)', margin: 0, lineHeight: 1.65 }}>{a.icerik}</p>
         </div>
       ))}
     </div>
@@ -869,7 +869,7 @@ function SekmeBtn({ aktif, onClick, children }) {
         border: `1px solid ${aktif ? TON : 'var(--rule)'}`,
         color: aktif ? 'var(--bg-base)' : 'var(--ink-soft)',
         padding: '0.5rem 1.1rem',
-        fontFamily: 'Jost, sans-serif',
+        fontFamily: 'var(--font-body), sans-serif',
         fontWeight: 300,
         fontSize: '0.65rem',
         letterSpacing: '0.22em',
@@ -886,13 +886,13 @@ function SeninCerceven3Vurus({ t, ortak, soru, yorum, setYorum, neAciyor, setNeA
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
       {/* Soru */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>{t.soruEtiket}</span>
-        <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.1rem', color: 'var(--ink)', margin: 0, lineHeight: 1.5 }}>{soru}</p>
+        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>{t.soruEtiket}</span>
+        <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.1rem', color: 'var(--ink)', margin: 0, lineHeight: 1.5 }}>{soru}</p>
       </div>
 
       {/* Yorum */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>{t.yorumEtiket}</span>
+        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>{t.yorumEtiket}</span>
         <textarea
           value={yorum}
           onChange={(e) => setYorum(e.target.value)}
@@ -904,7 +904,7 @@ function SeninCerceven3Vurus({ t, ortak, soru, yorum, setYorum, neAciyor, setNeA
             background: 'var(--bg-base)',
             border: '1px solid var(--rule)',
             color: 'var(--ink)',
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontSize: '1rem',
             lineHeight: 1.6,
@@ -918,7 +918,7 @@ function SeninCerceven3Vurus({ t, ortak, soru, yorum, setYorum, neAciyor, setNeA
 
       {/* Ne açıyor */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>{t.neAciyorEtiket}</span>
+        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>{t.neAciyorEtiket}</span>
         <input
           type="text"
           value={neAciyor}
@@ -930,7 +930,7 @@ function SeninCerceven3Vurus({ t, ortak, soru, yorum, setYorum, neAciyor, setNeA
             background: 'var(--bg-base)',
             border: '1px solid var(--rule)',
             color: 'var(--ink)',
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 300,
             fontSize: '0.92rem',
             outline: 'none',
@@ -950,7 +950,7 @@ function DurumRozeti({ durum, ortak }) {
   const renk = durum === 'hata' ? 'var(--uyari)' : durum === 'kaydedildi' ? 'var(--onay-soft)' : 'var(--ink-muted)';
   const metin = durum === 'kaydediliyor' ? ortak.kaydediliyor : durum === 'kaydedildi' ? ortak.kaydedildi : ortak.hata;
   return (
-    <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.7rem', color: renk, letterSpacing: '0.08em', alignSelf: 'flex-end' }}>{metin}</span>
+    <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.7rem', color: renk, letterSpacing: '0.08em', alignSelf: 'flex-end' }}>{metin}</span>
   );
 }
 
@@ -978,14 +978,14 @@ function BoslukPanel({ veri, t, ortak, boslukYansima, setBoslukYansima, onKapat 
       {(veri.onceMetin || veri.sonraMetin) && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', borderLeft: '2px solid var(--rule)', paddingLeft: '1rem' }}>
           {veri.onceMetin && (
-            <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.55 }}>
-              <em style={{ color: 'var(--ink-muted)', fontStyle: 'normal', fontFamily: 'Jost, sans-serif', fontSize: '0.6rem', letterSpacing: '0.25em', textTransform: 'uppercase', marginRight: '0.5rem' }}>{veri.onceBaslik || '—'}</em>
+            <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.55 }}>
+              <em style={{ color: 'var(--ink-muted)', fontStyle: 'normal', fontFamily: 'var(--font-body), sans-serif', fontSize: '0.6rem', letterSpacing: '0.25em', textTransform: 'uppercase', marginRight: '0.5rem' }}>{veri.onceBaslik || '—'}</em>
               {veri.onceMetin}
             </p>
           )}
           {veri.sonraMetin && (
-            <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.55 }}>
-              <em style={{ color: 'var(--ink-muted)', fontStyle: 'normal', fontFamily: 'Jost, sans-serif', fontSize: '0.6rem', letterSpacing: '0.25em', textTransform: 'uppercase', marginRight: '0.5rem' }}>{veri.sonraBaslik || '—'}</em>
+            <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.55 }}>
+              <em style={{ color: 'var(--ink-muted)', fontStyle: 'normal', fontFamily: 'var(--font-body), sans-serif', fontSize: '0.6rem', letterSpacing: '0.25em', textTransform: 'uppercase', marginRight: '0.5rem' }}>{veri.sonraBaslik || '—'}</em>
               {veri.sonraMetin}
             </p>
           )}
@@ -994,13 +994,13 @@ function BoslukPanel({ veri, t, ortak, boslukYansima, setBoslukYansima, onKapat 
 
       {/* Soru */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>{t.soruEtiket}</span>
-        <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.1rem', color: 'var(--ink)', margin: 0, lineHeight: 1.5 }}>{soru}</p>
+        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>{t.soruEtiket}</span>
+        <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.1rem', color: 'var(--ink)', margin: 0, lineHeight: 1.5 }}>{soru}</p>
       </div>
 
       {/* Yazma alanı */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>{t.yorumEtiket}</span>
+        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>{t.yorumEtiket}</span>
         <textarea
           value={metin}
           onChange={(e) => { setMetin(e.target.value); kaydet(e.target.value); }}
@@ -1012,7 +1012,7 @@ function BoslukPanel({ veri, t, ortak, boslukYansima, setBoslukYansima, onKapat 
             background: 'var(--bg-base)',
             border: metin ? '1px solid var(--rule)' : '1px dashed var(--rule)',
             color: 'var(--ink)',
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontSize: '1rem',
             lineHeight: 1.6,

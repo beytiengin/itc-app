@@ -28,7 +28,7 @@ export default function YazarinCercevesi({ sahneler, karakterId, onSahneSec }) {
         <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
           <span
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: '1.5rem',
@@ -40,7 +40,7 @@ export default function YazarinCercevesi({ sahneler, karakterId, onSahneSec }) {
           </span>
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.25em',
@@ -53,7 +53,7 @@ export default function YazarinCercevesi({ sahneler, karakterId, onSahneSec }) {
         </div>
         <p
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 200,
             fontSize: '0.85rem',
             color: 'var(--ink-soft)',
@@ -90,7 +90,7 @@ export default function YazarinCercevesi({ sahneler, karakterId, onSahneSec }) {
             >
               <span
                 style={{
-                  fontFamily: 'Cormorant Garamond, serif',
+                  fontFamily: 'var(--font-display), serif',
                   fontStyle: 'italic',
                   fontSize: '1.2rem',
                   color: TON,
@@ -106,7 +106,7 @@ export default function YazarinCercevesi({ sahneler, karakterId, onSahneSec }) {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem', flexWrap: 'wrap' }}>
                   <span
                     style={{
-                      fontFamily: 'Jost, sans-serif',
+                      fontFamily: 'var(--font-body), sans-serif',
                       fontWeight: 200,
                       fontSize: '0.6rem',
                       letterSpacing: '0.2em',
@@ -118,11 +118,11 @@ export default function YazarinCercevesi({ sahneler, karakterId, onSahneSec }) {
                   >
                     {sahne.id}
                   </span>
-                  <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.92rem', color: 'var(--ink)' }}>
+                  <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.92rem', color: 'var(--ink)' }}>
                     {sahne.label}
                   </span>
                 </div>
-                <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-soft)', lineHeight: 1.6, margin: 0 }}>
+                <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-soft)', lineHeight: 1.6, margin: 0 }}>
                   {kisaDesc}
                 </p>
               </div>
@@ -130,7 +130,7 @@ export default function YazarinCercevesi({ sahneler, karakterId, onSahneSec }) {
               <button
                 onClick={() => timelineGor(sahne.id)}
                 style={{
-                  fontFamily: 'Cormorant Garamond, serif',
+                  fontFamily: 'var(--font-display), serif',
                   fontStyle: 'italic',
                   fontSize: '0.8rem',
                   color: TON,

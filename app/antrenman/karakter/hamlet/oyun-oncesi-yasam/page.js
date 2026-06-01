@@ -86,7 +86,7 @@ export default function OyunOncesiYasamSayfasi() {
           <a
             href={KOK}
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.3em',
@@ -104,7 +104,7 @@ export default function OyunOncesiYasamSayfasi() {
 
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.65rem',
               letterSpacing: '0.35em',
@@ -117,7 +117,7 @@ export default function OyunOncesiYasamSayfasi() {
 
           <h1
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: 'clamp(2.2rem, 6vw, 3.4rem)',
@@ -130,7 +130,7 @@ export default function OyunOncesiYasamSayfasi() {
           </h1>
           <p
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '1.1rem',
               color: 'var(--ink-muted)',
@@ -161,7 +161,7 @@ export default function OyunOncesiYasamSayfasi() {
           >
             <p
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontSize: '1.15rem',
                 color: TON,
@@ -186,7 +186,7 @@ export default function OyunOncesiYasamSayfasi() {
           >
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.6rem',
                 letterSpacing: '0.25em',
@@ -198,7 +198,7 @@ export default function OyunOncesiYasamSayfasi() {
             </span>
             <span
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontSize: '0.9rem',
                 color: 'var(--ink-soft)',
@@ -211,7 +211,7 @@ export default function OyunOncesiYasamSayfasi() {
             <a
               href={`${KOK}/timeline`}
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.55rem',
                 letterSpacing: '0.25em',
@@ -241,7 +241,7 @@ export default function OyunOncesiYasamSayfasi() {
           >
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.55rem',
                 letterSpacing: '0.35em',
@@ -253,7 +253,7 @@ export default function OyunOncesiYasamSayfasi() {
             </span>
             <p
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 300,
                 fontSize: '0.88rem',
                 color: 'var(--ink-soft)',
@@ -265,7 +265,7 @@ export default function OyunOncesiYasamSayfasi() {
             </p>
             <p
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontSize: '0.95rem',
                 color: 'var(--ink-soft)',
@@ -342,7 +342,7 @@ export default function OyunOncesiYasamSayfasi() {
         >
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.35em',
@@ -354,7 +354,7 @@ export default function OyunOncesiYasamSayfasi() {
           </span>
           <p
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '1.15rem',
               color: 'var(--ink-soft)',
@@ -397,7 +397,7 @@ function BolumBasligi({ etiket, baslik, altyazi, ilerleme }) {
       >
         <span
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 200,
             fontSize: '0.55rem',
             letterSpacing: '0.35em',
@@ -409,7 +409,7 @@ function BolumBasligi({ etiket, baslik, altyazi, ilerleme }) {
         </span>
         <span
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 200,
             fontSize: '0.6rem',
             letterSpacing: '0.25em',
@@ -422,7 +422,7 @@ function BolumBasligi({ etiket, baslik, altyazi, ilerleme }) {
       </div>
       <h2
         style={{
-          fontFamily: 'Cormorant Garamond, serif',
+          fontFamily: 'var(--font-display), serif',
           fontStyle: 'italic',
           fontWeight: 300,
           fontSize: '1.8rem',
@@ -435,7 +435,7 @@ function BolumBasligi({ etiket, baslik, altyazi, ilerleme }) {
       </h2>
       <p
         style={{
-          fontFamily: 'Cormorant Garamond, serif',
+          fontFamily: 'var(--font-display), serif',
           fontStyle: 'italic',
           fontSize: '0.95rem',
           color: 'var(--ink-muted)',
@@ -459,7 +459,7 @@ function KapanisKutusu({ children }) {
     >
       <p
         style={{
-          fontFamily: 'Cormorant Garamond, serif',
+          fontFamily: 'var(--font-display), serif',
           fontStyle: 'italic',
           fontSize: '1rem',
           color: 'var(--ink-soft)',
@@ -474,7 +474,7 @@ function KapanisKutusu({ children }) {
 }
 
 const paragrafStili = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '1.05rem',
   color: 'var(--ink-soft)',

@@ -160,7 +160,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
         >
           <span
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '1.2rem',
               color: tamamlandi ? TON : 'var(--ink-muted)',
@@ -174,13 +174,13 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
 
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem', flexWrap: 'wrap' }}>
-              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.92rem', color: 'var(--ink)' }}>
+              <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.92rem', color: 'var(--ink)' }}>
                 {antrenman.no}. {antrenman.baslik}
               </span>
               {tamamlandi && (
                 <span
                   style={{
-                    fontFamily: 'Jost, sans-serif',
+                    fontFamily: 'var(--font-body), sans-serif',
                     fontWeight: 200,
                     fontSize: '0.55rem',
                     letterSpacing: '0.2em',
@@ -196,7 +196,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
               {yarimKaldi && (
                 <span
                   style={{
-                    fontFamily: 'Jost, sans-serif',
+                    fontFamily: 'var(--font-body), sans-serif',
                     fontWeight: 200,
                     fontSize: '0.55rem',
                     letterSpacing: '0.2em',
@@ -214,7 +214,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
             {antrenman.altbaslik && (
               <span
                 style={{
-                  fontFamily: 'Cormorant Garamond, serif',
+                  fontFamily: 'var(--font-display), serif',
                   fontStyle: 'italic',
                   fontSize: '0.88rem',
                   color: 'var(--ink-soft)',
@@ -227,14 +227,14 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', flexWrap: 'wrap' }}>
               {antrenman.sure && (
-                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--ink-muted)' }}>
+                <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--ink-muted)' }}>
                   {antrenman.sure}
                 </span>
               )}
               {antrenman.seviye && (
                 <span
                   style={{
-                    fontFamily: 'Jost, sans-serif',
+                    fontFamily: 'var(--font-body), sans-serif',
                     fontWeight: 200,
                     fontSize: '0.55rem',
                     letterSpacing: '0.2em',
@@ -250,7 +250,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
               {antrenman.travmaSeviyesi >= 2 && (
                 <span
                   style={{
-                    fontFamily: 'Jost, sans-serif',
+                    fontFamily: 'var(--font-body), sans-serif',
                     fontWeight: 200,
                     fontSize: '0.55rem',
                     letterSpacing: '0.2em',
@@ -340,7 +340,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                 padding: '0.8rem 1.1rem',
                 border: '1px dashed var(--rule)',
                 color: 'var(--ink-soft)',
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.78rem',
                 lineHeight: 1.6,
@@ -400,10 +400,10 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
             textAlign: 'center',
           }}
         >
-          <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontWeight: 300, fontSize: '1.4rem', color: 'var(--ink)', margin: 0 }}>
+          <h3 style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: '1.4rem', color: 'var(--ink)', margin: 0 }}>
             {acikAntrenman.baslik}
           </h3>
-          <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.9rem', color: 'var(--ink-soft)', lineHeight: 1.7, margin: 0 }}>
+          <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.9rem', color: 'var(--ink-soft)', lineHeight: 1.7, margin: 0 }}>
             Daha önce {sonAdim}. adıma kadar geldin.
           </p>
           <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -414,7 +414,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                 backgroundColor: TON,
                 border: 'none',
                 color: 'var(--bg-base)',
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 300,
                 fontSize: '0.7rem',
                 letterSpacing: '0.25em',
@@ -434,7 +434,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                 backgroundColor: 'transparent',
                 border: `1px solid ${TON}`,
                 color: TON,
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 300,
                 fontSize: '0.7rem',
                 letterSpacing: '0.25em',
@@ -454,7 +454,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                 backgroundColor: 'transparent',
                 border: '1px solid var(--rule)',
                 color: 'var(--ink-muted)',
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.7rem',
                 letterSpacing: '0.2em',
@@ -499,7 +499,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
               background: 'none',
               border: 'none',
               color: 'var(--ink-muted)',
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.7rem',
               letterSpacing: '0.2em',
@@ -515,11 +515,11 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
           </button>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-            <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', margin: 0, lineHeight: 1.3 }}>
+            <h3 style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', margin: 0, lineHeight: 1.3 }}>
               {acikAntrenman.baslik}
             </h3>
             {acikAntrenman.altbaslik && (
-              <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.95rem', color: TON }}>
+              <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.95rem', color: TON }}>
                 {acikAntrenman.altbaslik}
               </span>
             )}
@@ -547,7 +547,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                 );
               })}
             </div>
-            <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--ink-muted)', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+            <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--ink-muted)', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
               Adım {mevcutAdimNo}/{adimlar.length}
             </span>
           </div>
@@ -562,13 +562,13 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
               gap: '1.4rem',
             }}
           >
-            <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>
+            <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>
               Adım {mevcutAdimNo}
             </span>
 
             <p
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontSize: '1.05rem',
                 color: 'var(--ink)',
@@ -592,7 +592,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                 }}
               >
                 <span style={{ color: TON, fontSize: '0.85rem' }}>→</span>
-                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.6 }}>
+                <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.6 }}>
                   {soru}
                 </span>
               </div>
@@ -601,11 +601,11 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
             {(tip === 'yazma' || tip === 'vak') && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>
+                  <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>
                     Yansıman (opsiyonel)
                   </span>
                   <span style={{
-                    fontFamily: 'Jost, sans-serif',
+                    fontFamily: 'var(--font-body), sans-serif',
                     fontWeight: 200,
                     fontSize: '0.65rem',
                     color: kayitDurumu[mevcutAdimNo] === 'hata' ? 'var(--uyari)' : TON,
@@ -626,7 +626,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                     backgroundColor: 'var(--bg-base)',
                     border: '1px solid var(--rule)',
                     color: 'var(--ink)',
-                    fontFamily: 'Cormorant Garamond, serif',
+                    fontFamily: 'var(--font-display), serif',
                     fontStyle: 'italic',
                     fontSize: '1rem',
                     lineHeight: 1.8,
@@ -651,7 +651,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                   backgroundColor: 'transparent',
                   border: '1px solid var(--rule)',
                   color: mevcutAdimNo === 1 ? 'var(--ink-muted)' : 'var(--ink-soft)',
-                  fontFamily: 'Jost, sans-serif',
+                  fontFamily: 'var(--font-body), sans-serif',
                   fontWeight: 200,
                   fontSize: '0.65rem',
                   letterSpacing: '0.2em',
@@ -671,7 +671,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                     backgroundColor: 'var(--onay-soft)',
                     border: 'none',
                     color: 'var(--bg-base)',
-                    fontFamily: 'Jost, sans-serif',
+                    fontFamily: 'var(--font-body), sans-serif',
                     fontWeight: 300,
                     fontSize: '0.7rem',
                     letterSpacing: '0.25em',
@@ -692,7 +692,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
                     backgroundColor: TON,
                     border: 'none',
                     color: 'var(--bg-base)',
-                    fontFamily: 'Jost, sans-serif',
+                    fontFamily: 'var(--font-body), sans-serif',
                     fontWeight: 300,
                     fontSize: '0.7rem',
                     letterSpacing: '0.25em',
@@ -735,7 +735,7 @@ function BasligaSection({ sayim, alt, mevcut, toplam, renk }) {
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
         <span
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontWeight: 300,
             fontSize: '1.5rem',
@@ -748,7 +748,7 @@ function BasligaSection({ sayim, alt, mevcut, toplam, renk }) {
         {sayim && (
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.25em',
@@ -763,7 +763,7 @@ function BasligaSection({ sayim, alt, mevcut, toplam, renk }) {
       {alt && (
         <p
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 200,
             fontSize: '0.85rem',
             color: 'var(--ink-soft)',
@@ -813,7 +813,7 @@ function TravmaUyariModal({ antrenman, onIptal, onDevam }) {
         <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.4em',
@@ -825,7 +825,7 @@ function TravmaUyariModal({ antrenman, onIptal, onDevam }) {
           </span>
           <h3
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: '1.4rem',
@@ -840,7 +840,7 @@ function TravmaUyariModal({ antrenman, onIptal, onDevam }) {
 
         <p
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 300,
             fontSize: '0.9rem',
             color: 'var(--ink-soft)',
@@ -860,7 +860,7 @@ function TravmaUyariModal({ antrenman, onIptal, onDevam }) {
               backgroundColor: 'transparent',
               border: '1px solid var(--rule)',
               color: 'var(--ink-soft)',
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.7rem',
               letterSpacing: '0.2em',
@@ -880,7 +880,7 @@ function TravmaUyariModal({ antrenman, onIptal, onDevam }) {
               backgroundColor: 'var(--accent)',
               border: 'none',
               color: 'var(--bg-base)',
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 300,
               fontSize: '0.7rem',
               letterSpacing: '0.25em',

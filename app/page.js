@@ -12,7 +12,7 @@ import chromeI18n from '../data/chrome-i18n';
 // ─── Paylaşılan Stil Objeleri ───────────────────────────────────────────────
 
 const ustEtiketStili = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontSize: '0.6rem',
   fontWeight: 300,
   letterSpacing: '0.4em',
@@ -22,7 +22,7 @@ const ustEtiketStili = {
 };
 
 const bolumBaslikStili = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: 'clamp(1.6rem, 3vw, 2rem)',
   color: 'var(--ink)',
@@ -38,7 +38,7 @@ const ilkeKartiStili = {
 };
 
 const ilkeNumarasiStili = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '1.5rem',
   color: 'var(--accent)',
@@ -46,7 +46,7 @@ const ilkeNumarasiStili = {
 };
 
 const ilkeBaslikStili = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '1.5rem',
   color: 'var(--ink)',
@@ -55,7 +55,7 @@ const ilkeBaslikStili = {
 };
 
 const ilkeMetinStili = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontSize: '0.95rem',
   fontWeight: 300,
   lineHeight: 1.7,
@@ -71,7 +71,7 @@ const modulKartiStili = {
 };
 
 const modulRomenStili = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '1.5rem',
   color: 'var(--accent)',
@@ -79,7 +79,7 @@ const modulRomenStili = {
 };
 
 const modulBaslikStili = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '1.6rem',
   color: 'var(--ink)',
@@ -88,7 +88,7 @@ const modulBaslikStili = {
 };
 
 const modulAltStili = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontSize: '0.7rem',
   letterSpacing: '0.3em',
   textTransform: 'uppercase',
@@ -96,7 +96,7 @@ const modulAltStili = {
 };
 
 const modulMetinStili = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontSize: '0.95rem',
   fontWeight: 300,
   lineHeight: 1.7,
@@ -105,7 +105,7 @@ const modulMetinStili = {
 };
 
 const modulMetaStili = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontSize: '0.7rem',
   letterSpacing: '0.2em',
   textTransform: 'uppercase',
@@ -113,7 +113,7 @@ const modulMetaStili = {
 };
 
 const kisiEtiketStili = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontSize: '0.6rem',
   fontWeight: 300,
   letterSpacing: '0.3em',
@@ -123,7 +123,7 @@ const kisiEtiketStili = {
 };
 
 const kisiAdStili = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '2rem',
   color: 'var(--ink)',
@@ -132,7 +132,7 @@ const kisiAdStili = {
 };
 
 const kisiMetinStili = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontSize: '0.9rem',
   fontWeight: 300,
   lineHeight: 1.8,
@@ -145,7 +145,7 @@ const ctaButonStili = {
   background: 'transparent',
   border: '1px solid var(--accent)',
   color: 'var(--accent)',
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontSize: '0.85rem',
   fontWeight: 300,
   letterSpacing: '0.25em',
@@ -234,7 +234,7 @@ export default function AnaSayfa() {
         <div style={{ width: '1px', height: '60px', backgroundColor: 'var(--accent)', opacity: 0.4, margin: '0 auto 2rem' }} />
 
         <div style={{
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontSize: '0.65rem',
           fontWeight: 300,
           color: 'var(--ink-muted)',
@@ -246,7 +246,7 @@ export default function AnaSayfa() {
         </div>
 
         <h1 style={{
-          fontFamily: 'Cormorant Garamond, serif',
+          fontFamily: 'var(--font-display), serif',
           fontStyle: 'italic',
           fontSize: 'clamp(2.5rem, 6vw, 4rem)',
           fontWeight: 300,
@@ -261,7 +261,7 @@ export default function AnaSayfa() {
         </h1>
 
         <p style={{
-          fontFamily: 'Cormorant Garamond, serif',
+          fontFamily: 'var(--font-display), serif',
           fontStyle: 'italic',
           fontSize: 'clamp(1rem, 2vw, 1.2rem)',
           fontWeight: 300,
@@ -292,7 +292,7 @@ export default function AnaSayfa() {
         background: 'var(--bg-elevated)',
       }}>
         <p style={{
-          fontFamily: 'Cormorant Garamond, serif',
+          fontFamily: 'var(--font-display), serif',
           fontStyle: 'italic',
           fontSize: 'clamp(1.3rem, 3vw, 1.8rem)',
           fontWeight: 300,
@@ -415,7 +415,7 @@ export default function AnaSayfa() {
             padding: '0.9rem 2rem',
             border: '1px solid var(--rule)',
             color: 'var(--ink)',
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontSize: '0.75rem',
             fontWeight: 300,
             letterSpacing: '0.25em',
@@ -440,7 +440,7 @@ export default function AnaSayfa() {
         <div style={{ maxWidth: '600px', margin: '0 auto' }}>
 
           <h2 style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontSize: 'clamp(1.6rem, 3vw, 2rem)',
             color: 'var(--ink)',
@@ -452,7 +452,7 @@ export default function AnaSayfa() {
           </h2>
 
           <p style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontSize: '1.1rem',
             color: 'var(--ink-soft)',
@@ -475,7 +475,7 @@ export default function AnaSayfa() {
             marginTop: '4rem',
             paddingTop: '2rem',
             borderTop: '1px solid var(--bg-elevated)',
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontSize: '0.7rem',
             fontWeight: 300,
             color: 'var(--ink-muted)',

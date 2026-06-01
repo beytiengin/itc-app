@@ -82,7 +82,7 @@ export default function HamletBolumGecisi({
 }
 
 const altEtiketStili = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontWeight: 200,
   fontSize: '0.55rem',
   letterSpacing: '0.3em',
@@ -93,7 +93,7 @@ const altEtiketStili = {
 };
 
 const oncekiUstStili = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '1rem',
   color: 'var(--ink-soft)',
@@ -101,7 +101,7 @@ const oncekiUstStili = {
 };
 
 const sonrakiUstStili = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '1.05rem',
   color: TON,

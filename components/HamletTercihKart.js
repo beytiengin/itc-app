@@ -42,7 +42,7 @@ export default function HamletTercihKart({ tercih, secim, kokYol }) {
       <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.9rem', flexWrap: 'wrap' }}>
         <span
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontWeight: 300,
             fontSize: '2rem',
@@ -54,7 +54,7 @@ export default function HamletTercihKart({ tercih, secim, kokYol }) {
         </span>
         <span
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 200,
             fontSize: '0.6rem',
             letterSpacing: '0.35em',
@@ -68,7 +68,7 @@ export default function HamletTercihKart({ tercih, secim, kokYol }) {
 
       <p
         style={{
-          fontFamily: 'Cormorant Garamond, serif',
+          fontFamily: 'var(--font-display), serif',
           fontStyle: 'italic',
           fontSize: '1.2rem',
           color: 'var(--ink)',
@@ -86,7 +86,7 @@ export default function HamletTercihKart({ tercih, secim, kokYol }) {
               <span
                 key={h}
                 style={{
-                  fontFamily: 'Jost, sans-serif',
+                  fontFamily: 'var(--font-body), sans-serif',
                   fontWeight: 300,
                   fontSize: '0.7rem',
                   color: TON,
@@ -102,7 +102,7 @@ export default function HamletTercihKart({ tercih, secim, kokYol }) {
             {ozelVar && (
               <span
                 style={{
-                  fontFamily: 'Jost, sans-serif',
+                  fontFamily: 'var(--font-body), sans-serif',
                   fontWeight: 200,
                   fontSize: '0.55rem',
                   color: TON,
@@ -117,7 +117,7 @@ export default function HamletTercihKart({ tercih, secim, kokYol }) {
         ) : (
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.65rem',
               color: 'var(--ink-muted)',
@@ -132,7 +132,7 @@ export default function HamletTercihKart({ tercih, secim, kokYol }) {
 
       <span
         style={{
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 200,
           fontSize: '0.6rem',
           letterSpacing: '0.3em',

@@ -108,7 +108,7 @@ export default function EsikEkrani() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', alignItems: 'center', maxWidth: '420px', textAlign: 'center' }}>
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.4em',
@@ -120,7 +120,7 @@ export default function EsikEkrani() {
           </span>
           <p
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: 'clamp(1.6rem, 4vw, 2.2rem)',
               color: 'var(--ink)',
@@ -133,7 +133,7 @@ export default function EsikEkrani() {
           </p>
           <p
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.85rem',
               color: 'var(--ink-soft)',
@@ -152,7 +152,7 @@ export default function EsikEkrani() {
             background: 'transparent',
             border: '1px solid var(--accent)',
             color: 'var(--accent)',
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontSize: '0.8rem',
             fontWeight: 300,
             letterSpacing: '0.25em',

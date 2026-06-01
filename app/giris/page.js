@@ -84,7 +84,7 @@ function GirisIcerik() {
     backgroundColor: 'var(--bg-elevated)',
     border: '1px solid var(--rule)',
     color: 'var(--ink)',
-    fontFamily: 'Jost, sans-serif',
+    fontFamily: 'var(--font-body), sans-serif',
     fontWeight: 200,
     fontSize: '0.85rem',
     outline: 'none',
@@ -102,17 +102,17 @@ function GirisIcerik() {
 
           <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
             <div style={{ width: '1px', height: '50px', backgroundColor: 'var(--accent)', opacity: 0.4, margin: '0 auto' }} />
-            <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '2.5rem', color: 'var(--ink)', margin: 0 }}>
+            <h1 style={{ fontFamily: 'var(--font-display), serif', fontWeight: 300, fontSize: '2.5rem', color: 'var(--ink)', margin: 0 }}>
               {mod === 'giris' ? t.basliGiris : t.basliKayit}
             </h1>
-            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.8rem', color: 'var(--ink-soft)', margin: 0 }}>
+            <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.8rem', color: 'var(--ink-soft)', margin: 0 }}>
               {mod === 'giris' ? t.altGiris : t.altKayit}
             </p>
           </div>
 
           {mesaj ? (
             <div style={{ padding: '1.5rem', border: '1px solid var(--onay-rule)', backgroundColor: 'var(--onay-bg)', textAlign: 'center' }}>
-              <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.82rem', color: 'var(--onay-soft)', lineHeight: 1.8, margin: 0 }}>{mesaj}</p>
+              <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.82rem', color: 'var(--onay-soft)', lineHeight: 1.8, margin: 0 }}>{mesaj}</p>
             </div>
           ) : (
             <>
@@ -131,7 +131,7 @@ function GirisIcerik() {
                       border: '1px solid var(--rule)',
                       backgroundColor: 'var(--ink)',
                       color: 'var(--bg-base)',
-                      fontFamily: 'Jost, sans-serif',
+                      fontFamily: 'var(--font-body), sans-serif',
                       fontWeight: 400,
                       fontSize: '0.8rem',
                       letterSpacing: '0.05em',
@@ -154,7 +154,7 @@ function GirisIcerik() {
                   {/* AYIRICI */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', margin: '0.5rem 0' }}>
                     <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--rule)' }} />
-                    <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.veya}</span>
+                    <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.veya}</span>
                     <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--rule)' }} />
                   </div>
                 </>
@@ -190,13 +190,13 @@ function GirisIcerik() {
                 />
 
                 {hata && (
-                  <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.75rem', color: 'var(--uyari)', margin: 0 }}>{hata}</p>
+                  <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.75rem', color: 'var(--uyari)', margin: 0 }}>{hata}</p>
                 )}
 
                 <button
                   onClick={mod === 'giris' ? girisYap : kayitOl}
                   disabled={yukleniyor}
-                  style={{ marginTop: '0.5rem', padding: '1.2rem', border: '1px solid var(--accent)', backgroundColor: 'transparent', color: 'var(--accent)', fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', cursor: yukleniyor ? 'not-allowed' : 'pointer', opacity: yukleniyor ? 0.5 : 1, transition: 'all 0.3s ease' }}
+                  style={{ marginTop: '0.5rem', padding: '1.2rem', border: '1px solid var(--accent)', backgroundColor: 'transparent', color: 'var(--accent)', fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', cursor: yukleniyor ? 'not-allowed' : 'pointer', opacity: yukleniyor ? 0.5 : 1, transition: 'all 0.3s ease' }}
                   onMouseEnter={e => { if (!yukleniyor) { e.currentTarget.style.backgroundColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--bg-base)'; }}}
                   onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--accent)'; }}
                 >
@@ -211,12 +211,12 @@ function GirisIcerik() {
           <div style={{ textAlign: 'center', borderTop: '1px solid var(--rule)', paddingTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             {mod === 'giris' ? (
               <>
-                <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', margin: 0 }}>
+                <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', margin: 0 }}>
                   {t.hesabinYokMu}
                 </p>
                 <button
                   onClick={() => { setMod('kayit'); setHata(''); setMesaj(''); }}
-                  style={{ background: 'none', border: 'none', color: 'var(--accent)', fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.85rem', letterSpacing: '0.15em', cursor: 'pointer', textTransform: 'uppercase', transition: 'color 0.3s ease' }}
+                  style={{ background: 'none', border: 'none', color: 'var(--accent)', fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.85rem', letterSpacing: '0.15em', cursor: 'pointer', textTransform: 'uppercase', transition: 'color 0.3s ease' }}
                   onMouseEnter={e => e.currentTarget.style.color = 'var(--accent-hover)'}
                   onMouseLeave={e => e.currentTarget.style.color = 'var(--accent)'}
                 >
@@ -225,12 +225,12 @@ function GirisIcerik() {
               </>
             ) : (
               <>
-                <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', margin: 0 }}>
+                <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', margin: 0 }}>
                   {t.hesabinVarMi}
                 </p>
                 <button
                   onClick={() => { setMod('giris'); setHata(''); setMesaj(''); }}
-                  style={{ background: 'none', border: 'none', color: 'var(--accent)', fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.85rem', letterSpacing: '0.15em', cursor: 'pointer', textTransform: 'uppercase', transition: 'color 0.3s ease' }}
+                  style={{ background: 'none', border: 'none', color: 'var(--accent)', fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.85rem', letterSpacing: '0.15em', cursor: 'pointer', textTransform: 'uppercase', transition: 'color 0.3s ease' }}
                   onMouseEnter={e => e.currentTarget.style.color = 'var(--accent-hover)'}
                   onMouseLeave={e => e.currentTarget.style.color = 'var(--accent)'}
                 >

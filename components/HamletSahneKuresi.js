@@ -70,7 +70,7 @@ export default function HamletSahneKuresi({
     >
       <span
         style={{
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 200,
           fontSize: '0.55rem',
           letterSpacing: '0.2em',
@@ -121,7 +121,7 @@ export default function HamletSahneKuresi({
 
       <span
         style={{
-          fontFamily: 'Cormorant Garamond, serif',
+          fontFamily: 'var(--font-display), serif',
           fontStyle: 'italic',
           fontSize: '0.72rem',
           color: secili ? 'var(--ink)' : 'var(--ink-muted)',

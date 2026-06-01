@@ -118,7 +118,7 @@ export default function TimelineSayfasi() {
           <a
             href={KOK}
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.3em',
@@ -136,7 +136,7 @@ export default function TimelineSayfasi() {
 
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.65rem',
               letterSpacing: '0.35em',
@@ -149,7 +149,7 @@ export default function TimelineSayfasi() {
 
           <h1
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: 'clamp(2.2rem, 6vw, 3.4rem)',
@@ -162,7 +162,7 @@ export default function TimelineSayfasi() {
           </h1>
           <p
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '1.1rem',
               color: 'var(--ink-muted)',
@@ -188,7 +188,7 @@ export default function TimelineSayfasi() {
         >
           <p
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '1.15rem',
               color: TON,
@@ -213,7 +213,7 @@ export default function TimelineSayfasi() {
         >
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.55rem',
               letterSpacing: '0.35em',
@@ -349,7 +349,7 @@ export default function TimelineSayfasi() {
           >
             <span
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontSize: '1rem',
                 color: 'var(--ink-muted)',
@@ -384,7 +384,7 @@ export default function TimelineSayfasi() {
         >
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.35em',
@@ -396,7 +396,7 @@ export default function TimelineSayfasi() {
           </span>
           <p
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '1.15rem',
               color: 'var(--ink-soft)',
@@ -431,7 +431,7 @@ function AnatomiSatiri({ etiket, children }) {
     <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
       <span
         style={{
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 300,
           fontSize: '0.8rem',
           color: TON,
@@ -446,7 +446,7 @@ function AnatomiSatiri({ etiket, children }) {
       <p
         style={{
           flex: 1,
-          fontFamily: 'Cormorant Garamond, serif',
+          fontFamily: 'var(--font-display), serif',
           fontStyle: 'italic',
           fontSize: '0.95rem',
           color: 'var(--ink-soft)',
@@ -474,7 +474,7 @@ function Rozet({ etiket, deger }) {
     >
       <span
         style={{
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 200,
           fontSize: '0.55rem',
           letterSpacing: '0.3em',
@@ -486,7 +486,7 @@ function Rozet({ etiket, deger }) {
       </span>
       <span
         style={{
-          fontFamily: 'Cormorant Garamond, serif',
+          fontFamily: 'var(--font-display), serif',
           fontStyle: 'italic',
           fontSize: '1.1rem',
           color: TON,
@@ -499,7 +499,7 @@ function Rozet({ etiket, deger }) {
 }
 
 const paragrafStili = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '1.05rem',
   color: 'var(--ink-soft)',

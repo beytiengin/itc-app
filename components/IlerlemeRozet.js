@@ -40,7 +40,7 @@ export default function IlerlemeRozet({ ikon, etiket, mevcut, toplam, renk = 'va
         display: 'flex',
         alignItems: 'center',
         gap: '0.6rem',
-        fontFamily: 'Jost, sans-serif',
+        fontFamily: 'var(--font-body), sans-serif',
         fontSize: '0.7rem',
         fontWeight: 300,
         color: 'var(--ink-soft)',

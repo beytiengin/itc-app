@@ -20,7 +20,7 @@ export default function SeciliSahnePaneli({ sahne }) {
       >
         <span
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontSize: '0.95rem',
             color: 'var(--ink-muted)',
@@ -46,7 +46,7 @@ export default function SeciliSahnePaneli({ sahne }) {
       <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.8rem', flexWrap: 'wrap' }}>
         <span
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 200,
             fontSize: '0.6rem',
             letterSpacing: '0.3em',
@@ -60,7 +60,7 @@ export default function SeciliSahnePaneli({ sahne }) {
         </span>
         <h3
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontWeight: 300,
             fontSize: '1.4rem',
@@ -87,7 +87,7 @@ export default function SeciliSahnePaneli({ sahne }) {
           <span style={{ color: TON, fontSize: '0.95rem' }}>⬥</span>
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.3em',
@@ -99,7 +99,7 @@ export default function SeciliSahnePaneli({ sahne }) {
           </span>
           <span
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '0.85rem',
               color: 'var(--ink-soft)',
@@ -114,7 +114,7 @@ export default function SeciliSahnePaneli({ sahne }) {
       {sahne.desc && (
         <p
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontSize: '1rem',
             color: 'var(--ink-soft)',
@@ -130,7 +130,7 @@ export default function SeciliSahnePaneli({ sahne }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.55rem',
               letterSpacing: '0.3em',
@@ -142,7 +142,7 @@ export default function SeciliSahnePaneli({ sahne }) {
           </span>
           <p
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 300,
               fontSize: '0.88rem',
               color: 'var(--ink-soft)',
@@ -167,7 +167,7 @@ export default function SeciliSahnePaneli({ sahne }) {
         >
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.55rem',
               letterSpacing: '0.3em',
@@ -179,7 +179,7 @@ export default function SeciliSahnePaneli({ sahne }) {
           </span>
           <p
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '0.95rem',
               color: 'var(--ink-soft)',

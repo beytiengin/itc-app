@@ -49,7 +49,7 @@ export default function MacbethSayfasi() {
   if (yukleniyor) {
     return (
       <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.7rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>Hazırlanıyor…</span>
+        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.7rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>Hazırlanıyor…</span>
       </main>
     );
   }
@@ -60,14 +60,14 @@ export default function MacbethSayfasi() {
 
       <section style={{ padding: '3rem 2rem 2rem', maxWidth: '1100px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(2.2rem, 6vw, 3.2rem)', color: 'var(--ink)', margin: 0, lineHeight: 1.1, letterSpacing: '0.02em' }}>
+          <h1 style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(2.2rem, 6vw, 3.2rem)', color: 'var(--ink)', margin: 0, lineHeight: 1.1, letterSpacing: '0.02em' }}>
             {macbeth.ad}
           </h1>
-          <div style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.8rem', color: 'var(--ink-muted)', letterSpacing: '0.12em' }}>
+          <div style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.8rem', color: 'var(--ink-muted)', letterSpacing: '0.12em' }}>
             {macbeth.yazar} · {macbeth.donem} · {macbeth.tip} · {macbeth.tur}
           </div>
           {macbeth.ozet && (
-            <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.05rem', color: 'var(--ink-soft)', maxWidth: '700px', lineHeight: 1.7, margin: '0.8rem 0 0 0' }}>
+            <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.05rem', color: 'var(--ink-soft)', maxWidth: '700px', lineHeight: 1.7, margin: '0.8rem 0 0 0' }}>
               {macbeth.ozet}
             </p>
           )}
@@ -80,10 +80,10 @@ export default function MacbethSayfasi() {
 
       <section style={{ padding: '3rem 2rem 0.5rem', maxWidth: '1100px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-          <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontWeight: 300, fontSize: '1.5rem', color: 'var(--accent)', letterSpacing: '0.05em' }}>
+          <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: '1.5rem', color: 'var(--accent)', letterSpacing: '0.05em' }}>
             Timeline
           </span>
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-muted)', fontStyle: 'italic' }}>
+          <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-muted)', fontStyle: 'italic' }}>
             Karakterin yaşam çizgisi — sahnelere tıklayarak detayları gör.
           </span>
         </div>
@@ -142,7 +142,7 @@ function KarakterHeader() {
   }
 
   const navLink = {
-    fontFamily: 'Jost, sans-serif',
+    fontFamily: 'var(--font-body), sans-serif',
     fontWeight: 200,
     fontSize: '0.6rem',
     letterSpacing: '0.25em',
@@ -167,7 +167,7 @@ function KarakterHeader() {
       <a
         href="/"
         style={{
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 200,
           fontSize: '0.65rem',
           letterSpacing: '0.3em',

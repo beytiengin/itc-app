@@ -86,7 +86,7 @@ export default function SeninCerceven({ bosluklar, karakterId }) {
         <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
           <span
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: '1.5rem',
@@ -98,7 +98,7 @@ export default function SeninCerceven({ bosluklar, karakterId }) {
           </span>
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.25em',
@@ -111,7 +111,7 @@ export default function SeninCerceven({ bosluklar, karakterId }) {
         </div>
         <p
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 200,
             fontSize: '0.85rem',
             color: 'var(--ink-soft)',
@@ -168,7 +168,7 @@ export default function SeninCerceven({ bosluklar, karakterId }) {
               >
                 <span
                   style={{
-                    fontFamily: 'Cormorant Garamond, serif',
+                    fontFamily: 'var(--font-display), serif',
                     fontStyle: 'italic',
                     fontSize: '1.1rem',
                     color: yansimaMevcut ? TON : 'var(--ink-muted)',
@@ -181,12 +181,12 @@ export default function SeninCerceven({ bosluklar, karakterId }) {
 
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem', flexWrap: 'wrap' }}>
-                    <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.9rem', color: 'var(--ink)' }}>
+                    <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.9rem', color: 'var(--ink)' }}>
                       {bosluk.baslik}
                     </span>
                     <span
                       style={{
-                        fontFamily: 'Jost, sans-serif',
+                        fontFamily: 'var(--font-body), sans-serif',
                         fontWeight: 200,
                         fontSize: '0.55rem',
                         letterSpacing: '0.2em',
@@ -201,7 +201,7 @@ export default function SeninCerceven({ bosluklar, karakterId }) {
                     {yansimaMevcut && (
                       <span
                         style={{
-                          fontFamily: 'Jost, sans-serif',
+                          fontFamily: 'var(--font-body), sans-serif',
                           fontWeight: 200,
                           fontSize: '0.55rem',
                           letterSpacing: '0.2em',
@@ -216,14 +216,14 @@ export default function SeninCerceven({ bosluklar, karakterId }) {
                     )}
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', flexWrap: 'wrap' }}>
-                    <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.78rem', color: 'var(--ink-muted)' }}>
+                    <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.78rem', color: 'var(--ink-muted)' }}>
                       {bosluk.konum}
                     </span>
-                    <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--ink-muted)' }}>
+                    <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--ink-muted)' }}>
                       {bosluk.sure}
                     </span>
                   </div>
-                  <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-soft)', lineHeight: 1.6, margin: '0.2rem 0 0 0' }}>
+                  <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-soft)', lineHeight: 1.6, margin: '0.2rem 0 0 0' }}>
                     {bosluk.kisaAciklama}
                   </p>
                 </div>
@@ -254,27 +254,27 @@ export default function SeninCerceven({ bosluklar, karakterId }) {
                 >
                   {erisim.mesaj && (
                     <div style={{ padding: '0.9rem 1.1rem', backgroundColor: 'var(--accent-bg)', border: '1px solid var(--accent-rule)' }}>
-                      <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.75rem', color: 'var(--accent)', lineHeight: 1.7, margin: 0 }}>
+                      <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.75rem', color: 'var(--accent)', lineHeight: 1.7, margin: 0 }}>
                         {erisim.mesaj}
                       </p>
                     </div>
                   )}
 
-                  <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)', lineHeight: 1.8, margin: 0 }}>
+                  <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)', lineHeight: 1.8, margin: 0 }}>
                     {bosluk.uzunAciklama}
                   </p>
 
                   <div>
-                    <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase', marginBottom: '0.9rem' }}>
+                    <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase', marginBottom: '0.9rem' }}>
                       Boşluğa Giriş Soruları
                     </p>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
                       {bosluk.sorular.map((soru, j) => (
                         <div key={j} style={{ display: 'flex', gap: '0.8rem', alignItems: 'flex-start' }}>
-                          <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.85rem', color: TON, minWidth: '20px', lineHeight: 1.7 }}>
+                          <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.85rem', color: TON, minWidth: '20px', lineHeight: 1.7 }}>
                             {j + 1}.
                           </span>
-                          <p style={{ flex: 1, fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.7, margin: 0 }}>
+                          <p style={{ flex: 1, fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.7, margin: 0 }}>
                             {soru}
                           </p>
                         </div>
@@ -284,11 +284,11 @@ export default function SeninCerceven({ bosluklar, karakterId }) {
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>
+                      <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.55rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>
                         Yansıman
                       </span>
                       <span style={{
-                        fontFamily: 'Jost, sans-serif',
+                        fontFamily: 'var(--font-body), sans-serif',
                         fontWeight: 200,
                         fontSize: '0.65rem',
                         color: kayitDurumu[bosluk.id] === 'hata' ? 'var(--uyari)' : TON,
@@ -309,7 +309,7 @@ export default function SeninCerceven({ bosluklar, karakterId }) {
                         backgroundColor: 'var(--bg-base)',
                         border: '1px solid var(--rule)',
                         color: 'var(--ink)',
-                        fontFamily: 'Cormorant Garamond, serif',
+                        fontFamily: 'var(--font-display), serif',
                         fontSize: '1rem',
                         lineHeight: 1.8,
                         resize: 'vertical',
@@ -325,7 +325,7 @@ export default function SeninCerceven({ bosluklar, karakterId }) {
 
                   <p
                     style={{
-                      fontFamily: 'Jost, sans-serif',
+                      fontFamily: 'var(--font-body), sans-serif',
                       fontWeight: 200,
                       fontSize: '0.72rem',
                       color: 'var(--ink-muted)',

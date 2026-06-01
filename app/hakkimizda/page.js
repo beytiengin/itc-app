@@ -17,7 +17,7 @@ import chromeI18n from '../../data/chrome-i18n';
 // ─── Stil Objeleri (anasayfa pattern'i) ─────────────────────────────────────
 
 const ustEtiketStili = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontSize: '0.6rem',
   fontWeight: 300,
   letterSpacing: '0.4em',
@@ -27,7 +27,7 @@ const ustEtiketStili = {
 };
 
 const bolumBaslikStili = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: 'clamp(1.6rem, 3vw, 2rem)',
   color: 'var(--ink)',
@@ -43,7 +43,7 @@ const ilkeKartiStili = {
 };
 
 const ilkeNumarasiStili = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '1.3rem',
   color: 'var(--accent)',
@@ -51,7 +51,7 @@ const ilkeNumarasiStili = {
 };
 
 const ilkeBaslikStili = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '1.3rem',
   color: 'var(--ink)',
@@ -60,7 +60,7 @@ const ilkeBaslikStili = {
 };
 
 const ilkeMetinStili = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontSize: '0.85rem',
   fontWeight: 300,
   lineHeight: 1.7,
@@ -69,7 +69,7 @@ const ilkeMetinStili = {
 };
 
 const kisiEtiketStili = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontSize: '0.6rem',
   fontWeight: 300,
   letterSpacing: '0.3em',
@@ -79,7 +79,7 @@ const kisiEtiketStili = {
 };
 
 const kisiAdStili = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '2rem',
   color: 'var(--ink)',
@@ -88,7 +88,7 @@ const kisiAdStili = {
 };
 
 const kisiMetinStili = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontSize: '0.9rem',
   fontWeight: 300,
   lineHeight: 1.8,
@@ -96,7 +96,7 @@ const kisiMetinStili = {
 };
 
 const kisiNotStili = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontSize: '0.7rem',
   fontWeight: 300,
   letterSpacing: '0.15em',
@@ -108,7 +108,7 @@ const kisiNotStili = {
 };
 
 const yilStili = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '1.3rem',
   color: 'var(--accent)',
@@ -116,7 +116,7 @@ const yilStili = {
 };
 
 const milestoneBaslikStili = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontSize: '0.9rem',
   fontWeight: 400,
   color: 'var(--ink)',
@@ -125,7 +125,7 @@ const milestoneBaslikStili = {
 };
 
 const milestoneMetinStili = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontSize: '0.85rem',
   fontWeight: 300,
   lineHeight: 1.7,
@@ -143,7 +143,7 @@ const katmanKartStili = {
 };
 
 const durumStili = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontSize: '0.6rem',
   fontWeight: 400,
   letterSpacing: '0.3em',
@@ -157,7 +157,7 @@ const durumAktifStili = {
 };
 
 const katmanAdStili = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '1.4rem',
   color: 'var(--ink)',
@@ -166,7 +166,7 @@ const katmanAdStili = {
 };
 
 const katmanAltBaslikStili = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontSize: '0.75rem',
   fontWeight: 300,
   letterSpacing: '0.1em',
@@ -175,7 +175,7 @@ const katmanAltBaslikStili = {
 };
 
 const katmanMetinStili = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontSize: '0.85rem',
   fontWeight: 300,
   lineHeight: 1.7,
@@ -205,7 +205,7 @@ export default function Hakkimizda() {
         <div style={{ width: '1px', height: '60px', backgroundColor: 'var(--accent)', opacity: 0.4, margin: '0 auto 2rem' }} />
 
         <div style={{
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontSize: '0.65rem',
           fontWeight: 300,
           color: 'var(--ink-muted)',
@@ -217,7 +217,7 @@ export default function Hakkimizda() {
         </div>
 
         <h1 style={{
-          fontFamily: 'Cormorant Garamond, serif',
+          fontFamily: 'var(--font-display), serif',
           fontStyle: 'italic',
           fontSize: 'clamp(2.5rem, 6vw, 4rem)',
           fontWeight: 300,
@@ -230,7 +230,7 @@ export default function Hakkimizda() {
         </h1>
 
         <p style={{
-          fontFamily: 'Cormorant Garamond, serif',
+          fontFamily: 'var(--font-display), serif',
           fontStyle: 'italic',
           fontSize: 'clamp(1rem, 2vw, 1.2rem)',
           fontWeight: 300,
@@ -243,7 +243,7 @@ export default function Hakkimizda() {
         </p>
 
         <p style={{
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 300,
           fontSize: '0.95rem',
           color: 'var(--ink-soft)',
@@ -391,7 +391,7 @@ export default function Hakkimizda() {
           <div style={ustEtiketStili}>{t.katmanUstEtiket}</div>
           <h2 style={bolumBaslikStili}>{t.katmanBaslik}</h2>
           <p style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontSize: '1.05rem',
             color: 'var(--ink-soft)',
@@ -447,7 +447,7 @@ export default function Hakkimizda() {
                 padding: '1.6rem 1.4rem',
               }}>
                 <h4 style={{
-                  fontFamily: 'Cormorant Garamond, serif',
+                  fontFamily: 'var(--font-display), serif',
                   fontStyle: 'italic',
                   fontSize: '1.2rem',
                   color: 'var(--ink)',
@@ -458,7 +458,7 @@ export default function Hakkimizda() {
                 </h4>
                 <p style={{ ...katmanMetinStili, marginBottom: '0.8rem' }}>{k.aciklama}</p>
                 <p style={{
-                  fontFamily: 'Jost, sans-serif',
+                  fontFamily: 'var(--font-body), sans-serif',
                   fontSize: '0.65rem',
                   fontWeight: 300,
                   letterSpacing: '0.2em',
@@ -489,7 +489,7 @@ export default function Hakkimizda() {
         <h2 style={bolumBaslikStili}>{t.iletisimBaslik}</h2>
 
         <p style={{
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 300,
           fontSize: '0.95rem',
           color: 'var(--ink-soft)',
@@ -500,7 +500,7 @@ export default function Hakkimizda() {
         </p>
 
         <p style={{
-          fontFamily: 'Cormorant Garamond, serif',
+          fontFamily: 'var(--font-display), serif',
           fontStyle: 'italic',
           fontSize: '1.2rem',
           margin: 0,
@@ -520,7 +520,7 @@ export default function Hakkimizda() {
         </p>
 
         <p style={{
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontSize: '0.8rem',
           fontWeight: 300,
           color: 'var(--ink-muted)',
@@ -548,7 +548,7 @@ export default function Hakkimizda() {
         padding: '2rem',
         textAlign: 'center',
         borderTop: '1px solid var(--bg-elevated)',
-        fontFamily: 'Jost, sans-serif',
+        fontFamily: 'var(--font-body), sans-serif',
         fontSize: '0.7rem',
         fontWeight: 300,
         color: 'var(--ink-muted)',

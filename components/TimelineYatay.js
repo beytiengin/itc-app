@@ -101,7 +101,7 @@ export default function TimelineYatay({ sahneler, seciliSahneId, onSahneSec }) {
             >
               <span
                 style={{
-                  fontFamily: 'Jost, sans-serif',
+                  fontFamily: 'var(--font-body), sans-serif',
                   fontWeight: 200,
                   fontSize: '0.55rem',
                   letterSpacing: '0.15em',
@@ -131,7 +131,7 @@ export default function TimelineYatay({ sahneler, seciliSahneId, onSahneSec }) {
 
               <span
                 style={{
-                  fontFamily: 'Cormorant Garamond, serif',
+                  fontFamily: 'var(--font-display), serif',
                   fontStyle: 'italic',
                   fontSize: '0.7rem',
                   color: aktif ? 'var(--ink)' : 'var(--ink-muted)',

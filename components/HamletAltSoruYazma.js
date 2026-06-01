@@ -69,7 +69,7 @@ export default function HamletAltSoruYazma({
       <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.9rem', flexWrap: 'wrap' }}>
         <span
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontWeight: 300,
             fontSize: '1.5rem',
@@ -82,7 +82,7 @@ export default function HamletAltSoruYazma({
         </span>
         <span
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontSize: '1.1rem',
             color: 'var(--ink)',
@@ -94,7 +94,7 @@ export default function HamletAltSoruYazma({
         {acildi && (
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.55rem',
               letterSpacing: '0.25em',
@@ -112,7 +112,7 @@ export default function HamletAltSoruYazma({
 
       <p
         style={{
-          fontFamily: 'Cormorant Garamond, serif',
+          fontFamily: 'var(--font-display), serif',
           fontStyle: 'italic',
           fontSize: '0.95rem',
           color: 'var(--ink-soft)',
@@ -127,7 +127,7 @@ export default function HamletAltSoruYazma({
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.55rem',
               letterSpacing: '0.3em',
@@ -141,7 +141,7 @@ export default function HamletAltSoruYazma({
         </div>
         <p
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontSize: '0.85rem',
             color: 'var(--uyari)',
@@ -162,7 +162,7 @@ export default function HamletAltSoruYazma({
             backgroundColor: 'var(--bg-base)',
             border: '1px solid var(--rule)',
             color: 'var(--ink)',
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontSize: '0.95rem',
             lineHeight: 1.8,
             resize: 'vertical',
@@ -198,7 +198,7 @@ export default function HamletAltSoruYazma({
         />
         <span
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 300,
             fontSize: '0.78rem',
             color: acildi ? TON : 'var(--ink-soft)',
@@ -223,7 +223,7 @@ function KayitRozet({ durum }) {
   return (
     <span
       style={{
-        fontFamily: 'Jost, sans-serif',
+        fontFamily: 'var(--font-body), sans-serif',
         fontWeight: 200,
         fontSize: '0.65rem',
         color: renk,

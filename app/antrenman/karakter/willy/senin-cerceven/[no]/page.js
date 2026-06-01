@@ -138,7 +138,7 @@ export default function BoslukDetaySayfasi({ params }) {
             </span>
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.55rem',
                 letterSpacing: '0.25em',
@@ -152,7 +152,7 @@ export default function BoslukDetaySayfasi({ params }) {
 
           <h1
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: 'clamp(1.8rem, 5vw, 2.6rem)',
@@ -166,7 +166,7 @@ export default function BoslukDetaySayfasi({ params }) {
           {bosluk.sinif && (
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 300,
                 fontSize: '0.6rem',
                 letterSpacing: '0.3em',
@@ -204,7 +204,7 @@ export default function BoslukDetaySayfasi({ params }) {
                 style={{
                   display: 'inline-block',
                   marginTop: '0.7rem',
-                  fontFamily: 'Jost, sans-serif',
+                  fontFamily: 'var(--font-body), sans-serif',
                   fontWeight: 200,
                   fontSize: '0.6rem',
                   letterSpacing: '0.3em',
@@ -226,7 +226,7 @@ export default function BoslukDetaySayfasi({ params }) {
           {bosluk.sentez && (
             <p
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontSize: '0.95rem',
                 color: ALTIN,
@@ -247,7 +247,7 @@ export default function BoslukDetaySayfasi({ params }) {
             <span style={{ ...etiket, color: TON }}>{sa.altSorularBaslik}</span>
             <p
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontSize: '0.95rem',
                 color: 'var(--ink-muted)',
@@ -288,7 +288,7 @@ export default function BoslukDetaySayfasi({ params }) {
           </div>
           <p
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '0.9rem',
               color: 'var(--ink-muted)',
@@ -309,7 +309,7 @@ export default function BoslukDetaySayfasi({ params }) {
               backgroundColor: 'var(--bg-base)',
               border: '1px solid var(--rule)',
               color: 'var(--ink)',
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontSize: '0.95rem',
               lineHeight: 1.8,
               resize: 'vertical',
@@ -340,7 +340,7 @@ export default function BoslukDetaySayfasi({ params }) {
               <a
                 href="/antrenman/karakter/willy/yazarin-cercevesi"
                 style={{
-                  fontFamily: 'Jost, sans-serif',
+                  fontFamily: 'var(--font-body), sans-serif',
                   fontWeight: 200,
                   fontSize: '0.55rem',
                   letterSpacing: '0.25em',
@@ -358,7 +358,7 @@ export default function BoslukDetaySayfasi({ params }) {
                 <div key={t.no} style={{ display: 'flex', gap: '0.7rem', alignItems: 'baseline', flexWrap: 'wrap' }}>
                   <span
                     style={{
-                      fontFamily: 'Jost, sans-serif',
+                      fontFamily: 'var(--font-body), sans-serif',
                       fontWeight: 300,
                       fontSize: '0.7rem',
                       letterSpacing: '0.2em',
@@ -374,7 +374,7 @@ export default function BoslukDetaySayfasi({ params }) {
                       <span
                         key={h}
                         style={{
-                          fontFamily: 'Jost, sans-serif',
+                          fontFamily: 'var(--font-body), sans-serif',
                           fontWeight: 300,
                           fontSize: '0.65rem',
                           color: ALTIN,
@@ -389,7 +389,7 @@ export default function BoslukDetaySayfasi({ params }) {
                     {t.ozelVar && (
                       <span
                         style={{
-                          fontFamily: 'Jost, sans-serif',
+                          fontFamily: 'var(--font-body), sans-serif',
                           fontWeight: 200,
                           fontSize: '0.55rem',
                           color: ALTIN,
@@ -407,7 +407,7 @@ export default function BoslukDetaySayfasi({ params }) {
             </div>
             <p
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontSize: '0.85rem',
                 color: 'var(--ink-muted)',
@@ -478,7 +478,7 @@ function CerceveBolumu({ etiket: et, renk, children, ozel }) {
     >
       <span
         style={{
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 200,
           fontSize: '0.55rem',
           letterSpacing: '0.35em',
@@ -490,7 +490,7 @@ function CerceveBolumu({ etiket: et, renk, children, ozel }) {
       </span>
       <div
         style={{
-          fontFamily: 'Cormorant Garamond, serif',
+          fontFamily: 'var(--font-display), serif',
           fontStyle: 'italic',
           fontSize: '0.98rem',
           color: 'var(--ink-soft)',
@@ -516,7 +516,7 @@ function navButonStili() {
     border: '1px solid var(--rule)',
     cursor: 'pointer',
     padding: '0.7rem 1.3rem',
-    fontFamily: 'Jost, sans-serif',
+    fontFamily: 'var(--font-body), sans-serif',
     fontWeight: 200,
     fontSize: '0.6rem',
     letterSpacing: '0.25em',
@@ -539,7 +539,7 @@ function KayitRozet({ durum, renk }) {
   return (
     <span
       style={{
-        fontFamily: 'Jost, sans-serif',
+        fontFamily: 'var(--font-body), sans-serif',
         fontWeight: 200,
         fontSize: '0.65rem',
         color: r,
@@ -552,7 +552,7 @@ function KayitRozet({ durum, renk }) {
 }
 
 const geriLink = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontWeight: 200,
   fontSize: '0.6rem',
   letterSpacing: '0.3em',
@@ -564,7 +564,7 @@ const geriLink = {
 };
 
 const etiket = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontWeight: 200,
   fontSize: '0.65rem',
   letterSpacing: '0.35em',
@@ -572,7 +572,7 @@ const etiket = {
 };
 
 const yukleniyorMetin = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontWeight: 200,
   fontSize: '0.7rem',
   letterSpacing: '0.3em',

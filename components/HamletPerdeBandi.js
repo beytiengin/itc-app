@@ -43,7 +43,7 @@ export default function HamletPerdeBandi({ perdeler, aktifPerde, onPerdeTikla })
           >
             <span
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontWeight: 300,
                 fontSize: '1.5rem',
@@ -55,7 +55,7 @@ export default function HamletPerdeBandi({ perdeler, aktifPerde, onPerdeTikla })
             </span>
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 300,
                 fontSize: '0.7rem',
                 color: aktif ? 'var(--ink)' : 'var(--ink-soft)',
@@ -67,7 +67,7 @@ export default function HamletPerdeBandi({ perdeler, aktifPerde, onPerdeTikla })
             </span>
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.55rem',
                 letterSpacing: '0.25em',

@@ -110,7 +110,7 @@ export default function SeninCerceveAnaSayfa() {
         >
           <p
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '1.15rem',
               color: ALTIN,
@@ -126,7 +126,7 @@ export default function SeninCerceveAnaSayfa() {
         <Katlanir baslik={sc.sinirEtiket}>
           <p
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '1.05rem',
               color: 'var(--ink-soft)',
@@ -140,7 +140,7 @@ export default function SeninCerceveAnaSayfa() {
           </p>
           <p
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.85rem',
               color: 'var(--ink-soft)',
@@ -182,7 +182,7 @@ export default function SeninCerceveAnaSayfa() {
         <Katlanir baslik={sc.dogruEtiket}>
           <p
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '0.95rem',
               color: 'var(--ink-soft)',
@@ -196,7 +196,7 @@ export default function SeninCerceveAnaSayfa() {
           </p>
           <p
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '0.9rem',
               color: 'var(--ink-muted)',
@@ -221,7 +221,7 @@ export default function SeninCerceveAnaSayfa() {
           <span style={{ ...etiket, color: TON }}>{sc.ilerlemeEtiket}</span>
           <span
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '1rem',
               color: hepsiBaslamis ? TON : 'var(--ink-muted)',
@@ -271,7 +271,7 @@ export default function SeninCerceveAnaSayfa() {
             </span>
             <span
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontWeight: 300,
                 fontSize: '1.5rem',
@@ -282,7 +282,7 @@ export default function SeninCerceveAnaSayfa() {
             </span>
             <p
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 300,
                 fontSize: '0.85rem',
                 color: 'var(--ink-soft)',
@@ -294,7 +294,7 @@ export default function SeninCerceveAnaSayfa() {
             </p>
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.6rem',
                 letterSpacing: '0.3em',
@@ -337,7 +337,7 @@ function IlkeSatiri({ no, baslik: ilkeBaslik, metin, kaynak, aktif, aktifNot }) 
     >
       <span
         style={{
-          fontFamily: 'Cormorant Garamond, serif',
+          fontFamily: 'var(--font-display), serif',
           fontStyle: 'italic',
           fontWeight: 300,
           fontSize: '2rem',
@@ -351,7 +351,7 @@ function IlkeSatiri({ no, baslik: ilkeBaslik, metin, kaynak, aktif, aktifNot }) 
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
         <h4
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontWeight: 300,
             fontSize: '1.15rem',
@@ -363,7 +363,7 @@ function IlkeSatiri({ no, baslik: ilkeBaslik, metin, kaynak, aktif, aktifNot }) 
         </h4>
         <p
           style={{
-            fontFamily: aktif ? 'Cormorant Garamond, serif' : 'Jost, sans-serif',
+            fontFamily: aktif ? 'var(--font-display), serif' : 'var(--font-body), sans-serif',
             fontStyle: aktif ? 'italic' : 'normal',
             fontWeight: aktif ? 300 : 200,
             fontSize: aktif ? '0.95rem' : '0.85rem',
@@ -377,7 +377,7 @@ function IlkeSatiri({ no, baslik: ilkeBaslik, metin, kaynak, aktif, aktifNot }) 
         {kaynak && (
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.7rem',
               color: 'var(--ink-muted)',
@@ -390,7 +390,7 @@ function IlkeSatiri({ no, baslik: ilkeBaslik, metin, kaynak, aktif, aktifNot }) 
         {aktif && aktifNot && (
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 300,
               fontSize: '0.72rem',
               color: ALTIN,
@@ -411,7 +411,7 @@ function YontemAdim({ no, baslik, children }) {
     <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
       <span
         style={{
-          fontFamily: 'Cormorant Garamond, serif',
+          fontFamily: 'var(--font-display), serif',
           fontStyle: 'italic',
           fontWeight: 300,
           fontSize: '1.5rem',
@@ -425,7 +425,7 @@ function YontemAdim({ no, baslik, children }) {
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
         <span
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 300,
             fontSize: '0.9rem',
             color: 'var(--ink)',
@@ -436,7 +436,7 @@ function YontemAdim({ no, baslik, children }) {
         </span>
         <p
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
             fontSize: '0.9rem',
             color: 'var(--ink-soft)',
@@ -452,7 +452,7 @@ function YontemAdim({ no, baslik, children }) {
 }
 
 const geriLink = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontWeight: 200,
   fontSize: '0.6rem',
   letterSpacing: '0.3em',
@@ -464,7 +464,7 @@ const geriLink = {
 };
 
 const etiket = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontWeight: 200,
   fontSize: '0.65rem',
   letterSpacing: '0.35em',
@@ -472,7 +472,7 @@ const etiket = {
 };
 
 const baslik = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontWeight: 300,
   fontSize: 'clamp(2.2rem, 6vw, 3.4rem)',
@@ -482,7 +482,7 @@ const baslik = {
 };
 
 const altyazi = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '1.1rem',
   color: 'var(--ink-muted)',
@@ -490,7 +490,7 @@ const altyazi = {
 };
 
 const paragraf = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '1.05rem',
   color: 'var(--ink-soft)',
@@ -499,7 +499,7 @@ const paragraf = {
 };
 
 const yukleniyorMetin = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontWeight: 200,
   fontSize: '0.7rem',
   letterSpacing: '0.3em',

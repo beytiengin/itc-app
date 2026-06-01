@@ -128,7 +128,7 @@ export default function KulisSayfasi() {
   if (yukleniyor) {
     return (
       <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.7rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.hazirlaniyor}</span>
+        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.7rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.hazirlaniyor}</span>
       </main>
     );
   }
@@ -174,9 +174,9 @@ function Header({ t }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
       <div style={{ width: '1px', height: '50px', backgroundColor: 'var(--accent)', opacity: 0.4 }} />
-      <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.4em', color: 'var(--accent)', textTransform: 'uppercase' }}>{t.etiket}</span>
-      <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: 'clamp(2rem, 5vw, 3.2rem)', color: 'var(--ink)', margin: 0 }}>{t.baslik}</h1>
-      <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.75, margin: 0, maxWidth: 560 }}>
+      <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.4em', color: 'var(--accent)', textTransform: 'uppercase' }}>{t.etiket}</span>
+      <h1 style={{ fontFamily: 'var(--font-display), serif', fontWeight: 300, fontSize: 'clamp(2rem, 5vw, 3.2rem)', color: 'var(--ink)', margin: 0 }}>{t.baslik}</h1>
+      <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.75, margin: 0, maxWidth: 560 }}>
         {t.intro}
       </p>
     </div>
@@ -231,9 +231,9 @@ function KarakterSecimi({ t, ilerlemeler, seciliId, onSec }) {
                   background: dokunuldu ? 'var(--onay-soft)' : 'var(--ink-muted)',
                   opacity: dokunuldu ? 1 : 0.5,
                 }} aria-hidden />
-                <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.05rem', color: 'var(--ink)', lineHeight: 1.1 }}>{k.ad}</span>
+                <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.05rem', color: 'var(--ink)', lineHeight: 1.1 }}>{k.ad}</span>
               </span>
-              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.62rem', letterSpacing: '0.12em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{durum}</span>
+              <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.62rem', letterSpacing: '0.12em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{durum}</span>
             </button>
           );
         })}
@@ -248,7 +248,7 @@ function DetayBolumler({ t, karakter, boslukYansimalari, antrenmanYansimalari, y
   if (yukleniyor) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', padding: '2rem 0' }}>
-        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.hazirlaniyor}</span>
+        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.65rem', letterSpacing: '0.3em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.hazirlaniyor}</span>
       </div>
     );
   }
@@ -320,7 +320,7 @@ function NeredeKaldin({ t, karakter, yeniSema, boslukYansimalari, antrenmanYansi
 
       {bosDurum && (
         <BosKart>
-          <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)' }}>{t.neredeKaldinBos}</span>
+          <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)' }}>{t.neredeKaldinBos}</span>
           {yeniSema ? (
             <SatirLink href={`/antrenman/karakter/${karakter.id}/el-yazmasi`}>{t.elYazmasiniAc}</SatirLink>
           ) : (
@@ -358,11 +358,11 @@ function NeredeKaldinSatir({ ust, baslik, alt, cta, link }) {
       onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; }}
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', flex: 1, minWidth: 0 }}>
-        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.58rem', letterSpacing: '0.28em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{ust}</span>
-        <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.1rem', color: 'var(--ink)', lineHeight: 1.4 }}>{baslik}</span>
-        {alt && <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--ink-muted)', letterSpacing: '0.1em' }}>{alt}</span>}
+        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.58rem', letterSpacing: '0.28em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{ust}</span>
+        <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.1rem', color: 'var(--ink)', lineHeight: 1.4 }}>{baslik}</span>
+        {alt && <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--ink-muted)', letterSpacing: '0.1em' }}>{alt}</span>}
       </div>
-      <a href={link} style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.68rem', letterSpacing: '0.2em', color: 'var(--accent)', textTransform: 'uppercase', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+      <a href={link} style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.68rem', letterSpacing: '0.2em', color: 'var(--accent)', textTransform: 'uppercase', textDecoration: 'none', whiteSpace: 'nowrap' }}>
         {cta}
       </a>
     </div>
@@ -389,7 +389,7 @@ function ZamanCizgisi({ t, karakter, yeniSema, akis, boslukYansimalari, antrenma
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
         <Etiket>{t.zamanCizgisiEtiket}</Etiket>
         <BosKart>
-          <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)' }}>{t.timelineBos}</span>
+          <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)' }}>{t.timelineBos}</span>
         </BosKart>
       </div>
     );
@@ -399,7 +399,7 @@ function ZamanCizgisi({ t, karakter, yeniSema, akis, boslukYansimalari, antrenma
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
         <Etiket>{t.zamanCizgisiEtiket}</Etiket>
-        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-soft)' }}>{t.zamanCizgisiAltyazi}</span>
+        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-soft)' }}>{t.zamanCizgisiAltyazi}</span>
       </div>
 
       <Lejant t={t} />
@@ -469,7 +469,7 @@ function Lejant({ t }) {
             border: `1.5px solid ${o.renk}`,
             opacity: o.opacity ?? 1,
           }} />
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.15em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{o.ad}</span>
+          <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.15em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{o.ad}</span>
         </span>
       ))}
     </div>
@@ -535,7 +535,7 @@ function TimelineDugumu({ tip, no, baslik, yazildi, kayitAni, isSec, onSec }) {
         }} />
       </span>
       <span style={{
-        fontFamily: 'Cormorant Garamond, serif',
+        fontFamily: 'var(--font-display), serif',
         fontStyle: 'italic',
         fontSize: '0.78rem',
         color: yazildi ? 'var(--ink)' : 'var(--ink-soft)',
@@ -566,10 +566,10 @@ function TimelineKucukKart({ t, karakterId, tip, no, baslik }) {
       flexWrap: 'wrap',
     }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', flex: 1, minWidth: 0 }}>
-        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.58rem', letterSpacing: '0.28em', color: 'var(--accent)', textTransform: 'uppercase' }}>{tur}</span>
-        <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.05rem', color: 'var(--ink)', lineHeight: 1.4 }}>{baslik}</span>
+        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.58rem', letterSpacing: '0.28em', color: 'var(--accent)', textTransform: 'uppercase' }}>{tur}</span>
+        <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.05rem', color: 'var(--ink)', lineHeight: 1.4 }}>{baslik}</span>
       </div>
-      <a href={link} style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.68rem', letterSpacing: '0.2em', color: 'var(--accent)', textTransform: 'uppercase', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+      <a href={link} style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.68rem', letterSpacing: '0.2em', color: 'var(--accent)', textTransform: 'uppercase', textDecoration: 'none', whiteSpace: 'nowrap' }}>
         {t.buAnaGit}
       </a>
     </div>
@@ -601,14 +601,14 @@ function BirikenDosya({ t, karakter, yeniSema, akis, boslukYansimalari }) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
         <Etiket>{t.birikenDosyaEtiket}</Etiket>
-        <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)' }}>
+        <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)' }}>
           {t.birikenDosyaBaslikOnce}{karakter.ad}{t.birikenDosyaBaslikSonra}
         </span>
       </div>
 
       {yazilmis.length === 0 && (
         <BosKart>
-          <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)' }}>{t.birikenDosyaBos}</span>
+          <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)' }}>{t.birikenDosyaBos}</span>
         </BosKart>
       )}
 
@@ -616,8 +616,8 @@ function BirikenDosya({ t, karakter, yeniSema, akis, boslukYansimalari }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
           {yazilmis.map((y) => (
             <div key={y.id} style={{ borderLeft: '2px solid var(--rule)', paddingLeft: '1.1rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.58rem', letterSpacing: '0.25em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{y.baslik}</span>
-              <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink)', lineHeight: 1.7, margin: 0, whiteSpace: 'pre-wrap' }}>
+              <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.58rem', letterSpacing: '0.25em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{y.baslik}</span>
+              <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink)', lineHeight: 1.7, margin: 0, whiteSpace: 'pre-wrap' }}>
                 {y.metin}
               </p>
             </div>
@@ -653,15 +653,15 @@ function SenVeKarakter({ t, karakter, acikKapiKey, boslukYansimalari }) {
         {/* Açık kapın */}
         <AynaSatir baslik={t.acikKapinEtiket}>
           {kapiAdi
-            ? <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.05rem', color: 'var(--ink)' }}>{kapiAdi}</span>
-            : <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.92rem', color: 'var(--ink-muted)', lineHeight: 1.5 }}>{t.acikKapinBos}</span>}
+            ? <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.05rem', color: 'var(--ink)' }}>{kapiAdi}</span>
+            : <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.92rem', color: 'var(--ink-muted)', lineHeight: 1.5 }}>{t.acikKapinBos}</span>}
         </AynaSatir>
 
         {/* Eğilim — basit sayım */}
         <AynaSatir baslik={`${t.egilimEtiketOnce}${karakter.ad}${t.egilimEtiketSonra}`}>
           {dokunulanSayisi > 0
-            ? <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.05rem', color: 'var(--ink)' }}>{dokunulanSayisi} {t.egilimSayim}</span>
-            : <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.92rem', color: 'var(--ink-muted)' }}>{t.egilimBos}</span>}
+            ? <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.05rem', color: 'var(--ink)' }}>{dokunulanSayisi} {t.egilimSayim}</span>
+            : <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.92rem', color: 'var(--ink-muted)' }}>{t.egilimBos}</span>}
         </AynaSatir>
 
         {/* Çerçeve */}
@@ -670,13 +670,13 @@ function SenVeKarakter({ t, karakter, acikKapiKey, boslukYansimalari }) {
             ? (
               <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
                 {dogrular.map((d, i) => (
-                  <li key={i} style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.9rem', color: 'var(--ink-soft)', lineHeight: 1.5 }}>
+                  <li key={i} style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.9rem', color: 'var(--ink-soft)', lineHeight: 1.5 }}>
                     {typeof d === 'string' ? d : d.madde}
                   </li>
                 ))}
               </ul>
             )
-            : <span style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.92rem', color: 'var(--ink-muted)' }}>{t.cerceveBos}</span>}
+            : <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.92rem', color: 'var(--ink-muted)' }}>{t.cerceveBos}</span>}
         </AynaSatir>
 
       </div>
@@ -687,7 +687,7 @@ function SenVeKarakter({ t, karakter, acikKapiKey, boslukYansimalari }) {
 function AynaSatir({ baslik, children }) {
   return (
     <div style={{ border: '1px solid var(--rule)', padding: '1rem 1.1rem', display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
-      <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.58rem', letterSpacing: '0.28em', color: 'var(--accent)', textTransform: 'uppercase' }}>{baslik}</span>
+      <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.58rem', letterSpacing: '0.28em', color: 'var(--accent)', textTransform: 'uppercase' }}>{baslik}</span>
       {children}
     </div>
   );
@@ -698,8 +698,8 @@ function AynaSatir({ baslik, children }) {
 function Desenler({ t }) {
   return (
     <div style={{ border: '1px dashed var(--rule)', padding: '1.1rem 1.3rem', display: 'flex', flexDirection: 'column', gap: '0.45rem', opacity: 0.55 }}>
-      <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 500, fontSize: '0.58rem', letterSpacing: '0.22em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.desenlerEtiket}</span>
-      <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.6 }}>{t.desenlerMetin}</p>
+      <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 500, fontSize: '0.58rem', letterSpacing: '0.22em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.desenlerEtiket}</span>
+      <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.6 }}>{t.desenlerMetin}</p>
     </div>
   );
 }
@@ -709,7 +709,7 @@ function Desenler({ t }) {
 function Etiket({ children }) {
   return (
     <span style={{
-      fontFamily: 'Jost, sans-serif',
+      fontFamily: 'var(--font-body), sans-serif',
       fontWeight: 300,
       fontSize: '0.6rem',
       letterSpacing: '0.32em',
@@ -727,7 +727,7 @@ function BosKart({ children }) {
 
 function SatirLink({ href, children }) {
   return (
-    <a href={href} style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.68rem', letterSpacing: '0.2em', color: 'var(--accent)', textTransform: 'uppercase', textDecoration: 'none' }}>
+    <a href={href} style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.68rem', letterSpacing: '0.2em', color: 'var(--accent)', textTransform: 'uppercase', textDecoration: 'none' }}>
       {children}
     </a>
   );
@@ -736,13 +736,13 @@ function SatirLink({ href, children }) {
 function EmptyKalibrasyon({ t }) {
   return (
     <div style={{ border: '1px solid var(--rule)', padding: '2rem 1.6rem', display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center', textAlign: 'center' }}>
-      <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.32em', color: 'var(--accent)', textTransform: 'uppercase' }}>{t.emptyKalibrasyonEtiket}</span>
-      <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)', lineHeight: 1.65, margin: 0, maxWidth: '440px' }}>
+      <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.32em', color: 'var(--accent)', textTransform: 'uppercase' }}>{t.emptyKalibrasyonEtiket}</span>
+      <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)', lineHeight: 1.65, margin: 0, maxWidth: '440px' }}>
         {t.emptyKalibrasyonMetin}
       </p>
       <a
         href="/kalibrasyon"
-        style={{ marginTop: '0.3rem', padding: '0.8rem 1.8rem', backgroundColor: 'var(--accent)', color: 'var(--bg-base)', textDecoration: 'none', fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.68rem', letterSpacing: '0.22em', textTransform: 'uppercase', transition: 'all 0.25s ease' }}
+        style={{ marginTop: '0.3rem', padding: '0.8rem 1.8rem', backgroundColor: 'var(--accent)', color: 'var(--bg-base)', textDecoration: 'none', fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.68rem', letterSpacing: '0.22em', textTransform: 'uppercase', transition: 'all 0.25s ease' }}
         onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-hover)'; }}
         onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent)'; }}
       >

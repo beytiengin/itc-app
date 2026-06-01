@@ -387,8 +387,8 @@ function scoreMBTI(picks) {
 
 /* ─── UI parçaları ────────────────────────────────────────────── */
 
-const serif = 'Cormorant Garamond, serif';
-const body = 'Jost, sans-serif';
+const serif = 'var(--font-display), serif';
+const body = 'var(--font-body), sans-serif';
 
 function Etiket({ children }) {
   // Tasarim Dili Faz 4: Etiket weight 500 -> 600 (Faz 1 ile tutarli).

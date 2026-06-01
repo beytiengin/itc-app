@@ -32,7 +32,7 @@ export default function DogrularKarti({ dogrular, baslikGizle = false }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
           <span
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: '0.85rem',
@@ -45,7 +45,7 @@ export default function DogrularKarti({ dogrular, baslikGizle = false }) {
           </span>
           <span
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.78rem',
               color: 'var(--ink-muted)',
@@ -74,7 +74,7 @@ export default function DogrularKarti({ dogrular, baslikGizle = false }) {
             >
               <span
                 style={{
-                  fontFamily: 'Jost, sans-serif',
+                  fontFamily: 'var(--font-body), sans-serif',
                   fontWeight: 200,
                   fontSize: '0.55rem',
                   letterSpacing: '0.3em',
@@ -92,7 +92,7 @@ export default function DogrularKarti({ dogrular, baslikGizle = false }) {
                   <p
                     key={j}
                     style={{
-                      fontFamily: 'Jost, sans-serif',
+                      fontFamily: 'var(--font-body), sans-serif',
                       fontWeight: 300,
                       fontSize: '0.95rem',
                       color: 'var(--ink)',

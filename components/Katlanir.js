@@ -50,7 +50,7 @@ export default function Katlanir({
           {etiket && (
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.55rem',
                 letterSpacing: '0.3em',
@@ -63,7 +63,7 @@ export default function Katlanir({
           )}
           <span
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '1.1rem',
               color: 'var(--ink)',
@@ -75,7 +75,7 @@ export default function Katlanir({
         <span
           aria-hidden
           style={{
-            fontFamily: 'Jost, sans-serif',
+            fontFamily: 'var(--font-body), sans-serif',
             fontWeight: 200,
             fontSize: '0.85rem',
             color: acik ? TON : 'var(--ink-muted)',

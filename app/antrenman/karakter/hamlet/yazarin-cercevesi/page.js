@@ -102,7 +102,7 @@ export default function YazarinCerceveSAnaSayfa() {
         >
           <p
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '1.15rem',
               color: TON,
@@ -126,7 +126,7 @@ export default function YazarinCerceveSAnaSayfa() {
           <span style={etiketStili}>{yc.kavsakEtiket}</span>
           <span
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontSize: '1rem',
               color: hepsiTamam ? TON : 'var(--ink-muted)',
@@ -171,7 +171,7 @@ export default function YazarinCerceveSAnaSayfa() {
             </span>
             <span
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: 'var(--font-display), serif',
                 fontStyle: 'italic',
                 fontWeight: 300,
                 fontSize: '1.5rem',
@@ -182,7 +182,7 @@ export default function YazarinCerceveSAnaSayfa() {
             </span>
             <p
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 300,
                 fontSize: '0.85rem',
                 color: 'var(--ink-soft)',
@@ -196,7 +196,7 @@ export default function YazarinCerceveSAnaSayfa() {
             </p>
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.6rem',
                 letterSpacing: '0.3em',
@@ -226,7 +226,7 @@ export default function YazarinCerceveSAnaSayfa() {
 // ─── Ortak Stiller ──────────────────────────────────────────────────────────
 
 const geriLinkStili = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontWeight: 200,
   fontSize: '0.6rem',
   letterSpacing: '0.3em',
@@ -238,7 +238,7 @@ const geriLinkStili = {
 };
 
 const etiketStili = {
-  fontFamily: 'Jost, sans-serif',
+  fontFamily: 'var(--font-body), sans-serif',
   fontWeight: 200,
   fontSize: '0.65rem',
   letterSpacing: '0.35em',
@@ -247,7 +247,7 @@ const etiketStili = {
 };
 
 const baslikStili = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontWeight: 300,
   fontSize: 'clamp(2.2rem, 6vw, 3.4rem)',
@@ -257,7 +257,7 @@ const baslikStili = {
 };
 
 const altyaziStili = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '1.1rem',
   color: 'var(--ink-muted)',
@@ -265,7 +265,7 @@ const altyaziStili = {
 };
 
 const paragrafStili = {
-  fontFamily: 'Cormorant Garamond, serif',
+  fontFamily: 'var(--font-display), serif',
   fontStyle: 'italic',
   fontSize: '1.05rem',
   color: 'var(--ink-soft)',

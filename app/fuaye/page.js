@@ -13,7 +13,7 @@ export default function Fuaye() {
       color: 'var(--ink)',
       display: 'flex',
       flexDirection: 'column',
-      fontFamily: 'Jost, sans-serif',
+      fontFamily: 'var(--font-body), sans-serif',
     }}>
       {/* Üst nav artık global — components/Navigasyon.js */}
       <section style={{
@@ -36,7 +36,7 @@ export default function Fuaye() {
           03 — Zihinsel Fuaye
         </span>
         <h1 style={{
-          fontFamily: 'Cormorant Garamond, serif',
+          fontFamily: 'var(--font-display), serif',
           fontWeight: 300,
           fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
           color: 'var(--ink)',

@@ -87,7 +87,7 @@ export default function TercihDetaySayfasi({ params }) {
           <a
             href={`${KOK}/yazarin-cercevesi`}
             style={{
-              fontFamily: 'Jost, sans-serif',
+              fontFamily: 'var(--font-body), sans-serif',
               fontWeight: 200,
               fontSize: '0.6rem',
               letterSpacing: '0.3em',
@@ -106,7 +106,7 @@ export default function TercihDetaySayfasi({ params }) {
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.9rem', flexWrap: 'wrap' }}>
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.65rem',
                 letterSpacing: '0.35em',
@@ -118,7 +118,7 @@ export default function TercihDetaySayfasi({ params }) {
             </span>
             <span
               style={{
-                fontFamily: 'Jost, sans-serif',
+                fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
                 fontSize: '0.55rem',
                 letterSpacing: '0.25em',
@@ -132,7 +132,7 @@ export default function TercihDetaySayfasi({ params }) {
 
           <h1
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontWeight: 300,
               fontSize: 'clamp(1.8rem, 5vw, 2.6rem)',
@@ -207,7 +207,7 @@ function navButonStili() {
     border: '1px solid var(--rule)',
     cursor: 'pointer',
     padding: '0.7rem 1.3rem',
-    fontFamily: 'Jost, sans-serif',
+    fontFamily: 'var(--font-body), sans-serif',
     fontWeight: 200,
     fontSize: '0.6rem',
     letterSpacing: '0.25em',

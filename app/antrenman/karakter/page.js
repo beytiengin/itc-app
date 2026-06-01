@@ -51,7 +51,7 @@ function EtiketBloku({ karakterId, t }) {
   if (!meta || !karakterI18n) return null;
   const TON = 'var(--accent)';
   const baslikStili = {
-    fontFamily: 'Jost, sans-serif',
+    fontFamily: 'var(--font-body), sans-serif',
     fontWeight: 200,
     fontSize: '0.55rem',
     letterSpacing: '0.3em',
@@ -61,7 +61,7 @@ function EtiketBloku({ karakterId, t }) {
     paddingTop: '0.2rem',
   };
   const mizacEtiketStili = {
-    fontFamily: 'Jost, sans-serif',
+    fontFamily: 'var(--font-body), sans-serif',
     fontWeight: 200,
     fontSize: '0.6rem',
     letterSpacing: '0.1em',
@@ -71,7 +71,7 @@ function EtiketBloku({ karakterId, t }) {
     borderRadius: '12px',
   };
   const temaEtiketStili = {
-    fontFamily: 'Cormorant Garamond, serif',
+    fontFamily: 'var(--font-display), serif',
     fontStyle: 'italic',
     fontSize: '0.72rem',
     color: TON,
@@ -104,7 +104,7 @@ function MetaSatiri({ karakterId, t }) {
   const turCevirisi = t.tur?.[meta.turKey] || meta.turKey;
   return (
     <span style={{
-      fontFamily: 'Jost, sans-serif',
+      fontFamily: 'var(--font-body), sans-serif',
       fontWeight: 200,
       fontSize: '0.65rem',
       color: 'var(--accent)',
@@ -164,7 +164,7 @@ function SiradakiAdimCTA({ adim, t }) {
   return (
     <span style={{
       marginTop: '0.3rem',
-      fontFamily: 'Jost, sans-serif',
+      fontFamily: 'var(--font-body), sans-serif',
       fontWeight: 200,
       fontSize: '0.7rem',
       letterSpacing: '0.1em',
@@ -227,9 +227,9 @@ export default function KarakterListesi() {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
           <div style={{ width: '1px', height: '50px', backgroundColor: 'var(--accent)', opacity: 0.4 }} />
-          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.4em', color: 'var(--accent)', textTransform: 'uppercase' }}>{t.ustEtiket}</span>
-          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--ink)', margin: 0 }}>{t.baslik}</h1>
-          <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.8, margin: 0 }}>
+          <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.4em', color: 'var(--accent)', textTransform: 'uppercase' }}>{t.ustEtiket}</span>
+          <h1 style={{ fontFamily: 'var(--font-display), serif', fontWeight: 300, fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--ink)', margin: 0 }}>{t.baslik}</h1>
+          <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.8, margin: 0 }}>
             {t.intro}
           </p>
         </div>
@@ -270,12 +270,12 @@ export default function KarakterListesi() {
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                  <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 400, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>{k.ad}</span>
-                  <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--ink-muted)', letterSpacing: '0.1em' }}>{k.yazar}</span>
+                  <span style={{ fontFamily: 'var(--font-display), serif', fontWeight: 400, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>{k.ad}</span>
+                  <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--ink-muted)', letterSpacing: '0.1em' }}>{k.yazar}</span>
                 </div>
-                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 500, fontSize: '0.6rem', color: 'var(--ink-muted)', letterSpacing: '0.22em', textTransform: 'uppercase', flexShrink: 0 }}>{t.yakindaEtiket}</span>
+                <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 500, fontSize: '0.6rem', color: 'var(--ink-muted)', letterSpacing: '0.22em', textTransform: 'uppercase', flexShrink: 0 }}>{t.yakindaEtiket}</span>
               </div>
-              <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>{k.aciklama}</p>
+              <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>{k.aciklama}</p>
             </div>
           ))}
 
@@ -321,7 +321,7 @@ function AktifKart({ karakterId, ad, href, isPrimary, ilerlemeler, adim, t }) {
       {isPrimary && (
         <span style={{
           alignSelf: 'flex-start',
-          fontFamily: 'Jost, sans-serif',
+          fontFamily: 'var(--font-body), sans-serif',
           fontWeight: 600,
           fontSize: '0.55rem',
           letterSpacing: '0.28em',
@@ -331,10 +331,10 @@ function AktifKart({ karakterId, ad, href, isPrimary, ilerlemeler, adim, t }) {
         }}>{t.devamEtiket}</span>
       )}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-        <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 400, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>{ad}</span>
+        <span style={{ fontFamily: 'var(--font-display), serif', fontWeight: 400, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>{ad}</span>
         <MetaSatiri karakterId={karakterId} t={t} />
       </div>
-      <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>
+      <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>
         {t[karakterId]?.aciklama}
       </p>
       <EtiketBloku karakterId={karakterId} t={t} />

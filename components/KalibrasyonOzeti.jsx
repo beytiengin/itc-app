@@ -41,7 +41,7 @@ const lab = (k, lang) => GLABEL[k]?.[lang] ?? GLABEL[k]?.tr ?? k;
 function Etiket({ children }) {
   return (
     <div style={{
-      fontFamily: 'Jost, sans-serif',
+      fontFamily: 'var(--font-body), sans-serif',
       fontWeight: 500,
       fontSize: '0.68rem',
       letterSpacing: '0.22em',
@@ -58,8 +58,8 @@ function Cubuk({ etiket, deger, max, renk, son }) {
   return (
     <div style={{ marginBottom: '1.05rem' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '0.3rem' }}>
-        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 400, fontSize: '1.02rem', color: 'var(--ink)' }}>{etiket}</span>
-        <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 500, fontSize: '0.82rem', color: 'var(--ink-soft)' }}>{gosterim}{son || ''}</span>
+        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 400, fontSize: '1.02rem', color: 'var(--ink)' }}>{etiket}</span>
+        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 500, fontSize: '0.82rem', color: 'var(--ink-soft)' }}>{gosterim}{son || ''}</span>
       </div>
       <div style={{ height: 7, background: 'var(--bg-elevated)', borderRadius: 6, overflow: 'hidden' }}>
         <div style={{ width: pct + '%', height: '100%', background: renk, borderRadius: 6, transition: 'width .9s cubic-bezier(.2,.8,.2,1)' }} />
@@ -85,10 +85,10 @@ export default function KalibrasyonOzeti({ lang = 'tr' }) {
   useEffect(() => { kalibrasyonOku().then(setVeri).catch(() => setVeri(null)); }, []);
 
   if (veri === undefined) {
-    return <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 400, fontSize: '1rem', color: 'var(--ink-soft)' }}>{lang === 'tr' ? 'Yükleniyor…' : 'Loading…'}</p>;
+    return <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 400, fontSize: '1rem', color: 'var(--ink-soft)' }}>{lang === 'tr' ? 'Yükleniyor…' : 'Loading…'}</p>;
   }
   if (!veri) {
-    return <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 400, fontSize: '1rem', color: 'var(--ink-soft)' }}>{lang === 'tr' ? 'Kalibrasyon verisi bulunamadı.' : 'No calibration data found.'}</p>;
+    return <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 400, fontSize: '1rem', color: 'var(--ink-soft)' }}>{lang === 'tr' ? 'Kalibrasyon verisi bulunamadı.' : 'No calibration data found.'}</p>;
   }
 
   const { profil, vak, arketip, beceri, panksepp } = veri;
@@ -98,7 +98,7 @@ export default function KalibrasyonOzeti({ lang = 'tr' }) {
     return (
       <Kart>
         <Etiket>{tr ? 'Kalibrasyon' : 'Calibration'}</Etiket>
-        <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 400, fontSize: '1rem', lineHeight: 1.6, color: 'var(--ink-soft)', margin: 0 }}>
+        <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 400, fontSize: '1rem', lineHeight: 1.6, color: 'var(--ink-soft)', margin: 0 }}>
           {tr ? 'Henüz kalibrasyon tamamlanmamış. /kalibrasyon üzerinden başlayabilirsin.' : 'Calibration not completed yet. Start it from /kalibrasyon.'}
         </p>
       </Kart>
@@ -123,14 +123,14 @@ export default function KalibrasyonOzeti({ lang = 'tr' }) {
       {profil?.ad && (
         <div style={{ marginBottom: '1.6rem' }}>
           <h2 style={{
-            fontFamily: 'Cormorant Garamond, serif',
+            fontFamily: 'var(--font-display), serif',
             fontWeight: 500,
             fontStyle: 'italic',
             fontSize: '2rem',
             color: 'var(--ink)',
             margin: 0,
           }}>{profil.ad}</h2>
-          <div style={{ fontFamily: 'Jost, sans-serif', fontWeight: 400, fontSize: '0.92rem', color: 'var(--ink-soft)' }}>
+          <div style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 400, fontSize: '0.92rem', color: 'var(--ink-soft)' }}>
             {[profil.sehir, profil.ulke, profil.deneyim].filter(Boolean).join(' · ')}
           </div>
         </div>
@@ -149,7 +149,7 @@ export default function KalibrasyonOzeti({ lang = 'tr' }) {
         <Kart>
           <Etiket>{tr ? 'Öğrenme Stili · VAK' : 'Learning Style · VAK'}</Etiket>
           {vakBaskinAd && (
-            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 400, fontSize: '1.02rem', lineHeight: 1.5, color: 'var(--ink)', marginTop: 0 }}>
+            <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 400, fontSize: '1.02rem', lineHeight: 1.5, color: 'var(--ink)', marginTop: 0 }}>
               {tr ? 'Baskın kanalın:' : 'Your dominant channel:'} <strong style={{ color: 'var(--accent)' }}>{lab(vakBaskinAd, lang)}</strong>
             </p>
           )}
@@ -164,14 +164,14 @@ export default function KalibrasyonOzeti({ lang = 'tr' }) {
           <Etiket>{tr ? 'Kişilik Tipi · MBTI' : 'Personality Type · MBTI'}</Etiket>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', flexWrap: 'wrap' }}>
             <span style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontWeight: 500,
               fontSize: '2.6rem',
               letterSpacing: '0.1em',
               color: 'var(--accent)',
             }}>{arketip.tip}</span>
             <span style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
               fontWeight: 400,
               fontSize: '1.3rem',
