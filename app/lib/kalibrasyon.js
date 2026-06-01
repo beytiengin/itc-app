@@ -256,7 +256,7 @@ const PANK_SOZLUK = {
     yansimaSorusu: {
       tr: "Bu karakter neye 'hayır' diyor? O 'hayır' sende nerede?",
       en: "What does this character say 'no' to? Where is that 'no' in you?",
-      de: 'Wozu sagt diese Figur „nein"? Wo sitzt dieses „nein" in dir?',
+      de: 'Wozu sagt diese Figur „nein“? Wo sitzt dieses „nein“ in dir?',
     },
   },
   korku: {

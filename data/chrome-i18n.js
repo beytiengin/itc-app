@@ -759,8 +759,8 @@ const chromeI18n = {
       ctaUyeKalibrasyonDevam: 'Kalibrierung abschließen →',
       ctaUyeKarakter: 'Zur Figur →',
       ctaUyeKaldiginYerden: 'Dort weitermachen, wo du aufgehört hast →',
-      vurusGelenek: '„was zu tun ist."',
-      vurusITC: '„wie sie denkt."',
+      vurusGelenek: '„was zu tun ist.“',
+      vurusITC: '„wie sie denkt.“',
       vurusGelenekOnce: 'Herkömmliche Methoden sagen dem Schauspieler, ',
       vurusGelenekSonra: '',
       vurusITCOnce: 'ITC fragt, ',
@@ -938,7 +938,7 @@ const chromeI18n = {
       beytiBio1:
         'Träger des Afife-Theaterpreises. Vom Dostlar-Theater über die Bakırköy-Stadttheater bis zur Oyun Atölyesi verläuft sein Weg entlang der zeitgenössischen Linie des türkischen Theaters.',
       beytiBio2:
-        'Ein mutiger Performer, der Nassim Soleimanpours „White Rabbit Red Rabbit" erstmals in der Türkei auf die Bühne brachte. In der Spielzeit 2025–26 setzt er seine Schauspielkarriere in „Tod eines Handlungsreisenden" unter der Regie von Rufus Norris und in „Sohn der Sonne" unter der Regie von Nagihan Gürkan fort.',
+        'Ein mutiger Performer, der Nassim Soleimanpours „White Rabbit Red Rabbit“ erstmals in der Türkei auf die Bühne brachte. In der Spielzeit 2025–26 setzt er seine Schauspielkarriere in „Tod eines Handlungsreisenden“ unter der Regie von Rufus Norris und in „Sohn der Sonne“ unter der Regie von Nagihan Gürkan fort.',
       beytiBio3:
         'Er begründete die ITC-Methodik 2005 gemeinsam mit Filiz Kaya Ataklı und entwickelt sie seither durch Workshops, Figurenarbeit und Einzelpraxis weiter.',
       beytiAtolyeNot: 'Workshops · HMDK Stuttgart 2022 · Berlin Chubbuck Studio 2022–24',
@@ -949,7 +949,7 @@ const chromeI18n = {
       filizBio2:
         'Zu ihrer Berufsausbildung gehören außerdem Sensomotorische Psychotherapie, EMDR, PACT, Mentaltraining und Emotionsfokussierte Therapie. Sie ist Mitbegründerin von Psikoloji İstanbul.',
       filizBio3:
-        'Sie arbeitet mit Schauspielern am „Character Design" und unterrichtet Schauspiel und Performance-Entwicklung in verschiedenen Ländern weltweit. Sie begründete die ITC-Methodik gemeinsam mit Beyti Engin und ist die Architektin ihrer klinischen Grundlage.',
+        'Sie arbeitet mit Schauspielern am „Character Design“ und unterrichtet Schauspiel und Performance-Entwicklung in verschiedenen Ländern weltweit. Sie begründete die ITC-Methodik gemeinsam mit Beyti Engin und ist die Architektin ihrer klinischen Grundlage.',
       tarihceUstEtiket: 'Seit 2005',
       tarihceBaslik: 'Die Reise der Methode',
       tarihceSimdi: 'jetzt',
@@ -967,7 +967,7 @@ const chromeI18n = {
       katmanIntro: 'ITC ist kein einzelnes Produkt — drei Schichten ergänzen einander.',
       katmanlar: [
         { durum: 'Bald', ad: 'Method-Buch', altBaslik: 'Inside The Character', metin: '~320-seitiges theoretisches und praktisches Buch. Die konzeptionelle Autorität der Methode für Ausbilder und fortgeschrittene Schauspieler.' },
-        { durum: 'Noch nicht veröffentlicht', ad: 'Arbeitsbücher', altBaslik: 'Hamlet · Willy Loman', metin: 'Arbeitsbücher, die die Methode anhand einer einzigen Figur vertiefen. Das Hamlet-Arbeitsbuch (314 Seiten, „Inside The Hamlet") und ein Willy-Loman-Arbeitsbuch sind fertig; noch nicht veröffentlicht.' },
+        { durum: 'Noch nicht veröffentlicht', ad: 'Arbeitsbücher', altBaslik: 'Hamlet · Willy Loman', metin: 'Arbeitsbücher, die die Methode anhand einer einzigen Figur vertiefen. Das Hamlet-Arbeitsbuch (314 Seiten, „Inside The Hamlet“) und ein Willy-Loman-Arbeitsbuch sind fertig; noch nicht veröffentlicht.' },
         { durum: 'Live-Beta', ad: 'ITC App', altBaslik: "Actor's Gym", metin: 'Web-Anwendung. Digitale Praxis für den Schauspieler, der täglich trainiert. Die Seite, die du gerade liest.', aktif: true },
       ],
       kurumUstEtiket: 'Institutionelle Brücken',

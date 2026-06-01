@@ -34,7 +34,7 @@ const hamletDE = {
     { madde: 'Er schickt Rosenkranz und Güldenstern in den Tod.' },
     { madde: 'Im Duell kämpft er mit Laertes.' },
     { madde: 'Er wird von der vergifteten Klinge verwundet.' },
-    { madde: 'Seine letzten Worte: „Der Rest ist Schweigen."' },
+    { madde: 'Seine letzten Worte: „Der Rest ist Schweigen.“' },
     { madde: 'Fortinbras wird Thronerbe.' },
   ],
 
@@ -60,8 +60,8 @@ const hamletDE = {
       },
       {
         baslik: 'Gertrude heiratet überstürzt Claudius',
-        yuk: 'Ein moralisches Trauma, Verrat auf tiefe Trauer gelegt — „noch keine zwei Monate".',
-        yansimaSorusu: '„Noch keine zwei Monate" — wie verrutscht dieser Satz im Körper?',
+        yuk: 'Ein moralisches Trauma, Verrat auf tiefe Trauer gelegt — „noch keine zwei Monate“.',
+        yansimaSorusu: '„Noch keine zwei Monate“ — wie verrutscht dieser Satz im Körper?',
       },
       {
         baslik:
@@ -108,9 +108,9 @@ const hamletDE = {
       {
         gecmis: 'Der Onkel am Hof, die Verwandtschaft. Nicht nah, aber vertraut.',
         simdi: 'Der Mann seiner Mutter, Inhaber des Throns — er erregt Abscheu.',
-        iz: '„Mehr als befreundet, weniger als Freund."',
+        iz: '„Mehr als befreundet, weniger als Freund.“',
         yansimaSorusu:
-          '„Mehr als befreundet, weniger als Freund" — wie fühlt sich dieser Abstand im Körper an?',
+          '„Mehr als befreundet, weniger als Freund“ — wie fühlt sich dieser Abstand im Körper an?',
       },
       {
         gecmis: 'Die Liebe hat begonnen — Briefe, heimliche Worte.',
@@ -170,7 +170,7 @@ const hamletDE = {
     {
       baslik: 'Der erste Monolog',
       olay:
-        'Claudius sitzt auf dem Thron, Gertrude an seiner Seite, Hamlet steht in Schwarz am Rand. „Mehr als befreundet, weniger als Freund" sagt er zu seinem Onkel. Allein geblieben: „O schmölze doch dies allzu feste Fleisch, zerging und löst in einen Tau sich auf!"',
+        'Claudius sitzt auf dem Thron, Gertrude an seiner Seite, Hamlet steht in Schwarz am Rand. „Mehr als befreundet, weniger als Freund“ sagt er zu seinem Onkel. Allein geblieben: „O schmölze doch dies allzu feste Fleisch, zerging und löst in einen Tau sich auf!“',
       icsel:
         'Trauer + Abscheu + moralischer Zusammenbruch. Die Eile der Mutter, das Lächeln des Hofes sind unerträglich.',
       yuk: 'Die Einsamkeit auf dem Höhepunkt. Etwas fehlt, doch was — er weiß es noch nicht.',
@@ -186,15 +186,15 @@ const hamletDE = {
     {
       baslik: 'Plan + Schauspieler',
       olay:
-        'Rosenkranz und Güldenstern sind am Hof — Claudius\' Spitzel. Die Schauspieler kommen. Hamlet schmiedet den Plan der „Mausefalle": Ein Stück soll aufgeführt werden, um die Schuld des Claudius zu prüfen.',
+        'Rosenkranz und Güldenstern sind am Hof — Claudius\' Spitzel. Die Schauspieler kommen. Hamlet schmiedet den Plan der „Mausefalle“: Ein Stück soll aufgeführt werden, um die Schuld des Claudius zu prüfen.',
       icsel:
         'Paranoia + Hinwendung zum Verstand. Der Körper tritt zurück, der Geist nach vorn. Die Maske des Wahnsinns wird angelegt.',
       yuk: 'Er sagt, er glaube dem Geist nicht; glaubt er wirklich nicht?',
     },
     {
-      baslik: '„Sein oder Nichtsein" + Ophelia',
+      baslik: '„Sein oder Nichtsein“ + Ophelia',
       olay:
-        'Hamlet, allein, sinnt über das Dasein: „Sein oder Nichtsein, das ist hier die Frage." Dann kommt Ophelia; Hamlet weist sie schroff zurück und schickt sie ins Kloster.',
+        'Hamlet, allein, sinnt über das Dasein: „Sein oder Nichtsein, das ist hier die Frage.“ Dann kommt Ophelia; Hamlet weist sie schroff zurück und schickt sie ins Kloster.',
       icsel:
         'Existenzieller Zusammenbruch → der Entschluss, ins Leben zurückzukehren → die Zurückweisung der Liebe. Drei verschiedene Momente in einer Szene.',
       yuk: 'Auch Ophelia stand auf ihrer Seite (glaubte er). Die einzige positive Bindung wird durchtrennt.',
@@ -204,13 +204,13 @@ const hamletDE = {
       olay:
         'Die Schauspieler führen eine Szene auf, die den Tod des alten Königs darstellt. Claudius hält es nicht aus, verlässt die Aufführung. Hamlet hat seinen Beweis.',
       icsel:
-        'Geduldige Strategie → ausgebrochene Bestätigung. „Jetzt weiß ich es."',
+        'Geduldige Strategie → ausgebrochene Bestätigung. „Jetzt weiß ich es.“',
       yuk: 'Jetzt weiß ich es. Und nun?',
     },
     {
       baslik: 'Der betende Claudius',
       olay:
-        'Claudius ist niedergekniet, um zu beichten. Hamlet hinter ihm, das Schwert gezogen — doch er schlägt nicht zu. „Töte ich ihn so, kommt er in den Himmel; ist das dann meine Rache?" Er schiebt es auf.',
+        'Claudius ist niedergekniet, um zu beichten. Hamlet hinter ihm, das Schwert gezogen — doch er schlägt nicht zu. „Töte ich ihn so, kommt er in den Himmel; ist das dann meine Rache?“ Er schiebt es auf.',
       icsel:
         'Gewissen + Gerechtigkeitsgefühl + Aufschub. Der Verstand liefert Gründe.',
       yuk: 'Die Gewohnheit des Aufschubs verfestigt sich. Es ist immer dasselbe, wann auch immer.',
@@ -218,7 +218,7 @@ const hamletDE = {
     {
       baslik: 'Die Szene mit der Mutter + Polonius',
       olay:
-        'Hamlet kommt in das Zimmer seiner Mutter. Hinter dem Vorhang hört er ein Geräusch; „Was da? Eine Ratte?" und stößt sein Schwert hindurch. Versehentlich hat er Polonius getötet. Die Auseinandersetzung mit der Mutter beginnt erst danach.',
+        'Hamlet kommt in das Zimmer seiner Mutter. Hinter dem Vorhang hört er ein Geräusch; „Was da? Eine Ratte?“ und stößt sein Schwert hindurch. Versehentlich hat er Polonius getötet. Die Auseinandersetzung mit der Mutter beginnt erst danach.',
       icsel:
         'Liebe → Zorn → Reue. Drei Schichten brechen zugleich hervor.',
       yuk: 'Nun ist er ein Mörder. Kein Zurück mehr.',
@@ -234,7 +234,7 @@ const hamletDE = {
     {
       baslik: 'Das Heer des Fortinbras',
       olay:
-        'Unterwegs begegnet er dem Heer des Fortinbras. Tausende Soldaten, die um ein winziges Stück Land kämpfen. Hamlet sieht auf seine eigene Untätigkeit und empfindet Scham: „O, von Stund an trachtet, Gedanken, nach Blut, sonst seid ihr nichts mehr wert!"',
+        'Unterwegs begegnet er dem Heer des Fortinbras. Tausende Soldaten, die um ein winziges Stück Land kämpfen. Hamlet sieht auf seine eigene Untätigkeit und empfindet Scham: „O, von Stund an trachtet, Gedanken, nach Blut, sonst seid ihr nichts mehr wert!“',
       icsel:
         'Scham → Zorn auf sich selbst → der Entschluss zur Tat. Der Vergleich setzt den Körper in Bewegung.',
       yuk: 'Der Entschluss ist da, doch fern von Dänemark. Wo bleibt die Tat?',
@@ -250,7 +250,7 @@ const hamletDE = {
     {
       baslik: 'Yorick + Ophelias Begräbnis',
       olay:
-        'Er spricht mit den Totengräbern und nimmt Yoricks Schädel in die Hand: „Ach, armer Yorick…" Dann stößt er auf Ophelias Begräbnis. Mit Laertes gerät er im Grab in einen Kampf.',
+        'Er spricht mit den Totengräbern und nimmt Yoricks Schädel in die Hand: „Ach, armer Yorick…“ Dann stößt er auf Ophelias Begräbnis. Mit Laertes gerät er im Grab in einen Kampf.',
       icsel:
         'Philosophischer Frieden mit dem Tod (ruhig) → der Ausbruch der unterdrückten Liebe (Schock). Zwei Momente, innerhalb von fünf Minuten.',
       yuk: 'Er hat die Liebe nicht angenommen, aber verloren. Der Tod ist nun vertraut.',
@@ -258,7 +258,7 @@ const hamletDE = {
     {
       baslik: 'An Horatio · Annahme',
       olay:
-        'Er erzählt Horatio vom Verrat von Rosenkranz und Güldenstern und davon, dass er ihren Tod verschuldet hat. Er nimmt die Einladung zum Duell an. „Auch im Fall eines Sperlings waltet eine besondere Vorsehung."',
+        'Er erzählt Horatio vom Verrat von Rosenkranz und Güldenstern und davon, dass er ihren Tod verschuldet hat. Er nimmt die Einladung zum Duell an. „Auch im Fall eines Sperlings waltet eine besondere Vorsehung.“',
       icsel:
         'Kaltblütige Annahme. Der innere Frieden beginnt — bereit, dem Tod ins Auge zu sehen.',
       yuk: 'Nun habe ich meinen Frieden mit dem Tod gemacht. Komme, was wolle.',
@@ -266,9 +266,9 @@ const hamletDE = {
     {
       baslik: 'Duell + Tod',
       olay:
-        'Das Duell beginnt. Die Hinterlist wird erkannt: Klinge und Becher sind vergiftet. Gertrude trinkt aus dem vergifteten Becher und stirbt. Hamlet tötet Laertes und Claudius. Auch er selbst stirbt am Gift: „Der Rest ist… Schweigen."',
+        'Das Duell beginnt. Die Hinterlist wird erkannt: Klinge und Becher sind vergiftet. Gertrude trinkt aus dem vergifteten Becher und stirbt. Hamlet tötet Laertes und Claudius. Auch er selbst stirbt am Gift: „Der Rest ist… Schweigen.“',
       icsel:
-        'Ein Tod in Ehre + das Weitergeben der Geschichte. „Horatio… erzähle es ihnen."',
+        'Ein Tod in Ehre + das Weitergeben der Geschichte. „Horatio… erzähle es ihnen.“',
       yuk: 'Die Geschichte bleibt bei Horatio. Hamlet schweigt.',
     },
   ],
@@ -280,7 +280,7 @@ const hamletDE = {
       isaretler: [
         {
           metin:
-            'Bernardo, Marcellus und Horatio sehen ihn zugleich. Horatio, der skeptische Intellektuelle: „Ich hätt es nie geglaubt, ich müßt es denn mit eignen Augen sehn."',
+            'Bernardo, Marcellus und Horatio sehen ihn zugleich. Horatio, der skeptische Intellektuelle: „Ich hätt es nie geglaubt, ich müßt es denn mit eignen Augen sehn.“',
         },
         {
           metin:
@@ -288,7 +288,7 @@ const hamletDE = {
         },
         {
           metin:
-            'Hamlet sieht den Geist und spricht mit ihm. Gertrude hört kein einziges Wort: „Nichts! Und doch sehe ich alles, was da ist."',
+            'Hamlet sieht den Geist und spricht mit ihm. Gertrude hört kein einziges Wort: „Nichts! Und doch sehe ich alles, was da ist.“',
         },
       ],
       sentez: 'Kollektives Sehen + einsames Sehen — zusammen. Shakespeare schreibt beides.',
@@ -317,19 +317,19 @@ const hamletDE = {
       isaretler: [
         {
           metin:
-            'Hamlet erklärt Horatio seinen Plan: „Weil ich vielleicht in Zukunft es für gut finde, einen wunderlichen Wesenszug anzunehmen." — eine bewusste Entscheidung.',
+            'Hamlet erklärt Horatio seinen Plan: „Weil ich vielleicht in Zukunft es für gut finde, einen wunderlichen Wesenszug anzunehmen.“ — eine bewusste Entscheidung.',
         },
         {
           metin:
-            'Er sagt seiner Mutter: „Daß ich nicht wahnsinnig bin, sondern es nur zum Schein bin."',
+            'Er sagt seiner Mutter: „Daß ich nicht wahnsinnig bin, sondern es nur zum Schein bin.“',
         },
         {
           metin:
-            'Grausamkeit gegen Ophelia. „Geh in ein Kloster!" — Dies mag eine Vorstellung sein, doch die emotionale Gewalt ist echt.',
+            'Grausamkeit gegen Ophelia. „Geh in ein Kloster!“ — Dies mag eine Vorstellung sein, doch die emotionale Gewalt ist echt.',
         },
         {
           metin:
-            'Streit mit Laertes an Ophelias Grab: „Und kämen tausend Brüder, all ihre Liebe vereint…" — ein unkontrollierter Ausbruch.',
+            'Streit mit Laertes an Ophelias Grab: „Und kämen tausend Brüder, all ihre Liebe vereint…“ — ein unkontrollierter Ausbruch.',
         },
       ],
       yorumlar: [
@@ -349,7 +349,7 @@ const hamletDE = {
             'Bewusst und unbewusst stets zusammen. Hamlet wählt und wird zugleich mitgerissen. Die beiden Seiten lassen sich nicht trennen.',
         },
       ],
-      kapanis: 'Deine Wahl bestimmt die Textur der „Wahnsinns"-Momente auf der Bühne.',
+      kapanis: 'Deine Wahl bestimmt die Textur der „Wahnsinns“-Momente auf der Bühne.',
     },
     {
       konu: 'Ophelia',
@@ -357,15 +357,15 @@ const hamletDE = {
       isaretler: [
         {
           metin:
-            'Was Hamlet an Ophelia schrieb: „Zweifle an der Sonne Klarheit, zweifle an der Sterne Licht, zweifl, ob lügen kann die Wahrheit, nur an meiner Liebe nicht."',
+            'Was Hamlet an Ophelia schrieb: „Zweifle an der Sonne Klarheit, zweifle an der Sterne Licht, zweifl, ob lügen kann die Wahrheit, nur an meiner Liebe nicht.“',
         },
         {
           metin:
-            'Widersprüchlich: „Ich liebte Euch einst." — wenige Verse später: „Ich liebte Euch nicht." Danach: „Geh in ein Kloster!"',
+            'Widersprüchlich: „Ich liebte Euch einst.“ — wenige Verse später: „Ich liebte Euch nicht.“ Danach: „Geh in ein Kloster!“',
         },
         {
           metin:
-            'Beim Begräbnis bricht es aus ihm heraus: „Ich liebte Ophelia. Und kämen tausend Brüder, all ihre Liebe vereint, sie reichten nicht an meine."',
+            'Beim Begräbnis bricht es aus ihm heraus: „Ich liebte Ophelia. Und kämen tausend Brüder, all ihre Liebe vereint, sie reichten nicht an meine.“',
         },
         {
           metin:
@@ -400,19 +400,19 @@ const hamletDE = {
       isaretler: [
         {
           metin:
-            '„Welch ein Schurke und niedrer Sklav bin ich!" Er zürnt sich selbst — keine Tat, nur Worte. Ein Schauspieler kann selbst für einen erdachten Schmerz Tränen vergießen, während er für seinen wirklichen Vater nichts getan hat.',
+            '„Welch ein Schurke und niedrer Sklav bin ich!“ Er zürnt sich selbst — keine Tat, nur Worte. Ein Schauspieler kann selbst für einen erdachten Schmerz Tränen vergießen, während er für seinen wirklichen Vater nichts getan hat.',
         },
         {
           metin:
-            'Das Schwert gezogen — er schlägt nicht zu. „Töte ich ihn so, kommt er in den Himmel; ist das dann meine Rache?" — ein Grund wird erzeugt.',
+            'Das Schwert gezogen — er schlägt nicht zu. „Töte ich ihn so, kommt er in den Himmel; ist das dann meine Rache?“ — ein Grund wird erzeugt.',
         },
         {
           metin:
-            '„O, von Stund an trachtet, Gedanken, nach Blut, sonst seid ihr nichts mehr wert!" — ein Versprechen an sich selbst, doch wieder keine Tat.',
+            '„O, von Stund an trachtet, Gedanken, nach Blut, sonst seid ihr nichts mehr wert!“ — ein Versprechen an sich selbst, doch wieder keine Tat.',
         },
         {
           metin:
-            '„So macht Gewissen Feige aus uns allen: der angebornen Farbe der Entschließung wird des Gedankens Blässe angekränkelt."',
+            '„So macht Gewissen Feige aus uns allen: der angebornen Farbe der Entschließung wird des Gedankens Blässe angekränkelt.“',
         },
       ],
       yorumlar: [
@@ -449,15 +449,15 @@ const hamletDE = {
       isaretler: [
         {
           metin:
-            '„Auch im Fall eines Sperlings waltet eine besondere Vorsehung. Ist es jetzt, so ist es nicht zukünftig; ist es nicht zukünftig, so ist es jetzt. Bereitsein ist alles."',
+            '„Auch im Fall eines Sperlings waltet eine besondere Vorsehung. Ist es jetzt, so ist es nicht zukünftig; ist es nicht zukünftig, so ist es jetzt. Bereitsein ist alles.“',
         },
         {
           metin:
-            'Horatio warnt: „Mir ist schwer ums Herz, geh nicht." Hamlet: „Komme, was wolle! Bereitsein ist alles."',
+            'Horatio warnt: „Mir ist schwer ums Herz, geh nicht.“ Hamlet: „Komme, was wolle! Bereitsein ist alles.“',
         },
         {
           metin:
-            '„Der Rest ist… Schweigen." — In Ehre, oder aus Erschöpfung? Shakespeare lässt es offen.',
+            '„Der Rest ist… Schweigen.“ — In Ehre, oder aus Erschöpfung? Shakespeare lässt es offen.',
         },
       ],
       sentez:
@@ -466,7 +466,7 @@ const hamletDE = {
         {
           baslik: 'Passives Aufgeben',
           aciklama:
-            'Hamlet ist erschöpft, seine Fähigkeit zur Sinngebung ist versiegt. „Bereitsein ist alles" ist auch eine weiße Fahne — das letzte Wort eines vom Schicksal zermürbten Mannes. Der Tod als Erlösung.',
+            'Hamlet ist erschöpft, seine Fähigkeit zur Sinngebung ist versiegt. „Bereitsein ist alles“ ist auch eine weiße Fahne — das letzte Wort eines vom Schicksal zermürbten Mannes. Der Tod als Erlösung.',
         },
         {
           baslik: 'Reife Annahme',
@@ -495,7 +495,7 @@ const hamletDE = {
         'Aufbruch ohne Vorwarnung · eine ungewisse Reise · die Hast, zur Beerdigung zu kommen · in der Trauer an die Mutter denken · Claudius ist noch immer der Onkel · die Nachricht der Hochzeit ist nicht eingetroffen.',
       sonraBaslik: 'I.ii · Der Hof',
       sonraMetin:
-        'Hamlet in Schwarz am Hof. Die Mutter hat Claudius geheiratet. Hamlet steht am Rand, trauert — der erste Monolog: „O schmölze doch dies allzu feste Fleisch, zerging und löst in einen Tau sich auf!"',
+        'Hamlet in Schwarz am Hof. Die Mutter hat Claudius geheiratet. Hamlet steht am Rand, trauert — der erste Monolog: „O schmölze doch dies allzu feste Fleisch, zerging und löst in einen Tau sich auf!“',
       sentez:
         'Wie viel Zeit in der Lücke verging, wissen wir nicht. Kam er zur Beerdigung oder erst zur Hochzeit — Shakespeare sagt es nicht.',
       altSorular: [
@@ -518,12 +518,12 @@ const hamletDE = {
       sinif: 'Entscheidungs-Lücke',
       onceBaslik: 'I.v · Das Ende',
       onceMetin:
-        'Der Geist hat erzählt, wie sein Vater starb. Hamlet hat Rache geschworen. Er ließ Horatio und Marcellus schwören: „Weil ich vielleicht in Zukunft es für gut finde, einen wunderlichen Wesenszug anzunehmen." Es dämmert, sie steigen von den Zinnen herab.',
+        'Der Geist hat erzählt, wie sein Vater starb. Hamlet hat Rache geschworen. Er ließ Horatio und Marcellus schwören: „Weil ich vielleicht in Zukunft es für gut finde, einen wunderlichen Wesenszug anzunehmen.“ Es dämmert, sie steigen von den Zinnen herab.',
       boslukMetin:
-        'Morgendämmerung · der erste Tag · die erste Nacht allein · der Geist im Bett · die Geburt des Gedankens der „antic disposition" · die Vorgeschichte zum Auftritt in Ophelias Zimmer (II.i berichtet Polonius davon).',
+        'Morgendämmerung · der erste Tag · die erste Nacht allein · der Geist im Bett · die Geburt des Gedankens der „antic disposition“ · die Vorgeschichte zum Auftritt in Ophelias Zimmer (II.i berichtet Polonius davon).',
       sonraBaslik: 'II.ii · Der Hof',
       sonraMetin:
-        'Einige Tage sind vergangen. Polonius hat dem König seine „Wahnsinns"-Beobachtung gemeldet. Rosenkranz und Güldenstern wurden gerufen. Die Schauspieler kommen. Hamlet schmiedet einen Plan — die „Mausefalle".',
+        'Einige Tage sind vergangen. Polonius hat dem König seine „Wahnsinns“-Beobachtung gemeldet. Rosenkranz und Güldenstern wurden gerufen. Die Schauspieler kommen. Hamlet schmiedet einen Plan — die „Mausefalle“.',
       sentez:
         'Zwischen dem Abschied vom Geist und dem Augenblick, in dem Hamlet beginnt, die Wahnsinnsmaske anzulegen und Pläne zu schmieden, liegt mindestens eine Nacht. Vielleicht mehrere.',
       altSorular: [
@@ -537,7 +537,7 @@ const hamletDE = {
         },
         {
           baslik: 'Die Geburt des Maskengedankens',
-          soru: 'Woher kam der Gedanke der „antic disposition"? Ein bewusstes Kalkül, oder ein plötzlicher Entschluss?',
+          soru: 'Woher kam der Gedanke der „antic disposition“? Ein bewusstes Kalkül, oder ein plötzlicher Entschluss?',
         },
       ],
     },
@@ -546,12 +546,12 @@ const hamletDE = {
       sinif: 'Bruch-Lücke',
       onceBaslik: 'III.iv · Das Zimmer der Mutter',
       onceMetin:
-        'Hamlet hat sich seiner Mutter gestellt. Den Polonius hinter dem Vorhang tötete er mit „Was da? Eine Ratte?". Der Geist kam erneut. Er verließ das Zimmer der Mutter und schleifte die Leiche hinter sich her.',
+        'Hamlet hat sich seiner Mutter gestellt. Den Polonius hinter dem Vorhang tötete er mit „Was da? Eine Ratte?“. Der Geist kam erneut. Er verließ das Zimmer der Mutter und schleifte die Leiche hinter sich her.',
       boslukMetin:
         'Die Leiche · durch die Nacht zum Schloss hin · das Sich-Setzen des ersten Tötens im Geist · Reue, Kälte oder Furcht? · was tat er, ehe es Morgen wurde? · der Schlaf als erster Mörder.',
       sonraBaslik: 'IV.iii · Vor Claudius',
       sonraMetin:
-        'Hamlet antwortet mit der Maske der Ironie auf Claudius\' Fragen. „Wo ist Polonius?" — Beim Mahl, doch nicht als Essender, sondern als Gegessener. Kalter Wahnsinn, der Abzug im Inneren.',
+        'Hamlet antwortet mit der Maske der Ironie auf Claudius\' Fragen. „Wo ist Polonius?“ — Beim Mahl, doch nicht als Essender, sondern als Gegessener. Kalter Wahnsinn, der Abzug im Inneren.',
       sentez:
         'Der erste Mensch, den Hamlet getötet hat. Der erste blutige Augenblick. In dieser Lücke liegt die Entstehung jenes ersten Mörders.',
       altSorular: [
@@ -574,12 +574,12 @@ const hamletDE = {
       sinif: 'Wandlungs-Lücke',
       onceBaslik: 'IV.iii',
       onceMetin:
-        'Claudius verbannt ihn. Er soll mit Rosenkranz und Güldenstern an Bord gehen. Hamlet verabschiedet sich mit Ironie: „Auf nach England! Lebe wohl, liebe Mutter." Als hätten äußere Mächte die Entscheidung über sein Leben getroffen.',
+        'Claudius verbannt ihn. Er soll mit Rosenkranz und Güldenstern an Bord gehen. Hamlet verabschiedet sich mit Ironie: „Auf nach England! Lebe wohl, liebe Mutter.“ Als hätten äußere Mächte die Entscheidung über sein Leben getroffen.',
       boslukMetin:
         'Das Schiff sticht in See · Hamlet findet den Brief von Rosenkranz und Güldenstern · liest das Todesurteil · vertauscht den Brief · Piraten greifen an · Hamlet entkommt · kehrt nach Dänemark zurück. Er schreibt Horatio einen Brief (in IV.vi vorgelesen).',
       sonraBaslik: 'V.i · Der Friedhof',
       sonraMetin:
-        'Hamlet ist verändert. „Bereitsein ist alles." Mit Yoricks Schädel führt er ein philosophisches Gespräch. Selbst der Ausbruch an Ophelias Begräbnis hat einen anderen Ton — vertrauter mit dem Tod.',
+        'Hamlet ist verändert. „Bereitsein ist alles.“ Mit Yoricks Schädel führt er ein philosophisches Gespräch. Selbst der Ausbruch an Ophelias Begräbnis hat einen anderen Ton — vertrauter mit dem Tod.',
       sentez:
         'Die größte der fünf Lücken. Hier liegt Hamlets größte Wandlung — der in die Verbannung gehende Hamlet und der zurückkehrende sind nicht derselbe Mensch.',
       altSorular: [
@@ -602,12 +602,12 @@ const hamletDE = {
       sinif: 'Schwellen-Lücke',
       onceBaslik: 'V.ii(A)',
       onceMetin:
-        'Hamlet hat Horatio die Geschichte von Rosenkranz und Güldenstern erzählt, die Einladung zum Duell angenommen. „Auch im Fall eines Sperlings waltet eine besondere Vorsehung." Der innere Frieden hat begonnen. Osric ist abgetreten, es ist Zeit der Vorbereitung.',
+        'Hamlet hat Horatio die Geschichte von Rosenkranz und Güldenstern erzählt, die Einladung zum Duell angenommen. „Auch im Fall eines Sperlings waltet eine besondere Vorsehung.“ Der innere Frieden hat begonnen. Osric ist abgetreten, es ist Zeit der Vorbereitung.',
       boslukMetin:
-        'Die Vorbereitung · vielleicht ein einsamer Augenblick · vielleicht der Weg mit Horatio · an die Mutter denken · an den Vater · an Ophelia · der Augenblick „Dies hätte mein Leben sein können" · die Wahl der Klinge · der Atem beim Betreten des Saals.',
+        'Die Vorbereitung · vielleicht ein einsamer Augenblick · vielleicht der Weg mit Horatio · an die Mutter denken · an den Vater · an Ophelia · der Augenblick „Dies hätte mein Leben sein können“ · die Wahl der Klinge · der Atem beim Betreten des Saals.',
       sonraBaslik: 'V.ii(B) · Das Duell',
       sonraMetin:
-        'Der Duellsaal. Der ganze Hof. Hamlet stellt sich Laertes, bittet um Verzeihung. Das Duell beginnt. „Der Rest ist… Schweigen."',
+        'Der Duellsaal. Der ganze Hof. Hamlet stellt sich Laertes, bittet um Verzeihung. Das Duell beginnt. „Der Rest ist… Schweigen.“',
       sentez:
         'Hamlet weiß nicht, dass er sterben wird. Doch sein Körper weiß es vielleicht. Diese letzte Lücke ist die kürzeste — doch vielleicht die dichteste.',
       altSorular: [

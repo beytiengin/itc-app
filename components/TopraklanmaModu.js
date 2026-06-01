@@ -51,7 +51,7 @@ export default function TopraklanmaModu({ baslik, onKapat }) {
       etiket: 'Erdung · Ausstieg',
       baslikH: 'Lass die Figur los',
       altPre: '„',
-      altPost: '" war eine tiefe Arbeit. Bevor du ins tägliche Leben zurückkehrst, machen wir eine kurze Erdung.',
+      altPost: '“ war eine tiefe Arbeit. Bevor du ins tägliche Leben zurückkehrst, machen wir eine kurze Erdung.',
       devam: 'Erledigt · Weiter',
       bitir: 'Ich bin hier ✓',
       adimlar: [
