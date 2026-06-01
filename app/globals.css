@@ -64,6 +64,12 @@
   --sicak-soguk:     #6a8aa8;
   --sicak-sicak:     #c97a4a;
 
+  /* Sahne/Bosluk tasarim dili (Faz 1) — sahne sabit sicak (yazar);
+     bosluk boske acik (bos kagit), dolunca isinir (oyuncu). */
+  --sahne-renk:      #b06a4a;
+  --bosluk-bos:      #e8e2d6;
+  --bosluk-dolu:     #d08a4a;
+
   /* Geriye uyumluluk (eski isimler) */
   --black:           var(--bg-base);
   --white:           var(--ink);
@@ -124,6 +130,11 @@
   /* Sicaklik gradyani krem ton */
   --sicak-soguk:     #3A6688;
   --sicak-sicak:     #A0502A;
+
+  /* Sahne/Bosluk tasarim dili krem ton */
+  --sahne-renk:      #5C1A2C;
+  --bosluk-bos:      #cdbfa6;
+  --bosluk-dolu:     #b05a2a;
 }
 
 * {
