@@ -175,6 +175,20 @@ function SiradakiAdimCTA({ adim, t }) {
   );
 }
 
+// Tasarım Dili Faz 2: en son çalışılan karakter PRIMARY (sayfada 1 tane);
+// diğer aktif karakter SECONDARY; pasifler INERT (kesik kenar, opacity).
+//
+// "Devam edilen" hesabı: en yüksek total ilerleme (bosluk + antrenman) — varsa.
+// Recency timestamp'i için yeni sorgu açmadık; volume yeterli proxy (note esnek).
+function primaryKarakterIdHesapla(ilerlemeler) {
+  const adaylar = ['hamlet', 'willy'].map((id) => {
+    const v = ilerlemeler[id] || { bosluk: 0, antrenman: 0 };
+    return { id, toplam: (v.bosluk || 0) + (v.antrenman || 0) };
+  });
+  const enYuksek = adaylar.reduce((a, b) => (b.toplam > a.toplam ? b : a));
+  return enYuksek.toplam > 0 ? enYuksek.id : null;
+}
+
 export default function KarakterListesi() {
   const { dil } = useDil();
   const t = ceviri(chromeI18n, dil).karakterListesi;
@@ -203,6 +217,8 @@ export default function KarakterListesi() {
     return () => { iptal = true; };
   }, []);
 
+  const primaryId = primaryKarakterIdHesapla(ilerlemeler);
+
   return (
     <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', flexDirection: 'column' }}>
       {/* Üst nav artık global — components/Navigasyon.js */}
@@ -220,49 +236,44 @@ export default function KarakterListesi() {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
 
-          {/* Hamlet — aktif */}
-          <a href="/antrenman/karakter/hamlet"
-            style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', padding: '2rem', border: '1px solid var(--rule)', textDecoration: 'none', transition: 'all 0.3s ease' }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.backgroundColor = 'var(--bg-elevated)'; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; e.currentTarget.style.backgroundColor = 'transparent'; }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-              <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>Hamlet</span>
-              <MetaSatiri karakterId="hamlet" t={t} />
-            </div>
-            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>
-              {t.hamlet.aciklama}
-            </p>
-            <EtiketBloku karakterId="hamlet" t={t} />
-            <IlerlemeBloku karakterId="hamlet" ilerlemeler={ilerlemeler} t={t} />
-            <SiradakiAdimCTA adim={adimlar.hamlet} t={t} />
-          </a>
+          <AktifKart
+            karakterId="hamlet"
+            ad="Hamlet"
+            href="/antrenman/karakter/hamlet"
+            isPrimary={primaryId === 'hamlet'}
+            ilerlemeler={ilerlemeler}
+            adim={adimlar.hamlet}
+            t={t}
+          />
 
-          {/* Willy Loman — aktif */}
-          <a href="/antrenman/karakter/willy"
-            style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', padding: '2rem', border: '1px solid var(--rule)', textDecoration: 'none', transition: 'all 0.3s ease' }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.backgroundColor = 'var(--bg-elevated)'; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; e.currentTarget.style.backgroundColor = 'transparent'; }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-              <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>Willy Loman</span>
-              <MetaSatiri karakterId="willy" t={t} />
-            </div>
-            <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>
-              {t.willy.aciklama}
-            </p>
-            <EtiketBloku karakterId="willy" t={t} />
-            <IlerlemeBloku karakterId="willy" ilerlemeler={ilerlemeler} t={t} />
-            <SiradakiAdimCTA adim={adimlar.willy} t={t} />
-          </a>
+          <AktifKart
+            karakterId="willy"
+            ad="Willy Loman"
+            href="/antrenman/karakter/willy"
+            isPrimary={primaryId === 'willy'}
+            ilerlemeler={ilerlemeler}
+            adim={adimlar.willy}
+            t={t}
+          />
 
-          {/* Yakında — Macbeth, Biff, Medea, Blanche (tıklanmaz, pasif) */}
+          {/* Yakında — pasif/inert kartlar (tıklanmaz). Tasarım dili Faz 2:
+              kesik kenar (henüz çizilmedi hissi), opacity 0.55 (okunur). */}
           {t.yakinda.map((k, i) => (
-            <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', padding: '2rem', border: '1px solid var(--bg-elevated)', opacity: 0.4 }}>
+            <div key={i} style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.5rem',
+              padding: '2rem',
+              border: '1px dashed var(--rule)',
+              opacity: 0.55,
+              pointerEvents: 'none',
+            }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                  <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>{k.ad}</span>
+                  <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 400, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>{k.ad}</span>
                   <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--ink-muted)', letterSpacing: '0.1em' }}>{k.yazar}</span>
                 </div>
-                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', color: 'var(--ink-muted)', letterSpacing: '0.1em', textTransform: 'uppercase', flexShrink: 0 }}>{t.yakindaEtiket}</span>
+                <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 500, fontSize: '0.6rem', color: 'var(--ink-muted)', letterSpacing: '0.22em', textTransform: 'uppercase', flexShrink: 0 }}>{t.yakindaEtiket}</span>
               </div>
               <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>{k.aciklama}</p>
             </div>
@@ -271,5 +282,64 @@ export default function KarakterListesi() {
         </div>
       </section>
     </main>
+  );
+}
+
+// ─── AKTİF KART — primary/secondary tipolojisi ─────────────────────────────
+function AktifKart({ karakterId, ad, href, isPrimary, ilerlemeler, adim, t }) {
+  const kenarRengi = isPrimary ? 'var(--accent)' : 'var(--rule)';
+  const kenarKalinligi = isPrimary ? '2px' : '1px';
+  const solBant = isPrimary ? '5px solid var(--accent)' : null;
+
+  return (
+    <a href={href}
+      style={{
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '0.8rem',
+        padding: '2rem',
+        border: `${kenarKalinligi} solid ${kenarRengi}`,
+        ...(solBant ? { borderLeft: solBant } : {}),
+        background: isPrimary ? 'var(--bg-elevated)' : 'transparent',
+        textDecoration: 'none',
+        transition: 'all 0.3s ease',
+      }}
+      onMouseEnter={e => {
+        if (!isPrimary) {
+          e.currentTarget.style.borderColor = 'var(--accent)';
+          e.currentTarget.style.backgroundColor = 'var(--bg-elevated)';
+        }
+      }}
+      onMouseLeave={e => {
+        if (!isPrimary) {
+          e.currentTarget.style.borderColor = 'var(--rule)';
+          e.currentTarget.style.backgroundColor = 'transparent';
+        }
+      }}
+    >
+      {isPrimary && (
+        <span style={{
+          alignSelf: 'flex-start',
+          fontFamily: 'Jost, sans-serif',
+          fontWeight: 600,
+          fontSize: '0.55rem',
+          letterSpacing: '0.28em',
+          color: 'var(--accent)',
+          textTransform: 'uppercase',
+          marginBottom: '0.2rem',
+        }}>{t.devamEtiket}</span>
+      )}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+        <span style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 400, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>{ad}</span>
+        <MetaSatiri karakterId={karakterId} t={t} />
+      </div>
+      <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>
+        {t[karakterId]?.aciklama}
+      </p>
+      <EtiketBloku karakterId={karakterId} t={t} />
+      <IlerlemeBloku karakterId={karakterId} ilerlemeler={ilerlemeler} t={t} />
+      <SiradakiAdimCTA adim={adim} t={t} />
+    </a>
   );
 }
