@@ -233,10 +233,10 @@ const chromeI18n = {
       // oyuncu" ifadeleri çıkarıldı; tarihsel sayım yerine kanonik dil).
       heroUstEtiket: "Yöntem · 2005'ten bugüne",
       heroBaslik: 'Inside The Character',
+      // Hero altyazi (TASLAK Beyti dogrulamali) — ana sayfa kopyasi yerine kimlik cumlesi.
       heroAlt1:
-        'ITC, oyuncuların karakterin zihinsel haritasına psikolojik güvenlikle giriş yaptığı bir oyunculuk metodolojisidir.',
-      heroAlt2:
-        'Geleneksel yöntemler oyuncuya "ne yapacağını" söyler. ITC ise "nasıl düşündüğünü" sorar. İki kurucunun uzun pratiğinden çıkmış, atölyeler ve karakter çalışmalarıyla derinleşmiş bir yöntemdir.',
+        "2005'ten bu yana geliştirilen; oyunculuk pedagojisi ile klinik psikolojiyi birleştiren bir yöntem. İki kurucu, iki ses, tek bir karakter çalışması anlayışı.",
+      heroAlt2: '', // hakkimizda hero ikinci paragrafi kaldirildi (anasayfa vurusu ile tekrari kirildi)
       // Üç ilke
       ilkeUstEtiket: 'Üç İlke',
       ilkeBaslik: 'Yöntemin Temeli',
@@ -273,12 +273,15 @@ const chromeI18n = {
       // Tarihçe (Karar 31: "AI sesli" → "sesli")
       tarihceUstEtiket: "2005'ten Bugüne",
       tarihceBaslik: 'Yöntemin Yolculuğu',
+      tarihceSimdi: 'şimdi',
       milestone: [
-        { yil: '2005', baslik: 'İlk pratik', metin: 'Beyti Engin ve Filiz Kaya Ataklı, oyunculuk ile klinik psikoloji kesişiminde çalışmaya başlar.' },
-        { yil: '2010-2020', baslik: 'Atölye yılları', metin: 'Pozitif Atölye, çeşitli stüdyolar ve birebir çalışmalarla yöntem uygulanır, derinleşir.' },
-        { yil: '2022', baslik: 'Kurumsal bağlantılar', metin: 'HMDK Stuttgart atölyesi. Berlin Chubbuck Studio iki yıllık altı atölye serisine davet.' },
-        { yil: '2024', baslik: 'Yöntemin yazımı', metin: '"Inside The Hamlet" çalışma kitabı yayımlanır. Method Kitabı üzerinde çalışmalar başlar.' },
-        { yil: '2026', baslik: "ITC Actor's Gym", metin: "Yöntemin dijital sürümü olan ITC Actor's Gym beta sürümüyle yayında. Modül III (sesli yolculuk) önümüzdeki ay açılacak.", aktif: true },
+        { yil: '2005', baslik: 'İlk pratik', metin: 'Beyti Engin ve Filiz Kaya Ataklı, oyunculuk ile klinik psikolojinin kesişiminde çalışmaya başlar.' },
+        { yil: '2010–2020', baslik: 'Atölye yılları', metin: 'Pozitif Atölye, çeşitli stüdyolar ve birebir çalışmalarla yöntem uygulanır, derinleşir.' },
+        { yil: '2022', baslik: 'Kurumsal bağlantılar', metin: 'İlk HMDK Stuttgart atölyesi. Berlin Chubbuck Studio iki yıllık altı oturumluk atölye serisine davet.' },
+        { yil: '2023–2024', baslik: 'Chubbuck Studio · Berlin', metin: 'Filiz Kaya Ataklı ile birlikte altı oturumluk atölye serisi, iki yıla yayılarak gerçekleştirildi.' },
+        { yil: '2026', baslik: "ITC Actor's Gym", metin: "Yöntemin dijital sürümü beta'da. Modül III (sesli yolculuk) yakında. Yöntemin yazımı sürüyor.", aktif: true },
+        { yil: '2026 · Eylül', baslik: 'Chubbuck Studio · Berlin', metin: "Berlin Chubbuck Studio'da yeni atölye." },
+        { yil: '2027 · Ocak', baslik: 'HMDK Stuttgart', metin: '25–29 Ocak — kurumsal pilot.' },
       ],
       // Üç katman
       katmanUstEtiket: 'Yöntemin Üç Katmanı',
@@ -286,7 +289,7 @@ const chromeI18n = {
       katmanIntro: 'ITC tek bir ürün değil — birbirini tamamlayan üç katman.',
       katmanlar: [
         { durum: 'Yakında', ad: 'Method Kitabı', altBaslik: 'Inside The Character', metin: '~320 sayfa kuramsal ve pratik kitap. Eğitmenler ve ileri oyuncular için yöntemin kavramsal otoritesi.' },
-        { durum: 'Yayımlandı', ad: 'Hamlet Workbook', altBaslik: 'Inside The Hamlet', metin: '314 sayfa basılı çalışma kitabı. Hamlet karakteri üzerinden yöntemin tek karaktere derinleşmiş hâli.' },
+        { durum: 'Henüz yayınlanmadı', ad: 'Çalışma Kitapları', altBaslik: 'Hamlet · Willy Loman', metin: 'Tek bir karakter üzerinden yöntemin derinleştiği çalışma kitapları. Hamlet (314 sayfa, "Inside The Hamlet") ve Willy Loman çalışma kitabı hazır; henüz yayınlanmadı.' },
         { durum: 'Canlı Beta', ad: 'ITC App', altBaslik: "Actor's Gym", metin: 'Web uygulaması. Günlük antrenman yapan oyuncu için dijital pratik. Şu an okuduğun yer.', aktif: true },
       ],
       // Kurumsal
@@ -583,10 +586,10 @@ const chromeI18n = {
     hakkimizda: {
       heroUstEtiket: 'The Method · since 2005',
       heroBaslik: 'Inside The Character',
+      // Hero subtitle (DRAFT — Beyti to verify) — identity sentence, not the homepage echo.
       heroAlt1:
-        "ITC is an acting methodology through which actors enter the character's mental map with psychological safety.",
-      heroAlt2:
-        'Traditional methods tell the actor "what to do." ITC asks "how they think." It has emerged from the long practice of two co-founders and has deepened through workshops and character work.',
+        'A method developed since 2005, uniting acting pedagogy with clinical psychology. Two founders, two voices, one way of working on character.',
+      heroAlt2: '', // hakkimizda hero second paragraph removed (homepage punchline echo broken)
       ilkeUstEtiket: 'Three Principles',
       ilkeBaslik: 'The Foundation of the Method',
       ilke01Baslik: 'Psychological Safety',
@@ -619,19 +622,22 @@ const chromeI18n = {
         "She works with actors on 'Character Design' and teaches acting and performance development in various countries around the world. She co-founded the ITC methodology with Beyti Engin and is the architect of its clinical foundation.",
       tarihceUstEtiket: 'Since 2005',
       tarihceBaslik: "The Method's Journey",
+      tarihceSimdi: 'now',
       milestone: [
         { yil: '2005', baslik: 'First practice', metin: 'Beyti Engin and Filiz Kaya Ataklı begin working at the intersection of acting and clinical psychology.' },
         { yil: '2010–2020', baslik: 'The workshop years', metin: 'Through Pozitif Atölye, various studios, and one-on-one work, the method is practiced and deepened.' },
-        { yil: '2022', baslik: 'Institutional bridges', metin: 'HMDK Stuttgart workshop. Invitation to Berlin Chubbuck Studio for a two-year, six-workshop series.' },
-        { yil: '2024', baslik: 'The method in writing', metin: '"Inside The Hamlet" workbook is published. Work on the Method Book begins.' },
-        { yil: '2026', baslik: "ITC Actor's Gym", metin: "The digital edition of the method — ITC Actor's Gym — is live in beta. Module III (audio journey) opens next month.", aktif: true },
+        { yil: '2022', baslik: 'Institutional bridges', metin: 'First HMDK Stuttgart workshop. Invitation to Berlin Chubbuck Studio for a two-year, six-session series.' },
+        { yil: '2023–2024', baslik: 'Chubbuck Studio · Berlin', metin: 'A six-session workshop series, co-facilitated with Filiz Kaya Ataklı, carried out across two years.' },
+        { yil: '2026', baslik: "ITC Actor's Gym", metin: 'The digital edition of the method is live in beta. Module III (audio journey) coming soon. The method is still being written.', aktif: true },
+        { yil: '2026 · September', baslik: 'Chubbuck Studio · Berlin', metin: 'A new workshop at Berlin Chubbuck Studio.' },
+        { yil: '2027 · January', baslik: 'HMDK Stuttgart', metin: 'January 25–29 — institutional pilot.' },
       ],
       katmanUstEtiket: 'The Three Layers of the Method',
       katmanBaslik: 'The ITC Ecosystem',
       katmanIntro: 'ITC is not a single product — three layers complete one another.',
       katmanlar: [
         { durum: 'Coming soon', ad: 'Method Book', altBaslik: 'Inside The Character', metin: '~320-page theoretical and practical book. The conceptual authority of the method for instructors and advanced actors.' },
-        { durum: 'Published', ad: 'Hamlet Workbook', altBaslik: 'Inside The Hamlet', metin: 'A 314-page printed workbook. The method, deepened through a single character: Hamlet.' },
+        { durum: 'Not yet published', ad: 'Workbooks', altBaslik: 'Hamlet · Willy Loman', metin: 'Workbooks that deepen the method through a single character. The Hamlet workbook (314 pages, "Inside The Hamlet") and a Willy Loman workbook are ready; not yet published.' },
         { durum: 'Live Beta', ad: 'ITC App', altBaslik: "Actor's Gym", metin: 'Web application. Digital practice for the actor who trains daily. The page you are reading right now.', aktif: true },
       ],
       kurumUstEtiket: 'Institutional Bridges',
