@@ -531,8 +531,28 @@ function DugumGrubu({ domId, dugum, acik, onAc, onKapat, t, ortak, boslukYansima
     : !!boslukYansima[boslukId];
   const kayitAni = isSahne && KAYIT_ANI_SAHNE.has(veri.no);
 
+  // Tasarim dili Faz 1: sahne sabit sicak (yazar); bosluk boske acik kesik
+  // (bos kagit, opacity dusur), dolunca sicak isinmis duz. ★ kayit ani sahne
+  // ise sol bant accent'e doner — kayit ani ayri vurgu.
+  const solBantStil = kayitAni
+    ? '4px solid var(--accent)'
+    : isSahne
+      ? '4px solid var(--sahne-renk)'
+      : yazildi
+        ? '4px solid var(--bosluk-dolu)'
+        : '4px dotted var(--bosluk-bos)';
+  const dugumOpacity = (!isSahne && !yazildi) ? 0.72 : 1;
+  const dugumKenar = acik ? 'var(--accent)' : 'var(--rule)';
+
   return (
-    <div id={domId} style={{ border: '1px solid var(--rule)', background: acik ? 'var(--bg-elevated)' : 'transparent', transition: 'background 0.2s ease', scrollMarginTop: '1rem' }}>
+    <div id={domId} style={{
+      border: `1px solid ${dugumKenar}`,
+      borderLeft: solBantStil,
+      background: acik ? 'var(--bg-elevated)' : 'transparent',
+      opacity: dugumOpacity,
+      transition: 'background 0.2s ease, border-color 0.25s ease, opacity 0.2s ease',
+      scrollMarginTop: '1rem',
+    }}>
       <button
         onClick={acik ? onKapat : onAc}
         aria-expanded={acik}
@@ -551,16 +571,20 @@ function DugumGrubu({ domId, dugum, acik, onAc, onKapat, t, ortak, boslukYansima
         }}
       >
         <span style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
           fontFamily: 'Jost, sans-serif',
-          fontWeight: 300,
+          fontWeight: 500,
           fontSize: '0.6rem',
-          letterSpacing: '0.3em',
+          letterSpacing: '0.22em',
           color: isSahne ? TON : 'var(--ink-muted)',
           textTransform: 'uppercase',
-          minWidth: '70px',
+          minWidth: '92px',
           paddingTop: '0.15rem',
         }}>
-          {isSahne ? t.sahneEtiket : t.boslukEtiket} {veri.no}
+          <DugumIkon isSahne={isSahne} yazildi={yazildi} />
+          <span>{isSahne ? t.sahneEtiket : t.boslukEtiket} {veri.no}</span>
         </span>
         <span style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
           <span style={{
@@ -997,5 +1021,31 @@ function BoslukPanel({ veri, t, ortak, boslukYansima, setBoslukYansima, onKapat 
 
       <DurumRozeti durum={durum} ortak={ortak} />
     </div>
+  );
+}
+
+// ─── DÜĞÜM İKONU (Faz 1 tasarım dili) ─────────────────────────────────────
+// Sahne = kare (sabit bordo). Boşluk = daire (boşken halka açık nötrde,
+// dolunca dolu sıcak kehribar). Hızlı tür ayrımı + ısınma sinyali.
+function DugumIkon({ isSahne, yazildi }) {
+  const dolguRenk = isSahne
+    ? 'var(--sahne-renk)'
+    : yazildi
+      ? 'var(--bosluk-dolu)'
+      : 'transparent';
+  const kenarRenk = isSahne
+    ? 'var(--sahne-renk)'
+    : yazildi
+      ? 'var(--bosluk-dolu)'
+      : 'var(--bosluk-bos)';
+  return (
+    <span aria-hidden style={{
+      width: '11px',
+      height: '11px',
+      background: dolguRenk,
+      border: `1.5px solid ${kenarRenk}`,
+      borderRadius: isSahne ? '1px' : '50%',
+      flexShrink: 0,
+    }} />
   );
 }
