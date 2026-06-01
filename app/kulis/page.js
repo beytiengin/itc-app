@@ -447,12 +447,15 @@ function ZamanCizgisi({ t, karakter, yeniSema, akis, boslukYansimalari, antrenma
   );
 }
 
+// Faz 3 lejant — Faz 1 token diline hizali. Sahne sabit sicak (yazilmadiysa
+// opacity dusuk); bosluk yazildi=isinmis sicak dolu, yazilmadi=transparan ici
+// + bos kagit halkasi (el yazmasi DugumIkon ile ayni dil).
 function Lejant({ t }) {
   const ogeler = [
-    { renk: 'var(--accent)',     ad: t.lejantSahneYazildi,  bicim: 'kare' },
-    { renk: 'var(--ink-muted)',  ad: t.lejantSahneBos,      bicim: 'kare' },
-    { renk: 'var(--onay-soft)',  ad: t.lejantBoslukYazildi, bicim: 'daire' },
-    { renk: 'var(--rule)',       ad: t.lejantBoslukBos,     bicim: 'daire' },
+    { renk: 'var(--sahne-renk)', dolu: true,  ad: t.lejantSahneYazildi,  bicim: 'kare' },
+    { renk: 'var(--sahne-renk)', dolu: true,  ad: t.lejantSahneBos,      bicim: 'kare', opacity: 0.5 },
+    { renk: 'var(--bosluk-dolu)', dolu: true, ad: t.lejantBoslukYazildi, bicim: 'daire' },
+    { renk: 'var(--bosluk-bos)',  dolu: false, ad: t.lejantBoslukBos,    bicim: 'daire' },
   ];
   return (
     <div style={{ display: 'flex', gap: '0.95rem', flexWrap: 'wrap' }}>
@@ -462,8 +465,9 @@ function Lejant({ t }) {
             width: '11px',
             height: '11px',
             borderRadius: o.bicim === 'daire' ? '50%' : '1px',
-            background: o.renk,
-            border: `1px solid ${o.renk}`,
+            background: o.dolu ? o.renk : 'transparent',
+            border: `1.5px solid ${o.renk}`,
+            opacity: o.opacity ?? 1,
           }} />
           <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.15em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{o.ad}</span>
         </span>
@@ -472,15 +476,22 @@ function Lejant({ t }) {
   );
 }
 
+// Faz 3: sahne hep sabit sicak (yazar) — yazilmamissa opacity ile soluk;
+// bosluk yazildi=isinmis sicak (dolu) / yazilmadi=acik kagit halkasi (transparan ici).
+// Bu dil el yazmasi DugumGrubu sol bant + DugumIkon ile birebir paralel.
 function TimelineDugumu({ tip, no, baslik, yazildi, kayitAni, isSec, onSec }) {
   const isSahne = tip === 'sahne';
-  const dolu = isSahne
-    ? (yazildi ? 'var(--accent)' : 'transparent')
-    : (yazildi ? 'var(--onay-soft)' : 'transparent');
-  const kenar = isSahne
-    ? (yazildi ? 'var(--accent)' : 'var(--ink-muted)')
-    : (yazildi ? 'var(--onay-soft)' : 'var(--rule)');
+  const renk = isSahne
+    ? 'var(--sahne-renk)'
+    : yazildi
+      ? 'var(--bosluk-dolu)'
+      : 'var(--bosluk-bos)';
+  // Sahne her zaman dolu görünür; bosluk yazildi ise dolu, degilse halka (transparan ici).
+  const dolu = isSahne || yazildi ? renk : 'transparent';
+  const kenar = renk;
   const sekil = isSahne ? '2px' : '50%';
+  // Sahne yazilmadiysa "calisilmamis" hissi icin opacity dusur.
+  const dugumOpacity = (isSahne && !yazildi) ? 0.5 : 1;
 
   return (
     <button
@@ -502,14 +513,14 @@ function TimelineDugumu({ tip, no, baslik, yazildi, kayitAni, isSec, onSec }) {
         minWidth: '112px',
       }}
     >
-      <span aria-hidden style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+      <span aria-hidden style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', opacity: dugumOpacity, transition: 'opacity 0.2s ease' }}>
         {kayitAni && (
           <span style={{
             position: 'absolute',
             inset: '-6px',
-            border: `1px solid ${dolu === 'transparent' ? kenar : dolu}`,
+            border: `1px solid var(--accent)`,
             borderRadius: sekil === '50%' ? '50%' : '4px',
-            opacity: 0.6,
+            opacity: 0.7,
           }} />
         )}
         <span style={{
@@ -604,7 +615,7 @@ function BirikenDosya({ t, karakter, yeniSema, akis, boslukYansimalari }) {
       {yazilmis.length > 0 && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
           {yazilmis.map((y) => (
-            <div key={y.id} style={{ borderLeft: '2px solid color-mix(in srgb, var(--onay-soft) 35%, transparent)', paddingLeft: '1.1rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+            <div key={y.id} style={{ borderLeft: '2px solid var(--rule)', paddingLeft: '1.1rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
               <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.58rem', letterSpacing: '0.25em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{y.baslik}</span>
               <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink)', lineHeight: 1.7, margin: 0, whiteSpace: 'pre-wrap' }}>
                 {y.metin}
@@ -686,8 +697,8 @@ function AynaSatir({ baslik, children }) {
 
 function Desenler({ t }) {
   return (
-    <div style={{ border: '1px dashed var(--rule)', padding: '1.1rem 1.3rem', display: 'flex', flexDirection: 'column', gap: '0.45rem', opacity: 0.85 }}>
-      <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.58rem', letterSpacing: '0.28em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.desenlerEtiket}</span>
+    <div style={{ border: '1px dashed var(--rule)', padding: '1.1rem 1.3rem', display: 'flex', flexDirection: 'column', gap: '0.45rem', opacity: 0.55 }}>
+      <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 500, fontSize: '0.58rem', letterSpacing: '0.22em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.desenlerEtiket}</span>
       <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.6 }}>{t.desenlerMetin}</p>
     </div>
   );
