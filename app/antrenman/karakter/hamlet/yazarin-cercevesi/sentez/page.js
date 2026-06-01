@@ -351,7 +351,7 @@ export default function SentezSayfasi() {
                     <textarea
                       value={s.sentezCumle || ''}
                       onChange={(e) => sentezCumleDegistir(tercih.no, e.target.value)}
-                      placeholder={dil === 'en' ? `In my Hamlet, ${tercih.konu.toLowerCase()} ___, because ___` : `Benim Hamlet'imde ${tercih.konu.toLowerCase()} ___, çünkü ___`}
+                      placeholder={dil === 'de' ? `In meinem Hamlet ${tercih.konu.toLowerCase()} ___, weil ___` : dil === 'en' ? `In my Hamlet, ${tercih.konu.toLowerCase()} ___, because ___` : `Benim Hamlet'imde ${tercih.konu.toLowerCase()} ___, çünkü ___`}
                       rows={3}
                       style={{
                         width: '100%',
@@ -598,9 +598,9 @@ function KayitRozet({ durum }) {
   if (!durum || durum === 'yaziliyor') return <span style={{ minHeight: '1em' }} />;
   const renk = durum === 'hata' ? 'var(--uyari)' : 'var(--accent)';
   const mesaj =
-    durum === 'kaydediliyor' ? (dil === 'en' ? 'Saving…' : 'Kaydediliyor…') :
-    durum === 'kaydedildi' ? (dil === 'en' ? '✓ Saved' : '✓ Kaydedildi') :
-    (dil === 'en' ? '⚠ Could not save' : '⚠ Kaydedilemedi');
+    durum === 'kaydediliyor' ? (dil === 'de' ? 'Wird gespeichert…' : dil === 'en' ? 'Saving…' : 'Kaydediliyor…') :
+    durum === 'kaydedildi' ? (dil === 'de' ? '✓ Gespeichert' : dil === 'en' ? '✓ Saved' : '✓ Kaydedildi') :
+    (dil === 'de' ? '⚠ Konnte nicht gespeichert werden' : dil === 'en' ? '⚠ Could not save' : '⚠ Kaydedilemedi');
   return (
     <span
       style={{
