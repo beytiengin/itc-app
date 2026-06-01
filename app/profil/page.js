@@ -78,7 +78,7 @@ export default function Profil() {
         </div>
 
         {/* B. YORUM YÜZÜ — register'dan beslenen düzyazı okuma */}
-        <YorumYuzu t={t} kalib={kalib} />
+        <YorumYuzu t={t} kalib={kalib} dil={dil} />
 
         {/* C. Ayrıntılı haritalar — katlanır detay (varsayılan kapalı) */}
         {kalib && !kalib.hicYok && (
@@ -132,16 +132,16 @@ export default function Profil() {
 // Register fonksiyonlarının ÇIKTILARINI dizer. Yeni yorum metni YAZILMAZ.
 // Eksik veri için ilgili satır gizlenir (soğuk 0/X yerine sessizlik).
 
-function YorumYuzu({ t, kalib }) {
+function YorumYuzu({ t, kalib, dil }) {
   if (!kalib || kalib.hicYok) {
     return <YorumBosDavet t={t} />;
   }
 
-  const acikKapi = kalib.vak?.baskin ? vakDili(kalib.vak.baskin) : null;
-  const pankBaskin = kalib.panksepp ? pankseppGucluZayif(kalib.panksepp).baskin : null;
-  const giris = pankBaskin ? pankseppYaklasimi(pankBaskin.id) : null;
-  const register = kalib.profil ? profilRegister(kalib.profil) : null;
-  const beceriGuclu = kalib.beceri ? beceriGucluZayif(kalib.beceri).guclu : null;
+  const acikKapi = kalib.vak?.baskin ? vakDili(kalib.vak.baskin, dil) : null;
+  const pankBaskin = kalib.panksepp ? pankseppGucluZayif(kalib.panksepp, dil).baskin : null;
+  const giris = pankBaskin ? pankseppYaklasimi(pankBaskin.id, dil) : null;
+  const register = kalib.profil ? profilRegister(kalib.profil, dil) : null;
+  const beceriGuclu = kalib.beceri ? beceriGucluZayif(kalib.beceri, dil).guclu : null;
 
   const satirlar = [];
   if (acikKapi) satirlar.push({ baslik: t.acikKapin, ust: acikKapi.etiket, body: acikKapi.ipucu });
