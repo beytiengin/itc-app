@@ -88,44 +88,44 @@ export function kartDurumu(kart) {
 
 // Sinyal etiketleri (Keşfet'in iki alt-sinyali için).
 const ETIKET = {
-  olay:   { tr: 'Olaylar',   en: 'Events' },
-  iliski: { tr: 'İlişkiler', en: 'Relationships' },
+  olay:   { tr: 'Olaylar',   en: 'Events', de: 'Ereignisse' },
+  iliski: { tr: 'İlişkiler', en: 'Relationships', de: 'Beziehungen' },
 };
 
 export function sinyalEtiketi(anahtar, dil) {
   const e = ETIKET[anahtar];
   if (!e) return '';
-  return dil === 'en' ? e.en : e.tr;
+  return e[dil] ?? e.tr;
 }
 
 // Activation durum metinleri — istasyon × durum × dil. Completion dili YOK.
 const DURUM = {
   kesfet: {
-    bos:     { tr: 'Geçmiş henüz sessiz',   en: 'The past is still silent' },
-    basladi: { tr: 'Geçmiş canlanıyor',     en: 'The past is awakening' },
-    tam:     { tr: 'Geçmiş bedende',        en: 'The past lives in the body' },
+    bos:     { tr: 'Geçmiş henüz sessiz',   en: 'The past is still silent', de: 'Die Vergangenheit ist noch still' },
+    basladi: { tr: 'Geçmiş canlanıyor',     en: 'The past is awakening', de: 'Die Vergangenheit erwacht' },
+    tam:     { tr: 'Geçmiş bedende',        en: 'The past lives in the body', de: 'Die Vergangenheit lebt im Körper' },
   },
   haritala: {
-    bos:     { tr: 'Çizgi henüz boş',       en: 'The line is still empty' },
-    basladi: { tr: 'Çizgi genişliyor',      en: 'The line is widening' },
-    tam:     { tr: 'Çizgi tam',             en: 'The line is whole' },
+    bos:     { tr: 'Çizgi henüz boş',       en: 'The line is still empty', de: 'Die Linie ist noch leer' },
+    basladi: { tr: 'Çizgi genişliyor',      en: 'The line is widening', de: 'Die Linie weitet sich' },
+    tam:     { tr: 'Çizgi tam',             en: 'The line is whole', de: 'Die Linie ist vollständig' },
   },
   yorumla: {
-    bos:     { tr: 'Tercihler bekliyor',    en: 'The choices wait' },
-    basladi: { tr: 'Tercihlerin beliriyor', en: 'Your choices are emerging' },
-    tam:     { tr: 'Yorumun belirdi',       en: 'Your reading has emerged' },
+    bos:     { tr: 'Tercihler bekliyor',    en: 'The choices wait', de: 'Die Entscheidungen warten' },
+    basladi: { tr: 'Tercihlerin beliriyor', en: 'Your choices are emerging', de: 'Deine Entscheidungen treten hervor' },
+    tam:     { tr: 'Yorumun belirdi',       en: 'Your reading has emerged', de: 'Deine Deutung ist hervorgetreten' },
   },
   yarat: {
-    bos:     { tr: 'Boşluklar boş',         en: 'The gaps are empty' },
-    basladi: { tr: 'Boşluklar işleniyor',   en: 'The gaps are filling' },
-    tam:     { tr: 'Boşluklar yazıldı',     en: 'The gaps are written' },
+    bos:     { tr: 'Boşluklar boş',         en: 'The gaps are empty', de: 'Die Lücken sind leer' },
+    basladi: { tr: 'Boşluklar işleniyor',   en: 'The gaps are filling', de: 'Die Lücken füllen sich' },
+    tam:     { tr: 'Boşluklar yazıldı',     en: 'The gaps are written', de: 'Die Lücken sind geschrieben' },
   },
 };
 
 export function durumMetni(tip, durum, dil) {
   const d = DURUM[tip]?.[durum];
   if (!d) return '';
-  return dil === 'en' ? d.en : d.tr;
+  return d[dil] ?? d.tr;
 }
 
 // ─── ADIM 3 — Karşılayan blok mantığı ────────────────────────────
@@ -167,20 +167,23 @@ const SELAM = {
   ilk: {
     tr: { selam: '{karakter} henüz boş bir sayfa. Onu tanımaya nereden başlamak istersin?', alt: 'İstersen {ad} ile başla — ya da kendi yolunu seç.' },
     en: { selam: '{karakter} is still an empty page. Where would you like to begin knowing him?', alt: 'You could start with {ad} — or choose your own way.' },
+    de: { selam: '{karakter} ist noch eine leere Seite. Wo möchtest du beginnen, ihn kennenzulernen?', alt: 'Du könntest mit {ad} beginnen — oder deinen eigenen Weg wählen.' },
   },
   devam: {
     tr: { selam: '{ad} seni bekliyor.', alt: 'Buradan devam edebilirsin — ya da başka bir istasyona geç.' },
     en: { selam: '{ad} is waiting for you.', alt: 'You can continue here — or move to another station.' },
+    de: { selam: '{ad} wartet auf dich.', alt: 'Du kannst hier weitermachen — oder zu einer anderen Station wechseln.' },
   },
   son: {
     tr: { selam: "{karakterIn} koordinatları kuruldu.", alt: 'Yazdığın her şey bir arada — kendi {karakterIni} görmek ister misin?' },
     en: { selam: "{karakter}'s coordinates are set.", alt: 'Everything you wrote, together — would you like to see your own {karakter}?' },
+    de: { selam: 'Die Koordinaten von {karakter} sind gesetzt.', alt: 'Alles, was du geschrieben hast, beisammen — möchtest du deinen eigenen {karakter} sehen?' },
   },
 };
 
 export function selamMetni(faz, dil, karakter = {}) {
   const f = SELAM[faz] || SELAM.devam;
-  const t = dil === 'en' ? f.en : f.tr;
+  const t = f[dil] ?? f.tr;
   const { ad = '', karakterIn = '', karakterIni = '' } = karakter;
   return {
     selam: t.selam

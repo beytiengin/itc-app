@@ -8,6 +8,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { sahneUyarisi } from '../app/lib/travma';
+import { useDil } from '../app/lib/dil';
 import { boslukYansimasiKaydet, boslukYansimalariniGetir } from '../app/lib/kulis';
 import IlerlemeRozet from './IlerlemeRozet';
 
@@ -15,6 +16,7 @@ const TON = 'var(--onay)';
 const TON_HOVER = 'var(--onay-rule)';
 
 export default function SeninCerceven({ bosluklar, karakterId }) {
+  const { dil } = useDil();
   const [acik, setAcik] = useState(null);
   const [yansimalar, setYansimalar] = useState({});
   const [kayitDurumu, setKayitDurumu] = useState({});
@@ -129,7 +131,7 @@ export default function SeninCerceven({ bosluklar, karakterId }) {
         {(bosluklar || []).map((bosluk, i) => {
           const tip = tipBilgisi[bosluk.tip] || tipBilgisi.ara;
           const sahneBenzeri = { travmaSeviyesi: bosluk.travmaSeviyesi || 0, travmaKategorileri: bosluk.travmaKategorileri || [] };
-          const erisim = sahneUyarisi(sahneBenzeri);
+          const erisim = sahneUyarisi(sahneBenzeri, dil);
           const aktif = acik === bosluk.id;
           const yansimaMevcut = yansimalar[bosluk.id]?.length > 0;
 

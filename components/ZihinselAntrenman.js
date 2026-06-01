@@ -13,6 +13,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { sahneUyarisi, topraklanmaGerekli } from '../app/lib/travma';
+import { useDil } from '../app/lib/dil';
 import {
   antrenmanAdimiKaydet,
   antrenmanYansimalariniGetir,
@@ -27,6 +28,7 @@ const TON = 'var(--kanal-kahve)';
 const TON_HOVER = 'var(--accent-rule)';
 
 export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini }) {
+  const { dil } = useDil();
   // Liste/Sayfa görünüm
   const [mode, setMode] = useState('list'); // 'list' | 'resume' | 'sayfa'
   const [acikAntrenman, setAcikAntrenman] = useState(null); // antrenman objesi
@@ -362,6 +364,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
 
         {travmaUyariFor && (
           <TravmaUyariModal
+            dil={dil}
             antrenman={travmaUyariFor}
             onIptal={() => setTravmaUyariFor(null)}
             onDevam={() => {
@@ -784,7 +787,12 @@ function BasligaSection({ sayim, alt, mevcut, toplam, renk }) {
 
 // ─── TRAVMA UYARI MODAL ─────────────────────────────────────────────────────
 
-function TravmaUyariModal({ antrenman, onIptal, onDevam }) {
+function TravmaUyariModal({ antrenman, onIptal, onDevam, dil }) {
+  const M = dil === 'de'
+    ? { etiket: 'Vorbereitungshinweis', metin: 'Dieses Training kann dich an einen tiefen Ort führen. Finde einen stillen Raum, schalte dein Telefon stumm, halte Wasser bereit. Möchtest du dennoch fortfahren?', iptal: 'Jetzt nicht', devam: 'Ich bin bereit, weiter' }
+    : dil === 'en'
+    ? { etiket: 'Preparation Note', metin: 'This training may take you to a deep place. Find a quiet space, silence your phone, keep water nearby. Do you still want to continue?', iptal: 'Not now', devam: 'I am ready, continue' }
+    : { etiket: 'Hazırlık Notu', metin: 'Bu antrenman derin bir yere götürebilir. Sessiz bir alan bul, telefonunu sustur, su yanında olsun. Yine de devam etmek ister misin?', iptal: 'Şimdi değil', devam: 'Hazırım, devam' };
   return (
     <div
       style={{
@@ -821,7 +829,7 @@ function TravmaUyariModal({ antrenman, onIptal, onDevam }) {
               textTransform: 'uppercase',
             }}
           >
-            Hazırlık Notu
+            {M.etiket}
           </span>
           <h3
             style={{
@@ -849,7 +857,7 @@ function TravmaUyariModal({ antrenman, onIptal, onDevam }) {
             textAlign: 'center',
           }}
         >
-          Bu antrenman derin bir yere götürebilir. Sessiz bir alan bul, telefonunu sustur, su yanında olsun. Yine de devam etmek ister misin?
+          {M.metin}
         </p>
 
         <div style={{ display: 'flex', gap: '0.8rem', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -871,7 +879,7 @@ function TravmaUyariModal({ antrenman, onIptal, onDevam }) {
             onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ink)'; }}
             onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-soft)'; }}
           >
-            Şimdi değil
+            {M.iptal}
           </button>
           <button
             onClick={onDevam}
@@ -891,7 +899,7 @@ function TravmaUyariModal({ antrenman, onIptal, onDevam }) {
             onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-hover)'; }}
             onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent)'; }}
           >
-            Hazırım, devam
+            {M.devam}
           </button>
         </div>
       </div>
