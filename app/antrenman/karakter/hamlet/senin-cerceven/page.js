@@ -8,7 +8,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import hamletRaw from '../../../../../data/karakterler/hamlet';
+import { karakterGetir } from '../../../../lib/karakterGetir';
 import hamletI18n, { hamletIcerik } from '../../../../../data/hamlet-i18n';
 import { useDil, ceviri } from '../../../../../app/lib/dil';
 import { altSoruYansimalariniGetir } from '../../../../lib/hamlet-veri';
@@ -25,7 +25,7 @@ const KOK = '/antrenman/karakter/hamlet';
 
 export default function SeninCerceveAnaSayfa() {
   const { dil } = useDil();
-  const hamlet = hamletIcerik(dil, hamletRaw);
+  const hamlet = hamletIcerik(dil, karakterGetir('hamlet', dil));
   const sozluk = ceviri(hamletI18n, dil);
   const sc = sozluk.seninCerceven;
   const o = sozluk.ortak;

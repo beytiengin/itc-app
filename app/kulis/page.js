@@ -27,13 +27,17 @@ import {
 } from '../lib/kulis';
 import { getKalibrasyonProfili } from '../lib/kalibrasyon';
 import { useDil, ceviri } from '../lib/dil';
+import { karakterGetir } from '../lib/karakterGetir';
 import chromeI18n from '../../data/chrome-i18n';
 import macbeth from '../../data/karakterler/macbeth';
 import hamlet from '../../data/karakterler/hamlet';
 import willy from '../../data/karakterler/willy';
 import biff from '../../data/karakterler/biff';
 
-const KARAKTERLER = { hamlet, willy, macbeth, biff };
+// TR taban raw'lar — module-scope. Runtime'da KARAKTERLER component içinde
+// karakterGetir ile dil katmanı uygulanır (pilot: hamlet; Willy/Macbeth/Biff
+// çeviri turunda eklenir).
+const KARAKTERLER_RAW = { hamlet, willy, macbeth, biff };
 const SIRA = ['hamlet', 'willy', 'macbeth', 'biff'];
 
 // Karakter bazlı kayıt anı (★) setleri — el-yazmasi/page.js içinde tutulan
@@ -86,6 +90,15 @@ function gunOnce(tarih, t) {
 export default function KulisSayfasi() {
   const { dil } = useDil();
   const t = ceviri(chromeI18n, dil).kulis;
+
+  // Çok-dilli mimari: Hamlet karakter dramatik içeriği dil katmanıyla merge
+  // edilir; Willy/Macbeth/Biff henüz TR taban (çeviri turunda eklenir).
+  const KARAKTERLER = useMemo(() => ({
+    hamlet: karakterGetir('hamlet', dil),
+    willy: KARAKTERLER_RAW.willy,
+    macbeth: KARAKTERLER_RAW.macbeth,
+    biff: KARAKTERLER_RAW.biff,
+  }), [dil]);
 
   const [yukleniyor, setYukleniyor] = useState(true);
   const [kalibrasyon, setKalibrasyon] = useState(null);
@@ -145,6 +158,7 @@ export default function KulisSayfasi() {
 
         <KarakterSecimi
           t={t}
+          karakterler={KARAKTERLER}
           ilerlemeler={ilerlemeler}
           seciliId={seciliId}
           onSec={setSeciliId}
@@ -185,13 +199,13 @@ function Header({ t }) {
 
 // ─── 1. KARAKTER SEÇİMİ ────────────────────────────────────────────────────
 
-function KarakterSecimi({ t, ilerlemeler, seciliId, onSec }) {
+function KarakterSecimi({ t, karakterler, ilerlemeler, seciliId, onSec }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
       <Etiket>{t.karakterSecEtiket}</Etiket>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0.55rem' }}>
         {SIRA.map((id) => {
-          const k = KARAKTERLER[id];
+          const k = karakterler[id];
           const ilerleme = ilerlemeler[id] || { bosluk: 0, antrenman: 0 };
           const dokunuldu = ilerleme.bosluk > 0 || ilerleme.antrenman > 0;
           const aktif = yeniSemadaMi(k);

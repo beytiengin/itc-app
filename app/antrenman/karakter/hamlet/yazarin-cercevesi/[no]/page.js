@@ -9,7 +9,7 @@
 
 import { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
-import hamletRaw from '../../../../../../data/karakterler/hamlet';
+import { karakterGetir } from '../../../../../lib/karakterGetir';
 import { hamletIcerik } from '../../../../../../data/hamlet-i18n';
 import hamletI18n from '../../../../../../data/hamlet-i18n';
 import { useDil, ceviri } from '../../../../../lib/dil';
@@ -26,7 +26,7 @@ export default function TercihDetaySayfasi({ params }) {
   const tercihNo = parseInt(no, 10);
   const router = useRouter();
   const { dil } = useDil();
-  const hamlet = hamletIcerik(dil, hamletRaw);
+  const hamlet = hamletIcerik(dil, karakterGetir('hamlet', dil));
   const sa = ceviri(hamletI18n, dil).yazarinCercevesi.altSayfa;
 
   const [secimler, setSecimler] = useState({});

@@ -8,7 +8,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import hamletRaw from '../../../../../../data/karakterler/hamlet';
+import { karakterGetir } from '../../../../../lib/karakterGetir';
 import hamletI18n, { hamletIcerik } from '../../../../../../data/hamlet-i18n';
 import { useDil, ceviri } from '../../../../../lib/dil';
 import {
@@ -25,7 +25,7 @@ const KOK = '/antrenman/karakter/hamlet';
 
 export default function SeninCerceveSentez() {
   const { dil } = useDil();
-  const hamlet = hamletIcerik(dil, hamletRaw);
+  const hamlet = hamletIcerik(dil, karakterGetir('hamlet', dil));
   const ss = ceviri(hamletI18n, dil).seninCerceven.sentez;
   const [yansimalar, setYansimalar] = useState({});
   const [genelMetinler, setGenelMetinler] = useState({});

@@ -31,7 +31,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import hamletRaw from '../../../../../data/karakterler/hamlet';
+import { karakterGetir } from '../../../../lib/karakterGetir';
 import hamletI18n, { hamletIcerik } from '../../../../../data/hamlet-i18n';
 import { useDil, ceviri } from '../../../../lib/dil';
 import { getKalibrasyonProfili } from '../../../../lib/kalibrasyon';
@@ -84,7 +84,11 @@ export default function ElYazmasiSayfasi() {
   const s = ceviri(hamletI18n, dil);
   const t = s.elYazmasi;
   const ortak = s.ortak;
-  const data = hamletIcerik(dil, hamletRaw);
+  // Çok-dilli mimari (Yaklaşım B): karakterGetir TR taban + dil katmanı
+  // (varsa) deep-merge eder; sonra hamletIcerik UI-yakını TR/EN overlay'i
+  // uygular. DE'de hamlet.de boş şablon → TR fallback (karakter QA turunda
+  // doldurulacak).
+  const data = hamletIcerik(dil, karakterGetir('hamlet', dil));
 
   // Birleşik akış — OYUN SIRASI (Karar 41 v2):
   // - Sahneler `no` 1→11 sıralı (yasamSirasi DEĞİL).

@@ -8,7 +8,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import hamletRaw from '../../../../../data/karakterler/hamlet';
+import { karakterGetir } from '../../../../lib/karakterGetir';
 import { hamletIcerik } from '../../../../../data/hamlet-i18n';
 import hamletI18n from '../../../../../data/hamlet-i18n';
 import { useDil, ceviri } from '../../../../lib/dil';
@@ -26,7 +26,7 @@ const KOK = '/antrenman/karakter/hamlet';
 
 export default function TimelineSayfasi() {
   const { dil } = useDil();
-  const hamlet = hamletIcerik(dil, hamletRaw);
+  const hamlet = hamletIcerik(dil, karakterGetir('hamlet', dil));
   const tl = ceviri(hamletI18n, dil).timeline;
   const [yansimalar, setYansimalar] = useState({});
   const [seciliSahneNo, setSeciliSahneNo] = useState(null);

@@ -8,7 +8,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import hamletRaw from '../../../../../../data/karakterler/hamlet';
+import { karakterGetir } from '../../../../../lib/karakterGetir';
 import { hamletIcerik } from '../../../../../../data/hamlet-i18n';
 import hamletI18n from '../../../../../../data/hamlet-i18n';
 import { useDil, ceviri } from '../../../../../lib/dil';
@@ -22,7 +22,7 @@ const KOK = '/antrenman/karakter/hamlet';
 
 export default function SentezSayfasi() {
   const { dil } = useDil();
-  const hamlet = hamletIcerik(dil, hamletRaw);
+  const hamlet = hamletIcerik(dil, karakterGetir('hamlet', dil));
   const ss = ceviri(hamletI18n, dil).yazarinCercevesi.sentez;
   const [secimler, setSecimler] = useState({});
   const [yukleniyor, setYukleniyor] = useState(true);

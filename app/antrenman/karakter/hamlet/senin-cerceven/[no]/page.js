@@ -9,7 +9,7 @@
 
 import { useState, useEffect, useRef, use } from 'react';
 import { useRouter } from 'next/navigation';
-import hamletRaw from '../../../../../../data/karakterler/hamlet';
+import { karakterGetir } from '../../../../../lib/karakterGetir';
 import hamletI18n, { hamletIcerik } from '../../../../../../data/hamlet-i18n';
 import { useDil, ceviri } from '../../../../../lib/dil';
 import {
@@ -31,7 +31,7 @@ export default function BoslukDetaySayfasi({ params }) {
   const boslukNo = parseInt(no, 10);
   const router = useRouter();
   const { dil } = useDil();
-  const hamlet = hamletIcerik(dil, hamletRaw);
+  const hamlet = hamletIcerik(dil, karakterGetir('hamlet', dil));
   const sa = ceviri(hamletI18n, dil).seninCerceven.altSayfa;
 
   const [yansimalar, setYansimalar] = useState({});

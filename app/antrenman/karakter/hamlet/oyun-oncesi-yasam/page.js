@@ -9,7 +9,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import hamletRaw from '../../../../../data/karakterler/hamlet';
+import { karakterGetir } from '../../../../lib/karakterGetir';
 import hamletI18n, { hamletIcerik } from '../../../../../data/hamlet-i18n';
 import { useDil, ceviri } from '../../../../lib/dil';
 import {
@@ -28,7 +28,7 @@ const KOK = '/antrenman/karakter/hamlet';
 
 export default function OyunOncesiYasamSayfasi() {
   const { dil } = useDil();
-  const hamlet = hamletIcerik(dil, hamletRaw);
+  const hamlet = hamletIcerik(dil, karakterGetir('hamlet', dil));
   const oc = ceviri(hamletI18n, dil).oyunOncesi;
   const [olayYansimalari, setOlayYansimalari] = useState({});
   const [iliskiYansimalari, setIliskiYansimalari] = useState({});
