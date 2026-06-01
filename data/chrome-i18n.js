@@ -97,7 +97,7 @@ const chromeI18n = {
     karakterListesi: {
       ustEtiket: '02 — Antrenman Odası',
       baslik: 'Karakterler',
-      intro: 'Her karakter ITC metodolojisiyle derinlemesine inşa edilmiştir. Çalışmak istediğin karakteri seç.',
+      intro: 'Her karakter; değiştirilemez doğruları, zaman çizgisi, yazarın beş tercihi ve senin dolduracağın boşluklarla katman katman kurulur. Çalışmak istediğin karakteri seç — onu içeriden inşa etmeye başla.',
       mizacBaslik: 'Mizaç',
       temaBaslik: 'Tema',
       rozetSeninCerceven: 'Senin Çerçeven',
@@ -462,7 +462,7 @@ const chromeI18n = {
     karakterListesi: {
       ustEtiket: '02 — Training Room',
       baslik: 'Characters',
-      intro: 'Each character is built in depth through the ITC methodology. Choose the one you want to work with.',
+      intro: "Each character is built layer by layer — immutable truths, a timeline, the author's five choices, and the gaps you'll fill. Choose the character you want to work with, and begin building them from within.",
       mizacBaslik: 'Temperament',
       temaBaslik: 'Theme',
       rozetSeninCerceven: 'Your Frame',

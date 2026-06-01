@@ -7,7 +7,6 @@ import { useDil, ceviri } from '../../lib/dil';
 import chromeI18n from '../../../data/chrome-i18n';
 import hamletRaw from '../../../data/karakterler/hamlet';
 import willyRaw from '../../../data/karakterler/willy';
-import IlerlemeRozet from '../../../components/IlerlemeRozet';
 
 // Karakter listesi — sade vitrin.
 //
@@ -23,14 +22,8 @@ import IlerlemeRozet from '../../../components/IlerlemeRozet';
 // - "Refactor Bekliyor" / "Tam Yapı" durum göstergesi kaldırıldı (kullanıcı
 //   için anlamsız bir iç not).
 const KARAKTER_META = {
-  hamlet: {
-    yazar: 'William Shakespeare', donem: '1600', turKey: 'Trajedi',
-    boslukSayisi: 5, antrenmanSayisi: 0,
-  },
-  willy: {
-    yazar: 'Arthur Miller', donem: '1949', turKey: 'Trajedi',
-    boslukSayisi: 12, antrenmanSayisi: 7,
-  },
+  hamlet: { yazar: 'William Shakespeare', donem: '1600', turKey: 'Trajedi' },
+  willy:  { yazar: 'Arthur Miller',       donem: '1949', turKey: 'Trajedi' },
 };
 
 // Aktif karakter için sıradaki adım hesabı: ilerleme view + içerik toplamları
@@ -45,31 +38,14 @@ function karakterToplamlari(raw) {
   };
 }
 
+// Karakter listesi vitrin — yalnızca tema çipleri (mizaç karttan çıktı,
+// karakter sayfasında tam liste vardır). En fazla 4 tema gösterilir
+// (slice ile render-only kısıtlama; veride tam liste durur).
 function EtiketBloku({ karakterId, t }) {
   const meta = KARAKTER_META[karakterId];
   const karakterI18n = t[karakterId];
   if (!meta || !karakterI18n) return null;
   const TON = 'var(--accent)';
-  const baslikStili = {
-    fontFamily: 'var(--font-body), sans-serif',
-    fontWeight: 200,
-    fontSize: '0.55rem',
-    letterSpacing: '0.3em',
-    color: 'var(--ink-muted)',
-    textTransform: 'uppercase',
-    minWidth: '52px',
-    paddingTop: '0.2rem',
-  };
-  const mizacEtiketStili = {
-    fontFamily: 'var(--font-body), sans-serif',
-    fontWeight: 200,
-    fontSize: '0.6rem',
-    letterSpacing: '0.1em',
-    color: 'var(--ink-soft)',
-    padding: '0.2rem 0.6rem',
-    border: '1px solid var(--rule)',
-    borderRadius: '12px',
-  };
   const temaEtiketStili = {
     fontFamily: 'var(--font-display), serif',
     fontStyle: 'italic',
@@ -80,20 +56,13 @@ function EtiketBloku({ karakterId, t }) {
     backgroundColor: 'var(--accent-bg)',
     borderRadius: '12px',
   };
+  const temalar = (karakterI18n.tema || []).slice(0, 4);
+  if (temalar.length === 0) return null;
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'baseline' }}>
-        <span style={baslikStili}>{t.mizacBaslik}</span>
-        {karakterI18n.mizac.map((m) => (
-          <span key={m} style={mizacEtiketStili}>{m}</span>
-        ))}
-      </div>
-      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'baseline' }}>
-        <span style={baslikStili}>{t.temaBaslik}</span>
-        {karakterI18n.tema.map((tm) => (
-          <span key={tm} style={temaEtiketStili}>{tm}</span>
-        ))}
-      </div>
+    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'baseline' }}>
+      {temalar.map((tm) => (
+        <span key={tm} style={temaEtiketStili}>{tm}</span>
+      ))}
     </div>
   );
 }
@@ -112,39 +81,6 @@ function MetaSatiri({ karakterId, t }) {
     }}>
       {meta.yazar} · {meta.donem} · {turCevirisi}
     </span>
-  );
-}
-
-function IlerlemeBloku({ karakterId, ilerlemeler, t }) {
-  const meta = KARAKTER_META[karakterId];
-  if (!meta) return null;
-  const veri = ilerlemeler[karakterId] || { bosluk: 0, antrenman: 0 };
-  return (
-    <div style={{
-      marginTop: '1rem',
-      paddingTop: '1rem',
-      borderTop: '1px solid var(--bg-elevated)',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '0.6rem',
-    }}>
-      <IlerlemeRozet
-        ikon="◇"
-        etiket={t.rozetSeninCerceven}
-        mevcut={veri.bosluk}
-        toplam={meta.boslukSayisi}
-        renk="var(--onay)"
-      />
-      {meta.antrenmanSayisi > 0 && (
-        <IlerlemeRozet
-          ikon="○"
-          etiket={t.rozetZihinselAntrenman}
-          mevcut={veri.antrenman}
-          toplam={meta.antrenmanSayisi}
-          renk="var(--kanal-kahve)"
-        />
-      )}
-    </div>
   );
 }
 
@@ -241,7 +177,6 @@ export default function KarakterListesi() {
             ad="Hamlet"
             href="/antrenman/karakter/hamlet"
             isPrimary={primaryId === 'hamlet'}
-            ilerlemeler={ilerlemeler}
             adim={adimlar.hamlet}
             t={t}
           />
@@ -251,33 +186,46 @@ export default function KarakterListesi() {
             ad="Willy Loman"
             href="/antrenman/karakter/willy"
             isPrimary={primaryId === 'willy'}
-            ilerlemeler={ilerlemeler}
             adim={adimlar.willy}
             t={t}
           />
 
-          {/* Yakında — pasif/inert kartlar (tıklanmaz). Tasarım dili Faz 2:
-              kesik kenar (henüz çizilmedi hissi), opacity 0.55 (okunur). */}
-          {t.yakinda.map((k, i) => (
-            <div key={i} style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.5rem',
-              padding: '2rem',
-              border: '1px dashed var(--rule)',
-              opacity: 0.55,
-              pointerEvents: 'none',
-            }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                  <span style={{ fontFamily: 'var(--font-display), serif', fontWeight: 400, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>{k.ad}</span>
-                  <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.65rem', color: 'var(--ink-muted)', letterSpacing: '0.1em' }}>{k.yazar}</span>
-                </div>
-                <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 500, fontSize: '0.6rem', color: 'var(--ink-muted)', letterSpacing: '0.22em', textTransform: 'uppercase', flexShrink: 0 }}>{t.yakindaEtiket}</span>
+          {/* Yakında — kompakt 2 sütun grid (eski tam-boy kartlar yerine).
+              Tek başlık üstte; her öğe: ad + yazar mini. INERT tipoloji
+              (kesik kenar + opacity), tıklanmaz. Açıklamalar veride
+              kalıyor — karttan kaldırıldı. */}
+          {t.yakinda && t.yakinda.length > 0 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', marginTop: '0.5rem' }}>
+              <span style={{
+                fontFamily: 'var(--font-body), sans-serif',
+                fontWeight: 600,
+                fontSize: '0.6rem',
+                letterSpacing: '0.28em',
+                color: 'var(--ink-muted)',
+                textTransform: 'uppercase',
+              }}>{t.yakindaEtiket}</span>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                gap: '0.7rem',
+              }}>
+                {t.yakinda.map((k, i) => (
+                  <div key={i} style={{
+                    border: '1px dashed var(--rule)',
+                    padding: '0.95rem 1.05rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.25rem',
+                    opacity: 0.6,
+                    pointerEvents: 'none',
+                  }}>
+                    <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 400, fontSize: '1.1rem', color: 'var(--ink-soft)', lineHeight: 1.15 }}>{k.ad}</span>
+                    <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.62rem', letterSpacing: '0.1em', color: 'var(--ink-muted)' }}>{k.yazar}</span>
+                  </div>
+                ))}
               </div>
-              <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>{k.aciklama}</p>
             </div>
-          ))}
+          )}
 
         </div>
       </section>
@@ -286,7 +234,7 @@ export default function KarakterListesi() {
 }
 
 // ─── AKTİF KART — primary/secondary tipolojisi ─────────────────────────────
-function AktifKart({ karakterId, ad, href, isPrimary, ilerlemeler, adim, t }) {
+function AktifKart({ karakterId, ad, href, isPrimary, adim, t }) {
   const kenarRengi = isPrimary ? 'var(--accent)' : 'var(--rule)';
   const kenarKalinligi = isPrimary ? '2px' : '1px';
   const solBant = isPrimary ? '5px solid var(--accent)' : null;
@@ -338,7 +286,8 @@ function AktifKart({ karakterId, ad, href, isPrimary, ilerlemeler, adim, t }) {
         {t[karakterId]?.aciklama}
       </p>
       <EtiketBloku karakterId={karakterId} t={t} />
-      <IlerlemeBloku karakterId={karakterId} ilerlemeler={ilerlemeler} t={t} />
+      {/* IlerlemeBloku (Senin Çerçeven + Zihinsel Antrenman çubukları)
+          karttan kaldırıldı — bilgi sayısız SiradakiAdimCTA ile veriliyor. */}
       <SiradakiAdimCTA adim={adim} t={t} />
     </a>
   );
