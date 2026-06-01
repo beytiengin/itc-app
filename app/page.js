@@ -170,6 +170,7 @@ function ctaHoverOut(e) {
 export default function AnaSayfa() {
   const { dil } = useDil();
   const s = ceviri(chromeI18n, dil).anaSayfa;
+  const tNav = ceviri(chromeI18n, dil).nav;
   const [kullanici, setKullanici] = useState(null);
   const [profil, setProfil] = useState(null); // null = anonim ya da yükleniyor
   const [sonNokta, setSonNokta] = useState(null); // {karakterId, hash} | null
@@ -445,6 +446,15 @@ export default function AnaSayfa() {
             color: 'var(--ink-muted)',
             letterSpacing: '0.1em',
           }}>
+            <a
+              href="/nasil-calisilir"
+              style={{ color: 'var(--ink-muted)', textDecoration: 'none', borderBottom: '1px solid var(--rule)', transition: 'color 0.25s ease' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ink-muted)'; }}
+            >
+              {tNav.nasilCalisilir}
+            </a>
+            <span style={{ margin: '0 1rem', color: 'var(--ink-muted)' }}>·</span>
             <a
               href="https://beytienginstudio.com"
               target="_blank"

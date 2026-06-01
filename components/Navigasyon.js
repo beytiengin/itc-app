@@ -140,6 +140,7 @@ export default function Navigasyon() {
 
   const anonimLinkler = (Bilesen, kapatOnClick) => (
     <>
+      <Bilesen href="/nasil-calisilir" onClick={kapatOnClick}>{t.nasilCalisilir}</Bilesen>
       <Bilesen href="/hakkimizda" onClick={kapatOnClick}>{t.hakkimizda}</Bilesen>
       <Bilesen href="/giris" vurgu onClick={kapatOnClick}>{t.giris}</Bilesen>
     </>
