@@ -26,6 +26,7 @@ const chromeI18n = {
       cikis: 'Çıkış',
       menuAc: 'Menü',
       menuKapat: 'Menüyü Kapat',
+      dilEtiket: 'Dil',
     },
     anaSayfa: {
       // Hero
@@ -357,6 +358,7 @@ const chromeI18n = {
       cikis: 'Sign out',
       menuAc: 'Menu',
       menuKapat: 'Close menu',
+      dilEtiket: 'Language',
     },
     anaSayfa: {
       ustEtiket: 'The ITC Method · since 2005',

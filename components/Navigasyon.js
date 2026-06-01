@@ -305,13 +305,59 @@ export default function Navigasyon() {
               )}
             </nav>
 
-            <div style={{ marginTop: 'auto', paddingTop: '1rem', display: 'flex', justifyContent: 'flex-start' }}>
-              <DilToggle />
+            <div style={{ marginTop: 'auto', paddingTop: '1.4rem', borderTop: '1px solid var(--rule)', display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+              <span style={{
+                fontFamily: 'Jost, sans-serif',
+                fontWeight: 600,
+                fontSize: '0.6rem',
+                letterSpacing: '0.22em',
+                color: 'var(--accent)',
+                textTransform: 'uppercase',
+              }}>{t.dilEtiket}</span>
+              <DrawerDilToggle />
             </div>
           </div>
         </div>
       )}
     </>
+  );
+}
+
+// Drawer içi büyük segmentli dil toggle — masaüstü DilToggle'dan ayrı
+// (mobil drawer'da küçük toggle bulunmaz; bu daha okunur).
+function DrawerDilToggle() {
+  const { dil, dilAyarla } = useDil();
+  const seg = (kod, etiket) => {
+    const aktif = dil === kod;
+    return (
+      <button
+        key={kod}
+        onClick={() => dilAyarla(kod)}
+        aria-pressed={aktif}
+        style={{
+          flex: 1,
+          padding: '0.7rem 1rem',
+          minHeight: '44px',
+          background: aktif ? 'var(--accent)' : 'transparent',
+          color: aktif ? 'var(--bg-base)' : 'var(--ink-soft)',
+          border: 'none',
+          fontFamily: 'Jost, sans-serif',
+          fontWeight: 600,
+          fontSize: '0.78rem',
+          letterSpacing: '0.22em',
+          textTransform: 'uppercase',
+          cursor: aktif ? 'default' : 'pointer',
+          transition: 'background 0.2s ease, color 0.2s ease',
+        }}
+      >{etiket}</button>
+    );
+  };
+  return (
+    <div style={{ display: 'flex', border: '1px solid var(--rule)' }}>
+      {seg('tr', 'TR')}
+      <span style={{ width: '1px', background: 'var(--rule)' }} />
+      {seg('en', 'EN')}
+    </div>
   );
 }
 
