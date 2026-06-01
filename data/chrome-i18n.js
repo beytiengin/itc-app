@@ -33,12 +33,16 @@ const chromeI18n = {
       ustEtiket: "ITC Yöntemi · 2005'ten bu yana",
       heroBaslik1: 'Karakterin zihnine gir.',
       heroBaslik2: 'Sahici ol.',
+      // Yon 2 hero: 3 satira kirilmis surum ("Karakterin / zihnine gir. / Sahici ol.")
+      heroSatir1a: 'Karakterin',
+      heroSatir1b: 'zihnine gir.',
       heroAlt:
         'Oyuncunun zihinsel haritasını, bedensel hafızasını ve psikolojik derinliğini merkeze alan özgün bir oyunculuk metodolojisi.',
       ctaBasla: 'Başla →',
       ctaUye: "Modül I'e Git →",
       ctaUyeKalibrasyonDevam: 'Kalibrasyonu Tamamla →',
       ctaUyeKarakter: 'Karaktere Git →',
+      ctaUyeKaldiginYerden: 'Kaldığın yerden devam →',
       // Vuruş cümlesi
       vurusGelenek: '"ne yapacağını"',
       vurusITC: '"nasıl düşündüğünü"',
@@ -364,12 +368,16 @@ const chromeI18n = {
       ustEtiket: 'The ITC Method · since 2005',
       heroBaslik1: "Enter the character's mind.",
       heroBaslik2: 'Be truthful.',
+      // Direction 2 hero: 3-line split
+      heroSatir1a: 'Enter the',
+      heroSatir1b: "character's mind.",
       heroAlt:
         "An original acting methodology centered on the actor's mental map, embodied memory, and psychological depth.",
       ctaBasla: 'Begin →',
       ctaUye: 'Go to Module I →',
       ctaUyeKalibrasyonDevam: 'Finish Calibration →',
       ctaUyeKarakter: 'Go to Character →',
+      ctaUyeKaldiginYerden: 'Continue where you left off →',
       vurusGelenek: '"what to do."',
       vurusITC: '"how they think."',
       vurusGelenekOnce: 'Traditional methods tell the actor ',

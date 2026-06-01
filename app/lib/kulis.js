@@ -286,6 +286,67 @@ export async function karakterBoslukYansimalariniTamGetir(karakterId) {
 }
 
 /**
+ * En son dokunulan karakter + düğüm. Açılış akıllı CTA için: tamamlanmış
+ * kullanıcıyı son kaldığı noktaya götürür.
+ *
+ * Hem `bosluk_yansimalari` hem `antrenman_yansimalari` tablolarından en yeni
+ * kaydı çeker, ikisinin son_guncelleme'sini karşılaştırır, en yenisinden
+ * karakter + (sahne/boşluk no) çıkarır. Hash el-yazması derin link formatıdır
+ * (#sahne-N / #bosluk-N — el-yazması sayfası bu hash'i zaten parse eder).
+ *
+ * @returns {Promise<{karakterId: string, hash: string} | null>}
+ */
+export async function enSonAktiviteGetir() {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return null;
+
+    const [boslukRes, antrenmanRes] = await Promise.all([
+      supabase
+        .from('bosluk_yansimalari')
+        .select('karakter_id, bosluk_id, son_guncelleme')
+        .eq('kullanici_id', user.id)
+        .not('metin', 'is', null)
+        .neq('metin', '')
+        .order('son_guncelleme', { ascending: false })
+        .limit(1)
+        .maybeSingle(),
+      supabase
+        .from('antrenman_yansimalari')
+        .select('karakter_id, antrenman_id, son_guncelleme')
+        .eq('kullanici_id', user.id)
+        .not('metin', 'is', null)
+        .neq('metin', '')
+        .order('son_guncelleme', { ascending: false })
+        .limit(1)
+        .maybeSingle(),
+    ]);
+
+    const bosluk = boslukRes.data;
+    const antrenman = antrenmanRes.data;
+    if (!bosluk && !antrenman) return null;
+
+    // En yenisini seç (her ikisi varsa karşılaştır).
+    const boslukYeni = bosluk && (!antrenman || new Date(bosluk.son_guncelleme) >= new Date(antrenman.son_guncelleme));
+    const kayit = boslukYeni ? bosluk : antrenman;
+    const kaynak = boslukYeni ? 'bosluk' : 'sahne';
+
+    let hash = '';
+    if (kaynak === 'bosluk') {
+      const m = kayit.bosluk_id?.match(/^elyazma-bosluk-(\d+)$/);
+      if (m) hash = `#bosluk-${m[1]}`;
+    } else {
+      const m = kayit.antrenman_id?.match(/^elyazma-sahne-(\d+)$/);
+      if (m) hash = `#sahne-${m[1]}`;
+    }
+
+    return { karakterId: kayit.karakter_id, hash };
+  } catch (e) {
+    return null;
+  }
+}
+
+/**
  * Bir karakterin TÜM antrenman yansımalarını (tüm antrenmanIdleri) getir.
  * Kulis yeniden tasarımı (Nerede Kaldın bölümü) için: en yeni son_guncelleme
  * ile sıralanmış kayıtların hepsi.

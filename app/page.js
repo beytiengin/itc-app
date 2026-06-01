@@ -6,6 +6,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from './lib/supabase';
 import { getKalibrasyonProfili } from './lib/kalibrasyon';
+import { enSonAktiviteGetir } from './lib/kulis';
 import { useDil, ceviri } from './lib/dil';
 import chromeI18n from '../data/chrome-i18n';
 
@@ -171,6 +172,7 @@ export default function AnaSayfa() {
   const s = ceviri(chromeI18n, dil).anaSayfa;
   const [kullanici, setKullanici] = useState(null);
   const [profil, setProfil] = useState(null); // null = anonim ya da yükleniyor
+  const [sonNokta, setSonNokta] = useState(null); // {karakterId, hash} | null
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -184,12 +186,19 @@ export default function AnaSayfa() {
 
   // Üye girince kalibrasyon profilini sessizce çek; CTA'lar durum-duyarlı.
   useEffect(() => {
-    if (!kullanici) { setProfil(null); return; }
+    if (!kullanici) { setProfil(null); setSonNokta(null); return; }
     getKalibrasyonProfili().then(setProfil);
   }, [kullanici]);
 
+  // Tam kalibrasyonlu üye için "son nokta" derin link çek (kaldığı sahne/boşluk).
+  // Yarım kalibrasyonda anlamı yok; çözülemezse fallback zinciri devreye girer.
+  useEffect(() => {
+    if (!profil || !profil.tamMi) { setSonNokta(null); return; }
+    enSonAktiviteGetir().then(setSonNokta);
+  }, [profil]);
+
   // Akıllı CTA — dört durum: anonim · üye hicYok · üye yarım · üye tam.
-  // hicYok ile "üye ama profil yok" durumlarını ctaUye (Modül I'e Git) ile karşıla.
+  // "tam" durumunda son nokta varsa el-yazması derin link; yoksa karakter listesi.
   let ctaHref, ctaMetni, ctaKapanisMetni, kapanisBaslik, kapanisAlt;
   if (!kullanici) {
     ctaHref = '/giris';
@@ -210,9 +219,17 @@ export default function AnaSayfa() {
     kapanisBaslik = s.kapanisBaslikUye;
     kapanisAlt = s.kapanisAltUyeKalibrasyonEksik;
   } else {
-    ctaHref = '/antrenman/karakter';
-    ctaMetni = s.ctaUyeKarakter;
-    ctaKapanisMetni = s.ctaUyeKarakter;
+    // Tam dal: son nokta varsa derin link; yoksa karakter el-yazmasına fallback;
+    // o da yoksa karakter listesi. Asla kırılmaz.
+    if (sonNokta && sonNokta.karakterId) {
+      ctaHref = `/antrenman/karakter/${sonNokta.karakterId}/el-yazmasi${sonNokta.hash || ''}`;
+      ctaMetni = s.ctaUyeKaldiginYerden;
+      ctaKapanisMetni = s.ctaUyeKaldiginYerden;
+    } else {
+      ctaHref = '/antrenman/karakter';
+      ctaMetni = s.ctaUyeKarakter;
+      ctaKapanisMetni = s.ctaUyeKarakter;
+    }
     kapanisBaslik = s.kapanisBaslikUye;
     kapanisAlt = s.kapanisAltUyeTam;
   }
@@ -222,65 +239,70 @@ export default function AnaSayfa() {
 
       {/* Üst navigasyon artık global — components/Navigasyon.js (app/layout.js) */}
 
-      {/* BÖLÜM 1 — KARŞILAMA (HERO) */}
+      {/* BÖLÜM 1 — KARŞILAMA (HERO YÖN 2: editöryel, sol hizalı, iki sütun) */}
       <section style={{
         padding: 'clamp(4rem, 8vw, 6rem) 2rem 4rem',
-        textAlign: 'center',
         maxWidth: '1100px',
         margin: '0 auto',
         width: '100%',
         boxSizing: 'border-box',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+        gap: 'clamp(2rem, 5vw, 4rem)',
+        alignItems: 'center',
       }}>
-        <div style={{ width: '1px', height: '60px', backgroundColor: 'var(--accent)', opacity: 0.4, margin: '0 auto 2rem' }} />
+        {/* Sol sütun: üst-etiket + başlık */}
+        <div>
+          <div style={{
+            fontFamily: 'var(--font-body), sans-serif',
+            fontSize: '0.65rem',
+            fontWeight: 500,
+            color: 'var(--ink-muted)',
+            letterSpacing: '0.32em',
+            marginBottom: '1.6rem',
+            textTransform: 'uppercase',
+          }}>
+            {s.ustEtiket}
+          </div>
 
-        <div style={{
-          fontFamily: 'var(--font-body), sans-serif',
-          fontSize: '0.65rem',
-          fontWeight: 300,
-          color: 'var(--ink-muted)',
-          letterSpacing: '0.4em',
-          marginBottom: '2rem',
-          textTransform: 'uppercase',
-        }}>
-          {s.ustEtiket}
+          <h1 style={{
+            fontFamily: 'var(--font-display), serif',
+            fontStyle: 'italic',
+            fontSize: 'clamp(2.4rem, 6vw, 4.5rem)',
+            fontWeight: 400,
+            color: 'var(--ink)',
+            margin: 0,
+            lineHeight: 1.02,
+            letterSpacing: '0',
+          }}>
+            <span style={{ display: 'block' }}>{s.heroSatir1a}</span>
+            <span style={{ display: 'block' }}>{s.heroSatir1b}</span>
+            <span style={{ display: 'block', color: 'var(--accent)' }}>{s.heroBaslik2}</span>
+          </h1>
         </div>
 
-        <h1 style={{
-          fontFamily: 'var(--font-display), serif',
-          fontStyle: 'italic',
-          fontSize: 'clamp(2.5rem, 6vw, 4rem)',
-          fontWeight: 300,
-          color: 'var(--ink)',
-          marginBottom: '1.5rem',
-          marginTop: 0,
-          lineHeight: 1.2,
-          letterSpacing: '0.02em',
-        }}>
-          {s.heroBaslik1}<br />
-          {s.heroBaslik2}
-        </h1>
+        {/* Sağ sütun: metodoloji cümlesi + CTA */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'flex-start', maxWidth: '460px' }}>
+          <p style={{
+            fontFamily: 'var(--font-body), sans-serif',
+            fontSize: 'clamp(0.95rem, 1.6vw, 1.05rem)',
+            fontWeight: 300,
+            color: 'var(--ink-soft)',
+            margin: 0,
+            lineHeight: 1.75,
+          }}>
+            {s.heroAlt}
+          </p>
 
-        <p style={{
-          fontFamily: 'var(--font-display), serif',
-          fontStyle: 'italic',
-          fontSize: 'clamp(1rem, 2vw, 1.2rem)',
-          fontWeight: 300,
-          color: 'var(--ink-soft)',
-          maxWidth: '600px',
-          margin: '0 auto 3rem',
-          lineHeight: 1.7,
-        }}>
-          {s.heroAlt}
-        </p>
-
-        <a
-          href={ctaHref}
-          style={ctaButonStili}
-          onMouseEnter={ctaHoverIn}
-          onMouseLeave={ctaHoverOut}
-        >
-          {ctaMetni}
-        </a>
+          <a
+            href={ctaHref}
+            style={ctaButonStili}
+            onMouseEnter={ctaHoverIn}
+            onMouseLeave={ctaHoverOut}
+          >
+            {ctaMetni}
+          </a>
+        </div>
       </section>
 
       {/* BÖLÜM 2 — VURUŞ CÜMLESİ */}
@@ -307,67 +329,9 @@ export default function AnaSayfa() {
         </p>
       </section>
 
-      {/* BÖLÜM 4 — ÜÇ MODÜL */}
-      <section style={{
-        padding: 'clamp(3rem, 7vw, 5rem) 2rem',
-        borderTop: '1px solid var(--bg-elevated)',
-        background: 'var(--bg-elevated)',
-      }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
-
-          <div style={{ textAlign: 'center', marginBottom: 'clamp(2.5rem, 5vw, 4rem)' }}>
-            <div style={ustEtiketStili}>{s.yapiEtiket}</div>
-            <h2 style={bolumBaslikStili}>{s.yapiBaslik}</h2>
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-
-            {/* Modül I — tıklanabilir */}
-            <a
-              href="/kalibrasyon"
-              style={{ ...modulKartiStili, textDecoration: 'none', display: 'block' }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; }}
-            >
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: '1.5rem', marginBottom: '0.8rem', flexWrap: 'wrap' }}>
-                <span style={modulRomenStili}>{s.mod1Roma}</span>
-                <h3 style={modulBaslikStili}>{s.mod1Baslik}</h3>
-                <span style={modulAltStili}>{s.mod1Altyazi}</span>
-              </div>
-              <p style={modulMetinStili}>{s.mod1Metin}</p>
-              <div style={modulMetaStili}>{s.mod1Meta}</div>
-            </a>
-
-            {/* Modül II — tıklanabilir */}
-            <a
-              href="/antrenman/karakter"
-              style={{ ...modulKartiStili, textDecoration: 'none', display: 'block' }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; }}
-            >
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: '1.5rem', marginBottom: '0.8rem', flexWrap: 'wrap' }}>
-                <span style={modulRomenStili}>{s.mod2Roma}</span>
-                <h3 style={modulBaslikStili}>{s.mod2Baslik}</h3>
-                <span style={modulAltStili}>{s.mod2Altyazi}</span>
-              </div>
-              <p style={modulMetinStili}>{s.mod2Metin}</p>
-              <div style={modulMetaStili}>{s.mod2Meta}</div>
-            </a>
-
-            {/* Modül III — pasif (Yakında) */}
-            <div style={{ ...modulKartiStili, opacity: 0.6 }}>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: '1.5rem', marginBottom: '0.8rem', flexWrap: 'wrap' }}>
-                <span style={modulRomenStili}>{s.mod3Roma}</span>
-                <h3 style={modulBaslikStili}>{s.mod3Baslik}</h3>
-                <span style={modulAltStili}>{s.mod3Altyazi}</span>
-              </div>
-              <p style={modulMetinStili}>{s.mod3Metin}</p>
-              <div style={modulMetaStili}>{s.mod3Meta}</div>
-            </div>
-
-          </div>
-        </div>
-      </section>
+      {/* BÖLÜM 4 — ÜÇ MODÜL: açılıştan kaldırıldı (Yön 2 + hafifletme). */}
+      {/* İçerik "Nasıl Çalışır" sayfasına taşınacak; chrome-i18n stringleri  */}
+      {/* (yapiEtiket, mod1Baslik..., mod3Meta vb.) korunuyor — silinmedi.    */}
 
       {/* BÖLÜM 5 — EKİP */}
       <section style={{
