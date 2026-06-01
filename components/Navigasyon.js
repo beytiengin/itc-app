@@ -115,7 +115,6 @@ export default function Navigasyon() {
             <Link href="/kalibrasyon">{t.kalibrasyon}</Link>
             <Link href="/antrenman/karakter">{t.antrenman}</Link>
             <Link href="/kulis">{t.kulis}</Link>
-            <Link href="/profil" vurgu>{t.profil}</Link>
             <a
               href="/profil"
               style={{ ...navLink, color: 'var(--ink-muted)' }}
