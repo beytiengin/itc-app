@@ -605,7 +605,7 @@ function DugumGrubu({ dugum, acik, onAc, onKapat, t, ortak, boslukYansima, setBo
 // ─── SAHNE PANELİ (iki sekme: Yazarın Çerçevesi · Senin Çerçeven) ──────────
 
 function SahnePanel({ veri, t, ortak, sahneYansima, setSahneYansima, onKapat, kayitAni, hassas, provisional, acikKapiKey, onTopraklanmaAc }) {
-  const [sekme, setSekme] = useState('senin');
+  const [sekme, setSekme] = useState('yazar');
   const sahneId = SAHNE_ANTRENMAN_PREFIX + veri.no;
   const mevcut = sahneYansima[sahneId] || {};
   const [yorum, setYorum] = useState(mevcut[1] || '');
