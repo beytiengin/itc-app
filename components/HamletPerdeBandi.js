@@ -9,7 +9,7 @@ const TON = 'var(--accent)';
 
 export default function HamletPerdeBandi({ perdeler, aktifPerde, onPerdeTikla }) {
   const { dil } = useDil();
-  const sahneKelime = dil === 'en' ? 'Scene' : 'Sahne';
+  const sahneKelime = dil === 'de' ? 'Szene' : dil === 'en' ? 'Scene' : 'Sahne';
   return (
     <div
       style={{

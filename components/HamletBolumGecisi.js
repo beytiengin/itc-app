@@ -22,7 +22,9 @@ export default function HamletBolumGecisi({
   sonrakiYakinda = false,
 }) {
   const { dil } = useDil();
-  const t = dil === 'en'
+  const t = dil === 'de'
+    ? { onceki: '← Vorheriges', siradaki: 'Nächstes', siradakiOk: 'Nächstes →', modul3Yakinda: 'Modul III · Bald' }
+    : dil === 'en'
     ? { onceki: '← Previous', siradaki: 'Next', siradakiOk: 'Next →', modul3Yakinda: 'Module III · Soon' }
     : { onceki: '← Önceki', siradaki: 'Sıradaki', siradakiOk: 'Sıradaki →', modul3Yakinda: 'Modül III · Yakında' };
   return (

@@ -28,7 +28,9 @@ export default function HamletSahneDetay({
   onSonraki,
 }) {
   const { dil } = useDil();
-  const t = dil === 'en'
+  const t = dil === 'de'
+    ? { olay: 'Ereignis', icsel: 'Innerlich', sicaklik: 'Temperatur', yuk: 'Last', etkiler: 'Beeinflusst die Entscheidungen im Rahmen des Autors:', tercih: 'Entscheidung', ardindan: 'Folgt der Lücke in deinem Rahmen:', bosluk: 'Lücke', seninYansiman: 'Deine Reflexion', soruPre: 'Wie heiß ist ', soruPost: ' deiner Meinung nach in dieser Szene? Wo setzt es sich in deinem Körper fest?', placeholder: 'Wo setzt es sich in deinem Körper fest? Du kannst mit einem einzigen Wort beginnen.', anladim: 'Ich habe diese Szene verstanden', sahne: 'Szene' }
+    : dil === 'en'
     ? { olay: 'Event', icsel: 'Inner', sicaklik: 'Temperature', yuk: 'Burden', etkiler: "Affects the Author's Frame choices:", tercih: 'Choice', ardindan: 'Follows the gap in Your Frame:', bosluk: 'Gap', seninYansiman: 'Your Reflection', soruPre: 'How hot do you think ', soruPost: " is in this scene? Where does it settle in your body?", placeholder: 'Where does it settle in your body? You can start with a single word.', anladim: 'I understood this scene', sahne: 'Scene' }
     : { olay: 'Olay', icsel: 'İçsel', sicaklik: 'Sıcaklık', yuk: 'Yük', etkiler: 'Yazarın Çerçevesi tercihlerini etkiler:', tercih: 'Tercih', ardindan: 'Senin Çerçeven boşluğunun ardından gelir:', bosluk: 'Boşluk', seninYansiman: 'Senin Yansıman', soruPre: 'Bu sahnede ', soruPost: ' sıcaklığı sence kaç? Bedeninde nereye yerleşiyor?', placeholder: 'Bedeninde nereye yerleşiyor? Bir kelimeden başlayabilirsin.', anladim: 'Bu sahneyi anladım', sahne: 'Sahne' };
   const [sicaklik, setSicaklik] = useState(baslangic?.sicaklik ?? null);
@@ -315,7 +317,7 @@ export default function HamletSahneDetay({
             margin: 0,
           }}
         >
-          {t.soruPre}{dil === 'en' ? karakterAd : iyelik(karakterAd)}{t.soruPost}
+          {t.soruPre}{dil === 'en' || dil === 'de' ? karakterAd : iyelik(karakterAd)}{t.soruPost}
         </p>
         <textarea
           value={metin}
@@ -470,9 +472,9 @@ function KayitRozet({ durum }) {
   if (!durum || durum === 'yaziliyor') return <span style={{ minHeight: '1em' }} />;
   const renk = durum === 'hata' ? 'var(--uyari)' : 'var(--accent)';
   const mesaj =
-    durum === 'kaydediliyor' ? (dil === 'en' ? 'Saving…' : 'Kaydediliyor…') :
-    durum === 'kaydedildi' ? (dil === 'en' ? '✓ Saved' : '✓ Kaydedildi') :
-    (dil === 'en' ? '⚠ Could not save' : '⚠ Kaydedilemedi');
+    durum === 'kaydediliyor' ? (dil === 'de' ? 'Wird gespeichert…' : dil === 'en' ? 'Saving…' : 'Kaydediliyor…') :
+    durum === 'kaydedildi' ? (dil === 'de' ? '✓ Gespeichert' : dil === 'en' ? '✓ Saved' : '✓ Kaydedildi') :
+    (dil === 'de' ? '⚠ Konnte nicht gespeichert werden' : dil === 'en' ? '⚠ Could not save' : '⚠ Kaydedilemedi');
   return (
     <span
       style={{

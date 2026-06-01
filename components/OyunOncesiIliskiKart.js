@@ -13,7 +13,9 @@ const TON = 'var(--accent)';
 
 export default function OyunOncesiIliskiKart({ iliski, karakterId, baslangic }) {
   const { dil } = useDil();
-  const t = dil === 'en'
+  const t = dil === 'de'
+    ? { tanindi: '✓ Erkannt', yazildi: '✓ Geschrieben', gecmis: 'Vergangenheit', simdi: 'Jetzt', iz: 'Spur', yansimaSorusu: 'Reflexionsfrage', yansiman: 'Deine Reflexion', tanidim: 'Ich habe diese Beziehung erkannt', placeholder: 'Wo setzt sich diese Beziehung in deinem Körper fest?' }
+    : dil === 'en'
     ? { tanindi: '✓ Recognised', yazildi: '✓ Written', gecmis: 'Past', simdi: 'Now', iz: 'Trace', yansimaSorusu: 'Reflection Question', yansiman: 'Your Reflection', tanidim: 'I have recognised this relationship', placeholder: 'Where does this relationship settle in your body?' }
     : { tanindi: '✓ Tanındı', yazildi: '✓ Yazıldı', gecmis: 'Geçmiş', simdi: 'Şimdi', iz: 'İz', yansimaSorusu: 'Yansıma Sorusu', yansiman: 'Yansıman', tanidim: 'Bu ilişkiyi tanıdım', placeholder: 'Bu ilişki bedeninde nereye yerleşiyor?' };
   const [acik, setAcik] = useState(false);
@@ -321,9 +323,9 @@ function KayitRozet({ durum }) {
   if (!durum || durum === 'yaziliyor') return <span style={{ minHeight: '1em' }} />;
   const renk = durum === 'hata' ? 'var(--uyari)' : 'var(--accent)';
   const mesaj =
-    durum === 'kaydediliyor' ? (dil === 'en' ? 'Saving…' : 'Kaydediliyor…') :
-    durum === 'kaydedildi' ? (dil === 'en' ? '✓ Saved' : '✓ Kaydedildi') :
-    (dil === 'en' ? '⚠ Could not save' : '⚠ Kaydedilemedi');
+    durum === 'kaydediliyor' ? (dil === 'de' ? 'Wird gespeichert…' : dil === 'en' ? 'Saving…' : 'Kaydediliyor…') :
+    durum === 'kaydedildi' ? (dil === 'de' ? '✓ Gespeichert' : dil === 'en' ? '✓ Saved' : '✓ Kaydedildi') :
+    (dil === 'de' ? '⚠ Konnte nicht gespeichert werden' : dil === 'en' ? '⚠ Could not save' : '⚠ Kaydedilemedi');
   return (
     <span
       style={{

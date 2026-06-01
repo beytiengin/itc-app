@@ -14,7 +14,9 @@ const TON = 'var(--accent)';
 
 export default function HamletTercihKart({ tercih, secim, kokYol }) {
   const { dil } = useDil();
-  const t = dil === 'en'
+  const t = dil === 'de'
+    ? { ozelYorum: '+ Eigene Notiz', henuzSecim: 'Noch keine Wahl', duzenle: 'Bearbeiten →', ac: 'Öffnen →' }
+    : dil === 'en'
     ? { ozelYorum: '+ Custom note', henuzSecim: 'No choice yet', duzenle: 'Edit →', ac: 'Open →' }
     : { ozelYorum: '+ Özel yorum', henuzSecim: 'Henüz seçim yok', duzenle: 'Düzenle →', ac: 'Aç →' };
   const secilmis = secim?.secimler?.length > 0 || (secim?.ozelYorum?.length || 0) > 0;

@@ -15,7 +15,9 @@ const TON = 'var(--accent)';
 
 export default function HamletTercihSecim({ tercih, baslangic, karakterId, kokYol }) {
   const { dil } = useDil();
-  const t = dil === 'en'
+  const t = dil === 'de'
+    ? { olasiYorum: 'Mögliche Deutungen', yaDaKendi: 'Oder deine eigene Deutung', aciklama: 'Wenn keine der obigen genau passt, schreibe deine eigene. Du kannst auch beides tun.', placeholder: 'Wie lautet deine Deutung?' }
+    : dil === 'en'
     ? { olasiYorum: 'Possible Interpretations', yaDaKendi: 'Or Your Own Interpretation', aciklama: 'If none of the above fits exactly, write your own. You can also do both.', placeholder: 'What is your interpretation?' }
     : { olasiYorum: 'Olası Yorum', yaDaKendi: 'Ya da Kendi Yorumun', aciklama: 'Yukarıdakilerden hiçbirine tam uymuyorsa kendi yorumunu yaz. İkisini birlikte de yapabilirsin.', placeholder: 'Senin yorumun nasıl?' };
   const [secimler, setSecimler] = useState(baslangic?.secimler || []);
@@ -341,9 +343,9 @@ function KayitRozet({ durum }) {
   if (!durum || durum === 'yaziliyor') return <span style={{ minHeight: '1em' }} />;
   const renk = durum === 'hata' ? 'var(--uyari)' : 'var(--accent)';
   const mesaj =
-    durum === 'kaydediliyor' ? (dil === 'en' ? 'Saving…' : 'Kaydediliyor…') :
-    durum === 'kaydedildi' ? (dil === 'en' ? '✓ Saved' : '✓ Kaydedildi') :
-    (dil === 'en' ? '⚠ Could not save' : '⚠ Kaydedilemedi');
+    durum === 'kaydediliyor' ? (dil === 'de' ? 'Wird gespeichert…' : dil === 'en' ? 'Saving…' : 'Kaydediliyor…') :
+    durum === 'kaydedildi' ? (dil === 'de' ? '✓ Gespeichert' : dil === 'en' ? '✓ Saved' : '✓ Kaydedildi') :
+    (dil === 'de' ? '⚠ Konnte nicht gespeichert werden' : dil === 'en' ? '⚠ Could not save' : '⚠ Kaydedilemedi');
   return (
     <span
       style={{

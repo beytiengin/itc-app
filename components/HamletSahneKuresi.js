@@ -20,6 +20,11 @@ export function sicaklikRengi(sicaklik) {
 
 export function sicaklikEtiketi(sicaklik, dil) {
   if (sicaklik == null) return null;
+  if (dil === 'de') {
+    if (sicaklik <= 3) return 'Kalt';
+    if (sicaklik <= 6) return 'Mittel';
+    return 'Heiß';
+  }
   if (dil === 'en') {
     if (sicaklik <= 3) return 'Cold';
     if (sicaklik <= 6) return 'Medium';
@@ -38,7 +43,7 @@ export default function HamletSahneKuresi({
   innerRef,
 }) {
   const { dil } = useDil();
-  const sahneKelime = dil === 'en' ? 'Scene' : 'Sahne';
+  const sahneKelime = dil === 'de' ? 'Szene' : dil === 'en' ? 'Scene' : 'Sahne';
   const gosterilenSicaklik = oyuncuSicaklik ?? sahne.onerilenSicaklik;
   const renk = sicaklikRengi(gosterilenSicaklik);
   const oyuncuVar = oyuncuSicaklik != null;
@@ -47,7 +52,7 @@ export default function HamletSahneKuresi({
     <button
       ref={innerRef}
       onClick={onClick}
-      title={dil === 'en' ? `${sahne.no}. ${sahne.baslik} — temperature ${gosterilenSicaklik}/10` : `${sahne.no}. ${sahne.baslik} — sıcaklık ${gosterilenSicaklik}/10`}
+      title={dil === 'de' ? `${sahne.no}. ${sahne.baslik} — Temperatur ${gosterilenSicaklik}/10` : dil === 'en' ? `${sahne.no}. ${sahne.baslik} — temperature ${gosterilenSicaklik}/10` : `${sahne.no}. ${sahne.baslik} — sıcaklık ${gosterilenSicaklik}/10`}
       style={{
         width: '100px',
         minWidth: '100px',

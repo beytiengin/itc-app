@@ -9,7 +9,9 @@ const TON = 'var(--onay)'; // Senin Çerçeven yeşili — eski boşluk renginde
 
 export default function HamletBoslukKart({ bosluk, yazilanSayisi, kokYol }) {
   const { dil } = useDil();
-  const t = dil === 'en'
+  const t = dil === 'de'
+    ? { bosluk: '◇ Lücke', once: 'Vorher', sonra: 'Nachher', ac: 'Öffnen →', yazildi: (n) => `${n} / 3 Unterfragen geschrieben` }
+    : dil === 'en'
     ? { bosluk: '◇ Gap', once: 'Before', sonra: 'After', ac: 'Open →', yazildi: (n) => `${n} / 3 sub-questions written` }
     : { bosluk: '◇ Boşluk', once: 'Önce', sonra: 'Sonra', ac: 'Aç →', yazildi: (n) => `${n} / 3 alt-soru yazıldı` };
   const yol = `${kokYol}/senin-cerceven/${bosluk.no}`;

@@ -15,7 +15,9 @@ export default function HamletSicaklikSecici({
   onDegistir,        // (yeniDeger | null) => void
 }) {
   const { dil } = useDil();
-  const t = dil === 'en'
+  const t = dil === 'de'
+    ? { oneri: 'Workbook-Vorschlag', seninYorumun: 'Deine Lesung', henuz: 'Noch nicht markiert', sifirla: 'Zurücksetzen', donmus: '1 · Erstarrt', patlama: '10 · Ausbruch' }
+    : dil === 'en'
     ? { oneri: 'Workbook Suggestion', seninYorumun: 'Your Reading', henuz: 'Not marked yet', sifirla: 'Reset', donmus: '1 · Frozen', patlama: '10 · Eruption' }
     : { oneri: 'Workbook Önerisi', seninYorumun: 'Senin Yorumun', henuz: 'Henüz işaretlenmedi', sifirla: 'Sıfırla', donmus: '1 · Donmuş', patlama: '10 · Patlama' };
   const aktifDeger = oyuncuSicaklik ?? oneri;

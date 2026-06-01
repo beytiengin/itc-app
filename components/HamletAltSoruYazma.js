@@ -18,7 +18,9 @@ export default function HamletAltSoruYazma({
   karakterId,
 }) {
   const { dil } = useDil();
-  const t = dil === 'en'
+  const t = dil === 'de'
+    ? { placeholder: 'Ein Wort, ein Augenblick, eine körperliche Empfindung — das genügt.', acildi: 'Dieser Augenblick hat sich geöffnet' }
+    : dil === 'en'
     ? { placeholder: "A word, a moment, a bodily sensation — that's enough.", acildi: 'This moment opened' }
     : { placeholder: 'Bir kelime, bir an, bir bedensel duyu — yeter.', acildi: 'Bu an açıldı' };
   const [metin, setMetin] = useState(baslangic?.metin || '');
@@ -217,9 +219,9 @@ function KayitRozet({ durum }) {
   if (!durum || durum === 'yaziliyor') return <span style={{ minHeight: '1em' }} />;
   const renk = durum === 'hata' ? 'var(--uyari)' : 'var(--onay)';
   const mesaj =
-    durum === 'kaydediliyor' ? (dil === 'en' ? 'Saving…' : 'Kaydediliyor…') :
-    durum === 'kaydedildi' ? (dil === 'en' ? '✓ Saved' : '✓ Kaydedildi') :
-    (dil === 'en' ? '⚠ Could not save' : '⚠ Kaydedilemedi');
+    durum === 'kaydediliyor' ? (dil === 'de' ? 'Wird gespeichert…' : dil === 'en' ? 'Saving…' : 'Kaydediliyor…') :
+    durum === 'kaydedildi' ? (dil === 'de' ? '✓ Gespeichert' : dil === 'en' ? '✓ Saved' : '✓ Kaydedildi') :
+    (dil === 'de' ? '⚠ Konnte nicht gespeichert werden' : dil === 'en' ? '⚠ Could not save' : '⚠ Kaydedilemedi');
   return (
     <span
       style={{
