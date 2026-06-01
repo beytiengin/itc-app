@@ -105,6 +105,7 @@ const hamletI18n = {
     elYazmasi: {
       altyazi: 'El yazması',
       dogrularBaslik: 'Değiştirilemez Doğrular',
+      dogrularSayim: 'madde',
       iliskilerBaslik: "Hamlet'in Dünyası · İlişkiler",
       iliskilerSayim: 'kişi',
       dokunAc: 'dokun, aç',
@@ -482,6 +483,7 @@ const hamletI18n = {
     elYazmasi: {
       altyazi: 'Manuscript',
       dogrularBaslik: 'Unchangeable Truths',
+      dogrularSayim: 'items',
       iliskilerBaslik: "Hamlet's World · Relationships",
       iliskilerSayim: 'people',
       dokunAc: 'tap to open',

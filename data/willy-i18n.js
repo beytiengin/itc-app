@@ -112,6 +112,7 @@ const willyI18n = {
     elYazmasi: {
       altyazi: 'El yazması',
       dogrularBaslik: 'Değiştirilemez Doğrular',
+      dogrularSayim: 'madde',
       iliskilerBaslik: "Willy'nin Dünyası · İlişkiler",
       iliskilerSayim: 'kişi',
       dokunAc: 'dokun, aç',
@@ -506,6 +507,7 @@ const willyI18n = {
     elYazmasi: {
       altyazi: 'Manuscript',
       dogrularBaslik: 'Unchangeable Truths',
+      dogrularSayim: 'items',
       iliskilerBaslik: "Willy's World · Relationships",
       iliskilerSayim: 'people',
       dokunAc: 'tap to open',

@@ -107,6 +107,7 @@ export default function ElYazmasiSayfasi() {
 
   const [acikPanel, setAcikPanel] = useState(null); // { tip, no } | null
   const [acikOlay, setAcikOlay] = useState(null);   // olay no | null (oyun öncesi)
+  const [dogrularAcik, setDogrularAcik] = useState(false);
   const [iliskilerAcik, setIliskilerAcik] = useState(false);
   const [oyunOncesiAcik, setOyunOncesiAcik] = useState(false);
 
@@ -189,16 +190,21 @@ export default function ElYazmasiSayfasi() {
           <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 200, fontSize: '0.75rem', letterSpacing: '0.2em', color: 'var(--ink-soft)', textTransform: 'uppercase' }}>{t.altyazi}</span>
         </header>
 
-        {/* 2. Doğrular künyesi */}
-        <Bolum baslik={t.dogrularBaslik}>
-          <ul style={{ borderLeft: `2px solid ${TON}`, paddingLeft: '1.3rem', margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+        {/* 2. Doğrular künyesi (katlanır) */}
+        <BolumKatlanir
+          baslik={t.dogrularBaslik}
+          altyazi={`${(data.dogrular || []).length} ${t.dogrularSayim} · ${t.dokunAc}`}
+          acik={dogrularAcik}
+          setAcik={setDogrularAcik}
+        >
+          <ul style={{ borderLeft: `2px solid ${TON}`, paddingLeft: '1.3rem', margin: '0.8rem 0 0', listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
             {(data.dogrular || []).map((d, i) => (
               <li key={i} style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', fontSize: '1.02rem', lineHeight: 1.6, color: 'var(--ink)' }}>
                 {typeof d === 'string' ? d : d.madde}
               </li>
             ))}
           </ul>
-        </Bolum>
+        </BolumKatlanir>
 
         {/* 3. İlişkiler künyesi (katlanır) */}
         <BolumKatlanir
@@ -284,15 +290,6 @@ function Etiket({ children }) {
       color: TON,
       textTransform: 'uppercase',
     }}>{children}</span>
-  );
-}
-
-function Bolum({ baslik, children }) {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-      <Etiket>{baslik}</Etiket>
-      {children}
-    </div>
   );
 }
 
