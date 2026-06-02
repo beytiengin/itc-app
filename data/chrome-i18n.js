@@ -124,8 +124,12 @@ const chromeI18n = {
         mizac: ['yanılsamacı', 'zaman kayması', 'kimlik kırılması'],
         tema: ['yanılsama', 'kimlik', 'çöküş', 'baba-oğul'],
       },
+      macbeth: {
+        aciklama: 'İktidar hırsı, suçluluk ve paranoyanın iç çöküşü. Kehanetten cinayete, eylemden çöküşe beş perdelik iç eğri.',
+        mizac: ['kararlı/kararsız', 'vicdan-arzu çatışması', 'paranoyaya yatkın'],
+        tema: ['iktidar', 'suçluluk', 'paranoya', 'kehanet', 'çöküş'],
+      },
       yakinda: [
-        { ad: 'Macbeth',        yazar: 'William Shakespeare', aciklama: 'İktidar hırsı, suçluluk ve paranoyanın iç çöküşü.' },
         { ad: 'Biff Loman',     yazar: 'Arthur Miller',       aciklama: 'Babanın rüyasından uyanış. Kırılma ve özgürleşme arasında bir adamın gerçeği arama yolculuğu.' },
         { ad: 'Medea',          yazar: 'Euripides',           aciklama: 'Öfke, ihanet ve radikal eylem.' },
         { ad: 'Blanche DuBois', yazar: 'Tennessee Williams',  aciklama: 'Yanılsama kalkanı ve kırılganlık.' },
@@ -489,8 +493,12 @@ const chromeI18n = {
         mizac: ['illusionist', 'time slippage', 'identity fracture'],
         tema: ['illusion', 'identity', 'collapse', 'father-son'],
       },
+      macbeth: {
+        aciklama: 'The inner collapse driven by ambition, guilt, and paranoia. A five-act descent from prophecy to murder, from act to ruin.',
+        mizac: ['resolved/wavering', 'conscience vs. desire', 'prone to paranoia'],
+        tema: ['power', 'guilt', 'paranoia', 'prophecy', 'collapse'],
+      },
       yakinda: [
-        { ad: 'Macbeth',        yazar: 'William Shakespeare', aciklama: 'The inner collapse driven by ambition, guilt, and paranoia.' },
         { ad: 'Biff Loman',     yazar: 'Arthur Miller',       aciklama: "Awakening from the father's dream. A man's search for truth between breakdown and liberation." },
         { ad: 'Medea',          yazar: 'Euripides',           aciklama: 'Rage, betrayal, and radical action.' },
         { ad: 'Blanche DuBois', yazar: 'Tennessee Williams',  aciklama: 'The shield of illusion and fragility.' },
@@ -834,8 +842,12 @@ const chromeI18n = {
         mizac: ['Illusionist', 'Zeitverschiebung', 'Identitätsbruch'],
         tema: ['Illusion', 'Identität', 'Zerfall', 'Vater-Sohn'],
       },
+      macbeth: {
+        aciklama: 'Der innere Zusammenbruch, getrieben von Ehrgeiz, Schuld und Paranoia. Ein fünfaktiger Abstieg von der Prophezeiung zum Mord, von der Tat zum Ruin.',
+        mizac: ['entschlossen/schwankend', 'Gewissen gegen Begehren', 'paranoia-anfällig'],
+        tema: ['Macht', 'Schuld', 'Paranoia', 'Prophezeiung', 'Zerfall'],
+      },
       yakinda: [
-        { ad: 'Macbeth',        yazar: 'William Shakespeare', aciklama: 'Der innere Zusammenbruch, getrieben von Ehrgeiz, Schuld und Paranoia.' },
         { ad: 'Biff Loman',     yazar: 'Arthur Miller',       aciklama: 'Das Erwachen aus dem Traum des Vaters. Die Wahrheitssuche eines Mannes zwischen Zusammenbruch und Befreiung.' },
         { ad: 'Medea',          yazar: 'Euripides',           aciklama: 'Zorn, Verrat und radikales Handeln.' },
         { ad: 'Blanche DuBois', yazar: 'Tennessee Williams',  aciklama: 'Der Schutzschild der Illusion und die Zerbrechlichkeit.' },

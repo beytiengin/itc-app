@@ -9,20 +9,23 @@ import chromeI18n from '../../../data/chrome-i18n';
 
 // Karakter listesi — sade vitrin.
 //
-// AKTİF: Hamlet, Willy (yeni şemada, sayfalar tam çalışıyor).
-// PASİF: Macbeth, Biff (eski şemada; veri Willy şemasına yeniden yazılacak —
+// AKTİF: Hamlet, Willy, Macbeth (yeni şemada, sayfalar tam çalışıyor).
+// PASİF: Biff (eski şemada; Macbeth gibi Willy şemasına yeniden yazılacak —
 //        Filiz klinik gözden geçirimiyle. O bitene kadar Medea/Blanche gibi
-//        "Yakında" konumunda tıklanamaz dururlar).
+//        "Yakında" konumunda tıklanamaz durur).
 //
 // KARARLAR (Beyti):
-// - Macbeth/Biff: tamamen pasif (gri, tıklanmaz, "Yakında") — kırık dosyaya
+// - Macbeth Sprint 4 ile aktif. Dramaturji ★ kayıt anları + hassas/provisional
+//   set'ler Beyti/Filiz onayı bekliyor (el-yazmasi/page.js'te boş).
+// - Biff: tamamen pasif (gri, tıklanmaz, "Yakında") — kırık dosyaya
 //   tıklatmaktan iyi.
 // - "ITC öğrenme zinciri" bloğu kaldırıldı (kalabalık yapıyordu).
 // - "Refactor Bekliyor" / "Tam Yapı" durum göstergesi kaldırıldı (kullanıcı
 //   için anlamsız bir iç not).
 const KARAKTER_META = {
-  hamlet: { yazar: 'William Shakespeare', donem: '1600', turKey: 'Trajedi' },
-  willy:  { yazar: 'Arthur Miller',       donem: '1949', turKey: 'Trajedi' },
+  hamlet:  { yazar: 'William Shakespeare', donem: '1600', turKey: 'Trajedi' },
+  willy:   { yazar: 'Arthur Miller',       donem: '1949', turKey: 'Trajedi' },
+  macbeth: { yazar: 'William Shakespeare', donem: '1606', turKey: 'Trajedi' },
 };
 
 // Aktif karakter için sıradaki adım hesabı: ilerleme view + içerik toplamları
@@ -116,7 +119,7 @@ function SiradakiAdimCTA({ adim, t }) {
 // "Devam edilen" hesabı: en yüksek total ilerleme (bosluk + antrenman) — varsa.
 // Recency timestamp'i için yeni sorgu açmadık; volume yeterli proxy (note esnek).
 function primaryKarakterIdHesapla(ilerlemeler) {
-  const adaylar = ['hamlet', 'willy'].map((id) => {
+  const adaylar = ['hamlet', 'willy', 'macbeth'].map((id) => {
     const v = ilerlemeler[id] || { bosluk: 0, antrenman: 0 };
     return { id, toplam: (v.bosluk || 0) + (v.antrenman || 0) };
   });
@@ -128,24 +131,27 @@ export default function KarakterListesi() {
   const { dil } = useDil();
   const t = ceviri(chromeI18n, dil).karakterListesi;
   const [ilerlemeler, setIlerlemeler] = useState({});
-  const [adimlar, setAdimlar] = useState({}); // { hamlet: {faz,index,tip}, willy: {...} }
+  const [adimlar, setAdimlar] = useState({}); // { hamlet: {faz,index,tip}, willy: {...}, macbeth: {...} }
 
   useEffect(() => {
     let iptal = false;
     async function veriYukle() {
-      const [tumIlerleme, hamletView, willyView] = await Promise.all([
+      const [tumIlerleme, hamletView, willyView, macbethView] = await Promise.all([
         tumKarakterIlerlemeleri(),
         ilerlemeGetir('hamlet'),
         ilerlemeGetir('willy'),
+        ilerlemeGetir('macbeth'),
       ]);
       if (iptal) return;
       setIlerlemeler(tumIlerleme);
 
       const hamletKartlar = kartlariKur(hamletView, karakterToplamlari(karakterGetir('hamlet', dil)));
       const willyKartlar = kartlariKur(willyView, karakterToplamlari(karakterGetir('willy', dil)));
+      const macbethKartlar = kartlariKur(macbethView, karakterToplamlari(karakterGetir('macbeth', dil)));
       setAdimlar({
-        hamlet: siradakiAdim(hamletKartlar),
-        willy:  siradakiAdim(willyKartlar),
+        hamlet:  siradakiAdim(hamletKartlar),
+        willy:   siradakiAdim(willyKartlar),
+        macbeth: siradakiAdim(macbethKartlar),
       });
     }
     veriYukle();
@@ -186,6 +192,15 @@ export default function KarakterListesi() {
             href="/antrenman/karakter/willy"
             isPrimary={primaryId === 'willy'}
             adim={adimlar.willy}
+            t={t}
+          />
+
+          <AktifKart
+            karakterId="macbeth"
+            ad="Macbeth"
+            href="/antrenman/karakter/macbeth"
+            isPrimary={primaryId === 'macbeth'}
+            adim={adimlar.macbeth}
             t={t}
           />
 

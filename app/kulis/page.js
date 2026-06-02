@@ -35,8 +35,8 @@ import willy from '../../data/karakterler/willy';
 import biff from '../../data/karakterler/biff';
 
 // TR taban raw'lar — module-scope. Runtime'da KARAKTERLER component içinde
-// karakterGetir ile dil katmanı uygulanır (hamlet + willy; Macbeth/Biff
-// çeviri turunda eklenir).
+// karakterGetir ile dil katmanı uygulanır (hamlet + willy + macbeth;
+// Biff çeviri turunda eklenir).
 const KARAKTERLER_RAW = { hamlet, willy, macbeth, biff };
 const SIRA = ['hamlet', 'willy', 'macbeth', 'biff'];
 
@@ -91,12 +91,12 @@ export default function KulisSayfasi() {
   const { dil } = useDil();
   const t = ceviri(chromeI18n, dil).kulis;
 
-  // Çok-dilli mimari: Hamlet + Willy karakter dramatik içeriği dil katmanıyla
-  // merge edilir; Macbeth/Biff henüz TR taban (çeviri turunda eklenir).
+  // Çok-dilli mimari: Hamlet + Willy + Macbeth karakter dramatik içeriği dil
+  // katmanıyla merge edilir; Biff henüz TR taban (çeviri turunda eklenir).
   const KARAKTERLER = useMemo(() => ({
     hamlet: karakterGetir('hamlet', dil),
     willy: karakterGetir('willy', dil),
-    macbeth: KARAKTERLER_RAW.macbeth,
+    macbeth: karakterGetir('macbeth', dil),
     biff: KARAKTERLER_RAW.biff,
   }), [dil]);
 
