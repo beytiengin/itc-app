@@ -16,7 +16,7 @@ import hamletDE from '../../data/karakterler/hamlet.de';
 import willyTR from '../../data/karakterler/willy';
 import willyDE from '../../data/karakterler/willy.de';
 import macbethTR from '../../data/karakterler/macbeth';
-// import macbethDE from '../../data/karakterler/macbeth.de'; // Sprint 5
+import macbethDE from '../../data/karakterler/macbeth.de';
 
 const TABAN = {
   hamlet: hamletTR,
@@ -27,7 +27,7 @@ const TABAN = {
 const KATMAN = {
   hamlet: { de: hamletDE },
   willy: { de: willyDE },
-  // macbeth: { de: macbethDE }, // Sprint 5
+  macbeth: { de: macbethDE },
 };
 
 // Deep merge: katmandaki dolu (truthy, boş-olmayan) değerler tabanın üzerine
