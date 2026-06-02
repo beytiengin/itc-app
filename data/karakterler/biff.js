@@ -44,6 +44,488 @@ const biff = {
     { kategori: 'Son', madde: 'Cenazede Willy\'nin "yanlış rüya gördüğünü" anladı.' },
   ],
 
+  // ═══════════════════════════════════════════════════════════════════════════
+  // YENİ MİMARİ ALANLARI (Katman 1 — Hamlet/Willy/Macbeth paralelinde refactor)
+  // Eski sahneler/bosluklar/antrenmanlar korundu; sayfa mimarisi (Katman 2)
+  // tamamlanınca retire edilecek. Şema Hamlet/Macbeth ile birebir.
+  //
+  // TELİF: Arthur Miller telifli. Willy modeli izlenir — Miller doğrudan
+  // replikleri ("dime a dozen", "Sen Adonis'sin", "Ben hiçbir şeyim") yeni
+  // alanlarda BETİMLEYİCİ ANLATIMA çevrildi; tescilli metin doğrudan basılmadı.
+  // Biff.de.js Sprint 5'te (parafraz, Macbeth/Hamlet'in Schlegel-Tieck serbestliği
+  // BURADA YOK).
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  // ─── PERDE TEMALARI ──────────────────────────────────────────────────────
+  // Satıcının Ölümü 2 perde + Requiem. Biff'in yayı: yanılsama → uyanış → hakikat.
+  perdeTemalari: [
+    { perde: 'I',  baslik: 'Yanılsama ve Çatlak',  altyazi: 'Babanın rüyası taşınır, ilk çatlak görünür', sahneAraligi: '1-7'   },
+    { perde: 'II', baslik: 'Yüzleşme ve Kopuş',     altyazi: 'Gerçek söylenmeye çalışılır, bağ kırılır',  sahneAraligi: '8-13'  },
+    { perde: 'R',  baslik: 'Requiem ve Hakikat',    altyazi: 'Mezar başında yanlış rüya adlandırılır',   sahneAraligi: '14'    },
+  ],
+
+  // ─── SAHNELER — WORKBOOK FORMATI · 14 BİRİM ───────────────────────────────
+  // Kaynak: eski `sahneler`. olay=desc genişletildi, icsel=icDurum, yuk=YENİ,
+  // onerilenSicaklik=travmaSeviyesi+dramatik yoğunluktan türetildi (1-9).
+  // Miller'ın doğrudan replikleri ("Sen Adonis'sin", "dime a dozen") betimleyici
+  // anlatıma çevrildi — tescilli metin doğrudan basılmadı.
+  sahnelerWorkbook: [
+    {
+      no: 1, perde: 1, perdeRomen: 'I',
+      baslik: 'Eve dönüş — "ne yapacağım?"',
+      konum: 'I · Çocukluk odası, gece',
+      olay: 'Biff, kardeşi Happy ile eski çocukluk odasındadır. Geleceği üzerine konuşurlar; Biff ne istediğini bilmediğini söyler. On beş yıllık batı macerasından sonra eve, belirsizlikle dönmüştür.',
+      icsel: 'Yorgun ve yıkık, ama içinde hâlâ bir umut kıpırtısı: "belki bu sefer." Kendi belirsizliğiyle yüzleşmekten kaçan bir adam.',
+      onerilenSicaklik: 3,
+      yuk: 'Otuz dört yaşında, hâlâ ne olacağını bilmeyen bir adamın kendi belirsizliğiyle ilk teması.',
+      travmaKategorileri: ['varolussal'], travmaSeviyesi: 1,
+    },
+    {
+      no: 2, perde: 1, perdeRomen: 'I',
+      baslik: 'Bellek: Babanın gözünde kahraman',
+      konum: 'I · Willy\'nin belleği',
+      olay: 'Willy\'nin belleğinde genç Biff: baba oğlunu yüceltir, ona kusursuz bir gelecek vaat eder. Happy etrafta, Bernard kenarda. O zamanlar Biff babasının her sözüne inanmaktadır.',
+      icsel: 'Bu hatıra Biff için hem tatlı hem acı: o zamanlar gerçekten inanıyordu. Yüceltilmenin sıcaklığı, sonradan gelecek çöküşün zeminidir.',
+      onerilenSicaklik: 3,
+      yuk: 'Bir çocuğun, babasının gözündeki tanrısal imgeye inanmasının masum sıcaklığı.',
+      travmaKategorileri: ['cocukluk'], travmaSeviyesi: 1,
+    },
+    {
+      no: 3, perde: 1, perdeRomen: 'I',
+      baslik: 'Ebbets Stadyumu — futbol zaferi',
+      konum: 'I · Bellek, stadyum',
+      olay: 'Bellekte bir maç günü: Biff şampiyondur, bütün gözler ondadır. Willy gururla yanındadır. Biff\'in "özel olma" hissini en yoğun yaşadığı an.',
+      icsel: 'En parlak an. Biff\'in kimliğinin doruğu — ve sonradan asla geri dönemeyeceği bir zirve.',
+      onerilenSicaklik: 4,
+      yuk: 'Bir gencin, bütün bir geleceği üzerine kuracağı "özel olma" hissini doruğunda yaşaması.',
+      travmaKategorileri: [], travmaSeviyesi: 0,
+    },
+    {
+      no: 4, perde: 1, perdeRomen: 'I',
+      baslik: 'Bellek: Matematikten kalma',
+      konum: 'I · Bellek',
+      olay: 'Bernard, Biff\'in matematikten kalacağı uyarısını yapar. Willy bunu önemsemez, oğlunun karizmasının her kapıyı açacağına inanır. Tehlike işareti hem baba hem oğul tarafından duyulmaz.',
+      icsel: 'Bir uyarı havada asılı kalır — ama ne Biff ne baba duymak ister. Yanılsamanın ilk çatlağı, görmezden gelinir.',
+      onerilenSicaklik: 4,
+      yuk: 'Bir ailenin, gelecek felaketin ilk işaretini birlikte görmezden gelmesi.',
+      travmaKategorileri: [], travmaSeviyesi: 1,
+    },
+    {
+      no: 5, perde: 1, perdeRomen: 'I',
+      baslik: 'Bernard\'ı küçümseme + uyarı',
+      konum: 'I · Bellek',
+      olay: 'Biff, çalışkan ama popüler olmayan Bernard\'ı küçümser. Bernard ısrarla uyarır: Biff matematik için babasının Boston\'da olduğu yere gitmek zorundadır. Bu sahneden sonra o yolculuk başlayacaktır.',
+      icsel: 'Bernard\'ın söylediği gerçektir, ama Biff henüz Boston\'a gitmemiştir. Kibrin altında, farkında olmadığı bir kırılganlık.',
+      onerilenSicaklik: 4,
+      yuk: 'Bir gencin, kendisini uyaran sesi küçümserken aslında kendi düşüşüne doğru yürümesi.',
+      travmaKategorileri: [], travmaSeviyesi: 1,
+    },
+    {
+      no: 6, perde: 1, perdeRomen: 'I',
+      baslik: 'Boston otel — babayı kadınla görür',
+      konum: 'I · Boston, otel odası',
+      olay: 'Biff, matematikten yardım istemek için babasını Boston\'daki otelde arar. Kapıyı açtırınca odadan başka bir kadın çıkar. Babasının ihaneti ve bütün yüceltici sözlerinin yalanı bir anda açığa çıkar.',
+      icsel: 'Kahraman imgesi saniyeler içinde yıkılır. Babanın yalanları, övgüleri, "kusursuz gelecek" vaadi — hepsi aynı anda çöker. Biff\'in en derin yarası.',
+      onerilenSicaklik: 9,
+      yuk: 'Bir oğlun, babasının tanrısal imgesinin tek bir anda yalana dönüştüğüne tanık olması — geri dönülemez kırılma.',
+      travmaKategorileri: ['ihanet', 'ahlaki_yara'], travmaSeviyesi: 3,
+    },
+    {
+      no: 7, perde: 1, perdeRomen: 'I',
+      baslik: 'Linda\'nın uyarısı',
+      konum: 'I · Ev',
+      olay: 'Linda oğullarına babalarının bir insan olduğunu, çöktüğünü, ona dikkat etmeleri gerektiğini anlatır. Biff annesini dinler.',
+      icsel: 'Annesinin yüzünü ilk kez bu kadar net görür; Linda\'nın sessizce taşıdığı yükü hisseder. Boston\'dan beri taşıdığı sırla bu çağrı çarpışır.',
+      onerilenSicaklik: 5,
+      yuk: 'Babasının sırrını taşıyan bir oğlun, annesinin "ona dikkat edin" çağrısıyla yüzleşmesi.',
+      travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 1,
+    },
+    {
+      no: 8, perde: 2, perdeRomen: 'II',
+      baslik: 'Bill Oliver\'dan iş — kalem çalma',
+      konum: 'II · Bill Oliver\'ın ofisi',
+      olay: 'Biff iş istemek için eski işvereni Bill Oliver\'ı ziyaret eder; ama Oliver onu hatırlamaz bile. Uzun bir bekleyişin ardından Biff masadan bir kalem alıp kaçar.',
+      icsel: 'Bir anlık keskin netlik: bütün hayatının bir yanılsama üzerine kurulduğunu görür — kendini hiç olmadığı biri sanmıştır. Hırsızlık, bu çöküşün refleksi.',
+      onerilenSicaklik: 5,
+      yuk: 'Bir adamın, kim olduğuna dair bütün hikâyesinin yalan olduğunu tek bir bekleme odasında anlaması.',
+      travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 1,
+    },
+    {
+      no: 9, perde: 2, perdeRomen: 'II',
+      baslik: 'Bellek: Hapis (kısa atıf)',
+      konum: 'II · Konuşmada atıf',
+      olay: 'Konuşma içinde Biff\'in hırsızlıktan hapis yattığı ortaya çıkar. Willy bunu duymak istemez.',
+      icsel: 'Biff\'in en sakladığı şey. Babanın gözündeki yüceltilmiş imgenin hâlâ yaşaması için gömülmesi gereken gerçek.',
+      onerilenSicaklik: 4,
+      yuk: 'Bir oğlun, babasının hayalini korumak için kendi gerçeğini gizlemek zorunda kalması.',
+      travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 1,
+    },
+    {
+      no: 10, perde: 2, perdeRomen: 'II',
+      baslik: 'Restoranda — gerçeği söyleme niyeti',
+      konum: 'II · Frank\'s Chop House',
+      olay: 'Biff babasını restoranda bekler. Bu kez gerçeği söylemeye kararlıdır: Oliver onu tanımamıştır, hiçbir şey olmamıştır. Babasının hayalini kırmaya hazırlanır.',
+      icsel: 'Kararını vermiştir, ama her dakika onu yeniden sorgular. Hakikati söylemekle babasını yıkmak arasındaki gerilim.',
+      onerilenSicaklik: 5,
+      yuk: 'Bir oğlun, sevdiği adamı yıkacağını bile bile hakikati söylemeye hazırlanması.',
+      travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 1,
+    },
+    {
+      no: 11, perde: 2, perdeRomen: 'II',
+      baslik: 'Restoran — babayı tuvalette bırakır',
+      konum: 'II · Frank\'s Chop House',
+      olay: 'Willy gerçeği duymak istemez; zihni Boston\'a, eski belleğe kayar. Happy bir kadınla ilgilenir. Biff dayanamaz ve babasını tuvalette bırakıp restoranı terk eder.',
+      icsel: 'Pes ediş: "Ona söyleyemiyorum, beni dinlemiyor." Sokağa çıkarken bir kaçış duygusu — ve onu bırakmanın suçluluğu.',
+      onerilenSicaklik: 7,
+      yuk: 'Bir oğlun, babasıyla iletişimin imkânsızlığını kabul edip onu terk etmesi — sevgiyle suçluluğun çarpışması.',
+      travmaKategorileri: ['ihanet', 'ahlaki_yara'], travmaSeviyesi: 2,
+    },
+    {
+      no: 12, perde: 2, perdeRomen: 'II',
+      baslik: 'Linda ile yüzleşme',
+      konum: 'II · Ev',
+      olay: 'Biff eve döner; Linda öfkelidir, babasını restoranda bıraktığı için onu suçlar. Biff annesini sevdiğini ama babasını kurtaramayacağını söyler.',
+      icsel: 'Annenin öfkesi haklıdır, ama Biff de haklıdır. İki gerçek çarpışır; ikisi de doğrudur, ikisi de acıtır.',
+      onerilenSicaklik: 6,
+      yuk: 'Bir oğlun, sevgiyle gerçeğin çatıştığı yerde durup "onu kurtaramam" diyebilmesi.',
+      travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 2,
+    },
+    {
+      no: 13, perde: 2, perdeRomen: 'II',
+      baslik: 'Babayla son yüzleşme',
+      konum: 'II · Ev',
+      olay: 'Biff babasına sarılır ve ağlar; ona kendisinin de babasının da sıradan insanlar olduğunu, artık bu yükten kurtulmaları gerektiğini söyler. Hayatı boyunca söyleyemediğini söyler.',
+      icsel: 'Yıkım ve özgürlük aynı anda. Babasını ilk kez bu kadar yakından, bir tanrı olarak değil bir insan olarak gördüğü an. Willy ise bu gözyaşlarını sevgi sanır.',
+      onerilenSicaklik: 9,
+      yuk: 'Bir oğlun, ömür boyu söyleyemediği hakikati ağlayarak söylemesi — hem kopuş hem kurtuluş.',
+      travmaKategorileri: ['ahlaki_yara', 'kayip'], travmaSeviyesi: 3,
+    },
+    {
+      no: 14, perde: 5, perdeRomen: 'R',
+      baslik: 'Requiem — "yanlış rüya gördü"',
+      konum: 'Requiem · Mezarlık',
+      olay: 'Cenazeden sonra mezar başında Biff, babasının ömrü boyunca yanlış bir rüyanın peşinden gittiğini söyler. Happy itiraz eder; Biff artık kim olduğunu bildiğini söyler.',
+      icsel: 'Acıyla gelen bir özgürleşme. Babanın hayatı bir yanılsama üzerine kuruluydu; Biff bunu artık görebiliyor ve kendi hakikatini sahipleniyor.',
+      onerilenSicaklik: 7,
+      yuk: 'Bir oğlun, babasının yanlışını adlandırarak kendi hakikatine kavuşması — yas ve özgürlük bir arada.',
+      travmaKategorileri: ['kayip', 'varolussal'], travmaSeviyesi: 2,
+    },
+  ],
+
+  // ─── OYUN ÖNCESİ YAŞAM ────────────────────────────────────────────────────
+  // Kaynak: b-pre-1 (çocukluk) + b-pre-2 (lise) + ilişki ağı. Biff sahneye 34
+  // yaşında, eve dönmüş olarak girer; ama arkasında yüceltilmiş bir çocukluk,
+  // parlak bir lise ve Boston'da kırılan bir hayat vardır.
+  oyunOncesi: {
+    olaylar: [
+      {
+        no: 1,
+        baslik: 'Çocukluk — babanın tanrı olduğu yıllar',
+        sahneRef: 'Çok küçük yaşlarda Biff; baba yola çıkarken onu yüceltir, kusursuz bir gelecek vaat eder.',
+        yuk: 'Yüceltilmenin sıcaklığı ve zehri. Biff\'in bütün kimliği, babanın gözündeki tanrısal imgenin üzerine kurulur.',
+        yansimaSorusu: 'Babanın yüceltici bakışı Biff\'in bedeninde nereye yerleşti — ve o bakış olmadan kendini nasıl hissediyor?',
+      },
+      {
+        no: 2,
+        baslik: 'Lise — yıldız olmak, üniversiteler, matematik tehdidi',
+        sahneRef: 'On beş-on yedi yaşlarında Biff: futbol kahramanı, üniversite teklifleri var, ama matematikten geri kalmaktadır.',
+        yuk: 'Doruğun ve körlüğün bir arada olduğu yıllar. Yıldız olmanın getirdiği kibir, gelecek düşüşün zeminini hazırlar.',
+        yansimaSorusu: 'Yıldız olmanın baskısı ile matematikten kalma korkusu Biff\'in içinde nasıl bir arada yaşadı?',
+      },
+      {
+        no: 3,
+        baslik: 'Boston — kahraman imgesinin yıkılışı',
+        sahneRef: 'On yedi yaşında Biff, babasını Boston\'da başka bir kadınla görür; o an her şey değişir.',
+        yuk: 'Bütün bir değer sisteminin tek bir anda çöküşü. Bu, oyun-öncesi yaşamı ile oyun-içi Biff\'i ayıran eşik.',
+        yansimaSorusu: 'Boston\'daki o açılan kapıdan sonra Biff\'in bedeninde bugüne dek kapanmamış olan ne kaldı?',
+      },
+      {
+        no: 4,
+        baslik: 'Kayıp yıllar — batıda 15-20 yıl, çiftlikler, hapis',
+        sahneRef: 'Boston\'dan sonra Biff yıllarca batı eyaletlerinde çiftliklerde çalışır, hapse girip çıkar, bir yere ait olamaz.',
+        yuk: 'Hayat boyu süren bir kaçış. Boston\'da kırılan adamın, kim olduğunu bulamadan dolaştığı yıllar.',
+        yansimaSorusu: 'O yıllarda Biff hangi anlarda mutluydu — ve bu mutluluk neden hiç kalıcı olamadı?',
+      },
+    ],
+    iliskiler: [
+      {
+        no: 1, ad: 'Willy', rol: 'BABA',
+        gecmis: 'Onu tanrı sanan oğul; yüceltmenin sıcaklığında büyüyen çocuk.',
+        simdi: 'Hayalini taşıyamadığı, gerçeğini söyleyemediği, sonunda "ikimiz de sıradanız" diyerek kopduğu baba.',
+        iz: 'Sevgi + ihanetin yarası + kurtaramama suçluluğu, çözülemez bir düğüm.',
+        yansimaSorusu: 'Biff babasına baktığında hâlâ o tanrıyı mı arıyor, yoksa artık sadece yorgun bir adamı mı görüyor?',
+      },
+      {
+        no: 2, ad: 'Linda', rol: 'ANNE',
+        gecmis: 'Çocukluğun şefkatli arka planı; babanın gölgesinde kalan sevgi.',
+        simdi: 'Babasını kurtarmasını isteyen, onu bıraktığı için öfkelenen anne. İki haklı gerçeğin çarpıştığı yer.',
+        iz: 'Sevgi + suçluluk + anlaşılamama.',
+        yansimaSorusu: 'Linda "babanı bıraktın" dediğinde Biff\'in içinde savunma mı, yoksa kabul edilmiş bir suçluluk mu belirir?',
+      },
+      {
+        no: 3, ad: 'Happy', rol: 'KARDEŞ',
+        gecmis: 'Hep gölgede kalan, ağabeyini izleyen küçük kardeş.',
+        simdi: 'Babanın yalanını sürdürmeyi seçen kardeş; Biff\'in uyanışına itiraz eden ses. İki kardeş, iki yol.',
+        iz: 'Bağ + ayrışan yollar + birbirini kurtaramama.',
+        yansimaSorusu: 'Biff, Happy\'ye baktığında kendi seçmediği yolu mu görür — "ben de öyle olabilirdim"?',
+      },
+      {
+        no: 4, ad: 'Bernard', rol: 'ÇOCUKLUK ARKADAŞI / KARŞIT',
+        gecmis: 'Küçümsediği çalışkan çocuk; "popüler ol, gerisi gelir" yanılsamasının karşıtı.',
+        simdi: 'Başarılı olmuş, Biff\'in seçmediği yolun canlı kanıtı. Kibrin karşısındaki sessiz doğrulama.',
+        iz: 'Eski küçümseme + sonradan gelen saygı + kıyaslamanın acısı.',
+        yansimaSorusu: 'Bernard\'ın başarısı Biff\'e bir pişmanlık mı, yoksa "ben başka biriyim" diyen bir kabul mü getirir?',
+      },
+      {
+        no: 5, ad: 'Bill Oliver', rol: 'GEÇMİŞ İŞVEREN / YANILSAMA AYNASI',
+        gecmis: 'Biff\'in kafasında bir dostluk ve önem kurduğu eski işveren.',
+        simdi: 'Onu hatırlamayan adam; Biff\'in bütün hayat hikâyesinin bir yanılsama olduğunu gösteren ayna.',
+        iz: 'Kurgulanmış önem + gerçeğin soğuk yüzü + kalem hırsızlığının utancı.',
+        yansimaSorusu: 'Oliver\'ın onu tanımadığı an Biff\'in içinde ne çöktü — yalnız bir umut mu, yoksa bütün bir kimlik mi?',
+      },
+      {
+        no: 6, ad: 'Boston\'daki Kadın', rol: 'KIRILMA TANIĞI',
+        gecmis: 'Oyun-öncesinde var olmayan; sadece Boston otelinde, kırılma anında beliren figür.',
+        simdi: 'Babanın ihanetinin somut yüzü; Biff\'in hafızasında o açılan kapıyla birlikte donmuş görüntü.',
+        iz: 'İhanetin görsel mührü + babaya dair her şeyin çöküş anı.',
+        yansimaSorusu: 'O kadının görüntüsü Biff\'in zihninde bugün hangi başka anlarla birlikte geri döner?',
+      },
+    ],
+  },
+
+  // ─── TERCİHLER · 5 SAHNELEME KARARI (Yazarın Çerçevesi sayfası) ───────────
+  // Metnin en tartışmalı 5 noktası; oyuncu Yaratımsal Doğru seçer (Spine §3.11).
+  // ONAYLI — Beyti dramaturjik onayı verildi (Biff_Tercihler_Onay_Taslagi.md).
+  // T2 (babaya karşı duygu) + T4 (uyanış) klinik-hassas eksenler (aile, kimlik,
+  // kopuş); Filiz gözden geçirmesi uygun olur (mevcut metin nötr dramaturjik
+  // dilde yazıldı, klinik tanı dili dayatmaz).
+  tercihler: [
+    {
+      no: 1,
+      konu: 'Boston\'ın Ağırlığı',
+      baslik: 'Biff\'in çöküşü Boston yüzünden mi, yoksa zaten kırılgan bir temel miydi?',
+      cokluSecim: false,
+      sahneNolari: [6, 8],
+      isaretler: [
+        { ref: 'Boston ifşası', sahneNo: 6, metin: 'Biff babasını kadınla gördükten sonra hayatı yön değiştirir; matematiği bitirmez, üniversiteye gitmez.' },
+        { ref: 'Oliver ofisi', sahneNo: 8, metin: 'Yıllar sonra Biff\'in bütün kimliğinin bir yanılsama üzerine kurulu olduğu açığa çıkar — bu yanılsama Boston\'dan önce de vardı.' },
+      ],
+      sentez: 'Biff\'in çöküşünün tek bir ana mı (Boston) bağlı, yoksa baba tarafından beslenen yanılsamanın kaçınılmaz sonucu mu olduğu metinde açık bırakılır. Oyuncu Boston\'ın ağırlığına karar verir.',
+      yorumlar: [
+        { harf: 'A', baslik: 'Boston her şeyi kırdı', aciklama: 'O ana kadar Biff sağlam ve umutluydu; Boston tek kırılma noktası. Babanın ihaneti olmasa farklı bir hayat olurdu.' },
+        { harf: 'B', baslik: 'Temel zaten çürüktü', aciklama: 'Babanın yücelten yalanı Biff\'i baştan kırılgan yaptı; Boston yalnızca zaten var olan çatlağı görünür kıldı.' },
+        { harf: 'C', baslik: 'Boston bir bahane oldu', aciklama: 'Biff, başarısızlıklarını açıklamak için Boston\'a tutundu; gerçek sebep daha karmaşık, ama o tek bir ana yüklemeyi seçti.' },
+      ],
+    },
+    {
+      no: 2,
+      konu: 'Babaya Karşı Duygu',
+      baslik: 'Biff babasını seviyor mu, ondan nefret mi ediyor, yoksa ikisi bir arada mı?',
+      cokluSecim: false,
+      sahneNolari: [11, 13],
+      isaretler: [
+        { ref: 'Tuvalette bırakma', sahneNo: 11, metin: 'Biff babasını restoranda bırakıp kaçar — bir tür reddediş.' },
+        { ref: 'Son yüzleşme', sahneNo: 13, metin: 'Aynı Biff, dakikalar sonra babasına sarılıp ağlar — derin bir sevgi.' },
+      ],
+      sentez: 'Biff\'in babasına duyduğu duygu metin boyunca salınır: reddediş ile sarılma aynı gece olur. Oyuncu bu duygunun baskın rengine karar verir.',
+      yorumlar: [
+        { harf: 'A', baslik: 'Derin sevgi', aciklama: 'Öfke ve kaçış, kurtaramama acısının kabuğudur; özünde Biff babasını derinden sever. Son yüzleşme gerçek yüzdür.' },
+        { harf: 'B', baslik: 'Bastırılmış öfke', aciklama: 'Boston\'dan beri Biff babasına öfkelidir; sevgi gösterileri bu öfkeyi taşıyamamanın sonucudur.' },
+        { harf: 'C', baslik: 'Çözülemez ikilik', aciklama: 'Sevgi ve öfke aynı anda, ayrılmaz biçimde vardır; oyuncu hiçbirini "kazandırmaz", gerilimi diri tutar.' },
+      ],
+    },
+    {
+      no: 3,
+      konu: 'Hırsızlık Dürtüsü',
+      baslik: 'Biff neden çalıyor — bilinçli bir isyan mı, kontrol edemediği bir dürtü mü, bir yardım çığlığı mı?',
+      cokluSecim: false,
+      sahneNolari: [8, 9],
+      isaretler: [
+        { ref: 'Oliver\'ın kalemi', sahneNo: 8, metin: 'Biff, kendisini tanımayan Oliver\'ın masasından kalemi alıp kaçar.' },
+        { ref: 'Hapis atfı', sahneNo: 9, metin: 'Geçmişte hırsızlıktan hapis yatmıştır; bu bir alışkanlıktır.' },
+      ],
+      sentez: 'Biff\'in tekrarlayan hırsızlığının kaynağı metinde açıklanmaz. Oyuncu bu dürtünün doğasına karar verir — anlam, oyunun farklı anlarını farklı renklendirir.',
+      yorumlar: [
+        { harf: 'A', baslik: 'Bilinçsiz dürtü', aciklama: 'Biff kendini durduramaz; hırsızlık, kontrol edemediği bir refleks. Çoğu zaman ne yaptığını sonradan fark eder.' },
+        { harf: 'B', baslik: 'Sessiz isyan', aciklama: 'Hırsızlık, babanın "değerli ol" dünyasına karşı bilinçsiz bir başkaldırı; sistemin kurallarını reddetme.' },
+        { harf: 'C', baslik: 'Yardım çığlığı', aciklama: 'Her hırsızlık yakalanma riski taşır; Biff farkında olmadan görülmeyi, durdurulmayı, kurtarılmayı ister.' },
+      ],
+    },
+    {
+      no: 4,
+      konu: 'Uyanışın Doğası',
+      baslik: 'Biff\'in "ben sıradanım" idraki bir yenilgi mi, yoksa gerçek bir özgürleşme mi?',
+      cokluSecim: false,
+      sahneNolari: [8, 13],
+      isaretler: [
+        { ref: 'Oliver netliği', sahneNo: 8, metin: 'Biff bütün hayatının bir yanılsama olduğunu anlar — acı bir farkındalık.' },
+        { ref: 'Son yüzleşme', sahneNo: 13, metin: 'Biff babasına ikisinin de sıradan olduğunu söyler; bunu bir kurtuluş gibi sunar.' },
+      ],
+      sentez: 'Biff\'in kendi sıradanlığını kabulü hem bir çöküş hem bir kurtuluş olarak okunabilir. Oyuncu bu idrakin tonunu seçer.',
+      yorumlar: [
+        { harf: 'A', baslik: 'Acı bir yenilgi', aciklama: '"Sıradanım" demek, bütün hayallerin ölümü; Biff yenilgiyi kabul eder, bu bir teslimiyettir.' },
+        { harf: 'B', baslik: 'Gerçek özgürleşme', aciklama: 'Babanın dayattığı yanılsamadan kurtulmak; ilk kez kendi gerçeğiyle, hafiflemiş biçimde yaşamak.' },
+        { harf: 'C', baslik: 'Acılı özgürlük', aciklama: 'Kurtuluş gerçektir ama bedeli ağırdır; özgürleşme ve kayıp aynı anda yaşanır.' },
+      ],
+    },
+    {
+      no: 5,
+      konu: 'Requiem\'de Biff',
+      baslik: 'Mezar başında Biff geleceğe mi bakıyor, geçmişte mi kalıyor, yoksa sadece hayatta mı kalıyor?',
+      cokluSecim: false,
+      sahneNolari: [13, 14],
+      isaretler: [
+        { ref: 'Son yüzleşme', sahneNo: 13, metin: 'Biff babasıyla kopuşu yaşar; bir şey biter.' },
+        { ref: 'Requiem', sahneNo: 14, metin: 'Mezar başında babasının yanlış rüya gördüğünü söyler, kendi kim olduğunu bildiğini belirtir.' },
+      ],
+      sentez: 'Biff\'in cenazeden sonra ne taşıdığı — umut, yas ya da yalnızca sağ kalma — metinde tek anlamlı değildir. Oyuncu bu son durumu seçer.',
+      yorumlar: [
+        { harf: 'A', baslik: 'Geleceğe açılan', aciklama: 'Biff artık kim olduğunu bilir; özgür, batıya dönecek, kendi hayatını kuracaktır. Bir başlangıç.' },
+        { harf: 'B', baslik: 'Geçmişte kalan', aciklama: 'Babanın gölgesi Biff\'i bırakmaz; "kim olduğunu bilmek" bir teselli ama hareket değil. Yas sürer.' },
+        { harf: 'C', baslik: 'Yalnızca hayatta kalan', aciklama: 'Ne büyük bir gelecek ne tam bir kapanış; Biff sadece ayakta kalmıştır, gerisi belirsiz.' },
+      ],
+    },
+  ],
+
+  // ─── BOŞLUK SETİ (El Yazması esas görünüm) ────────────────────────────────
+  // Kaynak: eski `bosluklar` (ara/ic). Sahnede gösterilmemiş ama bedende
+  // yaşanmış geçişler. Miller replikleri parafraza çevrildi.
+  boslukSet: [
+    {
+      no: 1,
+      baslik: 'Kapıyı Çaldı — İçeride Bir Ses',
+      sinif: 'İçsel · Kırılma Eşiği',
+      konum: 'Boston otel kapısı (sahne 6) anının içi',
+      yasamSirasi: 6,
+      sonraSahneNo: 6,
+      onceBaslik: 'Boston\'a yolculuk',
+      onceMetin: 'Biff, matematikten yardım istemek için babasını Boston\'daki otelde aramaya gider.',
+      boslukMetin: 'kapıya varış · çalmadan önceki yüz · içeriden gelen kadın sesi · ne anlaşıldığı · tekrar çalma kararı · kapı açılmadan önceki son saniye',
+      sonraBaslik: 'Babayı kadınla görür',
+      sonraMetin: 'Kapı açılır, kadın görünür; Biff için babanın tanrısal imgesi bir anda çöker.',
+      sentez: 'Miller, kapıyı çalma ile kapının açılması arasındaki dakikaları göstermez. Oyuncu bu boşlukta kahramanın ölümünün o birkaç dakikasını kurar — Biff içeriden gelen sesi ilk duyduğunda ne anladı, neyi anlamamayı seçti?',
+      altSorular: [
+        { no: 1, baslik: 'Beden', soru: 'Kapıyı çalmadan önce nasıl bir yüz takınmıştı — hangi beklentiyle oradaydı?' },
+        { no: 2, baslik: 'İçsel', soru: 'İçeriden gelen kadın sesini ilk duyduğunda ne anladı, neyi anlamamaya çalıştı?' },
+        { no: 3, baslik: 'Karar', soru: 'Tekrar çalmaya nasıl karar verdi — bilmek mi istedi, yoksa hâlâ inkâr mı ediyordu?' },
+      ],
+    },
+    {
+      no: 2,
+      baslik: 'Trenle Dönüş',
+      sinif: 'Zaman/Mekân',
+      konum: 'Boston (sahne 6) — Linda\'nın uyarısı (sahne 7) arası',
+      yasamSirasi: 7,
+      sonraSahneNo: 7,
+      onceBaslik: 'Boston ifşası',
+      onceMetin: 'Biff babasını kadınla görmüştür; otel odasından çıkar.',
+      boslukMetin: 'otelin sokağına çıkış · amaçsız yürüyüş · bir köşede ağlama (ya da ağlayamama) · trene biniş · pencereden akan manzara · eve dönen başka bir oğul',
+      sonraBaslik: 'Eve dönüş ve sonrası',
+      sonraMetin: 'Biff artık matematiği bitirmeyecek, üniversiteye gitmeyecektir; hayatı yön değiştirir.',
+      sentez: 'Miller, Boston\'dan eve dönüş yolculuğunu göstermez. Oyuncu bu boşlukta, otel kapısından çıkan oğul ile eve varan oğul arasındaki dönüşümü kurar — o trende ne öldü, neyin yerine ne geldi?',
+      altSorular: [
+        { no: 1, baslik: 'İçsel', soru: 'Otelin sokağına çıktığında ilk düşüncesi neydi — kime, neye öfkeliydi?' },
+        { no: 2, baslik: 'Beden', soru: 'Bir köşede oturup ağladı mı, yoksa ağlayamadı mı?' },
+        { no: 3, baslik: 'İlişkisel', soru: 'Trende, eve döndüğünde babasına ne diyeceğini düşündü mü — yoksa hiç mi konuşmamaya mı karar verdi?' },
+      ],
+    },
+    {
+      no: 3,
+      baslik: '15-20 Yıl Batı Eyaletleri',
+      sinif: 'Zaman/Mekân · Uzun Boşluk',
+      konum: '17 — 34 yaş arası (oyun öncesi — sahne 1)',
+      yasamSirasi: 8,
+      sonraSahneNo: 1,
+      onceBaslik: 'Boston sonrası kopuş',
+      onceMetin: 'Biff evden ve babanın dünyasından kopar; batı eyaletlerine gider.',
+      boslukMetin: 'çiftliklerde çalışan yıllar · hapse giriş çıkış · bir yere ait olamama · kısa mutluluk anları · her seferinde yeniden kaçış · eve dönmeyi düşünüp vazgeçme',
+      sonraBaslik: 'Eve dönüş (sahne 1)',
+      sonraMetin: 'Otuz dört yaşında Biff yeniden eve döner — bu kez "ne yapacağım?" sorusuyla.',
+      sentez: 'Miller bu 15-20 yılı yalnızca atıflarla geçer. Oyuncu bu en uzun boşlukta, Boston\'da kırılan gencin nasıl bir adama dönüştüğünü kurar — bu yıllarda kim oldu, hangi anlarda kendine en yakındı?',
+      altSorular: [
+        { no: 1, baslik: 'İçsel', soru: 'Bu yıllarda hangi anlarda mutluydu — ve bu mutluluk neden hiç kalıcı olamadı?' },
+        { no: 2, baslik: 'Beden', soru: 'Açık havada, bir atın yanında ya da tarlada çalışırken bedeni neyi hatırlardı?' },
+        { no: 3, baslik: 'İlişkisel', soru: 'Bu yıllarda eve dönmeyi kaç kez düşündü, her seferinde onu durduran neydi?' },
+      ],
+    },
+    {
+      no: 4,
+      baslik: 'Bu Kez Neden Geldim?',
+      sinif: 'İçsel',
+      konum: 'Eve dönüş öncesi — Eve dönüş (sahne 1)',
+      yasamSirasi: 9,
+      sonraSahneNo: 1,
+      onceBaslik: 'Kayıp yılların sonu',
+      onceMetin: 'Biff yıllarca süren kaçıştan sonra eve dönmeye karar verir.',
+      boslukMetin: 'dönüş kararı · "niye şimdi" sorusu · taşınan belirsizlik · belki bu sefer farklı olur umudu · kapıya varmadan önceki son düşünceler',
+      sonraBaslik: 'Eve dönüş — "ne yapacağım?"',
+      sonraMetin: 'Sahne 1\'de Biff çocukluk odasında, ne istediğini bilmeden kardeşiyle konuşur.',
+      sentez: 'Miller, Biff\'in bu kez neden döndüğünü açıkça söylemez. Oyuncu bu boşlukta dönüş kararının altındaki itkiyi kurar — bir umut mu, bir tükeniş mi, yoksa sadece gidecek başka yer kalmaması mı?',
+      altSorular: [
+        { no: 1, baslik: 'İçsel', soru: 'Eve dönme kararını tam olarak hangi an verdi — bir şey mi oldu, yoksa yavaşça mı birikti?' },
+        { no: 2, baslik: 'İlişkisel', soru: 'Yolda babasıyla karşılaşmayı nasıl hayal etti — neyi umdu, neyden korktu?' },
+        { no: 3, baslik: 'Beden', soru: 'Evin kapısına yaklaşırken bedeninde hangi gerilim vardı?' },
+      ],
+    },
+    {
+      no: 5,
+      baslik: 'Kalemi Çaldığı An — Niye?',
+      sinif: 'İçsel',
+      konum: 'Bill Oliver ofisi (sahne 8) anının içi',
+      yasamSirasi: 10,
+      sonraSahneNo: 8,
+      onceBaslik: 'Oliver\'ı bekleyiş',
+      onceMetin: 'Biff iş istemek için gelir; Oliver onu hatırlamaz bile. Biff uzun süre bekler.',
+      boslukMetin: 'masada bekleyiş · Oliver\'ın tanımaması · bir anlık boşluk · kalemi alma · sonra koşma · bu hareketin altındaki ne',
+      sonraBaslik: 'Kalem çalma — kaçış',
+      sonraMetin: 'Biff kalemi cebine koyar ve kaçar; ardından bütün hayatının yanılsama olduğunu anlar.',
+      sentez: 'Miller, Biff\'in kalemi neden aldığını açıklamaz. Oyuncu bu boşlukta hareketin altındaki şeyi kurar — kasıtlı bir isyan mı, kontrol edemediği bir refleks mi, görülmek isteyen bir çığlık mı?',
+      altSorular: [
+        { no: 1, baslik: 'İlişkisel', soru: 'Oliver içeri girdiğinde ona bir selam verebildi mi, yoksa donup kaldı mı?' },
+        { no: 2, baslik: 'Beden', soru: 'Oliver onu hatırlamadığını belli ettiği an bedeni ne yaptı — hangi kas kasıldı?' },
+        { no: 3, baslik: 'İçsel', soru: 'Kalemi gördüğünde niye o, niye başka bir şey değil — o nesne ne anlama geliyordu?' },
+      ],
+    },
+    {
+      no: 6,
+      baslik: 'Babayı Bırakıp Kaçma Anı',
+      sinif: 'İçsel',
+      konum: 'Restoran (sahne 11) anının içi',
+      yasamSirasi: 11,
+      sonraSahneNo: 12,
+      onceBaslik: 'Restoranda çöküş',
+      onceMetin: 'Willy gerçeği duymaz, zihni Boston\'a kayar; Happy bir kadınla ilgilenir. Biff dayanamaz.',
+      boslukMetin: 'tuvaletten çıkma kararı · masaya dönmeme · Happy\'ye bir söz (ya da sessizlik) · kapıya yürüyüş · eşikte bir an duraksama · dışarı adım',
+      sonraBaslik: 'Linda ile yüzleşme',
+      sonraMetin: 'Biff eve döner; Linda onu babasını bıraktığı için suçlar.',
+      sentez: 'Miller, Biff\'in restorandan çıkışının iç anını göstermez. Oyuncu bu boşlukta o adımı kurar — bu bilinçli bir terk ediş mi, yoksa dayanamamanın kaçışı mı? Eşikte duraksadı mı?',
+      altSorular: [
+        { no: 1, baslik: 'Karar', soru: 'Tuvaletten çıkıp masaya dönmeme kararını hangi an verdi?' },
+        { no: 2, baslik: 'İlişkisel', soru: 'Happy\'ye bir şey söyledi mi, yoksa sessizce mi çıktı — neden?' },
+        { no: 3, baslik: 'Beden', soru: 'Restoranın kapısına vardığında bir saniye duraksadı mı, geri dönmeyi düşündü mü?' },
+      ],
+    },
+    {
+      no: 7,
+      baslik: 'Linda "Git" Dediği Saatler',
+      sinif: 'Zaman/Mekân',
+      konum: 'Linda yüzleşmesi (sahne 12) — Son yüzleşme (sahne 13) arası',
+      yasamSirasi: 12,
+      sonraSahneNo: 13,
+      onceBaslik: 'Linda\'nın öfkesi',
+      onceMetin: 'Linda, Biff\'i babasını bıraktığı için suçlar; iki haklı gerçek çarpışır.',
+      boslukMetin: 'annenin öfkesinden sonra · evde dolaşan saatler · söylenecek sözü arama · babaya gitme kararı · son yüzleşmeden önceki birikme',
+      sonraBaslik: 'Babayla son yüzleşme',
+      sonraMetin: 'Biff babasına sarılır, ağlar ve ömür boyu söyleyemediğini söyler.',
+      sentez: 'Miller, Linda\'nın suçlaması ile son yüzleşme arasındaki saatleri göstermez. Oyuncu bu boşlukta, Biff\'in o gece evde dolaşırken neyi biriktirdiğini kurar — son yüzleşmedeki gözyaşları bu saatlerde mayalanır.',
+      altSorular: [
+        { no: 1, baslik: 'İçsel', soru: 'Linda\'yla konuşmadan sonra evde dolaşırken neyi düşündü, hangi cümleleri kurdu ve sildi?' },
+        { no: 2, baslik: 'Karar', soru: 'Babasıyla son bir kez konuşma kararını hangi an verdi?' },
+        { no: 3, baslik: 'Beden', soru: 'O saatlerde bedeninde biriken neydi — sonra gözyaşı olarak boşalan?' },
+      ],
+    },
+  ],
+
   // ─── 14 SAHNE ─────────────────────────────────────────────────────────────
 
   sahneler: [
