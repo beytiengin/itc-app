@@ -129,8 +129,12 @@ const chromeI18n = {
         mizac: ['kararlı/kararsız', 'vicdan-arzu çatışması', 'paranoyaya yatkın'],
         tema: ['iktidar', 'suçluluk', 'paranoya', 'kehanet', 'çöküş'],
       },
+      biff: {
+        aciklama: 'Babanın rüyasından uyanış. Kırılma ve özgürleşme arasında bir adamın gerçeği arama yolculuğu. Boston otelinde yıkılan kahraman imgesi, 15 yıllık kaçış, mezar başında bir hakikat.',
+        mizac: ['yanılsamadan kopuş', 'kimlik arayışı', 'baba ile dönüşen bağ'],
+        tema: ['yanılsama', 'baba-oğul', 'uyanış', 'hakikat', 'kimlik'],
+      },
       yakinda: [
-        { ad: 'Biff Loman',     yazar: 'Arthur Miller',       aciklama: 'Babanın rüyasından uyanış. Kırılma ve özgürleşme arasında bir adamın gerçeği arama yolculuğu.' },
         { ad: 'Medea',          yazar: 'Euripides',           aciklama: 'Öfke, ihanet ve radikal eylem.' },
         { ad: 'Blanche DuBois', yazar: 'Tennessee Williams',  aciklama: 'Yanılsama kalkanı ve kırılganlık.' },
       ],
@@ -498,8 +502,12 @@ const chromeI18n = {
         mizac: ['resolved/wavering', 'conscience vs. desire', 'prone to paranoia'],
         tema: ['power', 'guilt', 'paranoia', 'prophecy', 'collapse'],
       },
+      biff: {
+        aciklama: "Awakening from the father's dream. A man's search for truth between breakdown and liberation. The hero image shattered in a Boston hotel, a fifteen-year flight, a truth spoken at the grave.",
+        mizac: ['breaking from illusion', 'search for identity', 'bond transformed through the father'],
+        tema: ['illusion', 'father-son', 'awakening', 'truth', 'identity'],
+      },
       yakinda: [
-        { ad: 'Biff Loman',     yazar: 'Arthur Miller',       aciklama: "Awakening from the father's dream. A man's search for truth between breakdown and liberation." },
         { ad: 'Medea',          yazar: 'Euripides',           aciklama: 'Rage, betrayal, and radical action.' },
         { ad: 'Blanche DuBois', yazar: 'Tennessee Williams',  aciklama: 'The shield of illusion and fragility.' },
       ],
@@ -847,8 +855,12 @@ const chromeI18n = {
         mizac: ['entschlossen/schwankend', 'Gewissen gegen Begehren', 'paranoia-anfällig'],
         tema: ['Macht', 'Schuld', 'Paranoia', 'Prophezeiung', 'Zerfall'],
       },
+      biff: {
+        aciklama: 'Das Erwachen aus dem Traum des Vaters. Die Wahrheitssuche eines Mannes zwischen Zusammenbruch und Befreiung. Das in einem Bostoner Hotel zerschlagene Heldenbild, eine fünfzehnjährige Flucht, eine am Grab ausgesprochene Wahrheit.',
+        mizac: ['Bruch mit der Illusion', 'Suche nach Identität', 'durch den Vater verwandelte Bindung'],
+        tema: ['Illusion', 'Vater-Sohn', 'Erwachen', 'Wahrheit', 'Identität'],
+      },
       yakinda: [
-        { ad: 'Biff Loman',     yazar: 'Arthur Miller',       aciklama: 'Das Erwachen aus dem Traum des Vaters. Die Wahrheitssuche eines Mannes zwischen Zusammenbruch und Befreiung.' },
         { ad: 'Medea',          yazar: 'Euripides',           aciklama: 'Zorn, Verrat und radikales Handeln.' },
         { ad: 'Blanche DuBois', yazar: 'Tennessee Williams',  aciklama: 'Der Schutzschild der Illusion und die Zerbrechlichkeit.' },
       ],

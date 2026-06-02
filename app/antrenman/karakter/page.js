@@ -9,16 +9,14 @@ import chromeI18n from '../../../data/chrome-i18n';
 
 // Karakter listesi — sade vitrin.
 //
-// AKTİF: Hamlet, Willy, Macbeth (yeni şemada, sayfalar tam çalışıyor).
-// PASİF: Biff (eski şemada; Macbeth gibi Willy şemasına yeniden yazılacak —
-//        Filiz klinik gözden geçirimiyle. O bitene kadar Medea/Blanche gibi
-//        "Yakında" konumunda tıklanamaz durur).
+// AKTİF: Hamlet, Willy, Macbeth, Biff (yeni şemada, sayfalar tam çalışıyor).
+// PASİF: (kalmadı) — Medea/Blanche/Sohn der Sonne gibi karakterler "Yakında"
+//        listesinde tıklanamaz dururlar.
 //
 // KARARLAR (Beyti):
-// - Macbeth Sprint 4 ile aktif. Dramaturji ★ kayıt anları + hassas/provisional
-//   set'ler Beyti/Filiz onayı bekliyor (el-yazmasi/page.js'te boş).
-// - Biff: tamamen pasif (gri, tıklanmaz, "Yakında") — kırık dosyaya
-//   tıklatmaktan iyi.
+// - Macbeth Sprint 4 + Biff Sprint 4 ile aktif. Dramaturji ★ kayıt anları +
+//   hassas/provisional set'ler Beyti/Filiz onayı bekliyor (el-yazmasi/page.js'te
+//   boş).
 // - "ITC öğrenme zinciri" bloğu kaldırıldı (kalabalık yapıyordu).
 // - "Refactor Bekliyor" / "Tam Yapı" durum göstergesi kaldırıldı (kullanıcı
 //   için anlamsız bir iç not).
@@ -26,6 +24,7 @@ const KARAKTER_META = {
   hamlet:  { yazar: 'William Shakespeare', donem: '1600', turKey: 'Trajedi' },
   willy:   { yazar: 'Arthur Miller',       donem: '1949', turKey: 'Trajedi' },
   macbeth: { yazar: 'William Shakespeare', donem: '1606', turKey: 'Trajedi' },
+  biff:    { yazar: 'Arthur Miller',       donem: '1949', turKey: 'Trajedi' },
 };
 
 // Aktif karakter için sıradaki adım hesabı: ilerleme view + içerik toplamları
@@ -119,7 +118,7 @@ function SiradakiAdimCTA({ adim, t }) {
 // "Devam edilen" hesabı: en yüksek total ilerleme (bosluk + antrenman) — varsa.
 // Recency timestamp'i için yeni sorgu açmadık; volume yeterli proxy (note esnek).
 function primaryKarakterIdHesapla(ilerlemeler) {
-  const adaylar = ['hamlet', 'willy', 'macbeth'].map((id) => {
+  const adaylar = ['hamlet', 'willy', 'macbeth', 'biff'].map((id) => {
     const v = ilerlemeler[id] || { bosluk: 0, antrenman: 0 };
     return { id, toplam: (v.bosluk || 0) + (v.antrenman || 0) };
   });
@@ -131,16 +130,17 @@ export default function KarakterListesi() {
   const { dil } = useDil();
   const t = ceviri(chromeI18n, dil).karakterListesi;
   const [ilerlemeler, setIlerlemeler] = useState({});
-  const [adimlar, setAdimlar] = useState({}); // { hamlet: {faz,index,tip}, willy: {...}, macbeth: {...} }
+  const [adimlar, setAdimlar] = useState({}); // { hamlet: {faz,index,tip}, willy: {...}, macbeth: {...}, biff: {...} }
 
   useEffect(() => {
     let iptal = false;
     async function veriYukle() {
-      const [tumIlerleme, hamletView, willyView, macbethView] = await Promise.all([
+      const [tumIlerleme, hamletView, willyView, macbethView, biffView] = await Promise.all([
         tumKarakterIlerlemeleri(),
         ilerlemeGetir('hamlet'),
         ilerlemeGetir('willy'),
         ilerlemeGetir('macbeth'),
+        ilerlemeGetir('biff'),
       ]);
       if (iptal) return;
       setIlerlemeler(tumIlerleme);
@@ -148,10 +148,12 @@ export default function KarakterListesi() {
       const hamletKartlar = kartlariKur(hamletView, karakterToplamlari(karakterGetir('hamlet', dil)));
       const willyKartlar = kartlariKur(willyView, karakterToplamlari(karakterGetir('willy', dil)));
       const macbethKartlar = kartlariKur(macbethView, karakterToplamlari(karakterGetir('macbeth', dil)));
+      const biffKartlar = kartlariKur(biffView, karakterToplamlari(karakterGetir('biff', dil)));
       setAdimlar({
         hamlet:  siradakiAdim(hamletKartlar),
         willy:   siradakiAdim(willyKartlar),
         macbeth: siradakiAdim(macbethKartlar),
+        biff:    siradakiAdim(biffKartlar),
       });
     }
     veriYukle();
@@ -201,6 +203,15 @@ export default function KarakterListesi() {
             href="/antrenman/karakter/macbeth"
             isPrimary={primaryId === 'macbeth'}
             adim={adimlar.macbeth}
+            t={t}
+          />
+
+          <AktifKart
+            karakterId="biff"
+            ad="Biff Loman"
+            href="/antrenman/karakter/biff"
+            isPrimary={primaryId === 'biff'}
+            adim={adimlar.biff}
             t={t}
           />
 
