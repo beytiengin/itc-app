@@ -281,7 +281,10 @@ const macbeth = {
 
   // ─── TERCİHLER · 5 SAHNELEME KARARI (Yazarın Çerçevesi sayfası) ───────────
   // Metnin en tartışmalı 5 noktası; oyuncu Yaratımsal Doğru seçer (Spine §3.11).
-  // TASLAK — Beyti/Filiz dramaturjik onayı bekliyor.
+  // ONAYLI — Beyti dramaturjik onayı verildi (Macbeth_Tercihler_Onay_Taslagi.md).
+  // T3 (zihinsel kırılma) + T4 (vicdan) klinik-hassas eksenler; Filiz gözden
+  // geçirmesi uygun olur (commit-sonrası, mevcut metin değişiklik gerektirmeyecek
+  // şekilde nötr dramaturjik dilde yazıldı).
   tercihler: [
     {
       no: 1,
