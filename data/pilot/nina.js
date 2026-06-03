@@ -163,22 +163,74 @@ export const nina = {
       onerilenSicaklik: 4,
       travma: { kategoriler: [], seviye: 0, durum: 'net' },
       replikIzi: 'Trigorin: göl kıyısında özgür bir kızı bir adamın "yapacak işi olmadığından" mahvedişi — martı eskizi.',
-      anlar: [
-        { id: 's5-a1', tip: 'catal', birlesimSahneNo: 5, travmaDuyarli: false,
-          soru: 'Trigorin kendi yaşamını anlatıyor. Onun dünyasına bakarken kendi hayatın sana nasıl görünüyor?',
-          secenekler: [
-            { dal: 'A', baslik: 'Küçük, yetersiz', aciklama: 'Onunki gerçek hayat.', oznelSabit: 'Kendi hayatımı küçümsedim; değerimi onun dünyasında aradım.' },
-            { dal: 'B', baslik: 'Eksik ama benim', aciklama: 'Bir gün ben de oraya varacağım.', oznelSabit: 'Yoksunluğumu gördüm ama umudumu bırakmadım.' },
-          ] },
-        { id: 's5-a2', tip: 'yazma', birlesimSahneNo: 5, travmaDuyarli: false,
-          soru: 'Onu dinlerken bedeninde ilk kez kıpırdayan şey neydi, nerede?' },
-        { id: 's5-a3', tip: 'catal', birlesimSahneNo: 5, travmaDuyarli: false,
-          soru: 'Trigorin "martı" hikâyesini not ediyor — farkında olmadan senin geleceğini yazıyor. Sen bunu duyduğunda?',
-          secenekler: [
-            { dal: 'A', baslik: 'Romantik buluyorum', aciklama: 'Beni bir hikâyeye değer görüyor.', oznelSabit: 'Bir başkasının hikâyesine malzeme olmayı sevgiyle karıştırdım.' },
-            { dal: 'B', baslik: 'İçim ürperiyor', aciklama: 'Ama anlam veremiyorum.', oznelSabit: 'Bir uyarı geçti içimden; dinlemedim.' },
-          ] },
-      ],
+      // ──── SPEC sahneyi-yuru · S5 TAM YÜRÜYÜŞ (4 istasyon, travmasız, birinci tekil) ────
+      sahneTipi: 'yuruyus',
+      birlesimSahneNo: 5,
+      yuruyus: {
+        esik: {
+          komut: 'Kapat gözlerini. Bir an, sadece nefesinle kal.',
+          adimlar: [
+            'Nina’yı şu an nerede hissediyorsun? En çok hissettiğin yere odaklan, oraya dokun.',
+            'Nasıl bir his o — katı mı, sıvı mı, gaz gibi mi? Bir rengi var mı?',
+            'O rengi çok yavaş, saçının telinden ayak parmaklarına tüm bedenine yay. Vaktin var.',
+          ],
+          hitap: 'Hazır olduğunda — bundan sonra sana Nina diye sesleneceğim.',
+          buton: 'Nina’yım, hazırım',
+        },
+        girisBaslik: 'Trigorin’le — büyülenme eşiği',
+        girisAciklama: 'II. perde. Trigorin’le uzun bir konuşma. Hayranlığın aşka döndüğü an burada başlar. Acele yok.',
+        girisSentez: 'Bu yürüyüşte seçtiklerin senin olur; Sahne 5’te yanında kalır.',
+        gecisButonu: 'Şimdi zihninde her neredeysen, ileri doğru bir adım at',
+        cikisRitueli: 'Bedenine yaydığın rengi yavaşça geri çek; yerine kendi rengini getir. Birkaç nefes, ayaklar yerde. İyi misin? Hazır olduğunda gözlerini aç.',
+        istasyonlar: [
+          {
+            no: 0, zamanRozet: 'Karşısındasın',
+            acilis: 'Trigorin konuşmaya başlıyor — sesi, duruşu, yorgunluğu.',
+            sorular: ['Onda ilk dikkatini çeken ne?', 'Bedeninde nerede duruyorsun şu an?'],
+            yazmaAlani: true, yazmaPlaceholder: 'İlk dikkatimi çeken…',
+          },
+          {
+            no: 1, zamanRozet: 'Dünyası açılıyor',
+            acilis: 'Kendi yazarlık hayatını anlatıyor — takıntısını, yorgunluğunu.',
+            sorular: ['Onu nasıl görüyorsun — olağanüstü mü, yorgun bir insan mı?'],
+            catal: {
+              anahtar: 's5-dunya', dil: 'birinci_tekil',
+              etiket: 'İki yol var. Hangisi senin?',
+              secenekler: [
+                { deger: 'olaganustu', baslik: 'Olağanüstü', aciklama: 'Bu hayata ait olmak istiyorum.',
+                  muhur: 'Bunu unutma — onun dünyasını kendiminkinden üstün tuttum.',
+                  ozet: 'Onun dünyasını üstün gördüm.' },
+                { deger: 'yorgun', baslik: 'Yorgun bir insan', aciklama: 'Ama yine de çekiyor beni.',
+                  muhur: 'Bunu unutma — kusurunu gördüm, yine de vazgeçemedim.',
+                  ozet: 'Kusurunu gördüm, yine de bağlandım.' },
+              ],
+            },
+          },
+          {
+            no: 2, zamanRozet: 'İlk kıpırtı',
+            acilis: 'Onu dinlerken içinde bir şey değişiyor.',
+            sorular: ['Bedeninde ilk kez kıpırdayan şey neydi, nerede?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Bedenimde ilk kıpırdayan…',
+          },
+          {
+            no: 3, zamanRozet: 'Martı eskizi',
+            acilis: 'Defterini çıkarıp not alıyor — göl kıyısında mahvolan bir kız.',
+            sorular: ['Bunu duyduğunda içinde ne oluyor?'],
+            catal: {
+              anahtar: 's5-marti', dil: 'birinci_tekil',
+              etiket: 'Hangisi senin?',
+              secenekler: [
+                { deger: 'romantik', baslik: 'Romantik buluyorum', aciklama: 'Beni bir hikâyeye değer gördü.',
+                  muhur: 'Bunu unutma — malzeme olmayı sevgiyle karıştırdım.',
+                  ozet: 'Malzeme olmayı sevgiyle karıştırdım.' },
+                { deger: 'urperti', baslik: 'İçim ürperiyor', aciklama: 'Ama anlam veremiyorum.',
+                  muhur: 'Bunu unutma — bir uyarı geçti içimden; dinlemedim.',
+                  ozet: 'Bir uyarı geçti; dinlemedim.' },
+              ],
+            },
+          },
+        ],
+      },
     },
     {
       no: 6, perde: 3,
@@ -204,10 +256,74 @@ export const nina = {
       onerilenSicaklik: 5,
       travma: { kategoriler: [], seviye: 1, durum: 'dramaturjik-agirlik' }, // ev/babadan kopuş — terkin atfı, henüz icra değil
       eşikNotu: 'Bu sahne, oyun-içi yaşamla 2 yıllık boşluğun arasındaki KAPI. Boşluk-set "sonra" bloğu buraya bağlanır.',
-      anlar: [
-        { id: 's7-a1', tip: 'yazma', birlesimSahneNo: 7, travmaDuyarli: false,
-          soru: '"Yarın babamı, her şeyi bırakıp gidiyorum." Bu cümleyi söylerken arkanda bıraktığın tek şey ne?' },
-      ],
+      // ──── SPEC sahneyi-yuru · S7 TAM YÜRÜYÜŞ (4 istasyon, veda Trigorin'le — metin teyitli) ────
+      sahneTipi: 'yuruyus',
+      birlesimSahneNo: 7,
+      yuruyus: {
+        esik: {
+          komut: 'Kapat gözlerini. Bir an, sadece nefesinle kal.',
+          adimlar: [
+            'Nina’yı şu an nerede hissediyorsun? En çok hissettiğin yere odaklan, oraya dokun.',
+            'Nasıl bir his o — katı mı, sıvı mı, gaz gibi mi? Bir rengi var mı?',
+            'O rengi çok yavaş, saçının telinden ayak parmaklarına tüm bedenine yay. Vaktin var.',
+          ],
+          hitap: 'Hazır olduğunda — bundan sonra sana Nina diye sesleneceğim.',
+          buton: 'Nina’yım, hazırım',
+        },
+        girisBaslik: 'Eşik — geri dönülmez karar',
+        girisAciklama: 'III. perde sonu. Eski hayatı (baba, ev, göl) ardında bırakma anı. Korkudan çok kararlılık.',
+        girisSentez: 'Bu yürüyüşte seçtiklerin senin olur; Sahne 7’de yanında kalır.',
+        gecisButonu: 'Şimdi zihninde her neredeysen, ileri doğru bir adım at',
+        cikisRitueli: 'Bedenine yaydığın rengi yavaşça geri çek; yerine kendi rengini getir. Birkaç nefes, ayaklar yerde. İyi misin? Hazır olduğunda gözlerini aç.',
+        istasyonlar: [
+          {
+            no: 0, zamanRozet: 'Son bakış',
+            acilis: 'Babanın evi, göl, çocukluğun — arkanda. Son bir kez bakıyorsun.',
+            sorular: ['Gözün nereye takılıyor?', 'Bedeninde ne var şu an?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Son bakışta gözüm…',
+          },
+          {
+            no: 1, zamanRozet: 'Kararı söylüyorsun',
+            acilis: '"Kesin kararımı verdim, gidiyorum." Bu cümle ağzından çıkıyor.',
+            sorular: ['Bunu söylerken içinde baskın olan ne?'],
+            catal: {
+              anahtar: 's7-karar', dil: 'birinci_tekil',
+              etiket: 'Hangisi senin?',
+              secenekler: [
+                { deger: 'kararlilik', baslik: 'Kararlılık', aciklama: 'Geri dönüş yok, rahatım.',
+                  muhur: 'Bunu unutma — seçtim ve arkama bakmadım.',
+                  ozet: 'Seçtim, arkama bakmadım.' },
+                { deger: 'gizli_korku', baslik: 'Gizli korku', aciklama: 'Ama göstermiyorum.',
+                  muhur: 'Bunu unutma — cesaret gibi görünen şey, korkuyu bastırmaktı.',
+                  ozet: 'Cesaretim korkuyu bastırmaktı.' },
+              ],
+            },
+          },
+          {
+            no: 2, zamanRozet: 'Trigorin’le veda',
+            acilis: 'Trigorin’le uzun bir an — tutkulu öpüşme, Moskova sözü. Kendini ona adıyorsun.',
+            sorular: ['Bu vedalaşmada ne veriyorsun, ne alıyorsun?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Ona verdiğim…',
+          },
+          {
+            no: 3, zamanRozet: 'İlk adım',
+            acilis: 'Eşikten geçiyorsun. Yeni hayata ilk adım.',
+            sorular: ['Bu ilk adımda beden ne yapıyor?'],
+            catal: {
+              anahtar: 's7-adim', dil: 'birinci_tekil',
+              etiket: 'Hangisi senin?',
+              secenekler: [
+                { deger: 'hafif', baslik: 'İleri atılıyor', aciklama: 'Hafif, özgür.',
+                  muhur: 'Bunu unutma — bırakmak beni hafifletti.',
+                  ozet: 'Bırakmak beni hafifletti.' },
+                { deger: 'agir', baslik: 'Ağırlaşıyor', aciklama: 'Bir şey geride kaldı.',
+                  muhur: 'Bunu unutma — ileri gittim ama bir parçam orada kaldı.',
+                  ozet: 'Bir parçam orada kaldı.' },
+              ],
+            },
+          },
+        ],
+      },
     },
     {
       no: 8, perde: 4,
@@ -222,9 +338,69 @@ export const nina = {
         not: 'Çocuğun ölümü (Kayıp+Çocukluk), Trigorin’in terki (İhanet), kimlik/anlam krizi (Varoluşsal). Sahnede çöküş riski yüksek. Seviye 3 (İcra) önerildi; Yıldız.psikolojik < 5 ise "hazır olduğunda" bekleyişi uygulanmalı. Çıkışta tam topraklanma + fiziksel aktivite önerisi zorunlu.',
       },
       replikIzi: '"Asıl olan... sabretme becerisidir. Haçını taşımayı becer ve inan." + Dünya Ruhu tiradının tekrarı (başa dönüş).',
+      // ──── SPEC sahneyi-yuru · S8 KARMA (giriş yürünür, sonra s8-a2/a3 kart-içi; ÜÇÜNCÜ TEKİL + topraklanma) ────
+      sahneTipi: 'karma',
+      birlesimSahneNo: 8,
+      guvenliCikis: true,
+      yuruyus: {
+        esik: {
+          komut: 'Kapat gözlerini. Bir an, sadece nefesinle kal.',
+          adimlar: [
+            'Nina’yı şu an nerede hissediyorsun? En çok hissettiğin yere odaklan, oraya dokun.',
+            'Nasıl bir his o — katı mı, sıvı mı, gaz gibi mi? Bir rengi var mı?',
+            'O rengi çok yavaş, saçının telinden ayak parmaklarına tüm bedenine yay. Vaktin var.',
+          ],
+          hitap: 'Hazır olduğunda — bundan sonra sana Nina diye sesleneceğim.',
+          buton: 'Nina’yım, hazırım',
+        },
+        girisBaslik: 'Gece — eşikte',
+        girisAciklama: 'İki yıl sonra. Fırtına iki gündür sürüyor. Nina beş gündür köyde, kimseyi görmedi. Bu gece bu kapının önünde.',
+        girisSentez: 'Buraya dışarıdan bak — bu Nina’nın gecesi. Seçtiklerin Sahne 8’de yanında kalır. Yürüyüş bitince sahnenin geri kalanını birlikte işleyeceğiz.',
+        gecisButonu: 'Şimdi zihninde her neredeysen, ileri doğru bir adım at',
+        cikisRitueli: 'Bu ağır bir eşikti. Rengi yavaşça geri çek, kendi rengini getir. Nefes al, ayaklar yerde. İyi misin? Hazır olduğunda gözlerini aç — Nina’yı bıraktığın yerde, güvende. Şimdi sahnenin içine, masaya dönüyoruz.',
+        istasyonlar: [
+          {
+            no: 0, zamanRozet: 'Beş gündür buradasın',
+            acilis: 'Beş gündür köydesin, kimseyi görmedin. Bu gece, fırtınada, ayaklar Nina’yı bu kapıya getiriyor.',
+            sorular: ['Neden tam bu gece?'],
+            catal: {
+              anahtar: 's8-nedengeldi', dil: 'ucuncu_tekil', guvenliCikis: true,
+              topraklanmaNotu: 'Buraya dışarıdan bak — bu Nina’nın gecesi, senin değil. İstersen dur, nefes al.',
+              etiket: 'Üç yol var. Nina’nın gerçeğini sen seç.',
+              secenekler: [
+                { deger: 'trigorin', baslik: 'Trigorin’i görmeye', aciklama: 'Onun burada olabileceğini düşünerek.',
+                  muhur: 'Bunu unutma — Nina hâlâ onu arıyordu; bunu kendine bile söyleyemedi.',
+                  ozet: 'Nina hâlâ Trigorin’i arıyordu.' },
+                { deger: 'treplev', baslik: 'Treplev’e sığınmaya', aciklama: 'Tek güvenli kapı burası.',
+                  muhur: 'Bunu unutma — tek dönebileceği kapı buydu; bir yüze geldi, geçmişe değil.',
+                  ozet: 'Nina tek güvenli kapıya geldi.' },
+                { deger: 'bilmiyor', baslik: 'Kendi de bilmiyor', aciklama: 'Ayakları getirdi.',
+                  muhur: 'Bunu unutma — niçin geldiğini bilmiyordu; bir şey onu buraya sürükledi.',
+                  ozet: 'Nina niçin geldiğini bilmiyordu.' },
+              ],
+            },
+          },
+          {
+            no: 1, zamanRozet: 'İçerideki ses',
+            acilis: 'İçeri girdin. Yan odadan bir ses geliyor — Trigorin.',
+            sorular: ['Onun burada olduğunu şimdi mi öğreniyorsun?'],
+            catal: {
+              anahtar: 's8-icerideki-ses', dil: 'ucuncu_tekil', guvenliCikis: true,
+              topraklanmaNotu: 'Dışarıdan bak. Ağırlaşırsan dur.',
+              etiket: 'Hangisi Nina’nın gerçeği?',
+              secenekler: [
+                { deger: 'simdi', baslik: 'Şimdi öğreniyor', aciklama: 'Sarsılıyor.',
+                  muhur: 'Bunu unutma — sesini duyunca yıkıldı; hazırlanmadığı şey karşısındaydı.',
+                  ozet: 'Trigorin’i içeride o an öğrendi.' },
+                { deger: 'biliyordu', baslik: 'Biliyordu', aciklama: 'Zaten bu yüzden burada.',
+                  muhur: 'Bunu unutma — sesini duymak şaşırtmadı; içten içe onun için gelmişti.',
+                  ozet: 'Nina Trigorin’in orada olduğunu biliyordu.' },
+              ],
+            },
+          },
+        ],
+      },
       anlar: [
-        { id: 's8-a1', tip: 'yazma', birlesimSahneNo: 8, travmaDuyarli: true,
-          soru: 'Nina bu odaya girmeden önce kapının önünde duruyor. İçeri girmeden, neyi geride bırakmaya çalışıyor?' },
         { id: 's8-a2', tip: 'catal', birlesimSahneNo: 8, travmaDuyarli: true,
           soru: 'Nina iki yıl sonra, fırtınada bu odaya giriyor. "Bir martıyım ben — hayır, aktristim" derken hangisi daha gerçek?',
           secenekler: [

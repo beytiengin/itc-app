@@ -257,8 +257,9 @@ function AcikBaslik({ numara, baslik, alt, children }) {
 
 // ─── Ana sayfa ─────────────────────────────────────────────
 export default function NinaPilotSayfasi() {
-  // Yürüyüş (yog-3, b2) state
-  const [yuruyusBoslukId, setYuruyusBoslukId] = useState(null);
+  // Yürüyüş state — hem boşluk (yog-3 b2) hem sahne (S5/S7/S8) için tek motor
+  const [yuruyusBoslukId, setYuruyusBoslukId] = useState(null);   // 'b2'
+  const [yuruyusSahneNo, setYuruyusSahneNo] = useState(null);     // 5 | 7 | 8
   const [ilkYuruyusMu, setIlkYuruyusMu] = useState(true);
 
   // Katlanır bölümler (hepsi kapalı başlar — SPEC §0)
@@ -431,9 +432,24 @@ export default function NinaPilotSayfasi() {
     });
   }
 
-  const aktifBosluk = yuruyusBoslukId
-    ? nina.boslukSet.find(b => b.id === yuruyusBoslukId)
-    : null;
+  // Aktif yürüyüş kaynağı — boşluk veya sahne (sahneyi sarmalayıp BoslukYuruyusu'na ver)
+  const aktifBosluk = (() => {
+    if (yuruyusBoslukId) {
+      return nina.boslukSet.find(b => b.id === yuruyusBoslukId) || null;
+    }
+    if (yuruyusSahneNo) {
+      const s = nina.sahnelerWorkbook.find(x => x.no === yuruyusSahneNo);
+      if (!s || !s.yuruyus) return null;
+      // BoslukYuruyusu prop kontratını sahne için sarmala (id + birlesimSahneNo + yuruyus)
+      return {
+        id: `sahne-${s.no}`,
+        ad: `Sahne ${s.no}`,
+        birlesimSahneNo: s.no,
+        yuruyus: s.yuruyus,
+      };
+    }
+    return null;
+  })();
 
   // Tercih → ait kart (gömülecek yer)
   const tercihler = nina.tercihler || [];
@@ -602,6 +618,7 @@ export default function NinaPilotSayfasi() {
             onAnSec={anSec}
             onAnYaz={anYaz}
             onYuru={(b) => { setIlkYuruyusMu(true); setYuruyusBoslukId(b.id); }}
+            onSahneYuru={(s) => { setIlkYuruyusMu(true); setYuruyusSahneNo(s.no); }}
           />
         </AcikBaslik>
 
@@ -652,7 +669,7 @@ export default function NinaPilotSayfasi() {
 
       </article>
 
-      {/* yog-3 tam ekran overlay (Karar 48) — DOKUNULMAZ */}
+      {/* Tam ekran yürüyüş overlay — boşluk (yog-3 b2) veya sahne (S5/S7/S8) — DOKUNULMAZ */}
       {aktifBosluk && (
         <BoslukYuruyusu
           karakterId={KARAKTER_ID}
@@ -660,6 +677,7 @@ export default function NinaPilotSayfasi() {
           ilkYuruyusMu={ilkYuruyusMu}
           onKapat={() => {
             setYuruyusBoslukId(null);
+            setYuruyusSahneNo(null);
             setIlkYuruyusMu(false);
             setYenile(n => n + 1);
           }}
@@ -674,7 +692,7 @@ function YasamCizgisi({
   nina, tercihMap, oznelSabitler, tercihSecimi, b1Secim,
   anSecimleri, anYazmalari,
   acikSahne, setAcikSahne, acikBosluk, setAcikBosluk, acikOnce, setAcikOnce,
-  onTercihSec, onB1Sec, onAnSec, onAnYaz, onYuru,
+  onTercihSec, onB1Sec, onAnSec, onAnYaz, onYuru, onSahneYuru,
 }) {
   // Birleşik dizi (sira'ya göre)
   const dizi = [];
@@ -738,6 +756,7 @@ function YasamCizgisi({
           onTercihSec={onTercihSec}
           onAnSec={onAnSec}
           onAnYaz={onAnYaz}
+          onSahneYuru={onSahneYuru}
         />
       );
     } else {
@@ -957,10 +976,13 @@ function OnceDugum({ oyunOncesi, tercih, tercihSecimi, acik, onToggle, onTercihS
   );
 }
 
-// ─── Sahne düğümü (özet→aç, tercih + sabit hatırlatma + anlar gömülü) ─
-function SahneDugum({ s, sabitler, tercihler, tercihSecimi, anSecimleri, anYazmalari, acik, onToggle, onTercihSec, onAnSec, onAnYaz }) {
+// ─── Sahne düğümü (özet→aç, tercih + sabit hatırlatma + anlar + yürüyüş gömülü) ─
+function SahneDugum({ s, sabitler, tercihler, tercihSecimi, anSecimleri, anYazmalari, acik, onToggle, onTercihSec, onAnSec, onAnYaz, onSahneYuru }) {
   // Sahne 4'te t3 için özel not: "bu seçim Sahne 8'e kadar uzanır"
   const t3Notu = s.no === 4;
+  // SPEC sahneyi-yuru: yürüyüş tipleri
+  const yuruyusVar = (s.sahneTipi === 'yuruyus' || s.sahneTipi === 'karma') && s.yuruyus;
+  const sadeAk = s.sahneTipi === 'yuruyus';        // S5, S7 — icsel/yuk/replikIzi gizlenir (yürüyüş kapsar)
   return (
     <div style={{
       border: '1px solid var(--rule)',
@@ -1031,12 +1053,52 @@ function SahneDugum({ s, sabitler, tercihler, tercihSecimi, anSecimleri, anYazma
             }}>Sıcaklık {s.onerilenSicaklik}/5</span>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-            <Etiketli e="İçsel">{s.icsel}</Etiketli>
-            <Etiketli e="Yük">{s.yuk}</Etiketli>
-            {s.replikIzi && <Etiketli e="Replik izi" italic>{s.replikIzi}</Etiketli>}
-            {s['eşikNotu'] && <Etiketli e="Eşik notu">{s['eşikNotu']}</Etiketli>}
-          </div>
+          {/* İçsel/yük/replikIzi — sade yürüyüş sahnelerinde (S5, S7) gizli (yürüyüş kapsar) */}
+          {!sadeAk && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              <Etiketli e="İçsel">{s.icsel}</Etiketli>
+              <Etiketli e="Yük">{s.yuk}</Etiketli>
+              {s.replikIzi && <Etiketli e="Replik izi" italic>{s.replikIzi}</Etiketli>}
+              {s['eşikNotu'] && <Etiketli e="Eşik notu">{s['eşikNotu']}</Etiketli>}
+            </div>
+          )}
+
+          {/* "Bu sahneyi yürü →" butonu (SPEC sahneyi-yuru — S5/S7/S8) */}
+          {yuruyusVar && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+              {s.yuruyus.girisAciklama && (
+                <p style={{
+                  fontFamily: 'var(--font-display), serif',
+                  fontStyle: 'italic',
+                  fontSize: '0.92rem',
+                  color: 'var(--ink-soft)',
+                  lineHeight: 1.7,
+                  margin: 0,
+                }}>{s.yuruyus.girisAciklama}</p>
+              )}
+              <button
+                onClick={() => onSahneYuru?.(s)}
+                style={{
+                  alignSelf: 'flex-start',
+                  padding: '0.75rem 1.4rem',
+                  backgroundColor: TON,
+                  border: 'none',
+                  color: 'var(--bg-base)',
+                  fontFamily: 'var(--font-body), sans-serif',
+                  fontWeight: 300,
+                  fontSize: '0.72rem',
+                  letterSpacing: '0.22em',
+                  textTransform: 'uppercase',
+                  cursor: 'pointer',
+                  transition: 'opacity 0.25s ease',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.85'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
+              >
+                Bu sahneyi yürü →
+              </button>
+            </div>
+          )}
 
           {/* Tercih(ler) — sahne kartına gömülü */}
           {tercihler && tercihler.length > 0 && (
