@@ -169,7 +169,7 @@ export const nina = {
     {
       id: 'b1',
       ad: 'Atın üstünde — çiftliğe gelmeden önce',
-      yogunluk: 1,                                // KANON §3.5: Yazılı boşluk (mevcut form)
+      yogunluk: 2,                                // KANON §3.5: Kart-içi çatal (sayfadan çıkmaz, overlay açmaz)
       once: 'Babanın evinden gizlice çıkış. Yakalanma korkusu, yasak.',
       anlatim: 'METİN YAZMAZ: Göl boyunca atı sürerken Nina’nın zihninde ne dönüyor? Korku mu, kaçışın sarhoşluğu mu, Treplev’e mi yoksa sahneye mi gidiyor?',
       sonra: 'I. perde 1. sahne — soluk soluğa, sevinçli varış.',
@@ -180,6 +180,32 @@ export const nina = {
         'Göle yaklaşırken ne kokuyor, ne duyuyor?',
       ],
       travma: { kategoriler: [], seviye: 0, durum: 'net' },  // 'durum': dramaturjik ağırlık işareti (KANON: geçit değil)
+
+      // ──── YENİ ──── KANON Karar 48 · Kart-içi Çatal (Yoğunluk 2 — sayfadan çıkmaz) ─────
+      // SPEC §6: tek çatal, sayfadan çıkmaz, overlay AÇMAZ; birinci tekil (travmasız).
+      // Şık seçilince oznel_sabitler'e yazılır → Sahne 1'de hatırlatılır.
+      kartCatali: {
+        anahtar: 'b1-kacis',
+        soru: 'Bu kaçışta seni süren ne?',
+        birlesimSahneNo: 1,
+        secenekler: [
+          {
+            dal: 'A', baslik: 'Korku baskın',
+            aciklama: 'Yakalanma korkusu; her dörtnal "geri dön" diye çarpıyor.',
+            oznelSabit: 'Bu özgürlüğü çalarak aldım.',
+          },
+          {
+            dal: 'B', baslik: 'Kaçışın sarhoşluğu',
+            aciklama: 'Rüzgâr babanın sesini siliyor; ilk kez sınırsız.',
+            oznelSabit: 'Özgürlük bedenimde başladı, sahnede değil.',
+          },
+          {
+            dal: 'C', baslik: 'Çağrı baskın',
+            aciklama: 'Göl, sahne, Treplev ileri çekiyor; arkası yok.',
+            oznelSabit: 'Hep ileriye baktım; geri kalanı görmedim.',
+          },
+        ],
+      },
     },
     {
       id: 'b2',
