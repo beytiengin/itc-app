@@ -91,30 +91,16 @@ export const nina = {
       onerilenSicaklik: 4,
       travma: { kategoriler: [], seviye: 0, durum: 'net' },
       replikIzi: '"Tıpkı bir martı gibi, buraya, bu göle doğru akıyor..." (martı imgesinin ilk tohumu)',
-      // ──── YENİ (SPEC an-blogu-iskelet · YAPI KANITI) ────
-      // İçerik atölye dilinde sonra rötuşlanacak; şimdilik tek örnek an.
+      // ──── SPEC an-blogu-iskelet · B dalgası (atölye dili — Beyti onayı) ────
       anlar: [
-        {
-          id: 's1-a1',
-          tip: 'catal',
+        { id: 's1-a1', tip: 'catal', birlesimSahneNo: 1, travmaDuyarli: false,
           soru: 'Atından inip Treplev’e doğru ilk adımı atarken bedenin nerede?',
-          birlesimSahneNo: 1,
-          travmaDuyarli: false,
           secenekler: [
-            {
-              dal: 'A',
-              baslik: 'Hâlâ koşuyor',
-              aciklama: 'Bacaklar atın ritmini taşıyor; durmak istemiyor.',
-              oznelSabit: 'Vardığımda bedenim henüz koşuyordu.',
-            },
-            {
-              dal: 'B',
-              baslik: 'Aniden donmuş',
-              aciklama: 'Yere basınca her şey durdu; nefes bile.',
-              oznelSabit: 'Vardığımda bedenim bekledi.',
-            },
-          ],
-        },
+            { dal: 'A', baslik: 'Hâlâ koşuyor', aciklama: 'At durdu ama içinde dörtnal sürüyor.', oznelSabit: 'Hep bir adım öndeydim; durmayı hiç öğrenmedim.' },
+            { dal: 'B', baslik: 'Aniden donmuş', aciklama: 'Varış anında her şey kesiliyor; nefes tutuluyor.', oznelSabit: 'Geldiğim anda kayboldum; varmak beni durdurdu.' },
+          ] },
+        { id: 's1-a2', tip: 'yazma', birlesimSahneNo: 1, travmaDuyarli: false,
+          soru: 'Treplev’i görüyorsun. Ama aklının bir köşesi başka yerde. Nerede?' },
       ],
     },
     {
@@ -125,6 +111,16 @@ export const nina = {
       onerilenSicaklik: 3,
       travma: { kategoriler: [], seviye: 0, durum: 'net' },
       replikIzi: '"İnsanlar, aslanlar, kartallar ve keklikler..." — Dünya Ruhu tiradı.',
+      anlar: [
+        { id: 's2-a1', tip: 'catal', birlesimSahneNo: 2, travmaDuyarli: false,
+          soru: 'Trigorin seni izliyor. Bunu fark ettiğin an içinde ne oluyor?',
+          secenekler: [
+            { dal: 'A', baslik: 'Daha çok parlıyorum', aciklama: 'İzlenmek beni büyütüyor.', oznelSabit: 'Sahne benim evim; bakılmak korkutmaz, besler.' },
+            { dal: 'B', baslik: 'Dilim tutuluyor', aciklama: 'Onun gözü her şeyi yargılıyor.', oznelSabit: 'En çok istediğim bakış, en çok ürküten bakış oldu.' },
+          ] },
+        { id: 's2-a2', tip: 'yazma', birlesimSahneNo: 2, travmaDuyarli: false,
+          soru: 'Arkadina alay edince oyun yarıda kesiliyor. O gülüşten sana ne kalıyor?' },
+      ],
     },
     {
       no: 3, perde: 1,
@@ -133,6 +129,14 @@ export const nina = {
       yuk: 'Özlem, gıpta, kısıtlanmışlık.',
       onerilenSicaklik: 3,
       travma: { kategoriler: [], seviye: 0, durum: 'net' },
+      anlar: [
+        { id: 's3-a1', tip: 'catal', birlesimSahneNo: 3, travmaDuyarli: false,
+          soru: 'Ünlü yazar karşında. "Ah, benim hayalimdir bu" derken sesin nasıl çıkıyor?',
+          secenekler: [
+            { dal: 'A', baslik: 'Çocuk gibi, saklamadan', aciklama: 'Hayranlık olduğu gibi dökülüyor.', oznelSabit: 'Hayranlığımı hiç gizlemedim; bu beni hem açtı hem savunmasız bıraktı.' },
+            { dal: 'B', baslik: 'Kendimi tutarak', aciklama: 'Olgun görünmek isteyerek.', oznelSabit: 'Küçük görünmekten korktum; hep olduğumdan büyük durmaya çalıştım.' },
+          ] },
+      ],
     },
     {
       no: 4, perde: 2,
@@ -142,6 +146,14 @@ export const nina = {
       onerilenSicaklik: 2,
       travma: { kategoriler: ['Kayıp'], seviye: 1, durum: 'dramaturjik-agirlik' }, // ölü kuş = kaybın atfı; oyuncu dışından dokunur
       replikIzi: 'Ölü martı sahneye konur — ileride kendi kaderinin önceden-imgesi.',
+      anlar: [
+        { id: 's4-a1', tip: 'catal', birlesimSahneNo: 4, travmaDuyarli: false,
+          soru: 'Treplev martıyı ayağının dibine bırakıyor. "Sizi anlayamayacak kadar basitim" derken — bu gerçekten anlamamak mı, yoksa anlamak istememek mi?',
+          secenekler: [
+            { dal: 'A', baslik: 'Gerçekten anlamıyorum', aciklama: 'Bu simge bana uzak.', oznelSabit: 'O an kendi kaderimi göremedim; martı bir başkasının meselesiydi.' },
+            { dal: 'B', baslik: 'Anlıyorum ama itiyorum', aciklama: 'Fazla ürkütücü.', oznelSabit: 'İçten içe biliyordum; bakmamayı seçtim.' },
+          ] },
+      ],
     },
     {
       no: 5, perde: 2,
@@ -151,6 +163,22 @@ export const nina = {
       onerilenSicaklik: 4,
       travma: { kategoriler: [], seviye: 0, durum: 'net' },
       replikIzi: 'Trigorin: göl kıyısında özgür bir kızı bir adamın "yapacak işi olmadığından" mahvedişi — martı eskizi.',
+      anlar: [
+        { id: 's5-a1', tip: 'catal', birlesimSahneNo: 5, travmaDuyarli: false,
+          soru: 'Trigorin kendi yaşamını anlatıyor. Onun dünyasına bakarken kendi hayatın sana nasıl görünüyor?',
+          secenekler: [
+            { dal: 'A', baslik: 'Küçük, yetersiz', aciklama: 'Onunki gerçek hayat.', oznelSabit: 'Kendi hayatımı küçümsedim; değerimi onun dünyasında aradım.' },
+            { dal: 'B', baslik: 'Eksik ama benim', aciklama: 'Bir gün ben de oraya varacağım.', oznelSabit: 'Yoksunluğumu gördüm ama umudumu bırakmadım.' },
+          ] },
+        { id: 's5-a2', tip: 'yazma', birlesimSahneNo: 5, travmaDuyarli: false,
+          soru: 'Onu dinlerken bedeninde ilk kez kıpırdayan şey neydi, nerede?' },
+        { id: 's5-a3', tip: 'catal', birlesimSahneNo: 5, travmaDuyarli: false,
+          soru: 'Trigorin "martı" hikâyesini not ediyor — farkında olmadan senin geleceğini yazıyor. Sen bunu duyduğunda?',
+          secenekler: [
+            { dal: 'A', baslik: 'Romantik buluyorum', aciklama: 'Beni bir hikâyeye değer görüyor.', oznelSabit: 'Bir başkasının hikâyesine malzeme olmayı sevgiyle karıştırdım.' },
+            { dal: 'B', baslik: 'İçim ürperiyor', aciklama: 'Ama anlam veremiyorum.', oznelSabit: 'Bir uyarı geçti içimden; dinlemedim.' },
+          ] },
+      ],
     },
     {
       no: 6, perde: 3,
@@ -159,6 +187,14 @@ export const nina = {
       yuk: 'Tutku, teslimiyet, gizli umut.',
       onerilenSicaklik: 4,
       travma: { kategoriler: [], seviye: 0, durum: 'net' },
+      anlar: [
+        { id: 's6-a1', tip: 'catal', birlesimSahneNo: 6, travmaDuyarli: false,
+          soru: '"Hayatım sana gerekirse gel ve al" diyorsun. Bunu söylerken neyi veriyorsun?',
+          secenekler: [
+            { dal: 'A', baslik: 'Kendimi bütünüyle', aciklama: 'Gerisini düşünmeden.', oznelSabit: 'Kendimi koşulsuz verdim; geri almayı hiç düşünmedim.' },
+            { dal: 'B', baslik: 'Bir umudu', aciklama: 'Karşılık bekleyerek.', oznelSabit: 'Verirken bir söz bekledim; sessizlik en çok orayı yaktı.' },
+          ] },
+      ],
     },
     {
       no: 7, perde: 3,
@@ -168,6 +204,10 @@ export const nina = {
       onerilenSicaklik: 5,
       travma: { kategoriler: [], seviye: 1, durum: 'dramaturjik-agirlik' }, // ev/babadan kopuş — terkin atfı, henüz icra değil
       eşikNotu: 'Bu sahne, oyun-içi yaşamla 2 yıllık boşluğun arasındaki KAPI. Boşluk-set "sonra" bloğu buraya bağlanır.',
+      anlar: [
+        { id: 's7-a1', tip: 'yazma', birlesimSahneNo: 7, travmaDuyarli: false,
+          soru: '"Yarın babamı, her şeyi bırakıp gidiyorum." Bu cümleyi söylerken arkanda bıraktığın tek şey ne?' },
+      ],
     },
     {
       no: 8, perde: 4,
@@ -182,6 +222,22 @@ export const nina = {
         not: 'Çocuğun ölümü (Kayıp+Çocukluk), Trigorin’in terki (İhanet), kimlik/anlam krizi (Varoluşsal). Sahnede çöküş riski yüksek. Seviye 3 (İcra) önerildi; Yıldız.psikolojik < 5 ise "hazır olduğunda" bekleyişi uygulanmalı. Çıkışta tam topraklanma + fiziksel aktivite önerisi zorunlu.',
       },
       replikIzi: '"Asıl olan... sabretme becerisidir. Haçını taşımayı becer ve inan." + Dünya Ruhu tiradının tekrarı (başa dönüş).',
+      anlar: [
+        { id: 's8-a1', tip: 'yazma', birlesimSahneNo: 8, travmaDuyarli: true,
+          soru: 'Nina bu odaya girmeden önce kapının önünde duruyor. İçeri girmeden, neyi geride bırakmaya çalışıyor?' },
+        { id: 's8-a2', tip: 'catal', birlesimSahneNo: 8, travmaDuyarli: true,
+          soru: 'Nina iki yıl sonra, fırtınada bu odaya giriyor. "Bir martıyım ben — hayır, aktristim" derken hangisi daha gerçek?',
+          secenekler: [
+            { dal: 'A', baslik: 'Martı baskın', aciklama: 'Kırık olan konuşuyor.', oznelSabit: 'Yıkım hâlâ içimde; toparlanmam bir maske.' },
+            { dal: 'B', baslik: 'Aktrist baskın', aciklama: 'Ayakta kalan konuşuyor.', oznelSabit: 'Kırıldım ama sahne beni tuttu; sabretme bir beceri.' },
+          ] },
+        { id: 's8-a3', tip: 'catal', birlesimSahneNo: 8, travmaDuyarli: true,
+          soru: 'Dünya Ruhu tiradını yeniden söylüyor — başa dönüş. Bu tekrar Nina için ne?',
+          secenekler: [
+            { dal: 'A', baslik: 'Bir tutunma', aciklama: 'Eski saf halinden kalan tek şey.', oznelSabit: 'O metin, kaybettiğim kıza uzanan tek ip.' },
+            { dal: 'B', baslik: 'Bir mezar taşı', aciklama: 'Bittiğinin kanıtı.', oznelSabit: 'Onu söylerken neyi yitirdiğimi anladım.' },
+          ] },
+      ],
     },
   ],
 
