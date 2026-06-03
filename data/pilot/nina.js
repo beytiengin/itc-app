@@ -9,9 +9,12 @@
  * KAPSAM: Tüm oyun zaman çizgisi (oyun-öncesi yaşam → final)
  *
  * UYARI — İNSAN KARARI BEKLEYEN ALANLAR:
- *  • `tercihler`        → DRAMATURG ONAYI (Beyti). Model A/B/C üretti, seçilmedi.
- *  • `travma.seviye`    → KLİNİK ONAY (Filiz Kaya Ataklı). Taslakta işaretli,
- *                          [ONAY_BEKLIYOR] etiketiyle. Yayına çıkmadan doğrulanmalı.
+ *  • `tercihler`        → DRAMATURG ONAYI / METİN TONU (Beyti). Model A/B/C üretti,
+ *                          seçilmedi. Pilot testi sırasında Beyti diliyle son haline çekilir.
+ *  • `travma.durum`     → KANON Karar 48 sonrası 'dramaturjik-agirlik' işaretidir;
+ *                          GEÇİT DEĞİL, yoğunluk işaretidir. Seviye ≥1 → travma rozeti
+ *                          + güvenli çıkış/topraklanma ÖNERİSİ tetikler. Yayını engellemez.
+ *                          (Karar 21 GATE YOK + Karar 48 §1 referansı.)
  *  • Model hiçbir "dogru"yu metin söylemiyorsa UYDURMADI; süslemedi.
  *    Çıkarımlar `kaynak` alanında "metin" / "çıkarım" olarak ayrıldı.
  *
@@ -77,7 +80,7 @@ export const nina = {
   // SAHNELER WORKBOOK — Nina’nın oyun içindeki anları (perde sırasıyla)
   // Her sahne: no/perde/olay/icsel/yuk/onerilenSicaklik/travma
   // onerilenSicaklik: 1(serin/uzak) → 5(yanıcı/yakın) — oyuncuya öneri, dayatma değil
-  // travma: { kategoriler:[...], seviye:0-3, durum:'[ONAY_BEKLIYOR]' } → Filiz onayı
+  // travma: { kategoriler:[...], seviye:0-3, durum:'dramaturjik-agirlik'|'net' } — KANON Karar 48: geçit değil, yoğunluk işareti
   // ────────────────────────────────────────────────────────────
   sahnelerWorkbook: [
     {
@@ -112,7 +115,7 @@ export const nina = {
       icsel: 'Treplev’den uzaklaşma başlamış. Martı simgesini reddeder — henüz kendi kaderiyle bağ kurmaz.',
       yuk: 'Yabancılaşma, rahatsızlık, sezgisel ürküntü.',
       onerilenSicaklik: 2,
-      travma: { kategoriler: ['Kayıp'], seviye: 1, durum: '[ONAY_BEKLIYOR]' }, // ölü kuş = kaybın atfı; oyuncu dışından dokunur
+      travma: { kategoriler: ['Kayıp'], seviye: 1, durum: 'dramaturjik-agirlik' }, // ölü kuş = kaybın atfı; oyuncu dışından dokunur
       replikIzi: 'Ölü martı sahneye konur — ileride kendi kaderinin önceden-imgesi.',
     },
     {
@@ -138,7 +141,7 @@ export const nina = {
       icsel: 'Eşik anı — eski yaşamı (baba, ev, göl) ardında bırakma. Korkudan çok kararlılık.',
       yuk: 'Kopuş, cesaret, geri dönülmezlik.',
       onerilenSicaklik: 5,
-      travma: { kategoriler: [], seviye: 1, durum: '[ONAY_BEKLIYOR]' }, // ev/babadan kopuş — terkin atfı, henüz icra değil
+      travma: { kategoriler: [], seviye: 1, durum: 'dramaturjik-agirlik' }, // ev/babadan kopuş — terkin atfı, henüz icra değil
       eşikNotu: 'Bu sahne, oyun-içi yaşamla 2 yıllık boşluğun arasındaki KAPI. Boşluk-set "sonra" bloğu buraya bağlanır.',
     },
     {
@@ -150,7 +153,7 @@ export const nina = {
       travma: {
         kategoriler: ['Kayıp', 'İhanet', 'Çocukluk', 'Varoluşsal'],
         seviye: 3,
-        durum: '[ONAY_BEKLIYOR]', // EN KRİTİK SAHNE — Filiz klinik onayı şart
+        durum: 'dramaturjik-agirlik', // EN KRİTİK SAHNE — Filiz klinik onayı şart
         not: 'Çocuğun ölümü (Kayıp+Çocukluk), Trigorin’in terki (İhanet), kimlik/anlam krizi (Varoluşsal). Sahnede çöküş riski yüksek. Seviye 3 (İcra) önerildi; Yıldız.psikolojik < 5 ise "hazır olduğunda" bekleyişi uygulanmalı. Çıkışta tam topraklanma + fiziksel aktivite önerisi zorunlu.',
       },
       replikIzi: '"Asıl olan... sabretme becerisidir. Haçını taşımayı becer ve inan." + Dünya Ruhu tiradının tekrarı (başa dönüş).',
@@ -166,6 +169,7 @@ export const nina = {
     {
       id: 'b1',
       ad: 'Atın üstünde — çiftliğe gelmeden önce',
+      yogunluk: 1,                                // KANON §3.5: Yazılı boşluk (mevcut form)
       once: 'Babanın evinden gizlice çıkış. Yakalanma korkusu, yasak.',
       anlatim: 'METİN YAZMAZ: Göl boyunca atı sürerken Nina’nın zihninde ne dönüyor? Korku mu, kaçışın sarhoşluğu mu, Treplev’e mi yoksa sahneye mi gidiyor?',
       sonra: 'I. perde 1. sahne — soluk soluğa, sevinçli varış.',
@@ -175,7 +179,7 @@ export const nina = {
         'Babanın sesi hâlâ kulağında mı, yoksa rüzgâr onu siliyor mu?',
         'Göle yaklaşırken ne kokuyor, ne duyuyor?',
       ],
-      travma: { kategoriler: [], seviye: 0, durum: 'net' },
+      travma: { kategoriler: [], seviye: 0, durum: 'net' },  // 'durum': dramaturjik ağırlık işareti (KANON: geçit değil)
     },
     {
       id: 'b2',
@@ -194,13 +198,204 @@ export const nina = {
       travma: {
         kategoriler: ['Kayıp', 'İhanet', 'Çocukluk', 'Varoluşsal'],
         seviye: 3,
-        durum: '[ONAY_BEKLIYOR]', // bu boşluk doğrudan Sahne 8’i besler — klinik onay kritik
-        not: 'Bu boşluğun inşası 8. sahnenin (IV. perde) duygusal yükünü taşır. Tek seansta tamamı yerine parçalı inşa önerilir. Filiz: çocuk ölümü ve terkin birlikte çalışılması seviye/sıralama açısından değerlendirilmeli.',
+        durum: 'dramaturjik-agirlik',  // KANON Karar 48: geçit DEĞİL, yoğunluk işareti. Topraklanma ÖNERİLİR; yayını engellemez.
+        not: 'Bu boşluğun inşası 8. sahnenin (IV. perde) duygusal yükünü taşır. Tek seansta tamamı yerine parçalı inşa önerilir. Kayıp dalı + Sahne 8 sırası — Filiz uygulama düzeyi gözden geçirmesi (kanon düzeyi değil).',
+      },
+
+      // ──── YENİ ──── KANON Karar 48 · Çatallı Boşluk Yürüyüşü (Yoğunluk 3 — tam ekran) ─────
+      yogunluk: 3,
+      birlesimSahneNo: 8,                          // öznel sabitler bu sahnede hatırlatılır
+      guvenliCikis: true,
+      yuruyus: {
+        esik: {                                    // KANON §4.5: İLK yürüyüşte sabit, sonrakilerde opsiyonel
+          komut: 'Kapat gözlerini. Bir an, sadece nefesinle kal.',
+          adimlar: [
+            'Nina’yı şu an nerede hissediyorsun — göğsünde mi, karnında mı, başka bir yerde mi? En çok hissettiğin yere odaklan, oraya dokun.',
+            'Nasıl bir his o — katı mı, sıvı mı, gaz gibi mi? Bir rengi var mı?',
+            'Şimdi o rengi, çok yavaş, saçının her bir telinden ayak parmaklarına kadar tüm bedenine yay. İstediğin kadar vaktin var.',
+          ],
+          hitap: 'Hazır olduğunda — bundan sonra sana Nina diye sesleneceğim.',
+          buton: 'Nina’yım, hazırım',
+        },
+        girisBaslik: 'Moskova ve Taşra',
+        girisAciklama: 'Çehov bu iki yılı yazmaz. Dördüncü perdedeki Nina’yı anlamlı kılan tek şey, bu görünmeyen iki yılı kendi içinde yaşayabilmen. Acele yok — istediğin kadar vaktin var.',
+        girisSentez: 'Bu yürüyüşte verdiğin kimi kararlar artık senin olur — metinden değil, senden gelen ama bundan sonra değiştirmeyeceğin doğrular. Onları unutmayacaksın; Sahne 8’de yanında olacaklar.',
+        gecisButonu: 'Şimdi zihninde her neredeysen, ileri doğru bir adım at',  // KANON §5.4: SADECE buton, istasyon açılışında DEĞİL
+        cikisRitueli: 'Bedenine yaydığın o rengi, çok yavaş, geri çek. Yerine kendi rengini getir — sana ait olanı. Birkaç nefes al, ayaklarını yere bas. İyi misin? Ne hissediyorsun? Hazır olduğunda gözlerini aç; Nina’yı bıraktığın yerde, güvende.',
+        istasyonlar: [
+          {
+            no: 0, zamanRozet: 'Varış · Gün 0',
+            acilis: 'Tren Moskova’ya yaklaşıyor, birazdan ineceksin.',
+            sorular: [
+              'Neredesin — nasıl bir yer? Kalabalık mı, soğuk mu?',
+              'Bedeninde ne var şu an? Nerede tutuyorsun nefesini?',
+              'Ve söyle bana — Trigorin seni orada bekliyor mu?',
+            ],
+            catal: {
+              anahtar: 'varis',
+              dil: 'birinci_tekil',
+              etiket: 'İki yol var. Hangisi senin?',
+              secenekler: [
+                {
+                  deger: 'karsiladi',
+                  baslik: 'Trigorin beni karşıladı',
+                  aciklama: 'Peronda bekliyordu. İlk an birlikte başlıyor.',
+                  muhur: 'Bunu unutma — Trigorin seni Moskova’da karşıladı. İlk an birlikteydiniz; sonraki her şey bunun üstüne kuruldu.',
+                  ozet: 'Varışta Trigorin beni karşıladı.',
+                },
+                {
+                  deger: 'yalniz',
+                  baslik: 'Tek başıma indim, elimde bir adres',
+                  aciklama: 'Kapıya tek gideceksin. İçeride biri var mı? Ya ev boşsa, bekler misin?',
+                  muhur: 'Bunu unutma — Moskova’ya tek başına, elinde bir adresle indin. İlk an yalnızdın; sonraki her şey bunun üstüne kuruldu.',
+                  ozet: 'Varışta tek başıma, elimde adresle indim.',
+                },
+              ],
+            },
+          },
+          {
+            no: 1, zamanRozet: '+6 ay',
+            acilis: 'Aradan altı ay geçti.',
+            sorular: [
+              'Bu altı ay nasıl geçti aranızda? Ne değişti?',
+              'Onu daha yakından tanıdıkça ne gördün — daha çok mu bağlandın, yoksa seni yabancılaştıran şeyler mi çıktı?',
+              'Bedenin sana bir şey söylüyor mu bu aralar? Hamile misin?',
+            ],
+            yazmaAlani: true,
+            yazmaPlaceholder: 'Bu altı ayda ben…',
+            catal: null,
+          },
+          {
+            no: 2, zamanRozet: '+12 ay · bir yıl',
+            acilis: 'Bir yıl doldu.',
+            sorular: [
+              'Neredesin şu an? Trigorin’le ne durumdasınız?',
+              'Bir yıl oldu — bedeninde, içinde ne değişti?',
+              'Hâlâ ona ilk günkü gibi mi bakıyorsun? Sahneye çıkabildin mi — hayalini kurduğun gibi mi oldu?',
+            ],
+            yazmaAlani: true,
+            yazmaPlaceholder: 'Bir yılın sonunda ben…',
+            catal: null,
+          },
+          {
+            no: 3, zamanRozet: '+18 ay',
+            acilis: 'Altı ay daha geçti — bir buçuk yıldır buradasın.',
+            sorular: [
+              'Babandan, kasabadan bir haber aldın mı bu süre içinde? Ne değişti hayatında?',
+              'Bir bebeğin oldu. Şimdi onu sormam gerek — nasıl, ne durumda?',
+            ],
+            metinDogrusu: 'Metnin değiştiremeyeceğin doğrusu: Nina çocuğunu bu iki yıl içinde kaybeder (Çehov, Perde IV). Bu sabit. Senin seçeceğin tek şey — onu nasıl yaşattığın.',
+            catal: {
+              anahtar: 'kayip',
+              dil: 'ucuncu_tekil',
+              guvenliCikis: true,
+              etiket: 'En kırılgan eşik. Buraya dışarıdan bak — Nina’nın gerçeğini sen seç.',
+              topraklanmaNotu: 'Buraya dışarıdan bakmayı unutma — bu Nina’nın kaybı, senin değil. İstersen burada durup nefes al. Sonunda toparlanmak için zaman ayıracağız.',
+              donguTetik: 'yasiyor',                  // bu seçim ist3.5'e (döngü) götürür
+              secenekler: [
+                {
+                  deger: 'hamilelikte',
+                  baslik: 'Nina çocuğunu hamilelik sırasında kaybeder',
+                  aciklama: 'Daha doğmadan. Bedeninin içinden alınan bir boşluk.',
+                  muhur: 'Bunu unutma — Nina çocuğunu daha doğmadan kaybeder. Sahne 8’in ağırlığı bunun üstüne oturur.',
+                  ozet: 'Nina çocuğunu daha doğmadan kaybeder.',
+                },
+                {
+                  deger: 'dogumdan',
+                  baslik: 'Doğar — sonra Nina onu kaybeder',
+                  aciklama: 'Bir süre annelik. Sonra alınan bir hayat.',
+                  muhur: 'Bunu unutma — Nina’nın çocuğu doğar, sonra alınır. Önce annelik, sonra boşluk; Sahne 8 bunun üstüne oturur.',
+                  ozet: 'Nina’nın çocuğu doğar, sonra alınır.',
+                },
+                {
+                  deger: 'yasiyor',
+                  baslik: 'Şimdilik yaşıyor — şu an iyi',
+                  aciklama: 'Bunu da söyleyebilirsin. Ama zaman akmaya devam edecek; birazdan tekrar soracağım.',
+                  muhur: '',                            // boş → mühür gösterilmez (döngüye gider, kapanışta kayip2'den okunur)
+                  ozet: 'Nina çocuğunu kaybeder.',
+                },
+              ],
+            },
+          },
+          {
+            no: 3.5,
+            donguIstasyonu: true,
+            zamanRozet: '+6 ay daha · döngü',
+            acilis: 'Altı ay daha geçti.',
+            sorular: [
+              'Geçen sefer çocuğun yaşadığını söyledin. Peki bu altı ayda ne oldu?',
+              'Zaman akıyor, ve metnin doğrusu yerinde duruyor. Nina’nın çocuğu şimdi nasıl?',
+            ],
+            metinDogrusu: 'Bu eşiği geçemiyoruz, çünkü metin geçmemize izin vermiyor. Nina çocuğunu burada kaybeder. Sen yalnızca onu nasıl yaşattığını seç.',
+            catal: {
+              anahtar: 'kayip2',
+              dil: 'ucuncu_tekil',
+              guvenliCikis: true,
+              etiket: 'Nina onu nasıl kaybeder?',
+              topraklanmaNotu: 'Buraya dışarıdan bakmayı unutma — bu Nina’nın kaybı, senin değil. İstersen dur, nefes al.',
+              secenekler: [
+                {
+                  deger: 'hastalik',
+                  baslik: 'Hastalanır, Nina kurtaramaz',
+                  aciklama: 'Yavaş, çaresiz bir kayıp.',
+                  muhur: 'Bunu unutma — Nina’nın çocuğu bir süre yaşar, sonra hastalanıp gider. Yavaş, çaresiz bir kayıp; Sahne 8 bunun üstüne oturur.',
+                  ozet: 'Nina’nın çocuğu yaşar, sonra hastalanıp gider.',
+                },
+                {
+                  deger: 'aniden',
+                  baslik: 'Aniden olur',
+                  aciklama: 'Hazırlıksız, sarsıcı bir kayıp.',
+                  muhur: 'Bunu unutma — Nina’nın çocuğu bir süre yaşar, sonra aniden gider. Sahne 8 bunun üstüne oturur.',
+                  ozet: 'Nina’nın çocuğu yaşar, sonra aniden gider.',
+                },
+              ],
+            },
+          },
+          {
+            no: 4, zamanRozet: '+24 ay · dönüş',
+            acilis: 'Altı ay daha geçti. Ve şimdi yine bir tren istasyonundasın — ama bu kez kasabaya dönüyorsun.',
+            // İlk soru (<DAL>) kayıp dalına göre runtime'da yazılır — KANON §5.2.
+            // Kalıplar bileşen tarafında saklanır:
+            //  - kayip:'hamilelikte'       → 'O kayıp — daha doğmadan giden çocuk — Trigorin'le aranızda neyi değiştirdi? Ne öğrendin?'
+            //  - kayip:'dogumdan'          → 'O kayıp — doğup giden çocuk — Trigorin'le aranızda neyi değiştirdi? Ne öğrendin?'
+            //  - kayip:'yasiyor'+kayip2:'hastalik' → 'O kayıp — hastalanıp giden çocuk — Trigorin'le aranızda neyi değiştirdi? Ne öğrendin?'
+            //  - kayip:'yasiyor'+kayip2:'aniden'   → 'O kayıp — aniden giden çocuk — Trigorin'le aranızda neyi değiştirdi? Ne öğrendin?'
+            sorular: [
+              '<DAL>',
+              'Niye dönüyorsun kasabaya? Ne yapacaksın orada?',
+              'Tren yaklaşırken — ilk gelişteki o atın nal sesine benziyor mu tekerlekler? Ne taşıyorsun yanında, neyi bıraktın?',
+            ],
+            catal: {
+              anahtar: 'bilgi',
+              dil: 'birinci_tekil',
+              etiket: 'Bu seçim, Sahne 8’i doğrudan belirler',
+              secenekler: [
+                {
+                  deger: 'biliyor',
+                  baslik: 'Trigorin’in şu an kasabada olduğunu biliyorum',
+                  aciklama: 'Sahne 8’de sesini duyduğunda — beklediğin bir sarsıntı.',
+                  muhur: 'Bunu unutma — kasabaya dönerken Trigorin’in orada olduğunu biliyordun. Sahne 8’de sesi beklediğin bir sarsıntı olur.',
+                  ozet: 'Dönerken Trigorin’in kasabada olduğunu biliyordum.',
+                },
+                {
+                  deger: 'bilmiyor',
+                  baslik: 'Orada olduğunu bilmiyorum',
+                  aciklama: 'Sahne 8’de sesini duymak — hazırlıksız yakalandığın bir an.',
+                  muhur: 'Bunu unutma — kasabaya dönerken Trigorin’in orada olduğunu bilmiyordun. Sahne 8’de sesi seni hazırlıksız yakalar.',
+                  ozet: 'Dönerken Trigorin’in orada olduğunu bilmiyordum.',
+                },
+              ],
+            },
+          },
+        ],
+        kapanisBaslik: 'Bunları unutma',
+        kapanisAciklama: 'Bu görünmeyen iki yılı kendi içinde yürüdün. Aşağıdakiler artık senin — Sahne 8’de yanında olacaklar.',
       },
     },
     {
       id: 'b3',
       ad: 'Gece — Treplev’in odasından çıktıktan sonra (oyunun sonu)',
+      yogunluk: 1,                                // KANON §3.5: Yazılı boşluk (Modül III adayı; bu pilotta yogunluk-1)
       once: 'IV. perde: Treplev’le son karşılaşma, Dünya Ruhu tiradının tekrarı, ani çıkış.',
       anlatim: 'METİN YAZMAZ: Nina arabasına bindikten sonra ne olur? Yeletz’e, "üçüncü mevki köylülerin arasına" giderken zihninde ne taşır? (Treplev odada kalır ve kendini vurur — ama Nina bunu bilmez.)',
       sonra: 'Oyun biter; Nina sahnede yoktur. Geleceği belirsiz ama "sabretme" kararı nettir.',
@@ -210,7 +405,7 @@ export const nina = {
         'Göl arkanda kalırken bir şey bırakıyor musun, yoksa hepsini mi taşıyorsun?',
         'Yarın sahneye çıkacaksın. Korku mu, yoksa o "sabretme becerisi" mi ağır basıyor?',
       ],
-      travma: { kategoriler: ['Varoluşsal'], seviye: 1, durum: '[ONAY_BEKLIYOR]' },
+      travma: { kategoriler: ['Varoluşsal'], seviye: 1, durum: 'dramaturjik-agirlik' },  // KANON: geçit değil
     },
   ],
 
@@ -276,9 +471,13 @@ export const nina = {
   _meta: {
     katman: 1,
     uretici: 'ITC Metin → Karakter Sayfası Üreticisi (pilot)',
-    insanKarariBekleyen: ['tercihler (dramaturg/Beyti)', 'tüm travma.seviye [ONAY_BEKLIYOR] (klinik/Filiz)'],
+    // KANON Karar 48 sonrası klinik-geçit kaldırıldı (§1 spec v2). Beklenenler:
+    insanKarariBekleyen: [
+      'metin tonu (Beyti) — pilot testi sırasında atölye diliyle son haline çekilir',
+      'pilot testi (Beyti) — b2 yürüyüşü canlıda çalıştırılıp gözden geçirilir',
+    ],
     uydurmaKontrolu: 'Doğrular kaynak-etiketli; metin söylemediği yerde "çıkarım" işaretlendi. Hiçbir doğru süslenmedi.',
-    sonrakiAdim: 'Beyti tercih seçimi + Filiz travma onayı → Katman 1 kilitlenir → i18n (TR/EN/DE) + sayfa mimarisine bağlama.',
+    sonrakiAdim: 'Beyti pilot testi → atölye dili son okuma → production karakter pipeline\'ına entegrasyon (boslukSet[].yuruyus şeması).',
   },
 };
 
