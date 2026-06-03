@@ -914,6 +914,18 @@ function OnceDugum({ oyunOncesi, tercih, tercihSecimi, acik, onToggle, onTercihS
                       fontSize: '0.92rem',
                       color: 'var(--ink)',
                     }}>{o.baslik}</span>
+                    {/* Metin kanıtı (Willy stili) — baslik altında, metin üstünde, vurgusuz */}
+                    {o.sahneRef && (
+                      <p style={{
+                        fontFamily: 'var(--font-body), sans-serif',
+                        fontWeight: 200,
+                        fontSize: '0.72rem',
+                        color: 'var(--ink-muted)',
+                        lineHeight: 1.65,
+                        margin: '0.2rem 0 0 0',
+                        fontStyle: 'italic',
+                      }}>{o.sahneRef}</p>
+                    )}
                     <p style={{
                       fontFamily: 'var(--font-body), sans-serif',
                       fontWeight: 200,
@@ -1001,67 +1013,53 @@ function SahneDugum({ s, sabitler, tercihler, tercihSecimi, anSecimleri, anYazma
         sagBlok={<TravmaEtiket travma={s.travma} />}
       />
       {acik && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-          {/* Sabit hatırlatma (b1 → S1, b2 → S8) */}
-          {sabitler && sabitler.length > 0 && (
-            <div style={{
-              padding: '0.7rem 0.95rem',
-              border: `1px solid color-mix(in srgb, ${TON} 30%, transparent)`,
-              backgroundColor: 'var(--accent-bg)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.35rem',
-            }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+          {/* ─── YAZARIN ÇERÇEVESİ — nesnel/sakin, metin zemini (SPEC cerceve-ayrimi §B) ─── */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+            {/* Konum — küçük, üstte, vurgusuz (Willy stili) */}
+            {s.konum && (
               <span style={{
                 fontFamily: 'var(--font-body), sans-serif',
-                fontWeight: 300,
-                fontSize: '0.55rem',
-                letterSpacing: '0.3em',
+                fontWeight: 200,
+                fontSize: '0.7rem',
+                color: 'var(--ink-muted)',
+                fontStyle: 'italic',
+                letterSpacing: '0.05em',
+              }}>{s.konum}</span>
+            )}
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', flexWrap: 'wrap' }}>
+              <span style={{
+                fontFamily: 'var(--font-body), sans-serif',
+                fontWeight: 200,
+                fontSize: '0.6rem',
+                letterSpacing: '0.25em',
+                color: 'var(--ink-muted)',
+                textTransform: 'uppercase',
+              }}>Perde {s.perde}</span>
+              <span style={{ flex: 1 }} />
+              <span style={{
+                fontFamily: 'var(--font-body), sans-serif',
+                fontWeight: 200,
+                fontSize: '0.6rem',
+                letterSpacing: '0.2em',
                 color: TON,
                 textTransform: 'uppercase',
-              }}>Buraya kadar mühürlediklerin</span>
-              {sabitler.map((sab, i) => (
-                <p key={i} style={{
-                  fontFamily: 'var(--font-display), serif',
-                  fontStyle: 'italic',
-                  fontSize: '0.9rem',
-                  color: 'var(--ink-soft)',
-                  lineHeight: 1.7,
-                  margin: 0,
-                }}>{sab.muhur || sab.ozet}</p>
-              ))}
+              }}>Sıcaklık {s.onerilenSicaklik}/5</span>
             </div>
-          )}
-
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', flexWrap: 'wrap' }}>
-            <span style={{
-              fontFamily: 'var(--font-body), sans-serif',
-              fontWeight: 200,
-              fontSize: '0.6rem',
-              letterSpacing: '0.25em',
-              color: 'var(--ink-muted)',
-              textTransform: 'uppercase',
-            }}>Perde {s.perde}</span>
-            <span style={{ flex: 1 }} />
-            <span style={{
-              fontFamily: 'var(--font-body), sans-serif',
-              fontWeight: 200,
-              fontSize: '0.6rem',
-              letterSpacing: '0.2em',
-              color: TON,
-              textTransform: 'uppercase',
-            }}>Sıcaklık {s.onerilenSicaklik}/5</span>
+            {/* İçsel/yük/replikIzi — sade yürüyüş sahnelerinde (S5, S7) gizli (yürüyüş kapsar) */}
+            {!sadeAk && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                <Etiketli e="İçsel">{s.icsel}</Etiketli>
+                <Etiketli e="Yük">{s.yuk}</Etiketli>
+                {s.replikIzi && <Etiketli e="Replik izi" italic>{s.replikIzi}</Etiketli>}
+                {s['eşikNotu'] && <Etiketli e="Eşik notu">{s['eşikNotu']}</Etiketli>}
+              </div>
+            )}
           </div>
 
-          {/* İçsel/yük/replikIzi — sade yürüyüş sahnelerinde (S5, S7) gizli (yürüyüş kapsar) */}
-          {!sadeAk && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-              <Etiketli e="İçsel">{s.icsel}</Etiketli>
-              <Etiketli e="Yük">{s.yuk}</Etiketli>
-              {s.replikIzi && <Etiketli e="Replik izi" italic>{s.replikIzi}</Etiketli>}
-              {s['eşikNotu'] && <Etiketli e="Eşik notu">{s['eşikNotu']}</Etiketli>}
-            </div>
-          )}
+          {/* ─── İnce ayraç + "Senin Çerçeven" etiketi (TEK nesnel/öznel sınırı) ─── */}
+          <CerceveAyrac />
+
 
           {/* "Bu sahneyi yürü →" butonu (SPEC sahneyi-yuru — S5/S7/S8) */}
           {yuruyusVar && (
@@ -1095,7 +1093,7 @@ function SahneDugum({ s, sabitler, tercihler, tercihSecimi, anSecimleri, anYazma
                 onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.85'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
               >
-                Bu sahneyi yürü →
+                Sahneyi adım adım kur →
               </button>
             </div>
           )}
@@ -1127,6 +1125,37 @@ function SahneDugum({ s, sabitler, tercihler, tercihSecimi, anSecimleri, anYazma
                   onSec={(secenek) => onAnSec(an, secenek)}
                   onYaz={(metin) => onAnYaz(an, metin)}
                 />
+              ))}
+            </div>
+          )}
+
+          {/* "Buraya kadar mühürlediklerin" — Senin Çerçeven'in özeti (alt katmanın sonu) */}
+          {sabitler && sabitler.length > 0 && (
+            <div style={{
+              padding: '0.7rem 0.95rem',
+              border: `1px solid color-mix(in srgb, ${TON} 30%, transparent)`,
+              backgroundColor: 'var(--accent-bg)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.35rem',
+            }}>
+              <span style={{
+                fontFamily: 'var(--font-body), sans-serif',
+                fontWeight: 300,
+                fontSize: '0.55rem',
+                letterSpacing: '0.3em',
+                color: TON,
+                textTransform: 'uppercase',
+              }}>Buraya kadar mühürlediklerin</span>
+              {sabitler.map((sab, i) => (
+                <p key={i} style={{
+                  fontFamily: 'var(--font-display), serif',
+                  fontStyle: 'italic',
+                  fontSize: '0.9rem',
+                  color: 'var(--ink-soft)',
+                  lineHeight: 1.7,
+                  margin: 0,
+                }}>{sab.muhur || sab.ozet}</p>
               ))}
             </div>
           )}
@@ -1166,6 +1195,16 @@ function BoslukDugumYog3({ b, onYuru }) {
           marginLeft: 'auto',
         }}>Yoğunluk 3</span>
       </div>
+      {b.konum && (
+        <span style={{
+          fontFamily: 'var(--font-body), sans-serif',
+          fontWeight: 200,
+          fontSize: '0.7rem',
+          color: 'var(--ink-muted)',
+          fontStyle: 'italic',
+          letterSpacing: '0.05em',
+        }}>{b.konum}</span>
+      )}
       {b.anlatim && (
         <p style={{
           fontFamily: 'var(--font-display), serif',
@@ -1195,7 +1234,7 @@ function BoslukDugumYog3({ b, onYuru }) {
         onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.85'; }}
         onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
       >
-        Bu boşluğu yürü →
+        Boşluğu adım adım kur →
       </button>
     </div>
   );
@@ -1231,6 +1270,16 @@ function BoslukDugumYog2({ b, secim, acik, onToggle, onSec }) {
       />
       {acik && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+          {b.konum && (
+            <span style={{
+              fontFamily: 'var(--font-body), sans-serif',
+              fontWeight: 200,
+              fontSize: '0.7rem',
+              color: 'var(--ink-muted)',
+              fontStyle: 'italic',
+              letterSpacing: '0.05em',
+            }}>{b.konum}</span>
+          )}
           <p style={{
             fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
@@ -1294,6 +1343,16 @@ function BoslukDugumYog1({ b, acik, onToggle }) {
       />
       {acik && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+          {b.konum && (
+            <span style={{
+              fontFamily: 'var(--font-body), sans-serif',
+              fontWeight: 200,
+              fontSize: '0.7rem',
+              color: 'var(--ink-muted)',
+              fontStyle: 'italic',
+              letterSpacing: '0.05em',
+            }}>{b.konum}</span>
+          )}
           <Etiketli e="Önce">{b.once}</Etiketli>
           <Etiketli e="Anlatım" italic>{b.anlatim}</Etiketli>
           <Etiketli e="Sonra">{b.sonra}</Etiketli>
@@ -1655,5 +1714,29 @@ function Etiket({ children }) {
       color: 'var(--ink-muted)',
       textTransform: 'uppercase',
     }}>{children}</span>
+  );
+}
+
+// ─── Çerçeve ayracı — Yazarın Çerçevesi / Senin Çerçeven sınırı (SPEC §B) ─
+function CerceveAyrac() {
+  return (
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.7rem',
+      margin: '0.2rem 0 0 0',
+    }}>
+      <span style={{ flex: 1, height: '1px', backgroundColor: 'var(--rule)' }} />
+      <span style={{
+        fontFamily: 'var(--font-body), sans-serif',
+        fontWeight: 300,
+        fontSize: '0.58rem',
+        letterSpacing: '0.35em',
+        color: TON,
+        textTransform: 'uppercase',
+        whiteSpace: 'nowrap',
+      }}>Senin Çerçeven</span>
+      <span style={{ flex: 1, height: '1px', backgroundColor: 'var(--rule)' }} />
+    </div>
   );
 }

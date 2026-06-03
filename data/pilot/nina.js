@@ -64,10 +64,22 @@ export const nina = {
   // ────────────────────────────────────────────────────────────
   oyunOncesi: {
     olaylar: [
-      { id: 'o1', baslik: 'Annenin ölümü', metin: 'Annesi ölmüş; servetini babaya bırakmış. Nina için ilk büyük kayıp ve yoksunluğun kökeni.', kaynak: 'metin' },
-      { id: 'o2', baslik: 'Babanın yeniden evliliği', metin: 'Baba yeniden evlenir; vasiyet üvey anneye gider. Nina mirassız kalır — "zengin çiftlik kızı" ama kendi parası yok.', kaynak: 'metin' },
-      { id: 'o3', baslik: 'Göl kıyısında büyüme', metin: 'Karşı kıyıdaki çiftlikte doğdu, tüm çocukluğu gölün çevresinde geçti. Gölün her adasını bilir — özgürlük ve aidiyetin imgesi.', kaynak: 'metin' },
-      { id: 'o4', baslik: 'Sahne hayali', metin: 'Aktris olma hayali oyun başlamadan önce kurulmuş; ailesinin yasağına rağmen sürer.', kaynak: 'çıkarım' },
+      { id: 'o1', baslik: 'Annenin ölümü',
+        sahneRef: 'Arkadina (I. perde): "Annesi ölünce bütün parasını, son meteliğine kadar babasına bıraktı." (Nina’nın ağzından değil — metinde dolaylı anılır.)',
+        metin: 'Annesi ölmüş; servetini babaya bırakmış. Nina için ilk büyük kayıp ve yoksunluğun kökeni.',
+        kaynak: 'metin' },
+      { id: 'o2', baslik: 'Babanın yeniden evliliği',
+        sahneRef: 'Arkadina (I. perde): baba yeniden evlenir, mirasın tümü üvey anneye geçer — Nina mirassız kalır. (Metinde dolaylı, Nina söylemez.)',
+        metin: 'Baba yeniden evlenir; vasiyet üvey anneye gider. Nina mirassız kalır — "zengin çiftlik kızı" ama kendi parası yok.',
+        kaynak: 'metin' },
+      { id: 'o3', baslik: 'Göl kıyısında büyüme',
+        sahneRef: 'Nina (I. perde): "Bu yere, bu göle bir martı gibi çekiliyorum."',
+        metin: 'Karşı kıyıdaki çiftlikte doğdu, tüm çocukluğu gölün çevresinde geçti. Gölün her adasını bilir — özgürlük ve aidiyetin imgesi.',
+        kaynak: 'metin' },
+      { id: 'o4', baslik: 'Sahne hayali',
+        sahneRef: 'Nina (I. perde): babasıyla üvey annesi "aktris olmamdan korkuyor; burayı bohem buluyorlar." (Hayalin kendisi sahnede sözle kurulur.)',
+        metin: 'Aktris olma hayali oyun başlamadan önce kurulmuş; ailesinin yasağına rağmen sürer.',
+        kaynak: 'çıkarım' },
     ],
     iliskiler: [
       { kisi: 'Baba', tip: 'kısıtlayıcı otorite', metin: 'Çiftliğe gelmesini yasaklar; sahne ve bohem hayattan korkar. Sevgiden çok kontrol.', kaynak: 'metin' },
@@ -85,6 +97,7 @@ export const nina = {
   sahnelerWorkbook: [
     {
       no: 1, perde: 1,
+      konum: 'I. Perde · Göl kıyısı, gün batımı',
       olay: 'Gölün üzerinden atını sürerek, geç kalma korkusuyla gelir; Treplev’le kısa, gizli buluşma.',
       icsel: 'Kaçışın verdiği sevinç + yakalanma korkusu. "Yüreğim sizinle dopdolu" — ama aklı oyunda ve Trigorin’in varlığında.',
       yuk: 'Heyecan, ödü kopmuş bir özgürlük anı.',
@@ -105,6 +118,7 @@ export const nina = {
     },
     {
       no: 2, perde: 1,
+      konum: 'I. Perde · Göl kıyısındaki sahne, akşam',
       olay: 'Treplev’in "Dünya Ruhu" oyununu beyaz giysiler içinde oynar; Arkadina alay eder, oyun yarıda kesilir.',
       icsel: 'Sahnede ilk büyük an — ama metni "canlı kişiler yok, sadece okuma" diye yadırgar. Trigorin’in karşısında oynamanın utancı/heyecanı.',
       yuk: 'Maruz kalma, yargılanma, ilk sahne kırılganlığı.',
@@ -124,6 +138,7 @@ export const nina = {
     },
     {
       no: 3, perde: 1,
+      konum: 'I. Perde · Göl kıyısı, oyun sonrası',
       olay: 'Oyun sonrası Arkadina ve Trigorin’le tanışır; ünlü yazara hayranlığını dile getirir, sonra ayrılmak zorunda kalır.',
       icsel: 'Ün ve sahnenin cazibesi; "Ah, benim hayalimdir bu!" Eve dönüş mecburiyetinin acısı.',
       yuk: 'Özlem, gıpta, kısıtlanmışlık.',
@@ -140,6 +155,7 @@ export const nina = {
     },
     {
       no: 4, perde: 2,
+      konum: 'II. Perde · Kroket çimenliği, öğle',
       olay: 'Treplev vurduğu martıyı ayaklarının dibine bırakır. Nina anlamaz; "Sizi anlayabilmek için fazla basitim."',
       icsel: 'Treplev’den uzaklaşma başlamış. Martı simgesini reddeder — henüz kendi kaderiyle bağ kurmaz.',
       yuk: 'Yabancılaşma, rahatsızlık, sezgisel ürküntü.',
@@ -157,6 +173,7 @@ export const nina = {
     },
     {
       no: 5, perde: 2,
+      konum: 'II. Perde · Göl kıyısı, öğleden sonra',
       olay: 'Trigorin’le uzun ikili sahne: yazarın iç dünyasını dinler, ünlülük üzerine konuşurlar; Trigorin "martı" hikâyesi konusunu not eder.',
       icsel: 'Hayranlığın aşka dönüştüğü eşik. Trigorin’in yaşamını "olağanüstü" görür, kendi yoksunluğunu küçümser.',
       yuk: 'Büyülenme, arzu, kendini adama isteği.',
@@ -234,6 +251,7 @@ export const nina = {
     },
     {
       no: 6, perde: 3,
+      konum: 'III. Perde · Yemek odası',
       olay: 'Ayrılık öncesi Trigorin’e madalyon verir (kitabından sayfa/satır kazılı); kısa, gizli bir veda anı ister.',
       icsel: 'Bağlanma kararı netleşiyor. "Bir gün hayatım sana gerekecek olursa gel ve al onu" — kendini sunma.',
       yuk: 'Tutku, teslimiyet, gizli umut.',
@@ -250,6 +268,7 @@ export const nina = {
     },
     {
       no: 7, perde: 3,
+      konum: 'III. Perde · Yemek odası, ayrılık öncesi',
       olay: 'Treplev’e: "Kesin kararımı verdim... sahneye çıkıyorum. Yarın babamı, her şeyi bırakıp Moskova’ya gidiyorum." Trigorin’le uzun öpüşme.',
       icsel: 'Eşik anı — eski yaşamı (baba, ev, göl) ardında bırakma. Korkudan çok kararlılık.',
       yuk: 'Kopuş, cesaret, geri dönülmezlik.',
@@ -327,6 +346,7 @@ export const nina = {
     },
     {
       no: 8, perde: 4,
+      konum: 'IV. Perde · Treplev’in çalışma odası, gece (fırtına)',
       olay: '2 yıl sonra, gece, fırtınada Treplev’in odasına gelir. Dağınık, yorgun, kendini hâlâ "martı" sanır gibi konuşur; sonra "Hayır, aktristim" diye düzeltir.',
       icsel: 'Yıkımın ve yeniden-doğuşun aynı anda taşındığı an. Çöküntü ile "sabretme becerisi" arasında salınım.',
       yuk: 'Tükenmişlik, kendini toplama çabası, kopuk düşünceler, geçmişe sığınma.',
@@ -426,6 +446,7 @@ export const nina = {
     {
       id: 'b1',
       ad: 'Atın üstünde — çiftliğe gelmeden önce',
+      konum: 'I. Perde öncesi · Babanın evinden göl kıyısına, at üstünde',
       yogunluk: 2,                                // KANON §3.5: Kart-içi çatal (sayfadan çıkmaz, overlay açmaz)
       once: 'Babanın evinden gizlice çıkış. Yakalanma korkusu, yasak.',
       anlatim: 'METİN YAZMAZ: Göl boyunca atı sürerken Nina’nın zihninde ne dönüyor? Korku mu, kaçışın sarhoşluğu mu, Treplev’e mi yoksa sahneye mi gidiyor?',
@@ -467,6 +488,7 @@ export const nina = {
     {
       id: 'b2',
       ad: 'İki yıllık boşluk — Moskova / taşra (III–IV perde arası)',
+      konum: 'III–IV. Perde arası · Moskova ve taşra, iki yıl',
       once: 'III. perde: ev ve babayı bırakıp Trigorin’e, sahneye gidiş kararı.',
       anlatim: 'METNİN EN BÜYÜK BOŞLUĞU: Trigorin’le birliktelik, çocuğun doğumu ve ölümü, terk ediliş, taşrada başarısız sahne yılları. Hiçbiri sahnede gösterilmez — sadece IV. perdede Treplev’in ağzından özetlenir. Oyuncu bu 2 yılı baştan inşa eder.',
       sonra: 'IV. perde — yıkık ama "sabretmeyi öğrenmiş" Nina’nın gece gelişi.',
@@ -678,6 +700,7 @@ export const nina = {
     {
       id: 'b3',
       ad: 'Gece — Treplev’in odasından çıktıktan sonra (oyunun sonu)',
+      konum: 'IV. Perde sonrası · Gece, evden çıkış',
       yogunluk: 1,                                // KANON §3.5: Yazılı boşluk (Modül III adayı; bu pilotta yogunluk-1)
       once: 'IV. perde: Treplev’le son karşılaşma, Dünya Ruhu tiradının tekrarı, ani çıkış.',
       anlatim: 'METİN YAZMAZ: Nina arabasına bindikten sonra ne olur? Yeletz’e, "üçüncü mevki köylülerin arasına" giderken zihninde ne taşır? (Treplev odada kalır ve kendini vurur — ama Nina bunu bilmez.)',
