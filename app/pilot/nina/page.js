@@ -8,10 +8,14 @@
 
 'use client';
 
+import { useState, useEffect } from 'react';
 import { nina } from '../../../data/pilot/nina';
+import BoslukYuruyusu from '../../../components/BoslukYuruyusu';
+import { supabase } from '../../lib/supabase';
 
 const TON = 'var(--accent)';
 const ONAY = 'var(--uyari)';
+const KARAKTER_ID = 'nina';
 
 function KaynakRozet({ kaynak }) {
   const renk = kaynak === 'metin' ? 'var(--onay)' : 'var(--ink-muted)';
@@ -148,6 +152,59 @@ function Bolum({ etiket, baslik, alt, children }) {
 }
 
 export default function NinaPilotSayfasi() {
+  // ─── State (Karar 48 Sprint 5+6) ────────────────────────────────
+  const [yuruyusBoslukId, setYuruyusBoslukId] = useState(null);  // null | 'b2'
+  const [oznelSabitler, setOznelSabitler] = useState({});         // { [sahne_no]: [{ catal_anahtar, ozet_metni }] }
+  const [ilkYuruyusMu, setIlkYuruyusMu] = useState(true);
+
+  // Mount + kapanış sonrası: oznel_sabitler'i yenile (login olmuşsa)
+  useEffect(() => {
+    let iptal = false;
+    async function yukle() {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
+        const { data, error } = await supabase
+          .from('oznel_sabitler')
+          .select('catal_anahtar, ozet_metni, birlesim_sahne_no, bosluk_no')
+          .eq('karakter_id', KARAKTER_ID);
+        if (iptal) return;
+        if (error) {
+          console.log('oznel_sabitler getir hatası:', error);
+          return;
+        }
+        // Sahne no'ya göre grupla
+        const sahneMap = {};
+        for (const row of (data || [])) {
+          if (!row.birlesim_sahne_no) continue;
+          if (!sahneMap[row.birlesim_sahne_no]) sahneMap[row.birlesim_sahne_no] = [];
+          sahneMap[row.birlesim_sahne_no].push({
+            anahtar: row.catal_anahtar,
+            ozet: row.ozet_metni,
+            boslukNo: row.bosluk_no,
+          });
+        }
+        // kayip='yasiyor' ise kayip2'den oku (kayip atla) — kapanış mantığı
+        for (const sahneNo of Object.keys(sahneMap)) {
+          const list = sahneMap[sahneNo];
+          const kayipVar = list.find((s) => s.anahtar === 'kayip2');
+          if (kayipVar) {
+            sahneMap[sahneNo] = list.filter((s) => s.anahtar !== 'kayip');
+          }
+        }
+        setOznelSabitler(sahneMap);
+      } catch (e) {
+        console.log('oznel_sabitler exception:', e);
+      }
+    }
+    yukle();
+    return () => { iptal = true; };
+  }, [yuruyusBoslukId]);  // yuruyusBoslukId null'a dönünce yeniden yükle
+
+  const aktifBosluk = yuruyusBoslukId
+    ? nina.boslukSet.find((b) => b.id === yuruyusBoslukId)
+    : null;
+
   return (
     <main style={{
       minHeight: '100vh',
@@ -439,6 +496,38 @@ export default function NinaPilotSayfasi() {
                   {s.replikIzi && <Etiketli e="Replik izi" italic>{s.replikIzi}</Etiketli>}
                   {s['eşikNotu'] && <Etiketli e="Eşik notu">{s['eşikNotu']}</Etiketli>}
                 </div>
+
+                {/* Öznel sabit hatırlatma — KANON Karar 48 §4.5 döngü kapanışı */}
+                {oznelSabitler[s.no] && oznelSabitler[s.no].length > 0 && (
+                  <div style={{
+                    padding: '0.8rem 1rem',
+                    border: `1px solid color-mix(in srgb, ${TON} 30%, transparent)`,
+                    backgroundColor: 'var(--accent-bg)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.4rem',
+                  }}>
+                    <span style={{
+                      fontFamily: 'var(--font-body), sans-serif',
+                      fontWeight: 300,
+                      fontSize: '0.55rem',
+                      letterSpacing: '0.3em',
+                      color: TON,
+                      textTransform: 'uppercase',
+                    }}>Bu boşlukta şunu seçmiştin</span>
+                    {oznelSabitler[s.no].map((sabit, i) => (
+                      <p key={i} style={{
+                        fontFamily: 'var(--font-display), serif',
+                        fontStyle: 'italic',
+                        fontSize: '0.9rem',
+                        color: 'var(--ink-soft)',
+                        lineHeight: 1.7,
+                        margin: 0,
+                      }}>{sabit.ozet}</p>
+                    ))}
+                  </div>
+                )}
+
                 <TravmaRozeti travma={s.travma} />
               </div>
             ))}
@@ -456,12 +545,52 @@ export default function NinaPilotSayfasi() {
                 flexDirection: 'column',
                 gap: '0.7rem',
               }}>
-                <span style={{
-                  fontFamily: 'var(--font-display), serif',
-                  fontStyle: 'italic',
-                  fontSize: '1.15rem',
-                  color: 'var(--ink)',
-                }}>◇ {b.ad}</span>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.7rem', flexWrap: 'wrap' }}>
+                  <span style={{
+                    fontFamily: 'var(--font-display), serif',
+                    fontStyle: 'italic',
+                    fontSize: '1.15rem',
+                    color: 'var(--ink)',
+                  }}>◇ {b.ad}</span>
+                  {b.yogunluk && (
+                    <span style={{
+                      fontFamily: 'var(--font-body), sans-serif',
+                      fontWeight: 300,
+                      fontSize: '0.55rem',
+                      letterSpacing: '0.25em',
+                      color: TON,
+                      textTransform: 'uppercase',
+                      padding: '0.15rem 0.55rem',
+                      border: `1px solid color-mix(in srgb, ${TON} 33%, transparent)`,
+                    }}>Yoğunluk {b.yogunluk}</span>
+                  )}
+                </div>
+
+                {/* Yoğunluk 3 — Çatallı Boşluk Yürüyüşü (KANON Karar 48) */}
+                {b.yogunluk === 3 && b.yuruyus && (
+                  <button
+                    onClick={() => { setIlkYuruyusMu(true); setYuruyusBoslukId(b.id); }}
+                    style={{
+                      alignSelf: 'flex-start',
+                      padding: '0.75rem 1.4rem',
+                      backgroundColor: TON,
+                      border: 'none',
+                      color: 'var(--bg-base)',
+                      fontFamily: 'var(--font-body), sans-serif',
+                      fontWeight: 300,
+                      fontSize: '0.72rem',
+                      letterSpacing: '0.22em',
+                      textTransform: 'uppercase',
+                      cursor: 'pointer',
+                      transition: 'opacity 0.25s ease',
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.85'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
+                  >
+                    Bu boşluğu yürü →
+                  </button>
+                )}
+
                 <Etiketli e="Önce">{b.once}</Etiketli>
                 <Etiketli e="Anlatım" italic>{b.anlatim}</Etiketli>
                 <Etiketli e="Sonra">{b.sonra}</Etiketli>
@@ -604,6 +733,19 @@ export default function NinaPilotSayfasi() {
         </section>
 
       </article>
+
+      {/* Çatallı Boşluk Yürüyüşü overlay (KANON Karar 48) */}
+      {aktifBosluk && (
+        <BoslukYuruyusu
+          karakterId={KARAKTER_ID}
+          bosluk={aktifBosluk}
+          ilkYuruyusMu={ilkYuruyusMu}
+          onKapat={() => {
+            setYuruyusBoslukId(null);
+            setIlkYuruyusMu(false);  // bir sonraki açılışta eşik opsiyonel
+          }}
+        />
+      )}
     </main>
   );
 }
