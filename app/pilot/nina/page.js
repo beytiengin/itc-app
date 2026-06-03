@@ -722,57 +722,71 @@ function BoslukDugum({ b, onYuru }) {
         )}
       </div>
 
-      {/* Yoğunluk 3 → "Bu boşluğu yürü" (Karar 48) */}
-      {b.yogunluk === 3 && b.yuruyus && (
-        <button
-          onClick={onYuru}
-          style={{
-            alignSelf: 'flex-start',
-            padding: '0.75rem 1.4rem',
-            backgroundColor: TON,
-            border: 'none',
-            color: 'var(--bg-base)',
-            fontFamily: 'var(--font-body), sans-serif',
-            fontWeight: 300,
-            fontSize: '0.72rem',
-            letterSpacing: '0.22em',
-            textTransform: 'uppercase',
-            cursor: 'pointer',
-            transition: 'opacity 0.25s ease',
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.85'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
-        >
-          Bu boşluğu yürü →
-        </button>
-      )}
-
-      <Etiketli e="Önce">{b.once}</Etiketli>
-      <Etiketli e="Anlatım" italic>{b.anlatim}</Etiketli>
-      <Etiketli e="Sonra">{b.sonra}</Etiketli>
-      <Etiketli e="Sentez" italic>{b.sentez}</Etiketli>
-      <div>
-        <span style={{
-          fontFamily: 'var(--font-body), sans-serif',
-          fontWeight: 200,
-          fontSize: '0.55rem',
-          letterSpacing: '0.3em',
-          color: 'var(--onay)',
-          textTransform: 'uppercase',
-        }}>Alt Sorular</span>
-        <ul style={{ marginTop: '0.4rem', paddingLeft: '1.2rem' }}>
-          {b.altSorular.map((q, i) => (
-            <li key={i} style={{
+      {/* Yoğunluk 3 → SADE davet kartı: kısa tanıtım + "Bu boşluğu yürü" (Düzeltme 2) */}
+      {b.yogunluk === 3 && b.yuruyus ? (
+        <>
+          {b.anlatim && (
+            <p style={{
               fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
-              fontSize: '0.9rem',
+              fontSize: '0.95rem',
               color: 'var(--ink-soft)',
               lineHeight: 1.7,
-            }}>{q}</li>
-          ))}
-        </ul>
-      </div>
-      <TravmaRozeti travma={b.travma} />
+              margin: 0,
+            }}>{b.anlatim}</p>
+          )}
+          <button
+            onClick={onYuru}
+            style={{
+              alignSelf: 'flex-start',
+              padding: '0.75rem 1.4rem',
+              backgroundColor: TON,
+              border: 'none',
+              color: 'var(--bg-base)',
+              fontFamily: 'var(--font-body), sans-serif',
+              fontWeight: 300,
+              fontSize: '0.72rem',
+              letterSpacing: '0.22em',
+              textTransform: 'uppercase',
+              cursor: 'pointer',
+              transition: 'opacity 0.25s ease',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.85'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
+          >
+            Bu boşluğu yürü →
+          </button>
+        </>
+      ) : (
+        <>
+          <Etiketli e="Önce">{b.once}</Etiketli>
+          <Etiketli e="Anlatım" italic>{b.anlatim}</Etiketli>
+          <Etiketli e="Sonra">{b.sonra}</Etiketli>
+          <Etiketli e="Sentez" italic>{b.sentez}</Etiketli>
+          <div>
+            <span style={{
+              fontFamily: 'var(--font-body), sans-serif',
+              fontWeight: 200,
+              fontSize: '0.55rem',
+              letterSpacing: '0.3em',
+              color: 'var(--onay)',
+              textTransform: 'uppercase',
+            }}>Alt Sorular</span>
+            <ul style={{ marginTop: '0.4rem', paddingLeft: '1.2rem' }}>
+              {b.altSorular.map((q, i) => (
+                <li key={i} style={{
+                  fontFamily: 'var(--font-display), serif',
+                  fontStyle: 'italic',
+                  fontSize: '0.9rem',
+                  color: 'var(--ink-soft)',
+                  lineHeight: 1.7,
+                }}>{q}</li>
+              ))}
+            </ul>
+          </div>
+          <TravmaRozeti travma={b.travma} />
+        </>
+      )}
     </div>
   );
 }
