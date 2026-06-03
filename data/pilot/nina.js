@@ -737,7 +737,6 @@ export const nina = {
       A: 'Çöküş baskın: kırık, dağınık, neredeyse kopuk bir zihin. "Aktristim" düzeltmeleri tutunma çabası.',
       B: 'Direnç baskın: yıkımı tanıyan ama üstüne basıp doğrulan bir olgunluk. "Sabretme" gerçek bir varış.',
       C: 'Salınım: cümle cümle ikisi arasında gidip gelir; izleyici hangisinin kazanacağını bilemez.',
-      modelEgilimi: 'C — metindeki kopuk-toparlanan ritim (martı↔aktrist tekrarları) salınımı destekliyor. ANCAK karar senin.',
     },
     {
       id: 't2',
@@ -745,7 +744,6 @@ export const nina = {
       A: 'Saf inançla — genç oyuncunun metne gerçekten inanması; alay edilince kırılması daha acı.',
       B: 'Tedirgin acemiyle — Trigorin’in karşısında utanan, metne tam güvenemeyen bir başlangıç.',
       C: 'Kâhince — farkında olmadan kendi geleceğini (yalnızlık, boşluk) söyleyen bir ön-ses.',
-      modelEgilimi: 'A ile C arası; IV. perdedeki tekrar C okumasını güçlendirir. Karar senin.',
     },
     {
       id: 't3',
@@ -753,7 +751,6 @@ export const nina = {
       A: 'Örtük: oyuncu bilir ama göstermez; simge izleyiciye bırakılır.',
       B: 'Belirgin: II. perdede ölü martıyı reddederken, IV. perdede ona dönerken bilinçli köprü kurulur.',
       C: 'Yalnızca IV. perdede: "Bir martıyım ben. Yok, değil" anında tek ve yıkıcı bir farkındalık.',
-      modelEgilimi: 'A (ITC "yöntem görünmez" ilkesiyle uyumlu). Karar senin.',
     },
     {
       id: 't4',
@@ -761,7 +758,6 @@ export const nina = {
       A: 'Bağımlılık olarak: hâlâ sevmesi onun çözülmemiş yarası; acınası değil ama özgürleşmemiş.',
       B: 'Bilinçli seçim olarak: sevdiğini bilerek taşıyan, utanmayan bir olgunluk.',
       C: 'Geçmişe ait bir kalıntı olarak: artık onu değil, o dönemin kendisini özlüyor.',
-      modelEgilimi: '"Hatta eskisinden de daha çok seviyorum" repliği A’yı destekliyor; ama oyunculuk tercihi B’yi trajik kılabilir. Karar senin.',
     },
     {
       id: 't5',
@@ -769,7 +765,6 @@ export const nina = {
       A: 'Arka plan: bilinir ama oynanmaz; sadece yoksunluk duygusunu besler.',
       B: 'Aktif kök: I. perdedeki açlık/kaçış enerjisinin doğrudan kaynağı olarak çalışılır.',
       C: 'Final anahtarı: IV. perdedeki dayanıklılığın aslında çocukluktan gelen bir hayatta-kalma kası olduğu okuması.',
-      modelEgilimi: 'B+C birleşimi pedagojik olarak zengin; ama bu senin dramaturjik kararın.',
     },
   ],
 

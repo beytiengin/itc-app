@@ -976,7 +976,7 @@ function OnceDugum({ oyunOncesi, tercih, tercihSecimi, acik, onToggle, onTercihS
             </div>
           </div>
           {tercih && (
-            <TercihBloku
+            <KatlananTercih
               t={tercih}
               secilen={tercihSecimi[tercih.id]}
               onSec={(harf) => onTercihSec(tercih, harf, null)}
@@ -1008,35 +1008,48 @@ function SahneDugum({ s, sabitler, tercihler, tercihSecimi, anSecimleri, anYazma
         acik={acik}
         onToggle={onToggle}
         rozet={<Rozet renk={TON}>Sahne {s.no}</Rozet>}
-        baslik={s.olay}
+        baslik={s.konum || `Perde ${s.perde}`}
         ozet={null}
         sagBlok={<TravmaEtiket travma={s.travma} />}
       />
       {acik && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-          {/* ─── YAZARIN ÇERÇEVESİ — nesnel/sakin, metin zemini (SPEC cerceve-ayrimi §B) ─── */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
-            {/* Konum — küçük, üstte, vurgusuz (Willy stili) */}
-            {s.konum && (
-              <span style={{
+          {/* ─── YAZARIN ÇERÇEVESİ — tek akan paragraf (SPEC son-cilalar §3) ─── */}
+          {!sadeAk && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <p style={{
                 fontFamily: 'var(--font-body), sans-serif',
-                fontWeight: 200,
-                fontSize: '0.7rem',
-                color: 'var(--ink-muted)',
-                fontStyle: 'italic',
-                letterSpacing: '0.05em',
-              }}>{s.konum}</span>
-            )}
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', flexWrap: 'wrap' }}>
-              <span style={{
-                fontFamily: 'var(--font-body), sans-serif',
-                fontWeight: 200,
-                fontSize: '0.6rem',
-                letterSpacing: '0.25em',
-                color: 'var(--ink-muted)',
-                textTransform: 'uppercase',
-              }}>Perde {s.perde}</span>
-              <span style={{ flex: 1 }} />
+                fontWeight: 300,
+                fontSize: '0.88rem',
+                color: 'var(--ink-soft)',
+                lineHeight: 1.75,
+                margin: 0,
+              }}>
+                {s.olay} {s.icsel} {s.yuk}
+              </p>
+              {s.replikIzi && (
+                <p style={{
+                  fontFamily: 'var(--font-display), serif',
+                  fontStyle: 'italic',
+                  fontSize: '0.82rem',
+                  color: 'var(--ink-muted)',
+                  lineHeight: 1.65,
+                  margin: 0,
+                  paddingLeft: '0.8rem',
+                  borderLeft: '2px solid var(--rule)',
+                }}>"{s.replikIzi}"</p>
+              )}
+              {s['eşikNotu'] && (
+                <p style={{
+                  fontFamily: 'var(--font-body), sans-serif',
+                  fontWeight: 200,
+                  fontSize: '0.74rem',
+                  color: 'var(--ink-muted)',
+                  lineHeight: 1.6,
+                  margin: 0,
+                  fontStyle: 'italic',
+                }}>↳ {s['eşikNotu']}</p>
+              )}
               <span style={{
                 fontFamily: 'var(--font-body), sans-serif',
                 fontWeight: 200,
@@ -1044,18 +1057,10 @@ function SahneDugum({ s, sabitler, tercihler, tercihSecimi, anSecimleri, anYazma
                 letterSpacing: '0.2em',
                 color: TON,
                 textTransform: 'uppercase',
+                alignSelf: 'flex-end',
               }}>Sıcaklık {s.onerilenSicaklik}/5</span>
             </div>
-            {/* İçsel/yük/replikIzi — sade yürüyüş sahnelerinde (S5, S7) gizli (yürüyüş kapsar) */}
-            {!sadeAk && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                <Etiketli e="İçsel">{s.icsel}</Etiketli>
-                <Etiketli e="Yük">{s.yuk}</Etiketli>
-                {s.replikIzi && <Etiketli e="Replik izi" italic>{s.replikIzi}</Etiketli>}
-                {s['eşikNotu'] && <Etiketli e="Eşik notu">{s['eşikNotu']}</Etiketli>}
-              </div>
-            )}
-          </div>
+          )}
 
           {/* ─── İnce ayraç + "Senin Çerçeven" etiketi (TEK nesnel/öznel sınırı) ─── */}
           <CerceveAyrac />
@@ -1098,11 +1103,11 @@ function SahneDugum({ s, sabitler, tercihler, tercihSecimi, anSecimleri, anYazma
             </div>
           )}
 
-          {/* Tercih(ler) — sahne kartına gömülü */}
+          {/* Tercih(ler) — sahne kartına gömülü (katlanır — SPEC son-cilalar §4) */}
           {tercihler && tercihler.length > 0 && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
               {tercihler.map(t => (
-                <TercihBloku
+                <KatlananTercih
                   key={t.id}
                   t={t}
                   secilen={tercihSecimi[t.id]}
@@ -1113,11 +1118,11 @@ function SahneDugum({ s, sabitler, tercihler, tercihSecimi, anSecimleri, anYazma
             </div>
           )}
 
-          {/* An blokları — SPEC an-blogu-iskelet */}
+          {/* An blokları (katlanır — SPEC son-cilalar §4) */}
           {s.anlar && s.anlar.length > 0 && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
               {s.anlar.map(an => (
-                <AnBlok
+                <KatlananAn
                   key={an.id}
                   an={an}
                   secim={anSecimleri[an.id]}
@@ -1380,49 +1385,174 @@ function BoslukDugumYog1({ b, acik, onToggle }) {
 // ─── An Bloğu (sahne içi an — SPEC an-blogu-iskelet) ────────
 // Çatal an → KartIciCatal'ı yeniden kullanır.
 // Yazma an  → YazmaAni.
-function AnBlok({ an, secim, yazma, onSec, onYaz }) {
+function AnBlok({ an, secim, yazma, onSec, onYaz, gosterBaslik = true }) {
   if (an.tip === 'catal') {
     const cataly = { ...an, anahtar: an.id };
-    return <KartIciCatal cataly={cataly} secim={secim} onSec={onSec} etiket="An" />;
+    return <KartIciCatal cataly={cataly} secim={secim} onSec={onSec} etiket="Seçim" gosterBaslik={gosterBaslik} />;
   }
   if (an.tip === 'yazma') {
-    return <YazmaAni an={an} deger={yazma} onYaz={onYaz} />;
+    return <YazmaAni an={an} deger={yazma} onYaz={onYaz} gosterBaslik={gosterBaslik} />;
   }
   return null;
 }
 
-// ─── Yazma anı (serbest metin → mühür) ──────────────────────
-function YazmaAni({ an, deger, onYaz }) {
-  const [yerel, setYerel] = useState(deger || '');
-  const [kaydedildi, setKaydedildi] = useState(false);
-  useEffect(() => { setYerel(deger || ''); }, [deger]);
+// ─── Katlanır wrapper (an + tercih için) — SPEC son-cilalar §4 ─
+function KatlananBlok({ etiket, soru, ozet, ipucu, ekstraNot, children }) {
+  const [acik, setAcik] = useState(false);
   return (
     <div style={{
-      padding: '0.85rem 1rem',
-      border: `1px solid color-mix(in srgb, ${TON} 25%, transparent)`,
-      backgroundColor: 'var(--accent-bg)',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '0.6rem',
+      padding: 0,
+      border: `1px solid color-mix(in srgb, ${TON} 18%, transparent)`,
+      backgroundColor: 'var(--bg-elevated)',
     }}>
-      <div>
-        <span style={{
-          fontFamily: 'var(--font-body), sans-serif',
-          fontWeight: 300,
-          fontSize: '0.55rem',
-          letterSpacing: '0.3em',
-          color: TON,
-          textTransform: 'uppercase',
-        }}>An</span>
+      <button
+        onClick={() => setAcik(v => !v)}
+        style={{
+          background: 'none',
+          border: 'none',
+          padding: '0.7rem 0.95rem',
+          width: '100%',
+          textAlign: 'left',
+          cursor: 'pointer',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.35rem',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+          {etiket && (
+            <span style={{
+              fontFamily: 'var(--font-body), sans-serif',
+              fontWeight: 300,
+              fontSize: '0.55rem',
+              letterSpacing: '0.3em',
+              color: TON,
+              textTransform: 'uppercase',
+            }}>{etiket}</span>
+          )}
+          <span style={{ flex: 1 }} />
+          <span style={{
+            fontFamily: 'var(--font-body), sans-serif',
+            fontSize: '0.85rem',
+            color: 'var(--ink-muted)',
+            transform: acik ? 'rotate(90deg)' : 'rotate(0)',
+            transition: 'transform 0.2s ease',
+            display: 'inline-block',
+          }}>›</span>
+        </div>
         <p style={{
           fontFamily: 'var(--font-display), serif',
           fontStyle: 'italic',
           fontSize: '0.95rem',
           color: 'var(--ink)',
           lineHeight: 1.6,
-          margin: '0.25rem 0 0 0',
-        }}>{an.soru}</p>
-      </div>
+          margin: 0,
+        }}>{soru}</p>
+        {ekstraNot && (
+          <p style={{
+            fontFamily: 'var(--font-body), sans-serif',
+            fontWeight: 200,
+            fontSize: '0.7rem',
+            color: 'var(--ink-muted)',
+            lineHeight: 1.6,
+            margin: 0,
+            fontStyle: 'italic',
+          }}>↳ {ekstraNot}</p>
+        )}
+        {!acik && (
+          ozet ? (
+            <span style={{
+              fontFamily: 'var(--font-display), serif',
+              fontStyle: 'italic',
+              fontSize: '0.85rem',
+              color: TON,
+              lineHeight: 1.6,
+            }}>✓ {ozet}</span>
+          ) : (
+            <span style={{
+              fontFamily: 'var(--font-body), sans-serif',
+              fontWeight: 200,
+              fontSize: '0.7rem',
+              color: 'var(--ink-muted)',
+              letterSpacing: '0.1em',
+            }}>{ipucu || 'dokun — aç'}</span>
+          )
+        )}
+      </button>
+      {acik && (
+        <div style={{ padding: '0 0.95rem 0.95rem 0.95rem' }}>
+          {children}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Katlanır an — KatlananBlok + AnBlok'un (header gizli) içeriği ──
+function KatlananAn({ an, secim, yazma, onSec, onYaz }) {
+  let ozet = null;
+  if (an.tip === 'catal' && secim) {
+    const sec = an.secenekler?.find(s => s.dal === secim);
+    ozet = sec?.baslik || secim;
+  } else if (an.tip === 'yazma' && yazma && yazma.trim()) {
+    ozet = 'Yazıldı';
+  }
+  return (
+    <KatlananBlok etiket="Seçim" soru={an.soru} ozet={ozet}>
+      <AnBlok an={an} secim={secim} yazma={yazma} onSec={onSec} onYaz={onYaz} gosterBaslik={false} />
+    </KatlananBlok>
+  );
+}
+
+// ─── Katlanır tercih — KatlananBlok + TercihBloku'nun (header gizli) içeriği ──
+function KatlananTercih({ t, secilen, onSec, ekstraNot }) {
+  const ozet = secilen ? `${secilen} seçildi` : null;
+  return (
+    <KatlananBlok
+      etiket={`Dramaturjik kavşak · ${t.id.toUpperCase()}`}
+      soru={t.karar}
+      ozet={ozet}
+      ekstraNot={ekstraNot}
+    >
+      <TercihBloku t={t} secilen={secilen} onSec={onSec} gosterBaslik={false} />
+    </KatlananBlok>
+  );
+}
+
+// ─── Yazma anı (serbest metin → mühür) ──────────────────────
+function YazmaAni({ an, deger, onYaz, gosterBaslik = true }) {
+  const [yerel, setYerel] = useState(deger || '');
+  const [kaydedildi, setKaydedildi] = useState(false);
+  useEffect(() => { setYerel(deger || ''); }, [deger]);
+  return (
+    <div style={{
+      padding: gosterBaslik ? '0.85rem 1rem' : 0,
+      border: gosterBaslik ? `1px solid color-mix(in srgb, ${TON} 25%, transparent)` : 'none',
+      backgroundColor: gosterBaslik ? 'var(--accent-bg)' : 'transparent',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '0.6rem',
+    }}>
+      {gosterBaslik && (
+        <div>
+          <span style={{
+            fontFamily: 'var(--font-body), sans-serif',
+            fontWeight: 300,
+            fontSize: '0.55rem',
+            letterSpacing: '0.3em',
+            color: TON,
+            textTransform: 'uppercase',
+          }}>Seçim</span>
+          <p style={{
+            fontFamily: 'var(--font-display), serif',
+            fontStyle: 'italic',
+            fontSize: '0.95rem',
+            color: 'var(--ink)',
+            lineHeight: 1.6,
+            margin: '0.25rem 0 0 0',
+          }}>{an.soru}</p>
+        </div>
+      )}
       <textarea
         value={yerel}
         onChange={(e) => { setYerel(e.target.value); setKaydedildi(false); }}
@@ -1458,34 +1588,36 @@ function YazmaAni({ an, deger, onYaz }) {
 }
 
 // ─── Kart-içi çatal (b1 yog-2 + an tipi 'catal') ────────────
-function KartIciCatal({ cataly, secim, onSec, etiket }) {
+function KartIciCatal({ cataly, secim, onSec, etiket, gosterBaslik = true }) {
   return (
     <div style={{
-      padding: '0.85rem 1rem',
-      border: `1px solid color-mix(in srgb, ${TON} 25%, transparent)`,
-      backgroundColor: 'var(--accent-bg)',
+      padding: gosterBaslik ? '0.85rem 1rem' : 0,
+      border: gosterBaslik ? `1px solid color-mix(in srgb, ${TON} 25%, transparent)` : 'none',
+      backgroundColor: gosterBaslik ? 'var(--accent-bg)' : 'transparent',
       display: 'flex',
       flexDirection: 'column',
       gap: '0.7rem',
     }}>
-      <div>
-        <span style={{
-          fontFamily: 'var(--font-body), sans-serif',
-          fontWeight: 300,
-          fontSize: '0.55rem',
-          letterSpacing: '0.3em',
-          color: TON,
-          textTransform: 'uppercase',
-        }}>{etiket || 'Çatal'}</span>
-        <p style={{
-          fontFamily: 'var(--font-display), serif',
-          fontStyle: 'italic',
-          fontSize: '0.95rem',
-          color: 'var(--ink)',
-          lineHeight: 1.6,
-          margin: '0.25rem 0 0 0',
-        }}>{cataly.soru}</p>
-      </div>
+      {gosterBaslik && (
+        <div>
+          <span style={{
+            fontFamily: 'var(--font-body), sans-serif',
+            fontWeight: 300,
+            fontSize: '0.55rem',
+            letterSpacing: '0.3em',
+            color: TON,
+            textTransform: 'uppercase',
+          }}>{etiket || 'Seçim'}</span>
+          <p style={{
+            fontFamily: 'var(--font-display), serif',
+            fontStyle: 'italic',
+            fontSize: '0.95rem',
+            color: 'var(--ink)',
+            lineHeight: 1.6,
+            margin: '0.25rem 0 0 0',
+          }}>{cataly.soru}</p>
+        </div>
+      )}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         {cataly.secenekler.map(sec => (
           <SecenekSik
@@ -1505,16 +1637,17 @@ function KartIciCatal({ cataly, secim, onSec, etiket }) {
 }
 
 // ─── Tercih bloğu (sahneye / önce'ye gömülü) ─────────────────
-function TercihBloku({ t, secilen, onSec, ekstraNot }) {
+function TercihBloku({ t, secilen, onSec, ekstraNot, gosterBaslik = true }) {
   return (
     <div style={{
-      padding: '0.85rem 1rem',
-      border: `1px solid color-mix(in srgb, ${ONAY} 25%, transparent)`,
-      backgroundColor: 'var(--uyari-bg)',
+      padding: gosterBaslik ? '0.85rem 1rem' : 0,
+      border: gosterBaslik ? `1px solid color-mix(in srgb, ${ONAY} 25%, transparent)` : 'none',
+      backgroundColor: gosterBaslik ? 'var(--uyari-bg)' : 'transparent',
       display: 'flex',
       flexDirection: 'column',
       gap: '0.7rem',
     }}>
+      {gosterBaslik && (
       <div>
         <span style={{
           fontFamily: 'var(--font-body), sans-serif',
@@ -1544,6 +1677,7 @@ function TercihBloku({ t, secilen, onSec, ekstraNot }) {
           }}>↳ {ekstraNot}</p>
         )}
       </div>
+      )}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         {['A', 'B', 'C'].map(harf => (
           <SecenekSik
@@ -1558,19 +1692,6 @@ function TercihBloku({ t, secilen, onSec, ekstraNot }) {
           />
         ))}
       </div>
-      <p style={{
-        fontFamily: 'var(--font-body), sans-serif',
-        fontWeight: 200,
-        fontSize: '0.72rem',
-        color: 'var(--ink-muted)',
-        lineHeight: 1.6,
-        margin: 0,
-        fontStyle: 'italic',
-        paddingTop: '0.4rem',
-        borderTop: '1px solid var(--rule)',
-      }}>
-        <strong style={{ color: TON, fontStyle: 'normal' }}>Model önerisi:</strong> {t.modelEgilimi} <em>Karar senin.</em>
-      </p>
     </div>
   );
 }
