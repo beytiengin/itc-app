@@ -265,26 +265,35 @@ export default function NinaPilotSayfasi() {
   // Katlanır bölümler (hepsi kapalı başlar — SPEC §0)
   const [acikEsik, setAcikEsik] = useState(false);
   const [acikDogrular, setAcikDogrular] = useState(false);
-  const [acikOnce, setAcikOnce] = useState(false);
+  const [acikOlay, setAcikOlay] = useState({});    // oyun-öncesi olay (o1..o4) — SPEC son-cilalar §6
   const [acikSahne, setAcikSahne] = useState({});  // { 1: false, 2: false, ... }
   const [acikBosluk, setAcikBosluk] = useState({});  // { b1: false, b3: false }
 
   // Mühürlenmiş seçimler (Supabase'den okunur)
   const [oznelSabitler, setOznelSabitler] = useState({});  // { sahne_no: [{ anahtar, ozet, muhur, boslukNo }] }
+  const [olayMuhurleri, setOlayMuhurleri] = useState({});  // { 'o1': [...] } — oyun-öncesi olay mühürleri
   const [tercihSecimi, setTercihSecimi] = useState({});     // { 't1': 'A', 't2': 'B', ... }
   const [b1Secim, setB1Secim] = useState(null);             // 'A'|'B'|'C'|null
   const [anSecimleri, setAnSecimleri] = useState({});       // { 's1-a1': 'A', ... } — çatal an seçimleri (SPEC an-blogu)
   const [anYazmalari, setAnYazmalari] = useState({});       // { 's2-a1': 'metin', ... } — yazma an metinleri
   const [yenile, setYenile] = useState(0);
 
-  // Tüm an id'lerini sahnelerden topla — Supabase row ayrımı için
+  // Tercih → olay manuel eşleştirme (t5 → o1)
+  const tercihOlayMap = { 't5': 'o1' };
+
+  // Tüm an id'lerini topla (sahne + oyun-öncesi olay) — Supabase row ayrımı için
   const tumAnIdleri = (() => {
     const set = new Set();
     for (const s of nina.sahnelerWorkbook) {
       for (const an of (s.anlar || [])) set.add(an.id);
     }
+    for (const o of (nina.oyunOncesi?.olaylar || [])) {
+      for (const an of (o.anlar || [])) set.add(an.id);
+    }
     return set;
   })();
+  // Tüm oyun-öncesi olay id'leri — birlesim_sahne_no yerine birlesim_olay_id mantığı
+  const tumOlayIdleri = new Set((nina.oyunOncesi?.olaylar || []).map(o => o.id));
 
   // Supabase'den oznel_sabitler oku — mount + yürüyüş kapanışı + her seçim
   useEffect(() => {
@@ -300,6 +309,7 @@ export default function NinaPilotSayfasi() {
         if (iptal || error) return;
 
         const sahneMap = {};
+        const olayMap = {};
         const tercihMap = {};
         const anSecMap = {};
         const anYazMap = {};
@@ -309,17 +319,41 @@ export default function NinaPilotSayfasi() {
           // Tercih kayıtları (bosluk_no = t1..t5)
           if (typeof row.bosluk_no === 'string' && row.bosluk_no.startsWith('t')) {
             tercihMap[row.bosluk_no] = row.secilen_dal;
+            // Olay'a bağlı tercih (t5 → o1)
+            const olayId = tercihOlayMap[row.bosluk_no];
+            if (olayId) {
+              if (!olayMap[olayId]) olayMap[olayId] = [];
+              olayMap[olayId].push({
+                anahtar: row.catal_anahtar,
+                ozet: row.ozet_metni,
+                muhur: row.muhur_metni,
+                boslukNo: row.bosluk_no,
+                secilenDal: row.secilen_dal,
+              });
+            }
           }
           // b1 kart-içi çatal
           if (row.bosluk_no === 'b1') {
             b1Dal = row.secilen_dal;
           }
-          // An kayıtları (sahne anları — SPEC an-blogu)
+          // An kayıtları (sahne + oyun-öncesi anları — SPEC an-blogu)
           if (tumAnIdleri.has(row.bosluk_no)) {
             if (row.secilen_dal) anSecMap[row.bosluk_no] = row.secilen_dal;
             else if (row.muhur_metni) anYazMap[row.bosluk_no] = row.muhur_metni;
+            // Oyun-öncesi olay an'ı (oN-aM formatı) → olayMap'e düş
+            if (/^o\d+-a\d+$/.test(row.bosluk_no)) {
+              const olayId = row.bosluk_no.split('-')[0];
+              if (!olayMap[olayId]) olayMap[olayId] = [];
+              olayMap[olayId].push({
+                anahtar: row.catal_anahtar,
+                ozet: row.ozet_metni,
+                muhur: row.muhur_metni,
+                boslukNo: row.bosluk_no,
+                secilenDal: row.secilen_dal,
+              });
+            }
           }
-          // Sahne hatırlatması
+          // Sahne hatırlatması (birlesim_sahne_no doluysa — sahne için)
           if (row.birlesim_sahne_no) {
             const sn = row.birlesim_sahne_no;
             if (!sahneMap[sn]) sahneMap[sn] = [];
@@ -341,6 +375,7 @@ export default function NinaPilotSayfasi() {
 
         if (!iptal) {
           setOznelSabitler(sahneMap);
+          setOlayMuhurleri(olayMap);
           setTercihSecimi(tercihMap);
           setB1Secim(b1Dal);
           setAnSecimleri(anSecMap);
@@ -603,6 +638,7 @@ export default function NinaPilotSayfasi() {
             nina={nina}
             tercihMap={tercihMap}
             oznelSabitler={oznelSabitler}
+            olayMuhurleri={olayMuhurleri}
             tercihSecimi={tercihSecimi}
             b1Secim={b1Secim}
             anSecimleri={anSecimleri}
@@ -611,8 +647,8 @@ export default function NinaPilotSayfasi() {
             setAcikSahne={setAcikSahne}
             acikBosluk={acikBosluk}
             setAcikBosluk={setAcikBosluk}
-            acikOnce={acikOnce}
-            setAcikOnce={setAcikOnce}
+            acikOlay={acikOlay}
+            setAcikOlay={setAcikOlay}
             onTercihSec={tercihSec}
             onB1Sec={b1Sec}
             onAnSec={anSec}
@@ -689,14 +725,17 @@ export default function NinaPilotSayfasi() {
 
 // ─── Yaşam Çizgisi — tek timeline, özet→aç kartlar ──────────
 function YasamCizgisi({
-  nina, tercihMap, oznelSabitler, tercihSecimi, b1Secim,
+  nina, tercihMap, oznelSabitler, olayMuhurleri, tercihSecimi, b1Secim,
   anSecimleri, anYazmalari,
-  acikSahne, setAcikSahne, acikBosluk, setAcikBosluk, acikOnce, setAcikOnce,
+  acikSahne, setAcikSahne, acikBosluk, setAcikBosluk, acikOlay, setAcikOlay,
   onTercihSec, onB1Sec, onAnSec, onAnYaz, onYuru, onSahneYuru,
 }) {
-  // Birleşik dizi (sira'ya göre)
+  // Birleşik dizi (sira'ya göre). Oyun-öncesi 4 olay perde:0 (timeline başı).
   const dizi = [];
-  dizi.push({ sira: 0, tip: 'once', perde: null });
+  for (let i = 0; i < nina.oyunOncesi.olaylar.length; i++) {
+    const o = nina.oyunOncesi.olaylar[i];
+    dizi.push({ sira: i + 1, tip: 'oncesiOlay', perde: 0, o });
+  }
   for (const s of nina.sahnelerWorkbook) {
     dizi.push({ sira: s.no * 10, tip: 'sahne', perde: s.perde, s });
   }
@@ -719,6 +758,10 @@ function YasamCizgisi({
     4: ['t3'],
     8: ['t1', 't4'],
   };
+  // Hangi tercih hangi oyun-öncesi olaya gömülüyor (t5 → o1)
+  const olayTercihMap = {
+    'o1': ['t5'],
+  };
 
   const cikti = [];
   let oncekiPerde = null;
@@ -728,16 +771,22 @@ function YasamCizgisi({
       cikti.push(<FazAyrac key={`p-${dgm.perde}`} perde={dgm.perde} tema={tema?.tema} />);
       oncekiPerde = dgm.perde;
     }
-    if (dgm.tip === 'once') {
+    if (dgm.tip === 'oncesiOlay') {
+      const tercihIds = olayTercihMap[dgm.o.id] || [];
       cikti.push(
-        <OnceDugum
-          key="once"
-          oyunOncesi={nina.oyunOncesi}
-          tercih={tercihMap['t5']}
+        <OlayDugum
+          key={`o-${dgm.o.id}`}
+          o={dgm.o}
+          sabitler={olayMuhurleri[dgm.o.id]}
+          tercihler={tercihIds.map(id => tercihMap[id]).filter(Boolean)}
           tercihSecimi={tercihSecimi}
-          acik={acikOnce}
-          onToggle={() => setAcikOnce(v => !v)}
+          anSecimleri={anSecimleri}
+          anYazmalari={anYazmalari}
+          acik={!!acikOlay[dgm.o.id]}
+          onToggle={() => setAcikOlay(prev => ({ ...prev, [dgm.o.id]: !prev[dgm.o.id] }))}
           onTercihSec={onTercihSec}
+          onAnSec={onAnSec}
+          onAnYaz={onAnYaz}
         />
       );
     } else if (dgm.tip === 'sahne') {
@@ -797,6 +846,7 @@ function YasamCizgisi({
 }
 
 function FazAyrac({ perde, tema }) {
+  const baslik = perde === 0 ? 'Oyun Öncesi' : `${ROMA[perde] || perde}. Perde`;
   return (
     <div style={{
       display: 'flex',
@@ -814,7 +864,7 @@ function FazAyrac({ perde, tema }) {
         textTransform: 'uppercase',
         whiteSpace: 'nowrap',
       }}>
-        {ROMA[perde] || perde}. Perde
+        {baslik}
       </span>
       <span style={{ flex: 1, height: '1px', backgroundColor: 'var(--rule)' }} />
       {tema && (
@@ -881,106 +931,141 @@ function KartBaslik({ acik, onToggle, rozet, baslik, ozet, sagBlok }) {
   );
 }
 
-// ─── Önce düğümü (oyunOncesi + t5 gömülü) ────────────────────
-function OnceDugum({ oyunOncesi, tercih, tercihSecimi, acik, onToggle, onTercihSec }) {
+// ─── Oyun-öncesi olay düğümü (SPEC son-cilalar §6) ──────────
+// Sahne kartıyla aynı düzen: rozet + başlık, açılınca Yazarın Çerçevesi
+// (sahneRef + metin) → ayraç "Senin Çerçeven" → anlar (katlanır) +
+// tercih (varsa) + "Buraya kadar mühürlediklerin" + "Adım adım kur".
+function OlayDugum({ o, sabitler, tercihler, tercihSecimi, anSecimleri, anYazmalari, acik, onToggle, onTercihSec, onAnSec, onAnYaz }) {
+  const [acikHepsi, setAcikHepsi] = useState(false);
   return (
     <div style={{
       border: '1px solid var(--rule)',
-      backgroundColor: 'var(--bg-elevated)',
-      padding: '0.9rem 1.1rem',
+      padding: '0.95rem 1.15rem',
       display: 'flex',
       flexDirection: 'column',
-      gap: acik ? '0.9rem' : 0,
+      gap: acik ? '0.85rem' : 0,
+      backgroundColor: 'var(--bg-elevated)',
     }}>
       <KartBaslik
         acik={acik}
         onToggle={onToggle}
-        rozet={<Rozet renk="var(--ink-muted)">Öncesi</Rozet>}
-        baslik="Oyun öncesi yaşam"
-        ozet="Çehov'un metne girmeden bıraktığı katman — anne ölümü, miras kaybı, baba evi."
+        rozet={<Rozet renk="var(--ink-muted)">Oyun Öncesi</Rozet>}
+        baslik={o.baslik}
+        ozet={null}
+        sagBlok={<KaynakRozet kaynak={o.kaynak} />}
       />
       {acik && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <div>
-            <Etiket>Olaylar</Etiket>
-            <div style={{ marginTop: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-              {oyunOncesi.olaylar.map(o => (
-                <div key={o.id} style={{ display: 'flex', gap: '0.7rem', alignItems: 'flex-start' }}>
-                  <KaynakRozet kaynak={o.kaynak} />
-                  <div style={{ flex: 1 }}>
-                    <span style={{
-                      fontFamily: 'var(--font-display), serif',
-                      fontStyle: 'italic',
-                      fontSize: '0.92rem',
-                      color: 'var(--ink)',
-                    }}>{o.baslik}</span>
-                    {/* Metin kanıtı (Willy stili) — baslik altında, metin üstünde, vurgusuz */}
-                    {o.sahneRef && (
-                      <p style={{
-                        fontFamily: 'var(--font-body), sans-serif',
-                        fontWeight: 200,
-                        fontSize: '0.72rem',
-                        color: 'var(--ink-muted)',
-                        lineHeight: 1.65,
-                        margin: '0.2rem 0 0 0',
-                        fontStyle: 'italic',
-                      }}>{o.sahneRef}</p>
-                    )}
-                    <p style={{
-                      fontFamily: 'var(--font-body), sans-serif',
-                      fontWeight: 200,
-                      fontSize: '0.78rem',
-                      color: 'var(--ink-soft)',
-                      lineHeight: 1.7,
-                      margin: '0.2rem 0 0 0',
-                    }}>{o.metin}</p>
-                  </div>
-                </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+          {/* ─── YAZARIN ÇERÇEVESİ — sahneRef (metin kanıtı) + metin ─── */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            {o.sahneRef && (
+              <p style={{
+                fontFamily: 'var(--font-display), serif',
+                fontStyle: 'italic',
+                fontSize: '0.82rem',
+                color: 'var(--ink-muted)',
+                lineHeight: 1.65,
+                margin: 0,
+                paddingLeft: '0.8rem',
+                borderLeft: '2px solid var(--rule)',
+              }}>{o.sahneRef}</p>
+            )}
+            <p style={{
+              fontFamily: 'var(--font-body), sans-serif',
+              fontWeight: 300,
+              fontSize: '0.88rem',
+              color: 'var(--ink-soft)',
+              lineHeight: 1.75,
+              margin: 0,
+            }}>{o.metin}</p>
+          </div>
+
+          {/* ─── Ayraç + "Senin Çerçeven" ─── */}
+          <CerceveAyrac />
+
+          {/* ─── SENİN ÇERÇEVEN — tercih + anlar + "Adım adım kur" + mühürler ─── */}
+          {tercihler && tercihler.length > 0 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+              {tercihler.map(t => (
+                <KatlananTercih
+                  key={t.id}
+                  t={t}
+                  secilen={tercihSecimi[t.id]}
+                  onSec={(harf) => onTercihSec(t, harf, null)}
+                  acikDisaridan={acikHepsi}
+                />
               ))}
             </div>
-          </div>
-          <div>
-            <Etiket>İlişkiler</Etiket>
-            <div style={{ marginTop: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-              {oyunOncesi.iliskiler.map((il, i) => (
-                <div key={i} style={{ display: 'flex', gap: '0.7rem', alignItems: 'flex-start' }}>
-                  <KaynakRozet kaynak={il.kaynak} />
-                  <div style={{ flex: 1 }}>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
-                      <span style={{
-                        fontFamily: 'var(--font-display), serif',
-                        fontStyle: 'italic',
-                        fontSize: '0.92rem',
-                        color: 'var(--ink)',
-                      }}>{il.kisi}</span>
-                      <span style={{
-                        fontFamily: 'var(--font-body), sans-serif',
-                        fontWeight: 200,
-                        fontSize: '0.6rem',
-                        letterSpacing: '0.2em',
-                        color: TON,
-                        textTransform: 'uppercase',
-                      }}>{il.tip}</span>
-                    </div>
-                    <p style={{
-                      fontFamily: 'var(--font-body), sans-serif',
-                      fontWeight: 200,
-                      fontSize: '0.78rem',
-                      color: 'var(--ink-soft)',
-                      lineHeight: 1.7,
-                      margin: '0.2rem 0 0 0',
-                    }}>{il.metin}</p>
-                  </div>
-                </div>
+          )}
+
+          {o.anlar && o.anlar.length > 0 && (
+            <>
+              <button
+                onClick={() => setAcikHepsi(true)}
+                disabled={acikHepsi}
+                style={{
+                  alignSelf: 'flex-start',
+                  padding: '0.65rem 1.2rem',
+                  backgroundColor: acikHepsi ? 'transparent' : TON,
+                  border: acikHepsi ? '1px solid var(--rule)' : 'none',
+                  color: acikHepsi ? 'var(--ink-muted)' : 'var(--bg-base)',
+                  fontFamily: 'var(--font-body), sans-serif',
+                  fontWeight: 300,
+                  fontSize: '0.68rem',
+                  letterSpacing: '0.22em',
+                  textTransform: 'uppercase',
+                  cursor: acikHepsi ? 'default' : 'pointer',
+                  transition: 'opacity 0.25s ease',
+                }}
+                onMouseEnter={(e) => { if (!acikHepsi) e.currentTarget.style.opacity = '0.85'; }}
+                onMouseLeave={(e) => { if (!acikHepsi) e.currentTarget.style.opacity = '1'; }}
+              >
+                {acikHepsi ? '✓ Açıldı' : 'Adım adım kur →'}
+              </button>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+                {o.anlar.map(an => (
+                  <KatlananAn
+                    key={an.id}
+                    an={an}
+                    secim={anSecimleri[an.id]}
+                    yazma={anYazmalari[an.id]}
+                    onSec={(secenek) => onAnSec(an, secenek)}
+                    onYaz={(metin) => onAnYaz(an, metin)}
+                    acikDisaridan={acikHepsi}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+
+          {sabitler && sabitler.length > 0 && (
+            <div style={{
+              padding: '0.7rem 0.95rem',
+              border: `1px solid color-mix(in srgb, ${TON} 30%, transparent)`,
+              backgroundColor: 'var(--accent-bg)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.35rem',
+            }}>
+              <span style={{
+                fontFamily: 'var(--font-body), sans-serif',
+                fontWeight: 300,
+                fontSize: '0.55rem',
+                letterSpacing: '0.3em',
+                color: TON,
+                textTransform: 'uppercase',
+              }}>Buraya kadar mühürlediklerin</span>
+              {sabitler.map((sab, i) => (
+                <p key={i} style={{
+                  fontFamily: 'var(--font-display), serif',
+                  fontStyle: 'italic',
+                  fontSize: '0.9rem',
+                  color: 'var(--ink-soft)',
+                  lineHeight: 1.7,
+                  margin: 0,
+                }}>{sab.muhur || sab.ozet}</p>
               ))}
             </div>
-          </div>
-          {tercih && (
-            <KatlananTercih
-              t={tercih}
-              secilen={tercihSecimi[tercih.id]}
-              onSec={(harf) => onTercihSec(tercih, harf, null)}
-            />
           )}
         </div>
       )}
@@ -1397,8 +1482,10 @@ function AnBlok({ an, secim, yazma, onSec, onYaz, gosterBaslik = true }) {
 }
 
 // ─── Katlanır wrapper (an + tercih için) — SPEC son-cilalar §4 ─
-function KatlananBlok({ etiket, soru, ozet, ipucu, ekstraNot, children }) {
-  const [acik, setAcik] = useState(false);
+function KatlananBlok({ etiket, soru, ozet, ipucu, ekstraNot, acikDisaridan, children }) {
+  const [yerelAcik, setYerelAcik] = useState(false);
+  const acik = acikDisaridan || yerelAcik;
+  const setAcik = setYerelAcik;
   return (
     <div style={{
       padding: 0,
@@ -1489,7 +1576,7 @@ function KatlananBlok({ etiket, soru, ozet, ipucu, ekstraNot, children }) {
 }
 
 // ─── Katlanır an — KatlananBlok + AnBlok'un (header gizli) içeriği ──
-function KatlananAn({ an, secim, yazma, onSec, onYaz }) {
+function KatlananAn({ an, secim, yazma, onSec, onYaz, acikDisaridan }) {
   let ozet = null;
   if (an.tip === 'catal' && secim) {
     const sec = an.secenekler?.find(s => s.dal === secim);
@@ -1498,14 +1585,14 @@ function KatlananAn({ an, secim, yazma, onSec, onYaz }) {
     ozet = 'Yazıldı';
   }
   return (
-    <KatlananBlok etiket="Seçim" soru={an.soru} ozet={ozet}>
+    <KatlananBlok etiket="Seçim" soru={an.soru} ozet={ozet} acikDisaridan={acikDisaridan}>
       <AnBlok an={an} secim={secim} yazma={yazma} onSec={onSec} onYaz={onYaz} gosterBaslik={false} />
     </KatlananBlok>
   );
 }
 
 // ─── Katlanır tercih — KatlananBlok + TercihBloku'nun (header gizli) içeriği ──
-function KatlananTercih({ t, secilen, onSec, ekstraNot }) {
+function KatlananTercih({ t, secilen, onSec, ekstraNot, acikDisaridan }) {
   const ozet = secilen ? `${secilen} seçildi` : null;
   return (
     <KatlananBlok
@@ -1513,6 +1600,7 @@ function KatlananTercih({ t, secilen, onSec, ekstraNot }) {
       soru={t.karar}
       ozet={ozet}
       ekstraNot={ekstraNot}
+      acikDisaridan={acikDisaridan}
     >
       <TercihBloku t={t} secilen={secilen} onSec={onSec} gosterBaslik={false} />
     </KatlananBlok>
