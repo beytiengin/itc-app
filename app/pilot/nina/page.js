@@ -272,7 +272,18 @@ export default function NinaPilotSayfasi() {
   const [oznelSabitler, setOznelSabitler] = useState({});  // { sahne_no: [{ anahtar, ozet, muhur, boslukNo }] }
   const [tercihSecimi, setTercihSecimi] = useState({});     // { 't1': 'A', 't2': 'B', ... }
   const [b1Secim, setB1Secim] = useState(null);             // 'A'|'B'|'C'|null
+  const [anSecimleri, setAnSecimleri] = useState({});       // { 's1-a1': 'A', ... } — çatal an seçimleri (SPEC an-blogu)
+  const [anYazmalari, setAnYazmalari] = useState({});       // { 's2-a1': 'metin', ... } — yazma an metinleri
   const [yenile, setYenile] = useState(0);
+
+  // Tüm an id'lerini sahnelerden topla — Supabase row ayrımı için
+  const tumAnIdleri = (() => {
+    const set = new Set();
+    for (const s of nina.sahnelerWorkbook) {
+      for (const an of (s.anlar || [])) set.add(an.id);
+    }
+    return set;
+  })();
 
   // Supabase'den oznel_sabitler oku — mount + yürüyüş kapanışı + her seçim
   useEffect(() => {
@@ -289,6 +300,8 @@ export default function NinaPilotSayfasi() {
 
         const sahneMap = {};
         const tercihMap = {};
+        const anSecMap = {};
+        const anYazMap = {};
         let b1Dal = null;
 
         for (const row of (data || [])) {
@@ -299,6 +312,11 @@ export default function NinaPilotSayfasi() {
           // b1 kart-içi çatal
           if (row.bosluk_no === 'b1') {
             b1Dal = row.secilen_dal;
+          }
+          // An kayıtları (sahne anları — SPEC an-blogu)
+          if (tumAnIdleri.has(row.bosluk_no)) {
+            if (row.secilen_dal) anSecMap[row.bosluk_no] = row.secilen_dal;
+            else if (row.muhur_metni) anYazMap[row.bosluk_no] = row.muhur_metni;
           }
           // Sahne hatırlatması
           if (row.birlesim_sahne_no) {
@@ -324,6 +342,8 @@ export default function NinaPilotSayfasi() {
           setOznelSabitler(sahneMap);
           setTercihSecimi(tercihMap);
           setB1Secim(b1Dal);
+          setAnSecimleri(anSecMap);
+          setAnYazmalari(anYazMap);
         }
       } catch (e) {
         console.log('oznel_sabitler exception:', e);
@@ -381,6 +401,33 @@ export default function NinaPilotSayfasi() {
       muhur_metni: secenek.oznelSabit,
       ozet_metni: `${secenek.baslik} — ${secenek.aciklama}`,
       birlesim_sahne_no: cataly.birlesimSahneNo,
+    });
+  }
+
+  // An — çatal şıkı seç (SPEC an-blogu)
+  function anSec(an, secenek) {
+    setAnSecimleri(prev => ({ ...prev, [an.id]: secenek.dal }));
+    sabitYaz({
+      bosluk_no: an.id,
+      catal_anahtar: an.id,
+      secilen_dal: secenek.dal,
+      muhur_metni: secenek.oznelSabit,
+      ozet_metni: `${secenek.baslik || ''} — ${secenek.aciklama || ''}`.trim(),
+      birlesim_sahne_no: an.birlesimSahneNo,
+    });
+  }
+
+  // An — yazma metni mühürle (blur'da çağrılır)
+  function anYaz(an, metin) {
+    setAnYazmalari(prev => ({ ...prev, [an.id]: metin }));
+    if (!metin || metin.trim().length === 0) return;
+    sabitYaz({
+      bosluk_no: an.id,
+      catal_anahtar: an.id,
+      secilen_dal: null,
+      muhur_metni: metin,
+      ozet_metni: metin,
+      birlesim_sahne_no: an.birlesimSahneNo,
     });
   }
 
@@ -492,7 +539,7 @@ export default function NinaPilotSayfasi() {
           </p>
         </KatlanirBaslik>
 
-        {/* 01 · Yazarın Çerçevesi (katlanır) */}
+        {/* 01 · Yazarın Çerçevesi (katlanır, tek çerçeve, küçük font — SPEC §6) */}
         <KatlanirBaslik
           numara="01"
           baslik="Yazarın Çerçevesi"
@@ -501,22 +548,28 @@ export default function NinaPilotSayfasi() {
           acik={acikDogrular}
           onToggle={() => setAcikDogrular(v => !v)}
         >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
-            {nina.dogrular.map(d => (
+          <div style={{
+            border: '1px solid var(--rule)',
+            backgroundColor: 'var(--bg-elevated)',
+            padding: '0.85rem 1rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.45rem',
+          }}>
+            {nina.dogrular.map((d, i) => (
               <div key={d.id} style={{
                 display: 'flex',
-                gap: '0.8rem',
+                gap: '0.65rem',
                 alignItems: 'flex-start',
-                padding: '0.7rem 0.9rem',
-                border: '1px solid var(--rule)',
-                backgroundColor: 'var(--bg-elevated)',
+                paddingTop: i === 0 ? 0 : '0.45rem',
+                borderTop: i === 0 ? 'none' : '1px solid var(--rule)',
               }}>
                 <KaynakRozet kaynak={d.kaynak} />
                 <span style={{
                   fontFamily: 'var(--font-display), serif',
-                  fontSize: '0.95rem',
+                  fontSize: '0.82rem',
                   color: 'var(--ink)',
-                  lineHeight: 1.6,
+                  lineHeight: 1.55,
                   flex: 1,
                 }}>{d.metin}</span>
               </div>
@@ -536,6 +589,8 @@ export default function NinaPilotSayfasi() {
             oznelSabitler={oznelSabitler}
             tercihSecimi={tercihSecimi}
             b1Secim={b1Secim}
+            anSecimleri={anSecimleri}
+            anYazmalari={anYazmalari}
             acikSahne={acikSahne}
             setAcikSahne={setAcikSahne}
             acikBosluk={acikBosluk}
@@ -544,6 +599,8 @@ export default function NinaPilotSayfasi() {
             setAcikOnce={setAcikOnce}
             onTercihSec={tercihSec}
             onB1Sec={b1Sec}
+            onAnSec={anSec}
+            onAnYaz={anYaz}
             onYuru={(b) => { setIlkYuruyusMu(true); setYuruyusBoslukId(b.id); }}
           />
         </AcikBaslik>
@@ -615,8 +672,9 @@ export default function NinaPilotSayfasi() {
 // ─── Yaşam Çizgisi — tek timeline, özet→aç kartlar ──────────
 function YasamCizgisi({
   nina, tercihMap, oznelSabitler, tercihSecimi, b1Secim,
+  anSecimleri, anYazmalari,
   acikSahne, setAcikSahne, acikBosluk, setAcikBosluk, acikOnce, setAcikOnce,
-  onTercihSec, onB1Sec, onYuru,
+  onTercihSec, onB1Sec, onAnSec, onAnYaz, onYuru,
 }) {
   // Birleşik dizi (sira'ya göre)
   const dizi = [];
@@ -673,9 +731,13 @@ function YasamCizgisi({
           sabitler={oznelSabitler[dgm.s.no]}
           tercihler={tercihIds.map(id => tercihMap[id]).filter(Boolean)}
           tercihSecimi={tercihSecimi}
+          anSecimleri={anSecimleri}
+          anYazmalari={anYazmalari}
           acik={!!acikSahne[dgm.s.no]}
           onToggle={() => setAcikSahne(prev => ({ ...prev, [dgm.s.no]: !prev[dgm.s.no] }))}
           onTercihSec={onTercihSec}
+          onAnSec={onAnSec}
+          onAnYaz={onAnYaz}
         />
       );
     } else {
@@ -895,8 +957,8 @@ function OnceDugum({ oyunOncesi, tercih, tercihSecimi, acik, onToggle, onTercihS
   );
 }
 
-// ─── Sahne düğümü (özet→aç, tercih + sabit hatırlatma gömülü) ─
-function SahneDugum({ s, sabitler, tercihler, tercihSecimi, acik, onToggle, onTercihSec }) {
+// ─── Sahne düğümü (özet→aç, tercih + sabit hatırlatma + anlar gömülü) ─
+function SahneDugum({ s, sabitler, tercihler, tercihSecimi, anSecimleri, anYazmalari, acik, onToggle, onTercihSec, onAnSec, onAnYaz }) {
   // Sahne 4'te t3 için özel not: "bu seçim Sahne 8'e kadar uzanır"
   const t3Notu = s.no === 4;
   return (
@@ -935,7 +997,7 @@ function SahneDugum({ s, sabitler, tercihler, tercihSecimi, acik, onToggle, onTe
                 letterSpacing: '0.3em',
                 color: TON,
                 textTransform: 'uppercase',
-              }}>Bu boşlukta şunu seçmiştin</span>
+              }}>Buraya kadar mühürlediklerin</span>
               {sabitler.map((sab, i) => (
                 <p key={i} style={{
                   fontFamily: 'var(--font-display), serif',
@@ -986,6 +1048,22 @@ function SahneDugum({ s, sabitler, tercihler, tercihSecimi, acik, onToggle, onTe
                   secilen={tercihSecimi[t.id]}
                   onSec={(harf) => onTercihSec(t, harf, s.no)}
                   ekstraNot={t.id === 't3' && t3Notu ? 'Bu seçim Sahne 8\'e kadar uzanır.' : null}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* An blokları — SPEC an-blogu-iskelet */}
+          {s.anlar && s.anlar.length > 0 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+              {s.anlar.map(an => (
+                <AnBlok
+                  key={an.id}
+                  an={an}
+                  secim={anSecimleri[an.id]}
+                  yazma={anYazmalari[an.id]}
+                  onSec={(secenek) => onAnSec(an, secenek)}
+                  onYaz={(metin) => onAnYaz(an, metin)}
                 />
               ))}
             </div>
@@ -1178,8 +1256,88 @@ function BoslukDugumYog1({ b, acik, onToggle }) {
   );
 }
 
-// ─── Kart-içi çatal (b1 yog-2) ──────────────────────────────
-function KartIciCatal({ cataly, secim, onSec }) {
+// ─── An Bloğu (sahne içi an — SPEC an-blogu-iskelet) ────────
+// Çatal an → KartIciCatal'ı yeniden kullanır.
+// Yazma an  → YazmaAni.
+function AnBlok({ an, secim, yazma, onSec, onYaz }) {
+  if (an.tip === 'catal') {
+    const cataly = { ...an, anahtar: an.id };
+    return <KartIciCatal cataly={cataly} secim={secim} onSec={onSec} etiket="An" />;
+  }
+  if (an.tip === 'yazma') {
+    return <YazmaAni an={an} deger={yazma} onYaz={onYaz} />;
+  }
+  return null;
+}
+
+// ─── Yazma anı (serbest metin → mühür) ──────────────────────
+function YazmaAni({ an, deger, onYaz }) {
+  const [yerel, setYerel] = useState(deger || '');
+  const [kaydedildi, setKaydedildi] = useState(false);
+  useEffect(() => { setYerel(deger || ''); }, [deger]);
+  return (
+    <div style={{
+      padding: '0.85rem 1rem',
+      border: `1px solid color-mix(in srgb, ${TON} 25%, transparent)`,
+      backgroundColor: 'var(--accent-bg)',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '0.6rem',
+    }}>
+      <div>
+        <span style={{
+          fontFamily: 'var(--font-body), sans-serif',
+          fontWeight: 300,
+          fontSize: '0.55rem',
+          letterSpacing: '0.3em',
+          color: TON,
+          textTransform: 'uppercase',
+        }}>An</span>
+        <p style={{
+          fontFamily: 'var(--font-display), serif',
+          fontStyle: 'italic',
+          fontSize: '0.95rem',
+          color: 'var(--ink)',
+          lineHeight: 1.6,
+          margin: '0.25rem 0 0 0',
+        }}>{an.soru}</p>
+      </div>
+      <textarea
+        value={yerel}
+        onChange={(e) => { setYerel(e.target.value); setKaydedildi(false); }}
+        onBlur={() => { if (yerel !== (deger || '')) { onYaz(yerel); setKaydedildi(true); } }}
+        placeholder="Buraya yaz…"
+        rows={3}
+        style={{
+          width: '100%',
+          padding: '0.6rem 0.75rem',
+          border: '1px solid var(--rule)',
+          backgroundColor: 'var(--bg-base)',
+          color: 'var(--ink)',
+          fontFamily: 'var(--font-body), sans-serif',
+          fontWeight: 300,
+          fontSize: '0.85rem',
+          lineHeight: 1.65,
+          resize: 'vertical',
+          boxSizing: 'border-box',
+        }}
+      />
+      {(kaydedildi || (deger && yerel === deger)) && yerel.trim().length > 0 && (
+        <span style={{
+          fontFamily: 'var(--font-body), sans-serif',
+          fontWeight: 300,
+          fontSize: '0.65rem',
+          letterSpacing: '0.2em',
+          color: TON,
+          textTransform: 'uppercase',
+        }}>✓ Kaydedildi</span>
+      )}
+    </div>
+  );
+}
+
+// ─── Kart-içi çatal (b1 yog-2 + an tipi 'catal') ────────────
+function KartIciCatal({ cataly, secim, onSec, etiket }) {
   return (
     <div style={{
       padding: '0.85rem 1rem',
@@ -1197,7 +1355,7 @@ function KartIciCatal({ cataly, secim, onSec }) {
           letterSpacing: '0.3em',
           color: TON,
           textTransform: 'uppercase',
-        }}>Çatal</span>
+        }}>{etiket || 'Çatal'}</span>
         <p style={{
           fontFamily: 'var(--font-display), serif',
           fontStyle: 'italic',

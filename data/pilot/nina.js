@@ -91,6 +91,31 @@ export const nina = {
       onerilenSicaklik: 4,
       travma: { kategoriler: [], seviye: 0, durum: 'net' },
       replikIzi: '"Tıpkı bir martı gibi, buraya, bu göle doğru akıyor..." (martı imgesinin ilk tohumu)',
+      // ──── YENİ (SPEC an-blogu-iskelet · YAPI KANITI) ────
+      // İçerik atölye dilinde sonra rötuşlanacak; şimdilik tek örnek an.
+      anlar: [
+        {
+          id: 's1-a1',
+          tip: 'catal',
+          soru: 'Atından inip Treplev’e doğru ilk adımı atarken bedenin nerede?',
+          birlesimSahneNo: 1,
+          travmaDuyarli: false,
+          secenekler: [
+            {
+              dal: 'A',
+              baslik: 'Hâlâ koşuyor',
+              aciklama: 'Bacaklar atın ritmini taşıyor; durmak istemiyor.',
+              oznelSabit: 'Vardığımda bedenim henüz koşuyordu.',
+            },
+            {
+              dal: 'B',
+              baslik: 'Aniden donmuş',
+              aciklama: 'Yere basınca her şey durdu; nefes bile.',
+              oznelSabit: 'Vardığımda bedenim bekledi.',
+            },
+          ],
+        },
+      ],
     },
     {
       no: 2, perde: 1,
