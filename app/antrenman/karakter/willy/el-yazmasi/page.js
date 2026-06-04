@@ -174,7 +174,7 @@ export default function ElYazmasiSayfasi() {
   }, []);
 
   // Kulis "Bu ana git" derin link: #sahne-3 / #bosluk-5 hash'ini parse et,
-  // ilgili paneli aç, o düğüme scroll et. Yükleme bitince bir kez çalışır.
+  // ilgili paneli aç. Scroll'u aşağıdaki ortak efekt yapar (acikPanel değişince).
   useEffect(() => {
     if (yukleniyor) return;
     if (typeof window === 'undefined') return;
@@ -184,11 +184,22 @@ export default function ElYazmasiSayfasi() {
     const tip = m[1];
     const no = Number(m[2]);
     if (tip === 'sahne') sahnePanelAc(no); else boslukPanelAc(no);
-    requestAnimationFrame(() => {
-      const el = document.getElementById(`${tip}-${no}`);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
   }, [yukleniyor]);
+
+  // Her panel açılışında (tıklama VEYA deep-link) açılan düğümü görünür kıl.
+  // Mobil-uyumlu: block:'start' + kartın scrollMarginTop'u (iPhone safe-area
+  // dahil) başlığı üst kenardan rahat boşlukla gösterir; panel render olduktan
+  // sonra çalışsın diye iki frame bekler.
+  useEffect(() => {
+    if (!acikPanel || typeof window === 'undefined') return;
+    const el = document.getElementById(`${acikPanel.tip}-${acikPanel.no}`);
+    if (!el) return;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }, [acikPanel]);
 
   // Sahne paneli — an muhurleri mount'ta toplu yuklendigi icin lazy fetch gerekmez.
   function sahnePanelAc(no) {
@@ -616,7 +627,7 @@ function DugumGrubu({ domId, dugum, acik, onAc, onKapat, t, ortak, boslukYansima
       background: acik ? 'var(--bg-elevated)' : 'transparent',
       opacity: dugumOpacity,
       transition: 'background 0.2s ease, border-color 0.25s ease, opacity 0.2s ease',
-      scrollMarginTop: '1rem',
+      scrollMarginTop: 'calc(env(safe-area-inset-top, 0px) + 4.5rem)',
     }}>
       <button
         onClick={acik ? onKapat : onAc}
