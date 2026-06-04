@@ -117,7 +117,7 @@ export default function ElYazmasiSayfasi() {
   const [acikKapiKey, setAcikKapiKey] = useState(null);
   // Topraklanma overlay'i için: hangi sahne başlığıyla çağrıldı.
   const [topraklanma, setTopraklanma] = useState(null);
-  const [yuruyusSahneNo, setYuruyusSahneNo] = useState(null); // aktif yürüyüş sahnesi no | null
+  const [yuruyusHedef, setYuruyusHedef] = useState(null); // { tip:'sahne'|'bosluk', no } | null
 
   // An mühürleme handler'ları — çatal seçimi + yazma (oznel_sabitler).
   async function anSec(an, secenek) {
@@ -301,7 +301,7 @@ export default function ElYazmasiSayfasi() {
                 setBoslukYansima={setBoslukYansima}
                 acikKapiKey={acikKapiKey}
                 onTopraklanmaAc={(baslik) => setTopraklanma(baslik)}
-                onYuruyus={(no) => setYuruyusSahneNo(no)}
+                onYuruyus={(no) => setYuruyusHedef({ tip: 'sahne', no })}
                 anSecimleri={anSecimleri}
                 anYazmalari={anYazmalari}
                 onAnSec={anSec}
@@ -317,16 +317,22 @@ export default function ElYazmasiSayfasi() {
         <TopraklanmaModu baslik={topraklanma} onKapat={() => setTopraklanma(null)} />
       )}
 
-      {yuruyusSahneNo != null && (() => {
-        const s = (data.sahnelerWorkbook || []).find((x) => x.no === yuruyusSahneNo);
-        if (!s || !s.yuruyus) return null;
-        const sarmal = { id: `sahne-${s.no}`, ad: `Sahne ${s.no}`, birlesimSahneNo: s.no, yuruyus: s.yuruyus };
+      {yuruyusHedef != null && (() => {
+        let sarmal = null;
+        if (yuruyusHedef.tip === 'sahne') {
+          const s = (data.sahnelerWorkbook || []).find((x) => x.no === yuruyusHedef.no);
+          if (s && s.yuruyus) sarmal = { id: `sahne-${s.no}`, ad: `Sahne ${s.no}`, birlesimSahneNo: s.no, yuruyus: s.yuruyus };
+        } else {
+          const b = (data.boslukSet || []).find((x) => x.no === yuruyusHedef.no);
+          if (b && b.yuruyus) sarmal = { id: `bosluk-${b.no}`, ad: b.baslik || `Boşluk ${b.no}`, birlesimSahneNo: b.sonraSahneNo, yuruyus: b.yuruyus };
+        }
+        if (!sarmal) return null;
         return (
           <BoslukYuruyusu
             karakterId={KARAKTER}
             bosluk={sarmal}
             ilkYuruyusMu={false}
-            onKapat={() => setYuruyusSahneNo(null)}
+            onKapat={() => setYuruyusHedef(null)}
           />
         );
       })()}
@@ -698,7 +704,7 @@ function DugumGrubu({ domId, dugum, acik, onAc, onKapat, t, ortak, boslukYansima
               onAnSec={onAnSec}
               onAnYaz={onAnYaz}
             />
-          : <BoslukPanel veri={veri} t={t} ortak={ortak} boslukYansima={boslukYansima} setBoslukYansima={setBoslukYansima} onKapat={onKapat} />
+          : <BoslukPanel veri={veri} t={t} ortak={ortak} boslukYansima={boslukYansima} setBoslukYansima={setBoslukYansima} onKapat={onKapat} onYuruyus={onYuruyus} />
       )}
     </div>
   );
@@ -917,7 +923,7 @@ function DurumRozeti({ durum, ortak }) {
 
 // ─── BOŞLUK PANELİ (sade: soru + yazma alanı) ──────────────────────────────
 
-function BoslukPanel({ veri, t, ortak, boslukYansima, setBoslukYansima, onKapat }) {
+function BoslukPanel({ veri, t, ortak, boslukYansima, setBoslukYansima, onKapat, onYuruyus }) {
   const boslukId = BOSLUK_ID_PREFIX + veri.no;
   const [metin, setMetin] = useState(boslukYansima[boslukId] || '');
   const [durum, setDurum] = useState(null);
@@ -935,6 +941,21 @@ function BoslukPanel({ veri, t, ortak, boslukYansima, setBoslukYansima, onKapat 
 
   return (
     <div style={{ borderTop: '1px solid var(--rule)', padding: '1.4rem 1.3rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+      {veri.yuruyus && (
+        <button
+          type="button"
+          onClick={() => onYuruyus && onYuruyus(veri.no)}
+          style={{
+            alignSelf: 'flex-start', cursor: 'pointer',
+            fontFamily: 'var(--font-body), sans-serif', fontWeight: 400,
+            fontSize: '0.62rem', letterSpacing: '0.22em', textTransform: 'uppercase',
+            color: 'var(--bg-base)', backgroundColor: 'var(--accent)',
+            border: 'none', borderRadius: '2px', padding: '0.7rem 1.2rem',
+          }}
+        >
+          {t.yuruyusBaslatBosluk || t.yuruyusBaslat || 'Bu boşluğu adım adım kur'}
+        </button>
+      )}
       {/* Önce + Sonra mini-bağlam */}
       {(veri.onceMetin || veri.sonraMetin) && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', borderLeft: '2px solid var(--rule)', paddingLeft: '1rem' }}>
