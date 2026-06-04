@@ -225,6 +225,33 @@ export default function BoslukYuruyusu({
               textTransform: 'uppercase',
             }}>{y.girisBaslik}</span>
 
+            {y.esik.yogunlukUyarisi && (
+              <div style={{
+                padding: '0.7rem 1rem',
+                border: '1px solid var(--uyari)',
+                backgroundColor: 'var(--uyari-bg)',
+                textAlign: 'left',
+              }}>
+                <span style={{
+                  fontFamily: 'var(--font-body), sans-serif',
+                  fontWeight: 300,
+                  fontSize: '0.55rem',
+                  letterSpacing: '0.3em',
+                  color: UYARI,
+                  textTransform: 'uppercase',
+                }}>Yoğun sahne · acele yok</span>
+                <p style={{
+                  fontFamily: 'var(--font-body), sans-serif',
+                  fontWeight: 300,
+                  fontSize: '0.82rem',
+                  color: 'var(--ink-soft)',
+                  lineHeight: 1.8,
+                  margin: '0.3rem 0 0 0',
+                  fontStyle: 'italic',
+                }}>{y.esik.yogunlukUyarisi}</p>
+              </div>
+            )}
+
             <p style={{
               fontFamily: 'var(--font-display), serif',
               fontStyle: 'italic',
