@@ -1113,16 +1113,12 @@ function SahneDugum({ s, sabitler, tercihler, tercihSecimi, anSecimleri, anYazma
                 {s.olay} {s.icsel} {s.yuk}
               </p>
               {s.replikIzi && (
-                <p style={{
-                  fontFamily: 'var(--font-display), serif',
-                  fontStyle: 'italic',
-                  fontSize: '0.82rem',
-                  color: 'var(--ink-muted)',
-                  lineHeight: 1.65,
-                  margin: 0,
-                  paddingLeft: '0.8rem',
-                  borderLeft: '2px solid var(--rule)',
-                }}>"{s.replikIzi}"</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', padding: '0.9rem 1.1rem 1rem', background: 'var(--accent-bg)', border: `1px solid ${TON}`, marginTop: '0.2rem' }}>
+                  <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 400, fontSize: '0.58rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>İz · Metindeki iz</span>
+                  <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.02rem', color: 'var(--ink)', lineHeight: 1.55, margin: 0 }}>
+                    <span style={{ color: TON, fontSize: '1.4rem', verticalAlign: '-0.15em', marginRight: '0.1rem' }}>❞</span>{s.replikIzi}
+                  </p>
+                </div>
               )}
               {s['eşikNotu'] && (
                 <p style={{
@@ -1473,10 +1469,10 @@ function BoslukDugumYog1({ b, acik, onToggle }) {
 function AnBlok({ an, secim, yazma, onSec, onYaz, gosterBaslik = true }) {
   if (an.tip === 'catal') {
     const cataly = { ...an, anahtar: an.id };
-    return <KartIciCatal cataly={cataly} secim={secim} onSec={onSec} etiket="Seçim" gosterBaslik={gosterBaslik} />;
+    return <KartIciCatal cataly={cataly} secim={secim} onSec={onSec} etiket="Karar" gosterBaslik={gosterBaslik} />;
   }
   if (an.tip === 'yazma') {
-    return <YazmaAni an={an} deger={yazma} onYaz={onYaz} gosterBaslik={gosterBaslik} />;
+    return <YazmaAni an={an} deger={yazma} onYaz={onYaz} etiket="Boşluk" gosterBaslik={gosterBaslik} />;
   }
   return null;
 }
@@ -1585,7 +1581,7 @@ function KatlananAn({ an, secim, yazma, onSec, onYaz, acikDisaridan }) {
     ozet = 'Yazıldı';
   }
   return (
-    <KatlananBlok etiket="Seçim" soru={an.soru} ozet={ozet} acikDisaridan={acikDisaridan}>
+    <KatlananBlok etiket="Karar" soru={an.soru} ozet={ozet} acikDisaridan={acikDisaridan}>
       <AnBlok an={an} secim={secim} yazma={yazma} onSec={onSec} onYaz={onYaz} gosterBaslik={false} />
     </KatlananBlok>
   );
@@ -1608,7 +1604,7 @@ function KatlananTercih({ t, secilen, onSec, ekstraNot, acikDisaridan }) {
 }
 
 // ─── Yazma anı (serbest metin → mühür) ──────────────────────
-function YazmaAni({ an, deger, onYaz, gosterBaslik = true }) {
+function YazmaAni({ an, deger, onYaz, etiket = 'Boşluk', gosterBaslik = true }) {
   const [yerel, setYerel] = useState(deger || '');
   const [kaydedildi, setKaydedildi] = useState(false);
   useEffect(() => { setYerel(deger || ''); }, [deger]);
@@ -1630,7 +1626,7 @@ function YazmaAni({ an, deger, onYaz, gosterBaslik = true }) {
             letterSpacing: '0.3em',
             color: TON,
             textTransform: 'uppercase',
-          }}>Seçim</span>
+          }}>{etiket}</span>
           <p style={{
             fontFamily: 'var(--font-display), serif',
             fontStyle: 'italic',
@@ -1669,7 +1665,7 @@ function YazmaAni({ an, deger, onYaz, gosterBaslik = true }) {
           letterSpacing: '0.2em',
           color: TON,
           textTransform: 'uppercase',
-        }}>✓ Kaydedildi</span>
+        }}>✓ mühürlendi</span>
       )}
     </div>
   );

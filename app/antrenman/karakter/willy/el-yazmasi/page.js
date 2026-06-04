@@ -547,28 +547,7 @@ function OlayDugumu({ olay, acik, onAc, t, anSecimleri, anYazmalari, onAnSec, on
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', marginTop: '0.2rem' }}>
                 <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.58rem', letterSpacing: '0.28em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.panelYazarAnlar}</span>
                 {olay.anlar.map((an) => (
-                  <div key={an.id} style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', padding: '0.9rem 1rem', background: 'var(--bg-base)', border: '1px solid var(--rule)' }}>
-                    <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.02rem', color: 'var(--ink)', margin: 0, lineHeight: 1.55 }}>{an.soru}</p>
-                    {an.tip === 'catal' && Array.isArray(an.secenekler) ? (
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                        {an.secenekler.map((se) => (
-                          <AnSecenek
-                            key={se.dal}
-                            secili={anSecimleri[an.id] === se.dal}
-                            soluk={anSecimleri[an.id] && anSecimleri[an.id] !== se.dal}
-                            onClick={() => onAnSec(an, se)}
-                            harf={se.dal}
-                            baslik={se.baslik}
-                            aciklama={se.aciklama}
-                            muhur={se.oznelSabit}
-                          />
-                        ))}
-                      </div>
-                    ) : null}
-                    {an.tip === 'yazma' ? (
-                      <AnYazma an={an} deger={anYazmalari[an.id] || ''} onYaz={(metin) => onAnYaz(an, metin)} t={t} />
-                    ) : null}
-                  </div>
+                  <AnKart key={an.id} an={an} secimler={anSecimleri} muhurler={anYazmalari} onAnSec={onAnSec} onAnYaz={onAnYaz} t={t} />
                 ))}
               </div>
             )}
@@ -748,9 +727,11 @@ function YazarinCercevesiSahne({ veri, t }) {
         </div>
       ))}
       {veri.replikIzi ? (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', borderLeft: '2px solid var(--accent)', paddingLeft: '0.9rem' }}>
-          <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.28em', color: TON, textTransform: 'uppercase' }}>{t.panelYazarReplik}</span>
-          <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink)', margin: 0, lineHeight: 1.6 }}>{veri.replikIzi}</p>
+        <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '0.4rem', padding: '0.9rem 1.1rem 1rem', background: 'var(--accent-bg)', border: `1px solid ${TON}`, marginTop: '0.3rem' }}>
+          <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 400, fontSize: '0.58rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>{t.anIzEtiket} · {t.panelYazarReplik}</span>
+          <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.08rem', color: 'var(--ink)', margin: 0, lineHeight: 1.55, fontWeight: 400 }}>
+            <span style={{ color: TON, fontSize: '1.4rem', verticalAlign: '-0.15em', marginRight: '0.1rem' }}>❞</span>{veri.replikIzi}
+          </p>
         </div>
       ) : null}
     </div>
@@ -761,24 +742,12 @@ function YazarinCercevesiSahne({ veri, t }) {
 function SeninCercevenSahne({ veri, t, secimler, muhurler, onAnSec, onAnYaz }) {
   const anlar = Array.isArray(veri.anlar) ? veri.anlar : [];
   if (anlar.length === 0) {
-    return <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-muted)', lineHeight: 1.6, margin: 0 }}>{t.panelYazarHenuz}</p>;
+    return <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-muted)', lineHeight: 1.6, margin: 0 }}>{t.seninBosDurum}</p>;
   }
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
       {anlar.map((an) => (
-        <div key={an.id} style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', padding: '0.9rem 1rem', background: 'var(--bg-base)', border: '1px solid var(--rule)' }}>
-          <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.02rem', color: 'var(--ink)', margin: 0, lineHeight: 1.55 }}>{an.soru}</p>
-          {an.tip === 'catal' && Array.isArray(an.secenekler) ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              {an.secenekler.map((se) => (
-                <AnSecenek key={se.dal} secili={secimler[an.id] === se.dal} soluk={secimler[an.id] && secimler[an.id] !== se.dal} onClick={() => onAnSec(an, se)} harf={se.dal} baslik={se.baslik} aciklama={se.aciklama} muhur={se.oznelSabit} />
-              ))}
-            </div>
-          ) : null}
-          {an.tip === 'yazma' ? (
-            <AnYazma an={an} deger={muhurler[an.id] || ''} onYaz={(metin) => onAnYaz(an, metin)} t={t} />
-          ) : null}
-        </div>
+        <AnKart key={an.id} an={an} secimler={secimler} muhurler={muhurler} onAnSec={onAnSec} onAnYaz={onAnYaz} t={t} />
       ))}
     </div>
   );
@@ -824,6 +793,30 @@ function AnSecenek({ secili, soluk, onClick, harf, baslik, aciklama, muhur }) {
 }
 
 // ─── An yazma (serbest metin → mühür — Nina YazmaAni paritesi) ──────────────
+// ─── AN KARTI (paylasilan) — tip-duyarli eyebrow: Karar / Bosluk ────────────
+// Bilissel cerceve gorunur: catal = "Karar" (yorum secilir+muhurlenir),
+// yazma = "Bosluk" (oyuncu uretir+muhurler). Soru-cevap degil, bosluk-doldurma.
+function AnKart({ an, secimler, muhurler, onAnSec, onAnYaz, t }) {
+  const isKarar = an.tip === 'catal';
+  const eyebrow = isKarar ? t.anKararEtiket : t.anBoslukEtiket;
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem', padding: '0.9rem 1rem', background: 'var(--bg-base)', borderLeft: `2px solid ${TON}`, border: '1px solid var(--rule)' }}>
+      <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 400, fontSize: '0.58rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>{eyebrow}</span>
+      <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.02rem', color: 'var(--ink)', margin: 0, lineHeight: 1.55 }}>{an.soru}</p>
+      {isKarar && Array.isArray(an.secenekler) ? (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          {an.secenekler.map((se) => (
+            <AnSecenek key={se.dal} secili={secimler[an.id] === se.dal} soluk={secimler[an.id] && secimler[an.id] !== se.dal} onClick={() => onAnSec(an, se)} harf={se.dal} baslik={se.baslik} aciklama={se.aciklama} muhur={se.oznelSabit} />
+          ))}
+        </div>
+      ) : null}
+      {an.tip === 'yazma' ? (
+        <AnYazma an={an} deger={muhurler[an.id] || ''} onYaz={(metin) => onAnYaz(an, metin)} t={t} />
+      ) : null}
+    </div>
+  );
+}
+
 function AnYazma({ an, deger, onYaz, t }) {
   const [yerel, setYerel] = useState(deger || '');
   const [kaydedildi, setKaydedildi] = useState(false);
@@ -844,8 +837,10 @@ function AnYazma({ an, deger, onYaz, t }) {
         }}
       />
       {(kaydedildi || (deger && yerel === deger)) && yerel.trim().length > 0 ? (
-        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.65rem', letterSpacing: '0.2em', color: TON, textTransform: 'uppercase', alignSelf: 'flex-end' }}>{t.kaydedildi || '✓'}</span>
-      ) : null}
+        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.65rem', letterSpacing: '0.2em', color: TON, textTransform: 'uppercase', alignSelf: 'flex-end' }}>{t.muhurlendi || '✓'}</span>
+      ) : (
+        <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.74rem', color: 'var(--ink-muted)', alignSelf: 'flex-end' }}>{t.muhurleYonerge}</span>
+      )}
     </div>
   );
 }
