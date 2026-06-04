@@ -93,10 +93,14 @@ export default function ElYazmasiSayfasi() {
     const sahneSirali = [...(data.sahnelerWorkbook || [])].sort((a, b) => a.no - b.no);
     const bosluklar = data.boslukSet || []; // dizi fiziksel sırası korunur — sort YOK
     const dugumler = [];
-    // Oyun Öncesi olaylar → timeline başı (kronolojik en eski). Nina'daki perde:0 mantığı.
-    for (const olay of (data.oyunOncesi?.olaylar || [])) {
-      dugumler.push({ tip: 'olay', veri: olay });
+    // Oyun Öncesi — metnin yazmadığı, oyuncunun kuracağı sahne-öncesi boşluk katmanı.
+    const olaylar = data.oyunOncesi?.olaylar || [];
+    if (olaylar.length) {
+      dugumler.push({ tip: 'ayrac', anahtar: 'oyunOncesi' });
+      for (const olay of olaylar) dugumler.push({ tip: 'olay', veri: olay });
     }
+    // Oyun Başlangıcı — Miller'ın yazdığı metnin başladığı yer.
+    dugumler.push({ tip: 'ayrac', anahtar: 'oyunBaslangici' });
     for (const sahne of sahneSirali) {
       const sahneOncesi = bosluklar.filter((b) => b.sonraSahneNo === sahne.no);
       for (const b of sahneOncesi) dugumler.push({ tip: 'bosluk', veri: b });
@@ -276,8 +280,14 @@ export default function ElYazmasiSayfasi() {
           <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-soft)', marginBottom: '0.4rem' }}>{t.senaryoAltyazi}</span>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
-            {akis.map((d) => (
-              d.tip === 'olay' ? (
+            {akis.map((d, idx) => (
+              d.tip === 'ayrac' ? (
+                <AyracWilly
+                  key={`ayrac-${d.anahtar}`}
+                  baslik={d.anahtar === 'oyunOncesi' ? t.fazOyunOncesi : t.fazOyunBaslangici}
+                  altyazi={d.anahtar === 'oyunOncesi' ? t.fazOyunOncesiAlt : t.fazOyunBaslangiciAlt}
+                />
+              ) : d.tip === 'olay' ? (
                 <div key={`olay-${d.veri.no}`} id={`olay-${d.veri.no}`} style={{ scrollMarginTop: 'calc(env(safe-area-inset-top, 0px) + 4.5rem)' }}>
                   <OlayDugumu
                     olay={d.veri}
@@ -356,6 +366,40 @@ function Etiket({ children }) {
       color: TON,
       textTransform: 'uppercase',
     }}>{children}</span>
+  );
+}
+
+// Timeline faz ayracı — "Oyun Öncesi" / "Oyun Başlangıcı" (Nina FazAyrac kalıbı).
+function AyracWilly({ baslik, altyazi }) {
+  return (
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.8rem',
+      padding: '0.6rem 0 0.2rem 0',
+      margin: '0.5rem 0 0 0',
+    }}>
+      <span style={{
+        fontFamily: 'var(--font-body), sans-serif',
+        fontWeight: 300,
+        fontSize: '0.6rem',
+        letterSpacing: '0.35em',
+        color: TON,
+        textTransform: 'uppercase',
+        whiteSpace: 'nowrap',
+      }}>{baslik}</span>
+      <span style={{ flex: 1, height: '1px', backgroundColor: 'var(--rule)' }} />
+      {altyazi && (
+        <span style={{
+          fontFamily: 'var(--font-display), serif',
+          fontStyle: 'italic',
+          fontSize: '0.78rem',
+          color: 'var(--ink-muted)',
+          textAlign: 'right',
+          maxWidth: '55%',
+        }}>{altyazi}</span>
+      )}
+    </div>
   );
 }
 
