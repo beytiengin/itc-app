@@ -38,6 +38,8 @@ import {
   boslukYansimalariniGetir,
   antrenmanAdimiKaydet,
   antrenmanYansimalariniGetir,
+  anSabitiKaydet,
+  anSabitleriniGetir,
 } from '../../../../lib/kulis';
 import TopraklanmaModu from '../../../../../components/TopraklanmaModu';
 
@@ -110,12 +112,39 @@ export default function ElYazmasiSayfasi() {
   // Mevcut yazımları okumak için yansıma haritaları.
   const [boslukYansima, setBoslukYansima] = useState({}); // { 'elyazma-bosluk-1': 'metin' }
   const [sahneYansima, setSahneYansima] = useState({});   // { 'elyazma-sahne-3': { 1: '...', 2: '...' } }
+  const [anSecimleri, setAnSecimleri] = useState({});     // { 's3-a1': 'A', ... } — çatal an seçimleri
+  const [anYazmalari, setAnYazmalari] = useState({});     // { 's2-a2': 'metin', ... } — yazma an mühürleri
   const [yukleniyor, setYukleniyor] = useState(true);
 
   // Aşama 3: kalibrasyondan açık kapı (Bilişsel/Bedensel/Duygusal); skor yok.
   const [acikKapiKey, setAcikKapiKey] = useState(null);
   // Topraklanma overlay'i için: hangi sahne başlığıyla çağrıldı.
   const [topraklanma, setTopraklanma] = useState(null);
+
+  // An mühürleme handler'ları — çatal seçimi + yazma (oznel_sabitler).
+  async function anSec(an, secenek) {
+    setAnSecimleri((p) => ({ ...p, [an.id]: secenek.dal }));
+    await anSabitiKaydet(KARAKTER, {
+      boslukNo: an.id,
+      catalAnahtar: an.id,
+      secilenDal: secenek.dal,
+      muhurMetni: secenek.oznelSabit || null,
+      ozetMetni: `${secenek.baslik || ''} — ${secenek.aciklama || ''}`.trim(),
+      birlesimSahneNo: an.birlesimSahneNo ?? null,
+    });
+  }
+  async function anYaz(an, metin) {
+    setAnYazmalari((p) => ({ ...p, [an.id]: metin }));
+    if (!metin || metin.trim().length === 0) return;
+    await anSabitiKaydet(KARAKTER, {
+      boslukNo: an.id,
+      catalAnahtar: an.id,
+      secilenDal: null,
+      muhurMetni: metin,
+      ozetMetni: metin,
+      birlesimSahneNo: an.birlesimSahneNo ?? null,
+    });
+  }
 
   useEffect(() => {
     let iptal = false;
@@ -130,6 +159,12 @@ export default function ElYazmasiSayfasi() {
         // — direkt set, forEach yapma.
         setBoslukYansima(bosluklar && typeof bosluklar === 'object' ? bosluklar : {});
         setSahneYansima({}); // sahne yansımaları panel açılınca lazy yüklenir.
+        // An mühürleri (çatal seçimleri + yazma) — oznel_sabitler'den.
+        const sabitler = await anSabitleriniGetir(KARAKTER);
+        if (!iptal && sabitler) {
+          setAnSecimleri(sabitler.secimler || {});
+          setAnYazmalari(sabitler.muhurler || {});
+        }
         // Açık kapı — VAK baskından sessizce türet (skor/sayı yok).
         const baskin = profil?.vak?.baskin || profil?.vak?.dominant;
         setAcikKapiKey(acikKapi(baskin));
@@ -278,6 +313,10 @@ export default function ElYazmasiSayfasi() {
                 setSahneYansima={setSahneYansima}
                 acikKapiKey={acikKapiKey}
                 onTopraklanmaAc={(baslik) => setTopraklanma(baslik)}
+                anSecimleri={anSecimleri}
+                anYazmalari={anYazmalari}
+                onAnSec={anSec}
+                onAnYaz={anYaz}
               />
             ))}
           </div>
@@ -525,7 +564,7 @@ function OlayDugumu({ olay, acik, onAc, t }) {
 
 // ─── DÜĞÜM (sahne / boşluk) ────────────────────────────────────────────────
 
-function DugumGrubu({ domId, dugum, acik, onAc, onKapat, t, ortak, boslukYansima, setBoslukYansima, sahneYansima, setSahneYansima, acikKapiKey, onTopraklanmaAc }) {
+function DugumGrubu({ domId, dugum, acik, onAc, onKapat, t, ortak, boslukYansima, setBoslukYansima, sahneYansima, setSahneYansima, acikKapiKey, onTopraklanmaAc, anSecimleri, anYazmalari, onAnSec, onAnYaz }) {
   const isSahne = dugum.tip === 'sahne';
   const veri = dugum.veri;
 
@@ -639,6 +678,10 @@ function DugumGrubu({ domId, dugum, acik, onAc, onKapat, t, ortak, boslukYansima
               provisional={SAHNE_PROVISIONAL.has(veri.no)}
               acikKapiKey={acikKapiKey}
               onTopraklanmaAc={onTopraklanmaAc}
+              anSecimleri={anSecimleri}
+              anYazmalari={anYazmalari}
+              onAnSec={onAnSec}
+              onAnYaz={onAnYaz}
             />
           : <BoslukPanel veri={veri} t={t} ortak={ortak} boslukYansima={boslukYansima} setBoslukYansima={setBoslukYansima} onKapat={onKapat} />
       )}
@@ -648,7 +691,7 @@ function DugumGrubu({ domId, dugum, acik, onAc, onKapat, t, ortak, boslukYansima
 
 // ─── SAHNE PANELİ (iki sekme: Yazarın Çerçevesi · Senin Çerçeven) ──────────
 
-function SahnePanel({ veri, t, ortak, sahneYansima, setSahneYansima, onKapat, kayitAni, hassas, provisional, acikKapiKey, onTopraklanmaAc }) {
+function SahnePanel({ veri, t, ortak, sahneYansima, setSahneYansima, onKapat, kayitAni, hassas, provisional, acikKapiKey, onTopraklanmaAc, anSecimleri, anYazmalari, onAnSec, onAnYaz }) {
   const [sekme, setSekme] = useState('yazar');
   const sahneId = SAHNE_ANTRENMAN_PREFIX + veri.no;
   const mevcut = sahneYansima[sahneId] || {};
@@ -682,7 +725,7 @@ function SahnePanel({ veri, t, ortak, sahneYansima, setSahneYansima, onKapat, ka
       </div>
 
       {sekme === 'yazar' ? (
-        <YazarinCercevesiSahne veri={veri} t={t} />
+        <YazarinCercevesiSahne veri={veri} t={t} secimler={anSecimleri} muhurler={anYazmalari} onAnSec={onAnSec} onAnYaz={onAnYaz} />
       ) : (
         <>
           <SeninCerceven3Vurus
@@ -830,11 +873,11 @@ function DerinlestirVurus({ baslik, metin, aktif, rozetMetin, aksanli }) {
   );
 }
 
-function YazarinCercevesiSahne({ veri, t }) {
+function YazarinCercevesiSahne({ veri, t, secimler, muhurler, onAnSec, onAnYaz }) {
   // Sahnenin manuscript dramaturjik verisi — Aşama 2 (Karar 41).
   // willy.js sahnelerWorkbook'tan: olay (sahnede ne oluyor), icsel (ton),
   // yuk (sonraki sahneye taşıdığı). Yapısal "Çapa No" GÖSTERİLMEZ.
-  // Nina paritesi: replikIzi (metin izi) + anlar[] (sahne içi anlar — görünür).
+  // Nina paritesi: replikIzi (metin izi) + anlar[] (interaktif mühürleme).
   const alanlar = [
     { etiket: t.panelYazarOlay,  icerik: veri.olay },
     { etiket: t.panelYazarIcsel, icerik: veri.icsel },
@@ -865,28 +908,101 @@ function YazarinCercevesiSahne({ veri, t }) {
         </div>
       ) : null}
 
-      {/* Sahne içi anlar — görünür liste (mühür etkileşimi sonraki adım) */}
+      {/* Sahne içi anlar — interaktif mühürleme */}
       {anlar.length > 0 ? (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', marginTop: '0.3rem' }}>
           <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.28em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.panelYazarAnlar}</span>
           {anlar.map((an) => (
-            <div key={an.id} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', padding: '0.9rem 1rem', background: 'var(--bg-base)', border: '1px solid var(--rule)' }}>
+            <div key={an.id} style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', padding: '0.9rem 1rem', background: 'var(--bg-base)', border: '1px solid var(--rule)' }}>
               <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.02rem', color: 'var(--ink)', margin: 0, lineHeight: 1.55 }}>{an.soru}</p>
-              {Array.isArray(an.secenekler) ? (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', marginTop: '0.15rem' }}>
+              {an.tip === 'catal' && Array.isArray(an.secenekler) ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   {an.secenekler.map((se) => (
-                    <div key={se.dal} style={{ display: 'flex', gap: '0.6rem', alignItems: 'baseline' }}>
-                      <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 500, fontSize: '0.78rem', color: TON, flexShrink: 0 }}>{se.dal}</span>
-                      <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.9rem', color: 'var(--ink)', lineHeight: 1.5 }}>
-                        <strong style={{ fontWeight: 500 }}>{se.baslik}</strong>{se.aciklama ? ' — ' + se.aciklama : ''}
-                      </span>
-                    </div>
+                    <AnSecenek
+                      key={se.dal}
+                      secili={secimler[an.id] === se.dal}
+                      soluk={secimler[an.id] && secimler[an.id] !== se.dal}
+                      onClick={() => onAnSec(an, se)}
+                      harf={se.dal}
+                      baslik={se.baslik}
+                      aciklama={se.aciklama}
+                      muhur={se.oznelSabit}
+                    />
                   ))}
                 </div>
+              ) : null}
+              {an.tip === 'yazma' ? (
+                <AnYazma an={an} deger={muhurler[an.id] || ''} onYaz={(metin) => onAnYaz(an, metin)} t={t} />
               ) : null}
             </div>
           ))}
         </div>
+      ) : null}
+    </div>
+  );
+}
+
+// ─── An seçeneği (çatal şıkı — Nina SecenekSik paritesi) ────────────────────
+function AnSecenek({ secili, soluk, onClick, harf, baslik, aciklama, muhur }) {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        background: secili ? 'var(--accent-bg)' : 'var(--bg-elevated)',
+        border: secili ? `1.5px solid ${TON}` : '1px solid var(--rule)',
+        padding: '0.65rem 0.85rem',
+        display: 'flex',
+        gap: '0.7rem',
+        alignItems: 'flex-start',
+        cursor: 'pointer',
+        opacity: soluk ? 0.55 : 1,
+        textAlign: 'left',
+        transition: 'opacity 0.2s ease, border-color 0.2s ease',
+      }}
+    >
+      <span style={{
+        width: '24px', height: '24px', minWidth: '24px', borderRadius: '50%',
+        border: `1px solid ${secili ? TON : 'var(--ink-muted)'}`,
+        backgroundColor: secili ? TON : 'transparent',
+        color: secili ? 'var(--bg-base)' : 'var(--ink-muted)',
+        fontFamily: 'var(--font-body), sans-serif', fontWeight: 400, fontSize: '0.7rem',
+        display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '0.05rem',
+      }}>{secili ? '✓' : harf}</span>
+      <span style={{ flex: 1 }}>
+        {baslik ? (
+          <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink)', display: 'block', marginBottom: '0.2rem' }}>{baslik}</span>
+        ) : null}
+        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.8rem', color: 'var(--ink-soft)', lineHeight: 1.6, display: 'block' }}>{aciklama}</span>
+        {secili && muhur ? (
+          <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.82rem', color: TON, lineHeight: 1.6, display: 'block', marginTop: '0.4rem' }}>↳ {muhur}</span>
+        ) : null}
+      </span>
+    </button>
+  );
+}
+
+// ─── An yazma (serbest metin → mühür — Nina YazmaAni paritesi) ──────────────
+function AnYazma({ an, deger, onYaz, t }) {
+  const [yerel, setYerel] = useState(deger || '');
+  const [kaydedildi, setKaydedildi] = useState(false);
+  useEffect(() => { setYerel(deger || ''); }, [deger]);
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+      <textarea
+        value={yerel}
+        onChange={(e) => { setYerel(e.target.value); setKaydedildi(false); }}
+        onBlur={() => { if (yerel !== (deger || '')) { onYaz(yerel); setKaydedildi(true); } }}
+        placeholder={t.yorumPlaceholder}
+        rows={3}
+        style={{
+          width: '100%', padding: '0.6rem 0.75rem', border: '1px solid var(--rule)',
+          backgroundColor: 'var(--bg-elevated)', color: 'var(--ink)',
+          fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.85rem',
+          lineHeight: 1.65, resize: 'vertical', boxSizing: 'border-box', outline: 'none', caretColor: TON,
+        }}
+      />
+      {(kaydedildi || (deger && yerel === deger)) && yerel.trim().length > 0 ? (
+        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.65rem', letterSpacing: '0.2em', color: TON, textTransform: 'uppercase', alignSelf: 'flex-end' }}>{t.kaydedildi || '✓'}</span>
       ) : null}
     </div>
   );
