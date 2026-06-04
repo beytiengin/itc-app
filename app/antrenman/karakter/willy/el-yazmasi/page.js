@@ -715,25 +715,27 @@ function SahnePanel({ veri, t, ortak, onKapat, kayitAni, hassas, provisional, ac
         <SekmeBtn aktif={sekme === 'yazar'} onClick={() => setSekme('yazar')}>{t.panelYazarBaslik}</SekmeBtn>
         <SekmeBtn aktif={sekme === 'senin'} onClick={() => setSekme('senin')}>{t.panelSeninBaslik}</SekmeBtn>
       </div>
-      {veri.yuruyus && (
-        <button
-          type="button"
-          onClick={() => onYuruyus && onYuruyus(veri.no)}
-          style={{
-            alignSelf: 'flex-start', cursor: 'pointer',
-            fontFamily: 'var(--font-body), sans-serif', fontWeight: 400,
-            fontSize: '0.62rem', letterSpacing: '0.22em', textTransform: 'uppercase',
-            color: 'var(--bg-base)', backgroundColor: 'var(--accent)',
-            border: 'none', borderRadius: '2px', padding: '0.7rem 1.2rem',
-          }}
-        >
-          {t.yuruyusBaslat || 'Bu sahneyi adım adım kur'}
-        </button>
-      )}
       {sekme === 'yazar' ? (
         <YazarinCercevesiSahne veri={veri} t={t} />
       ) : (
-        <SeninCercevenSahne veri={veri} t={t} secimler={anSecimleri} muhurler={anYazmalari} onAnSec={onAnSec} onAnYaz={onAnYaz} />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+          {veri.yuruyus && (
+            <button
+              type="button"
+              onClick={() => onYuruyus && onYuruyus(veri.no)}
+              style={{
+                alignSelf: 'flex-start', cursor: 'pointer',
+                fontFamily: 'var(--font-body), sans-serif', fontWeight: 400,
+                fontSize: '0.62rem', letterSpacing: '0.22em', textTransform: 'uppercase',
+                color: 'var(--bg-base)', backgroundColor: 'var(--accent)',
+                border: 'none', borderRadius: '2px', padding: '0.7rem 1.2rem',
+              }}
+            >
+              {t.yuruyusBaslat || 'Bu sahneyi adım adım kur'}
+            </button>
+          )}
+          <SeninCercevenSahne veri={veri} t={t} secimler={anSecimleri} muhurler={anYazmalari} onAnSec={onAnSec} onAnYaz={onAnYaz} />
+        </div>
       )}
     </div>
   );
