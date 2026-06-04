@@ -107,7 +107,7 @@ export default function ElYazmasiSayfasi() {
 
   const [acikPanel, setAcikPanel] = useState(null); // { tip, no } | null
   const [dogrularAcik, setDogrularAcik] = useState(false);
-  const [iliskilerAcik, setIliskilerAcik] = useState(false);
+  const [kunyeSekme, setKunyeSekme] = useState('dogrular'); // 'dogrular' | 'iliskiler'
 
   // Mevcut yazımları okumak için yansıma haritaları.
   const [boslukYansima, setBoslukYansima] = useState({}); // { 'elyazma-bosluk-1': 'metin' }
@@ -237,33 +237,36 @@ export default function ElYazmasiSayfasi() {
           <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.75rem', letterSpacing: '0.2em', color: 'var(--ink-soft)', textTransform: 'uppercase' }}>{t.altyazi}</span>
         </header>
 
-        {/* 2. Doğrular künyesi (katlanır) */}
+        {/* 2. Doğrular + İlişkiler — tek katlanır künye, içinde iki sekme */}
         <BolumKatlanir
-          baslik={t.dogrularBaslik}
-          altyazi={`${(data.dogrular || []).length} ${t.dogrularSayim} · ${t.dokunAc}`}
+          baslik={t.kunyeBaslik || 'Künye'}
+          altyazi={`${(data.dogrular || []).length} ${t.dogrularSayim} · ${(data.oyunOncesi?.iliskiler || []).length} ${t.iliskilerSayim} · ${t.dokunAc}`}
           acik={dogrularAcik}
           setAcik={setDogrularAcik}
         >
-          <ul style={{ borderLeft: `2px solid ${TON}`, paddingLeft: '1.3rem', margin: '0.8rem 0 0', listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
-            {(data.dogrular || []).map((d, i) => (
-              <li key={i} style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.02rem', lineHeight: 1.6, color: 'var(--ink)' }}>
-                {typeof d === 'string' ? d : d.madde}
-              </li>
-            ))}
-          </ul>
-        </BolumKatlanir>
-
-        {/* 3. İlişkiler künyesi (katlanır) */}
-        <BolumKatlanir
-          baslik={t.iliskilerBaslik}
-          altyazi={`${(data.oyunOncesi?.iliskiler || []).length} ${t.iliskilerSayim} · ${t.dokunAc}`}
-          acik={iliskilerAcik}
-          setAcik={setIliskilerAcik}
-        >
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.7rem', marginTop: '0.8rem' }}>
-            {(data.oyunOncesi?.iliskiler || []).map((iliski) => (
-              <IliskiKart key={iliski.no} iliski={iliski} />
-            ))}
+          <div style={{ marginTop: '0.8rem' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', borderBottom: '1px solid var(--rule)', marginBottom: '1rem' }}>
+              <KunyeSekmeBtn aktif={kunyeSekme === 'dogrular'} onClick={() => setKunyeSekme('dogrular')}>{t.dogrularBaslik}</KunyeSekmeBtn>
+              <KunyeSekmeBtn aktif={kunyeSekme === 'iliskiler'} onClick={() => setKunyeSekme('iliskiler')}>{t.iliskilerBaslik}</KunyeSekmeBtn>
+            </div>
+            {kunyeSekme === 'dogrular' ? (
+              <ul style={{ borderLeft: `2px solid ${TON}`, paddingLeft: '1.3rem', margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+                {(data.dogrular || []).map((d, i) => (
+                  <li key={i} style={{ display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>
+                    {typeof d !== 'string' && d.kaynak && <KaynakRozet kaynak={d.kaynak} t={t} />}
+                    <span style={{ flex: 1, fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.02rem', lineHeight: 1.6, color: 'var(--ink)' }}>
+                      {typeof d === 'string' ? d : d.madde}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.7rem' }}>
+                {(data.oyunOncesi?.iliskiler || []).map((iliski) => (
+                  <IliskiKart key={iliski.no} iliski={iliski} t={t} />
+                ))}
+              </div>
+            )}
           </div>
         </BolumKatlanir>
 
@@ -412,32 +415,98 @@ function BolumKatlanir({ baslik, altyazi, acik, setAcik, children }) {
   );
 }
 
-function IliskiKart({ iliski }) {
+function KaynakRozet({ kaynak, t }) {
+  const isMetin = kaynak === 'metin';
+  const renk = isMetin ? 'var(--onay)' : 'var(--ink-muted)';
+  const etiket = isMetin ? (t?.kaynakMetin || 'metin') : (t?.kaynakCikarim || 'çıkarım');
+  return (
+    <span style={{
+      fontFamily: 'var(--font-body), sans-serif',
+      fontWeight: 200,
+      fontSize: '0.52rem',
+      letterSpacing: '0.2em',
+      color: renk,
+      textTransform: 'uppercase',
+      padding: '0.18rem 0.5rem',
+      border: `1px solid color-mix(in srgb, ${renk} 33%, transparent)`,
+      whiteSpace: 'nowrap',
+      marginTop: '0.15rem',
+    }}>{etiket}</span>
+  );
+}
+
+function KunyeSekmeBtn({ aktif, onClick, children }) {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        background: 'none',
+        border: 'none',
+        borderBottom: aktif ? `2px solid ${TON}` : '2px solid transparent',
+        padding: '0.4rem 0.2rem 0.6rem',
+        marginBottom: '-1px',
+        cursor: 'pointer',
+        fontFamily: 'var(--font-body), sans-serif',
+        fontWeight: aktif ? 400 : 300,
+        fontSize: '0.7rem',
+        letterSpacing: '0.12em',
+        textTransform: 'uppercase',
+        color: aktif ? 'var(--ink)' : 'var(--ink-muted)',
+        transition: 'color 0.2s ease, border-color 0.2s ease',
+      }}
+    >{children}</button>
+  );
+}
+
+function IliskiKart({ iliski, t }) {
   const hayalet = (iliski.rol || '').toLowerCase().includes('hayalet') || (iliski.rol || '').toLowerCase().includes('ghost');
+  const satir = (etiket, metin) => metin ? (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.1rem' }}>
+      <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.55rem', letterSpacing: '0.18em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{etiket}</span>
+      <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.82rem', color: 'var(--ink-soft)', lineHeight: 1.55 }}>{metin}</span>
+    </div>
+  ) : null;
   return (
     <div style={{
       border: hayalet ? '1px dashed var(--rule)' : '1px solid var(--rule)',
-      padding: '0.85rem 1rem',
+      padding: '0.95rem 1.1rem',
       background: 'var(--bg-base)',
       display: 'flex',
       flexDirection: 'column',
-      gap: '0.25rem',
+      gap: '0.55rem',
     }}>
-      <span style={{
-        fontFamily: 'var(--font-display), serif',
-        fontStyle: 'italic',
-        fontSize: '1.15rem',
-        color: 'var(--ink)',
-        lineHeight: 1.2,
-      }}>{iliski.ad}</span>
-      <span style={{
-        fontFamily: 'var(--font-body), sans-serif',
-        fontWeight: 200,
-        fontSize: '0.62rem',
-        letterSpacing: '0.18em',
-        color: 'var(--ink-muted)',
-        textTransform: 'uppercase',
-      }}>{iliski.rol}</span>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
+        <span style={{
+          fontFamily: 'var(--font-display), serif',
+          fontStyle: 'italic',
+          fontSize: '1.15rem',
+          color: 'var(--ink)',
+          lineHeight: 1.2,
+        }}>{iliski.ad}</span>
+        <span style={{
+          fontFamily: 'var(--font-body), sans-serif',
+          fontWeight: 200,
+          fontSize: '0.6rem',
+          letterSpacing: '0.18em',
+          color: 'var(--ink-muted)',
+          textTransform: 'uppercase',
+        }}>{iliski.rol}</span>
+      </div>
+      {satir(t?.iliskiGecmis || 'Geçmiş', iliski.gecmis)}
+      {satir(t?.iliskiSimdi || 'Şimdi', iliski.simdi)}
+      {satir(t?.iliskiIz || 'İz', iliski.iz)}
+      {iliski.yansimaSorusu && (
+        <p style={{
+          margin: '0.2rem 0 0',
+          paddingTop: '0.55rem',
+          borderTop: '1px solid var(--rule)',
+          fontFamily: 'var(--font-display), serif',
+          fontStyle: 'italic',
+          fontSize: '0.85rem',
+          color: TON,
+          lineHeight: 1.5,
+        }}>{iliski.yansimaSorusu}</p>
+      )}
     </div>
   );
 }
