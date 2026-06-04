@@ -301,7 +301,7 @@ export default function ElYazmasiSayfasi() {
                 setBoslukYansima={setBoslukYansima}
                 acikKapiKey={acikKapiKey}
                 onTopraklanmaAc={(baslik) => setTopraklanma(baslik)}
-                onYuruyus={(no) => setYuruyusHedef({ tip: 'sahne', no })}
+                onYuruyus={(no) => setYuruyusHedef({ tip: d.tip, no })}
                 anSecimleri={anSecimleri}
                 anYazmalari={anYazmalari}
                 onAnSec={anSec}
