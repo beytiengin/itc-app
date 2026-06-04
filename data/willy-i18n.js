@@ -850,7 +850,7 @@ const willyI18n = {
             yuk: 'There was never a hand to point the way. The fundamental insecurity of a man who grew up in a void.',
             yansimaSorusu: "Where did the absence of a father he never knew settle in Willy's body?",
             sahneTipi: 'kart',
-            replikIzi: 'Ben: "Father was a very great and a very wild-hearted man." (the father who left when Willy was a baby)',
+            replikIzi: 'Ben — the "great, wild-hearted" father motif: flutes sold town to town, then gone (Willy was a baby · Act 1)',
             anlar: [
               { id: 'o1-a1', tip: 'catal', travmaDuyarli: false,
                 soru: 'The absence of a father you never knew grew up alongside you. Where has that void settled in your body now?',
@@ -869,7 +869,7 @@ const willyI18n = {
             yuk: 'The myth of unreachable success. The measure Willy holds himself to but can never reach.',
             yansimaSorusu: "How does Ben's myth of 'making it' shrink Willy's own life?",
             sahneTipi: 'kart',
-            replikIzi: '"He walked into the jungle — twenty-one years old then — and he came out a rich man!" (Willy, telling of Ben)',
+            replikIzi: 'Ben — the jungle legend: in at seventeen, out at twenty-one, "and by God I was rich" (Act 1)',
             anlar: [
               { id: 'o2-a1', tip: 'catal', travmaDuyarli: false,
                 soru: 'Every time Ben\'s name comes up, something stirs in you. In that moment do you fill with pride, or do you feel small?',
@@ -888,7 +888,7 @@ const willyI18n = {
             yuk: 'Love and burden. The weight of being a man who is protected and, at the same time, carried.',
             yansimaSorusu: "Is Linda's protectiveness a shelter for Willy, or a mirror of his defeat?",
             sahneTipi: 'kart',
-            replikIzi: 'Linda: "There\'s the last payment on the refrigerator still…" (the home built on instalments)',
+            replikIzi: 'Linda — the instalments motif: the refrigerator, the house, always one more payment (Act 1)',
             anlar: [
               { id: 'o3-a1', tip: 'catal', travmaDuyarli: false,
                 soru: 'When Linda comes near you, do your shoulders drop, or do they tighten?',
@@ -907,7 +907,7 @@ const willyI18n = {
             yuk: 'The dream of dying loved and recognised. All the meaning Willy loads onto being a salesman.',
             yansimaSorusu: "What desire does the image of that man taking orders by phone at 84 stir in Willy?",
             sahneTipi: 'kart',
-            replikIzi: 'Willy: "He had green velvet slippers — I\'ll never forget — and he made his living without ever leaving his room." (Dave Singleman)',
+            replikIzi: 'Willy — Dave Singleman: "green velvet slippers," eighty-four, selling without leaving his room (Act 2, to Howard)',
             anlar: [
               { id: 'o4-a1', tip: 'catal', travmaDuyarli: false,
                 soru: 'The image of that salesman — eighty-four, taking orders by phone, dying loved — what desire does it stir in you?',
@@ -926,7 +926,7 @@ const willyI18n = {
             yuk: 'Paradise lost. The time when everything was still possible, before Biff became a disappointment.',
             yansimaSorusu: "What happens when the warmth of that golden childhood is set beside the present ruin?",
             sahneTipi: 'kart',
-            replikIzi: 'Happy/Biff: "The Loman Brothers! — everyone\'ll know our name!" (the memory of the golden childhood)',
+            replikIzi: 'Happy/Biff — the golden-childhood dream: the Loman name, cheers from the field "Loman, Loman, Loman" (Act 1 memory)',
             anlar: [
               { id: 'o5-a1', tip: 'catal', travmaDuyarli: false,
                 soru: 'When the warmth of that golden childhood is set beside the present ruin, what happens inside you?',
@@ -945,7 +945,7 @@ const willyI18n = {
             yuk: 'The alibi of loneliness. Filling the emptiness of life on the road — and the hidden guilt.',
             yansimaSorusu: "As the loneliness of the road pushed Willy there, what was he silencing inside?",
             sahneTipi: 'kart',
-            replikIzi: 'Memory: the hotel room, the stockings, the Woman\'s laugh. (the beginning of the affair in Boston)',
+            replikIzi: 'Memory — the Boston hotel: the Woman\'s laugh, the stockings (the affair · Act 2)',
             anlar: [
               { id: 'o6-a1', tip: 'catal', travmaDuyarli: true,
                 soru: 'As Willy carried the loneliness of the road, what pushed him toward that room — what was he silencing inside as he lived it?',
@@ -964,7 +964,7 @@ const willyI18n = {
             yuk: 'The moment the relationship breaks forever. The deepest moral wound Willy carries.',
             yansimaSorusu: "What, from the moment that door opened, still stands unclosed in Willy's body?",
             sahneTipi: 'kart',
-            replikIzi: 'Biff: "I know you\'re a fake." (Boston, the door opens)',
+            replikIzi: 'Biff — the breaking point: "You fake! You phony little fake!" (Boston, the door opens · Act 2)',
             anlar: [
               { id: 'o7-a1', tip: 'catal', travmaDuyarli: true,
                 soru: 'When that door opened, the hero in Biff\'s eyes vanished in an instant. As Willy lived it, what stood unclosed in his body — shame, or the terror of losing that gaze?',
@@ -983,7 +983,7 @@ const willyI18n = {
             yuk: 'The collapse a father blames on himself. Taking Biff\'s failure as his own sin.',
             yansimaSorusu: "How much of Biff's unravelling does Willy take onto himself — and to whom can he confess it?",
             sahneTipi: 'kart',
-            replikIzi: 'Bernard: "After he came back from Boston, he never got himself together again." (Biff\'s unravelling)',
+            replikIzi: 'Bernard — after Boston, Biff "never trained himself for anything," never recovered (Act 2, Charley\'s office)',
             anlar: [
               { id: 'o8-a1', tip: 'catal', travmaDuyarli: false,
                 soru: 'How much of Biff\'s unravelling do you take onto yourself — and to whom can you confess it?',
