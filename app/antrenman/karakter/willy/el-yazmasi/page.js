@@ -834,12 +834,14 @@ function YazarinCercevesiSahne({ veri, t }) {
   // Sahnenin manuscript dramaturjik verisi — Aşama 2 (Karar 41).
   // willy.js sahnelerWorkbook'tan: olay (sahnede ne oluyor), icsel (ton),
   // yuk (sonraki sahneye taşıdığı). Yapısal "Çapa No" GÖSTERİLMEZ.
+  // Nina paritesi: replikIzi (metin izi) + anlar[] (sahne içi anlar — görünür).
   const alanlar = [
     { etiket: t.panelYazarOlay,  icerik: veri.olay },
     { etiket: t.panelYazarIcsel, icerik: veri.icsel },
     { etiket: t.panelYazarYuk,   icerik: veri.yuk },
   ].filter((a) => a.icerik);
-  if (alanlar.length === 0) {
+  const anlar = Array.isArray(veri.anlar) ? veri.anlar : [];
+  if (alanlar.length === 0 && !veri.replikIzi && anlar.length === 0) {
     return (
       <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-muted)', lineHeight: 1.6, margin: 0 }}>
         {t.panelYazarHenuz}
@@ -854,6 +856,38 @@ function YazarinCercevesiSahne({ veri, t }) {
           <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.02rem', color: 'var(--ink)', margin: 0, lineHeight: 1.65 }}>{a.icerik}</p>
         </div>
       ))}
+
+      {/* Replik izi — metindeki çapa (varsa) */}
+      {veri.replikIzi ? (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', borderLeft: '2px solid var(--accent)', paddingLeft: '0.9rem' }}>
+          <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.28em', color: TON, textTransform: 'uppercase' }}>{t.panelYazarReplik}</span>
+          <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink)', margin: 0, lineHeight: 1.6 }}>{veri.replikIzi}</p>
+        </div>
+      ) : null}
+
+      {/* Sahne içi anlar — görünür liste (mühür etkileşimi sonraki adım) */}
+      {anlar.length > 0 ? (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', marginTop: '0.3rem' }}>
+          <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.28em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.panelYazarAnlar}</span>
+          {anlar.map((an) => (
+            <div key={an.id} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', padding: '0.9rem 1rem', background: 'var(--bg-base)', border: '1px solid var(--rule)' }}>
+              <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.02rem', color: 'var(--ink)', margin: 0, lineHeight: 1.55 }}>{an.soru}</p>
+              {Array.isArray(an.secenekler) ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', marginTop: '0.15rem' }}>
+                  {an.secenekler.map((se) => (
+                    <div key={se.dal} style={{ display: 'flex', gap: '0.6rem', alignItems: 'baseline' }}>
+                      <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 500, fontSize: '0.78rem', color: TON, flexShrink: 0 }}>{se.dal}</span>
+                      <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.9rem', color: 'var(--ink)', lineHeight: 1.5 }}>
+                        <strong style={{ fontWeight: 500 }}>{se.baslik}</strong>{se.aciklama ? ' — ' + se.aciklama : ''}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 }

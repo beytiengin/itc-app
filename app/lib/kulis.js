@@ -507,3 +507,82 @@ export async function tumKarakterIlerlemeleri() {
     return {};
   }
 }
+
+// ─── ÖZNEL SABİTLER (an çatalı + yazma mührü) ───────────────────────────────
+// Karar 41 viewer paritesi — sahne/olay içi "anlar[]" seçimlerini ve yazma
+// mühürlerini saklar. Nina pilotuyla AYNI tablo (oznel_sabitler) ve aynı
+// onConflict anahtarı: paylaşımlı; tüm karakterler (willy/hamlet/macbeth/biff)
+// bu fonksiyonları kullanır. Yapısal şema (6 alan) korunur — metin-parse yok.
+
+/**
+ * Bir an çatalı seçimini veya yazma mührünü kaydeder (UPSERT).
+ * @param {string} karakterId  - 'willy', 'hamlet', ...
+ * @param {object} kayit       - { boslukNo, catalAnahtar, secilenDal, ozetMetni, muhurMetni, birlesimSahneNo }
+ * @returns {boolean} başarılı mı (anonimde sessizce false)
+ */
+export async function anSabitiKaydet(karakterId, kayit) {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return false; // Anonim — lokal UI gösterir, kalıcı kayıt yok
+
+    const { error } = await supabase.from('oznel_sabitler').upsert(
+      {
+        kullanici_id: user.id,
+        karakter_id: karakterId,
+        bosluk_no: kayit.boslukNo,
+        catal_anahtar: kayit.catalAnahtar ?? kayit.boslukNo,
+        secilen_dal: kayit.secilenDal ?? null,
+        ozet_metni: kayit.ozetMetni ?? null,
+        muhur_metni: kayit.muhurMetni ?? null,
+        birlesim_sahne_no: kayit.birlesimSahneNo ?? null,
+        son_guncelleme: new Date().toISOString(),
+      },
+      { onConflict: 'kullanici_id,karakter_id,bosluk_no,catal_anahtar' }
+    );
+
+    if (error) {
+      console.log('anSabitiKaydet hatası:', error);
+      return false;
+    }
+    return true;
+  } catch (e) {
+    console.log('anSabitiKaydet exception:', e);
+    return false;
+  }
+}
+
+/**
+ * Bir karakterin tüm öznel sabitlerini getirir (an seçimleri + mühürler).
+ * @param {string} karakterId
+ * @returns {{ secimler: object, muhurler: object }}
+ *   secimler: { [boslukNo]: 'A'|'B'|... }   — çatal dal seçimleri
+ *   muhurler: { [boslukNo]: 'metin' }        — yazma mühürleri / oznelSabit
+ */
+export async function anSabitleriniGetir(karakterId) {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return { secimler: {}, muhurler: {} };
+
+    const { data, error } = await supabase
+      .from('oznel_sabitler')
+      .select('bosluk_no, secilen_dal, muhur_metni')
+      .eq('kullanici_id', user.id)
+      .eq('karakter_id', karakterId);
+
+    if (error) {
+      console.log('anSabitleriniGetir hatası:', error);
+      return { secimler: {}, muhurler: {} };
+    }
+
+    const secimler = {};
+    const muhurler = {};
+    (data || []).forEach((row) => {
+      if (row.secilen_dal) secimler[row.bosluk_no] = row.secilen_dal;
+      if (row.muhur_metni) muhurler[row.bosluk_no] = row.muhur_metni;
+    });
+    return { secimler, muhurler };
+  } catch (e) {
+    console.log('anSabitleriniGetir exception:', e);
+    return { secimler: {}, muhurler: {} };
+  }
+}
