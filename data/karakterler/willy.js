@@ -213,8 +213,6 @@ const willy = {
             ] },
           { id: 'o8-a2', tip: 'yazma', travmaDuyarli: false,
             soru: 'Biff\'in toparlanamadığı yılları düşününce, kimseye söyleyemediğin bir cümle var. O cümle ne?' },
-          { id: 'o8-a3', tip: 'sessizbilgi', travmaDuyarli: false,
-            soru: 'Bernard konuşuyor — kimse suçlamıyor, kimse hüküm vermiyor. Ama bazı cümleler insanın içinde yıllarca kalır. Bu konuşmadan sonra Willy\'nin içine yerleşen sessiz bilgiyi fark et. Adını koyma, savunma. Sadece orada olduğunu gör — sonra bırak.' },
         ],
       },
     ],
@@ -470,6 +468,8 @@ const willy = {
           ] },
         { id: 's8-a2', tip: 'yazma', birlesimSahneNo: 8, travmaDuyarli: false,
           soru: 'Charley sana iş teklif ediyor ama alamıyorsun; borç istiyorsun ama gözünü kaçırıyorsun. O an gururunla aranızda geçen sessiz pazarlık ne?' },
+        { id: 's8-a3', tip: 'sessizbilgi', birlesimSahneNo: 8, travmaDuyarli: false,
+          soru: 'Bernard konuşuyor — kimse suçlamıyor, kimse hüküm vermiyor. Ama bazı cümleler insanın içinde yıllarca kalır. Bu konuşmadan sonra Willy\'nin içine yerleşen sessiz bilgiyi fark et. Adını koyma, savunma. Sadece orada olduğunu gör — sonra bırak.' },
       ],
     },
     {
