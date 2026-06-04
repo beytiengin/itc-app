@@ -407,6 +407,60 @@ const willy = {
       yuk: 'Gerçek dost gururuna dokunurken, ölü ağabeyin efsanesi onu hayata değil kaçışa çağırıyor.',
       sahneTipi: 'karma',
       replikIzi: 'Ben: "Ormana girdim, zengin çıktım." (Charley kart oynarken hayalet belirir, iki düzlem üst üste biner)',
+      yuruyus: {
+        esik: {
+          komut: 'Bu bir yürüyüş. Bu sahneyi adım adım kuracaksın — iki düzlem üst üste binecek: karşında Charley, içeride Ben\'in sesi. Acele yok.',
+          adimlar: [
+            'Önce mutfağı kur: gece, lamba ışığı, kart masası. Charley karşında oturuyor.',
+            'Her durakta Willy o an bedeninin neresinde duruyor — onu fark et, sonra ilerle.',
+            'Seçtiğin her şey senin olur; bu sahnede yanında kalır.',
+          ],
+          hitap: 'Hazır olduğunda ilk adımı at.',
+          buton: 'Başlıyorum',
+        },
+        girisBaslik: 'Charley\'le kart, Ben\'in sesi — sahneyi kur',
+        girisAciklama: 'I. perde, mutfak. Charley kart oynamaya gelir; aynı anda Ben\'in sesi içeride belirir. İki zaman üst üste biner. Bu sahneyi adım adım kuracaksın.',
+        girisSentez: 'Bu yürüyüşte seçtiklerin senin olur; Sahne 3\'te yanında kalır.',
+        gecisButonu: 'İlk durağa geç',
+        cikisRitueli: 'Sahneden bir adım geri çekil. İki düzlemi bırak; nefesini ver. Şimdiki Willy\'ye dön — yanında hangi ses kalıyor?',
+        istasyonlar: [
+          {
+            no: 0, zamanRozet: 'Charley masada',
+            acilis: 'Charley kart destesini açıyor, oturuyor. Sıradan bir gece; bir dost karşında.',
+            sorular: ['Charley\'yi karşında kurarken ilk dikkatini çeken ne — sesi mi, sabrı mı, sana bakışı mı?', 'Willy şu an bedeninin neresinde duruyor?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Charley\'de ilk gördüğüm…',
+          },
+          {
+            no: 1, zamanRozet: 'Ben\'in sesi sızıyor',
+            acilis: '"Ormana girdim, zengin çıktım." Ben\'in sesi mutfağa karışıyor; iki düzlem üst üste biniyor. Charley konuşuyor ama sen başka bir yerdesin.',
+            sorular: ['İki ses aynı anda: hangisi sana daha gerçek geliyor — ve bunu bedeninde nerede hissediyorsun?'],
+            catal: {
+              anahtar: 's3-iki-duzlem', dil: 'birinci_tekil',
+              etiket: 'İki yol var. Hangisi senin?',
+              secenekler: [
+                { deger: 'charley_simdi', baslik: 'Charley — şimdi', aciklama: 'Etten kemikten, karşımda; ama gururuma dokunuyor.',
+                  muhur: 'Bunu unutma — gerçek yardım gururuma dokunduğunda, onu görmezden geldim.',
+                  ozet: 'Gerçek yardımı gururum yüzünden reddettim.' },
+                { deger: 'ben_cagri', baslik: 'Ben — çağrı', aciklama: 'Bir hayalet ama daha canlı; başarının ve kaçışın sesi.',
+                  muhur: 'Bunu unutma — beni hayata çağıran sese değil, kaçışa çağıran sese kulak verdim.',
+                  ozet: 'Hayata değil, kaçışa çağıran sese uydum.' },
+              ],
+            },
+          },
+          {
+            no: 2, zamanRozet: 'Gurur ve yardım',
+            acilis: 'Charley iş teklif ediyor ya da borç uzatıyor. Willy alamıyor — gurur araya giriyor. Ama Ben\'in sesi hâlâ fısıldıyor.',
+            sorular: ['Charley\'nin uzattığı şeyi alamazken, Willy\'nin içinde ne kırılıyor?'],
+            yazmaAlani: true, yazmaPlaceholder: 'O an içimde kırılan…',
+          },
+          {
+            no: 3, zamanRozet: 'Hangi ses kalır',
+            acilis: 'Sahne kuruldu. Charley gider; Ben\'in sesi kalır. Bu, Willy\'nin bir alışkanlığı artık — karar anlarında dönen iç ses.',
+            sorular: ['Ben\'in sesi en son ne zaman, hangi karar anında seni çağırdı? O an ne yaptın?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Ben\'in sesi beni en son…',
+          },
+        ],
+      },
       anlar: [
         { id: 's3-a1', tip: 'catal', birlesimSahneNo: 3, travmaDuyarli: false,
           soru: 'Charley karşında kart oynuyor; aynı anda Ben\'in sesi içeride çağırıyor. Şimdiki dostu duyarken ölü ağabeyi de duyuyorsun. Bu ikisinden hangisi sana daha gerçek geliyor?',
