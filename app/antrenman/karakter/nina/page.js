@@ -269,6 +269,20 @@ export default function NinaPilotSayfasi() {
   const [acikSahne, setAcikSahne] = useState({});  // { 1: false, 2: false, ... }
   const [acikBosluk, setAcikBosluk] = useState({});  // { b1: false, b3: false }
 
+  // Mobil scroll: en son AÇILAN düğümü görünür kıl (kapatmada scroll yok).
+  // domId: 'sahne-3' | 'bosluk-b2' | 'olay-o1'. Willy viewer ile aynı kalıp.
+  const [sonAcilan, setSonAcilan] = useState(null);
+  useEffect(() => {
+    if (!sonAcilan || typeof window === 'undefined') return;
+    const el = document.getElementById(sonAcilan);
+    if (!el) return;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }, [sonAcilan]);
+
   // Mühürlenmiş seçimler (Supabase'den okunur)
   const [oznelSabitler, setOznelSabitler] = useState({});  // { sahne_no: [{ anahtar, ozet, muhur, boslukNo }] }
   const [olayMuhurleri, setOlayMuhurleri] = useState({});  // { 'o1': [...] } — oyun-öncesi olay mühürleri
@@ -649,6 +663,7 @@ export default function NinaPilotSayfasi() {
             setAcikBosluk={setAcikBosluk}
             acikOlay={acikOlay}
             setAcikOlay={setAcikOlay}
+            setSonAcilan={setSonAcilan}
             onTercihSec={tercihSec}
             onB1Sec={b1Sec}
             onAnSec={anSec}
@@ -728,6 +743,7 @@ function YasamCizgisi({
   nina, tercihMap, oznelSabitler, olayMuhurleri, tercihSecimi, b1Secim,
   anSecimleri, anYazmalari,
   acikSahne, setAcikSahne, acikBosluk, setAcikBosluk, acikOlay, setAcikOlay,
+  setSonAcilan,
   onTercihSec, onB1Sec, onAnSec, onAnYaz, onYuru, onSahneYuru,
 }) {
   // Birleşik dizi (sira'ya göre). Oyun-öncesi 4 olay perde:0 (timeline başı).
@@ -774,8 +790,8 @@ function YasamCizgisi({
     if (dgm.tip === 'oncesiOlay') {
       const tercihIds = olayTercihMap[dgm.o.id] || [];
       cikti.push(
+        <div key={`o-${dgm.o.id}`} id={`olay-${dgm.o.id}`} style={{ scrollMarginTop: 'calc(env(safe-area-inset-top, 0px) + 4.5rem)' }}>
         <OlayDugum
-          key={`o-${dgm.o.id}`}
           o={dgm.o}
           sabitler={olayMuhurleri[dgm.o.id]}
           tercihler={tercihIds.map(id => tercihMap[id]).filter(Boolean)}
@@ -783,17 +799,18 @@ function YasamCizgisi({
           anSecimleri={anSecimleri}
           anYazmalari={anYazmalari}
           acik={!!acikOlay[dgm.o.id]}
-          onToggle={() => setAcikOlay(prev => ({ ...prev, [dgm.o.id]: !prev[dgm.o.id] }))}
+          onToggle={() => { const acilyor = !acikOlay[dgm.o.id]; setAcikOlay(prev => ({ ...prev, [dgm.o.id]: !prev[dgm.o.id] })); if (acilyor) setSonAcilan(`olay-${dgm.o.id}`); }}
           onTercihSec={onTercihSec}
           onAnSec={onAnSec}
           onAnYaz={onAnYaz}
         />
+        </div>
       );
     } else if (dgm.tip === 'sahne') {
       const tercihIds = sahneTercihMap[dgm.s.no] || [];
       cikti.push(
+        <div key={`s-${dgm.s.no}`} id={`sahne-${dgm.s.no}`} style={{ scrollMarginTop: 'calc(env(safe-area-inset-top, 0px) + 4.5rem)' }}>
         <SahneDugum
-          key={`s-${dgm.s.no}`}
           s={dgm.s}
           sabitler={oznelSabitler[dgm.s.no]}
           tercihler={tercihIds.map(id => tercihMap[id]).filter(Boolean)}
@@ -801,42 +818,46 @@ function YasamCizgisi({
           anSecimleri={anSecimleri}
           anYazmalari={anYazmalari}
           acik={!!acikSahne[dgm.s.no]}
-          onToggle={() => setAcikSahne(prev => ({ ...prev, [dgm.s.no]: !prev[dgm.s.no] }))}
+          onToggle={() => { const acilyor = !acikSahne[dgm.s.no]; setAcikSahne(prev => ({ ...prev, [dgm.s.no]: !prev[dgm.s.no] })); if (acilyor) setSonAcilan(`sahne-${dgm.s.no}`); }}
           onTercihSec={onTercihSec}
           onAnSec={onAnSec}
           onAnYaz={onAnYaz}
           onSahneYuru={onSahneYuru}
         />
+        </div>
       );
     } else {
       const b = dgm.b;
       if (b.yogunluk === 3) {
         cikti.push(
+          <div key={`b-${b.id}`} id={`bosluk-${b.id}`} style={{ scrollMarginTop: 'calc(env(safe-area-inset-top, 0px) + 4.5rem)' }}>
           <BoslukDugumYog3
-            key={`b-${b.id}`}
             b={b}
             onYuru={() => onYuru(b)}
           />
+          </div>
         );
       } else if (b.yogunluk === 2) {
         cikti.push(
+          <div key={`b-${b.id}`} id={`bosluk-${b.id}`} style={{ scrollMarginTop: 'calc(env(safe-area-inset-top, 0px) + 4.5rem)' }}>
           <BoslukDugumYog2
-            key={`b-${b.id}`}
             b={b}
             secim={b1Secim}
             acik={!!acikBosluk[b.id]}
-            onToggle={() => setAcikBosluk(prev => ({ ...prev, [b.id]: !prev[b.id] }))}
+            onToggle={() => { const acilyor = !acikBosluk[b.id]; setAcikBosluk(prev => ({ ...prev, [b.id]: !prev[b.id] })); if (acilyor) setSonAcilan(`bosluk-${b.id}`); }}
             onSec={onB1Sec}
           />
+          </div>
         );
       } else {
         cikti.push(
+          <div key={`b-${b.id}`} id={`bosluk-${b.id}`} style={{ scrollMarginTop: 'calc(env(safe-area-inset-top, 0px) + 4.5rem)' }}>
           <BoslukDugumYog1
-            key={`b-${b.id}`}
             b={b}
             acik={!!acikBosluk[b.id]}
-            onToggle={() => setAcikBosluk(prev => ({ ...prev, [b.id]: !prev[b.id] }))}
+            onToggle={() => { const acilyor = !acikBosluk[b.id]; setAcikBosluk(prev => ({ ...prev, [b.id]: !prev[b.id] })); if (acilyor) setSonAcilan(`bosluk-${b.id}`); }}
           />
+          </div>
         );
       }
     }
