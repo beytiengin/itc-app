@@ -11,6 +11,28 @@ yapısal, içerik ve mimari kararların kaydı. En yeni karar üstte.
 
 ---
 
+## 2026-06-04 — Willy = vitrin karakteri; tüm kararları dramaturjik onaylı (Filiz-onayı genel kuralı korunur)
+
+**Tip:** Yapısal + İçerik (Tip 2/3)
+**Etkilenen katmanlar:** App (Willy karakteri) — kanon yedirme `itc-canon` Karar 49'a yedirildi
+**Karar veren:** Beyti (dramaturg yetkisiyle)
+**Karar:** Willy Loman **vitrin karakteri** ilan edildi. Bu karaktere ait **tüm kararlar** —
+çatal yorumları, an türleri (Hatıra/İz/Sessiz Bilgi), `tercihler` A/B/C, ve **normalde Filiz'in
+(FKA) klinik görüşüne giden travma-tonu / travma-seviyesi kararları dahil** — Beyti tarafından
+**dramaturjik olarak onaylandı.** Willy, işleyen tam yapısıyla (4 yürüyüş sahnesi: s2/s3/s9/s11
++ tüm an türleri + travma katmanı) vitrine çıkar; bunun için ayrı bir Filiz onayı beklemez.
+**Kapsam (KRİTİK — A, B değil):** Bu karar **yalnızca Willy'ye özgü, tek seferlik bir vitrin
+kararıdır.** Travma-tonu/seviyesi kararlarının Filiz'in klinik görüşüne gitmesine dair **genel
+kural diğer tüm karakterler için (Hamlet, Macbeth, Biff, Nina, sonraki göçler) geçerliliğini
+korur.** Filiz'in metottaki klinik otoritesi (travma seviyesi designation + klinik perspektif)
+değişmemiştir; yalnızca bu tek karakter, vitrin amacıyla, Beyti'nin dramaturjik sorumluluğu
+altında serbest bırakılmıştır.
+**Gerekçe:** Willy'nin işleyen tam yapısı (an türleri + yürüyüş + travma-bölgesi tonlaması)
+yöntemin "tanımlanabilir, tekrar-üretilebilir sistem" iddiasını en net gösteren örnektir; vitrine
+eksiksiz çıkması, harici onay turunu beklemekten daha değerlidir.
+
+---
+
 ## 2026-06-04 — Yürüyüş = dramaturjik kurma (trans DEĞİL); sesli imgeleme Modül III'e ait
 
 **Tip:** Mimari + İçerik (Tip 1/3)
