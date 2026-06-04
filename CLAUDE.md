@@ -371,6 +371,91 @@ export default macbeth;
 
 **Standart ölçü:** Her karakter **14 sahne + 12 boşluk + 7 egzersiz** (4 karakter zaten bu yapıda).
 
+> **DİKKAT — İki ayrı şema yaşıyor.** Yukarıdaki `sahneler/bosluklar/egzersizler`
+> formatı **eski şema** (Macbeth + Biff hâlâ bunda). **Hamlet, Willy, Nina** ise
+> aşağıdaki **Workbook an-mimarisinde**. Yeni karakter göçü bu yeni şemaya yapılır.
+
+---
+
+## 🧩 Workbook An-Mimarisi (Hamlet · Willy · Nina)
+
+Workbook karakterlerinde içerik, **olaylar (oyunOncesi) + sahneler** içinde yaşayan
+**`anlar[]`** dizisiyle kurulur. Her an oyuncunun yaptığı tek bir zihinsel eylemdir.
+
+```javascript
+// data/karakterler/willy.js (TR base), EN overlay data/willy-i18n.js
+oyunOncesi: {
+  olaylar: [{
+    no, baslik, sahneRef, yuk,           // dramaturjik çerçeve
+    sahneTipi: 'kart'|'karma'|'yuruyus',
+    replikIzi: '...',                    // metindeki iz (İz kartı — "dinlenen ses")
+    travmaKategorileri: [...],           // BACKEND-ONLY, UI'da asla görünmez
+    travmaSeviyesi: 0|1|2|3,             // BACKEND-ONLY
+    anlar: [ /* aşağıdaki 3 tip */ ],
+  }],
+  iliskiler: [...],
+}
+```
+
+### Üç an tipi (`an.tip`)
+
+| tip | bilişsel eylem | UI eyebrow | render | kayıt |
+|-----|----------------|-----------|--------|-------|
+| `catal` | **karar** (yorum seçer + mühürler) | "Karar" | `AnSecenek` (A/B dal, her dalda `oznelSabit`) | seçim |
+| `yazma` | **boşluk** (kendi sözcükleriyle üretir) | "Boşluk" | `AnYazma` (textarea, blur'da otomatik) | metin |
+| `hatira` | **saf zihinsel canlandırma** | "Hatıra" | `AnYazma` (yazma gibi) | metin |
+
+```javascript
+// catal
+{ id: 'o1-a1', tip: 'catal', travmaDuyarli: false,
+  soru: '...',
+  secenekler: [
+    { dal: 'A', baslik: '...', aciklama: '...', oznelSabit: '...(1. tekil mühür)' },
+    { dal: 'B', ... },
+  ] }
+// yazma
+{ id: 'o1-a2', tip: 'yazma', travmaDuyarli: false, soru: '...' }
+// hatira
+{ id: 'o5-a3', tip: 'hatira', travmaDuyarli: false, soru: '...(çağrı, soru değil)' }
+```
+
+### Üç ses bilişsel ayrımı (Karar — bkz KARAR_LOG)
+
+ChatGPT pilot değerlendirmesinden çıkan ilke: oyuncu üç farklı zihinsel kaynağı
+üç farklı **eylem** olarak hissetmeli — tipografi değil, biliş.
+- **İz** (`replikIzi`) → *dinlenir*. Tırnaklı "ses kartı", accent kutu, "İz · Metindeki iz" eyebrow. Saf karakter sesi, analiz YOK. Yazarın Çerçevesi içinde kalır ama görsel ayrışır.
+- **Yazarın alanları** (olay/içsel/yük) → *incelenir*. Düz alanlar.
+- **Senin Çerçeven** (catal/yazma/hatira) → *üretilir*. Karar/Boşluk/Hatıra eyebrow.
+
+### Hatıra türü — kanon kriteri
+
+Hatıra = saf duyusal/zihinsel canlandırma (Modül III DNA). Yeni hatıra yazarken
+**beş kriter** (her biri tutulmalı):
+1. Metinde cevabı **yok** · 2. Doğru cevap **yok** · 3. Karakter adına hayal edilir
+· 4. Duyusal/bedensel çapa içerir (ışık, dokunuş, ses) · 5. **Dramaturjik icat DEĞİL**
+(yer/eşya/isim dayatmaz — "senin Willy'nin" versiyonunu çağırır).
+- Dil **çağrı**, soru değil ("...hisset — ve bırak", soru işaretiyle bitirme).
+- Travma bölgesinde (yoğunluk 2-3): doğrudan yara canlandırma YOK; "fırtına öncesi
+  sükunet / uzaktan sıcaklık / bedene iyi gelen küçük görüntü" tonu, `travmaDuyarli: true`.
+
+### Viewer & mühürleme
+
+- Viewer: `app/antrenman/karakter/<id>/el-yazmasi/page.js` (`<id>/page.js` sadece redirect).
+- `AnKart` tip-duyarlı dispatcher: eyebrow + doğru alt-bileşen.
+- Mühürleme **sessiz**: buton YOK, blur'da otomatik kayıt; dil "✓ mühürlendi" (eski "kaydedildi").
+- Kayıt: `oznel_sabitler` tablosu (paylaşımlı `lib/kulis.js` — hamlet/macbeth/biff/nina/willy).
+- i18n anahtarları (willy-i18n.js, 3 dil): `anKararEtiket` · `anBoslukEtiket` ·
+  `anHatiraEtiket` · `anIzEtiket` · `muhurlendi` · `muhurleYonerge` · `hatiraYonerge` · `seninBosDurum`.
+
+### replikIzi telif disiplini (Yol A)
+
+- **TR** `replikIzi`: Tekindor çevirisinden tam replik (bilinçli — Beyti kararı, tanıdıklık önceliği).
+- **EN** `replikIzi`: Miller orijinaliyle doğrulanmış **çekirdek imge + sahne künyesi**
+  (tam cümle değil — telif-güvenli). Geri-çeviri/uydurma alıntı YASAK. Doğrulanmış
+  ikonik ibareler kısa tırnakla kalabilir ("You fake!", "a man is not a piece of fruit").
+- İki dil bilinçli asimetrik.
+
+
 ---
 
 ## 🧠 Kişiselleştirme Mantığı
@@ -589,7 +674,7 @@ Bu öneriler ileride uygulanacak — şimdilik dokunma:
 
 ---
 
-**Son güncelleme:** 2026-05-24 (Willy copy-bug temizliği + CLAUDE.md gerçeğe hizalama)
+**Son güncelleme:** 2026-06-04 (Workbook an-mimarisi + Hatıra türü + üç-ses ayrımı + Yol A telif — bu oturum)
 
 ---
 
