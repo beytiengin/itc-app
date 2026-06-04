@@ -59,6 +59,18 @@ const willy = {
         sahneRef: "Ben: \"Baba çok büyük, çok başına buyruk bir adamdı.\"",
         yuk: 'Yön gösterecek bir el hiç olmadı. Boşlukta büyüyen bir adamın temel güvensizliği.',
         yansimaSorusu: "Hiç tanımadığı babanın boşluğu, Willy'nin bedeninde nereye yerleşti?",
+        sahneTipi: 'kart',
+        replikIzi: 'Ben: "Babam çok büyük bir adamdı, deli dolu bir adamdı." (Willy bebekken giden baba)',
+        anlar: [
+          { id: 'o1-a1', tip: 'catal', travmaDuyarli: false,
+            soru: 'Hiç tanımadığın bir babanın yokluğu seninle büyüdü. O boşluk şimdi bedeninde nereye yerleşti?',
+            secenekler: [
+              { dal: 'A', baslik: 'Bir eksiklik', aciklama: 'Hep bir şeyin yarım kaldığı, doldurulamayan bir yer.', oznelSabit: 'İçimde adı konmamış bir boşlukla büyüdüm; onu hep başka şeylerle doldurmaya çalıştım.' },
+              { dal: 'B', baslik: 'Bir kanıtlama açlığı', aciklama: 'Görmediğim babaya kendimi kanıtlama ihtiyacı.', oznelSabit: 'Hiç tanımadığım birine bile kendimi kanıtlamak istedim.' },
+            ] },
+          { id: 'o1-a2', tip: 'yazma', travmaDuyarli: false,
+            soru: 'Babanı düşündüğünde aklında hiçbir görüntü yok — sadece bir yokluk. O yokluğun sesi ya da rengi olsaydı, ne olurdu?' },
+        ],
       },
       {
         no: 2,
@@ -66,6 +78,18 @@ const willy = {
         sahneRef: 'Ben: "On yedi yaşında ormana girdim, yirmi birinde çıktım. Ve zengindim."',
         yuk: 'Erişilemeyen başarı miti. Willy\'nin ölçtüğü ama asla varamadığı ölçüt.',
         yansimaSorusu: "Ben'in 'başardı' miti, Willy'nin kendi hayatını nasıl küçültüyor?",
+        sahneTipi: 'kart',
+        replikIzi: '"Ormana bir daldı — 21 yaşında o zaman — zengin bir adam olarak çıktı!" (Willy, Ben\'i anlatırken)',
+        anlar: [
+          { id: 'o2-a1', tip: 'catal', travmaDuyarli: false,
+            soru: 'Ben\'in adı her geçtiğinde içinde bir şey kımıldıyor. O an gururla mı doluyorsun, yoksa kendini küçük mü hissediyorsun?',
+            secenekler: [
+              { dal: 'A', baslik: 'Gururla parlıyorum', aciklama: 'Ben benim kanım; onun başarısı bir parça benim de.', oznelSabit: 'Birinin büyüklüğüne tutunarak kendimi büyük hissettim.' },
+              { dal: 'B', baslik: 'İçten içe küçülüyorum', aciklama: 'Onun yanında hep eksik kaldım; ölçüt o, ben hep altında.', oznelSabit: 'Birinin başarısını ölçü aldım ve ömrümce ona yetişemedim.' },
+            ] },
+          { id: 'o2-a2', tip: 'yazma', travmaDuyarli: false,
+            soru: 'Ben "Gel benimle" dediğinde gitmedin. O "hayır"ı verdiğin an aklında ne vardı — korku mu, sorumluluk mu, başka bir şey mi?' },
+        ],
       },
       {
         no: 3,
@@ -73,6 +97,18 @@ const willy = {
         sahneRef: 'Linda: "Bu ay son taksiti de ödedik."',
         yuk: 'Sevgi + yük. Korunan ama aynı zamanda taşınan bir adam olmanın ağırlığı.',
         yansimaSorusu: "Linda'nın koruyuculuğu Willy için sığınak mı, yoksa yenilginin aynası mı?",
+        sahneTipi: 'kart',
+        replikIzi: 'Linda: "Bir de buzdolabının son taksiti kaldı…" (taksitle kurulan ev)',
+        anlar: [
+          { id: 'o3-a1', tip: 'catal', travmaDuyarli: false,
+            soru: 'Linda yanına geldiğinde, omuzların iner mi yoksa daha mı gerilir?',
+            secenekler: [
+              { dal: 'A', baslik: 'İniyor', aciklama: 'Onun yanında bir an güvende hissediyorum; tek sığınağım o.', oznelSabit: 'Birinin koruması altında bir an nefes alabildim.' },
+              { dal: 'B', baslik: 'Geriliyor', aciklama: 'Onun şefkati bana yenilgimi hatırlatıyor; bakışı bir ayna.', oznelSabit: 'En çok seven gözün önünde, en çok yetersiz hissettim.' },
+            ] },
+          { id: 'o3-a2', tip: 'yazma', travmaDuyarli: false,
+            soru: 'Bu evi, bu taksitleri birlikte göğüslediniz. Linda\'ya söyleyemediğin ama içinden ona her gün söylediğin bir cümle var mı?' },
+        ],
       },
       {
         no: 4,
@@ -80,6 +116,18 @@ const willy = {
         sahneRef: 'Willy: "Yeşil kadife terlikleri vardı..."',
         yuk: 'Sevilerek, tanınarak ölmenin hayali. Willy\'nin satıcılığa yüklediği tüm anlam.',
         yansimaSorusu: "84 yaşında telefonla sipariş alan o adamın görüntüsü Willy'de hangi arzuyu kışkırtıyor?",
+        sahneTipi: 'kart',
+        replikIzi: 'Willy: "Yeşil kadife terlikleri vardı — hiç unutmuyorum — odasından dışarı adımını atmadan tüm geçimini sağlardı." (Dave Singleman)',
+        anlar: [
+          { id: 'o4-a1', tip: 'catal', travmaDuyarli: false,
+            soru: '84 yaşında, telefonla sipariş alan, sevilerek ölen o satıcının görüntüsü içinde hangi arzuyu kışkırtıyor?',
+            secenekler: [
+              { dal: 'A', baslik: 'Sevilerek var olmak', aciklama: 'Tanınmak, anılmak; bir oda dolusu insanın seni sevmesi.', oznelSabit: 'Başarıyı hep sevilmekle ölçtüm; tanınmak benim için var olmaktı.' },
+              { dal: 'B', baslik: 'Onurla bitirmek', aciklama: 'Bir ömrün sonunda hâlâ ayakta, hâlâ değerli olmak.', oznelSabit: 'En çok, sonunda hâlâ işe yarar olduğumu kanıtlamak istedim.' },
+            ] },
+          { id: 'o4-a2', tip: 'yazma', travmaDuyarli: false,
+            soru: 'O satıcı gibi anılmak istiyorsun. Senin cenazende kalabalık olsa, onların ardından söylemesini en çok istediğin cümle ne?' },
+        ],
       },
       {
         no: 5,
@@ -87,6 +135,18 @@ const willy = {
         sahneRef: 'Bellek: araba parlatma, futbol maçı, "Loman kardeşler!"',
         yuk: 'Kayıp cennet. Her şeyin hâlâ mümkün olduğu, Biff\'in henüz hayal kırıklığı olmadığı zaman.',
         yansimaSorusu: "O altın çocukluğun sıcaklığı, şimdiki yıkımla yan yana geldiğinde ne oluyor?",
+        sahneTipi: 'kart',
+        replikIzi: 'Happy/Biff: "Loman Kardeşler! — Adımızı duymayan kalmaz!" (altın çocukluk belleği)',
+        anlar: [
+          { id: 'o5-a1', tip: 'catal', travmaDuyarli: false,
+            soru: 'O altın çocukluğun sıcaklığı şimdiki yıkımla yan yana geldiğinde içinde ne oluyor?',
+            secenekler: [
+              { dal: 'A', baslik: 'Sıcaklık', aciklama: 'O günler hâlâ canlı; oraya döndükçe ısınıyorum.', oznelSabit: 'En karanlık anımda bile, geçmişin sıcaklığına kaçabilirim.' },
+              { dal: 'B', baslik: 'Keder', aciklama: 'O parlaklık şimdiki çöküşü daha da acıtıyor.', oznelSabit: 'En güzel günlerimi hatırlamak, kaybettiğimi daha çok acıtır.' },
+            ] },
+          { id: 'o5-a2', tip: 'yazma', travmaDuyarli: false,
+            soru: 'O "Loman Kardeşler" çağının bir anı var ki, oradan hiç çıkmak istemezdin. Hangi an o?' },
+        ],
       },
       {
         no: 6,
@@ -94,6 +154,18 @@ const willy = {
         sahneRef: 'Bellek: otel odası, çoraplar, kadının gülüşü.',
         yuk: 'Yalnızlığın bahanesi. Yolda olmanın getirdiği boşluğu doldurma — ve gizlenen suç.',
         yansimaSorusu: "Yoldaki yalnızlık Willy'yi oraya iterken, içinde neyi susturuyordu?",
+        sahneTipi: 'kart',
+        replikIzi: 'Bellek: otel odası, çoraplar, Kadın\'ın gülüşü. (Boston\'da ilişkinin başı)',
+        anlar: [
+          { id: 'o6-a1', tip: 'catal', travmaDuyarli: true,
+            soru: 'Willy yoldaki yalnızlığı taşırken, o odaya doğru iten şey neydi — Willy bunu yaşarken içinde neyi susturuyordu?',
+            secenekler: [
+              { dal: 'A', baslik: 'Görünmezliği', aciklama: 'Kimsenin onu görmediği yolların boşluğunu.', oznelSabit: 'Kimsenin beni görmediği anlarda, bir başkasının bakışına sığındım.' },
+              { dal: 'B', baslik: 'Yenilgiyi', aciklama: 'Satamayan, yetişemeyen adamın utancını.', oznelSabit: 'Yetersizliğimi unutmak için, beni isteyen birine kaçtım.' },
+            ] },
+          { id: 'o6-a2', tip: 'yazma', travmaDuyarli: true,
+            soru: 'O odadan çıkıp eve, Linda\'ya döndüğünde Willy bir şeyi yanında taşıdı. Adı konmamış o şeyi tek kelimeyle söylesen, ne derdin?' },
+        ],
       },
       {
         no: 7,
@@ -101,6 +173,18 @@ const willy = {
         sahneRef: 'Biff: "Sahtekarsın sen!" — kapı açılır.',
         yuk: 'İlişkinin sonsuza dek kırıldığı an. Willy\'nin taşıdığı en derin ahlaki yara.',
         yansimaSorusu: "O kapının açıldığı an, Willy'nin bedeninde hâlâ kapanmadan duran şey ne?",
+        sahneTipi: 'kart',
+        replikIzi: 'Biff: "Sahtekârın teki olduğunu biliyorum." (Boston, kapı açılır)',
+        anlar: [
+          { id: 'o7-a1', tip: 'catal', travmaDuyarli: true,
+            soru: 'O kapı açıldığında Biff\'in gözündeki o kahraman bir anda yok oldu. Willy bunu yaşarken bedeninde kapanmadan duran şey utanç mı, yoksa o bakışı kaybetmenin dehşeti mi?',
+            secenekler: [
+              { dal: 'A', baslik: 'Utanç', aciklama: 'Suçun çıplak görünmesi; kendi gözünde küçülme.', oznelSabit: 'Bir an gizlediğim şey, ömrümce taşıdığım yük oldu.' },
+              { dal: 'B', baslik: 'Kaybetmenin dehşeti', aciklama: 'Oğlunun gözündeki kahraman sonsuza dek silindi.', oznelSabit: 'O an, birinin gözündeki kahramanı sonsuza dek kaybettim.' },
+            ] },
+          { id: 'o7-a2', tip: 'yazma', travmaDuyarli: true,
+            soru: 'O an Biff hâlâ orada, kapının önünde duruyor. Willy ona tek bir şey söyleyebilseydi — açıklama değil, sadece bir şey — ne olurdu?' },
+        ],
       },
       {
         no: 8,
@@ -108,6 +192,18 @@ const willy = {
         sahneRef: 'Bernard: "Boston\'dan döndükten sonra hiç toparlanamadı."',
         yuk: 'Babanın kendini suçladığı çöküş. Biff\'in başarısızlığını kendi günahı sayma.',
         yansimaSorusu: "Biff'in dağılışını Willy ne kadar kendi üzerine alıyor — ve bunu kime itiraf edebiliyor?",
+        sahneTipi: 'kart',
+        replikIzi: 'Bernard: "Boston\'dan döndükten sonra hiç toparlanamadı." (Biff\'in dağılışı)',
+        anlar: [
+          { id: 'o8-a1', tip: 'catal', travmaDuyarli: false,
+            soru: 'Biff\'in dağılışını ne kadar kendi üstüne alıyorsun — ve bunu kime itiraf edebiliyorsun?',
+            secenekler: [
+              { dal: 'A', baslik: 'Hepsini üstüne alıyor', aciklama: 'O Boston günü her şeyi kırdı; suç tamamen onun.', oznelSabit: 'Birinin çöküşünü, sessizce kendi günahım olarak taşıdım.' },
+              { dal: 'B', baslik: 'Reddediyor', aciklama: 'Suçu kabul etmek dayanılmaz; Biff\'in tembelliğine yüklüyor.', oznelSabit: 'Taşıyamadığım suçu, başkasının kusuru sanmayı seçtim.' },
+            ] },
+          { id: 'o8-a2', tip: 'yazma', travmaDuyarli: false,
+            soru: 'Biff\'in toparlanamadığı yılları düşününce, kimseye söyleyemediğin bir cümle var. O cümle ne?' },
+        ],
       },
     ],
     iliskiler: [
@@ -203,6 +299,18 @@ const willy = {
       icsel: 'Kabul edemediği bir yorgunluk. Bedeni teslim, zihni hâlâ direnişte.',
       onerilenSicaklik: 4,
       yuk: 'Yarının hâlâ vaatle dolu olduğuna inanması gereken bir adamın, ilk kez sezdiği yenilgi.',
+      sahneTipi: 'kart',
+      replikIzi: 'Willy: "Ölüyorum yorgunluktan." / Linda: "Arabayı mı çarptın?" (eve dönüş, "olmadı bir şey")',
+      anlar: [
+        { id: 's1-a1', tip: 'catal', birlesimSahneNo: 1, travmaDuyarli: false,
+          soru: 'Yola çıktın ama dönmek zorunda kaldın; araba yoldan kayıp duruyordu. Kapıdan girerken bedenin neyi itiraf ediyor, neyi reddediyor?',
+          secenekler: [
+            { dal: 'A', baslik: 'Yorgunluğu itiraf ediyor', aciklama: 'Beden teslim; sadece dinlenmek istiyor.', oznelSabit: 'Bedenim teslim olduğunda bile, zihnim direnmeyi sürdürür.' },
+            { dal: 'B', baslik: 'Yenilgiyi reddediyor', aciklama: '"Olmadı bir şey" — hâlâ yarın var demek istiyor.', oznelSabit: 'İlk yenilgi sezgimi bile, kendime itiraf etmeyi reddettim.' },
+          ] },
+        { id: 's1-a2', tip: 'yazma', birlesimSahneNo: 1, travmaDuyarli: false,
+          soru: '"Bu sefer olmadı" diyorsun ama içinde başka bir cümle var. Linda\'ya söylemediğin o cümle ne?' },
+      ],
     },
     {
       no: 2, yasamSirasi: 1, perde: 1, perdeRomen: 'I',
@@ -212,6 +320,18 @@ const willy = {
       icsel: 'Kayıp cennetin sıcaklığı — ama şimdiki yıkımın yanında acıya dönüşen.',
       onerilenSicaklik: 5,
       yuk: 'Geçmiş şimdiye sızıyor; Willy o sıcaklığa kaçtıkça şimdiki boşluk büyüyor.',
+      sahneTipi: 'yuruyus',
+      replikIzi: 'Willy: "İyice bastıra bastıra silin camları. Aynen böyle işte, aferin." (oğullara, araba parlatma belleği)',
+      anlar: [
+        { id: 's2-a1', tip: 'catal', birlesimSahneNo: 2, travmaDuyarli: false,
+          soru: 'Belleğe adım atıyorsun; çocuklar küçük, güneş var, top elinde. Bu sıcaklığın içine girerken bedenin neye inanıyor?',
+          secenekler: [
+            { dal: 'A', baslik: 'Hâlâ orada', aciklama: 'Bu an gerçek; her şey hâlâ mümkün, yıkım daha olmadı.', oznelSabit: 'En güzel anı, sanki şimdiymiş gibi yeniden yaşayabilirim.' },
+            { dal: 'B', baslik: 'Kaybı biliyorum', aciklama: 'Sıcaklığın içindeyim ama sonunu da biliyorum.', oznelSabit: 'En güzel anılarıma bile, kaybedeceğimi bilerek bakarım.' },
+          ] },
+        { id: 's2-a2', tip: 'yazma', birlesimSahneNo: 2, travmaDuyarli: false,
+          soru: 'O belleğin içinde bir an var ki oradan çıkmak istemiyorsun. Hangi an o — ne görüyorsun, ne duyuyorsun?' },
+      ],
     },
     {
       no: 3, yasamSirasi: 5, perde: 1, perdeRomen: 'I',
@@ -221,6 +341,18 @@ const willy = {
       icsel: 'Şimdiki yardım (Charley) reddedilirken, ulaşılamayan başarı miti (Ben) çağırıyor.',
       onerilenSicaklik: 5,
       yuk: 'Gerçek dost gururuna dokunurken, ölü ağabeyin efsanesi onu hayata değil kaçışa çağırıyor.',
+      sahneTipi: 'karma',
+      replikIzi: 'Ben: "Ormana girdim, zengin çıktım." (Charley kart oynarken hayalet belirir, iki düzlem üst üste biner)',
+      anlar: [
+        { id: 's3-a1', tip: 'catal', birlesimSahneNo: 3, travmaDuyarli: false,
+          soru: 'Charley karşında kart oynuyor; aynı anda Ben\'in sesi içeride çağırıyor. Şimdiki dostu duyarken ölü ağabeyi de duyuyorsun. Bu ikisinden hangisi sana daha gerçek geliyor?',
+          secenekler: [
+            { dal: 'A', baslik: 'Charley — şimdi', aciklama: 'Etten kemikten, karşımda; ama gururuma dokunuyor.', oznelSabit: 'Gerçek yardım gururuma dokunduğunda, onu görmezden geldim.' },
+            { dal: 'B', baslik: 'Ben — çağrı', aciklama: 'Bir hayalet ama daha canlı; başarının ve kaçışın sesi.', oznelSabit: 'Beni hayata çağıran sese değil, kaçışa çağıran sese kulak verdim.' },
+          ] },
+        { id: 's3-a2', tip: 'yazma', birlesimSahneNo: 3, travmaDuyarli: false,
+          soru: 'Ben artık bir alışkanlık — karar anlarında dönen iç ses. En son ne zaman, hangi an seni çağırdı?' },
+      ],
     },
     {
       no: 4, yasamSirasi: 6, perde: 1, perdeRomen: 'I',
@@ -230,6 +362,18 @@ const willy = {
       icsel: 'Willy sahnede yok ama her cümle onun üstüne. Görülmenin hem koruması hem ağırlığı.',
       onerilenSicaklik: 6,
       yuk: 'Bir kadının taşıdığı sessiz dehşet; oğulların yüzleşmek zorunda kaldığı gerçek.',
+      sahneTipi: 'kart',
+      replikIzi: 'Linda: "Her gün bodruma inip o küçük lastik hortumu alıyorum, sonra geri koyuyorum… Nasıl söyleyebilirim ki bunu onun yüzüne?" (oğullara)',
+      anlar: [
+        { id: 's4-a1', tip: 'catal', birlesimSahneNo: 4, travmaDuyarli: true,
+          soru: 'Bu sahnede Willy yok ama her cümle onun üstüne. Linda onu görüyor, koruyor, hortumu buluyor ama söylemiyor. Görülmek Willy için bir koruma mı, yoksa daha ağır bir yük mü?',
+          secenekler: [
+            { dal: 'A', baslik: 'Koruma', aciklama: 'Onun bakışı tek tutunduğu şey; görülmek hayatta tutuyor.', oznelSabit: 'Görülmek beni hayatta tuttu, ama bunu hiç kabul edemedim.' },
+            { dal: 'B', baslik: 'Yük', aciklama: 'Görülmek demek, çöküşünün tanığı olmak demek.', oznelSabit: 'Birinin beni gördüğünü bilmek, yenilgimi gizlememi imkânsız kıldı.' },
+          ] },
+        { id: 's4-a2', tip: 'yazma', birlesimSahneNo: 4, travmaDuyarli: true,
+          soru: 'Linda hortumu bulmuş ama hiç söylememiş. Willy bunu bilse, ona ne söylemek isterdi — ya da hangi sessizliği seçerdi?' },
+      ],
     },
     {
       no: 5, yasamSirasi: 7, perde: 1, perdeRomen: 'I',
@@ -239,6 +383,18 @@ const willy = {
       icsel: 'Willy için bu plan kurtuluş; Biff için babayı yatıştırma. İki ayrı umut, aynı masada.',
       onerilenSicaklik: 5,
       yuk: 'En tehlikeli an coşkudur — çünkü düşülecek yer en yüksek oradadır.',
+      sahneTipi: 'kart',
+      replikIzi: 'Biff/Happy: "Bir Oliver vardı, hatırlıyor musun?" (Bill Oliver\'dan borç + iş kurma planı)',
+      anlar: [
+        { id: 's5-a1', tip: 'catal', birlesimSahneNo: 5, travmaDuyarli: false,
+          soru: 'Biff iş kurma planını açtığında birden coştun, akıl vermeye başladın. Bu coşku, gerçek bir umut mu yoksa düşmemek için tutunduğun bir dal mı?',
+          secenekler: [
+            { dal: 'A', baslik: 'Gerçek umut', aciklama: 'Bu plan kurtuluş; yarın hâlâ mümkün.', oznelSabit: 'Bir umut belirdiğinde, tüm ağırlığımı ona yükledim.' },
+            { dal: 'B', baslik: 'Tutunulan dal', aciklama: 'Coşmazsam çökerim; bu coşku bir savunma.', oznelSabit: 'En çok coştuğum an, aslında düşmekten en çok korktuğum andı.' },
+          ] },
+        { id: 's5-a2', tip: 'yazma', birlesimSahneNo: 5, travmaDuyarli: false,
+          soru: 'Perde umutla kapanıyor — ama bu umut kimin? Senin kurtuluşun mu, yoksa Biff\'in seni yatıştırma çabası mı? O an gerçekten neye inandın?' },
+      ],
     },
     {
       no: 6, yasamSirasi: 9, perde: 2, perdeRomen: 'II',
@@ -248,6 +404,18 @@ const willy = {
       icsel: 'Bir gece önceki coşkunun sabah ışığındaki kırılgan devamı.',
       onerilenSicaklik: 5,
       yuk: 'Umudun en parlak hâli, düşüşten hemen önce.',
+      sahneTipi: 'kart',
+      replikIzi: 'Linda: "Bu ay son taksiti de ödedik." (sabah, "her şey düzelecek")',
+      anlar: [
+        { id: 's6-a1', tip: 'catal', birlesimSahneNo: 6, travmaDuyarli: false,
+          soru: 'Sabah ışığı; bir gece önceki coşku hâlâ üstünde. Howard\'a gidip masa işi isteyeceksin. Bu sabahki iyimserlik içinde sahici mi, yoksa kendini buna inandırıyor musun?',
+          secenekler: [
+            { dal: 'A', baslik: 'Sahici', aciklama: 'Bugün gerçekten değişebilir; buna inanıyorum.', oznelSabit: 'Her yeni sabah, dünün yıkımını gerçekten unutabilirim.' },
+            { dal: 'B', baslik: 'Zorlanmış', aciklama: 'İnanmazsam ayakta kalamam; iyimserlik bir zorunluluk.', oznelSabit: 'İnanmak zorunda olduğum için inandım, inandığım için değil.' },
+          ] },
+        { id: 's6-a2', tip: 'yazma', birlesimSahneNo: 6, travmaDuyarli: false,
+          soru: 'Taksitler bitti, ev artık sizin — ama içinde tuhaf bir boşluk var. O sabah aynaya baksan, kendine ne söylerdin?' },
+      ],
     },
     {
       no: 7, yasamSirasi: 10, perde: 2, perdeRomen: 'II',
@@ -257,6 +425,18 @@ const willy = {
       icsel: 'Bir ömrün değersizleştiği an. Yalvarma ile öfke arasında salınan beden.',
       onerilenSicaklik: 7,
       yuk: 'İhanet edilen sadakat; adını koyduğu çocuğun onu silmesi.',
+      sahneTipi: 'kart',
+      replikIzi: 'Willy: "34 yılımı verdim bu şirkete, Howard… Öyle portakalı yiyip kabuğunu atamazsın. İnsan meyve değildir!"',
+      anlar: [
+        { id: 's7-a1', tip: 'catal', birlesimSahneNo: 7, travmaDuyarli: true,
+          soru: 'Howard teyple oynuyor, dinlemiyor; bir ömür değersizleşiyor. Willy bunu yaşarken yalvarma ile öfke arasında salınıyor. O an içinde hangisi ağır basıyor?',
+          secenekler: [
+            { dal: 'A', baslik: 'Yalvarma', aciklama: 'Hâlâ değerli olduğunu kanıtlama, kabul edilme ihtiyacı.', oznelSabit: 'Değersizleştirildiğim anda bile, kabul görmek için yalvardım.' },
+            { dal: 'B', baslik: 'Öfke', aciklama: 'Adını koyduğu çocuğun onu silmesine duyulan ihanet öfkesi.', oznelSabit: 'Bir ömrümün hiçe sayıldığı an, öfkem yutkunduğum şeydi.' },
+          ] },
+        { id: 's7-a2', tip: 'yazma', birlesimSahneNo: 7, travmaDuyarli: false,
+          soru: '"İnsan meyve değildir" diyorsun. Bu cümleyi söylerken aslında Howard\'a değil, kime sesleniyorsun?' },
+      ],
       travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 1,
     },
     {
@@ -267,6 +447,18 @@ const willy = {
       icsel: 'Bernard, Biff için hayal ettiği her şeyin canlı kanıtı. Ben, seçmediği yolun hayaleti.',
       onerilenSicaklik: 6,
       yuk: 'Yanlış ölçütle ölçülen bir hayatın, geç gelen "ya seçmeseydim" pişmanlığı.',
+      sahneTipi: 'karma',
+      replikIzi: 'Willy: "Gitmedik işte, hata ettik! Yalvardı bana o kadar, gideyim diye…" (Ben\'in Alaska teklifi, Charley ofisinde bellek)',
+      anlar: [
+        { id: 's8-a1', tip: 'catal', birlesimSahneNo: 8, travmaDuyarli: false,
+          soru: 'Bernard\'ın başarısı tam karşında; araya Ben\'in reddettiğin Alaska teklifi giriyor. İki düzlem birden: "keşke Biff de böyle olsaydı" ve "keşke o yolu seçseydim." Hangi pişmanlık daha derin?',
+          secenekler: [
+            { dal: 'A', baslik: 'Biff için', aciklama: 'Bernard, oğlum için hayal ettiğim her şey; ama Biff değil.', oznelSabit: 'Oğlumu yanlış bir ölçütle ölçtüm ve ikimizi de kaybettim.' },
+            { dal: 'B', baslik: 'Kendi yolu için', aciklama: 'Ben\'in çağrısını reddettim; o yol açık kalsaydı her şey farklı olurdu.', oznelSabit: 'Seçmediğim yol, ömrümce "ya gitseydim" diye içimi kemirdi.' },
+          ] },
+        { id: 's8-a2', tip: 'yazma', birlesimSahneNo: 8, travmaDuyarli: false,
+          soru: 'Charley sana iş teklif ediyor ama alamıyorsun; borç istiyorsun ama gözünü kaçırıyorsun. O an gururunla aranızda geçen sessiz pazarlık ne?' },
+      ],
     },
     {
       no: 9, yasamSirasi: 12, perde: 2, perdeRomen: 'II',
@@ -276,6 +468,24 @@ const willy = {
       icsel: 'Şimdi ile geçmiş çöker; en derin ahlaki yara tam burada, herkesin içinde patlar.',
       onerilenSicaklik: 9,
       yuk: 'İlişkinin sonsuza dek kırıldığı anın, yıllar sonra aynı şiddetle yeniden yaşanması.',
+      sahneTipi: 'karma',
+      replikIzi: 'Biff: "Sahtekârın teki olduğunu biliyorum." (lokantada gerçek, Boston otel belleğine düşüş — Kadın, çoraplar)',
+      anlar: [
+        { id: 's9-a1', tip: 'catal', birlesimSahneNo: 9, travmaDuyarli: true,
+          soru: 'Lokantada Biff konuşurken Willy onu artık duyamaz; zihni Boston odasına kayar. Willy bu kayışı yaşarken, dayanılmazdan kaçan mı, yoksa cezasına geri dönen mi?',
+          secenekler: [
+            { dal: 'A', baslik: 'Kaçıyor', aciklama: 'Biff\'in sözleri dayanılmaz; geçmiş bir sığınak gibi açılıyor.', oznelSabit: 'Dayanamadığım anlarda, zihnim beni başka bir zamana kaçırır.' },
+            { dal: 'B', baslik: 'Cezasına dönüyor', aciklama: 'Aynı yarayı tekrar açmaya mahkûm; geçmiş onu çağırıyor.', oznelSabit: 'En çok kaçmak istediğim anı, en çok geri yaşarım.' },
+          ] },
+        { id: 's9-a2', tip: 'catal', birlesimSahneNo: 9, travmaDuyarli: true,
+          soru: 'Kapı açılır, Kadın görünür, çoraplar ortaya çıkar. Willy o anı yeniden yaşarken bedeninde kapanmadan duran şey utanç mı, yoksa Biff\'in gözündeki bakışı kaybetmenin dehşeti mi?',
+          secenekler: [
+            { dal: 'A', baslik: 'Utanç', aciklama: 'Suçun çıplak görünmesi; kendi gözünde küçülme.', oznelSabit: 'Bir an gizlediğim şey, ömrümce taşıdığım yük oldu.' },
+            { dal: 'B', baslik: 'Kaybetmenin dehşeti', aciklama: 'Oğlunun gözündeki kahraman artık yok; geri dönüşü olmayan an.', oznelSabit: 'O kapı açıldığında, birinin gözündeki kahramanı sonsuza dek kaybettim.' },
+          ] },
+        { id: 's9-a3', tip: 'yazma', birlesimSahneNo: 9, travmaDuyarli: true,
+          soru: 'Oğullar onu tuvalette bırakıp gittiğinde Willy orada yalnız kalır. O yalnızlık anında içinden geçen tek cümle ne olurdu?' },
+      ],
       travmaKategorileri: ['ihanet', 'ahlaki_yara'], travmaSeviyesi: 3,
     },
     {
@@ -286,6 +496,24 @@ const willy = {
       icsel: 'Karanlıkta bir şey ekme ihtiyacı; ve oğlunun gözyaşını sevgi sanma — son yanılsama.',
       onerilenSicaklik: 8,
       yuk: 'Bir babanın, oğlunun çıplak gerçeğini bile kendi rüyasına çevirme zorunluluğu.',
+      sahneTipi: 'karma',
+      replikIzi: 'Willy: "Biff… seviyor beni!" (Biff "Ben hiçbir şeyim baba" deyip ağlarken, Willy yanlış anlar)',
+      anlar: [
+        { id: 's10-a1', tip: 'catal', birlesimSahneNo: 10, travmaDuyarli: true,
+          soru: 'Bahçede karanlıkta tohum ekiyorsun — bir şey büyütme çırpınışı. Willy bu işi yaparken, geleceğe bir şey bırakma umuduyla mı, yoksa kendini bir işe yarar hissetme ihtiyacıyla mı kazıyor toprağı?',
+          secenekler: [
+            { dal: 'A', baslik: 'Bir şey bırakma', aciklama: 'Ardımda büyüyen bir şey kalsın; bir iz, bir hayat.', oznelSabit: 'Son anlarımda bile, ardımda bir şey büyütmeye çalıştım.' },
+            { dal: 'B', baslik: 'İşe yarama', aciklama: 'Ellerim hâlâ bir şey yapabilsin; boşluğu doldurma ihtiyacı.', oznelSabit: 'Boşluğa dayanamadığımda, ellerimi bir işe verdim.' },
+          ] },
+        { id: 's10-a2', tip: 'catal', birlesimSahneNo: 10, travmaDuyarli: true,
+          soru: 'Biff "Ben hiçbir şeyim baba" deyip ağlıyor; Willy bunu "Seviyor beni!" diye duyuyor. Willy bu anı yaşarken gerçeği duyamayacak kadar kör mü, yoksa duymamayı seçecek kadar çaresiz mi?',
+          secenekler: [
+            { dal: 'A', baslik: 'Göremiyor', aciklama: 'Oğlunun çıplak gerçeğini bile kendi rüyasına çeviriyor.', oznelSabit: 'Gerçeği taşıyamadığımda, onu kendi rüyama çevirdim.' },
+            { dal: 'B', baslik: 'Duymamayı seçiyor', aciklama: 'Gerçeği bir an gördü ama dayanamadı, sevgiye sığındı.', oznelSabit: 'Bir an gerçeği gördüm, sonra ondan kaçıp sevgiye sığındım.' },
+          ] },
+        { id: 's10-a3', tip: 'yazma', birlesimSahneNo: 10, travmaDuyarli: true,
+          soru: 'Biff ağlayarak ona sarıldığında Willy bir an her şeyi unutuyor. O sarılmada Willy gerçekten ne hissetti — sen onun yerinde olsan içinden ne geçerdi?' },
+      ],
       travmaKategorileri: ['varolussal'], travmaSeviyesi: 2,
     },
     {
@@ -296,6 +524,24 @@ const willy = {
       icsel: 'Kendini bir armağana dönüştürme yanılsaması: ölümü, oğluna bırakacağı son satış.',
       onerilenSicaklik: 9,
       yuk: 'Willy\'nin sahnedeki son anı — yolculuk burada biter. (Requiem karaktere ait değil; dahil değil.)',
+      sahneTipi: 'karma',
+      replikIzi: 'Ben: "O elması istiyorsan ormana dalacaksın." / "Karanlık orası… ama elmas dolu." (son çağrı)',
+      anlar: [
+        { id: 's11-a1', tip: 'catal', birlesimSahneNo: 11, travmaDuyarli: true,
+          soru: 'Herkes yattı; Ben\'in sesi "elmas" diye fısıldıyor. Willy arabaya doğru yürürken, ölümü bir armağan mı sanıyor, yoksa bir kaçış olduğunu derinde biliyor mu?',
+          secenekler: [
+            { dal: 'A', baslik: 'Armağan sanıyor', aciklama: 'Bu son satış; sigortayla Biff\'i kurtaracak. Trajik körlük sonuna dek sürüyor.', oznelSabit: 'Sonunda bile, yıkımımı bir armağana çevirerek inandım kendime.' },
+            { dal: 'B', baslik: 'Kaçış olduğunu biliyor', aciklama: 'Boston\'ın, kovulmanın, görülmenin yükünden teslim oluş.', oznelSabit: 'Taşıyamadığım her şeyden, son bir kez kaçmayı seçtim.' },
+          ] },
+        { id: 's11-a2', tip: 'catal', birlesimSahneNo: 11, travmaDuyarli: true,
+          soru: 'Motor çalışır, sonra sessizlik. Willy o son anı taşırken içinde ne var — yenilgi mi, bir an barış mı, yoksa Biff\'i kurtardığı yanılsaması mı?',
+          secenekler: [
+            { dal: 'A', baslik: 'Yenilgi', aciklama: 'Kırılmış, kovulmuş, oğlunu kaybetmiş bir adam karanlığa teslim olur.', oznelSabit: 'Sonunda, taşıdığım her şeyin altında ezildiğimi biliyordum.' },
+            { dal: 'B', baslik: 'Bir an barış', aciklama: 'Biff\'in onu hâlâ sevdiğini anladığı kısa aydınlanmayla gider.', oznelSabit: 'Son anımda, birinin beni hâlâ sevdiğini bilmek bana huzur verdi.' },
+          ] },
+        { id: 's11-a3', tip: 'yazma', birlesimSahneNo: 11, travmaDuyarli: true,
+          soru: 'Bu Willy\'nin sahnedeki son anı. Arabaya binmeden hemen önce, kimsenin duymadığı tek bir cümle söyleyebilseydi — ne derdi?' },
+      ],
       travmaKategorileri: ['varolussal', 'kayip'], travmaSeviyesi: 2,
     },
   ],
