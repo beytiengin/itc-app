@@ -25,6 +25,7 @@ const KARAKTER_META = {
   willy:   { yazar: 'Arthur Miller',       donem: '1949', turKey: 'Trajedi' },
   macbeth: { yazar: 'William Shakespeare', donem: '1606', turKey: 'Trajedi' },
   biff:    { yazar: 'Arthur Miller',       donem: '1949', turKey: 'Trajedi' },
+  nina:    { yazar: 'Anton Çehov',          donem: '1896', turKey: 'Dram' },
 };
 
 // Aktif karakter için sıradaki adım hesabı: ilerleme view + içerik toplamları
@@ -214,6 +215,27 @@ export default function KarakterListesi() {
             adim={adimlar.biff}
             t={t}
           />
+
+          {/* Nina — pilot mimaride çalışan karakter; ilerleme takibi henüz
+              Willy-ailesi şemasına bağlı değil, bu yüzden kendi sade kartıyla
+              listede yer alır (adim/ilerleme YOK). Kendi sayfasında tam çalışır. */}
+          <a href="/antrenman/karakter/nina"
+            style={{
+              position: 'relative', display: 'flex', flexDirection: 'column', gap: '0.8rem',
+              padding: '2rem', border: '1px solid var(--rule)', background: 'transparent',
+              textDecoration: 'none', transition: 'all 0.3s ease',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.backgroundColor = 'var(--bg-elevated)'; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; e.currentTarget.style.backgroundColor = 'transparent'; }}
+          >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+              <span style={{ fontFamily: 'var(--font-display), serif', fontWeight: 400, fontSize: '1.6rem', color: 'var(--ink)', lineHeight: 1 }}>Nina</span>
+              <MetaSatiri karakterId="nina" t={t} />
+            </div>
+            <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-muted)', lineHeight: 1.7, margin: 0 }}>
+              Martı'nın yaşayan karakteri — oyun bittiğinde ölmeyen ilk karakter. Sahneler, boşluklar ve adım adım yürüyüşlerle kurulur.
+            </p>
+          </a>
 
           {/* Yakında — kompakt 2 sütun grid (eski tam-boy kartlar yerine).
               Tek başlık üstte; her öğe: ad + yazar mini. INERT tipoloji

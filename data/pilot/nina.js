@@ -237,20 +237,20 @@ export const nina = {
       birlesimSahneNo: 5,
       yuruyus: {
         esik: {
-          komut: 'Kapat gözlerini. Bir an, sadece nefesinle kal.',
+          komut: 'Bu bir yürüyüş. Bu sahneyi adım adım kuracaksın — Trigorin\'le konuşmanın hayranlığı aşka çevirdiği anı. Acele yok.',
           adimlar: [
-            'Nina’yı şu an nerede hissediyorsun? En çok hissettiğin yere odaklan, oraya dokun.',
-            'Nasıl bir his o — katı mı, sıvı mı, gaz gibi mi? Bir rengi var mı?',
-            'O rengi çok yavaş, saçının telinden ayak parmaklarına tüm bedenine yay. Vaktin var.',
+            'Önce sahneyi kur: II. perde, Trigorin karşında, uzun bir konuşma.',
+            'Her durakta Nina o an bedeninin neresinde duruyor — fark et, sonra ilerle.',
+            'Seçtiğin her şey senin olur; bu sahnede yanında kalır.',
           ],
-          hitap: 'Hazır olduğunda — bundan sonra sana Nina diye sesleneceğim.',
-          buton: 'Nina’yım, hazırım',
+          hitap: 'Hazır olduğunda ilk adımı at.',
+          buton: 'Başlıyorum',
         },
         girisBaslik: 'Trigorin’le — büyülenme eşiği',
         girisAciklama: 'II. perde. Trigorin’le uzun bir konuşma. Hayranlığın aşka döndüğü an burada başlar. Acele yok.',
         girisSentez: 'Bu yürüyüşte seçtiklerin senin olur; Sahne 5’te yanında kalır.',
-        gecisButonu: 'Şimdi zihninde her neredeysen, ileri doğru bir adım at',
-        cikisRitueli: 'Bedenine yaydığın rengi yavaşça geri çek; yerine kendi rengini getir. Birkaç nefes, ayaklar yerde. İyi misin? Hazır olduğunda gözlerini aç.',
+        gecisButonu: 'İlk durağa geç',
+        cikisRitueli: 'Sahneden bir adım geri çekil. Trigorin\'i, masayı, o ilk kıpırtıyı bırak; bir nefes ver. Bu sahneden çıkarken ne taşıyorsun?',
         istasyonlar: [
           {
             no: 0, zamanRozet: 'Karşısındasın',
@@ -332,20 +332,20 @@ export const nina = {
       birlesimSahneNo: 7,
       yuruyus: {
         esik: {
-          komut: 'Kapat gözlerini. Bir an, sadece nefesinle kal.',
+          komut: 'Bu bir yürüyüş. Bu sahneyi adım adım kuracaksın — eski hayatı (baba, ev, göl) ardında bırakma anını. Acele yok.',
           adimlar: [
-            'Nina’yı şu an nerede hissediyorsun? En çok hissettiğin yere odaklan, oraya dokun.',
-            'Nasıl bir his o — katı mı, sıvı mı, gaz gibi mi? Bir rengi var mı?',
-            'O rengi çok yavaş, saçının telinden ayak parmaklarına tüm bedenine yay. Vaktin var.',
+            'Önce sahneyi kur: III. perde sonu, veda, geri dönülmez karar.',
+            'Her durakta Nina o an bedeninin neresinde duruyor — fark et, sonra ilerle.',
+            'Seçtiğin her şey senin olur; bu sahnede yanında kalır.',
           ],
-          hitap: 'Hazır olduğunda — bundan sonra sana Nina diye sesleneceğim.',
-          buton: 'Nina’yım, hazırım',
+          hitap: 'Hazır olduğunda ilk adımı at.',
+          buton: 'Başlıyorum',
         },
         girisBaslik: 'Eşik — geri dönülmez karar',
         girisAciklama: 'III. perde sonu. Eski hayatı (baba, ev, göl) ardında bırakma anı. Korkudan çok kararlılık.',
         girisSentez: 'Bu yürüyüşte seçtiklerin senin olur; Sahne 7’de yanında kalır.',
-        gecisButonu: 'Şimdi zihninde her neredeysen, ileri doğru bir adım at',
-        cikisRitueli: 'Bedenine yaydığın rengi yavaşça geri çek; yerine kendi rengini getir. Birkaç nefes, ayaklar yerde. İyi misin? Hazır olduğunda gözlerini aç.',
+        gecisButonu: 'İlk durağa geç',
+        cikisRitueli: 'Sahneden bir adım geri çekil. Babanın evini, gölü, o son bakışı arkanda bırak; bir nefes ver. Bu eşikten çıkarken ne taşıyorsun?',
         istasyonlar: [
           {
             no: 0, zamanRozet: 'Son bakış',
@@ -416,20 +416,21 @@ export const nina = {
       guvenliCikis: true,
       yuruyus: {
         esik: {
-          komut: 'Kapat gözlerini. Bir an, sadece nefesinle kal.',
+          yogunlukUyarisi: 'Bu sahne ağır. Nina iki yıllık yıkımı taşıyarak geliyor. Acelesi yok — bu bir yürüyüş, yeniden yaşamak değil. Sahneyi bir adım dışarıdan kuracaksın. İstediğin an durabilirsin; yürüyüşün sonunda topraklanma var.',
+          komut: 'Bu sahneyi bir adım dışarıdan kuracaksın. İçine düşmeyeceksin — geceyi, fırtınayı, kapının önündeki Nina’yı bir yönetmen gibi kuracaksın. Acele yok.',
           adimlar: [
-            'Nina’yı şu an nerede hissediyorsun? En çok hissettiğin yere odaklan, oraya dokun.',
-            'Nasıl bir his o — katı mı, sıvı mı, gaz gibi mi? Bir rengi var mı?',
-            'O rengi çok yavaş, saçının telinden ayak parmaklarına tüm bedenine yay. Vaktin var.',
+            'Önce geceyi kur: iki yıl sonra, fırtına, Treplev’in odası, kapının önü.',
+            'Nina’yı dışarıdan gör — onun yerine geçme, sahneyi kur.',
+            'Her durakta gerekirse dur, nefes al. Bu senin yürüyüşün; hızını sen belirlersin.',
           ],
-          hitap: 'Hazır olduğunda — bundan sonra sana Nina diye sesleneceğim.',
-          buton: 'Nina’yım, hazırım',
+          hitap: 'Hazır olduğunda ilk adımı at.',
+          buton: 'Başlıyorum',
         },
         girisBaslik: 'Gece — eşikte',
         girisAciklama: 'İki yıl sonra. Fırtına iki gündür sürüyor. Nina beş gündür köyde, kimseyi görmedi. Bu gece bu kapının önünde.',
         girisSentez: 'Buraya dışarıdan bak — bu Nina’nın gecesi. Seçtiklerin Sahne 8’de yanında kalır. Yürüyüş bitince sahnenin geri kalanını birlikte işleyeceğiz.',
-        gecisButonu: 'Şimdi zihninde her neredeysen, ileri doğru bir adım at',
-        cikisRitueli: 'Bu ağır bir eşikti. Rengi yavaşça geri çek, kendi rengini getir. Nefes al, ayaklar yerde. İyi misin? Hazır olduğunda gözlerini aç — Nina’yı bıraktığın yerde, güvende. Şimdi sahnenin içine, masaya dönüyoruz.',
+        gecisButonu: 'İlk durağa geç',
+        cikisRitueli: 'Sahneden iki adım geri çekil. Geceyi, fırtınayı, kapının önündeki Nina’yı arkanda bırak; uzun bir nefes ver, ayaklarını yere bas. Bu senin yıkımın değil — Nina’nın verisi. Şimdiki ana dön; sahneyi taşıdığını ama içinde olmadığını hisset. Hazır olduğunda sahnenin içine, masaya dönüyoruz.',
         istasyonlar: [
           {
             no: 0, zamanRozet: 'Beş gündür buradasın',
@@ -565,20 +566,21 @@ export const nina = {
       guvenliCikis: true,
       yuruyus: {
         esik: {                                    // KANON §4.5: İLK yürüyüşte sabit, sonrakilerde opsiyonel
-          komut: 'Kapat gözlerini. Bir an, sadece nefesinle kal.',
+          yogunlukUyarisi: 'Bu, metnin en büyük boşluğu — iki yılda çocuğun ölümü, terk, taşradaki başarısız yıllar. Ağır bir kurma. Acelesi yok; bu bir yürüyüş, yeniden yaşamak değil. Bu iki yılı bir adım dışarıdan kuracaksın. İstediğin an durabilirsin; sonunda topraklanma var.',
+          komut: 'Çehov bu iki yılı yazmaz; sen kuracaksın. İçine düşmeden, bir adım dışarıdan — Nina’nın bu görünmeyen iki yılını bir yönetmen gibi kur. Acele yok.',
           adimlar: [
-            'Nina’yı şu an nerede hissediyorsun — göğsünde mi, karnında mı, başka bir yerde mi? En çok hissettiğin yere odaklan, oraya dokun.',
-            'Nasıl bir his o — katı mı, sıvı mı, gaz gibi mi? Bir rengi var mı?',
-            'Şimdi o rengi, çok yavaş, saçının her bir telinden ayak parmaklarına kadar tüm bedenine yay. İstediğin kadar vaktin var.',
+            'Önce zamanı kur: Moskova, taşra, iki yıl — varıştan yıkıma.',
+            'Nina’yı dışarıdan gör — onun yerine geçme, bu iki yılı kur.',
+            'Her durakta gerekirse dur, nefes al. Bu senin yürüyüşün; hızını sen belirlersin.',
           ],
-          hitap: 'Hazır olduğunda — bundan sonra sana Nina diye sesleneceğim.',
-          buton: 'Nina’yım, hazırım',
+          hitap: 'Hazır olduğunda ilk adımı at.',
+          buton: 'Başlıyorum',
         },
         girisBaslik: 'Moskova ve Taşra',
         girisAciklama: 'Çehov bu iki yılı yazmaz. Dördüncü perdedeki Nina’yı anlamlı kılan tek şey, bu görünmeyen iki yılı kendi içinde yaşayabilmen. Acele yok — istediğin kadar vaktin var.',
         girisSentez: 'Bu yürüyüşte verdiğin kimi kararlar artık senin olur — metinden değil, senden gelen ama bundan sonra değiştirmeyeceğin doğrular. Onları unutmayacaksın; Sahne 8’de yanında olacaklar.',
-        gecisButonu: 'Şimdi zihninde her neredeysen, ileri doğru bir adım at',  // KANON §5.4: SADECE buton, istasyon açılışında DEĞİL
-        cikisRitueli: 'Bedenine yaydığın o rengi, çok yavaş, geri çek. Yerine kendi rengini getir — sana ait olanı. Birkaç nefes al, ayaklarını yere bas. İyi misin? Ne hissediyorsun? Hazır olduğunda gözlerini aç; Nina’yı bıraktığın yerde, güvende.',
+        gecisButonu: 'İlk durağa geç',  // KANON §5.4: SADECE buton, istasyon açılışında DEĞİL
+        cikisRitueli: 'Bu iki yıldan iki adım geri çekil. Moskova’yı, taşrayı, kaybı arkanda bırak; uzun bir nefes ver, ayaklarını yere bas. Bu senin yıkımın değil — Nina’nın verisi. Kurduğun her şey Sahne 8’de yanında. Şimdiki ana dön; taşıdığını ama içinde olmadığını hisset.',
         istasyonlar: [
           {
             no: 0, zamanRozet: 'Varış · Gün 0',
