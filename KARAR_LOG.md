@@ -11,6 +11,38 @@ yapısal, içerik ve mimari kararların kaydı. En yeni karar üstte.
 
 ---
 
+## 2026-06-04 — Boşluk kavramı sahne-arası + sahne-öncesi katmanları kapsar (Oyun Öncesi = sahne-öncesi boşluk)
+
+**Tip:** İçerik + Yapısal (Tip 3/2)
+**Etkilenen katmanlar:** App (tüm karakter viewer'ları + data), Method Book, Workbook — kanon yedirme `itc-canon`'a yedirilecek
+**Karar veren:** Beyti (onayladı)
+**Karar:** ITC'nin çekirdek **"Boşluk"** kavramı tek bir katmanla (sahne-arası) sınırlı değildir;
+**iki katmanı** kapsayan bir üst-kavramdır:
+- **Sahne-arası boşluk:** Metnin iki sahnesi arasında, yazarın atladığı, oyuncunun kurduğu an
+  (`boslukSet` — örn. Willy b4/b8/b11, Nina b1/b2/b3).
+- **Sahne-öncesi boşluk (= Oyun Öncesi):** Oyun başlamadan önceki, metnin yalnızca ima ettiği,
+  oyuncunun zihinsel olarak inşa ettiği yaşam katmanı (`oyunOncesi.olaylar` — örn. Willy'nin
+  babasının terki / Boston, Nina'nın annesinin ölümü).
+
+İkisi de **aynı ITC ilkesine** dayanır: *metnin yazmadığı, oyuncunun kuracağı an; soru sorulur,
+tarif edilmez.* Bu yüzden Oyun Öncesi, dramaturjik bir dipnot değil, **timeline'ın eşit ve
+kronolojik bir parçasıdır** — sahnelerle ve sahne-arası boşluklarla tek akışta dizilir.
+**Görünür dil:** Timeline'da "Oyun Öncesi" fazının altyazısı boşluk-diliyle hizalanır
+("Metnin yazmadığı, senin kuracağın yaşam" / Nina: "boşluk-öncesi katman", "görünmeyen
+boşluklar"). "Oyun Başlangıcı" ayracı, yazarın metninin başladığı yeri işaretler.
+**Gerekçe:** Oyun öncesi, dördüncü-perde / final karakterini anlamlı kılan görünmeyen zemindir
+(Nina'nın iki yıllık boşluğu, Willy'nin baba boşluğu). Onu ayrı bir katlanır künyeye veya
+dramaturjik detaya hapsetmek, en az timeline kadar değerli olan bu katmana yazık eder. Boşluğu
+tek üst-kavram altında birleştirmek, yöntemin "metnin sustuğu her yeri oyuncu kurar" iddiasını
+kavramsal olarak bütünler.
+**Mekanik:** Willy viewer `akis` kurgusuna `tip:'ayrac'` düğümleri eklendi; `AyracWilly`
+(Nina `FazAyrac` kalıbı) "Oyun Öncesi" (olaylardan önce) ve "Oyun Başlangıcı" (ilk sahneden
+önce) fazlarını çizer. Oyun öncesi olaylar tek-panel sistemine bağlı, scroll/id mobil-uyumlu.
+i18n 3 dil.
+**Sıradaki:** Macbeth/Biff göçünde aynı iki-katmanlı boşluk kurgusu standart alınır.
+
+---
+
 ## 2026-06-04 — Willy = vitrin karakteri; tüm kararları dramaturjik onaylı (Filiz-onayı genel kuralı korunur)
 
 **Tip:** Yapısal + İçerik (Tip 2/3)
