@@ -108,6 +108,8 @@ const willy = {
             ] },
           { id: 'o3-a2', tip: 'yazma', travmaDuyarli: false,
             soru: 'Bu evi, bu taksitleri birlikte göğüslediniz. Linda\'ya söyleyemediğin ama içinden ona her gün söylediğin bir cümle var mı?' },
+          { id: 'o3-a3', tip: 'hatira', travmaDuyarli: false,
+            soru: 'Linda ile, henüz yorgun düşmemiş bir akşamı hayal et. Aranızda söze gerek olmayan bir an. O sessizliğin içinde ne vardı — sen onun yanında otururken bedenin neyi biliyordu?' },
         ],
       },
       {
@@ -127,6 +129,8 @@ const willy = {
             ] },
           { id: 'o4-a2', tip: 'yazma', travmaDuyarli: false,
             soru: 'O satıcı gibi anılmak istiyorsun. Senin cenazende kalabalık olsa, onların ardından söylemesini en çok istediğin cümle ne?' },
+          { id: 'o4-a3', tip: 'hatira', travmaDuyarli: false,
+            soru: 'Daha kimse seni yormamışken, ilk kez tek başına yola çıktığın bir sabahı hayal et. Önünde bütün bir gün, bütün bir şehir var. O sabah içinden geçen şeyi hatırla — neye inanıyordun?' },
         ],
       },
       {
@@ -146,6 +150,8 @@ const willy = {
             ] },
           { id: 'o5-a2', tip: 'yazma', travmaDuyarli: false,
             soru: 'O "Loman Kardeşler" çağının bir anı var ki, oradan hiç çıkmak istemezdin. Hangi an o?' },
+          { id: 'o5-a3', tip: 'hatira', travmaDuyarli: false,
+            soru: 'Biff\'in sana hayranlıkla baktığı bir an yarat. Henüz hiçbir şey kırılmamışken. Onun gözünde sen hâlâ dünyanın en büyük adamısın — o bakışı yüzünde hisset. Neredesiniz, ışık nasıl?' },
         ],
       },
       {
