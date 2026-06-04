@@ -171,6 +171,8 @@ const willy = {
             ] },
           { id: 'o6-a2', tip: 'yazma', travmaDuyarli: true,
             soru: 'O odadan çıkıp eve, Linda\'ya döndüğünde Willy bir şeyi yanında taşıdı. Adı konmamış o şeyi tek kelimeyle söylesen, ne derdin?' },
+          { id: 'o6-a3', tip: 'iz', travmaDuyarli: true,
+            soru: 'Otel odası çoktan geride kaldı. Ama bazen yıllar sonra bile bir kahkaha, bir çorap, bir kapının sesi bedende kalır. O ilişkiden geriye kalan izi yokla — olayı değil, kalıntıyı. Adını koymaya çalışma. Fark et ve bırak.' },
         ],
       },
       {
@@ -190,6 +192,8 @@ const willy = {
             ] },
           { id: 'o7-a2', tip: 'yazma', travmaDuyarli: true,
             soru: 'O an Biff hâlâ orada, kapının önünde duruyor. Willy ona tek bir şey söyleyebilseydi — açıklama değil, sadece bir şey — ne olurdu?' },
+          { id: 'o7-a3', tip: 'iz', travmaDuyarli: true,
+            soru: 'Kapı açıldı, o an geçti. Ama bazı bakışlar yıllar sonra bile bedenden çıkmaz. Biff\'in gözünde kalanı değil — Willy\'nin bedeninde kalanı yokla. Neresinde duruyor, ne kadar ağır. Sonra bırak.' },
         ],
       },
       {
@@ -209,6 +213,8 @@ const willy = {
             ] },
           { id: 'o8-a2', tip: 'yazma', travmaDuyarli: false,
             soru: 'Biff\'in toparlanamadığı yılları düşününce, kimseye söyleyemediğin bir cümle var. O cümle ne?' },
+          { id: 'o8-a3', tip: 'sessizbilgi', travmaDuyarli: false,
+            soru: 'Bernard konuşuyor — kimse suçlamıyor, kimse hüküm vermiyor. Ama bazı cümleler insanın içinde yıllarca kalır. Bu konuşmadan sonra Willy\'nin içine yerleşen sessiz bilgiyi fark et. Adını koyma, savunma. Sadece orada olduğunu gör — sonra bırak.' },
         ],
       },
     ],

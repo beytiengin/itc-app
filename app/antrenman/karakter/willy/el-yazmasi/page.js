@@ -799,7 +799,9 @@ function AnSecenek({ secili, soluk, onClick, harf, baslik, aciklama, muhur }) {
 function AnKart({ an, secimler, muhurler, onAnSec, onAnYaz, t }) {
   const isKarar = an.tip === 'catal';
   const isHatira = an.tip === 'hatira';
-  const eyebrow = isKarar ? t.anKararEtiket : isHatira ? t.anHatiraEtiket : t.anBoslukEtiket;
+  const isIz = an.tip === 'iz';
+  const isSessizBilgi = an.tip === 'sessizbilgi';
+  const eyebrow = isKarar ? t.anKararEtiket : isHatira ? t.anHatiraEtiket : isIz ? t.anIzUretimEtiket : isSessizBilgi ? t.anSessizBilgiEtiket : t.anBoslukEtiket;
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem', padding: '0.9rem 1rem', background: 'var(--bg-base)', borderLeft: `2px solid ${TON}`, border: '1px solid var(--rule)' }}>
       <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 400, fontSize: '0.58rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>{eyebrow}</span>
@@ -811,14 +813,14 @@ function AnKart({ an, secimler, muhurler, onAnSec, onAnYaz, t }) {
           ))}
         </div>
       ) : null}
-      {(an.tip === 'yazma' || an.tip === 'hatira') ? (
-        <AnYazma an={an} deger={muhurler[an.id] || ''} onYaz={(metin) => onAnYaz(an, metin)} t={t} hatira={isHatira} />
+      {(an.tip === 'yazma' || an.tip === 'hatira' || an.tip === 'iz' || an.tip === 'sessizbilgi') ? (
+        <AnYazma an={an} deger={muhurler[an.id] || ''} onYaz={(metin) => onAnYaz(an, metin)} t={t} hatira={isHatira} iz={isIz} sessizBilgi={isSessizBilgi} />
       ) : null}
     </div>
   );
 }
 
-function AnYazma({ an, deger, onYaz, t, hatira }) {
+function AnYazma({ an, deger, onYaz, t, hatira, iz, sessizBilgi }) {
   const [yerel, setYerel] = useState(deger || '');
   const [kaydedildi, setKaydedildi] = useState(false);
   useEffect(() => { setYerel(deger || ''); }, [deger]);
@@ -840,7 +842,7 @@ function AnYazma({ an, deger, onYaz, t, hatira }) {
       {(kaydedildi || (deger && yerel === deger)) && yerel.trim().length > 0 ? (
         <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.65rem', letterSpacing: '0.2em', color: TON, textTransform: 'uppercase', alignSelf: 'flex-end' }}>{t.muhurlendi || '✓'}</span>
       ) : (
-        <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.74rem', color: 'var(--ink-muted)', alignSelf: 'flex-end' }}>{hatira ? (t.hatiraYonerge || t.muhurleYonerge) : t.muhurleYonerge}</span>
+        <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.74rem', color: 'var(--ink-muted)', alignSelf: 'flex-end' }}>{sessizBilgi ? (t.sessizBilgiYonerge || t.muhurleYonerge) : iz ? (t.izYonerge || t.muhurleYonerge) : hatira ? (t.hatiraYonerge || t.muhurleYonerge) : t.muhurleYonerge}</span>
       )}
     </div>
   );
