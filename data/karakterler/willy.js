@@ -1024,6 +1024,60 @@ const willy = {
       konum: 'Howard ofisi → Charley ofisi arası, sokak → Sahne 8',
       yasamSirasi: 8,
       sonraSahneNo: 8,
+      yuruyus: {
+        esik: {
+          komut: 'Bu bir yürüyüş. Bu boşluğu adım adım kuracaksın — Howard\'ın ofisinden çıkıp Charley\'ye gidene kadar geçen, metnin yazmadığı süre. Acele yok.',
+          adimlar: [
+            'Önce anı kur: ofis kapısı arkanda kapandı, sokaktasın. Miller bu yürüyüşü yazmaz; sen kuracaksın.',
+            'Her durakta Willy o an bedeninin neresinde duruyor — fark et, sonra ilerle.',
+            'Seçtiğin her şey senin olur; Sahne 8\'e hangi adamın girdiğini bu boşluk belirler.',
+          ],
+          hitap: 'Hazır olduğunda ilk adımı at.',
+          buton: 'Başlıyorum',
+        },
+        girisBaslik: 'Kovulduktan sonra sokakta — boşluğu kur',
+        girisAciklama: 'Howard, Willy\'yi kovdu. Ofisten çıkıp Charley\'ye gidene kadar geçen süreyi Miller atlar. O sokağı, o kararı sen kuracaksın.',
+        girisSentez: 'Bu yürüyüşte seçtiklerin senin olur; Sahne 8\'de yanında kalır.',
+        gecisButonu: 'İlk durağa geç',
+        cikisRitueli: 'Boşluktan bir adım geri çekil; bir nefes ver. Sahne 8\'e girmeden önce: oraya hangi adam giriyor — hâlâ ayakta mı, içten çökmüş bir gövde mi? Ne taşıyorsun?',
+        istasyonlar: [
+          {
+            no: 0, zamanRozet: 'Kapı kapandı',
+            acilis: 'Howard\'ın ofisinin kapısı arkanda kapandı. Aynı sokaklar, ama başka bir adam. "34 yıl verdim" cümlesi hâlâ ağzında.',
+            sorular: ['Sokağa adım attığında Willy\'nin ilk gördüğü şey neydi — başı yukarıda mıydı, yere mi bakıyordu?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Sokağa çıktığımda ilk…',
+          },
+          {
+            no: 1, zamanRozet: '"Sen bittin" bedene iniyor',
+            acilis: 'Yürürken bir şey içine işliyor — kovulmanın gerçekliği. Bunu kafan değil, bedenin anlıyor.',
+            sorular: ['"Sen bittin" duygusu bedeninde nereye indi — ve Willy bununla ne yaptı: hızlandı mı, durdu mu?'],
+            catal: {
+              anahtar: 's8-bosluk-bittim', dil: 'birinci_tekil',
+              etiket: 'İki yol var. Hangisi senin?',
+              secenekler: [
+                { deger: 'inkar', baslik: 'İnkâr — hâlâ ayakta', aciklama: 'Bunu kabul edemem; bir yolu vardır, yürümeye devam ederim.',
+                  muhur: 'Bunu unutma — bittiğimi bildiğim an bile, bilmiyormuş gibi yürüdüm.',
+                  ozet: 'Bittiğimi bilsem de bilmiyormuş gibi yürüdüm.' },
+                { deger: 'cokus', baslik: 'Çöküş — içten yıkım', aciklama: 'Bir an dize geldim; gövdem taşımayı bıraktı.',
+                  muhur: 'Bunu unutma — o sokakta bir an, ayakta dururken içten çöktüm.',
+                  ozet: 'Ayakta dururken içten çöktüm.' },
+              ],
+            },
+          },
+          {
+            no: 2, zamanRozet: 'Bir köşede nefes',
+            acilis: 'Bir an durdun — bir köşe, bir duvar, bir vitrin. Nefes almak için. Kimse seni tanımıyor burada.',
+            sorular: ['O an kendine ne dedin? Durduğun yerde içinden geçen tek cümle neydi?'],
+            yazmaAlani: true, yazmaPlaceholder: 'O köşede kendime…',
+          },
+          {
+            no: 3, zamanRozet: 'Charley\'ye gitme kararı',
+            acilis: 'Eve gidebilirdin. Ama ayakların Charley\'ye dönüyor. Boşluk kuruldu; Sahne 8\'in eşiğindesin.',
+            sorular: ['Neden Linda\'nın yanına değil de Charley\'ye gittin? Bu kararı veren an neydi?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Charley\'ye gitmemin nedeni…',
+          },
+        ],
+      },
       onceBaslik: 'Howard ofiste — kovulma',
       onceMetin:
         'Sahne 7\'de Howard, Willy\'yi kovar. "34 yıl verdim bu şirkete… insan meyve değildir." Willy ofisten çıkar.',
