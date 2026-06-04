@@ -286,6 +286,10 @@ export default function ElYazmasiSayfasi() {
                 acik={acikOlay === olay.no}
                 onAc={() => setAcikOlay(acikOlay === olay.no ? null : olay.no)}
                 t={t}
+                anSecimleri={anSecimleri}
+                anYazmalari={anYazmalari}
+                onAnSec={anSec}
+                onAnYaz={anYaz}
               />
             ))}
           </ul>
@@ -479,7 +483,7 @@ function GirisKapisiCubugu({ t, acikKapiKey }) {
 
 // ─── OYUN ÖNCESİ OLAY (sade panel) ─────────────────────────────────────────
 
-function OlayDugumu({ olay, acik, onAc, t }) {
+function OlayDugumu({ olay, acik, onAc, t, anSecimleri, anYazmalari, onAnSec, onAnYaz }) {
   const kayitAni = KAYIT_ANI_OYUN_ONCESI.has(olay.no);
   return (
     <li style={{ listStyle: 'none' }}>
@@ -553,6 +557,37 @@ function OlayDugumu({ olay, acik, onAc, t }) {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', borderLeft: `2px solid ${TON}`, paddingLeft: '0.9rem' }}>
                 <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.58rem', letterSpacing: '0.28em', color: TON, textTransform: 'uppercase' }}>{t.panelYazarYansimaSorusu}</span>
                 <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.6 }}>{olay.yansimaSorusu}</p>
+              </div>
+            )}
+
+            {/* Olay içi anlar — sahne anlarıyla aynı mühürleme (oznel_sabitler) */}
+            {Array.isArray(olay.anlar) && olay.anlar.length > 0 && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', marginTop: '0.2rem' }}>
+                <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.58rem', letterSpacing: '0.28em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.panelYazarAnlar}</span>
+                {olay.anlar.map((an) => (
+                  <div key={an.id} style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', padding: '0.9rem 1rem', background: 'var(--bg-base)', border: '1px solid var(--rule)' }}>
+                    <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.02rem', color: 'var(--ink)', margin: 0, lineHeight: 1.55 }}>{an.soru}</p>
+                    {an.tip === 'catal' && Array.isArray(an.secenekler) ? (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                        {an.secenekler.map((se) => (
+                          <AnSecenek
+                            key={se.dal}
+                            secili={anSecimleri[an.id] === se.dal}
+                            soluk={anSecimleri[an.id] && anSecimleri[an.id] !== se.dal}
+                            onClick={() => onAnSec(an, se)}
+                            harf={se.dal}
+                            baslik={se.baslik}
+                            aciklama={se.aciklama}
+                            muhur={se.oznelSabit}
+                          />
+                        ))}
+                      </div>
+                    ) : null}
+                    {an.tip === 'yazma' ? (
+                      <AnYazma an={an} deger={anYazmalari[an.id] || ''} onYaz={(metin) => onAnYaz(an, metin)} t={t} />
+                    ) : null}
+                  </div>
+                ))}
               </div>
             )}
           </div>
