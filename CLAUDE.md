@@ -397,13 +397,15 @@ oyunOncesi: {
 }
 ```
 
-### Üç an tipi (`an.tip`)
+### Beş an tipi (`an.tip`)
 
 | tip | bilişsel eylem | UI eyebrow | render | kayıt |
 |-----|----------------|-----------|--------|-------|
 | `catal` | **karar** (yorum seçer + mühürler) | "Karar" | `AnSecenek` (A/B dal, her dalda `oznelSabit`) | seçim |
 | `yazma` | **boşluk** (kendi sözcükleriyle üretir) | "Boşluk" | `AnYazma` (textarea, blur'da otomatik) | metin |
-| `hatira` | **saf zihinsel canlandırma** | "Hatıra" | `AnYazma` (yazma gibi) | metin |
+| `hatira` | **saf zihinsel canlandırma** (sıcak/nötr bölge) | "Hatıra" | `AnYazma` (yazma gibi) | metin |
+| `iz` | **travma kalıntısı** (olayı yaşatma, bedende kalanı yokla) | "İz" | `AnYazma` (üretim) | metin |
+| `sessizbilgi` | **bilişsel/ahlaki yerleşme** (Miller sorumluluk teması) | "Sessiz Bilgi" | `AnYazma` (üretim) | metin |
 
 ```javascript
 // catal
@@ -415,9 +417,31 @@ oyunOncesi: {
   ] }
 // yazma
 { id: 'o1-a2', tip: 'yazma', travmaDuyarli: false, soru: '...' }
-// hatira
+// hatira (sıcak bölge — duyusal çağrı, soru değil)
 { id: 'o5-a3', tip: 'hatira', travmaDuyarli: false, soru: '...(çağrı, soru değil)' }
+// iz (travma bölgesi — olayı yaşatma, kalıntıyı yokla, fark et ve bırak)
+{ id: 'o6-a3', tip: 'iz', travmaDuyarli: true, soru: '...' }
+// sessizbilgi (ahlaki yerleşme — suçlama yok, içte kalanı gör, bırak)
+{ id: 's8-a3', tip: 'sessizbilgi', travmaDuyarli: false, soru: '...' }
 ```
+
+**Travma bölgesi kuralı:** Hatıra sıcak/nötr bölgeye; travma/yara bölgesinde Hatıra DEĞİL
+İz (kalıntı) veya Sessiz Bilgi (yerleşme) kullanılır — aynı "hayal et" mekaniği terapi
+çağrışımı üretir. İlke: karakter oyuncunun yarasından değil, karakterin verisinden beslenir.
+
+**`replikIzi` etiketi = "Miller karşılığı"** (dinlenen katman), `tip: 'iz'` = "İz" (üretilen
+katman). İkisi karışmaz. i18n: anIzEtiket="Miller karşılığı", anIzUretimEtiket="İz".
+
+### Yürüyüş (`sahneTipi: 'yuruyus'`) — dramaturjik kurma, TRANS DEĞİL
+
+Yürüyüş = sahneyi **açık gözle, adım adım kuran** dramaturjik egzersiz. Rehberli imgeleme/
+trans DEĞİL (mecra gözü kapalı tutamaz; sesli imgeleme = Modül III). Yapı:
+`yuruyus: { esik{komut,adimlar,hitap,buton}, girisBaslik, girisAciklama, girisSentez,
+gecisButonu, cikisRitueli, istasyonlar[{no, zamanRozet, acilis, sorular[],
+(yazmaAlani+yazmaPlaceholder VEYA catal{anahtar,dil,etiket,secenekler[{deger,baslik,aciklama,muhur,ozet}]})}] }`.
+Kurallar: eşik dramaturjik ("gözünü kapat/renk yay" YOK) · beden = **dikkat sorusu**
+("neresinde duruyor — fark et") rituel değil · çıkış dramaturjik. Motor: paylaşımlı
+`components/BoslukYuruyusu.js` (viewer'a onYuruyus zinciri + tam-ekran overlay + buton ile bağlanır).
 
 ### Üç ses bilişsel ayrımı (Karar — bkz KARAR_LOG)
 

@@ -11,6 +11,47 @@ yapısal, içerik ve mimari kararların kaydı. En yeni karar üstte.
 
 ---
 
+## 2026-06-04 — Yürüyüş = dramaturjik kurma (trans DEĞİL); sesli imgeleme Modül III'e ait
+
+**Tip:** Mimari + İçerik (Tip 1/3)
+**Etkilenen katmanlar:** App (Workbook viewer + karakter data) — kanon yedirme `itc-canon` tarafında bekliyor
+**Karar veren:** Beyti (onayladı)
+**Karar:** "Yürüyüş" (`sahneTipi: 'yuruyus'`, `yuruyus: { esik, istasyonlar[], cikisRitueli }`)
+oyuncunun sahneyi **açık gözle, adım adım kurduğu dramaturjik egzersizdir** — rehberli
+imgeleme/trans DEĞİL. Gerekçe: mecra (ekran/okuma/tıklama) gözü kapalı tutmaya izin
+vermez; "gözünü kapat, rengi bedenine yay" demek oyuncuya yapamadığı bir şeyi yaptırıyormuş
+gibi varsayar (sahte/komik düşme riski) ve Modül III'ün asıl değerini (AI sesli dış ses,
+gerçekten gözler kapalı, tıklamasız) önceden harcar.
+**Kurallar:**
+- Eşik = dramaturjik giriş ("bu bir yürüyüş, sahneyi adım adım kuracaksın, acele yok").
+  "gözünü kapat / renk yay" YOK.
+- Beden = **dikkat sorusu** olarak kalır ("Willy o an bedeninin neresinde — fark et, sonra ilerle"),
+  **rituel** olarak gitmez ("gözünü kapat, renk yay").
+- Çıkış = dramaturjik kapanış ("sahneden çık, ne taşıyorsun"). Renk geri çekme YOK.
+- Gerçek "gözler kapalı, sesli, tıklamasız" canlandırma = Modül III. Bu yürüyüş onun masabaşı öncülü.
+**Mekanik:** Paylaşımlı `components/BoslukYuruyusu.js` motoru viewer'a bağlandı
+(onYuruyus prop zinciri + tam-ekran overlay + "Bu sahneyi adım adım kur" butonu, i18n 3 dil).
+İlk pilot: Willy sahne 2 (Parlak günler / çocukluk belleği), 4 istasyon. anlar[] geri-uyum için korundu.
+**Sıradaki:** Canlı doğrulama sonrası diğer yürüyüş adaylarına yay (sahne 11/son, belki 3).
+
+## 2026-06-04 — İz + Sessiz Bilgi an türleri (travma bölgesi); replikIzi → "Miller karşılığı"
+
+**Tip:** İçerik + Yapısal (Tip 3/2)
+**Etkilenen katmanlar:** App (Workbook karakterleri) — kanon yedirme `itc-canon` tarafında bekliyor
+**Karar veren:** Beyti (dramaturg onayı). Travma-bölgesi tonlama Filiz klinik görüşü AÇIK.
+**Karar:** Travma/yara bölgesinde Hatıra (olayı hayal et) yerine iki yeni tip — ChatGPT pilot denetimi
+"aynı mekanikle yazılırsa terapi çağrışımı üretir; karakter oyuncunun yarasından değil karakterin
+verisinden beslenir" ilkesini korumak için:
+- **`tip: 'iz'` ("İz"):** olayı yeniden yaşatma — bedende kalan kalıntıyı yokla, adını koyma,
+  fark et ve bırak. Willy o6/o7 (Boston otel + kapı), `travmaDuyarli: true`.
+- **`tip: 'sessizbilgi'` ("Sessiz Bilgi"):** ne hatıra (olay) ne iz (beden) — bilişsel/ahlaki
+  yerleşme. Miller'ın suçluluk değil **sorumluluk** teması. Willy Charley ofis sahnesi (s8-a3,
+  Bernard'la yıllar sonra karşılaşma).
+**İki "iz" çakışması çözüldü:** `replikIzi` etiketi "İz" → **"Miller karşılığı"** (Miller's line/
+Miller-Entsprechung) oldu = *dinlenen* katman. Yeni `iz` tipi = *üretilen* katman. Üç-ses ayrımı korunur.
+**Mekanik:** i18n 3 dil (anIzUretimEtiket, anSessizBilgiEtiket, izYonerge, sessizBilgiYonerge),
+viewer AnKart dispatcher iz + sessizbilgi tanır (eyebrow + AnYazma üretim + yönerge).
+
 ## 2026-06-04 — Hatıra an türü (yeni ITC an tipi)
 
 **Tip:** İçerik + Yapısal (Tip 3/2)
