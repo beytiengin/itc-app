@@ -93,6 +93,10 @@ export default function ElYazmasiSayfasi() {
     const sahneSirali = [...(data.sahnelerWorkbook || [])].sort((a, b) => a.no - b.no);
     const bosluklar = data.boslukSet || []; // dizi fiziksel sırası korunur — sort YOK
     const dugumler = [];
+    // Oyun Öncesi olaylar → timeline başı (kronolojik en eski). Nina'daki perde:0 mantığı.
+    for (const olay of (data.oyunOncesi?.olaylar || [])) {
+      dugumler.push({ tip: 'olay', veri: olay });
+    }
     for (const sahne of sahneSirali) {
       const sahneOncesi = bosluklar.filter((b) => b.sonraSahneNo === sahne.no);
       for (const b of sahneOncesi) dugumler.push({ tip: 'bosluk', veri: b });
@@ -102,10 +106,8 @@ export default function ElYazmasiSayfasi() {
   }, [data]);
 
   const [acikPanel, setAcikPanel] = useState(null); // { tip, no } | null
-  const [acikOlay, setAcikOlay] = useState(null);   // olay no | null (oyun öncesi)
   const [dogrularAcik, setDogrularAcik] = useState(false);
   const [iliskilerAcik, setIliskilerAcik] = useState(false);
-  const [oyunOncesiAcik, setOyunOncesiAcik] = useState(false);
 
   // Mevcut yazımları okumak için yansıma haritaları.
   const [boslukYansima, setBoslukYansima] = useState({}); // { 'elyazma-bosluk-1': 'metin' }
@@ -265,59 +267,47 @@ export default function ElYazmasiSayfasi() {
           </div>
         </BolumKatlanir>
 
-        {/* 4. Açık giriş kapısı çubuğu — Aşama 3'te kalibrasyon kapısı vurgulanır */}
-        <GirisKapisiCubugu t={t} acikKapiKey={acikKapiKey} />
-
-        {/* 5. Oyun Öncesi fasıl (katlanır) */}
-        <BolumKatlanir
-          baslik={`${t.oyunOncesiBaslik} · ${t.oyunOncesiAltyazi}`}
-          altyazi={`${(data.oyunOncesi?.olaylar || []).length} ${t.oyunOncesiSayim} · ${t.dokunAc}`}
-          acik={oyunOncesiAcik}
-          setAcik={setOyunOncesiAcik}
-        >
-          <ul style={{ marginTop: '0.8rem', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            {(data.oyunOncesi?.olaylar || []).map((olay) => (
-              <OlayDugumu
-                key={olay.no}
-                olay={olay}
-                acik={acikOlay === olay.no}
-                onAc={() => setAcikOlay(acikOlay === olay.no ? null : olay.no)}
-                t={t}
-                anSecimleri={anSecimleri}
-                anYazmalari={anYazmalari}
-                onAnSec={anSec}
-                onAnYaz={anYaz}
-              />
-            ))}
-          </ul>
-        </BolumKatlanir>
-
-        {/* 6. Senaryo akışı */}
+        {/* 4. Senaryo akışı — Oyun Öncesi olaylar artık timeline başında (kronolojik). */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
           <Etiket>{t.senaryoBaslik}</Etiket>
           <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-soft)', marginBottom: '0.4rem' }}>{t.senaryoAltyazi}</span>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
             {akis.map((d) => (
-              <DugumGrubu
-                key={`${d.tip}-${d.veri.no}`}
-                domId={`${d.tip}-${d.veri.no}`}
-                dugum={d}
-                acik={acikPanel?.tip === d.tip && acikPanel?.no === d.veri.no}
-                onAc={() => d.tip === 'sahne' ? sahnePanelAc(d.veri.no) : boslukPanelAc(d.veri.no)}
-                onKapat={panelKapat}
-                t={t}
-                ortak={ortak}
-                boslukYansima={boslukYansima}
-                setBoslukYansima={setBoslukYansima}
-                acikKapiKey={acikKapiKey}
-                onTopraklanmaAc={(baslik) => setTopraklanma(baslik)}
-                onYuruyus={(no) => setYuruyusHedef({ tip: d.tip, no })}
-                anSecimleri={anSecimleri}
-                anYazmalari={anYazmalari}
-                onAnSec={anSec}
-                onAnYaz={anYaz}
-              />
+              d.tip === 'olay' ? (
+                <div key={`olay-${d.veri.no}`} id={`olay-${d.veri.no}`} style={{ scrollMarginTop: 'calc(env(safe-area-inset-top, 0px) + 4.5rem)' }}>
+                  <OlayDugumu
+                    olay={d.veri}
+                    acik={acikPanel?.tip === 'olay' && acikPanel?.no === d.veri.no}
+                    onAc={() => setAcikPanel(acikPanel?.tip === 'olay' && acikPanel?.no === d.veri.no ? null : { tip: 'olay', no: d.veri.no })}
+                    t={t}
+                    anSecimleri={anSecimleri}
+                    anYazmalari={anYazmalari}
+                    onAnSec={anSec}
+                    onAnYaz={anYaz}
+                  />
+                </div>
+              ) : (
+                <DugumGrubu
+                  key={`${d.tip}-${d.veri.no}`}
+                  domId={`${d.tip}-${d.veri.no}`}
+                  dugum={d}
+                  acik={acikPanel?.tip === d.tip && acikPanel?.no === d.veri.no}
+                  onAc={() => d.tip === 'sahne' ? sahnePanelAc(d.veri.no) : boslukPanelAc(d.veri.no)}
+                  onKapat={panelKapat}
+                  t={t}
+                  ortak={ortak}
+                  boslukYansima={boslukYansima}
+                  setBoslukYansima={setBoslukYansima}
+                  acikKapiKey={acikKapiKey}
+                  onTopraklanmaAc={(baslik) => setTopraklanma(baslik)}
+                  onYuruyus={(no) => setYuruyusHedef({ tip: d.tip, no })}
+                  anSecimleri={anSecimleri}
+                  anYazmalari={anYazmalari}
+                  onAnSec={anSec}
+                  onAnYaz={anYaz}
+                />
+              )
             ))}
           </div>
         </div>
@@ -448,51 +438,6 @@ function IliskiKart({ iliski }) {
         color: 'var(--ink-muted)',
         textTransform: 'uppercase',
       }}>{iliski.rol}</span>
-    </div>
-  );
-}
-
-function GirisKapisiCubugu({ t, acikKapiKey }) {
-  // Aşama 3: kalibrasyondan gelen açık kapı inceden vurgulanır (border + "senin
-  // kapın" rozeti). Skor/sayı GÖSTERİLMEZ (Karar 21/31). Vurgu olsa da kilit
-  // değil — diğer iki kapı aynen erişilebilir (Karar 21).
-  const kapilar = [
-    { key: 'bilissel', label: t.girisKapisiBilissel },
-    { key: 'bedensel', label: t.girisKapisiBedensel },
-    { key: 'duygusal', label: t.girisKapisiDuygusal },
-  ];
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
-      <Etiket>{t.girisKapisiEtiket}</Etiket>
-      <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-soft)', margin: '0 0 0.3rem', lineHeight: 1.5 }}>{t.girisKapisiAciklama}</p>
-      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-        {kapilar.map((k) => {
-          const seninKapi = acikKapiKey === k.key;
-          return (
-            <span key={k.key} style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.45rem',
-              border: `1px solid ${seninKapi ? TON : 'var(--rule)'}`,
-              background: seninKapi ? 'var(--accent-bg)' : 'transparent',
-              padding: '0.45rem 0.95rem',
-              fontFamily: 'var(--font-body), sans-serif',
-              fontWeight: 300,
-              fontSize: '0.72rem',
-              letterSpacing: '0.15em',
-              color: seninKapi ? 'var(--ink)' : 'var(--ink-soft)',
-              textTransform: 'uppercase',
-              borderRadius: 999,
-              transition: 'border 0.25s ease, background 0.25s ease',
-            }}>
-              {k.label}
-              {seninKapi && (
-                <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.72rem', letterSpacing: 0, color: TON, textTransform: 'none' }}>· {t.kapiSeninRozet}</span>
-              )}
-            </span>
-          );
-        })}
-      </div>
     </div>
   );
 }
