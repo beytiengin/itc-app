@@ -40,6 +40,7 @@ import {
   anSabitleriniGetir,
 } from '../../../../lib/kulis';
 import TopraklanmaModu from '../../../../../components/TopraklanmaModu';
+import BoslukYuruyusu from '../../../../../components/BoslukYuruyusu';
 
 const TON = 'var(--accent)';
 const KARAKTER = 'willy';
@@ -116,6 +117,7 @@ export default function ElYazmasiSayfasi() {
   const [acikKapiKey, setAcikKapiKey] = useState(null);
   // Topraklanma overlay'i için: hangi sahne başlığıyla çağrıldı.
   const [topraklanma, setTopraklanma] = useState(null);
+  const [yuruyusSahneNo, setYuruyusSahneNo] = useState(null); // aktif yürüyüş sahnesi no | null
 
   // An mühürleme handler'ları — çatal seçimi + yazma (oznel_sabitler).
   async function anSec(an, secenek) {
@@ -299,6 +301,7 @@ export default function ElYazmasiSayfasi() {
                 setBoslukYansima={setBoslukYansima}
                 acikKapiKey={acikKapiKey}
                 onTopraklanmaAc={(baslik) => setTopraklanma(baslik)}
+                onYuruyus={(no) => setYuruyusSahneNo(no)}
                 anSecimleri={anSecimleri}
                 anYazmalari={anYazmalari}
                 onAnSec={anSec}
@@ -313,6 +316,20 @@ export default function ElYazmasiSayfasi() {
       {topraklanma && (
         <TopraklanmaModu baslik={topraklanma} onKapat={() => setTopraklanma(null)} />
       )}
+
+      {yuruyusSahneNo != null && (() => {
+        const s = (data.sahnelerWorkbook || []).find((x) => x.no === yuruyusSahneNo);
+        if (!s || !s.yuruyus) return null;
+        const sarmal = { id: `sahne-${s.no}`, ad: `Sahne ${s.no}`, birlesimSahneNo: s.no, yuruyus: s.yuruyus };
+        return (
+          <BoslukYuruyusu
+            karakterId={KARAKTER}
+            bosluk={sarmal}
+            ilkYuruyusMu={false}
+            onKapat={() => setYuruyusSahneNo(null)}
+          />
+        );
+      })()}
     </main>
   );
 }
@@ -560,7 +577,7 @@ function OlayDugumu({ olay, acik, onAc, t, anSecimleri, anYazmalari, onAnSec, on
 
 // ─── DÜĞÜM (sahne / boşluk) ────────────────────────────────────────────────
 
-function DugumGrubu({ domId, dugum, acik, onAc, onKapat, t, ortak, boslukYansima, setBoslukYansima, acikKapiKey, onTopraklanmaAc, anSecimleri, anYazmalari, onAnSec, onAnYaz }) {
+function DugumGrubu({ domId, dugum, acik, onAc, onKapat, t, ortak, boslukYansima, setBoslukYansima, acikKapiKey, onTopraklanmaAc, onYuruyus, anSecimleri, anYazmalari, onAnSec, onAnYaz }) {
   const isSahne = dugum.tip === 'sahne';
   const veri = dugum.veri;
 
@@ -675,6 +692,7 @@ function DugumGrubu({ domId, dugum, acik, onAc, onKapat, t, ortak, boslukYansima
               provisional={SAHNE_PROVISIONAL.has(veri.no)}
               acikKapiKey={acikKapiKey}
               onTopraklanmaAc={onTopraklanmaAc}
+              onYuruyus={onYuruyus}
               anSecimleri={anSecimleri}
               anYazmalari={anYazmalari}
               onAnSec={onAnSec}
@@ -688,7 +706,7 @@ function DugumGrubu({ domId, dugum, acik, onAc, onKapat, t, ortak, boslukYansima
 
 // ─── SAHNE PANELİ (iki sekme: Yazarın Çerçevesi · Senin Çerçeven) ──────────
 
-function SahnePanel({ veri, t, ortak, onKapat, kayitAni, hassas, provisional, acikKapiKey, onTopraklanmaAc, anSecimleri, anYazmalari, onAnSec, onAnYaz }) {
+function SahnePanel({ veri, t, ortak, onKapat, kayitAni, hassas, provisional, acikKapiKey, onTopraklanmaAc, onYuruyus, anSecimleri, anYazmalari, onAnSec, onAnYaz }) {
   const [sekme, setSekme] = useState('yazar');
 
   return (
@@ -697,6 +715,21 @@ function SahnePanel({ veri, t, ortak, onKapat, kayitAni, hassas, provisional, ac
         <SekmeBtn aktif={sekme === 'yazar'} onClick={() => setSekme('yazar')}>{t.panelYazarBaslik}</SekmeBtn>
         <SekmeBtn aktif={sekme === 'senin'} onClick={() => setSekme('senin')}>{t.panelSeninBaslik}</SekmeBtn>
       </div>
+      {veri.yuruyus && (
+        <button
+          type="button"
+          onClick={() => onYuruyus && onYuruyus(veri.no)}
+          style={{
+            alignSelf: 'flex-start', cursor: 'pointer',
+            fontFamily: 'var(--font-body), sans-serif', fontWeight: 400,
+            fontSize: '0.62rem', letterSpacing: '0.22em', textTransform: 'uppercase',
+            color: 'var(--bg-base)', backgroundColor: 'var(--accent)',
+            border: 'none', borderRadius: '2px', padding: '0.7rem 1.2rem',
+          }}
+        >
+          {t.yuruyusBaslat || 'Bu sahneyi adım adım kur'}
+        </button>
+      )}
       {sekme === 'yazar' ? (
         <YazarinCercevesiSahne veri={veri} t={t} />
       ) : (

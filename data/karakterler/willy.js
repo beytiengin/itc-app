@@ -332,6 +332,60 @@ const willy = {
       yuk: 'Geçmiş şimdiye sızıyor; Willy o sıcaklığa kaçtıkça şimdiki boşluk büyüyor.',
       sahneTipi: 'yuruyus',
       replikIzi: 'Willy: "İyice bastıra bastıra silin camları. Aynen böyle işte, aferin." (oğullara, araba parlatma belleği)',
+      yuruyus: {
+        esik: {
+          komut: 'Bu bir yürüyüş. Bu sahneyi baştan sona, adım adım kuracaksın — her durakta bir an, bir seçim. Acele yok.',
+          adimlar: [
+            'Önce sahneyi yerleştir: neredesin, hangi mevsim, gün ışığı nasıl? Zihninde belirsin.',
+            'Her durakta Willy o an bedeninin neresinde duruyor — onu fark et, sonra ilerle.',
+            'Seçtiğin her şey senin olur; bu sahnede yanında kalır.',
+          ],
+          hitap: 'Hazır olduğunda ilk adımı at.',
+          buton: 'Başlıyorum',
+        },
+        girisBaslik: 'Parlak günler — sahneyi kur',
+        girisAciklama: 'I. perde, bellek. Araba parlatılıyor, futbol topu elden ele, "Loman kardeşler". Her şeyin hâlâ mümkün göründüğü gün. Bu sahneyi adım adım kuracaksın.',
+        girisSentez: 'Bu yürüyüşte seçtiklerin senin olur; Sahne 2\'de yanında kalır.',
+        gecisButonu: 'İlk durağa geç',
+        cikisRitueli: 'Sahneden bir adım geri çekil. Az önce kurduğun anı bırak; nefesini ver. Şimdiki Willy\'ye dön — yanında ne kalıyor?',
+        istasyonlar: [
+          {
+            no: 0, zamanRozet: 'Bahçe, sabah',
+            acilis: 'Çocuklar küçük; güneş var, araba yıkanmayı bekliyor. Willy ceketini çıkarıyor, kollarını sıvıyor.',
+            sorular: ['Bu sabahı kurarken ilk dikkatini çeken ne — ışık mı, ses mi, oğullarının yüzü mü?', 'Willy şu an bedeninin neresinde — omuzlarında mı, göğsünde mi?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Bu sabahta ilk gördüğüm…',
+          },
+          {
+            no: 1, zamanRozet: 'Araba parlatılıyor',
+            acilis: '"İyice bastıra bastıra silin camları. Aynen böyle işte, aferin." Oğullar bezleri kapıyor, Willy izliyor — gururlu, canlı.',
+            sorular: ['Oğullarına bakarken Willy\'nin içinde ne dönüyor?'],
+            catal: {
+              anahtar: 's2-parlaklik', dil: 'birinci_tekil',
+              etiket: 'İki yol var. Hangisi senin?',
+              secenekler: [
+                { deger: 'hala_orada', baslik: 'Hâlâ orada', aciklama: 'Bu an gerçek; her şey hâlâ mümkün, yıkım daha olmadı.',
+                  muhur: 'Bunu unutma — en güzel anı, sanki şimdiymiş gibi yeniden yaşayabilirim.',
+                  ozet: 'En güzel anı şimdiymiş gibi yaşadım.' },
+                { deger: 'kaybi_biliyorum', baslik: 'Kaybı biliyorum', aciklama: 'Sıcaklığın içindeyim ama sonunu da biliyorum.',
+                  muhur: 'Bunu unutma — en güzel anılarıma bile, kaybedeceğimi bilerek bakarım.',
+                  ozet: 'Kaybedeceğimi bilerek baktım.' },
+              ],
+            },
+          },
+          {
+            no: 2, zamanRozet: '"Loman kardeşler!"',
+            acilis: 'Adınızı duymayan kalmaz havası; sevilmek başarı sanılıyor. Willy için bu an, dünyanın ona açık olduğu kanıtı.',
+            sorular: ['Bu coşkuyu kurarken, Willy neye inanıyor — ve sen o inancı bedeninde nerede hissediyorsun?'],
+            yazmaAlani: true, yazmaPlaceholder: 'O an Willy\'nin inandığı şey…',
+          },
+          {
+            no: 3, zamanRozet: 'Çıkmak istemediğin an',
+            acilis: 'Sahne kuruldu; içinde bir an var ki bellek seni orada tutuyor, oradan çıkmak istemiyorsun.',
+            sorular: ['Hangi an o — ne görüyorsun, ne duyuyorsun? Ve neden bırakmak istemiyorsun?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Çıkmak istemediğim an…',
+          },
+        ],
+      },
       anlar: [
         { id: 's2-a1', tip: 'catal', birlesimSahneNo: 2, travmaDuyarli: false,
           soru: 'Belleğe adım atıyorsun; çocuklar küçük, güneş var, top elinde. Bu sıcaklığın içine girerken bedenin neye inanıyor?',
