@@ -28,7 +28,8 @@ const KORUMALI_ROTALAR = [
   '/kalibrasyon',
   '/antrenman',
   '/profil',
-  '/kulis',
+  '/defter',
+  '/kulis', // legacy redirect stub — yine korumalı olsun
 ];
 
 export async function middleware(request: NextRequest) {

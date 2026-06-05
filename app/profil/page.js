@@ -116,7 +116,7 @@ export default function Profil() {
               {t.antrenmanOdasi}
             </a>
           </div>
-          <a href="/kulis" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', padding: '0.8rem', color: 'var(--ink-muted)', textDecoration: 'none', fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.9rem', transition: 'color 0.25s ease' }}
+          <a href="/defter" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', padding: '0.8rem', color: 'var(--ink-muted)', textDecoration: 'none', fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.9rem', transition: 'color 0.25s ease' }}
             onMouseEnter={e => { e.currentTarget.style.color = 'var(--accent)'; }}
             onMouseLeave={e => { e.currentTarget.style.color = 'var(--ink-muted)'; }}>
             {t.kulisLink}

@@ -587,74 +587,92 @@ export async function anSabitleriniGetir(karakterId) {
   }
 }
 
-// ─── KARAR YORUMLARI (an mühürleri + karakter metadatası birleşik) ─────────
-// Defter ve diğer toplu görüntüleme yüzeyleri için. anSabitleriniGetir()'in
-// flat dict çıktısını çağıranın verdiği karakter datasındaki anlar[] ile
-// eşleştirir; çatal seçimleri "yorumlar" (soru + seçilen yorum başlığı), tüm
-// mühürler "muhurler" (anId + ham metin + tur) olarak döner. Hiç kayıt yoksa
-// bos: true.
+// ─── DEFTER: Verdiğin Kararlar ─────────────────────────────────────────────
+// oznel_sabitler verisini karakter datasıyla eşleştirip okunur kararlar
+// döndürür. Yeni tablo/kayıt YOK — sadece okuma. Geriye dönük uyumlu.
+// Bağımlılık: anSabitleriniGetir (aynı dosya).
 //
 // Karakter datası dışarıdan verilir (TR base ya da willyIcerik/hamletIcerik
-// EN/DE overlay'i — viewer sayfasının zaten ürettiği data). Helper ne import
-// eder ne dil bilir; tek bağımlılığı anSabitleriniGetir.
+// EN/DE overlay'i — viewer'ın elindeki data). Helper ne import eder ne dil
+// bilir.
 //
-// Sessiz veri kopmasına karşı koruma: an metadatası bulunamazsa kayıt yine
-// listelenir (soru/baslik null'a düşer, ham mühür metni korunur).
+// Sessiz veri kopmasına karşı koruma: an metadatası bulunamazsa karar yine
+// listelenir (soru "" düşer, ham mühür metni korunur).
 
-function anIndeksiKur(data) {
-  const idx = {};
-  if (!data) return idx;
-  const ekle = (an) => { if (an?.id) idx[an.id] = an; };
-  (data.sahnelerWorkbook || []).forEach((s) => (s.anlar || []).forEach(ekle));
-  (data.boslukSet || []).forEach((b) => (b.anlar || []).forEach(ekle));
-  (data.oyunOncesi?.olaylar || []).forEach((o) => (o.anlar || []).forEach(ekle));
-  return idx;
+// Karakter datasındaki TÜM çatal/yazma anlarını tek havuzda toplar.
+// anlar üç yerde geçer: oyunOncesi.olaylar[].anlar / sahnelerWorkbook[].anlar
+// / boslukSet[].anlar
+function anHavuzuKur(data) {
+  const havuz = {}; // { [anId]: { soru, tip, secenekler } }
+  const ekle = (anlar) => {
+    (anlar || []).forEach((an) => {
+      if (!an || !an.id) return;
+      havuz[an.id] = {
+        soru: an.soru || '',
+        tip: an.tip || 'catal',
+        secenekler: an.secenekler || [],
+      };
+    });
+  };
+  (data?.oyunOncesi?.olaylar || []).forEach((o) => ekle(o.anlar));
+  (data?.sahnelerWorkbook || []).forEach((s) => ekle(s.anlar));
+  (data?.boslukSet || []).forEach((b) => ekle(b.anlar));
+  return havuz;
+}
+
+// Defter için: karakterin TÜM anlarının sıralı sorularını döndürür (harita).
+// VerdiginKararlar bileşeni bu listeyi tarayarak her an için ya hayalet
+// (bekleyen) ya da dolu hâli çizer.
+export function anHaritasiniGetir(data) {
+  const havuz = anHavuzuKur(data);
+  return Object.entries(havuz).map(([anId, an]) => ({
+    anId, soru: an.soru, tip: an.tip,
+  }));
 }
 
 /**
- * Bir karakterin karar yorumlarını + tüm an mühürlerini, karakter datasındaki
- * an metadatasıyla birleştirilmiş hâlde döndürür.
+ * Defter'in "Verdiğin Kararlar" bölümü için kararları döndürür.
  *
- * @param {string} karakterId  - 'willy', 'hamlet', 'macbeth', 'biff'
- * @param {object} data        - karakter veri nesnesi (TR base veya i18n overlay
- *                               sonrası — sahnelerWorkbook/boslukSet/oyunOncesi
- *                               okunur). Çağıran ne kullanıyorsa onu verir.
+ * @param {string} karakterId
+ * @param {object} data  - karakter veri nesnesi (TR base veya i18n overlay)
  * @returns {Promise<{
- *   bos: boolean,
- *   yorumlar: Array<{ anId: string, soru: string|null, secilenBaslik: string|null, dal: string }>,
- *   muhurler: Array<{ anId: string, metin: string, tur: 'secim'|'yazma' }>
+ *   yorumlar: Array<{ anId: string, soru: string, secilenBaslik: string, dal: string }>,
+ *   muhurler: Array<{ anId: string, soru: string, metin: string, tur: 'secim'|'yazma' }>,
+ *   bos: boolean
  * }>}
  */
 export async function kararlariGetir(karakterId, data) {
-  const sabitler = await anSabitleriniGetir(karakterId);
-  const hicSecim = !sabitler.secimler || Object.keys(sabitler.secimler).length === 0;
-  const hicMuhur = !sabitler.muhurler || Object.keys(sabitler.muhurler).length === 0;
-  if (hicSecim && hicMuhur) return { bos: true, yorumlar: [], muhurler: [] };
+  const sonuc = { yorumlar: [], muhurler: [], bos: true };
+  try {
+    const { secimler, muhurler } = await anSabitleriniGetir(karakterId);
+    const havuz = anHavuzuKur(data);
 
-  const indeks = anIndeksiKur(data);
-
-  const yorumlar = [];
-  Object.entries(sabitler.secimler || {}).forEach(([anId, dal]) => {
-    const an = indeks[anId];
-    const secenek = (an?.secenekler || []).find((s) => s.dal === dal);
-    yorumlar.push({
-      anId,
-      soru: an?.soru || null,
-      secilenBaslik: secenek?.baslik || null,
-      dal,
+    // Yorumlar: çatal seçimleri (secilen_dal dolu olanlar)
+    Object.entries(secimler || {}).forEach(([anId, dal]) => {
+      const an = havuz[anId];
+      const secenek = an?.secenekler?.find((s) => s.dal === dal);
+      sonuc.yorumlar.push({
+        anId,
+        soru: an?.soru || '',
+        secilenBaslik: secenek?.baslik || `Seçim ${dal}`,
+        dal,
+      });
     });
-  });
 
-  const muhurler = [];
-  Object.entries(sabitler.muhurler || {}).forEach(([anId, metin]) => {
-    const an = indeks[anId];
-    // tur: an.tip 'catal' ise 'secim'; metadata yoksa secimler'den çıkar
-    // (secilen_dal varsa çatal mühürü demektir).
-    let tur = 'yazma';
-    if (an?.tip === 'catal') tur = 'secim';
-    else if (sabitler.secimler?.[anId]) tur = 'secim';
-    muhurler.push({ anId, metin, tur });
-  });
+    // Mühürler: seçilen dalın oznelSabit'i + oyuncunun yazdıkları
+    Object.entries(muhurler || {}).forEach(([anId, metin]) => {
+      if (!metin) return;
+      const an = havuz[anId];
+      const secilenDal = (secimler || {})[anId];
+      const secenek = an?.secenekler?.find((s) => s.dal === secilenDal);
+      const tur = an?.tip === 'yazma' || !secenek ? 'yazma' : 'secim';
+      sonuc.muhurler.push({ anId, soru: an?.soru || '', metin, tur });
+    });
 
-  return { bos: false, yorumlar, muhurler };
+    sonuc.bos = sonuc.yorumlar.length === 0 && sonuc.muhurler.length === 0;
+    return sonuc;
+  } catch (e) {
+    console.log('kararlariGetir exception:', e);
+    return sonuc;
+  }
 }

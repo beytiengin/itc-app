@@ -134,7 +134,7 @@ export default function Navigasyon() {
     <>
       <Bilesen href="/kalibrasyon" onClick={kapatOnClick}>{t.kalibrasyon}</Bilesen>
       <Bilesen href="/antrenman/karakter" onClick={kapatOnClick}>{t.antrenman}</Bilesen>
-      <Bilesen href="/kulis" onClick={kapatOnClick}>{t.kulis}</Bilesen>
+      <Bilesen href="/defter" onClick={kapatOnClick}>{t.kulis}</Bilesen>
       <Bilesen href="/hakkimizda" onClick={kapatOnClick}>{t.hakkimizda}</Bilesen>
       <Bilesen href="/nasil-calisilir" onClick={kapatOnClick}>{t.nasilCalisilir}</Bilesen>
     </>
