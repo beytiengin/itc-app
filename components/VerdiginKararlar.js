@@ -1,140 +1,110 @@
 // ============================================================
-// DEFTER — "Verdiğin Kararlar" bölümü
-// app/defter/page.js içine entegre edilen bileşen + metinler.
+// DEFTER — "Verdiğin Kararlar" bölümü (v2)
+//
+// DEĞİŞTİ (v1 → v2):
+// - Artık 47 soruluk harita YOK. Sadece oyuncunun MÜHÜRLEDİĞİ kararlar görünür.
+// - Boş hal: tek, sakin bir davet kartı. (kitabe duvarı kaldırıldı)
+// - Başlık hiyerarşisi güçlendirildi (BolumBasligi — site geneli kademe).
 //
 // Veri: kararlariGetir(karakterId, data) → { yorumlar, muhurler, bos }
-// Felsefe: boş Defter, karakterin SORACAĞI soruların haritasıdır.
-//   - Hayalet (boş) hâl → anın sorusu soluk görünür (spoiler değil)
-//   - Dolu hâl          → oyuncunun seçtiği yorum + kendi mührü net görünür
-//
-// Görsel dil mevcut sayfayla aynı: inline style + CSS değişkenleri,
-// serif başlık, ince ağırlık, --accent çizgiler, dashed/soluk = bekleyen.
 // ============================================================
 
-// props:
-//   t              — metin sözlüğü (aşağıdaki KARARLAR_METIN)
-//   haritaSorulari — [{ anId, soru, tip }]  (anHaritasiniGetir(data))
-//   kararlar       — { yorumlar:[{anId,secilenBaslik,dal}], muhurler:[{anId,metin,tur}], bos }
+// ── Başlık hiyerarşisi (site geneli öneri) ──
+//   SAYFA başlığı : clamp(2rem, 5vw, 3.2rem)        (zaten var)
+//   BÖLÜM başlığı : clamp(1.5rem, 3.5vw, 2.1rem)    ← YENİ NET KADEME
+//   alt-başlık    : 1.05rem
+//   gövde         : 0.86rem
+// Bu bileşen BÖLÜM kademesini kullanır; aynı ölçeği diğer bölümlere de ver.
+function BolumBasligi({ etiket, baslik }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', marginBottom: '0.2rem' }}>
+      <span style={{
+        fontFamily: 'var(--font-body), sans-serif', fontWeight: 300,
+        fontSize: '0.62rem', letterSpacing: '0.42em',
+        color: 'var(--accent)', textTransform: 'uppercase',
+      }}>
+        {etiket}
+      </span>
+      <h2 style={{
+        fontFamily: 'var(--font-display), serif', fontWeight: 300,
+        fontSize: 'clamp(1.5rem, 3.5vw, 2.1rem)',
+        lineHeight: 1.15, color: 'var(--ink)', margin: 0,
+      }}>
+        {baslik}
+      </h2>
+    </div>
+  );
+}
 
-function VerdiginKararlar({ t, haritaSorulari, kararlar }) {
+function VerdiginKararlar({ t, kararlar }) {
+  const muhurMap = {};
+  (kararlar?.muhurler || []).forEach((m) => { if (m.metin) muhurMap[m.anId] = m; });
   const yorumMap = {};
   (kararlar?.yorumlar || []).forEach((y) => { yorumMap[y.anId] = y; });
-  const muhurMap = {};
-  (kararlar?.muhurler || []).forEach((m) => { muhurMap[m.anId] = m; });
 
-  const toplamKarar = (kararlar?.yorumlar?.length || 0) + (kararlar?.muhurler?.length || 0);
-  const toplamAn = haritaSorulari.length;
+  const anIds = Object.keys(muhurMap);
+  const dolu = anIds.length > 0;
 
   return (
-    <section style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
-      {/* Bölüm başlığı */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <span style={{
-          fontFamily: 'var(--font-body), sans-serif', fontWeight: 200,
-          fontSize: '0.6rem', letterSpacing: '0.4em',
-          color: 'var(--accent)', textTransform: 'uppercase',
+    <section style={{ display: 'flex', flexDirection: 'column', gap: '1.3rem' }}>
+      <BolumBasligi etiket={t.kararlarEtiket} baslik={t.kararlarBaslik} />
+
+      {!dolu && (
+        <div style={{
+          padding: '1.6rem 1.4rem',
+          border: '1px solid var(--rule)',
+          display: 'flex', flexDirection: 'column', gap: '0.5rem',
         }}>
-          {t.kararlarEtiket}
-        </span>
-        <h2 style={{
-          fontFamily: 'var(--font-display), serif', fontWeight: 300,
-          fontSize: 'clamp(1.4rem, 3vw, 1.9rem)', color: 'var(--ink)', margin: 0,
-        }}>
-          {t.kararlarBaslik}
-        </h2>
-        <p style={{
-          fontFamily: 'var(--font-body), sans-serif', fontWeight: 200,
-          fontSize: '0.82rem', color: 'var(--ink-soft)', lineHeight: 1.7,
-          margin: 0, maxWidth: 540,
-        }}>
-          {toplamKarar === 0 ? t.kararlarIntroBos : t.kararlarIntroDolu}
-        </p>
-        {toplamAn > 0 && (
-          <span style={{
-            fontFamily: 'var(--font-body), sans-serif', fontWeight: 200,
-            fontSize: '0.68rem', letterSpacing: '0.15em',
-            color: 'var(--ink-muted)', textTransform: 'uppercase', marginTop: '0.2rem',
+          <p style={{
+            fontFamily: 'var(--font-display), serif', fontWeight: 300,
+            fontSize: '1.05rem', lineHeight: 1.6, color: 'var(--ink-soft)', margin: 0,
           }}>
-            {toplamKarar} / {toplamAn} {t.kararlarSayac}
-          </span>
-        )}
-      </div>
+            {t.kararlarBosBaslik}
+          </p>
+          <p style={{
+            fontFamily: 'var(--font-body), sans-serif', fontWeight: 300,
+            fontSize: '0.82rem', lineHeight: 1.7, color: 'var(--ink-muted)', margin: 0,
+            maxWidth: 460,
+          }}>
+            {t.kararlarBosAlt}
+          </p>
+        </div>
+      )}
 
-      {/* Soruların haritası — her an bir satır */}
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        {haritaSorulari.map((an, i) => {
-          const yorum = yorumMap[an.anId];
-          const muhur = muhurMap[an.anId];
-          const dolu = !!(yorum || muhur);
-
-          return (
-            <div
-              key={an.anId}
-              style={{
-                display: 'flex', flexDirection: 'column', gap: '0.4rem',
-                padding: '0.95rem 0',
-                borderTop: i === 0 ? 'none' : '1px solid var(--rule)',
-              }}
-            >
-              {/* Üst satır: anın sorusu (her zaman görünür) */}
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.7rem' }}>
-                <span aria-hidden style={{
-                  flexShrink: 0, marginTop: '0.45rem',
-                  width: '6px', height: '6px', borderRadius: '50%',
-                  background: dolu ? 'var(--accent)' : 'transparent',
-                  border: dolu ? 'none' : '1px solid var(--rule)',
-                  opacity: dolu ? 0.85 : 0.5,
-                }} />
-                <p style={{
-                  fontFamily: 'var(--font-body), sans-serif', fontWeight: 300,
-                  fontSize: '0.86rem', lineHeight: 1.6, margin: 0,
-                  color: dolu ? 'var(--ink)' : 'var(--ink-soft)',
-                  opacity: dolu ? 1 : 0.55,
-                  fontStyle: dolu ? 'normal' : 'italic',
-                }}>
-                  {an.soru || t.kararlarSorusuz}
-                </p>
-              </div>
-
-              {/* Dolu hâl: oyuncunun yorumu + mührü */}
-              {yorum && (
-                <div style={{ paddingLeft: '1.4rem' }}>
+      {dolu && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
+          {anIds.map((anId) => {
+            const muhur = muhurMap[anId];
+            const yorum = yorumMap[anId];
+            return (
+              <div
+                key={anId}
+                style={{
+                  display: 'flex', flexDirection: 'column', gap: '0.55rem',
+                  paddingLeft: '0.95rem',
+                  borderLeft: '2px solid var(--accent)',
+                }}
+              >
+                {yorum && (
                   <span style={{
                     fontFamily: 'var(--font-body), sans-serif', fontWeight: 400,
-                    fontSize: '0.8rem', color: 'var(--accent)',
+                    fontSize: '0.7rem', letterSpacing: '0.04em',
+                    color: 'var(--accent)', textTransform: 'uppercase',
                   }}>
                     {yorum.secilenBaslik}
                   </span>
-                </div>
-              )}
-              {muhur && muhur.metin && (
+                )}
                 <p style={{
-                  margin: 0,
                   fontFamily: 'var(--font-display), serif', fontWeight: 300,
-                  fontSize: '0.92rem', lineHeight: 1.65, color: 'var(--ink)',
-                  borderLeft: '2px solid var(--accent)',
-                  marginLeft: '1.4rem', paddingLeft: '0.85rem',
+                  fontSize: '1.02rem', lineHeight: 1.6, color: 'var(--ink)', margin: 0,
                 }}>
-                  “{muhur.metin}”
+                  {muhur.metin}
                 </p>
-              )}
-
-              {/* Hayalet hâl: bekleyen mühür izi */}
-              {!dolu && (
-                <span style={{
-                  paddingLeft: '1.4rem',
-                  fontFamily: 'var(--font-body), sans-serif', fontWeight: 200,
-                  fontSize: '0.68rem', letterSpacing: '0.12em',
-                  color: 'var(--ink-muted)', textTransform: 'uppercase',
-                  opacity: 0.45,
-                }}>
-                  {an.tip === 'yazma' ? t.kararlarBekleyenYazma : t.kararlarBekleyenSecim}
-                </span>
-              )}
-            </div>
-          );
-        })}
-      </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </section>
   );
 }
@@ -143,40 +113,26 @@ function VerdiginKararlar({ t, haritaSorulari, kararlar }) {
 export const KARARLAR_METIN = {
   tr: {
     kararlarEtiket: 'Verdiğin Kararlar',
-    kararlarBaslik: 'Karakterin sana soracakları',
-    kararlarIntroBos:
-      'Bu sayfa, karakterin sana yönelteceği soruların haritası. Her satır, henüz cevaplamadığın bir an. Sen bir karar verdikçe, soru senin sözlerine dönüşecek.',
-    kararlarIntroDolu:
-      'Karaktere dair verdiğin her karar burada birikiyor. Bunlar senin yorumların — karakterin iç gerçekliği, senin seçtiğin yoldan kuruluyor.',
-    kararlarSayac: 'an mühürlendi',
-    kararlarBekleyenSecim: 'bir yorum bekliyor',
-    kararlarBekleyenYazma: 'mühürlenmeyi bekliyor',
-    kararlarSorusuz: 'Bu an seni sessizce bekliyor.',
+    kararlarBaslik: 'Karakteri kurarken seçtiklerin',
+    kararlarBosBaslik: 'Henüz bir karar mühürlemedin.',
+    kararlarBosAlt:
+      'Karakteri çalışırken verdiğin yorumlar ve mühürlediğin anlar burada toplanacak. İlk kararını, karakterin el-yazması bölümünde bir ana dokunarak verirsin.',
   },
   en: {
     kararlarEtiket: 'Your Decisions',
-    kararlarBaslik: 'What the character will ask you',
-    kararlarIntroBos:
-      'This page is a map of the questions the character will put to you. Each line is a moment you haven’t answered yet. As you decide, the question turns into your own words.',
-    kararlarIntroDolu:
-      'Every decision you make about the character gathers here. These are your readings — the character’s inner truth is built along the path you choose.',
-    kararlarSayac: 'moments sealed',
-    kararlarBekleyenSecim: 'awaits a reading',
-    kararlarBekleyenYazma: 'awaits sealing',
-    kararlarSorusuz: 'This moment waits for you in silence.',
+    kararlarBaslik: 'What you chose while building the character',
+    kararlarBosBaslik: 'You haven’t sealed a decision yet.',
+    kararlarBosAlt:
+      'The readings you make and the moments you seal while working on the character will gather here. You make your first decision by touching a moment in the character’s handwriting mode.',
   },
   de: {
     kararlarEtiket: 'Deine Entscheidungen',
-    kararlarBaslik: 'Was die Figur dich fragen wird',
-    kararlarIntroBos:
-      'Diese Seite ist eine Karte der Fragen, die die Figur dir stellen wird. Jede Zeile ist ein Augenblick, den du noch nicht beantwortet hast. Wenn du entscheidest, wird die Frage zu deinen eigenen Worten.',
-    kararlarIntroDolu:
-      'Jede Entscheidung, die du über die Figur triffst, sammelt sich hier. Das sind deine Lesarten — die innere Wahrheit der Figur wird auf dem Weg gebaut, den du wählst.',
-    kararlarSayac: 'Augenblicke versiegelt',
-    kararlarBekleyenSecim: 'wartet auf eine Lesart',
-    kararlarBekleyenYazma: 'wartet auf das Siegel',
-    kararlarSorusuz: 'Dieser Augenblick wartet still auf dich.',
+    kararlarBaslik: 'Was du beim Aufbau der Figur gewählt hast',
+    kararlarBosBaslik: 'Du hast noch keine Entscheidung versiegelt.',
+    kararlarBosAlt:
+      'Die Lesarten und die Augenblicke, die du beim Arbeiten an der Figur versiegelst, sammeln sich hier. Deine erste Entscheidung triffst du, indem du im Handschrift-Modus der Figur einen Augenblick berührst.',
   },
 };
 
+export { BolumBasligi };
 export default VerdiginKararlar;

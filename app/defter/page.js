@@ -327,7 +327,7 @@ function DetayBolumler({ t, karakter, boslukYansimalari, antrenmanYansimalari, k
     <>
       <NeredeKaldin t={t} karakter={karakter} yeniSema={yeniSema} boslukYansimalari={boslukYansimalari} antrenmanYansimalari={antrenmanYansimalari} />
       {haritaSorulari.length > 0 && (
-        <VerdiginKararlar t={t} haritaSorulari={haritaSorulari} kararlar={kararlar} />
+        <VerdiginKararlar t={t} kararlar={kararlar} />
       )}
       <BirikenDosya t={t} karakter={karakter} yeniSema={yeniSema} akis={akis} boslukYansimalari={boslukYansimalari} />
       <ZamanCizgisi t={t} karakter={karakter} yeniSema={yeniSema} akis={akis} boslukYansimalari={boslukYansimalari} antrenmanYansimalari={antrenmanYansimalari} />
