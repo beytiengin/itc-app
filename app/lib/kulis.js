@@ -586,3 +586,89 @@ export async function anSabitleriniGetir(karakterId) {
     return { secimler: {}, muhurler: {} };
   }
 }
+
+// ─── KARAR YORUMLARI (an mühürleri + karakter metadatası birleşik) ─────────
+// Kulis ve diğer toplu görüntüleme yüzeyleri için. anSabitleriniGetir()'in
+// flat dict çıktısını karakter datasındaki anlar[] ile eşleştirir; çatal
+// seçimleri "yorumlar" (soru + seçilen yorum başlığı), tüm mühürler ise
+// "muhurler" (anId + ham metin + tur) olarak döner.
+//
+// Sessiz veri kopmasına karşı koruma: an metadatası bulunamazsa kayıt yine
+// listelenir (soru/baslik null'a düşer, ham mühür metni korunur).
+
+async function karakterVerisiYukle(karakterId, dil) {
+  let veri = null;
+  try {
+    switch (karakterId) {
+      case 'willy':   veri = (await import('../../data/karakterler/willy')).default; break;
+      case 'hamlet':  veri = (await import('../../data/karakterler/hamlet')).default; break;
+      case 'macbeth': veri = (await import('../../data/karakterler/macbeth')).default; break;
+      case 'biff':    veri = (await import('../../data/karakterler/biff')).default; break;
+    }
+  } catch (_) { return null; }
+  if (!veri || dil === 'tr') return veri;
+  // EN/DE — i18n overlay (willy/hamlet tanımlı; diğerleri TR'ye düşer).
+  try {
+    if (karakterId === 'willy') {
+      const { willyIcerik } = await import('../../data/willy-i18n');
+      return willyIcerik(dil, veri);
+    }
+    if (karakterId === 'hamlet') {
+      const { hamletIcerik } = await import('../../data/hamlet-i18n');
+      return hamletIcerik(dil, veri);
+    }
+  } catch (_) {}
+  return veri;
+}
+
+function anIndeksiKur(veri) {
+  const idx = {};
+  if (!veri) return idx;
+  const ekle = (an) => { if (an?.id) idx[an.id] = an; };
+  (veri.sahnelerWorkbook || []).forEach((s) => (s.anlar || []).forEach(ekle));
+  (veri.boslukSet || []).forEach((b) => (b.anlar || []).forEach(ekle));
+  (veri.oyunOncesi?.olaylar || []).forEach((o) => (o.anlar || []).forEach(ekle));
+  return idx;
+}
+
+/**
+ * Bir karakterin karar yorumlarını + tüm an mühürlerini, karakter datasındaki
+ * an metadatasıyla birleştirilmiş hâlde döndürür.
+ *
+ * @param {string} karakterId  - 'willy', 'hamlet', 'macbeth', 'biff'
+ * @param {'tr'|'en'|'de'} [dil='tr']
+ * @returns {Promise<{
+ *   yorumlar: Array<{ anId: string, soru: string|null, secilenBaslik: string|null, dal: string }>,
+ *   muhurler: Array<{ anId: string, metin: string, tur: 'secim'|'yazma' }>
+ * }>}
+ */
+export async function kararlariGetir(karakterId, dil = 'tr') {
+  const sabitler = await anSabitleriniGetir(karakterId);
+  const veri = await karakterVerisiYukle(karakterId, dil);
+  const indeks = anIndeksiKur(veri);
+
+  const yorumlar = [];
+  Object.entries(sabitler.secimler || {}).forEach(([anId, dal]) => {
+    const an = indeks[anId];
+    const secenek = (an?.secenekler || []).find((s) => s.dal === dal);
+    yorumlar.push({
+      anId,
+      soru: an?.soru || null,
+      secilenBaslik: secenek?.baslik || null,
+      dal,
+    });
+  });
+
+  const muhurler = [];
+  Object.entries(sabitler.muhurler || {}).forEach(([anId, metin]) => {
+    const an = indeks[anId];
+    // tur: an.tip 'catal' ise 'secim'; metadata yoksa secimler'den çıkar
+    // (secilen_dal varsa çatal mühürü demektir).
+    let tur = 'yazma';
+    if (an?.tip === 'catal') tur = 'secim';
+    else if (sabitler.secimler?.[anId]) tur = 'secim';
+    muhurler.push({ anId, metin, tur });
+  });
+
+  return { yorumlar, muhurler };
+}
