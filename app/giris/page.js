@@ -24,6 +24,7 @@ function GirisIcerik() {
   const [hata, setHata] = useState(oauthHata ? `${t.googleHataPrefix}${oauthHata}` : '');
   const [yukleniyor, setYukleniyor] = useState(false);
   const [mesaj, setMesaj] = useState('');
+  const [onaylanmadi, setOnaylanmadi] = useState(false);
 
   async function kayitOl() {
     if (!ad.trim()) { setHata(t.adZorunlu); return; }
@@ -32,12 +33,37 @@ function GirisIcerik() {
     const { error } = await supabase.auth.signUp({
       email,
       password: sifre,
-      options: { data: { ad } }
+      options: {
+        data: { ad },
+        emailRedirectTo: `${window.location.origin}/auth/confirm?next=${encodeURIComponent(geri)}`,
+      },
     });
     if (error) {
       setHata(error.message);
     } else {
       setMesaj(t.onayMesaji);
+    }
+    setYukleniyor(false);
+  }
+
+  // Onay maili gecikmiş/süresi dolmuş öğrenci için taze link gönder. Özel SMTP
+  // ile saniyeler içinde gelir ve süresi geçmeden tıklanabilir.
+  async function mailYenidenGonder() {
+    if (!email.trim()) { setHata(t.emailZorunlu || t.adZorunlu); return; }
+    setYukleniyor(true);
+    setHata('');
+    const { error } = await supabase.auth.resend({
+      type: 'signup',
+      email,
+      options: {
+        emailRedirectTo: `${window.location.origin}/auth/confirm?next=${encodeURIComponent(geri)}`,
+      },
+    });
+    if (error) {
+      setHata(error.message);
+    } else {
+      setOnaylanmadi(false);
+      setMesaj(t.onayYenidenGonderildi || t.onayMesaji);
     }
     setYukleniyor(false);
   }
@@ -52,6 +78,7 @@ function GirisIcerik() {
       const msg = error.message || '';
       if (msg.toLowerCase().includes('email not confirmed')) {
         setHata(t.emailOnaylanmadi);
+        setOnaylanmadi(true);
       } else if (msg.toLowerCase().includes('invalid login')) {
         setHata(t.emailSifreHatali);
       } else {
@@ -191,6 +218,17 @@ function GirisIcerik() {
 
                 {hata && (
                   <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.75rem', color: 'var(--uyari)', margin: 0 }}>{hata}</p>
+                )}
+
+                {onaylanmadi && (
+                  <button
+                    type="button"
+                    onClick={mailYenidenGonder}
+                    disabled={yukleniyor}
+                    style={{ alignSelf: 'flex-start', background: 'none', border: 'none', padding: 0, color: 'var(--accent)', fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.75rem', letterSpacing: '0.1em', textDecoration: 'underline', textUnderlineOffset: '3px', cursor: yukleniyor ? 'not-allowed' : 'pointer', opacity: yukleniyor ? 0.5 : 1 }}
+                  >
+                    {t.mailYenidenGonderCta}
+                  </button>
                 )}
 
                 <button
