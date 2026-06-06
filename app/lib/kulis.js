@@ -601,22 +601,61 @@ export async function anSabitleriniGetir(karakterId) {
 
 // Karakter datasındaki TÜM çatal/yazma anlarını tek havuzda toplar.
 // anlar üç yerde geçer: oyunOncesi.olaylar[].anlar / sahnelerWorkbook[].anlar
-// / boslukSet[].anlar
+// / boslukSet[].anlar. Ayrıca yürüyüş istasyon çatalları (sahne/boşluk
+// yuruyus.istasyonlar[].catal) 'sahne-N' / 'bosluk-N' anahtarıyla indekslenir —
+// viewer bunları bu anahtarla (bosluk_no) kaydeder.
+//
+// Her havuz girdisine `baglam` eklenir: { kaynak, baslik, no } — kararın hangi
+// olay/sahne/boşluk için verildiğini Defter'de göstermek için.
 function anHavuzuKur(data) {
-  const havuz = {}; // { [anId]: { soru, tip, secenekler } }
-  const ekle = (anlar) => {
+  const havuz = {}; // { [anId]: { soru, tip, secenekler, baglam } }
+
+  const ekle = (anlar, baglam) => {
     (anlar || []).forEach((an) => {
       if (!an || !an.id) return;
       havuz[an.id] = {
         soru: an.soru || '',
         tip: an.tip || 'catal',
         secenekler: an.secenekler || [],
+        baglam,
       };
     });
   };
-  (data?.oyunOncesi?.olaylar || []).forEach((o) => ekle(o.anlar));
-  (data?.sahnelerWorkbook || []).forEach((s) => ekle(s.anlar));
-  (data?.boslukSet || []).forEach((b) => ekle(b.anlar));
+
+  // Yürüyüş istasyon çatallarını tek girdide topla (bosluk_no = 'sahne-N'/'bosluk-N').
+  // Tüm istasyon çataлларının seçenekleri birleştirilir; deger → dal eşlenir ki
+  // kararlariGetir secenek.baslik'i bulabilsin (yoksa "Seçim <deger>" fallback'i).
+  const yuruyusEkle = (kapsayici, kaynak) => {
+    const istasyonlar = kapsayici?.yuruyus?.istasyonlar || [];
+    const secenekler = [];
+    istasyonlar.forEach((ist) => {
+      if (ist?.catal && Array.isArray(ist.catal.secenekler)) {
+        ist.catal.secenekler.forEach((s) => {
+          if (s && s.deger) secenekler.push({ dal: s.deger, baslik: s.baslik || '' });
+        });
+      }
+    });
+    if (secenekler.length === 0) return;
+    havuz[`${kaynak}-${kapsayici.no}`] = {
+      soru: '',
+      tip: 'catal',
+      secenekler,
+      baglam: { kaynak, baslik: kapsayici.baslik || '', no: kapsayici.no },
+    };
+  };
+
+  (data?.oyunOncesi?.olaylar || []).forEach((o) =>
+    ekle(o.anlar, { kaynak: 'olay', baslik: o.baslik || '', no: o.no })
+  );
+  (data?.sahnelerWorkbook || []).forEach((s) => {
+    ekle(s.anlar, { kaynak: 'sahne', baslik: s.baslik || '', no: s.no });
+    yuruyusEkle(s, 'sahne');
+  });
+  (data?.boslukSet || []).forEach((b) => {
+    ekle(b.anlar, { kaynak: 'bosluk', baslik: b.baslik || '', no: b.no });
+    yuruyusEkle(b, 'bosluk');
+  });
+
   return havuz;
 }
 
@@ -656,6 +695,7 @@ export async function kararlariGetir(karakterId, data) {
         soru: an?.soru || '',
         secilenBaslik: secenek?.baslik || `Seçim ${dal}`,
         dal,
+        baglam: an?.baglam || null,
       });
     });
 
@@ -666,7 +706,7 @@ export async function kararlariGetir(karakterId, data) {
       const secilenDal = (secimler || {})[anId];
       const secenek = an?.secenekler?.find((s) => s.dal === secilenDal);
       const tur = an?.tip === 'yazma' || !secenek ? 'yazma' : 'secim';
-      sonuc.muhurler.push({ anId, soru: an?.soru || '', metin, tur });
+      sonuc.muhurler.push({ anId, soru: an?.soru || '', metin, tur, baglam: an?.baglam || null });
     });
 
     sonuc.bos = sonuc.yorumlar.length === 0 && sonuc.muhurler.length === 0;

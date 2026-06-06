@@ -36,6 +36,19 @@ function BolumBasligi({ etiket, baslik }) {
   );
 }
 
+// Kararın hangi olay/sahne/boşluk için verildiğini gösteren konum etiketi.
+// Alt alta dizilen kararlarda bağlamı korur.
+function baglamEtiketi(baglam, t) {
+  if (!baglam) return '';
+  const baslik = baglam.baslik || '';
+  if (baglam.kaynak === 'sahne') {
+    const onek = `${t.kararlarBaglamSahne} ${baglam.no ?? ''}`.trim();
+    return baslik ? `${onek} · ${baslik}` : onek;
+  }
+  const onek = baglam.kaynak === 'olay' ? t.kararlarBaglamOlay : t.kararlarBaglamBosluk;
+  return baslik ? `${onek} · ${baslik}` : onek;
+}
+
 function VerdiginKararlar({ t, kararlar }) {
   const muhurMap = {};
   (kararlar?.muhurler || []).forEach((m) => { if (m.metin) muhurMap[m.anId] = m; });
@@ -76,15 +89,26 @@ function VerdiginKararlar({ t, kararlar }) {
           {anIds.map((anId) => {
             const muhur = muhurMap[anId];
             const yorum = yorumMap[anId];
+            const baglam = (yorum && yorum.baglam) || muhur.baglam;
+            const baglamMetni = baglamEtiketi(baglam, t);
             return (
               <div
                 key={anId}
                 style={{
-                  display: 'flex', flexDirection: 'column', gap: '0.55rem',
+                  display: 'flex', flexDirection: 'column', gap: '0.4rem',
                   paddingLeft: '0.95rem',
                   borderLeft: '2px solid var(--accent)',
                 }}
               >
+                {baglamMetni && (
+                  <span style={{
+                    fontFamily: 'var(--font-body), sans-serif', fontWeight: 300,
+                    fontSize: '0.6rem', letterSpacing: '0.18em',
+                    color: 'var(--ink-muted)', textTransform: 'uppercase',
+                  }}>
+                    {baglamMetni}
+                  </span>
+                )}
                 {yorum && (
                   <span style={{
                     fontFamily: 'var(--font-body), sans-serif', fontWeight: 400,
@@ -117,6 +141,9 @@ export const KARARLAR_METIN = {
     kararlarBosBaslik: 'Henüz bir karar mühürlemedin.',
     kararlarBosAlt:
       'Karakteri çalışırken verdiğin yorumlar ve mühürlediğin anlar burada toplanacak. İlk kararını, karakterin el-yazması bölümünde bir ana dokunarak verirsin.',
+    kararlarBaglamOlay: 'Oyun Öncesi',
+    kararlarBaglamSahne: 'Sahne',
+    kararlarBaglamBosluk: 'Boşluk',
   },
   en: {
     kararlarEtiket: 'Your Decisions',
@@ -124,6 +151,9 @@ export const KARARLAR_METIN = {
     kararlarBosBaslik: 'You haven’t sealed a decision yet.',
     kararlarBosAlt:
       'The readings you make and the moments you seal while working on the character will gather here. You make your first decision by touching a moment in the character’s handwriting mode.',
+    kararlarBaglamOlay: 'Before the Play',
+    kararlarBaglamSahne: 'Scene',
+    kararlarBaglamBosluk: 'Gap',
   },
   de: {
     kararlarEtiket: 'Deine Entscheidungen',
@@ -131,6 +161,9 @@ export const KARARLAR_METIN = {
     kararlarBosBaslik: 'Du hast noch keine Entscheidung versiegelt.',
     kararlarBosAlt:
       'Die Lesarten und die Augenblicke, die du beim Arbeiten an der Figur versiegelst, sammeln sich hier. Deine erste Entscheidung triffst du, indem du im Handschrift-Modus der Figur einen Augenblick berührst.',
+    kararlarBaglamOlay: 'Vor dem Stück',
+    kararlarBaglamSahne: 'Szene',
+    kararlarBaglamBosluk: 'Lücke',
   },
 };
 
