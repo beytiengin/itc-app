@@ -188,6 +188,7 @@ const chromeI18n = {
 
       // 2. Nerede Kaldın
       neredeKaldinEtiket: 'Nerede Kaldın',
+      neredeKaldinBaslik: 'Bıraktığın yerden devam et',
       enSonUzerindeydim: 'En son şurada çalışıyordun:',
       siradakiDokunulmamis: 'Henüz dokunmadığın:',
       neredeKaldinBos: 'Bu karaktere henüz başlamadın.',
@@ -196,6 +197,7 @@ const chromeI18n = {
 
       // 3. Zaman Çizgisi
       zamanCizgisiEtiket: 'Zaman Çizgisi',
+      zamanCizgisiBaslik: 'Oyunun akışında neredesin',
       zamanCizgisiAltyazi: 'Oyun sırasıyla — dokunup ana git.',
       lejantSahneYazildi: 'Sahne · yazıldı',
       lejantSahneBos: 'Sahne · boş',
@@ -213,6 +215,7 @@ const chromeI18n = {
 
       // 5. Sen ve Karakter
       senVeKarakterEtiketOnce: 'Sen ve ',
+      senVeKarakterBaslik: 'Aranızdaki köprü',
       acikKapinEtiket: 'Açık kapın',
       acikKapinBos: 'Kalibrasyonunu tamamladığında açık kapın burada belirir.',
       kapiBilissel: 'Bilişsel',
@@ -551,6 +554,7 @@ const chromeI18n = {
 
       // 2. Where you left off
       neredeKaldinEtiket: 'Where You Left Off',
+      neredeKaldinBaslik: 'Pick up where you left off',
       enSonUzerindeydim: 'You were last working on:',
       siradakiDokunulmamis: 'Untouched so far:',
       neredeKaldinBos: "You haven't started with this character yet.",
@@ -559,6 +563,7 @@ const chromeI18n = {
 
       // 3. Timeline
       zamanCizgisiEtiket: 'Timeline',
+      zamanCizgisiBaslik: 'Where you are in the play',
       zamanCizgisiAltyazi: 'In play order — touch and go to that moment.',
       lejantSahneYazildi: 'Scene · written',
       lejantSahneBos: 'Scene · empty',
@@ -576,6 +581,7 @@ const chromeI18n = {
 
       // 5. You and the character
       senVeKarakterEtiketOnce: 'You and ',
+      senVeKarakterBaslik: 'The bridge between you',
       acikKapinEtiket: 'Your open door',
       acikKapinBos: 'Your open door will appear here once your calibration is complete.',
       kapiBilissel: 'Cognitive',
@@ -900,12 +906,14 @@ const chromeI18n = {
       karakterDurumYok: '—',
       karakterDurumYakinda: 'bald',
       neredeKaldinEtiket: 'Wo du aufgehört hast',
+      neredeKaldinBaslik: 'Mach dort weiter, wo du aufgehört hast',
       enSonUzerindeydim: 'Zuletzt hast du daran gearbeitet:',
       siradakiDokunulmamis: 'Bisher unberührt:',
       neredeKaldinBos: 'Mit dieser Figur hast du noch nicht begonnen.',
       elYazmasiniAc: 'Das Manuskript öffnen →',
       karaktereGit: 'Zur Figurenseite →',
       zamanCizgisiEtiket: 'Zeitleiste',
+      zamanCizgisiBaslik: 'Wo du im Stück stehst',
       zamanCizgisiAltyazi: 'In der Reihenfolge des Stücks — antippen und zum Moment springen.',
       lejantSahneYazildi: 'Szene · geschrieben',
       lejantSahneBos: 'Szene · leer',
@@ -919,6 +927,7 @@ const chromeI18n = {
       birikenDosyaBaslikSonra: ' — in deinen eigenen Worten.',
       birikenDosyaBos: 'Noch leer. Während du schreibst, tritt deine Figur hier nach und nach hervor.',
       senVeKarakterEtiketOnce: 'Du und ',
+      senVeKarakterBaslik: 'Die Brücke zwischen euch',
       acikKapinEtiket: 'Deine offene Tür',
       acikKapinBos: 'Deine offene Tür erscheint hier, sobald deine Kalibrierung abgeschlossen ist.',
       kapiBilissel: 'Kognitiv',

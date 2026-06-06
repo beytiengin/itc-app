@@ -31,7 +31,7 @@ import { getKalibrasyonProfili } from '../lib/kalibrasyon';
 import { useDil, ceviri } from '../lib/dil';
 import { karakterGetir } from '../lib/karakterGetir';
 import chromeI18n from '../../data/chrome-i18n';
-import VerdiginKararlar, { KARARLAR_METIN } from '../../components/VerdiginKararlar';
+import VerdiginKararlar, { KARARLAR_METIN, BolumBasligi } from '../../components/VerdiginKararlar';
 import macbeth from '../../data/karakterler/macbeth';
 import hamlet from '../../data/karakterler/hamlet';
 import willy from '../../data/karakterler/willy';
@@ -386,7 +386,7 @@ function NeredeKaldin({ t, karakter, yeniSema, boslukYansimalari, antrenmanYansi
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-      <Etiket>{t.neredeKaldinEtiket}</Etiket>
+      <BolumBasligi etiket={t.neredeKaldinEtiket} baslik={t.neredeKaldinBaslik} />
 
       {bosDurum && (
         <BosKart>
@@ -457,7 +457,7 @@ function ZamanCizgisi({ t, karakter, yeniSema, akis, boslukYansimalari, antrenma
   if (!yeniSema) {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
-        <Etiket>{t.zamanCizgisiEtiket}</Etiket>
+        <BolumBasligi etiket={t.zamanCizgisiEtiket} baslik={t.zamanCizgisiBaslik} />
         <BosKart>
           <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)' }}>{t.timelineBos}</span>
         </BosKart>
@@ -467,8 +467,8 @@ function ZamanCizgisi({ t, karakter, yeniSema, akis, boslukYansimalari, antrenma
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-        <Etiket>{t.zamanCizgisiEtiket}</Etiket>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+        <BolumBasligi etiket={t.zamanCizgisiEtiket} baslik={t.zamanCizgisiBaslik} />
         <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-soft)' }}>{t.zamanCizgisiAltyazi}</span>
       </div>
 
@@ -669,12 +669,10 @@ function BirikenDosya({ t, karakter, yeniSema, akis, boslukYansimalari }) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-        <Etiket>{t.birikenDosyaEtiket}</Etiket>
-        <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)' }}>
-          {t.birikenDosyaBaslikOnce}{karakter.ad}{t.birikenDosyaBaslikSonra}
-        </span>
-      </div>
+      <BolumBasligi
+        etiket={t.birikenDosyaEtiket}
+        baslik={`${t.birikenDosyaBaslikOnce}${karakter.ad}${t.birikenDosyaBaslikSonra}`}
+      />
 
       {yazilmis.length === 0 && (
         <BosKart>
@@ -716,7 +714,7 @@ function SenVeKarakter({ t, karakter, acikKapiKey, boslukYansimalari }) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
-      <Etiket>{t.senVeKarakterEtiketOnce}{karakter.ad}</Etiket>
+      <BolumBasligi etiket={`${t.senVeKarakterEtiketOnce}${karakter.ad}`} baslik={t.senVeKarakterBaslik} />
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.7rem' }}>
 
