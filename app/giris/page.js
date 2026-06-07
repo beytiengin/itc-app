@@ -6,9 +6,13 @@ import { supabase } from '../lib/supabase';
 import { useDil, ceviri } from '../lib/dil';
 import chromeI18n from '../../data/chrome-i18n';
 
-// Supabase Google OAuth config'i (Client Secret + redirect URI) onarilana
-// kadar Google butonu gizli. true yapinca buton + "veya" ayirici geri donusur.
-const GOOGLE_AKTIF = false;
+// Google OAuth — e-posta onayını tamamen by-pass eder (onay maili yok, gecikme
+// yok, süre dolması yok). Buton + "veya" ayırıcı görünür.
+// GEREKSİNİM (Supabase paneli): Authentication → Providers → Google enabled +
+// Google Cloud OAuth Client ID/Secret + Authorized redirect URI:
+//   https://qkevemyulvsfrpkvryjz.supabase.co/auth/v1/callback
+// Bu yapılmadan buton "provider is not enabled" hatası verir.
+const GOOGLE_AKTIF = true;
 
 function GirisIcerik() {
   const { dil } = useDil();
