@@ -29,19 +29,20 @@ const macbeth = {
 
   // ─── DEĞİŞTİRİLEMEZ DOĞRULAR ──────────────────────────────────────────────
 
+  // DOĞRULAMA: macbeth-is1-kaynak-tamam (her madde metin/çıkarım etiketli; 9-10 metni yumuşatıldı)
   dogrular: [
-    { kategori: 'Kimlik', madde: "Macbeth, Kral Duncan'ın güvendiği bir generaldir." },
-    { kategori: 'Kimlik', madde: "Cawdor Beyi unvanını yeni almıştır (I.iii)." },
-    { kategori: 'Kimlik', madde: "Kral Duncan'ın akrabasıdır — hem askeri hem misafir." },
-    { kategori: 'Bilgi', madde: 'Cadıların kehanetini duydu: kral olacak.' },
-    { kategori: 'Bilgi', madde: "Banquo'nun çocuklarının kral olacağını biliyor." },
-    { kategori: 'Eylem', madde: "Duncan'ı uyurken öldürdü." },
-    { kategori: 'Eylem', madde: "Banquo'yu öldürtmeyi emretti." },
-    { kategori: 'Eylem', madde: "Macduff'ın ailesini katlettirdi." },
-    { kategori: 'İlişki', madde: 'Lady Macbeth eşidir. Ve onu bu yola iten kişidir.' },
-    { kategori: 'İlişki', madde: 'Banquo, en yakın dostuydu. Şimdi hayalet.' },
-    { kategori: 'Son', madde: 'Hiçbir kadından doğmamış biri tarafından öldürüleceğini bildi.' },
-    { kategori: 'Son', madde: "Lady Macbeth'in ölümünü savaş ortasında öğrendi." },
+    { kategori: 'Kimlik', madde: "Macbeth, Kral Duncan'ın güvendiği bir generaldir.", kaynak: 'metin' },
+    { kategori: 'Kimlik', madde: "Cawdor Beyi unvanını yeni almıştır (I.iii).", kaynak: 'metin' },
+    { kategori: 'Kimlik', madde: "Kral Duncan'ın akrabasıdır — hem askeri hem misafir.", kaynak: 'metin' },
+    { kategori: 'Bilgi', madde: 'Cadıların kehanetini duydu: kral olacak.', kaynak: 'metin' },
+    { kategori: 'Bilgi', madde: "Banquo'nun çocuklarının kral olacağını biliyor.", kaynak: 'metin' },
+    { kategori: 'Eylem', madde: "Duncan'ı uyurken öldürdü.", kaynak: 'metin' },
+    { kategori: 'Eylem', madde: "Banquo'yu öldürtmeyi emretti.", kaynak: 'metin' },
+    { kategori: 'Eylem', madde: "Macduff'ın ailesini katlettirdi.", kaynak: 'metin' },
+    { kategori: 'İlişki', madde: 'Lady Macbeth eşidir — kararsız kaldığı eşikte onu ileri taşıyan ortak.', kaynak: 'cikarim' },
+    { kategori: 'İlişki', madde: 'Banquo silah arkadaşıydı — birlikte savaştılar, aynı kehaneti duydular. Şimdi hayalet.', kaynak: 'cikarim' },
+    { kategori: 'Son', madde: 'Hiçbir kadından doğmamış biri tarafından öldürüleceğini bildi.', kaynak: 'metin' },
+    { kategori: 'Son', madde: "Lady Macbeth'in ölümünü savaş ortasında öğrendi.", kaynak: 'metin' },
   ],
 
   // ═══════════════════════════════════════════════════════════════════════════
