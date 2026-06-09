@@ -640,7 +640,7 @@ function anHavuzuKur(data) {
       soru: '',
       tip: 'catal',
       secenekler,
-      baglam: { kaynak, baslik: kapsayici.baslik || '', no: kapsayici.no },
+      baglam: { kaynak, baslik: kapsayici.baslik || kapsayici.ad || '', no: kapsayici.no },
     };
   };
 
@@ -652,7 +652,7 @@ function anHavuzuKur(data) {
     yuruyusEkle(s, 'sahne');
   });
   (data?.boslukSet || []).forEach((b) => {
-    ekle(b.anlar, { kaynak: 'bosluk', baslik: b.baslik || '', no: b.no });
+    ekle(b.anlar, { kaynak: 'bosluk', baslik: b.baslik || b.ad || '', no: b.no });
     yuruyusEkle(b, 'bosluk');
   });
 

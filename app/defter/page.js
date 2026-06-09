@@ -41,7 +41,17 @@ import biff from '../../data/karakterler/biff';
 // karakterGetir ile dil katmanı uygulanır (hamlet + willy + macbeth + biff;
 // hepsi yeni Workbook şemasında).
 const KARAKTERLER_RAW = { hamlet, willy, macbeth, biff };
-const SIRA = ['hamlet', 'willy', 'macbeth', 'biff'];
+const SIRA = ['hamlet', 'willy', 'nina', 'macbeth', 'biff'];
+
+// Pilot şema (Nina): boslukSet 'no' yerine 'id' kullanır, viewer'ı
+// /el-yazmasi değil kendi sayfasıdır (/antrenman/karakter/nina), doğrular/
+// boşluk alanları farklı anahtarlarda. Defter'in el-yazması bölümleri bu
+// şemaya uymaz; bu yüzden pilot karakterlerde yalnız Verdiğin Kararlar +
+// kendi sayfasına köprü gösterilir. Kayıt anahtarı (oznel_sabitler.bosluk_no
+// = an.id) standart olduğu için Verdiğin Kararlar sorunsuz çalışır.
+function pilotMu(karakter) {
+  return karakter?.id === 'nina';
+}
 
 // Karakter bazlı kayıt anı (★) setleri — el-yazmasi/page.js içinde tutulan
 // değerlerle aynı kalmalı. Veri katmanına taşımak ileride yapılır.
@@ -104,6 +114,7 @@ export default function KulisSayfasi() {
   const KARAKTERLER = useMemo(() => ({
     hamlet: karakterGetir('hamlet', dil),
     willy: karakterGetir('willy', dil),
+    nina: karakterGetir('nina', dil),
     macbeth: karakterGetir('macbeth', dil),
     biff: karakterGetir('biff', dil),
   }), [dil]);
@@ -311,6 +322,12 @@ function KarakterSecimi({ t, karakterler, ilerlemeler, seciliId, onSec }) {
 //       Zaman Çizgisi · Sen ve Karakter · Desenler
 
 function DetayBolumler({ t, karakter, boslukYansimalari, antrenmanYansimalari, kararlar, yukleniyor, acikKapiKey }) {
+  // Hook'lar koşulsuz, en üstte (erken return'lerden önce — hooks kuralı).
+  const yeniSema = yeniSemadaMi(karakter);
+  const pilot = pilotMu(karakter);
+  const akis = useMemo(() => akisHesapla(karakter), [karakter]);
+  const haritaSorulari = useMemo(() => anHaritasiniGetir(karakter), [karakter]);
+
   if (yukleniyor) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', padding: '2rem 0' }}>
@@ -319,9 +336,18 @@ function DetayBolumler({ t, karakter, boslukYansimalari, antrenmanYansimalari, k
     );
   }
 
-  const yeniSema = yeniSemadaMi(karakter);
-  const akis = useMemo(() => akisHesapla(karakter), [karakter]);
-  const haritaSorulari = useMemo(() => anHaritasiniGetir(karakter), [karakter]);
+  // Pilot karakter (Nina): el-yazması şemasına bağlı bölümleri atla; çalışan
+  // Verdiğin Kararlar + kendi sayfasına köprü göster.
+  if (pilot) {
+    return (
+      <>
+        {haritaSorulari.length > 0 && (
+          <VerdiginKararlar t={t} kararlar={kararlar} />
+        )}
+        <PilotSayfaKart t={t} karakter={karakter} />
+      </>
+    );
+  }
 
   return (
     <>
@@ -768,6 +794,27 @@ function Desenler({ t }) {
     <div style={{ border: '1px dashed var(--rule)', padding: '1.1rem 1.3rem', display: 'flex', flexDirection: 'column', gap: '0.45rem', opacity: 0.55 }}>
       <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 500, fontSize: '0.58rem', letterSpacing: '0.22em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.desenlerEtiket}</span>
       <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.95rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.6 }}>{t.desenlerMetin}</p>
+    </div>
+  );
+}
+
+// ─── PİLOT KART (Nina) ──────────────────────────────────────────────────────
+// El-yazması şemasına uymayan pilot karakterler için: kendi çalışma sayfasına
+// köprü. (Nerede Kaldın/Zaman Çizgisi/Biriken bölümleri bu şemaya bağlı.)
+
+function PilotSayfaKart({ t, karakter }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+      <BolumBasligi etiket={karakter.ad} baslik={t.pilotSayfaBaslik} />
+      <div style={{ border: '1px solid var(--rule)', padding: '1.2rem 1.3rem', display: 'flex', flexDirection: 'column', gap: '0.7rem', transition: 'border 0.25s ease' }}
+        onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
+        onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--rule)'; }}
+      >
+        <p style={{ fontFamily: 'var(--font-display), serif', fontWeight: 300, fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)', lineHeight: 1.65, margin: 0 }}>
+          {t.pilotSayfaMetin}
+        </p>
+        <SatirLink href={`/antrenman/karakter/${karakter.id}`}>{t.karaktereGit}</SatirLink>
+      </div>
     </div>
   );
 }

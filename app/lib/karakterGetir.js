@@ -19,12 +19,15 @@ import macbethTR from '../../data/karakterler/macbeth';
 import macbethDE from '../../data/karakterler/macbeth.de';
 import biffTR from '../../data/karakterler/biff';
 import biffDE from '../../data/karakterler/biff.de';
+import ninaTR from '../../data/pilot/nina';
 
 const TABAN = {
   hamlet: hamletTR,
   willy: willyTR,
   macbeth: macbethTR,
   biff: biffTR,
+  // Nina pilot şemada (data/pilot/) — DE katmanı yok, TR taban döner.
+  nina: ninaTR,
 };
 
 const KATMAN = {

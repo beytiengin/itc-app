@@ -233,6 +233,10 @@ const chromeI18n = {
       desenlerEtiket: 'Desenler · yakında',
       desenlerMetin: 'Yazdıkların çoğaldıkça kalibrasyonunla aralarındaki örüntü burada belirecek. (Modül III)',
 
+      // Pilot karakter (Nina) — kendi çalışma sayfasına köprü
+      pilotSayfaBaslik: 'Bu karakterin çalışma sayfası',
+      pilotSayfaMetin: 'Bu karakter kendi sayfasında çalışılıyor — adım adım yaşam çizgisi, sahneler ve çatallı boşluklar orada. Verdiğin kararlar yukarıda birikmeye devam eder.',
+
       // Empty states
       emptyKalibrasyonEtiket: 'Önce Kalibrasyon',
       emptyKalibrasyonMetin:
@@ -602,6 +606,10 @@ const chromeI18n = {
       desenlerEtiket: 'Patterns · soon',
       desenlerMetin: 'As you write more, the pattern between your calibration and your writing will appear here. (Module III)',
 
+      // Pilot character (Nina) — bridge to its own working page
+      pilotSayfaBaslik: 'This character’s working page',
+      pilotSayfaMetin: 'This character is worked on its own page — the step-by-step life line, scenes and forked gaps are there. The decisions you make keep gathering above.',
+
       // Empty states
       emptyKalibrasyonEtiket: 'Calibration First',
       emptyKalibrasyonMetin:
@@ -948,6 +956,10 @@ const chromeI18n = {
       cerceveBos: 'Keine Rahmendaten.',
       desenlerEtiket: 'Muster · bald',
       desenlerMetin: 'Je mehr du schreibst, desto deutlicher tritt hier das Muster zwischen deiner Kalibrierung und deinem Schreiben hervor. (Modul III)',
+
+      // Pilot-Figur (Nina) — Brücke zur eigenen Arbeitsseite
+      pilotSayfaBaslik: 'Die Arbeitsseite dieser Figur',
+      pilotSayfaMetin: 'Diese Figur wird auf einer eigenen Seite bearbeitet — die schrittweise Lebenslinie, Szenen und verzweigten Lücken sind dort. Deine Entscheidungen sammeln sich weiterhin oben.',
       emptyKalibrasyonEtiket: 'Zuerst die Kalibrierung',
       emptyKalibrasyonMetin:
         'Bevor du zu den Figuren übergehst, muss dein Instrument gestimmt werden. Die Kalibrierung bestimmt die für dich passende Übungssprache und das ethische Schutzniveau.',

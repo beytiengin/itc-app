@@ -29,6 +29,7 @@
  */
 
 export const nina = {
+  id: 'nina',
   ad: 'Nina Mihaylovna Zareçnaya',
   oyun: 'Martı',
   yazar: 'Anton Çehov',
