@@ -49,7 +49,7 @@ function baglamEtiketi(baglam, t) {
   return baslik ? `${onek} · ${baslik}` : onek;
 }
 
-function VerdiginKararlar({ t, kararlar }) {
+function VerdiginKararlar({ t, kararlar, karakterAd }) {
   const muhurMap = {};
   (kararlar?.muhurler || []).forEach((m) => { if (m.metin) muhurMap[m.anId] = m; });
   const yorumMap = {};
@@ -58,9 +58,38 @@ function VerdiginKararlar({ t, kararlar }) {
   const anIds = Object.keys(muhurMap);
   const dolu = anIds.length > 0;
 
+  // Envanter sayımı (skor DEĞİL): kaç çatal mührü, kaç yazma mührü.
+  // Yüzde/çubuk/"tamamlandı" YOK (Karar R1/R2). Yürüyüş ayrımı zorlanmaz —
+  // çatal seçimi zaten "karar" sayılır; ikili sayım yeterli ve net.
+  const muhurler = kararlar?.muhurler || [];
+  const kararSayi = muhurler.filter((m) => m.metin && m.tur === 'secim').length;
+  const yansimaSayi = muhurler.filter((m) => m.metin && m.tur === 'yazma').length;
+  const sayimlar = [
+    kararSayi > 0 ? { sayi: kararSayi, etiket: t.kararlarSayimKarar } : null,
+    yansimaSayi > 0 ? { sayi: yansimaSayi, etiket: t.kararlarSayimYansima } : null,
+  ].filter(Boolean);
+  const onek = karakterAd && t.kararlarSayimOnek ? t.kararlarSayimOnek.replace('{ad}', karakterAd) : '';
+
   return (
     <section style={{ display: 'flex', flexDirection: 'column', gap: '1.3rem' }}>
       <BolumBasligi etiket={t.kararlarEtiket} baslik={t.kararlarBaslik} />
+
+      {/* Sayım satırı — envanter (skor değil); boşta render edilmez. */}
+      {dolu && sayimlar.length > 0 && (
+        <p style={{
+          fontFamily: 'var(--font-body), sans-serif', fontWeight: 300,
+          fontSize: '0.72rem', color: 'var(--ink-muted)', lineHeight: 1.7,
+          margin: '-0.85rem 0 0',
+        }}>
+          {onek ? <span>{onek} </span> : null}
+          {sayimlar.map((s, i) => (
+            <span key={i}>
+              {i > 0 ? ' · ' : ''}
+              <strong style={{ color: 'var(--accent)', fontWeight: 400 }}>{s.sayi}</strong> {s.etiket}
+            </span>
+          ))}
+        </p>
+      )}
 
       {!dolu && (
         <div style={{
@@ -144,6 +173,9 @@ export const KARARLAR_METIN = {
     kararlarBaglamOlay: 'Oyun Öncesi',
     kararlarBaglamSahne: 'Sahne',
     kararlarBaglamBosluk: 'Boşluk',
+    kararlarSayimOnek: "Senin {ad}'in —",
+    kararlarSayimKarar: 'karar mühürledin',
+    kararlarSayimYansima: 'yansıma yazdın',
   },
   en: {
     kararlarEtiket: 'Your Decisions',
@@ -154,6 +186,9 @@ export const KARARLAR_METIN = {
     kararlarBaglamOlay: 'Before the Play',
     kararlarBaglamSahne: 'Scene',
     kararlarBaglamBosluk: 'Gap',
+    kararlarSayimOnek: 'Your {ad} —',
+    kararlarSayimKarar: 'decisions sealed',
+    kararlarSayimYansima: 'reflections written',
   },
   de: {
     kararlarEtiket: 'Deine Entscheidungen',
@@ -164,6 +199,9 @@ export const KARARLAR_METIN = {
     kararlarBaglamOlay: 'Vor dem Stück',
     kararlarBaglamSahne: 'Szene',
     kararlarBaglamBosluk: 'Lücke',
+    kararlarSayimOnek: 'Dein {ad} —',
+    kararlarSayimKarar: 'Entscheidungen versiegelt',
+    kararlarSayimYansima: 'Reflexionen geschrieben',
   },
 };
 

@@ -342,7 +342,7 @@ function DetayBolumler({ t, karakter, boslukYansimalari, antrenmanYansimalari, k
     return (
       <>
         {haritaSorulari.length > 0 && (
-          <VerdiginKararlar t={t} kararlar={kararlar} />
+          <VerdiginKararlar t={t} kararlar={kararlar} karakterAd={karakter.ad} />
         )}
         <PilotSayfaKart t={t} karakter={karakter} />
       </>
@@ -353,7 +353,7 @@ function DetayBolumler({ t, karakter, boslukYansimalari, antrenmanYansimalari, k
     <>
       <NeredeKaldin t={t} karakter={karakter} yeniSema={yeniSema} boslukYansimalari={boslukYansimalari} antrenmanYansimalari={antrenmanYansimalari} />
       {haritaSorulari.length > 0 && (
-        <VerdiginKararlar t={t} kararlar={kararlar} />
+        <VerdiginKararlar t={t} kararlar={kararlar} karakterAd={karakter.ad} />
       )}
       <BirikenDosya t={t} karakter={karakter} yeniSema={yeniSema} akis={akis} boslukYansimalari={boslukYansimalari} />
       <ZamanCizgisi t={t} karakter={karakter} yeniSema={yeniSema} akis={akis} boslukYansimalari={boslukYansimalari} antrenmanYansimalari={antrenmanYansimalari} />
