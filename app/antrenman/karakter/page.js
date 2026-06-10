@@ -180,15 +180,7 @@ export default function KarakterListesi() {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
 
-          <AktifKart
-            karakterId="hamlet"
-            ad="Hamlet"
-            href="/antrenman/karakter/hamlet"
-            isPrimary={primaryId === 'hamlet'}
-            adim={adimlar.hamlet}
-            t={t}
-          />
-
+          {/* Yeni an-mimarisi (el-yazması: anlar + yürüyüş): Willy · Macbeth · Nina */}
           <AktifKart
             karakterId="willy"
             ad="Willy Loman"
@@ -204,15 +196,6 @@ export default function KarakterListesi() {
             href="/antrenman/karakter/macbeth"
             isPrimary={primaryId === 'macbeth'}
             adim={adimlar.macbeth}
-            t={t}
-          />
-
-          <AktifKart
-            karakterId="biff"
-            ad="Biff Loman"
-            href="/antrenman/karakter/biff"
-            isPrimary={primaryId === 'biff'}
-            adim={adimlar.biff}
             t={t}
           />
 
@@ -236,6 +219,25 @@ export default function KarakterListesi() {
               Martı'nın yaşayan karakteri — oyun bittiğinde ölmeyen ilk karakter. Sahneler, boşluklar ve adım adım yürüyüşlerle kurulur.
             </p>
           </a>
+
+          {/* Eski yapı (henüz an-mimarisine geçmedi): Hamlet · Biff — altta */}
+          <AktifKart
+            karakterId="hamlet"
+            ad="Hamlet"
+            href="/antrenman/karakter/hamlet"
+            isPrimary={primaryId === 'hamlet'}
+            adim={adimlar.hamlet}
+            t={t}
+          />
+
+          <AktifKart
+            karakterId="biff"
+            ad="Biff Loman"
+            href="/antrenman/karakter/biff"
+            isPrimary={primaryId === 'biff'}
+            adim={adimlar.biff}
+            t={t}
+          />
 
           {/* Yakında — kompakt 2 sütun grid (eski tam-boy kartlar yerine).
               Tek başlık üstte; her öğe: ad + yazar mini. INERT tipoloji
