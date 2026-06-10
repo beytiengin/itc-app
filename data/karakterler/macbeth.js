@@ -101,7 +101,23 @@ const macbeth = {
       icsel: 'Hız kazanan arzu. Kehanet doğrulandıkça istek büyür; ama veliaht engeli karanlık bir düşünceyi tetikler.',
       onerilenSicaklik: 4,
       yuk: 'Bir kapının açıldığını gören adamın, önündeki engeli ilk kez katı bir gözle ölçmesi.',
+      sahneTipi: 'kart',
+      replikIzi: 'Macbeth (içinden): "Yıldızlar, saklayın ışığınızı — kimse görmesin kara ve derin arzularımı." (Malcolm veliaht ilan edilince)',
       travmaKategorileri: [], travmaSeviyesi: 0,
+      anlar: [
+        { id: 's2-a1', tip: 'catal', birlesimSahneNo: 2, travmaDuyarli: false,
+          soru: '"Cawdor Beyi" unvanı geldi — kehanetin ilk yarısı tuttu. Macbeth\'in içinde o an büyüyen şey ne: kehanete teslimiyet mi, kehaneti sınamış olmanın iştahı mı?',
+          secenekler: [
+            { dal: 'A', baslik: 'Kehanete teslim', aciklama: 'Onlar doğru söylüyorsa gerisi de gelir — belki hiçbir şey yapmadan, sadece beklemekle.', oznelSabit: 'Kader beni buldu — kapıyı zorlamadan da açılacaksa, ellerimi kirletmeden bekleyebilirim dedim.' },
+            { dal: 'B', baslik: 'Kehanet sınandı', aciklama: 'Tesadüf olamaz; ama tahtlar beklemekle değil, hamleyle alınır.', oznelSabit: 'İlk yarı tuttuğu an anladım: bu bir müjde değil, bir izindi — ve izinler kullanılmak içindir.' },
+          ] },
+        { id: 's2-a2', tip: 'catal', birlesimSahneNo: 2, travmaDuyarli: false,
+          soru: 'Duncan, Malcolm\'u veliaht ilan etti — yol kapandı. Macbeth ilk kez kendi karanlık düşüncesiyle göz göze geliyor: "kimse görmesin arzularımı." O düşünce belirdiğinde ne yapıyor?',
+          secenekler: [
+            { dal: 'A', baslik: 'Düşüncesinden ürküyor', aciklama: 'Kendi zihninden korkuyor; ışıktan saklamak istediği şeyden en çok kendisi kaçıyor.', oznelSabit: 'O düşünceyi sakladım — ama herkesten önce kendimden sakladığımı biliyordum.' },
+            { dal: 'B', baslik: 'Düşünceyi misafir ediyor', aciklama: 'İlk kez kovmadan bakıyor; karanlığın oturmasına izin veriyor.', oznelSabit: 'Kovmadım. O an misafir ettiğim düşüncenin bir gün ev sahibi olacağını henüz bilmiyordum.' },
+          ] },
+      ],
     },
     {
       no: 3, perde: 1, perdeRomen: 'I',
@@ -111,7 +127,25 @@ const macbeth = {
       icsel: 'Vicdan ile arzu arasındaki en açık hesaplaşma. "Yapmamalıyım" der — ama bu cümleyi tutamayacaktır.',
       onerilenSicaklik: 6,
       yuk: 'Bir adamın kendi vicdanını yenmek zorunda kaldığı an; geri dönülebilecek son eşik.',
+      sahneTipi: 'kart',
+      replikIzi: 'Macbeth: "Hem akrabası, hem uyruğu, hem ev sahibiyim — kapıyı katile kapamam gerekirken kendim bıçak mı tutayım?" (I.vii tartısı) / Lady Macbeth girer; terazi döner.',
       travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 2,
+      anlar: [
+        { id: 's3-a1', tip: 'catal', birlesimSahneNo: 3, travmaDuyarli: true,
+          soru: '"Bu işte daha ileri gitmeyeceğiz" — Macbeth vazgeçtiğini söylüyor. Bu cümle neydi: gerçek bir geri dönüş mü, yoksa kendine sunduğu son bir masumiyet kanıtı mı?',
+          secenekler: [
+            { dal: 'A', baslik: 'Gerçek vazgeçiş', aciklama: 'O an içtenlikle bırakıyor; Lady Macbeth gelmese Duncan sabaha sağ çıkacaktı. Suçun terazisi o gece ikiye bölünür.', oznelSabit: 'Vazgeçmiştim — gerçekten. Beni eşikten geçiren el benim elim değildi; ama hançeri tutan eldi.' },
+            { dal: 'B', baslik: 'Masumiyet provası', aciklama: 'Vazgeçer gibi yapıyor; itilmeyi bekliyor. "Hayır dedim" diyebilmek için söylenmiş bir cümle.', oznelSabit: 'Hayır derken bile dönmesini bekliyordum — birinin beni zorlamasına ihtiyacım vardı ki suç yalnız benim olmasın.' },
+          ] },
+        { id: 's3-a2', tip: 'catal', birlesimSahneNo: 3, travmaDuyarli: false,
+          soru: 'Lady Macbeth\'in sözleri onu geri döndürdü. Ama hangisi işledi: cesaretinin sorgulanması mı, onun gözünde küçülme korkusu mu?',
+          secenekler: [
+            { dal: 'A', baslik: 'Cesaret yarası', aciklama: '"Erkek misin" sorusu savaşçı kimliğinin tam ortasına saplanıyor; o kimlik sorgulanınca her şeyi yapar.', oznelSabit: 'Bana korkak denmesine dayanamam — bunu bilen tek kişi karımdı ve tam oraya bastı.' },
+            { dal: 'B', baslik: 'Onun gözünden düşmek', aciklama: 'Mesele cesaret değil; onun karşısında küçülmek. O kararlılıkla bakarken geri adım atamıyor.', oznelSabit: 'Duncan\'dan korkmuyordum — onun gözlerindeki hayal kırıklığından korkuyordum.' },
+          ] },
+        { id: 's3-a3', tip: 'yazma', birlesimSahneNo: 3, travmaDuyarli: true,
+          soru: '"Kararlıyım artık" dediği saniyede vicdanı son kez bir şey söyledi. Ne dedi — ve Macbeth o sesi nereye gömdü?' },
+      ],
     },
     {
       no: 4, perde: 2, perdeRomen: 'II',
