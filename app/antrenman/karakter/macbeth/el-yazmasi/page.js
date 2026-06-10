@@ -275,10 +275,7 @@ export default function ElYazmasiSayfasi() {
           </div>
         </BolumKatlanir>
 
-        {/* 4. Açık giriş kapısı çubuğu — Aşama 3'te kalibrasyon kapısı vurgulanır */}
-        <GirisKapisiCubugu t={t} acikKapiKey={acikKapiKey} />
-
-        {/* 5. Oyun Öncesi fasıl (katlanır) */}
+        {/* Oyun Öncesi fasıl (katlanır) */}
         <BolumKatlanir
           baslik={`${t.oyunOncesiBaslik} · ${t.oyunOncesiAltyazi}`}
           altyazi={`${(data.oyunOncesi?.olaylar || []).length} ${t.oyunOncesiSayim} · ${t.dokunAc}`}
@@ -468,51 +465,6 @@ function IliskiKart({ iliski }) {
         color: 'var(--ink-muted)',
         textTransform: 'uppercase',
       }}>{iliski.rol}</span>
-    </div>
-  );
-}
-
-function GirisKapisiCubugu({ t, acikKapiKey }) {
-  // Aşama 3: kalibrasyondan gelen açık kapı inceden vurgulanır (border + "senin
-  // kapın" rozeti). Skor/sayı GÖSTERİLMEZ (Karar 21/31). Vurgu olsa da kilit
-  // değil — diğer iki kapı aynen erişilebilir (Karar 21).
-  const kapilar = [
-    { key: 'bilissel', label: t.girisKapisiBilissel },
-    { key: 'bedensel', label: t.girisKapisiBedensel },
-    { key: 'duygusal', label: t.girisKapisiDuygusal },
-  ];
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
-      <Etiket>{t.girisKapisiEtiket}</Etiket>
-      <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.78rem', color: 'var(--ink-soft)', margin: '0 0 0.3rem', lineHeight: 1.5 }}>{t.girisKapisiAciklama}</p>
-      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-        {kapilar.map((k) => {
-          const seninKapi = acikKapiKey === k.key;
-          return (
-            <span key={k.key} style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.45rem',
-              border: `1px solid ${seninKapi ? TON : 'var(--rule)'}`,
-              background: seninKapi ? 'var(--accent-bg)' : 'transparent',
-              padding: '0.45rem 0.95rem',
-              fontFamily: 'var(--font-body), sans-serif',
-              fontWeight: 300,
-              fontSize: '0.72rem',
-              letterSpacing: '0.15em',
-              color: seninKapi ? 'var(--ink)' : 'var(--ink-soft)',
-              textTransform: 'uppercase',
-              borderRadius: 999,
-              transition: 'border 0.25s ease, background 0.25s ease',
-            }}>
-              {k.label}
-              {seninKapi && (
-                <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.72rem', letterSpacing: 0, color: TON, textTransform: 'none' }}>· {t.kapiSeninRozet}</span>
-              )}
-            </span>
-          );
-        })}
-      </div>
     </div>
   );
 }
