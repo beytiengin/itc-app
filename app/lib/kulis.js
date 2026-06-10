@@ -644,9 +644,10 @@ function anHavuzuKur(data) {
     };
   };
 
-  (data?.oyunOncesi?.olaylar || []).forEach((o) =>
-    ekle(o.anlar, { kaynak: 'olay', baslik: o.baslik || '', no: o.no })
-  );
+  (data?.oyunOncesi?.olaylar || []).forEach((o) => {
+    ekle(o.anlar, { kaynak: 'olay', baslik: o.baslik || '', no: o.no });
+    yuruyusEkle(o, 'olay'); // olay-içi yürüyüş çatalları (Macbeth Ö7 — key 'olay-N')
+  });
   (data?.sahnelerWorkbook || []).forEach((s) => {
     ekle(s.anlar, { kaynak: 'sahne', baslik: s.baslik || '', no: s.no });
     yuruyusEkle(s, 'sahne');

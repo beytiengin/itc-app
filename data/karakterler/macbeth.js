@@ -564,6 +564,71 @@ const macbeth = {
           { id: 'o7-a2', tip: 'yazma', travmaDuyarli: false,
             soru: 'O vedada son temas neydi — eller mi, bir bakış mı, hiçbir şey mi? Ortaklığın son masum dokunuşunu kur.' },
         ],
+        yuruyus: {
+          esik: {
+            komut: 'Bu bir yürüyüş. Oyundan önceki son sabahı adım adım kuracaksın — şafaktan, atın üstünde kaleye son bakışa kadar. Acele yok.',
+            adimlar: [
+              'Önce anı kur: savaş çağırıyor; bu ev, bu kadın, bu hayat geride kalacak — kısa bir süreliğine, öyle sanıyor.',
+              'Her durakta Macbeth o an bedeninin neresinde duruyor — fark et, sonra ilerle.',
+              'Seçtiğin her şey senin olur; ormanda sesleri duyacak adamı bu sabah belirler.',
+            ],
+            hitap: 'Hazır olduğunda sabaha gir.',
+            buton: 'Başlıyorum',
+          },
+          girisBaslik: 'Son veda — boşluğu kur',
+          girisAciklama: 'Shakespeare oyunu savaşın ortasında açar; bu sabahı hiç yazmaz. Kehanetten önceki son masum sabah — vedanın kendisi. O sabahı sen kuracaksın.',
+          girisSentez: 'Bu yürüyüşte seçtiklerin senin olur; Sahne 1\'e o adamla gireceksin.',
+          gecisButonu: 'İlk durağa geç',
+          cikisRitueli: 'Sabahtan bir adım geri çekil; bir nefes ver. Bu vedayı taşıyan adam birazdan ormanda üç ses duyacak — oyun o adamla başlar. Ne taşıyorsun?',
+          istasyonlar: [
+            {
+              no: 0, zamanRozet: 'Şafak — ev hâlâ uykuda',
+              acilis: 'Gün ağarmadan uyandın. Kale sessiz; koridorlar, ocağın közü, tanıdık sesler. Bu evi bir süre görmeyeceksin.',
+              sorular: ['Evden çıkmadan önce Macbeth\'in gözü en son neye takıldı — ve neden ona?'],
+              yazmaAlani: true, yazmaPlaceholder: 'Son baktığım şey…',
+            },
+            {
+              no: 1, zamanRozet: 'Zırh kuşanılıyor',
+              acilis: 'Zırh parça parça bedenine oturuyor. Son bağ — sırttaki, tek başına zor olan.',
+              sorular: ['O son bağı bağlayan el kimin?'],
+              catal: {
+                anahtar: 'o7-yuruyus-zirh', dil: 'birinci_tekil',
+                etiket: 'İki yol var. Hangisi senin?',
+                secenekler: [
+                  { deger: 'o', baslik: 'O bağladı', aciklama: 'Her seferden önce aynı ritüel; onun elleri zırhı tanır. Ortaklık bedene işlemiş.',
+                    muhur: 'Bunu unutma — zırhımı hep o bağladı; savaşa onun elleriyle kuşanmış giderdim. Sonra o eller başka şeyler bağladı.',
+                    ozet: 'Savaşa onun elleriyle kuşanmış giderdim.' },
+                  { deger: 'kendim', baslik: 'Kendim bağladım', aciklama: 'Savaşçı yalnız kuşanır; ev ile savaş arasında çizgi var. O çizgiyi korumak bir disiplin.',
+                    muhur: 'Bunu unutma — zırhı hep kendim bağladım; evi savaşa bulaştırmazdım. O çizgiyi sonradan ben sildim, hançerle.',
+                    ozet: 'Ev ile savaş çizgisini sonradan ben sildim.' },
+                ],
+              },
+            },
+            {
+              no: 2, zamanRozet: 'Kapı eşiği — veda',
+              acilis: 'Karşı karşıyasınız. Söylenecekler söylendi ya da söylenmedi. Bir saniye sonra döneceksin.',
+              sorular: ['Son bakışta onun gözünde ne vardı?'],
+              catal: {
+                anahtar: 'o7-yuruyus-bakis', dil: 'birinci_tekil',
+                etiket: 'Ne gördün?',
+                secenekler: [
+                  { deger: 'bekleyis', baslik: 'Bekleyiş', aciklama: 'Ondan büyüklük bekleyen bakış; dönerken eli boş dönmemeli. Mektup o bakışa yazılacak.',
+                    muhur: 'Bunu unutma — gözlerinde bir bekleyiş vardı; kehaneti duyduğumda ilk onun bakışı geldi aklıma. Mektubu o bakışa yazdım.',
+                    ozet: 'Mektubu o bakışa yazdım.' },
+                  { deger: 'endise', baslik: 'Endişe', aciklama: 'Savaşa giden kocaya bakış — dönmeyebilir. O endişeyi büyüklük müjdesiyle örtmek isteyecek.',
+                    muhur: 'Bunu unutma — gözlerinde korku vardı, beni kaybetme korkusu. Ona taht müjdesi yazdım; oysa istediği şey sadece dönmemdi belki.',
+                    ozet: 'İstediği sadece dönmemdi belki.' },
+                ],
+              },
+            },
+            {
+              no: 3, zamanRozet: 'Atın üstünde',
+              acilis: 'Kale arkada kalıyor; nal sesleri sabahı bölüyor. Yol ileride — savaş, zafer ve henüz bilmediğin üç ses.',
+              sorular: ['Macbeth dönüp baktı mı — ve baktıysa pencerede ne gördü; bakmadıysa neden bakmadı?'],
+              yazmaAlani: true, yazmaPlaceholder: 'Kale arkamda kalırken…',
+            },
+          ],
+        },
       },
     ],
     // DOĞRULAMA: macbeth-is2a-oyunoncesi-tamam

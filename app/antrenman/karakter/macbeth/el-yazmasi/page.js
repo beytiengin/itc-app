@@ -311,6 +311,7 @@ export default function ElYazmasiSayfasi() {
                     anYazmalari={anYazmalari}
                     onAnSec={anSec}
                     onAnYaz={anYaz}
+                    onYuruyus={(no) => setYuruyusHedef({ tip: 'olay', no })}
                   />
                 </div>
               ) : (
@@ -351,6 +352,9 @@ export default function ElYazmasiSayfasi() {
         if (yuruyusHedef.tip === 'sahne') {
           const s = (data.sahnelerWorkbook || []).find((x) => x.no === yuruyusHedef.no);
           if (s && s.yuruyus) sarmal = { id: `sahne-${s.no}`, ad: `Sahne ${s.no}`, birlesimSahneNo: s.no, yuruyus: s.yuruyus };
+        } else if (yuruyusHedef.tip === 'olay') {
+          const o = (data.oyunOncesi?.olaylar || []).find((x) => x.no === yuruyusHedef.no);
+          if (o && o.yuruyus) sarmal = { id: `olay-${o.no}`, ad: o.baslik || `Olay ${o.no}`, birlesimSahneNo: null, yuruyus: o.yuruyus };
         } else {
           const b = (data.boslukSet || []).find((x) => x.no === yuruyusHedef.no);
           if (b && b.yuruyus) sarmal = { id: `bosluk-${b.no}`, ad: b.baslik || `Boşluk ${b.no}`, birlesimSahneNo: b.sonraSahneNo, yuruyus: b.yuruyus };
@@ -525,7 +529,7 @@ function AyracFaz({ baslik, altyazi }) {
 
 // ─── OYUN ÖNCESİ OLAY (sade panel) ─────────────────────────────────────────
 
-function OlayDugumu({ olay, acik, onAc, t, anSecimleri, anYazmalari, onAnSec, onAnYaz }) {
+function OlayDugumu({ olay, acik, onAc, t, anSecimleri, anYazmalari, onAnSec, onAnYaz, onYuruyus }) {
   const kayitAni = KAYIT_ANI_OYUN_ONCESI.has(olay.no);
   return (
     <li style={{ listStyle: 'none' }}>
@@ -589,6 +593,22 @@ function OlayDugumu({ olay, acik, onAc, t, anSecimleri, anYazmalari, onAnSec, on
         </button>
         {acik && (
           <div style={{ borderTop: '1px solid var(--rule)', padding: '1rem 1.1rem 1.2rem', display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
+            {/* Yürüyüş (varsa) — Oyun Öncesi olayında "adım adım kur" */}
+            {olay.yuruyus && (
+              <button
+                type="button"
+                onClick={() => onYuruyus && onYuruyus(olay.no)}
+                style={{
+                  alignSelf: 'flex-start', cursor: 'pointer',
+                  fontFamily: 'var(--font-body), sans-serif', fontWeight: 400,
+                  fontSize: '0.62rem', letterSpacing: '0.22em', textTransform: 'uppercase',
+                  color: 'var(--bg-base)', backgroundColor: 'var(--accent)',
+                  border: 'none', borderRadius: '2px', padding: '0.7rem 1.2rem',
+                }}
+              >
+                {t.yuruyusBaslatBosluk || t.yuruyusBaslat || 'Bu anı adım adım kur'}
+              </button>
+            )}
             {olay.yuk && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
                 <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.58rem', letterSpacing: '0.28em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.panelYazarYuk}</span>
