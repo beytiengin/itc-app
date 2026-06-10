@@ -307,7 +307,23 @@ const macbeth = {
       icsel: 'Bağımlılık. Kehanet artık güç değil, uyuşturucudur. Güvence aradıkça daha da körleşir.',
       onerilenSicaklik: 5,
       yuk: 'Kendi kaderini duymak için karanlığa geri dönen adamın, yanlış bir güvene tutunması.',
+      sahneTipi: 'kart',
+      replikIzi: 'Cadılar: "Kadından doğan hiç kimse Macbeth\'e zarar veremez." / Macbeth: "Öyleyse yaşa Macduff... ama yine de emin olmak iyidir." (IV.i)',
       travmaKategorileri: ['zihinsel_kirilma'], travmaSeviyesi: 2,
+      anlar: [
+        { id: 's10-a1', tip: 'catal', birlesimSahneNo: 10, travmaDuyarli: false,
+          soru: 'İlk karşılaşmada cadılar ona gelmişti; bu kez o onlara gidiyor. Bu dönüşün doğası ne: gerçeği her ne olursa olsun bilmek mi, duymak istediği güvenceyi almak mı?',
+          secenekler: [
+            { dal: 'A', baslik: 'Bilmek istiyor', aciklama: 'Belirsizlik dayanılmaz; cevap ne olursa olsun bilgi istiyorum diyor. Hâlâ kontrol arayan bir zihin.', oznelSabit: 'Karanlığa gittim çünkü bilmemek öldürüyordu — en kötü cevap bile cevapsızlıktan iyiydi.' },
+            { dal: 'B', baslik: 'Güvence dileniyor', aciklama: 'Soruyu, cevabı rahatlatacak biçimde soruyor. Bilgi değil teselli arıyor — kehanet artık uyuşturucu.', oznelSabit: 'Onlara gerçeği sormadım — bana "güvendesin" demelerini sağlayacak soruları sordum. Ve aldığım her cevapla biraz daha kör oldum.' },
+          ] },
+        { id: 's10-a2', tip: 'catal', birlesimSahneNo: 10, travmaDuyarli: false,
+          soru: '"Kadından doğan kimse sana zarar veremez." Macbeth kelime oyunlarını bilen adam — "imkânsız" dediği Cawdor\'u almıştı. Bu güvenceye gerçekten inanıyor mu?',
+          secenekler: [
+            { dal: 'A', baslik: 'Tam inanç', aciklama: 'Kelimenin düz anlamına sarılıyor; sorgusuz bir zırh. Kuşku duyacak hali kalmadı — inanç tek dayanak.', oznelSabit: 'O sözü hiç sorgulamadım — çünkü o söz olmadan ayakta duramazdım. İnanç değildi belki; ama nefes almaktı.' },
+            { dal: 'B', baslik: 'Çatlağı seziyor', aciklama: 'Bir yerde oyun olduğunu hissediyor — kehanetlerin nasıl büküldüğünü herkesten iyi bilir. Ama alternatifi yok: inanmıyor, tutunuyor.', oznelSabit: 'Bir çatlak olduğunu biliyordum — kehanetler beni hep kelimeyle kandırdı. Bile bile tutundum; çünkü elimde başka dal yoktu.' },
+          ] },
+      ],
     },
     {
       no: 11, perde: 5, perdeRomen: 'V',
@@ -317,7 +333,19 @@ const macbeth = {
       icsel: 'Yanlış bir güven, ya da güvene inanmak zorunda kalmak. İnançla umutsuzluk arasında bir zırh.',
       onerilenSicaklik: 5,
       yuk: 'Herkesin terk ettiği adamın, tek dayanağı olan kehanete inatla yapışması.',
+      sahneTipi: 'kart',
+      replikIzi: 'Macbeth: "Yaşamım sararmış yaprağa döndü — yaşlılığın hakkı olan onur, sevgi, itaat, dostlar... bunların hiçbirini ummamalıyım." (V.iii)',
       travmaKategorileri: [], travmaSeviyesi: 0,
+      anlar: [
+        { id: 's11-a1', tip: 'catal', birlesimSahneNo: 11, travmaDuyarli: false,
+          soru: '"Sararmış yaprak" — yaşamının dökümünü yapıyor: onur, sevgi, itaat, dostlar; hiçbiri olmayacak. Bu döküm neyin sesi: ilk kez tam görülen bir kaybın mı, baştan bilinen bir bedelin mi?',
+          secenekler: [
+            { dal: 'A', baslik: 'Geç kalmış muhasebe', aciklama: 'Neyi feda ettiğini ilk kez bütünüyle görüyor; liste uzadıkça içi çöküyor. Pişmanlığa en çok yaklaştığı an.', oznelSabit: 'O listeyi yaparken anladım: kazandığım her şey, kaybettiklerimin yanında bir hiçti — ve bunu ancak her şey bittiğinde görebildim.' },
+            { dal: 'B', baslik: 'Bilinen bedel', aciklama: 'Fiyat etiketi baştan belliydi; şimdi sadece ödemenin tamamlandığını teyit ediyor. Pişmanlık lüksüne yer yok — soğuk bir envanter.', oznelSabit: 'Neyi neye sattığımı hep biliyordum — o gün sadece hesabı kapattım. Pişmanlık, bedeli bilmeyenlerin lüksüdür.' },
+          ] },
+        { id: 's11-a2', tip: 'yazma', birlesimSahneNo: 11, travmaDuyarli: false,
+          soru: 'Savaş henüz uzaktayken zırhını istiyor — sonra çıkarttırıyor, sonra yeniden istiyor. O zırh bedenini neyden koruyor — kılıçlardan mı, yoksa zırhsız kalınca duyulacak başka bir şeyden mi?' },
+      ],
     },
     {
       no: 12, perde: 5, perdeRomen: 'V',
@@ -327,7 +355,25 @@ const macbeth = {
       icsel: 'Keder değil, boşluk. Anlamsızlık. Duygu çoktan tükenmiştir; geriye yalnızca yorgun bir hiçlik kalır.',
       onerilenSicaklik: 8,
       yuk: 'Birlikte her şeyi göze aldığı kadının ölümünü, artık ağlayamayacak kadar boşalmış bir adamın karşılaması.',
+      sahneTipi: 'kart',
+      replikIzi: 'Macbeth: "Daha sonra ölmeliydi — böyle bir söze zaman olurdu. Yarın, yarın, yarın..." (V.v)',
       travmaKategorileri: ['kayip', 'varolussal'], travmaSeviyesi: 3,
+      anlar: [
+        { id: 's12-a1', tip: 'catal', birlesimSahneNo: 12, travmaDuyarli: true,
+          soru: '"Daha sonra ölmeliydi — böyle bir söze zaman olurdu." Bu cümle ne: yasın ertelenmesi mi ("şimdi vaktim yok, sonra ağlarım"), yoksa yasın imkânsızlığı mı ("artık hiçbir zaman \'sonra\' olmayacak")?',
+          secenekler: [
+            { dal: 'A', baslik: 'Ertelenen yas', aciklama: 'Savaş bitince, her şey durulunca... Bir "sonra"ya hâlâ inanıyor; yası rafa kaldırıyor. Trajedi: o sonra hiç gelmeyecek.', oznelSabit: 'Yasımı savaş sonrasına sakladım — bilmiyordum ki benim için bir "sonra" kalmamıştı. O ağıt hâlâ bende durur, yakılamamış.' },
+            { dal: 'B', baslik: 'İmkânsız yas', aciklama: '"Sonra" diye bir şey kalmadı — kelimeler anlamını yitirdi. Yarın tiradı tam buradan doğuyor: zaman, içinde yas tutulabilecek bir şey olmaktan çıktı.', oznelSabit: 'Onu kaybettiğim an anladım: ağlayabileceğim bir zaman yok — çünkü zamanın kendisi anlamını onunla birlikte kaybetti.' },
+          ] },
+        { id: 's12-a2', tip: 'catal', birlesimSahneNo: 12, travmaDuyarli: true,
+          soru: '"Yarın, yarın, yarın..." — bu tirad kime söyleniyor? Kendi içine çöken bir adamın sesli düşünüşü mü, yoksa veda edemediği kadına şifrelenmiş bir ağıt mı?',
+          secenekler: [
+            { dal: 'A', baslik: 'Kendine', aciklama: 'Dünyaya değil, kendi içine konuşuyor; çöküşün sesli hali. Lady Macbeth artık bu tiradın içinde bile yok — boşluk o kadar büyük.', oznelSabit: 'O sözleri kimseye söylemedim — kendi içime düşerken çıkardığım sesti. Onun adı bile geçmiyordu; çünkü artık hiçbir ad bir şey taşımıyordu.' },
+            { dal: 'B', baslik: 'Ona', aciklama: 'Veda edemediği için evrene veda ediyor — tirad, söylenememiş ağıtın şifresi. "Hayat anlamsız" demek, "sensiz anlamsız" demenin tek söylenebilir hali.', oznelSabit: '"Hayat bir gölge" derken ona sesleniyordum — ağıt yakamayan adamın ağıtıydı o; kimse anlamadı, o duydu mu bilmem.' },
+          ] },
+        { id: 's12-a3', tip: 'yazma', birlesimSahneNo: 12, travmaDuyarli: true,
+          soru: 'Hayatın "hiçbir şey ifade etmeyen, gürültü ve öfke dolu bir masal" olduğunu söyledikten birkaç saniye sonra zırhını isteyip savaşa dönüyor. Hiçliğe inanan adam neden hâlâ savaşıyor — o birkaç saniyede içinde ne ayağa kalktı?' },
+      ],
     },
     {
       no: 13, perde: 5, perdeRomen: 'V',
