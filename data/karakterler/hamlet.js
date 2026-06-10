@@ -510,6 +510,7 @@ const hamlet = {
       ],
     },
     {
+      // DOĞRULAMA: hamlet-sprintd-anlar-2026-06-10
       no: 11, perde: 4, perdeRomen: 'IV',
       baslik: "Ophelia'nın Deliliği + Ölümü",
       konum: 'IV.v-vii',
@@ -519,6 +520,19 @@ const hamlet = {
         'Hamlet henüz haberi yok — ama yokluğu sahneyi büyütüyor. Polonius\'un ölümünün dolaylı dalgaları.',
       onerilenSicaklik: 4,
       yuk: 'Yokluğu büyür. Geri döndüğünde başka bir yas onu bekliyor.',
+      sahneTipi: 'kart',
+      replikIzi: 'Ophelia, dağılmış şarkılar ve çiçeklerle. / Gertrude haberi getirir: söğüt dalı, dere, ağırlaşan giysiler — ve sessizce kapanan su.',
+      travmaKategorileri: ['kayip', 'zihinsel_kirilma'], travmaSeviyesi: 2,
+      anlar: [
+        { id: 's11-a1', tip: 'yazma', birlesimSahneNo: 11, travmaDuyarli: true,
+          soru: 'Ophelia dere kıyısında çözülürken Hamlet denizde — korsanlar, pazarlık, dönüş yolu. Shakespeare iki zamanı yan yana koyar ama bağlamaz. Ophelia\'nın son saatlerinde senin Hamlet\'in tam olarak neredeydi, ne yapıyordu?' },
+        { id: 's11-a2', tip: 'catal', birlesimSahneNo: 11, travmaDuyarli: true,
+          soru: 'Dönüş yolunda — henüz hiçbir şeyden habersizken — Ophelia zihnine geldi mi?',
+          secenekler: [
+            { dal: 'A', baslik: 'Geldi', aciklama: 'Dönünce düzeltilecek şeylerin listesindeydi; belki ilk sırada. Mezarlık bu yüzden çifte yıkım olacak — kaybetti ve geç kaldı.', oznelSabit: 'Dönüş yolunda onu düşündüm — dönünce her şeyi anlatacaktım. Mezarlıkta kaybettiğim yalnız o değildi; ona borçlu olduğum bütün o konuşmaydı.' },
+            { dal: 'B', baslik: 'Gelmedi', aciklama: 'Zihin tamamen Claudius\'taydı; Ophelia, yemin gecesi silinen defterin içinde kalmıştı. Mezarlıkta patlayan şey, biraz da bu silmenin utancı.', oznelSabit: 'Dönüş yolunda onu bir kez bile düşünmedim — defterimden ben silmiştim. Mezarda haykırdığım sevgi gerçekti; ama içinde, onu unutmuş olmamın dehşeti de vardı.' },
+          ] },
+      ],
     },
     {
       no: 12, perde: 5, perdeRomen: 'V',
@@ -530,6 +544,26 @@ const hamlet = {
         'Ölümle felsefi barış (sakin) → bastırılmış aşkın patlaması (şok). İki an, beş dakika içinde.',
       onerilenSicaklik: 8,
       yuk: 'Aşkı kabullenmedi, ama kaybetti. Ölüm artık tanıdık.',
+      sahneTipi: 'kart',
+      // ⚠️ sv3 dramaturjik öneri — B9 kartCatali bu sahnede birleşir; FKA bakışı.
+      replikIzi: '"Zavallı Yorick — tanırdım onu, Horatio." / Mezarın içinde: "Kırk bin kardeşin sevgisi toplansa benimkine erişemez."',
+      travmaKategorileri: ['kayip', 'varolussal'], travmaSeviyesi: 3,
+      anlar: [
+        { id: 's12-a1', tip: 'catal', birlesimSahneNo: 12, travmaDuyarli: false,
+          soru: 'Yorick\'in kafatası elinde — onu sırtında taşıyan, bin kez güldüren adamın kalıntısı. O dokunuş Hamlet\'e ne söyledi?',
+          secenekler: [
+            { dal: 'A', baslik: 'Sıcak bir hatıra', aciklama: 'Kafatasında hâlâ Yorick var — dudaklar, şakalar, omuzdaki çocukluk. Ölümle ilk kez yumuşak bir yüzleşme.', oznelSabit: 'O kafatasını tutarken Yorick\'i tuttum — ölüm ilk kez bir düşman gibi değil, eski bir tanıdık gibi durdu karşımda.' },
+            { dal: 'B', baslik: 'Soğuk bir ders', aciklama: 'Kafatasında hiç kimse yok; İskender de toz, Yorick de. Ölüm her şeyi eşitleyen hiçlik — ve bu hiçlik garip biçimde dinginleştirici.', oznelSabit: 'O kafatasında kimseyi bulamadım — ne Yorick\'i ne İskender\'i. Her şeyin toza indiğini gördüğüm an, kendi sonum da hafifledi.' },
+          ] },
+        { id: 's12-a2', tip: 'catal', birlesimSahneNo: 12, travmaDuyarli: true,
+          soru: 'Mezarın içinde Laertes\'le boğuşuyor: "Kırk bin kardeşin sevgisi toplansa benimkine erişemez." O kavga neyin kavgasıydı?',
+          secenekler: [
+            { dal: 'A', baslik: 'Yasın patlaması', aciklama: 'Aylardır bastırılan her şey o çukurda patladı; sevgisinin ilk ve son açık ilanı — geç kalmış, ama gerçek.', oznelSabit: 'Sevgimi ilk kez onun mezarında haykırdım — sağlığında söyleyemediğim her şeyi toprağına bağırdım. Geç kalmış bir ilan; ama hayatımın en dürüst cümlesiydi.' },
+            { dal: 'B', baslik: 'Yas hakkının kavgası', aciklama: 'Laertes\'in gösterişli yası onu çıldırttı — "senin acın benimkinden büyük olamaz." Kavga Ophelia için mi, yası kimin taşıyacağı için mi — karışmış durumda.', oznelSabit: 'O çukurda Ophelia için mi, yas hakkım için mi dövüştüm — hâlâ ayıramıyorum. Acım gerçekti; ama o an acımı yarıştırıyordum ve bunu görüyordum.' },
+          ] },
+        { id: 's12-a3', tip: 'yazma', birlesimSahneNo: 12, travmaDuyarli: true,
+          soru: 'Mezarlıktan ayrılırken avucunda mezar toprağı kalmış mıydı — ve o toprağı ne zaman, nasıl sildi?' },
+      ],
     },
     {
       no: 13, perde: 5, perdeRomen: 'V',
@@ -541,6 +575,25 @@ const hamlet = {
         'Soğukkanlı kabulleniş. İçsel barış başlıyor — ölümle yüzleşmeye hazır.',
       onerilenSicaklik: 4,
       yuk: 'Artık ölümle barıştım. Ne olursa olsun.',
+      sahneTipi: 'kart',
+      replikIzi: '"Serçenin ölmesinde bile bir bildiği vardır kaderin." / "Bütün mesele hazır olmakta."',
+      travmaKategorileri: ['varolussal'], travmaSeviyesi: 1,
+      anlar: [
+        { id: 's13-a1', tip: 'catal', birlesimSahneNo: 13, travmaDuyarli: false,
+          soru: 'R&G\'nin ölümünü Horatio\'ya anlatıyor — sakin, neredeyse hafif: "vicdanıma dokunmuyor." Bu cümle neydi?',
+          secenekler: [
+            { dal: 'A', baslik: 'Gerçekten dokunmuyor', aciklama: 'Gemideki adam kalıcı çıktı; bu sükûnet yeni benliğin parçası. Onlar oyuna kendi girdiler — hesap kapanmış.', oznelSabit: 'Vicdanım gerçekten sessizdi — ve bu sessizliği sorgulamayı bıraktım. Gemiden inen adam bendim artık; eskisini geri çağırmadım.' },
+            { dal: 'B', baslik: 'Söylemek gerekiyordu', aciklama: 'Horatio\'nun bakışında dile gelmeyen bir soru vardı; cevap biraz da kendine verildi. Sükûnetin altında, bakılmayan bir oda.', oznelSabit: '"Dokunmuyor" dedim çünkü Horatio\'nun gözündeki soruya başka cevabım yoktu — o cümleyi ona değil, kendime söyledim. İnandım mı? Sormadım.' },
+          ] },
+        { id: 's13-a2', tip: 'catal', birlesimSahneNo: 13, travmaDuyarli: true,
+          soru: 'Kalbinin üstünde bir sıkıntı — kötü bir önsezi. Horatio ertelemeyi öneriyor: "İçiniz istemiyorsa gitmeyin." Hamlet reddediyor: "Bütün mesele hazır olmakta." Bu reddediş neydi?',
+          secenekler: [
+            { dal: 'A', baslik: 'Teslimiyet', aciklama: 'Kadere bırakış; savaşmaktan vazgeçmiş bir adamın huzuru. Serçe düşecekse düşer — direnmenin anlamı kalmadı.', oznelSabit: 'Gittim çünkü direnecek gücüm değil, direnme nedenim kalmamıştı. O huzur bir zafer miydi, bir bırakış mı — salona girerken ikisini ayıramıyordum.' },
+            { dal: 'B', baslik: 'Olgunluk', aciklama: 'Korkuyu duymak ama ona karar verdirtmemek. Ertelemeci adamın tam tersi: ilk kez bir sezgi, eylemin önünde durmuyor.', oznelSabit: 'Önseziyi duydum ve yine de gittim — hayatımda ilk kez bir duygu beni durduramadı. Hazırdım; ertelemenin öldüğü gün, o gündü.' },
+          ] },
+        { id: 's13-a3', tip: 'yazma', birlesimSahneNo: 13, travmaDuyarli: false,
+          soru: 'Osric çıktı; salona çağrılmadan önceki son dakikalar — Horatio\'yla yan yana, az konuşarak. O sessizlikte Horatio\'ya söylemediği şey neydi?' },
+      ],
     },
     {
       no: 14, perde: 5, perdeRomen: 'V',
@@ -552,6 +605,26 @@ const hamlet = {
         'Onurla ölüm + hikâyeyi devretme. "Horatio… anlat onlara."',
       onerilenSicaklik: 9,
       yuk: 'Hikâye Horatio\'ya kaldı. Hamlet susuyor.',
+      sahneTipi: 'kart',
+      // ⚠️ sv3 dramaturjik öneri — B10 kartCatali bu sahnede birleşir; FKA bakışı.
+      replikIzi: '"Üst tarafı… sessiz bir dünya." / Kılıçlar değişir; kadeh devrilir; hikâye Horatio\'ya kalır.',
+      travmaKategorileri: ['siddet', 'kayip', 'varolussal'], travmaSeviyesi: 3,
+      anlar: [
+        { id: 's14-a1', tip: 'catal', birlesimSahneNo: 14, travmaDuyarli: true,
+          soru: 'Düellodan önce Laertes\'ten özür diliyor: "Yaptıysam, ben yapmadım — deliliğim yaptı; Hamlet de onun mağduru." Bu özür neydi?',
+          secenekler: [
+            { dal: 'A', baslik: 'Gerçekti', aciklama: 'Kendinden ayrı bir Hamlet\'in varlığına gerçekten inanıyor — o kapıyı anne odasında bir kez görmüştü. Delilik artık yalnız maske değil, açıklama.', oznelSabit: 'O özür bir formül değildi — Polonius\'u öldüren elin tamamen benim olmadığına bir yerde gerçekten inanıyordum. Bu inanç bir teselli miydi, bir kaçış mı; salona onunla girdim.' },
+            { dal: 'B', baslik: 'Diplomasiydi', aciklama: 'Saray önünde zarif bir formül; gerçek özrü söylemenin imkânsızlığı. "Babanı öldürdüm, kız kardeşini ben yıktım" — bunlar söylenemez; delilik, söylenebilir olanın adı.', oznelSabit: 'Gerçek özrüm söylenemezdi — onun yerine söylenebilir olanı söyledim: deliliğimi. Laertes\'in gözünde ikimiz de o cümlenin yalan olduğunu biliyorduk.' },
+          ] },
+        { id: 's14-a2', tip: 'catal', birlesimSahneNo: 14, travmaDuyarli: true,
+          soru: 'Annesi düştü, Laertes itiraf etti, zehir kanında — ve Hamlet Claudius\'a yürüyor. Bütün oyun boyunca atılamayan adım, saniyeler içinde atılıyor. O son yürüyüşte ne vardı?',
+          secenekler: [
+            { dal: 'A', baslik: 'Serbest kalan öfke', aciklama: 'Aylardır zincirli duran şey nihayet boşaldı; saf, düşüncesiz, tam. Düşünen adam o saniyelerde yoktu — ve bu bir özgürlüktü.', oznelSabit: 'O son adımları öfke attı, ben değil — ve hayatımda ilk kez aradan çekildim. Bütün oyun boyunca yapamadığımı, düşünmeyi bırakınca yaptım.' },
+            { dal: 'B', baslik: 'Son işlem', aciklama: 'Öfke bile değil artık; ölmekte olan bir adamın son düzeltmesi — soğuk, kesin, neredeyse sessiz. Görev tamamlanıyor; duygu çoktan harcandı.', oznelSabit: 'Onu öfkeyle değil, kesinlikle öldürdüm — ölmekte olan bir adamın son düzeltmesiydi. İntikam dedikleri şey, o saniyede yalnızca bitirilmemiş bir işti.' },
+          ] },
+        { id: 's14-a3', tip: 'yazma', birlesimSahneNo: 14, travmaDuyarli: true,
+          soru: 'Son nefes Horatio\'nun kollarında: "Anlat hikâyemi." Hangi hikâyeyi — senin Hamlet\'in nasıl hatırlanmak istiyordu: babasının öcünü alan oğul mu, düşünmekten yapamayan adam mı, bambaşka bir şey mi?' },
+      ],
     },
   ],
 
