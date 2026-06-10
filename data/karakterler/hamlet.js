@@ -364,6 +364,7 @@ const hamlet = {
       ],
     },
     {
+      // DOĞRULAMA: hamlet-sprintc-anlar-2026-06-10
       no: 6, perde: 3, perdeRomen: 'III',
       baslik: 'Oyun İçinde Oyun',
       konum: 'III.ii · Saray',
@@ -373,6 +374,25 @@ const hamlet = {
         'Sabırlı strateji → patlamış doğrulama. "Şimdi biliyorum."',
       onerilenSicaklik: 9,
       yuk: 'Artık biliyorum. Şimdi ne?',
+      sahneTipi: 'kart',
+      replikIzi: 'Zehir sahnesi oynanırken Claudius ayağa fırlar: ışık ister, salon dağılır. / Hamlet, Horatio\'yla göz göze: kanıt geldi.',
+      travmaKategorileri: ['zihinsel_kirilma'], travmaSeviyesi: 1,
+      anlar: [
+        { id: 's6-a1', tip: 'catal', birlesimSahneNo: 6, travmaDuyarli: false,
+          soru: 'Oyun başlamadan Hamlet gidip Ophelia\'nın yanına oturuyor — aynı gün manastıra gönderdiği kadının. Herkesin gözü önünde, şakalar keskin. Bu seçim neydi?',
+          secenekler: [
+            { dal: 'A', baslik: 'Maskenin parçası', aciklama: 'Herkesin gözü önünde "deli âşık" rolü; bakışlar onda toplansın, kral rahat izlensin. Ophelia yine araç.', oznelSabit: 'Onun yanına maskem için oturdum — ve maskenin onu bir kez daha kullandığını oturduğum saniyede biliyordum.' },
+            { dal: 'B', baslik: 'Geri dönüş denemesi', aciklama: 'Maskenin izin verdiği tek yakınlık biçimi; keskin şakaların altında söylenemeyen bir özür.', oznelSabit: 'O keskin şakalar benim özür dilememdi — başka dilim kalmamıştı. Yanına oturmak, geri dönebildiğim en uzak noktaydı.' },
+          ] },
+        { id: 's6-a2', tip: 'catal', birlesimSahneNo: 6, travmaDuyarli: false,
+          soru: 'Claudius ayağa fırladı, ışık istedi — kanıt geldi. O saniyede Hamlet\'in içinde patlayan şey neydi?',
+          secenekler: [
+            { dal: 'A', baslik: 'Zafer', aciklama: 'Neredeyse gülüyor; aylardır taşıdığı şüphe tek hamlede çözüldü. Kanıt sarhoşluğu — düşüş sonra gelecek.', oznelSabit: 'O an kazandım sandım — salonda tek ayık bendim ve sarhoş gibiydim. Zaferin faturası geceyle geldi.' },
+            { dal: 'B', baslik: 'Dipte bir soğuk', aciklama: 'Sevinç bir saniye sürdü; hemen ardından ağırlık — kanıt geldi ve artık hiçbir bahane kalmadı.', oznelSabit: 'Kanıtı aldığım saniye özgürlüğümü kaybettim — şüphe bir sığınakmış; kesinlik beni eylemle baş başa bıraktı.' },
+          ] },
+        { id: 's6-a3', tip: 'yazma', birlesimSahneNo: 6, travmaDuyarli: false,
+          soru: 'Salon dağılırken Hamlet ile Horatio göz göze geliyor — kelimesiz bir teyit. İki adamın paylaştığı o bakışın içinde ne vardı?' },
+      ],
     },
     {
       no: 7, perde: 3, perdeRomen: 'III',
@@ -384,6 +404,25 @@ const hamlet = {
         'Vicdan + adalet duygusu + erteleme. Akıl gerekçe üretiyor.',
       onerilenSicaklik: 6,
       yuk: 'Erteleme alışkanlığı pekişti. Ne zaman olsa hep böyle.',
+      sahneTipi: 'kart',
+      replikIzi: 'Hamlet (kılıç elde): "Cennete gider bu halinde öldürürsem; öcümü almış sayılır mıyım?" / Kılıç iner; kapı geride kalır.',
+      travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 2,
+      anlar: [
+        { id: 's7-a1', tip: 'catal', birlesimSahneNo: 7, travmaDuyarli: true,
+          soru: 'Sırtı dönük, diz çökmüş bir adam. Hamlet arkasında, kılıç elinde. O saniyelerde karşısında kimi görüyordu?',
+          secenekler: [
+            { dal: 'A', baslik: 'Katili', aciklama: 'Babasının kanı; surette yalnız suç var. Bakış sabit — vuramamak bu yüzden daha da anlaşılmaz.', oznelSabit: 'Karşımda yalnız katil vardı — ve yine de vuramadım. Beni durduran merhamet değildi; merhamet edecek bir şey görmüyordum bile.' },
+            { dal: 'B', baslik: 'Diz çökmüş bir insanı', aciklama: 'İlk kez Claudius küçük, korunmasız, neredeyse acınası. Öldürmeyi zorlaştıran tam bu görüntü.', oznelSabit: 'Onu ilk kez o an insan olarak gördüm — küçülmüş, diz çökmüş. Kılıcımı asıl durduran o görüntüydü; gerekçeyi sonra buldum.' },
+          ] },
+        { id: 's7-a2', tip: 'catal', birlesimSahneNo: 7, travmaDuyarli: true,
+          soru: 'Kılıç çekilmişti. Vurmaya ne kadar yaklaştı — bedenin hafızası ne diyor?',
+          secenekler: [
+            { dal: 'A', baslik: 'Kılıç havada durdu', aciklama: 'Beden eşiği geçmişti; akıl onu havada yakaladı. İndirmek ayrı bir karar gerektirdi — ve o karar verildi.', oznelSabit: 'Kılıcım havada durdu — bedenim vurmayı çoktan seçmişti, aklım onu havada yakaladı. O gece eylemin değil, geri çekilişin yorgunluğunu taşıdım.' },
+            { dal: 'B', baslik: 'Hiç kalkmadı', aciklama: 'Çekilmişti ama vurmak için hiç yükselmedi; hesap elden hızlıydı. Beden eşiğe hiç gelmedi.', oznelSabit: 'Kılıcım hiç kalkmadı — daha kapıdayken hesap başlamıştı. Bedenim o eşiğe hiç varmadı; varmasına aklım izin vermedi.' },
+          ] },
+        { id: 's7-a3', tip: 'yazma', birlesimSahneNo: 7, travmaDuyarli: false,
+          soru: 'Kapıdan dönerken kendine söylediği cümle neydi — "daha kanlı bir anda yakalarım onu" mu, başka bir şey mi? Ve o cümleye kendisi ne kadar inandı?' },
+      ],
     },
     {
       no: 8, perde: 3, perdeRomen: 'III',
@@ -395,6 +434,26 @@ const hamlet = {
         'Sevgi → öfke → pişmanlık. Üç katman aynı anda patlar.',
       onerilenSicaklik: 10,
       yuk: 'Artık katil. Geri dönüş yok.',
+      sahneTipi: 'kart',
+      // ⚠️ EN HASSAS SAHNE — sv3 dramaturjik öneri; SAHNE_HASSAS aktivasyonu FKA onayı bekler.
+      replikIzi: 'Hamlet: "Ne o? Bir fare mi?" / Gertrude: "Hiçbir şey! Oysa görüyor da gözlerim ne varsa."',
+      travmaKategorileri: ['siddet', 'kayip', 'zihinsel_kirilma'], travmaSeviyesi: 3,
+      anlar: [
+        { id: 's8-a1', tip: 'catal', birlesimSahneNo: 8, travmaDuyarli: true,
+          soru: '"Ne o? Bir fare mi?" — kılıç perdeye saplanıyor. O saniyede Hamlet kimi öldürdüğünü sanıyordu?',
+          secenekler: [
+            { dal: 'A', baslik: 'Claudius\'u', aciklama: 'Nihayet el gitti — koridorda gitmeyen el, perdede gitti; ve yanlış adama. İlk eylemi bir yanılgı.', oznelSabit: 'O kılıcı amcama sapladım — perdeden Polonius çıktı. Tek tereddütsüz vuruşum yanlış adamı buldu; eylem bana ilk dersini böyle verdi.' },
+            { dal: 'B', baslik: 'Kimseyi', aciklama: 'Düşünmeden, refleks; perdedeki hareket bir tehditti. Kim olduğu sorusu kılıçtan sonra geldi.', oznelSabit: 'O an kimseyi öldürmedim — bir hareketi öldürdüm. İsim sonradan geldi; ve isimle birlikte, düşünmeden öldürebildiğimi öğrenmenin dehşeti.' },
+          ] },
+        { id: 's8-a2', tip: 'catal', birlesimSahneNo: 8, travmaDuyarli: true,
+          soru: 'Hayalet yeniden geliyor — ama bu kez yalnız Hamlet görüyor. Gertrude: "Hiçbir şey! Oysa görüyor da gözlerim ne varsa." O cümle Hamlet\'e değdiğinde içinde ne oldu?',
+          secenekler: [
+            { dal: 'A', baslik: 'İnanç sarsılmadı', aciklama: 'Annesi görmüyorsa körlük onda; hayalet ona geldi çünkü görev onun. Kesinlik kale gibi.', oznelSabit: 'Annem görmedi — ben gördüm; sarsılmadım. Hayaletin yalnız bana görünmesi yükün yalnız bana ait olduğunun mührüydü.' },
+            { dal: 'B', baslik: 'Bir saniyelik buz', aciklama: '"Ya gerçekten görmüyorsa... ya ben?" — delilik şüphesinin kendine döndüğü ilk saniye. Kapı hemen kapatıldı; ama açılmıştı bir kez.', oznelSabit: 'Bir saniye — yalnız bir saniye — kendi gözümden şüphe ettim. O kapıyı hemen kapattım; ama artık orada bir kapı olduğunu biliyordum.' },
+          ] },
+        { id: 's8-a3', tip: 'yazma', birlesimSahneNo: 8, travmaDuyarli: true,
+          soru: 'Ceset ayaklarının dibinde, annesi karşısında — ve Hamlet "iyi geceler" diyor, defalarca. O vedaların arasında Polonius\'a kaç kez baktı — ve baktığında ne gördü?' },
+      ],
     },
     {
       no: 9, perde: 4, perdeRomen: 'IV',
@@ -406,6 +465,25 @@ const hamlet = {
         'İronik delilik maskesi + içte tetik. Söz ve niyet ayrı.',
       onerilenSicaklik: 5,
       yuk: 'Tehdit altında — ama farkındayım.',
+      sahneTipi: 'kart',
+      replikIzi: '"Polonius nerede?" — "Yemekte; ama yiyen değil, yenen." / Veda: "Allaha ısmarladık, sevgili anamız."',
+      travmaKategorileri: ['siddet', 'zihinsel_kirilma'], travmaSeviyesi: 2,
+      anlar: [
+        { id: 's9-a1', tip: 'catal', birlesimSahneNo: 9, travmaDuyarli: true,
+          soru: 'Bir gece önce adam öldürdü; şimdi cesedin yeri üzerine kelime oyunları yapıyor — "yiyen değil, yenen." Bu soğuk parlaklık neydi?',
+          secenekler: [
+            { dal: 'A', baslik: 'Maske tam kontrolde', aciklama: 'Performans hiç bu kadar ustaca olmamıştı; dehşeti zekâyla kaplıyor. İçerideki adam dışarıdakini izliyor.', oznelSabit: 'O kelime oyunlarını yaparken kendimi izliyordum — maske hiç bu kadar iyi oturmamıştı ve bu beni rahatlatmıyordu; ne kadar iyi oturduğu beni korkutuyordu.' },
+            { dal: 'B', baslik: 'Çizgi inceldi', aciklama: 'Maske ile yüz arasındaki fark kaybolmaya başladı; o şakaları yapan artık tamamen "rol" değil. B3\'teki ilk katil burada konuşuyor.', oznelSabit: 'O şakalar provasız geldi — ve geldiklerinde anladım: cesedin üstünde gülebilen adam, artık taktığım bir maske değildi.' },
+          ] },
+        { id: 's9-a2', tip: 'catal', birlesimSahneNo: 9, travmaDuyarli: false,
+          soru: 'Claudius sürgünü açıklıyor: "İngiltere\'ye gideceksin." Hamlet kabul ediyor — neredeyse hafif. Bu kabul neydi?',
+          secenekler: [
+            { dal: 'A', baslik: 'Hesap', aciklama: 'Gitmek görünür, dönmek plan; sürgün bir hamle alanı. Tehdidi seziyor — ve tehdidi oynamayı seçiyor.', oznelSabit: 'Sürgünü kabul ederken gitmiyordum — hamle yapıyordum. Onun tahtasında onun taşıyla oynamayı o gün öğrendim.' },
+            { dal: 'B', baslik: 'Teslim', aciklama: 'Yorgunluk; kararı başkalarının vermesi bir an için rahatlatıcı. Gemiye binen adam, sürüklenen adam.', oznelSabit: 'Kabul ettim çünkü yorulmuştum — kararın benden alınması bir an nefes gibiydi. Gemiye kendi ayağımla ama başkasının iradesiyle bindim.' },
+          ] },
+        { id: 's9-a3', tip: 'yazma', birlesimSahneNo: 9, travmaDuyarli: false,
+          soru: 'Vedası bir zehir: "Allaha ısmarladık, sevgili anamız" — Claudius\'a "anne" diyor: baba ve anne karı kocadır, karı koca tek beden. O cümleyi söylerken gözleri Claudius\'un neresindeydi?' },
+      ],
     },
     {
       no: 10, perde: 4, perdeRomen: 'IV',
@@ -417,6 +495,19 @@ const hamlet = {
         'Utanç → kendine öfke → eylem kararı. Kıyaslama bedeni harekete geçirir.',
       onerilenSicaklik: 7,
       yuk: 'Karar var, ama Danimarka\'dan uzak. Eylem nerede?',
+      sahneTipi: 'kart',
+      replikIzi: '"Ey düşüncem, bundan böyle ya kana boyan, ya da beş para etmediğine yan." / Bir yumurta kabuğu için yürüyen binlerce adam.',
+      travmaKategorileri: ['varolussal'], travmaSeviyesi: 1,
+      anlar: [
+        { id: 's10-a1', tip: 'catal', birlesimSahneNo: 10, travmaDuyarli: false,
+          soru: 'Bir hiç uğruna ölüme yürüyen binlerce adam — ve gerçek bir davayla duran Hamlet. Bu kıyas ona ne yaptı?',
+          secenekler: [
+            { dal: 'A', baslik: 'Bir mahkeme daha', aciklama: 'Kıyas onu ezdi; Hecuba gecesinin devamı — eylemsizliğin yeni bir duruşması. Cümleler büyük, beden hâlâ gemiye doğru.', oznelSabit: 'O orduya bakıp kendimi bir kez daha yargıladım — kaçıncı mahkemeydi bu, saymıyordum artık. Kararlarım hep cümle olarak doğup cümle olarak ölüyordu.' },
+            { dal: 'B', baslik: 'Bir kesik', aciklama: 'Bu monolog öncekilerden farklı; utanç değil karar — "ya kanlı ya hiç" bir kamçı değil, dönüm. Gemiye binen adam karar vermiş adamdı.', oznelSabit: 'O yolda bir şey kesildi — kendimi suçlamayı bıraktım, karar verdim. Gemide fermanı yazan el, o ordunun önünde doğdu.' },
+          ] },
+        { id: 's10-a2', tip: 'yazma', birlesimSahneNo: 10, travmaDuyarli: false,
+          soru: 'Orduyu izlerken gözü tek bir askerin yüzüne takıldı mı — kendi yaşıtı, bir hiç için ölüme yürüyen bir yüz? Ve o yüzde ne gördü?' },
+      ],
     },
     {
       no: 11, perde: 4, perdeRomen: 'IV',
