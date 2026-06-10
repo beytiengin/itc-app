@@ -62,7 +62,7 @@ const chromeI18n = {
       mod1Meta: '3 test · ~15 dakika',
       mod2Roma: 'II',
       mod2Baslik: 'Karakterini İnşa Et',
-      mod2Altyazi: 'Antrenman',
+      mod2Altyazi: 'Karakterler',
       mod2Metin:
         'Dört klasik karakter — Hamlet, Macbeth, Willy Loman, Biff Loman. Her karakter için değiştirilemez doğrular, oyun öncesi yaşam, zaman çizgisi, yazarın çerçevesi (beş tercih) ve senin çerçeven (boşluklar).',
       mod2Meta: '4 klasik karakter · ~25 dk/oturum',
@@ -152,7 +152,7 @@ const chromeI18n = {
     // Kalibrasyon → Antrenman → Yolculuk yayı. Yüzde/streak YOK (psikolojik güvenlik).
     omurga: {
       kalibrasyon: 'Kalibrasyon',
-      antrenman: 'Antrenman',
+      antrenman: 'Karakterler',
       yolculuk: 'Yolculuk',
       yakinda: 'Yakında',
     },
@@ -448,7 +448,7 @@ const chromeI18n = {
       mod1Meta: '3 tests · ~15 minutes',
       mod2Roma: 'II',
       mod2Baslik: 'Build Your Character',
-      mod2Altyazi: 'Training',
+      mod2Altyazi: 'Characters',
       mod2Metin:
         "Four classical characters — Hamlet, Macbeth, Willy Loman, Biff Loman. For each: unchangeable truths, pre-play life, timeline, the author's frame (five choices), and your frame (the gaps).",
       mod2Meta: '4 classical characters · ~25 min/session',
@@ -530,7 +530,7 @@ const chromeI18n = {
     },
     omurga: {
       kalibrasyon: 'Calibration',
-      antrenman: 'Training',
+      antrenman: 'Characters',
       yolculuk: 'Journey',
       yakinda: 'Coming soon',
     },
@@ -811,7 +811,7 @@ const chromeI18n = {
       mod1Meta: '3 Tests · ~15 Minuten',
       mod2Roma: 'II',
       mod2Baslik: 'Erschaffe deine Figur',
-      mod2Altyazi: 'Training',
+      mod2Altyazi: 'Figuren',
       mod2Metin:
         'Vier klassische Figuren — Hamlet, Macbeth, Willy Loman, Biff Loman. Für jede Figur: unveränderliche Tatsachen, das Leben vor dem Stück, die Zeitleiste, der Rahmen des Autors (fünf Entscheidungen) und dein Rahmen (die Lücken).',
       mod2Meta: '4 klassische Figuren · ~25 Min./Sitzung',
@@ -893,7 +893,7 @@ const chromeI18n = {
     },
     omurga: {
       kalibrasyon: 'Kalibrierung',
-      antrenman: 'Training',
+      antrenman: 'Figuren',
       yolculuk: 'Reise',
       yakinda: 'Bald',
     },
