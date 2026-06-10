@@ -53,12 +53,25 @@ const hamlet = {
   oyunOncesi: {
     olaylar: [
       {
+        // DOĞRULAMA: hamlet-sprinte-oyunoncesi-2026-06-10
         no: 1,
         baslik: "Kral Hamlet (babası), Norveç Kralı Fortinbras'ı düelloda yener",
         sahneRef: 'I.i · Horatio',
         yuk: 'Ailesel onur, güç mirası, sırtta taşınan büyük bir gölge.',
         yansimaSorusu:
           "Bu efsanevi babanın gölgesi senin Hamlet'inin bedenine nereye düşüyor?",
+        sahneTipi: 'kart',
+        replikIzi: 'Horatio (I.i): Kral, yaşlı Fortinbras\'ı teke tek düelloda yendi — anlaşma mühürlü, topraklar el değiştirdi. Efsane oradan başlar.',
+        anlar: [
+          { id: 'o1-a1', tip: 'catal', travmaDuyarli: false,
+            soru: 'Kılıçla kral yenen baba, kitapla büyüyen oğul. O efsane Hamlet\'in omzuna nasıl oturdu?',
+            secenekler: [
+              { dal: 'A', baslik: 'Sıcak bir çatı', aciklama: 'Babası dünyanın en büyük adamıydı; gölgesi ezmiyor, koruyordu. Kayıp bu yüzden bu kadar büyük — çatı çöktü.', oznelSabit: 'Babamın gölgesi beni ezmedi — üstümü örttü. O öldüğünde kaybettiğim şey bir kral değil, başımın üstündeki gökyüzüydü.' },
+              { dal: 'B', baslik: 'Ölçülemez bir tartı', aciklama: 'Kılıç adamı baba, kitap adamı oğul; efsane bir ayna değil, bir tartıydı — ve Hamlet kendini hep eksik tarttı. Fortinbras kıyası bu tartının devamı olacak.', oznelSabit: 'Babamın efsanesi bana hep aynı soruyu sordu: sen ne yaptın? O düelloyu ben kitaplarda kazanmaya çalıştım — ve hiç kazanamadım.' },
+            ] },
+          { id: 'o1-a2', tip: 'yazma', travmaDuyarli: false,
+            soru: 'O düello hikâyesini Hamlet kimin ağzından dinledi — babasının mı, başkalarının mı? Babası kendi efsanesini oğluna hiç anlattı mı?' },
+        ],
       },
       {
         no: 2,
@@ -67,6 +80,18 @@ const hamlet = {
         yuk: "Hamlet'in kendi durumuna paralel bir intikam — ama o atılgan, Hamlet erteleyici.",
         yansimaSorusu:
           'Hamlet bu paralel intikamcıyı duyduğunda kendisini nasıl konumlandırıyor?',
+        sahneTipi: 'kart',
+        replikIzi: 'Horatio (I.i): genç Fortinbras, ham bir ateşle, kaybedileni geri almak için adam topluyor.',
+        anlar: [
+          { id: 'o2-a1', tip: 'catal', travmaDuyarli: false,
+            soru: 'Aynı kuşaktan iki prens — babaları düelloda karşı karşıya gelmiş, ikisi de babasını kaybedecek. Hamlet o adı — Fortinbras — nasıl taşıyordu?',
+            secenekler: [
+              { dal: 'A', baslik: 'İlgisiz bir isim', aciklama: 'Norveçli bir prens, uzak siyaset; zihninde yer tutmuyordu. Ayna olacağını bilmiyordu — yolda karşılaşınca çarpacak.', oznelSabit: 'Fortinbras benim için bir haritadaki isimdi — ta ki ordusunu görene dek. Aynamı bana uzaktan tuttular; yaklaşınca kendimi gördüm.' },
+              { dal: 'B', baslik: 'Tanıdık bir gölge', aciklama: 'Babaların düellosu iki oğlu doğmadan bağlamıştı; o ada hep özel bir dikkatle baktı — sanki paralel bir hayat orada yaşanıyordu.', oznelSabit: 'Fortinbras\'ı hiç görmeden tanıyordum — babalarımızın düellosu ikimizi terazinin iki kefesine doğurmuştu. Onun her hamlesi bana kendi durduğum yeri gösterdi.' },
+            ] },
+          { id: 'o2-a2', tip: 'yazma', travmaDuyarli: false,
+            soru: 'İki prens hiç karşılaştı mı — bir tören, bir elçilik, bir av? Karşılaştılarsa o bakışmada ne vardı; karşılaşmadılarsa Hamlet onu zihninde nasıl bir yüzle hayal ediyordu?' },
+        ],
       },
       {
         no: 3,
@@ -75,6 +100,18 @@ const hamlet = {
         yuk: 'Bütün oyunun hareket noktası. Bilinçaltındaki şüphe, sözle ifade edilmemiş bir kuşku.',
         yansimaSorusu:
           "Sözle ifade edilemeyen kuşku — Hamlet'in bedeninde nasıl bir ses?",
+        sahneTipi: 'kart',
+        replikIzi: 'Resmi hikâye: bahçesinde uyurken yılan soktu. Gerçek (I.v\'te hayaletten): kulağa zehir.',
+        anlar: [
+          { id: 'o3-a1', tip: 'catal', travmaDuyarli: true,
+            soru: 'Babasını sağ olarak son görüşü — Wittenberg\'e giderkenki veda. Hayalet, yarım kalan o vedanın suretiyle dönecek. O uğurlama nasıldı?',
+            secenekler: [
+              { dal: 'A', baslik: 'Kral uğurladı', aciklama: 'Resmi, mesafeli; baba sıcaklığı protokolün altında kaldı. Hayalet bu yüzden hiç söylenmemiş her şeyin sureti — Hamlet\'in babasıyla gerçek vedası hiç olmadı.', oznelSabit: 'Babamla vedalaşmadım — kralla vedalaştım. Hayalet surlarda göründüğünde anladım: onu izlememin nedeni intikam değildi; yarım kalmış bir vedaydı.' },
+              { dal: 'B', baslik: 'Baba uğurladı', aciklama: 'Bir an protokol düştü — bir el omuzda, bir cümle, belki bir gülümseme. O son sıcaklık şimdi en ağır hatıra: sıcak biten şeyin soğuk dönüşü.', oznelSabit: 'Son vedamızda bir an babam oldu — eli omzumda. Hayaleti gördüğümde en çok o eli aradım; zırhın içinde, omzuma bir daha hiç değmeyecek o eli.' },
+            ] },
+          { id: 'o3-a2', tip: 'yazma', travmaDuyarli: true,
+            soru: '"Bahçede uyurken yılan soktu" — resmi hikâye buydu ve herkes inandı. Hamlet bu cümleyi ilk duyduğunda içinde takılan kelime hangisiydi — ve o takılmayı kendine nasıl açıkladı?' },
+        ],
       },
       {
         no: 4,
@@ -82,6 +119,18 @@ const hamlet = {
         sahneRef: "I.ii · Hamlet'in Monoloğu",
         yuk: 'Ahlaki travma, derin yas üzerine ihanet — "henüz aylar dolmadan".',
         yansimaSorusu: '"Henüz aylar dolmadan" — bu cümle bedende nasıl kayıyor?',
+        sahneTipi: 'kart',
+        replikIzi: 'Hamlet (I.ii): "Henüz aylar dolmadan..." — cenaze sofrasının artığı düğün masasına.',
+        anlar: [
+          { id: 'o4-a1', tip: 'catal', travmaDuyarli: true,
+            soru: 'Bu evlilikte Hamlet\'i asıl kesen neydi?',
+            secenekler: [
+              { dal: 'A', baslik: 'Hız', aciklama: 'Evlilik değil, acelesi; yas süresinin çiğnenmesi babanın ikinci ölümüydü. "Henüz aylar dolmadan" — bütün öfke o zaman zarfında.', oznelSabit: 'Beni yıkan evlilik değil, takvimdi — babam daha toprağında soğumamıştı. Annem birini sevebilirdi; ama bu kadar çabuk unutması, babamı ikinci kez öldürdü.' },
+              { dal: 'B', baslik: 'Kişi', aciklama: 'Claudius oluşu; başkasıyla belki katlanılabilirdi. Kardeşle olması her şeyi geriye doğru da kirletti — bütün aile fotoğrafları şüpheli artık.', oznelSabit: 'Başka biri olsaydı belki dayanırdım — ama kardeşi. O evlilik geleceği değil, geçmişi kirletti; bütün çocukluğum şüpheli bir fotoğrafa döndü.' },
+            ] },
+          { id: 'o4-a2', tip: 'yazma', travmaDuyarli: true,
+            soru: 'Annesini Claudius\'la ilk kez yan yana — karı koca olarak — gördüğü an. İlk bakışta gözü hangisine gitti, hangisinden kaçtı?' },
+        ],
       },
       {
         no: 5,
@@ -91,6 +140,18 @@ const hamlet = {
         yuk: 'Taht hakkının gaspı. Kişisel kayıp + siyasi kırılma birlikte.',
         yansimaSorusu:
           'Kişisel kayıp + siyasi kırılma birlikte — hangisi önce hissediliyor?',
+        sahneTipi: 'kart',
+        replikIzi: 'Claudius (I.ii), Hamlet\'e: "Tahtımızın en yakını sensin." — Söz var, taht yok.',
+        anlar: [
+          { id: 'o5-a1', tip: 'catal', travmaDuyarli: false,
+            soru: 'Veraset hakkı vardı; taht amcaya geçti. Bu kayıp Hamlet\'in neresine düştü?',
+            secenekler: [
+              { dal: 'A', baslik: 'Düşmedi sandı', aciklama: 'Taht hiç istediği şey değildi — Wittenberg\'i, kitapları istiyordu. Kayıp sonradan, öteki kayıpların içinde sızlamaya başladı.', oznelSabit: 'Tahtı hiç istememiştim — kaybettiğimi bile sonradan fark ettim. Ama istemediğim şeyin bile elimden alınmış olması, zamanla kendi adını buldu.' },
+              { dal: 'B', baslik: 'Sessiz bir yara', aciklama: 'Mesele taht değil, seçimdi — isteyip istemeyeceğine karar verme hakkı bile tanınmadı. Claudius\'a öfkenin siyasi tabanı burada döküldü.', oznelSabit: 'Tahtı istemiyordum — ama reddetme hakkımı istiyordum. Amcam benden bir taç değil, bir seçim çaldı; öfkemin altındaki taş budur.' },
+            ] },
+          { id: 'o5-a2', tip: 'yazma', travmaDuyarli: false,
+            soru: 'Taç giyme töreninde Hamlet neredeydi — ön safta mı, kalabalığın içinde mi, hiç gitmedi mi? Ve tören boyunca gözü neredeydi?' },
+        ],
       },
       {
         no: 6,
@@ -99,6 +160,18 @@ const hamlet = {
         yuk: 'Entelektüel hayatından koparılış — Wittenberg, kendisi olabildiği yer.',
         yansimaSorusu:
           'Kendisi olabildiği yerden çağrılmak — bedensel direnç nerede?',
+        sahneTipi: 'kart',
+        replikIzi: 'Claudius + Gertrude (I.ii): "Wittenberg\'e dönme." — Hamlet: "Size itaat ederim, anne."',
+        anlar: [
+          { id: 'o6-a1', tip: 'catal', travmaDuyarli: false,
+            soru: 'Claudius dönüşü yasakladı, annesi "kal" dedi. Hamlet cevabını yalnız anneye verdi: "Size itaat ederim, anne." Neden kaldı?',
+            secenekler: [
+              { dal: 'A', baslik: 'Annesi için', aciklama: 'O cümle gerçek bir itaatti; bütün öfkesine rağmen annesinden kopamıyor. Bağ kirlendi ama kopmadı — kopamayacak.', oznelSabit: 'Kaldım çünkü o istedi — öfkeme rağmen, belki öfkem yüzünden. Annemden nefret etmeyi hiç başaramadım; en karanlık günümde bile o "anne" kelimesi ağzımdan itaatle çıktı.' },
+              { dal: 'B', baslik: 'Hesap için', aciklama: 'Wittenberg artık sığınak değil; bir şey burada bitmemiş. "Anne"ye itaat, Claudius\'u cümleden dışlayan bir hamleydi — kalış bir teslimiyet değil, mevzilenme.', oznelSabit: '"Size itaat ederim, anne" — o cümlede amcama tek kelime yoktu ve bunu ikimiz de duyduk. Kaldım; çünkü gidersem bu saray sorularımla birlikte mühürlenecekti.' },
+            ] },
+          { id: 'o6-a2', tip: 'yazma', travmaDuyarli: false,
+            soru: 'Wittenberg\'de yarım kalan neydi — bir kitap, bir tartışma, bir oda, bir alışkanlık? Hamlet\'in "geri dönülecek hayat" diye zihninde sakladığı görüntü neydi?' },
+        ],
       },
       {
         no: 7,
@@ -107,6 +180,83 @@ const hamlet = {
         yuk: 'Umut ve kırılganlık. Yas içindeki tek pozitif bağ — ama o da tehdit altında.',
         yansimaSorusu:
           'Yas içindeki tek pozitif bağ — ama tehdit altında. Çelişki nerede?',
+        sahneTipi: 'kart',
+        replikIzi: 'Mektup (II.ii\'de Polonius okur): "Yıldızlardan şüphe et — sevgimden etme." / Ophelia (III.i): tatlı sözler, hediyeler — hepsi oyundan önce.',
+        anlar: [
+          { id: 'o7-a1', tip: 'catal', travmaDuyarli: false,
+            soru: 'Bu bağ nasıl başladı? Shakespeare yalnız kalıntıları gösterir — mektuplar, hediyeler, Ophelia\'nın "bana sevgiyle ısrar etti" deyişi.',
+            secenekler: [
+              { dal: 'A', baslik: 'Hamlet başlattı', aciklama: 'Mektuplar, ısrar, hediyeler — felsefeci prensin hayatındaki tek plansız şey. Düşünmeden başlattığı tek şey, sonradan en çok düşündüğü şey olacak.', oznelSabit: 'Onu ben istedim — hayatımda planlamadan başlattığım tek şeydi. Her şeyi tartan adam, bir tek onu tartmadan sevdi; belki bu yüzden en gerçek şeyimdi.' },
+              { dal: 'B', baslik: 'Yavaş büyüdü', aciklama: 'Sarayda büyüyen iki çocuk; bir gün bakış değişti. Ne zaman başladığını ikisi de bilmiyor — başlangıcı olmayan şeyin bitişine de hazırlıksızlar.', oznelSabit: 'Ne zaman başladığını bilmiyorum — bir gün ona baktım ve bakışım değişmişti. Başlangıcını bilmediğim tek şeydi; belki bu yüzden bittiğine hiç inanamadım.' },
+            ] },
+          { id: 'o7-a2', tip: 'yazma', travmaDuyarli: false,
+            soru: 'Mektuplardan birinde vezinlerle boğuşuyor — "bu ahmak vezinlere gücüm yetmiyor" diye yazacak kadar. Her kitabı okumuş adam üç satır aşk şiirinde bocalıyor. Hangi mektubu yazarken kendini ilk kez korunmasız hissetti?' },
+        ],
+        yuruyus: {
+          esik: {
+            komut: 'Bu bir yürüyüş. Shakespeare\'in hiç yazmadığı mevsimi adım adım kuracaksın — Ophelia ile aşkın, yastan önceki günleri. Acele yok.',
+            adimlar: [
+              'Önce anı kur: saray bahçesi, sıradan bir yaz — babası sağ, dünya yerinde, yas diye bir şey yok.',
+              'Her durakta Hamlet o an bedeninin neresinde duruyor — fark et, sonra ilerle.',
+              'Seçtiğin her şey senin olur; "manastıra git" diyeceğin gün ve mezarın başında yanında olacak.',
+            ],
+            hitap: 'Hazır olduğunda bahçeye gir.',
+            buton: 'Başlıyorum',
+          },
+          girisBaslik: 'Mektupların mevsimi — boşluğu kur',
+          girisAciklama: 'Shakespeare bu aşkın yalnız enkazını yazar: mektuplar, iade edilen hediyeler, bir mezar. Mutlu mevsimi hiç göstermez. Kaybın çalışması için önce kazanılmış olanı sen kuracaksın.',
+          girisSentez: 'Bu yürüyüşte seçtiklerin senin olur; Sahne 5\'te ve mezarlıkta yanında kalır.',
+          gecisButonu: 'İlk durağa geç',
+          cikisRitueli: 'Bahçeden bir adım geri çekil; bir nefes ver. "Manastıra git" diyecek adam, bu bahçeyi taşıyan adam — yıkım ancak bu kadar sevmiş bir adamda çalışır. Ne taşıyorsun?',
+          istasyonlar: [
+            {
+              no: 0, zamanRozet: 'Bahçe — bir yaz günü',
+              acilis: 'Saray bahçesi, yastan önceki dünya. Ophelia orada — belki bir kitapla, belki kardeşiyle. Karşılaşma tesadüf gibi duruyor; Hamlet\'in oraya kaçıncı geliş olduğunu yalnız Hamlet biliyor.',
+              sorular: ['O bahçeye yolu kaç kez "tesadüfen" düştü — ve onu uzaktan ilk fark ettiği an bedeninde ne değişti?'],
+              yazmaAlani: true, yazmaPlaceholder: 'Onu gördüğümde…',
+            },
+            {
+              no: 1, zamanRozet: 'Mektubu yazarken',
+              acilis: 'Gece, Wittenberg ya da saray — bir masa, bir kâğıt. Felsefe yazmaya alışmış el, başka bir şey yazmaya çalışıyor. Satırlar geliyor ya da gelmiyor.',
+              sorular: ['O mektubun başında el nasıldı?'],
+              catal: {
+                anahtar: 'o7-yuruyus-kelimeler', dil: 'birinci_tekil',
+                etiket: 'İki yol var. Hangisi senin?',
+                secenekler: [
+                  { deger: 'kolay', baslik: 'Kelimeler kolay geldi', aciklama: 'Hayatında ilk kez düşünmeden yazdı; felsefenin dili değil, başka bir dil — ve o dil onda hazırmış.',
+                    muhur: 'Bunu unutma — ona yazarken ilk kez düşünmeden yazdım; içimde felsefeden eski bir dil varmış, onu Ophelia buldu.',
+                    ozet: 'İçimdeki en eski dili Ophelia buldu.' },
+                  { deger: 'tutuldu', baslik: 'Dili tutuldu', aciklama: 'Her kitabı okumuş adam üç satırda bocaladı; "ahmak vezinler" bir şikâyet değil, itiraftı — bu duygunun karşısında bütün eğitimi işe yaramıyordu.',
+                    muhur: 'Bunu unutma — bütün kitaplarım onun karşısında sustu; bocaladığım o üç satır, hayatımda yazdığım en dürüst şeydi.',
+                    ozet: 'Bocaladığım üç satır, en dürüst yazımdı.' },
+                ],
+              },
+            },
+            {
+              no: 2, zamanRozet: 'Son saf karşılaşma',
+              acilis: 'Henüz hiçbir şey kararmamış — babası sağ, Polonius uzakta, dünya basit. Bir karşılaşma daha; ikisi de bunun "son saf an" olduğunu bilmiyor.',
+              sorular: ['O günlerde bu aşkın bir yarını var mıydı — Hamlet ileriye baktı mı hiç?'],
+              catal: {
+                anahtar: 'o7-yuruyus-gelecek', dil: 'birinci_tekil',
+                etiket: 'İki yol var. Hangisi senin?',
+                secenekler: [
+                  { deger: 'gelecek', baslik: 'Bir yarını vardı', aciklama: 'Bir an — belki tek bir an — evlilik düşüncesi geçti; söze dökülmedi ama vardı. Gertrude mezarın başında "gelinim olacaktın" diyecek; demek başkaları da görmüştü.',
+                    muhur: 'Bunu unutma — bir an onunla bir hayat düşündüm; kimseye söylemedim. Mezarında annem "gelinim olacaktın" dediğinde, söylenmemiş hayalimin başkalarınca görülmüş olduğunu öğrendim.',
+                    ozet: 'Söylenmemiş hayalimi mezarında başkasından duydum.' },
+                  { deger: 'simdi', baslik: 'Yalnız şimdiydi', aciklama: 'Geleceği hiç düşünmedi; aşk bir mevsimdi ve mevsim olduğunu bilmiyordu. Sonsuz sandığı şeyin bir takvimi varmış.',
+                    muhur: 'Bunu unutma — onunla hiç gelecek kurmadım; her şey şimdiydi ve şimdinin biteceği aklıma gelmedi. Sonsuz sandığım şeyin takvimi varmış.',
+                    ozet: 'Sonsuz sandığım şeyin takvimi varmış.' },
+                ],
+              },
+            },
+            {
+              no: 3, zamanRozet: "Wittenberg'e dönerken",
+              acilis: 'Dönüş yolu — kitaplara, derslere, eski hayata. Ama bu kez yanında bir şey taşıyor; eyer çantasında değil, başka bir yerde.',
+              sorular: ['Yola çıkarken ondan yanına ne aldı — bir görüntü, bir kelime, bir koku? Ve o şey Wittenberg\'de hangi anlarda geri geldi?'],
+              yazmaAlani: true, yazmaPlaceholder: 'Yanıma aldığım…',
+            },
+          ],
+        },
       },
       {
         no: 8,
@@ -115,6 +265,18 @@ const hamlet = {
         yuk: 'Yalnızca Hamlet yas tutuyor. Saray, ilişkilerine devam ediyor.',
         yansimaSorusu:
           'Yalnızca Hamlet yas tutuyor — bu yalnızlık nasıl bir izolasyon?',
+        sahneTipi: 'kart',
+        replikIzi: 'I.ii açılışı: Norveç\'e elçiler, evraklar, mühürler — saray tam hızında. Kenarda, siyahlar içinde bir adam.',
+        anlar: [
+          { id: 'o8-a1', tip: 'catal', travmaDuyarli: false,
+            soru: 'Saray işliyor — elçiler, pazarlıklar, mühürler. Dünya babasız da dönüyor. Bu işleyiş Hamlet\'e ne yaptı?',
+            secenekler: [
+              { dal: 'A', baslik: 'Öfke', aciklama: 'Bu işleyiş bir hakaretti; her mühür, her elçi babasının bir kez daha silinişi. Yas tutmayan herkes suç ortağı.', oznelSabit: 'Sarayın her işleyen çarkı bana hakaretti — babam ölmüştü ve evraklar imzalanıyordu. Yas tutmayan herkesi, tutmadıkları her saat için suçladım.' },
+              { dal: 'B', baslik: 'Yabancılaşma', aciklama: 'Öfkeden derin bir şey; kendi evinde turist. Yas onu zamandan çıkardı — saray takvimde yaşıyor, o takvimsiz bir yerde.', oznelSabit: 'Onlara kızamadım bile — başka bir zamandaydım. Saray takvimle yaşıyordu; ben babamın öldüğü günde kalmıştım ve kimse oraya uğramıyordu.' },
+            ] },
+          { id: 'o8-a2', tip: 'yazma', travmaDuyarli: false,
+            soru: 'Yas tutan tek kişi olduğunu Hamlet ilk kez hangi somut anda fark etti — bir kahkaha, uzaktan bir müzik, açık bir pencereden gelen gündelik bir ses?' },
+        ],
       },
     ],
 
