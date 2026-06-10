@@ -100,6 +100,14 @@ export default function ElYazmasiSayfasi() {
     const sahneSirali = [...(data.sahnelerWorkbook || [])].sort((a, b) => a.no - b.no);
     const bosluklar = data.boslukSet || []; // dizi fiziksel sırası korunur — sort YOK
     const dugumler = [];
+    // Oyun Öncesi — metnin yazmadığı, oyuncunun kuracağı sahne-öncesi katman.
+    // Willy paritesi: ana akışın başında, faz ayraçlarıyla (katlanır fasıl DEĞİL).
+    const olaylar = data.oyunOncesi?.olaylar || [];
+    if (olaylar.length) {
+      dugumler.push({ tip: 'ayrac', anahtar: 'oyunOncesi' });
+      for (const olay of olaylar) dugumler.push({ tip: 'olay', veri: olay });
+    }
+    dugumler.push({ tip: 'ayrac', anahtar: 'oyunBaslangici' });
     for (const sahne of sahneSirali) {
       const sahneOncesi = bosluklar.filter((b) => b.sonraSahneNo === sahne.no);
       for (const b of sahneOncesi) dugumler.push({ tip: 'bosluk', veri: b });
@@ -112,7 +120,6 @@ export default function ElYazmasiSayfasi() {
   const [acikOlay, setAcikOlay] = useState(null);   // olay no | null (oyun öncesi)
   const [dogrularAcik, setDogrularAcik] = useState(false);
   const [kunyeSekme, setKunyeSekme] = useState('dogrular'); // 'dogrular' | 'iliskiler'
-  const [oyunOncesiAcik, setOyunOncesiAcik] = useState(false);
 
   // Mevcut yazımları okumak için yansıma haritaları.
   const [boslukYansima, setBoslukYansima] = useState({}); // { 'elyazma-bosluk-1': 'metin' }
@@ -279,54 +286,52 @@ export default function ElYazmasiSayfasi() {
           </div>
         </BolumKatlanir>
 
-        {/* Oyun Öncesi fasıl (katlanır) */}
-        <BolumKatlanir
-          baslik={`${t.oyunOncesiBaslik} · ${t.oyunOncesiAltyazi}`}
-          altyazi={`${(data.oyunOncesi?.olaylar || []).length} ${t.oyunOncesiSayim} · ${t.dokunAc}`}
-          acik={oyunOncesiAcik}
-          setAcik={setOyunOncesiAcik}
-        >
-          <ul style={{ marginTop: '0.8rem', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            {(data.oyunOncesi?.olaylar || []).map((olay) => (
-              <OlayDugumu
-                key={olay.no}
-                olay={olay}
-                acik={acikOlay === olay.no}
-                onAc={() => setAcikOlay(acikOlay === olay.no ? null : olay.no)}
-                t={t}
-              />
-            ))}
-          </ul>
-        </BolumKatlanir>
-
-        {/* 6. Senaryo akışı */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-          <Etiket>{t.senaryoBaslik}</Etiket>
-          <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-soft)', marginBottom: '0.4rem' }}>{t.senaryoAltyazi}</span>
+        {/* Senaryo akışı — Oyun Öncesi olaylar artık akışın başında (Willy paritesi,
+            katlanır fasıl DEĞİL). Başlık hiyerarşisi: H1 (ad) > H2 (bu) > faz ayracı. */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+          <h2 style={{ fontFamily: 'var(--font-display), serif', fontWeight: 300, fontSize: 'clamp(1.5rem, 3.5vw, 2.1rem)', lineHeight: 1.15, color: 'var(--ink)', margin: 0 }}>{t.senaryoBaslik}</h2>
+          <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-soft)', marginBottom: '0.5rem' }}>{t.senaryoAltyazi}</span>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
             {akis.map((d) => (
-              <DugumGrubu
-                key={`${d.tip}-${d.veri.no}`}
-                domId={`${d.tip}-${d.veri.no}`}
-                dugum={d}
-                acik={acikPanel?.tip === d.tip && acikPanel?.no === d.veri.no}
-                onAc={() => d.tip === 'sahne' ? sahnePanelAc(d.veri.no) : boslukPanelAc(d.veri.no)}
-                onKapat={panelKapat}
-                t={t}
-                ortak={ortak}
-                boslukYansima={boslukYansima}
-                setBoslukYansima={setBoslukYansima}
-                sahneYansima={sahneYansima}
-                setSahneYansima={setSahneYansima}
-                anSecimleri={anSecimleri}
-                anYazmalari={anYazmalari}
-                onAnSec={anSec}
-                onAnYaz={anYaz}
-                onYuruyus={(no) => setYuruyusHedef({ tip: d.tip, no })}
-                acikKapiKey={acikKapiKey}
-                onTopraklanmaAc={(baslik) => setTopraklanma(baslik)}
-              />
+              d.tip === 'ayrac' ? (
+                <AyracFaz
+                  key={`ayrac-${d.anahtar}`}
+                  baslik={d.anahtar === 'oyunOncesi' ? t.fazOyunOncesi : t.fazOyunBaslangici}
+                  altyazi={d.anahtar === 'oyunOncesi' ? t.fazOyunOncesiAlt : t.fazOyunBaslangiciAlt}
+                />
+              ) : d.tip === 'olay' ? (
+                <div key={`olay-${d.veri.no}`} id={`olay-${d.veri.no}`} style={{ scrollMarginTop: 'calc(env(safe-area-inset-top, 0px) + 4.5rem)' }}>
+                  <OlayDugumu
+                    olay={d.veri}
+                    acik={acikOlay === d.veri.no}
+                    onAc={() => setAcikOlay(acikOlay === d.veri.no ? null : d.veri.no)}
+                    t={t}
+                  />
+                </div>
+              ) : (
+                <DugumGrubu
+                  key={`${d.tip}-${d.veri.no}`}
+                  domId={`${d.tip}-${d.veri.no}`}
+                  dugum={d}
+                  acik={acikPanel?.tip === d.tip && acikPanel?.no === d.veri.no}
+                  onAc={() => d.tip === 'sahne' ? sahnePanelAc(d.veri.no) : boslukPanelAc(d.veri.no)}
+                  onKapat={panelKapat}
+                  t={t}
+                  ortak={ortak}
+                  boslukYansima={boslukYansima}
+                  setBoslukYansima={setBoslukYansima}
+                  sahneYansima={sahneYansima}
+                  setSahneYansima={setSahneYansima}
+                  anSecimleri={anSecimleri}
+                  anYazmalari={anYazmalari}
+                  onAnSec={anSec}
+                  onAnYaz={anYaz}
+                  onYuruyus={(no) => setYuruyusHedef({ tip: d.tip, no })}
+                  acikKapiKey={acikKapiKey}
+                  onTopraklanmaAc={(baslik) => setTopraklanma(baslik)}
+                />
+              )
             ))}
           </div>
         </div>
@@ -490,6 +495,26 @@ function IliskiKart({ iliski }) {
         color: 'var(--ink-muted)',
         textTransform: 'uppercase',
       }}>{iliski.rol}</span>
+    </div>
+  );
+}
+
+// ─── FAZ AYRACI (Oyun Öncesi / Oyun Başlangıcı — Willy paritesi) ───────────
+function AyracFaz({ baslik, altyazi }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', padding: '0.6rem 0 0.2rem 0', margin: '0.5rem 0 0 0' }}>
+      <span style={{
+        fontFamily: 'var(--font-body), sans-serif', fontWeight: 300,
+        fontSize: '0.6rem', letterSpacing: '0.35em', color: TON,
+        textTransform: 'uppercase', whiteSpace: 'nowrap',
+      }}>{baslik}</span>
+      <span style={{ flex: 1, height: '1px', backgroundColor: 'var(--rule)' }} />
+      {altyazi && (
+        <span style={{
+          fontFamily: 'var(--font-display), serif', fontStyle: 'italic',
+          fontSize: '0.78rem', color: 'var(--ink-muted)', textAlign: 'right', maxWidth: '55%',
+        }}>{altyazi}</span>
+      )}
     </div>
   );
 }
