@@ -18,7 +18,7 @@ const chromeI18n = {
     nav: {
       marka: 'Inside The Character',
       kalibrasyon: 'Kalibrasyon',
-      antrenman: 'Antrenman',
+      antrenman: 'Karakterler',
       kulis: 'Defter',
       profil: 'Profil',
       hakkimizda: 'Hakkımızda',
@@ -95,9 +95,9 @@ const chromeI18n = {
       footerSlogan: "2005'ten bu yana",
     },
     karakterListesi: {
-      ustEtiket: '02 — Antrenman Odası',
+      ustEtiket: '02 — Karakteri İnşa Et',
       baslik: 'Karakterler',
-      intro: 'Her karakter; değiştirilemez doğruları, zaman çizgisi, yazarın beş tercihi ve senin dolduracağın boşluklarla katman katman kurulur. Çalışmak istediğin karakteri seç — onu içeriden inşa etmeye başla.',
+      intro: 'Her karakterde iki katman vardır: metnin verdiği değiştirilemez doğrular ve yazarın sustuğu boşluklar. Doğrular sabittir; boşlukları sen kurarsın — karar karar, an an, kendi sözcüklerinle. Bu, bir rolü dışarıdan canlandırmak değil; bir hayatı içeriden inşa etmektir. Çalışmak istediğin karakteri seç.',
       mizacBaslik: 'Mizaç',
       temaBaslik: 'Tema',
       rozetSeninCerceven: 'Senin Çerçeven',
@@ -407,7 +407,7 @@ const chromeI18n = {
     nav: {
       marka: 'Inside The Character',
       kalibrasyon: 'Calibration',
-      antrenman: 'Training',
+      antrenman: 'Characters',
       kulis: 'Notebook',
       profil: 'Profile',
       hakkimizda: 'About',
@@ -478,9 +478,9 @@ const chromeI18n = {
       footerSlogan: 'since 2005',
     },
     karakterListesi: {
-      ustEtiket: '02 — Training Room',
+      ustEtiket: '02 — Build the Character',
       baslik: 'Characters',
-      intro: "Each character is built layer by layer — immutable truths, a timeline, the author's five choices, and the gaps you'll fill. Choose the character you want to work with, and begin building them from within.",
+      intro: "Each character has two layers: the immutable truths the text gives, and the gaps where the author fell silent. The truths are fixed; the gaps you build — decision by decision, moment by moment, in your own words. This is not performing a role from the outside; it is building a life from within. Choose the character you want to work with.",
       mizacBaslik: 'Temperament',
       temaBaslik: 'Theme',
       rozetSeninCerceven: 'Your Frame',
@@ -771,7 +771,7 @@ const chromeI18n = {
     nav: {
       marka: 'Inside The Character',
       kalibrasyon: 'Kalibrierung',
-      antrenman: 'Training',
+      antrenman: 'Figuren',
       kulis: 'Notizheft',
       profil: 'Profil',
       hakkimizda: 'Über uns',
@@ -841,9 +841,9 @@ const chromeI18n = {
       footerSlogan: 'seit 2005',
     },
     karakterListesi: {
-      ustEtiket: '02 — Trainingsraum',
+      ustEtiket: '02 — Die Figur bauen',
       baslik: 'Figuren',
-      intro: 'Jede Figur wird Schicht für Schicht aufgebaut — unveränderliche Tatsachen, eine Zeitleiste, die fünf Entscheidungen des Autors und die Lücken, die du füllst. Wähle die Figur, mit der du arbeiten möchtest, und beginne, sie von innen heraus aufzubauen.',
+      intro: 'Jede Figur hat zwei Schichten: die unveränderlichen Tatsachen, die der Text vorgibt, und die Lücken, in denen der Autor schwieg. Die Tatsachen stehen fest; die Lücken baust du — Entscheidung für Entscheidung, Augenblick für Augenblick, in deinen eigenen Worten. Das ist keine Rolle, die man von außen spielt, sondern ein Leben, das von innen gebaut wird. Wähle die Figur, mit der du arbeiten möchtest.',
       mizacBaslik: 'Temperament',
       temaBaslik: 'Thema',
       rozetSeninCerceven: 'Dein Rahmen',
