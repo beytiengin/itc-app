@@ -638,6 +638,59 @@ const macbeth = {
         { no: 2, baslik: 'İlişkisel', soru: 'Banquo yanı başında giderken ona bakışı değişti mi — artık bir rakip mi görüyordu?' },
         { no: 3, baslik: 'Beden', soru: 'O yolculukta bedeninde ilk kez hangi gerilim belirdi?' },
       ],
+      yuruyus: {
+        esik: {
+          komut: 'Bu bir yürüyüş. Bu boşluğu adım adım kuracaksın — cadıların kaybolduğu yerden sarayın kapısına kadar süren, Shakespeare\'in yazmadığı yol. Acele yok.',
+          adimlar: [
+            'Önce anı kur: sesler sustu, ormanın ortasındasın. Shakespeare bu yolu yazmaz; sen kuracaksın.',
+            'Her durakta Macbeth o an bedeninin neresinde duruyor — fark et, sonra ilerle.',
+            'Seçtiğin her şey senin olur; Sahne 2\'ye hangi adamın girdiğini bu yol belirler.',
+          ],
+          hitap: 'Hazır olduğunda ilk adımı at.',
+          buton: 'Başlıyorum',
+        },
+        girisBaslik: 'Ormandan saraya — boşluğu kur',
+        girisAciklama: 'Cadılar kehaneti bırakıp kayboldu. Ormandan sarayın kapısına kadar geçen yolu Shakespeare atlar. O yolu, o ilk karanlık düşünceyi sen kuracaksın.',
+        girisSentez: 'Bu yürüyüşte seçtiklerin senin olur; Sahne 2\'de yanında kalır.',
+        gecisButonu: 'İlk durağa geç',
+        cikisRitueli: 'Boşluktan bir adım geri çekil; bir nefes ver. Sahne 2\'ye girmeden önce: sarayın kapısından giren adam, ormandan çıkan adamla aynı mı? Ne taşıyorsun?',
+        istasyonlar: [
+          {
+            no: 0, zamanRozet: 'Sesler sustu',
+            acilis: 'Eriyip kayboldular — nefesin rüzgârda dağılması gibi. Ormanın ortasındasın; az önce duyduğun şey gerçek miydi? Banquo da duydu — demek ki gerçekti.',
+            sorular: ['Sesler kesildiği an Macbeth\'in bedeni ne yaptı — olduğu yerde mi kaldı, cadıların kaybolduğu yere doğru bir adım mı attı?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Sesler kesildiğinde…',
+          },
+          {
+            no: 1, zamanRozet: 'Banquo\'yla yan yana',
+            acilis: 'Yol uzun, ikiniz de duydunuz. Banquo şakaya vurmayı deniyor — "sana kral dediler, bana kral babası." Bir cevap vermek gerek.',
+            catal: {
+              anahtar: 'b1-yuruyus-sir', dil: 'birinci_tekil',
+              etiket: 'İki yol var. Hangisi senin?',
+              secenekler: [
+                { deger: 'maske', baslik: 'Şakaya katılmak', aciklama: 'Gülüyorum, hafife alıyormuş gibi yapıyorum — içerideki ağırlığı kimse görmesin.',
+                  muhur: 'Bunu unutma — ilk maskemi o yolda taktım, daha hiçbir suç işlemeden.',
+                  ozet: 'İlk maskem o yolda, suçtan önce takıldı.' },
+                { deger: 'suskunluk', baslik: 'İçe kapanmak', aciklama: 'Cevap veremiyorum; kelimeler içeride başka bir şeyle meşgul.',
+                  muhur: 'Bunu unutma — Banquo\'dan ilk uzaklaştığım an o suskunluktu; aramıza ilk giren şey kehanet değil, benim sessizliğimdi.',
+                  ozet: 'Aramıza ilk giren şey benim sessizliğimdi.' },
+              ],
+            },
+          },
+          {
+            no: 2, zamanRozet: 'Düşünce şekil alıyor',
+            acilis: 'Yol ilerledikçe bir düşünce kıvrılıp şekil alıyor: "Kral olacaksam..." Cümlenin devamını zihnin kendiliğinden getiriyor — ve getirdiği şeyden ürperiyorsun.',
+            sorular: ['O cümle zihninde ilk tamamlandığında beliren görüntü neydi — boş bir taht mı, yoksa üzerinde hâlâ Duncan\'ın oturduğu taht mı?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Cümle tamamlandığında gördüğüm…',
+          },
+          {
+            no: 3, zamanRozet: 'Sarayın kapısı',
+            acilis: 'Saray göründü. İçeride Duncan seni övecek, herkes zaferini alkışlayacak. Kapıya birkaç adım kaldı — ormandan çıkan adamla kapıdan girecek adam arasında bir yol geçti.',
+            sorular: ['Kapının eşiğinde Macbeth bir saniye durdu mu — ve durduysa, o saniyede neyi geride bırakmaya çalıştı?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Eşikte…',
+          },
+        ],
+      },
     },
     {
       no: 2,
