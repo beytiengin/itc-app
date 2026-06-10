@@ -368,7 +368,8 @@ export default function BoslukYuruyusu({
               </div>
             )}
 
-            {/* Sorular */}
+            {/* Sorular (opsiyonel — catal-only istasyonda olmayabilir; guard) */}
+            {Array.isArray(istasyon.sorular) && istasyon.sorular.length > 0 && (
             <ul style={{ paddingLeft: '1.3rem', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
               {istasyon.sorular.map((s, i) => {
                 // <DAL> placeholder render — sahne 4 (no:4) ilk soru için
@@ -384,6 +385,7 @@ export default function BoslukYuruyusu({
                 );
               })}
             </ul>
+            )}
 
             {/* Opsiyonel yazma alanı */}
             {istasyon.yazmaAlani && (

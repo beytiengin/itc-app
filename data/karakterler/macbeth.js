@@ -664,6 +664,7 @@ const macbeth = {
           {
             no: 1, zamanRozet: 'Banquo\'yla yan yana',
             acilis: 'Yol uzun, ikiniz de duydunuz. Banquo şakaya vurmayı deniyor — "sana kral dediler, bana kral babası." Bir cevap vermek gerek.',
+            sorular: ['Banquo\'nun şakası havada asılı — Macbeth\'in yüzü ne yapıyor o saniyede?'],
             catal: {
               anahtar: 'b1-yuruyus-sir', dil: 'birinci_tekil',
               etiket: 'İki yol var. Hangisi senin?',
@@ -793,6 +794,7 @@ const macbeth = {
           {
             no: 1, zamanRozet: 'Toplanan soylular',
             acilis: 'Tören alanı dolu. Yüzler, selamlar, eğilen başlar. Ve bir yüz eksik: Macduff Scone\'a gelmedi.',
+            sorular: ['Kalabalığı tararken gözü o boşluğa takıldığında — kaç saniye orada kaldı?'],
             catal: {
               anahtar: 'b7-yuruyus-macduff', dil: 'birinci_tekil',
               etiket: 'İki yol var. Hangisi senin?',
@@ -809,6 +811,7 @@ const macbeth = {
           {
             no: 2, zamanRozet: 'Taç iniyor',
             acilis: 'Diz çöküyorsun. Taç havada — Duncan\'ın başından çıkmış taç — ve yavaşça iniyor. Metal alnına değdiği saniye.',
+            sorular: ['Metal değmeden hemen önce — gözleri açık mı, kapalı mı?'],
             catal: {
               anahtar: 'b7-yuruyus-tac', dil: 'birinci_tekil',
               etiket: 'O saniyede içeride ne var?',
@@ -875,6 +878,7 @@ const macbeth = {
           {
             no: 1, zamanRozet: 'Hikâyenin kuruluşu',
             acilis: 'Katillere bir hikâye gerek: Banquo onların düşmanı olmalı — sefaletlerinin sebebi o. Kelimeleri içinden prova ediyorsun.',
+            sorular: ['Provayı kaçıncı tekrarda durdurdu — kelimeler ne zaman "hazır" oldu?'],
             catal: {
               anahtar: 'b8-yuruyus-hikaye', dil: 'birinci_tekil',
               etiket: 'İki yol var. Hangisi senin?',
