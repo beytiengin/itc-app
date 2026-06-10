@@ -155,7 +155,19 @@ const macbeth = {
       icsel: 'Zihin artık gerçekle kurguyu ayıramıyor. İlk kırılma burada — eylem henüz olmadan akıl çatlamaya başlar.',
       onerilenSicaklik: 6,
       yuk: 'Bir cinayetin, işlenmeden önce zihinde bıraktığı ilk yarık.',
+      sahneTipi: 'kart',
+      replikIzi: 'Macbeth: "Bu gördüğüm bir hançer mi — sapı elime dönük? Gel, tutayım seni... Tutamıyorum, ama hâlâ görüyorum." (gece yarısı koridoru)',
       travmaKategorileri: ['zihinsel_kirilma'], travmaSeviyesi: 2,
+      anlar: [
+        { id: 's4-a1', tip: 'catal', birlesimSahneNo: 4, travmaDuyarli: true,
+          soru: 'Havada bir hançer — sapı ona dönük, tutulamıyor ama görülmeye devam ediyor. Macbeth o görüntüye nasıl bakıyor: zihninin son uyarısı olarak mı, yolun daveti olarak mı?',
+          secenekler: [
+            { dal: 'A', baslik: 'Uyarı — ama yürüyor', aciklama: 'Zihni "dur" diyor; hançeri bir alarm olarak görüyor. Görüyor, anlıyor — ve yine de yürüyor. Direnen zihin, itaat eden beden.', oznelSabit: 'Zihnim bana son bir kez "dur" dedi — hançeri o gönderdi. Duymadım değil; duydum ve geçtim.' },
+            { dal: 'B', baslik: 'Davet — yol gösteriyor', aciklama: 'Hançer onu çağırıyor; kendini seçilmiş bir yolun yolcusu gibi hissediyor. Sorumluluk görüntüye devrediliyor.', oznelSabit: 'Hançer bana yolu gösterdi — ben sadece izledim. O gece kararı ben vermedim; karar beni taşıdı.' },
+          ] },
+        { id: 's4-a2', tip: 'yazma', birlesimSahneNo: 4, travmaDuyarli: true,
+          soru: 'Kapının kolu elinin altında. İçerideki adam ona güvenerek uyudu. Çan çaldı — eşiği geçmeden önceki son saniyede Macbeth\'in içinden geçen son görüntü neydi?' },
+      ],
     },
     {
       no: 5, perde: 2, perdeRomen: 'II',
@@ -165,7 +177,25 @@ const macbeth = {
       icsel: '"Bunu ben mi yaptım?" Eylem tamamlanmıştır ama zihin onu kabul edemez; işitsel sanrılar başlar.',
       onerilenSicaklik: 9,
       yuk: 'Geri dönülemez olanın eşiğini geçen adamın, kendi elini tanıyamaması.',
+      sahneTipi: 'kart',
+      replikIzi: 'Macbeth: "Bunu ben mi yaptım?" / "Biri \'Amin\' dedi — ben diyemedim. En çok ihtiyacım olan anda kelime boğazımda kaldı." (kanlı ellerle dönüş)',
       travmaKategorileri: ['siddet', 'ahlaki_yara'], travmaSeviyesi: 3,
+      anlar: [
+        { id: 's5-a1', tip: 'catal', birlesimSahneNo: 5, travmaDuyarli: true,
+          soru: 'Kanlı ellerine bakıyor: "Bunu ben mi yaptım?" O bakışta eller neye dönüşüyor — eylemi taşıyamayan yabancı bir şeye mi, dayanılmaz biçimde kendisinin olan bir şeye mi?',
+          secenekler: [
+            { dal: 'A', baslik: 'El yabancılaşıyor', aciklama: 'Eylem ile benlik arasına mesafe giriyor; "yapan" ile "bakan" ayrışıyor. Macbeth kendi elini bir başkasının eli gibi görüyor.', oznelSabit: 'O ellere baktım ve tanımadım — yapan bendim ama bakan, yapanı kabul etmedi.' },
+            { dal: 'B', baslik: 'El acıyla benim', aciklama: 'Kaçacak mesafe yok; el onun, kan onun, eylem onun. Bütün ağırlık tek seferde iniyor.', oznelSabit: 'Eller benimdi — en korkuncu buydu. Hiçbir okyanus bu kanı yıkayamaz; çünkü kan elimde değil, ben\'imde.' },
+          ] },
+        { id: 's5-a2', tip: 'catal', birlesimSahneNo: 5, travmaDuyarli: true,
+          soru: 'Yan odada dua edenler "Amin" dedi; Macbeth diyemedi — kelime boğazında kaldı. Neden: Tanrı\'nın onu çoktan dışarıda bıraktığını hissettiği için mi, kendi kendini dışarı attığı için mi?',
+          secenekler: [
+            { dal: 'A', baslik: 'Dışlanmış', aciklama: 'Kelimeyi söylemeye çalıştı ve söyleyemedi — kapı dışarıdan kilitlendi. Hüküm verilmiş; o sadece öğreniyor.', oznelSabit: '"Amin" demeye en çok o gece ihtiyacım vardı — ve kelime bana verilmedi. Kapı dışarıdan kapanmıştı.' },
+            { dal: 'B', baslik: 'Kendini dışarı atan', aciklama: 'Kelime oradaydı; onu hak etmediğine kendisi karar verdi. Kapıyı içeriden kilitledi.', oznelSabit: 'Kelime boğazımdaydı — yutan bendim. O duaya katılmaya yüzüm yoktu; kapıyı ben kapattım.' },
+          ] },
+        { id: 's5-a3', tip: 'yazma', birlesimSahneNo: 5, travmaDuyarli: true,
+          soru: 'Bir ses bağırdı: "Macbeth uykuyu öldürdü — Macbeth artık uyumayacak." O ses kimin sesiyle konuşuyordu — ve Macbeth onu ilk duyduğunda nerede durdu?' },
+      ],
     },
     {
       no: 6, perde: 2, perdeRomen: 'II',
@@ -175,7 +205,23 @@ const macbeth = {
       icsel: 'Kontrol ve performans. İlk kez "kral gibi" davranmak — yas tutuyormuş gibi yapmanın soğuk hesabı.',
       onerilenSicaklik: 6,
       yuk: 'Bir suçun üzerini örtmek için ikinci bir suç işleyen adamın, rol yapmaya başlaması.',
+      sahneTipi: 'kart',
+      replikIzi: 'Macbeth: "Bir saat önce ölseydim, mutlu yaşamış sayılırdım." (yas performansı — yalanın içinden kaçan hakikat)',
       travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 2,
+      anlar: [
+        { id: 's6-a1', tip: 'catal', birlesimSahneNo: 6, travmaDuyarli: true,
+          soru: 'Hizmetkârları öldürmesi planda yoktu — Lady Macbeth bile sarsılıyor. O an neydi: tanık bırakmama paniği mi, yeni rolünün ilk soğuk doğaçlaması mı?',
+          secenekler: [
+            { dal: 'A', baslik: 'Panik', aciklama: 'Düşünmeden, refleksle; eller karar verdi, akıl sonradan geldi. Kontrol kaybının ilk kamusal anı.', oznelSabit: 'Onları öldürdüğümde düşünmüyordum — korkuyordum. İlk cinayet planlıydı; ikincisi benden taştı.' },
+            { dal: 'B', baslik: 'Soğuk doğaçlama', aciklama: '"Öfkeli sadık" rolünün kanlı ispatı; sahneye inanılırlık için eklenen bir hamle. Performans, daha ilk sabahında kurban istiyor.', oznelSabit: 'O sabah anladım: rolüm kan istiyordu. Onları öfkem değil, hikâyemin inandırıcılığı öldürdü.' },
+          ] },
+        { id: 's6-a2', tip: 'catal', birlesimSahneNo: 6, travmaDuyarli: false,
+          soru: 'Herkesin önünde yas tutuyor: "Bir saat önce ölseydim, mutlu yaşamış sayılırdım." Yalan söylüyor — ama cümle doğru. Söylerken bunun farkında mıydı?',
+          secenekler: [
+            { dal: 'A', baslik: 'Sadece rol', aciklama: 'Hesaplı bir cümle; etki için kurulmuş. Doğruluğu tesadüf — o an bunu duymuyor bile.', oznelSabit: 'O cümleyi seyirci için söyledim — içinde ne taşıdığını yıllar sonra anlayacaktım.' },
+            { dal: 'B', baslik: 'Kaçan hakikat', aciklama: 'Cümle ağzından çıkarken ürperiyor — çünkü rol için kurduğu yalan, hayatının en doğru cümlesi.', oznelSabit: 'Yalan söylerken kendi hakikatim ağzımdan kaçtı — ve onu herkesin içinde, kimse anlamadan duydum.' },
+          ] },
+      ],
     },
     {
       no: 7, perde: 3, perdeRomen: 'III',
