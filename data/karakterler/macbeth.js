@@ -438,6 +438,18 @@ const macbeth = {
         sahneRef: 'Savaş alanından zaferle döner; Duncan onu en sadık generali olarak över.',
         yuk: 'Onurun ve sadakatin zirvesi. Macbeth\'in henüz lekelenmemiş kimliği — sonra ihanet edeceği değerler.',
         yansimaSorusu: 'Sadakatin ve onurun bu zirvesi, Macbeth\'in bedeninde nereye yerleşmişti — ve ihanet onu nereden kırdı?',
+        sahneTipi: 'kart',
+        replikIzi: 'Yaralı asker: "Cesur Macbeth — bu ada layık adam..." (I.ii, zafer anlatısı)',
+        anlar: [
+          { id: 'o1-a1', tip: 'catal', travmaDuyarli: false,
+            soru: '"Cesur Macbeth" — bu ad ona nasıl oturuyor: hak edilmiş, rahat taşınan bir giysi gibi mi, yoksa her savaşta yeniden kanıtlanması gereken bir şey gibi mi?',
+            secenekler: [
+              { dal: 'A', baslik: 'Ad benim', aciklama: 'Kimlik sağlam; ad ile adam örtüşüyor. Tam da bu yüzden ihanet onu kökünden kıracak — sağlam olan derin çatlar.', oznelSabit: 'O ada layıktım ve bunu biliyordum — sonradan kaybettiğim şey ün değil, adımla aramdaki o örtüşmeydi.' },
+              { dal: 'B', baslik: 'Ad beslenmeli', aciklama: 'Her zafer bir sonraki kanıtın borcu; ad bir kazanım değil, açlık. Kehanet tam bu açlığın üstüne düşecek.', oznelSabit: '"Cesur Macbeth" dedikçe büyüdü içimdeki soru: yeterli miyim? Kehanet bana cevap gibi geldi — oysa aynı sorunun büyümüş haliydi.' },
+            ] },
+          { id: 'o1-a2', tip: 'yazma', travmaDuyarli: false,
+            soru: 'Zaferden dönerken halk "cesur Macbeth" diye haykırıyor. O sesin içinde Macbeth\'in en çok kimin duymasını istediği bir kulak vardı — kimin?' },
+        ],
       },
       {
         no: 2,
@@ -445,6 +457,18 @@ const macbeth = {
         sahneRef: 'Çift, daha sahne açılmadan, hırsı paylaşan bir ortaklık kurmuştur.',
         yuk: 'İki insanın tek bir arzuda birleşmesi. Sonradan onları birbirinden koparacak olan bağın başlangıcı.',
         yansimaSorusu: 'Macbeth ve Lady Macbeth ilk hangi anda iktidarı birlikte arzulamaya başladı?',
+        sahneTipi: 'kart',
+        replikIzi: 'Mektup: "Büyüklükte ortağım..." (I.v — kehaneti ilk paylaştığı kişi)',
+        anlar: [
+          { id: 'o2-a1', tip: 'catal', travmaDuyarli: false,
+            soru: 'İktidar arzusu bu evliliğe nereden girdi: önce Macbeth\'te mi filizlendi, yoksa Macbeth onu önce karısının gözünde mi gördü?',
+            secenekler: [
+              { dal: 'A', baslik: 'Bende başladı', aciklama: 'Arzu onundu; Lady Macbeth alev değil rüzgârdı. Mektubu yazan el zaten tutuşmuştu.', oznelSabit: 'Arzu bendeydi — o sadece üflemeyi bildi. Suçu onun gözlerine yazmak kolaydı; ama kıvılcım benim ocağımdandı.' },
+              { dal: 'B', baslik: 'Onun gözünde gördüm', aciklama: 'Kendi arzusunu önce onun bakışında okudu, sonra kendine mal etti. Hangisinin önce istediği artık çözülemez bir düğüm.', oznelSabit: 'İstemeyi ondan öğrendim — gözlerinde gördüğüm şeyi kendi arzum sandım; belki de ikimiz birbirimizin aynasıydık.' },
+            ] },
+          { id: 'o2-a2', tip: 'yazma', travmaDuyarli: false,
+            soru: 'Evliliklerinin ilk yıllarında birbirlerine fısıldadıkları bir gelecek vardı. O hayalde taht var mıydı — yoksa taht, sonradan o hayalin yerine mi geçti?' },
+        ],
       },
       {
         no: 3,
@@ -452,6 +476,18 @@ const macbeth = {
         sahneRef: 'Lady Macbeth "emzirdim" der; oyun başladığında çocuk yoktur. Shakespeare bu kaybı hiç anlatmaz; cadılar tahtı Banquo\'nun soyuna verir.',
         yuk: 'Çiftin ortak, hiç konuşulmayan yarası. Geleceğe uzanamamanın boşluğu — taht hırsının altında, devredilecek kimsenin olmayışı.',
         yansimaSorusu: 'Çocuğu kaybettikleri günden beri bu evde neyin yeri boş — ve iktidar arzusu o boşluğun neresinden doğdu?',
+        sahneTipi: 'kart',
+        replikIzi: 'Lady Macbeth: "Emzirdim — bilirim çocuğu emzirmenin ne demek olduğunu..." (I.vii)',
+        anlar: [
+          { id: 'o3-a1', tip: 'catal', travmaDuyarli: true,
+            soru: 'Kayıptan sonra bu evde o çocuğun adı nasıl taşındı: bir kez konuşulup sonsuza dek kapatıldı mı, yoksa hiç kelimeye dökülmedi mi?',
+            secenekler: [
+              { dal: 'A', baslik: 'Bir kez — bir daha asla', aciklama: 'Bir gece konuştular, ağladılar, kapıyı kapattılar. O kapının arkası ikisinin de bildiği ama gitmediği bir oda.', oznelSabit: 'Onu bir kez konuştuk — o gece bitti ve kapıyı birlikte kapattık. O odanın anahtarı ikimizde de durur; ikimiz de kullanmayız.' },
+              { dal: 'B', baslik: 'Hiç kelimeye dökülmedi', aciklama: 'Sessizlik anlaşması; yas dile gelmedi, başka şeylere aktı. Ortak hırs, konuşulamayan yasın diliydi belki.', oznelSabit: 'Adını hiç anmadık — sustuk ve sustukça başka şeyler büyüttük. Belki taht, adını koyamadığımız şeyin adıydı.' },
+            ] },
+          { id: 'o3-a2', tip: 'yazma', travmaDuyarli: true,
+            soru: 'Lady Macbeth o kelimeyi — "emzirdim" — cinayete ikna ederken kullandı. Macbeth duyduğunda içinde hangi oda açıldı, ve o odanın kapısını o gece kim kapattı?' },
+        ],
       },
       {
         no: 4,
@@ -459,6 +495,18 @@ const macbeth = {
         sahneRef: 'Bir asker olarak Macbeth daha önce de öldürmüştür; savaş onun zanaatıdır.',
         yuk: 'Meşru şiddetle gayrimeşru cinayet arasındaki ince çizgi. Savaşta öldürmek onu Duncan\'ı öldürmeye hazırladı mı, yoksa o eşik bambaşka mıydı?',
         yansimaSorusu: 'Savaşta dökülen kan ile Duncan\'ın kanı Macbeth\'in elinde aynı mı hissedildi, yoksa büsbütün başka mı?',
+        sahneTipi: 'kart',
+        replikIzi: 'Yaralı asker: "Kılıcı dumanı tüten kanla..." (I.ii — savaş zanaatının dili)',
+        anlar: [
+          { id: 'o4-a1', tip: 'catal', travmaDuyarli: false,
+            soru: 'Savaşta ilk öldürdüğü adamın yüzünü Macbeth hatırlıyor mu?',
+            secenekler: [
+              { dal: 'A', baslik: 'Hatırlıyor', aciklama: 'Her yüz kayıtlı; savaş zanaat ama bedeli içeride tutuluyor. Öldürmek hiçbir zaman bedava olmadı.', oznelSabit: 'İlk yüzü hâlâ taşırım — savaş bana öldürmeyi öğretti ama unutmayı öğretemedi. Duncan o defterin ilk sayfası değildi; en ağır sayfasıydı.' },
+              { dal: 'B', baslik: 'Hatırlamıyor', aciklama: 'Savaş yüzleri siler; öldürmek meslekti, kayıt tutulmadı. Duncan\'ın yüzü silinemeyen ilk yüz olacak.', oznelSabit: 'Savaşta öldürdüklerimin yüzü yok — Duncan\'a kadar hiçbir yüz bende kalmadı. Onunki kazındı; çünkü onu asker olarak değil, ben olarak öldürdüm.' },
+            ] },
+          { id: 'o4-a2', tip: 'yazma', travmaDuyarli: false,
+            soru: 'Savaşta ilk öldürdüğü gece Macbeth uyuyabildi mi — ve o gecenin uykusu, yıllar sonra Duncan gecesinde "öldürülen" uykuyla aynı uyku muydu?' },
+        ],
       },
       {
         no: 5,
@@ -466,6 +514,18 @@ const macbeth = {
         sahneRef: 'Oyun başlamadan: Duncan onu generalliğe yükseltti, güvenini herkesin önünde gösterdi.',
         yuk: 'Borçluluk ve sadakatin kuruluşu. İhanetin tartısının öbür kefesi — Duncan\'a kalkan el, önce bu eli tutmuştu.',
         yansimaSorusu: 'Duncan elini omzuna ilk koyduğunda Macbeth ne hissetti — ve o anın anısı cinayet gecesi neredeydi?',
+        sahneTipi: 'kart',
+        replikIzi: 'Duncan: "Seni ekmeye başladım — büyümen için elimden geleni yapacağım." (I.iv)',
+        anlar: [
+          { id: 'o5-a1', tip: 'catal', travmaDuyarli: false,
+            soru: 'Duncan\'ın eli omzuna ilk konduğunda — herkesin önünde, seçilmiş olarak — Macbeth\'in içindeki ilk şey neydi: gurur mu, yük mü?',
+            secenekler: [
+              { dal: 'A', baslik: 'Gurur', aciklama: 'Görülmek, seçilmek, yükseltilmek. O el onu herkesin üstüne çıkardı — ve yukarıdan tahtın görünüşü başkadır.', oznelSabit: 'O el omzuma konduğunda büyüdüm — ve yukarıdan ilk kez tahtı gördüm. Beni yükselten el, gözümü yükseğe alıştırdı.' },
+              { dal: 'B', baslik: 'Yük', aciklama: 'Güven bir borçtur; o elin ağırlığı omzundan hiç kalkmadı. Cinayet gecesi kaldırdığı şey belki o ağırlıktı.', oznelSabit: 'O elin ağırlığını yıllarca taşıdım — güveni hak etmek, ihanet etmekten yorucuydu. O gece omzumdan kalkan, onun eliydi.' },
+            ] },
+          { id: 'o5-a2', tip: 'yazma', travmaDuyarli: false,
+            soru: 'Tahta geçtikten sonra — kral olarak otururken — omzunda o elin hayalet ağırlığını hissettiği bir an oldu mu? Ne zamandı?' },
+        ],
       },
       {
         no: 6,
@@ -473,6 +533,18 @@ const macbeth = {
         sahneRef: 'Yıllar önce bir savaşta birbirlerinin hayatını kurtardılar; dostluk sözle değil kanla kuruldu.',
         yuk: 'Öldürteceği adamla bağın kökü. Banquo\'nun hayaleti, bu ödenmemiş borcun geri dönüşüdür.',
         yansimaSorusu: 'Banquo onun hayatını kurtardığı an Macbeth\'in bedeninde nasıl kayıtlı — ve katilleri gönderirken o kayıt neredeydi?',
+        sahneTipi: 'kart',
+        replikIzi: 'Macbeth (içinden): "Korkmam gereken tek varlık o — yanında dehâm azarlanıyor." (III.i — dostluğun gölgeye dönüşü)',
+        anlar: [
+          { id: 'o6-a1', tip: 'catal', travmaDuyarli: false,
+            soru: 'Banquo onun hayatını kurtardığı an — o borç Macbeth\'in içine nasıl kaydedildi: kardeşlik olarak mı, sessiz bir hesap olarak mı?',
+            secenekler: [
+              { dal: 'A', baslik: 'Kardeşlik', aciklama: 'Borç değil bağ; o günden sonra ikisi tek vücut. Hayaletin bu kadar yıkıcı olması bundan — gelen şey bir kurban değil, kardeş.', oznelSabit: 'O beni kurtardığında aramızdaki şey hesap olmaktan çıktı — kardeşimi öldürttüm ben; hayaletin sofraya oturması bundandı.' },
+              { dal: 'B', baslik: 'Sessiz hesap', aciklama: 'İyilik bir alacak gibi yazıldı; minnet zamanla ağırlığa dönüştü. Katilleri göndermek, hesabı kanla kapatmaktı belki.', oznelSabit: 'Bana hayatımı verdi ve ben o günden beri borçlu yaşadım — borçlu olmak küçülmektir; onu öldürtürken belki hesabı değil, küçüklüğümü kapattım.' },
+            ] },
+          { id: 'o6-a2', tip: 'yazma', travmaDuyarli: false,
+            soru: 'O savaştan sonraki gece, ateş başında, ikisi yan yana. Birbirlerine — sözle ya da sessizlikle — ne söz verdiler?' },
+        ],
       },
       {
         no: 7,
@@ -480,6 +552,18 @@ const macbeth = {
         sahneRef: 'Oyunun hemen öncesi: savaşa giderken karısına veda etti; bir sonraki teması kehanet mektubu olacak.',
         yuk: 'Mektubu yazacağı kadına son bakış. Ortaklığın son masum hali — Sahne 5\'teki kavuşmanın altındaki gerilim buradan başlar.',
         yansimaSorusu: 'O vedada birbirlerine ne söylemediler — ve kehanet mektubu bu söylenmemişin neresine düştü?',
+        sahneTipi: 'kart',
+        replikIzi: 'Mektup, kehanetten hemen sonra yazıldı: "Bunları sana iletmeyi borç bildim, büyüklükte ortağım..." (I.v)',
+        anlar: [
+          { id: 'o7-a1', tip: 'catal', travmaDuyarli: false,
+            soru: 'Kehaneti duyar duymaz ilk işi ona yazmak oldu — savaşın ortasında, daha eve varmadan. Bu acele neydi: paylaşmadan gerçek olmazdı, yoksa onun onayı mı gerekiyordu?',
+            secenekler: [
+              { dal: 'A', baslik: 'Paylaşmadan gerçek olmaz', aciklama: 'Hiçbir şey onunla paylaşılana dek tam değil; ortaklığın derinliği bu. Mektup bir haber değil, gerçekleştirme.', oznelSabit: 'Ona yazmadan kehanet bir rüzgârdı — kelimeler onun eline değdiğinde gerçek oldu. Biz böyleydik: bir şey ancak ikimizdeyse vardı.' },
+              { dal: 'B', baslik: 'Onayı gerekiyordu', aciklama: 'Arzunun iznini ondan alacaktı; iradenin adresi o. Mektup bir paylaşım değil, bir soru: "İster miyiz?"', oznelSabit: 'O mektup bir müjde değil, bir soruydu — istemeye iznim var mı? Cevabı biliyordum; belki tam da o cevabı duymak için yazdım.' },
+            ] },
+          { id: 'o7-a2', tip: 'yazma', travmaDuyarli: false,
+            soru: 'O vedada son temas neydi — eller mi, bir bakış mı, hiçbir şey mi? Ortaklığın son masum dokunuşunu kur.' },
+        ],
       },
     ],
     // DOĞRULAMA: macbeth-is2a-oyunoncesi-tamam

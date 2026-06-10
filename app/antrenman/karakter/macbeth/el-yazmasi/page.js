@@ -307,6 +307,10 @@ export default function ElYazmasiSayfasi() {
                     acik={acikOlay === d.veri.no}
                     onAc={() => setAcikOlay(acikOlay === d.veri.no ? null : d.veri.no)}
                     t={t}
+                    anSecimleri={anSecimleri}
+                    anYazmalari={anYazmalari}
+                    onAnSec={anSec}
+                    onAnYaz={anYaz}
                   />
                 </div>
               ) : (
@@ -521,7 +525,7 @@ function AyracFaz({ baslik, altyazi }) {
 
 // ─── OYUN ÖNCESİ OLAY (sade panel) ─────────────────────────────────────────
 
-function OlayDugumu({ olay, acik, onAc, t }) {
+function OlayDugumu({ olay, acik, onAc, t, anSecimleri, anYazmalari, onAnSec, onAnYaz }) {
   const kayitAni = KAYIT_ANI_OYUN_ONCESI.has(olay.no);
   return (
     <li style={{ listStyle: 'none' }}>
@@ -595,6 +599,16 @@ function OlayDugumu({ olay, acik, onAc, t }) {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', borderLeft: `2px solid ${TON}`, paddingLeft: '0.9rem' }}>
                 <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.58rem', letterSpacing: '0.28em', color: TON, textTransform: 'uppercase' }}>{t.panelYazarYansimaSorusu}</span>
                 <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink-soft)', margin: 0, lineHeight: 1.6 }}>{olay.yansimaSorusu}</p>
+              </div>
+            )}
+
+            {/* Olay içi anlar — sahne anlarıyla aynı mühürleme (oznel_sabitler) */}
+            {Array.isArray(olay.anlar) && olay.anlar.length > 0 && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', marginTop: '0.2rem' }}>
+                <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.58rem', letterSpacing: '0.28em', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>{t.panelYazarAnlar}</span>
+                {olay.anlar.map((an) => (
+                  <AnKart key={an.id} an={an} secimler={anSecimleri} muhurler={anYazmalari} onAnSec={onAnSec} onAnYaz={onAnYaz} t={t} />
+                ))}
               </div>
             )}
           </div>
