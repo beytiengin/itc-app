@@ -109,7 +109,7 @@ export default function ElYazmasiSayfasi() {
   const [acikPanel, setAcikPanel] = useState(null); // { tip, no } | null
   const [acikOlay, setAcikOlay] = useState(null);   // olay no | null (oyun öncesi)
   const [dogrularAcik, setDogrularAcik] = useState(false);
-  const [iliskilerAcik, setIliskilerAcik] = useState(false);
+  const [kunyeSekme, setKunyeSekme] = useState('dogrular'); // 'dogrular' | 'iliskiler'
   const [oyunOncesiAcik, setOyunOncesiAcik] = useState(false);
 
   // Mevcut yazımları okumak için yansıma haritaları.
@@ -242,33 +242,36 @@ export default function ElYazmasiSayfasi() {
           <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.75rem', letterSpacing: '0.2em', color: 'var(--ink-soft)', textTransform: 'uppercase' }}>{t.altyazi}</span>
         </header>
 
-        {/* 2. Doğrular künyesi (katlanır) */}
+        {/* 2. Doğrular + İlişkiler — tek katlanır künye, içinde iki sekme (Willy paritesi) */}
         <BolumKatlanir
-          baslik={t.dogrularBaslik}
-          altyazi={`${(data.dogrular || []).length} ${t.dogrularSayim} · ${t.dokunAc}`}
+          baslik={t.kunyeBaslik || 'Künye'}
+          altyazi={`${(data.dogrular || []).length} ${t.dogrularSayim} · ${(data.oyunOncesi?.iliskiler || []).length} ${t.iliskilerSayim} · ${t.dokunAc}`}
           acik={dogrularAcik}
           setAcik={setDogrularAcik}
         >
-          <ul style={{ borderLeft: `2px solid ${TON}`, paddingLeft: '1.3rem', margin: '0.8rem 0 0', listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
-            {(data.dogrular || []).map((d, i) => (
-              <li key={i} style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.02rem', lineHeight: 1.6, color: 'var(--ink)' }}>
-                {typeof d === 'string' ? d : d.madde}
-              </li>
-            ))}
-          </ul>
-        </BolumKatlanir>
-
-        {/* 3. İlişkiler künyesi (katlanır) */}
-        <BolumKatlanir
-          baslik={t.iliskilerBaslik}
-          altyazi={`${(data.oyunOncesi?.iliskiler || []).length} ${t.iliskilerSayim} · ${t.dokunAc}`}
-          acik={iliskilerAcik}
-          setAcik={setIliskilerAcik}
-        >
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.7rem', marginTop: '0.8rem' }}>
-            {(data.oyunOncesi?.iliskiler || []).map((iliski) => (
-              <IliskiKart key={iliski.no} iliski={iliski} />
-            ))}
+          <div style={{ marginTop: '0.8rem' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', borderBottom: '1px solid var(--rule)', marginBottom: '1rem' }}>
+              <KunyeSekmeBtn aktif={kunyeSekme === 'dogrular'} onClick={() => setKunyeSekme('dogrular')}>{t.dogrularBaslik}</KunyeSekmeBtn>
+              <KunyeSekmeBtn aktif={kunyeSekme === 'iliskiler'} onClick={() => setKunyeSekme('iliskiler')}>{t.iliskilerBaslik}</KunyeSekmeBtn>
+            </div>
+            {kunyeSekme === 'dogrular' ? (
+              <ul style={{ borderLeft: `2px solid ${TON}`, paddingLeft: '1.3rem', margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+                {(data.dogrular || []).map((d, i) => (
+                  <li key={i} style={{ display: 'flex', gap: '0.65rem', alignItems: 'flex-start' }}>
+                    {typeof d !== 'string' && d.kaynak && <KaynakRozet kaynak={d.kaynak} t={t} />}
+                    <span style={{ flex: 1, fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.02rem', lineHeight: 1.6, color: 'var(--ink)' }}>
+                      {typeof d === 'string' ? d : d.madde}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.7rem' }}>
+                {(data.oyunOncesi?.iliskiler || []).map((iliski) => (
+                  <IliskiKart key={iliski.no} iliski={iliski} />
+                ))}
+              </div>
+            )}
           </div>
         </BolumKatlanir>
 
@@ -403,6 +406,39 @@ function BolumKatlanir({ baslik, altyazi, acik, setAcik, children }) {
         <div style={{ padding: '0 1.3rem 1.3rem' }}>{children}</div>
       )}
     </div>
+  );
+}
+
+// Doğru maddesinin kaynağı: metinden mi (onay rengi) çıkarım mı (nötr).
+function KaynakRozet({ kaynak, t }) {
+  const isMetin = kaynak === 'metin';
+  const renk = isMetin ? 'var(--onay)' : 'var(--ink-muted)';
+  const etiket = isMetin ? (t?.kaynakMetin || 'metin') : (t?.kaynakCikarim || 'çıkarım');
+  return (
+    <span style={{
+      fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.52rem',
+      letterSpacing: '0.2em', color: renk, textTransform: 'uppercase',
+      padding: '0.18rem 0.5rem', border: `1px solid color-mix(in srgb, ${renk} 33%, transparent)`,
+      whiteSpace: 'nowrap', marginTop: '0.15rem',
+    }}>{etiket}</span>
+  );
+}
+
+// Künye sekme düğmesi (Doğrular | İlişkiler).
+function KunyeSekmeBtn({ aktif, onClick, children }) {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        background: 'none', border: 'none',
+        borderBottom: aktif ? `2px solid ${TON}` : '2px solid transparent',
+        padding: '0.4rem 0.2rem 0.6rem', marginBottom: '-1px', cursor: 'pointer',
+        fontFamily: 'var(--font-body), sans-serif', fontWeight: aktif ? 400 : 300,
+        fontSize: '0.7rem', letterSpacing: '0.12em', textTransform: 'uppercase',
+        color: aktif ? 'var(--ink)' : 'var(--ink-muted)',
+        transition: 'color 0.2s ease, border-color 0.2s ease',
+      }}
+    >{children}</button>
   );
 }
 
