@@ -73,7 +73,25 @@ const macbeth = {
       icsel: 'Şaşkınlık, hırs ve inanmak isteme bir arada. Banquo\'ya dönüp bunun iyi mi kötü mü olduğunu sorar — ama içinde bir şey çoktan kıpırdamıştır.',
       onerilenSicaklik: 3,
       yuk: 'Henüz hiçbir suç işlenmemiş bir adamın, kendi arzusuyla ilk yüzleşmesi.',
+      sahneTipi: 'kart',
+      replikIzi: 'Macbeth: "Cadılar…" / "Durun, sözü yarım bırakmayın, sonunu getirin." (kehanetin ardından, eriyip kaybolurken)',
       travmaKategorileri: ['zihinsel_kirilma'], travmaSeviyesi: 1,
+      anlar: [
+        { id: 's1-a1', tip: 'catal', birlesimSahneNo: 1, travmaDuyarli: false,
+          soru: 'Sesler bir tehditten çok bir çağrı gibi Macbeth\'i ormanın derinliğine çekiyor. Üç silüet belirdiğinde, içinde önce ne uyanıyor — korku mu, tanıma mı?',
+          secenekler: [
+            { dal: 'A', baslik: 'Tanıma uyanıyor', aciklama: 'Bu sesleri sanki çoktan bekliyormuş gibi; içinde bir şey onları çağırmış.', oznelSabit: 'O sesleri korkuyla değil, beklemekle karşıladım — çünkü içimde zaten vardılar.' },
+            { dal: 'B', baslik: 'Korku uyanıyor', aciklama: 'Bilinmeyenin eşiği; ürküyor ama ayağı geri gitmiyor.', oznelSabit: 'Ürktüm ama durmadım — korkumdan daha güçlü bir merak çekiyordu beni.' },
+          ] },
+        { id: 's1-a2', tip: 'catal', birlesimSahneNo: 1, travmaDuyarli: false,
+          soru: '"Cawdor Beyi" denince Macbeth "imkânsız" diyor ama Banquo onun irkildiğini görüyor. Sözü reddederken bedeni neyi ele veriyor?',
+          secenekler: [
+            { dal: 'A', baslik: 'Arzu sızıyor', aciklama: 'Ağzı inkâr ederken gözleri ihtimali tartıyor.', oznelSabit: 'İmkânsız dedim ama bedenim çoktan o tahtın ağırlığını ölçmeye başlamıştı.' },
+            { dal: 'B', baslik: 'Gerçekten reddediyor', aciklama: 'O an için kehanet ona saçma; irkilme sadece şaşkınlık.', oznelSabit: 'O an gerçekten inanmadım — irkilmem arzudan değil, dünyamın sarsılmasındandı.' },
+          ] },
+        { id: 's1-a3', tip: 'yazma', birlesimSahneNo: 1, travmaDuyarli: false,
+          soru: 'Cadılar "Keşke biraz daha kalsalardı" dedirtecek kadar yarım bıraktılar sözü. Macbeth\'in onlara soramadan kalakaldığı o tek soru neydi?' },
+      ],
     },
     {
       no: 2, perde: 1, perdeRomen: 'I',
