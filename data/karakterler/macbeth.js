@@ -570,7 +570,46 @@ const macbeth = {
         { no: 3, baslik: 'Beden', soru: 'O gece uyuyabildi mi; bedeni dinlenmeye izin verdi mi?' },
       ],
     },
+    {
+      no: 9,
+      baslik: 'Lady Macbeth\'i Son Görüş',
+      sinif: 'Kopuş',
+      konum: 'Yeni kehanetler (10) → Lady Macbeth\'in ölümü (12) arası',
+      yasamSirasi: 10,
+      sonraSahneNo: 12,
+      onceBaslik: 'Ayrı dünyalara çekiliş',
+      onceMetin: 'Ziyafet faciasından sonra Lady Macbeth sahneden silinir; Macbeth cadılara ve savaşa gömülür. Çift bir daha sahnede yan yana görülmez.',
+      boslukMetin: 'son kez aynı odada oldukları an · konuşmanın çoktan bittiği bir evlilik · gözlerindeki sönüşü görmek ya da görmemek · "iyi geceler" bile denmeyen bir ayrılış · koridorda son kez duyulan ayak sesi · veda olduğu bilinmeyen veda',
+      sonraBaslik: 'Çığlıklar ve haber',
+      sonraMetin: 'Sahne 12\'de kaleye kadın çığlıkları yayılır; ardından haber gelir: "Kraliçe öldü." Macbeth karısını bir daha sağ görmemiştir.',
+      sentez: 'Shakespeare ziyafetten sonra çifti bir daha yan yana göstermez — Duncan\'ı birlikte taşıyan iki insanın kopuşu sahnesiz gerçekleşir. Oyuncu bu boşlukta son karşılaşmayı kurar: ne söylendi, ne artık söylenemiyordu? "Yarın, yarın, yarın"ın altındaki boşluk, bu veda edilememiş vedadan beslenir.',
+      altSorular: [
+        { no: 1, baslik: 'İlişkisel', soru: 'Son kez aynı odadayken birbirlerine baktılar mı — ve kim önce çevirdi başını?' },
+        { no: 2, baslik: 'İçsel', soru: 'Onun çöküşünü gördü mü, yoksa görmemeyi mi seçti — Duncan gecesindeki o güçlü kadını mı arıyordu hâlâ?' },
+        { no: 3, baslik: 'Beden', soru: 'Ondan son uzaklaşırken adımları nasıldı — bir kaçış mı, bir sürükleniş mi?' },
+      ],
+    },
+    {
+      no: 10,
+      baslik: 'Çığlık ile Haber Arası',
+      sinif: 'İçsel · Mikro Boşluk',
+      konum: 'Lady Macbeth\'in ölümü (12) anının içi',
+      yasamSirasi: 11,
+      sonraSahneNo: 12,
+      onceBaslik: 'Kadın çığlıkları',
+      onceMetin: 'Kale savaş hazırlığındayken içeriden kadın çığlıkları gelir. Macbeth durur: "Korkunun tadını neredeyse unuttum."',
+      boslukMetin: 'çığlık ile haber arasındaki saniyeler · bilinen ama henüz söylenmemiş ölüm · sormak yerine beklemek · "korkuyu unuttum" derken içeride kıpırdayan son korku · haberden önce gelen kesinlik',
+      sonraBaslik: '"Kraliçe öldü"',
+      sonraMetin: 'Seyton haberi verir. Macbeth\'in cevabı bir yas çığlığı değil, zamanın kendisine dair bir çöküştür: "Yarın, yarın, yarın..."',
+      sentez: 'Shakespeare çığlık ile haber arasına yalnızca birkaç replik koyar; Macbeth\'in içinde o saniyelerde olup biteni atlar. Oyuncu bu mikro boşlukta bilmenin anını kurar: haber gelmeden önce biliyor muydu? "Yarın" tiradı yasın yokluğu değil, yası koyacak yerin kalmamış olmasıdır — ve o yer, bu saniyelerde son kez yoklanır.',
+      altSorular: [
+        { no: 1, baslik: 'İçsel', soru: 'Çığlığı duyduğu an aklından geçen ilk şey neydi — onun adı mı, yoksa adını koymaktan kaçındığı bir kesinlik mi?' },
+        { no: 2, baslik: 'Beden', soru: 'Haberi beklerken bedeni ne yaptı — durdu mu, hazırlığa devam mı etti?' },
+        { no: 3, baslik: 'Zamansal', soru: 'O birkaç saniye ona ne kadar uzun geldi — ve "yarın, yarın, yarın" o saniyelerin içinde mi doğdu?' },
+      ],
+    },
   ],
+  // DOĞRULAMA: macbeth-is2b-bosluklar-tamam (boslukSet 6→10)
 };
 
 export default macbeth;
