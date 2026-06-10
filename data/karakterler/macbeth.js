@@ -767,6 +767,69 @@ const macbeth = {
         { no: 2, baslik: 'Beden', soru: 'Tacın ağırlığı bedeninin neresine oturdu — ve o ağırlık beklediği gibi miydi?' },
         { no: 3, baslik: 'İlişkisel', soru: 'Alkışların ortasında gözleri kimi aradı — Lady Macbeth\'i mi, yoksa orada olmayan Banquo\'yu mu?' },
       ],
+      yuruyus: {
+        esik: {
+          komut: 'Bu bir yürüyüş. Shakespeare\'in hiç göstermediği anı adım adım kuracaksın — Scone yolundan tacın başına konduğu saniyeye kadar. Acele yok.',
+          adimlar: [
+            'Önce anı kur: cinayet örtbas edildi, kral seçildin. Her şey bu an içindi.',
+            'Her durakta Macbeth o an bedeninin neresinde duruyor — fark et, sonra ilerle.',
+            'Seçtiğin her şey senin olur; tahta hangi kralın oturduğunu bu tören belirler.',
+          ],
+          hitap: 'Hazır olduğunda yola çık.',
+          buton: 'Başlıyorum',
+        },
+        girisBaslik: 'Taç giyme — boşluğu kur',
+        girisAciklama: 'Shakespeare taç giymeyi sahnede hiç göstermez. Oyunun ele geçirme anı atlanır — o yolu, o töreni, o ilk saniyeyi sen kuracaksın.',
+        girisSentez: 'Bu yürüyüşte seçtiklerin senin olur; Sahne 7\'de yanında kalır.',
+        gecisButonu: 'İlk durağa geç',
+        cikisRitueli: 'Törenden bir adım geri çekil; bir nefes ver. Taht odasına girmeden önce: tacı taşıyan baş, onu isteyen başla aynı mı? Ne taşıyorsun?',
+        istasyonlar: [
+          {
+            no: 0, zamanRozet: 'Scone yolu',
+            acilis: 'Kral olarak ilk yolculuğun. Ardında örtülmüş bir cinayet, önünde bir taç. Yol uzun ve herkes sana yeni adınla sesleniyor.',
+            sorular: ['O yolda Macbeth bir kez olsun arkasına baktı mı — ve baktıysa, ne görmekten korkuyordu?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Yolda…',
+          },
+          {
+            no: 1, zamanRozet: 'Toplanan soylular',
+            acilis: 'Tören alanı dolu. Yüzler, selamlar, eğilen başlar. Ve bir yüz eksik: Macduff Scone\'a gelmedi.',
+            catal: {
+              anahtar: 'b7-yuruyus-macduff', dil: 'birinci_tekil',
+              etiket: 'İki yol var. Hangisi senin?',
+              secenekler: [
+                { deger: 'kaydetti', baslik: 'Fark etti ve kaydetti', aciklama: 'Yokluğu bir iğne gibi battı; o isim o an bir listeye yazıldı.',
+                  muhur: 'Bunu unutma — ilk düşman listem taç başıma konmadan önce, o boş yerin karşısında açıldı.',
+                  ozet: 'İlk düşman listem o boş yerin karşısında açıldı.' },
+                { deger: 'gormedi', baslik: 'Görmek istemedi', aciklama: 'Bugün hiçbir gölgeye izin yok; gözü boşluğun üstünden kaydı.',
+                  muhur: 'Bunu unutma — görmediğim şeyler görmezden geldiklerimdi; o gün başlayan körlük sonradan kader oldu.',
+                  ozet: 'O gün başlayan körlük sonradan kader oldu.' },
+              ],
+            },
+          },
+          {
+            no: 2, zamanRozet: 'Taç iniyor',
+            acilis: 'Diz çöküyorsun. Taç havada — Duncan\'ın başından çıkmış taç — ve yavaşça iniyor. Metal alnına değdiği saniye.',
+            catal: {
+              anahtar: 'b7-yuruyus-tac', dil: 'birinci_tekil',
+              etiket: 'O saniyede içeride ne var?',
+              secenekler: [
+                { deger: 'doluluk', baslik: 'Doluluk — vardım', aciklama: 'Her şey bunun içindi ve işte burada; bir saniyeliğine her bedel doğru.',
+                  muhur: 'Bunu unutma — o bir saniyede her şey yerine oturdu; sonrası, o saniyeyi geri aramakla geçti.',
+                  ozet: 'Sonrası, o bir saniyeyi geri aramakla geçti.' },
+                { deger: 'bosluk', baslik: 'Boşluk — bu muydu?', aciklama: 'Metal soğuk, alkış uzak; istenen şey ele geçti ve içeride bir şey açıldı — dolmadı.',
+                  muhur: 'Bunu unutma — tacı aldığım an kaybettiğim şeyin büyüklüğünü ilk kez gördüm; taht doldurmuyor, gösteriyordu.',
+                  ozet: 'Taht doldurmuyor, gösteriyordu.' },
+              ],
+            },
+          },
+          {
+            no: 3, zamanRozet: 'Alkışlar sürerken',
+            acilis: 'Ayağa kalkıyorsun — Kral Macbeth. Alkış bir duvar gibi; ama sesin içinde, yalnız senin duyduğun başka bir şey var.',
+            sorular: ['Alkışların içinden Macbeth\'e ulaşan o başka ses neydi — cadıların fısıltısı mı, Duncan\'ın sesi mi, yoksa hiçbir şeyin sesi mi?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Alkışların içinde…',
+          },
+        ],
+      },
     },
     {
       no: 8,
@@ -786,6 +849,59 @@ const macbeth = {
         { no: 2, baslik: 'İçsel', soru: 'Duncan\'da titreyen el bu kez titredi mi — ve titremiyorsa, bu onu rahatlattı mı, korkuttu mu?' },
         { no: 3, baslik: 'Beden', soru: 'Emri verdiği an sesi nasıl çıktı — fısıltı mı, kral sesi mi?' },
       ],
+      yuruyus: {
+        esik: {
+          komut: 'Bu bir yürüyüş. Bir gecenin içinden geçeceksin — kararın verildiği saatten katillerin karşısına çıkıldığı ana kadar. Acele yok.',
+          adimlar: [
+            'Önce anı kur: Banquo ölecek. Bunu henüz kimse bilmiyor — yalnız sen.',
+            'Her durakta Macbeth o an bedeninin neresinde duruyor — fark et, sonra ilerle.',
+            'Seçtiğin her şey senin olur; bu gece kimseyle paylaşılmayacak — mühürler hariç.',
+          ],
+          hitap: 'Hazır olduğunda geceye gir.',
+          buton: 'Başlıyorum',
+        },
+        girisBaslik: 'Katillerle gece — boşluğu kur',
+        girisAciklama: 'Shakespeare emri verilmiş halde gösterir; karar anının yalnızlığı atlanır. Duncan\'da yanında Lady Macbeth vardı — bu eşiği tek başına geçecek. O saatleri sen kuracaksın.',
+        girisSentez: 'Bu yürüyüşte seçtiklerin senin olur; Sahne 8\'de yanında kalır.',
+        gecisButonu: 'İlk durağa geç',
+        cikisRitueli: 'Geceden bir adım geri çekil; bir nefes ver. Yarın karısının yüzüne bakacaksın — bu gece verdiğin karar yüzünde okunuyor mu? Ne taşıyorsun?',
+        istasyonlar: [
+          {
+            no: 0, zamanRozet: 'Karar verildi — kelimeler yok',
+            acilis: 'Banquo ölecek. Karar içeride çoktan verildi ama henüz hiçbir kelimeye dökülmedi — söylenmemiş bir karar hâlâ geri alınabilir gibi durur.',
+            sorular: ['Macbeth o kararı içinden ilk kez tam bir cümle olarak kurduğunda — öznesi ve yüklemiyle — cümle nasıl bitiyordu: "ölecek" mi, "öldürteceğim" mi?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Cümle ilk kurulduğunda…',
+          },
+          {
+            no: 1, zamanRozet: 'Hikâyenin kuruluşu',
+            acilis: 'Katillere bir hikâye gerek: Banquo onların düşmanı olmalı — sefaletlerinin sebebi o. Kelimeleri içinden prova ediyorsun.',
+            catal: {
+              anahtar: 'b8-yuruyus-hikaye', dil: 'birinci_tekil',
+              etiket: 'İki yol var. Hangisi senin?',
+              secenekler: [
+                { deger: 'yalan', baslik: 'Yalan — ve bunu biliyor', aciklama: 'Hikâye baştan sona kurgu; Banquo masum. Her cümleyi yalan olduğunu bilerek cilalıyor.',
+                  muhur: 'Bunu unutma — dostumu öldürtmek için onu önce kelimelerle öldürdüm; ve her kelimenin yalan olduğunu biliyordum.',
+                  ozet: 'Onu önce kelimelerle öldürdüm — bile bile.' },
+                { deger: 'inanma', baslik: 'Hikâye ona da işliyor', aciklama: 'Kurdukça inanıyor: Banquo gerçekten tehdit, gerçekten düşman. Yalan, söyleyenin içinde gerçeğe dönüşüyor.',
+                  muhur: 'Bunu unutma — katillere anlattığım hikâyeye ilk inanan bendim; yalanım bana gerçek olarak geri döndü.',
+                  ozet: 'Yalanım bana gerçek olarak geri döndü.' },
+              ],
+            },
+          },
+          {
+            no: 2, zamanRozet: 'Kapının önünden geçerken',
+            acilis: 'Gece koridoru. Lady Macbeth\'in kapısı — aynı çatı, aynı suç ortaklığı, ama bu plan onunla paylaşılmayacak.',
+            sorular: ['O gece karısının kapısının önünden geçti mi — ve geçtiyse adımları yavaşladı mı, hızlandı mı?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Kapının önünde…',
+          },
+          {
+            no: 3, zamanRozet: 'Katiller karşısında',
+            acilis: 'İki adam karşında. Onlar para için öldürecek; sen taht için öldürdün. Aynı gecenin, aynı işin parçalarısınız.',
+            sorular: ['Onların yüzüne bakarken Macbeth kendinden bir şey gördü mü — ve gördüyse, bakışını kaçıran kim oldu?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Yüzlerine baktığımda…',
+          },
+        ],
+      },
     },
     {
       no: 5,
@@ -843,6 +959,22 @@ const macbeth = {
         { no: 2, baslik: 'İçsel', soru: 'Onun çöküşünü gördü mü, yoksa görmemeyi mi seçti — Duncan gecesindeki o güçlü kadını mı arıyordu hâlâ?' },
         { no: 3, baslik: 'Beden', soru: 'Ondan son uzaklaşırken adımları nasıldı — bir kaçış mı, bir sürükleniş mi?' },
       ],
+      kartCatali: {
+        anahtar: 'b9-son-gorus',
+        soru: 'Onu sağ olarak son gördüğün an — hangisiydi?',
+        birlesimSahneNo: 12,
+        secenekler: [
+          { dal: 'A', baslik: 'Gördüm ve kaçtım',
+            aciklama: 'Çöküşüne bakamadı; gözü değdi ve uzaklaştı.',
+            oznelSabit: 'Onu son kez gördüğümde gözümü kaçırdım — vedamız benim sırtım oldu.' },
+          { dal: 'B', baslik: 'Görmeden geçtim',
+            aciklama: 'Yanından geçti, bakmadı bile; son görüş olduğunu sonradan anladı.',
+            oznelSabit: 'Son görüşümüzü yaşarken bilmiyordum — onu en son ne zaman gördüğümü ölümü söyledi bana.' },
+          { dal: 'C', baslik: 'Baktım — o görmedi',
+            aciklama: 'O artık başka bir yerdeydi; bakışı boşluğa düştü.',
+            oznelSabit: 'Ona baktım ve beni görmedi — aramızdaki son şey, karşılıksız kalan o bakıştı.' },
+        ],
+      },
     },
     {
       no: 10,
@@ -862,6 +994,19 @@ const macbeth = {
         { no: 2, baslik: 'Beden', soru: 'Haberi beklerken bedeni ne yaptı — durdu mu, hazırlığa devam mı etti?' },
         { no: 3, baslik: 'Zamansal', soru: 'O birkaç saniye ona ne kadar uzun geldi — ve "yarın, yarın, yarın" o saniyelerin içinde mi doğdu?' },
       ],
+      kartCatali: {
+        anahtar: 'b10-bilme',
+        soru: 'Çığlığı duyduğun an — haber gelmeden önce — biliyor muydun?',
+        birlesimSahneNo: 12,
+        secenekler: [
+          { dal: 'A', baslik: 'Biliyordum',
+            aciklama: 'Kalbi haberden önce söyledi; Seyton sadece onayladı.',
+            oznelSabit: 'Haberi beklemedim — çığlığın içinde adı vardı; Seyton geldiğinde ben çoktan biliyordum.' },
+          { dal: 'B', baslik: 'Bilmeyi reddettim',
+            aciklama: 'Savaş var, kale dolu — herhangi biri olabilirdi. Adını koymadı, koydurtmadı.',
+            oznelSabit: 'O saniyelerde adını koymadım — bilmemek, onu birkaç saniye daha hayatta tutmaktı.' },
+        ],
+      },
     },
   ],
   // DOĞRULAMA: macbeth-is2b-bosluklar-tamam (boslukSet 6→10)
