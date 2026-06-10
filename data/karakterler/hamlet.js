@@ -219,6 +219,7 @@ const hamlet = {
 
   sahnelerWorkbook: [
     {
+      // DOĞRULAMA: hamlet-sprintb-anlar-2026-06-10
       no: 1, perde: 1, perdeRomen: 'I',
       baslik: 'Surlarda Hayalet',
       konum: 'I.i · Gece',
@@ -228,6 +229,19 @@ const hamlet = {
         'Hamlet bu sahnede yok — ama metin onun yokluğunda örülüyor. Hayalet, oğlunu bekliyor.',
       onerilenSicaklik: 3,
       yuk: 'Henüz haberi olmayan bir oğul, bir hakikate doğru çekiliyor.',
+      sahneTipi: 'kart',
+      replikIzi: 'Horatio: "Kendi gözlerimle görmeseydim böylesine açık seçik..." / Şafakla çekilir; karar verilir: bunu genç Hamlet bilmeli.',
+      travmaKategorileri: ['kayip'], travmaSeviyesi: 1,
+      anlar: [
+        { id: 's1-a1', tip: 'yazma', birlesimSahneNo: 1, travmaDuyarli: false,
+          soru: 'Hayalet surlarda oğlunu beklerken, Hamlet sarayın içinde bir yerde — uykuda ya da uykusuz. Shakespeare o geceyi yazmaz. Babası onu surlarda beklerken Hamlet neredeydi, ne yapıyordu?' },
+        { id: 's1-a2', tip: 'catal', birlesimSahneNo: 1, travmaDuyarli: false,
+          soru: 'Haber henüz gelmedi — ama yakında Hamlet "Ah sezgili yüreğim!" diyecek. O günlerde, hayaletten habersizken, içinde bir şey seziyor muydu?',
+          secenekler: [
+            { dal: 'A', baslik: 'Seziyordum', aciklama: 'Babasının ölümünde adlandıramadığı bir yanlışlık duygusu vardı; hayalet bir sürpriz değil, bir cevap olacak.', oznelSabit: 'Adını koyamıyordum ama biliyordum: bu ölümde bir yanlışlık vardı. Hayalet bana yeni bir şey söylemedi — içimdekine ses verdi.' },
+            { dal: 'B', baslik: 'Hiçbir şey sezmiyordum', aciklama: 'Yas her şeyi kaplamıştı; şüpheye yer yoktu. Hayalet gökten düşecek — dünya iki kez yıkılacak.', oznelSabit: 'Hiçbir şey sezmiyordum — yasım o kadar büyüktü ki içinde soruya yer yoktu. Hakikat geldiğinde dünyam ikinci kez yıkıldı.' },
+          ] },
+      ],
     },
     {
       no: 2, perde: 1, perdeRomen: 'I',
@@ -239,6 +253,25 @@ const hamlet = {
         'Yas + tiksinti + ahlaki çöküş. Annenin hızı, sarayın gülümsemesi katlanılmaz.',
       onerilenSicaklik: 7,
       yuk: 'Yalnızlık doruk. Bir şey eksik, ama ne — henüz bilmiyor.',
+      sahneTipi: 'kart',
+      replikIzi: 'Hamlet: "Yeğenden biraz fazla, oğuldan bir hayli az." / Yalnız kalınca ilk monolog — salonun gürültüsü çekilince kalan ses.',
+      travmaKategorileri: ['kayip', 'ihanet', 'varolussal'], travmaSeviyesi: 2,
+      anlar: [
+        { id: 's2-a1', tip: 'catal', birlesimSahneNo: 2, travmaDuyarli: false,
+          soru: '"Yeğenden biraz fazla, oğuldan bir hayli az" — Hamlet\'in oyundaki ilk repliği bir iğne. Salon dolusu insanın ortasında bu kelime oyununu yaparken kime konuşuyordu?',
+          secenekler: [
+            { dal: 'A', baslik: 'Duyulsun diye söyledi', aciklama: 'Açık bir meydan okuma; sarayın ortasında ilk bayrak. B1 eşiğindeki "yası gösteren" adamın devamı.', oznelSabit: 'O iğneyi herkes duysun diye battırdım — bu sarayda en az bir kişinin uyumadığını bilsinler istedim.' },
+            { dal: 'B', baslik: 'Kendine söyledi', aciklama: 'Yarı sesli, neredeyse istemsiz; zekâ, acının tek çıkış yolu. Duyan duydu.', oznelSabit: 'O kelime oyunu bir saldırı değildi — içimdeki basıncın ilk sızıntısıydı. Zekâm, acımın tek nefes deliğiydi.' },
+          ] },
+        { id: 's2-a2', tip: 'catal', birlesimSahneNo: 2, travmaDuyarli: true,
+          soru: 'Monologda intihar bir düşünce olarak beliriyor — "Tanrı yasaklamasaydı..." O düşünce zihninde belirdiğinde Hamlet için yeni miydi?',
+          secenekler: [
+            { dal: 'A', baslik: 'İlk kez beliriyordu', aciklama: 'Kendi zihninden ürktü; düşünce yabancıydı ve bu yabancılık başlı başına korkutucuydu.', oznelSabit: 'O düşünce ilk kez o salonda belirdi — ve beni en çok korkutan, ona ne kadar az şaşırdığımdı.' },
+            { dal: 'B', baslik: 'Tanıdıktı', aciklama: 'Günlerdir sessizce eşlik ediyordu; o monologda ilk kez kelimeye döküldü.', oznelSabit: 'O düşünce o gün doğmadı — günlerdir yanımdaydı. Monolog onu yaratmadı; sadece adını koydu.' },
+          ] },
+        { id: 's2-a3', tip: 'yazma', birlesimSahneNo: 2, travmaDuyarli: false,
+          soru: 'Monolog biterken Horatio görünüyor — Wittenberg\'den bir yüz, eski hayattan bir tanık. Onu gördüğü ilk saniyede Hamlet\'in bedeninde ne çözüldü?' },
+      ],
     },
     {
       no: 3, perde: 1, perdeRomen: 'I',
@@ -250,6 +283,25 @@ const hamlet = {
         'Şok → inanç → intikam yemini. Üç katman birkaç dakikada.',
       onerilenSicaklik: 9,
       yuk: 'Bu sahneden çıkan Hamlet, sahneye giren Hamlet değildir.',
+      sahneTipi: 'kart',
+      replikIzi: 'Hamlet: "Ah sezgili yüreğim! Amcam!" / Hayaletin son sözü: "Beni hatırla." — ve şafakta yemin.',
+      travmaKategorileri: ['zihinsel_kirilma', 'kayip'], travmaSeviyesi: 2,
+      anlar: [
+        { id: 's3-a1', tip: 'catal', birlesimSahneNo: 3, travmaDuyarli: true,
+          soru: 'Hayalet çağırıyor; Horatio ve Marcellus tutuyor — "gitme, ya seni uçuruma çekerse?" Hamlet koparıp gidiyor. O an onu hayalete doğru çeken neydi?',
+          secenekler: [
+            { dal: 'A', baslik: 'Babamı bir kez daha görmek', aciklama: 'Korkudan büyük bir özlem; bu surette babası var — tehlike önemsiz.', oznelSabit: 'Beni çeken hakikat değildi — onun yüzüydü. Uçurum olsa da giderdim; babamı bir kez daha görme ihtimaline karşı korkunun gücü yoktu.' },
+            { dal: 'B', baslik: 'Doğrulanma açlığı', aciklama: '"Demek deli değilim — gerçekten yanlış bir şey var." Hakikatin çağrısı, özlemin önünde.', oznelSabit: 'Koparıp gittim çünkü bilmek zorundaydım — içimdeki o adsız yanlışlık duygusu ya doğrulanacaktı ya beni delirtecekti.' },
+          ] },
+        { id: 's3-a2', tip: 'catal', birlesimSahneNo: 3, travmaDuyarli: true,
+          soru: '"Ah sezgili yüreğim! Amcam!" — Claudius\'un adı hayaletin ağzından çıktığında, sezdiğinin doğrulanması Hamlet\'e ne yaptı?',
+          secenekler: [
+            { dal: 'A', baslik: 'Rahatlamaya benzer bir şey', aciklama: 'Adlandırılamayan şüphe nihayet ad buldu; korkunç ama artık tutulabilir bir şey.', oznelSabit: 'Doğrulandığım an utanç verici bir hafifleme duydum — demek deli değildim. En karanlık haber, bana önce nefes aldırdı.' },
+            { dal: 'B', baslik: 'Çöküş', aciklama: 'Sezmek başkadır, babasının ağzından duymak başka; kesinlik şüpheden ağır.', oznelSabit: 'Sezmek taşınabilirdi — kesinlik değil. O ad söylendiğinde dünyamın son sağlam duvarı da yıkıldı.' },
+          ] },
+        { id: 's3-a3', tip: 'yazma', birlesimSahneNo: 3, travmaDuyarli: false,
+          soru: '"Beni hatırla." Hamlet yemin ederken hafızasının defterinden her şeyi silip yalnız bu emri yazacağını söylüyor. O an gerçekte neyi silmeye söz verdi — ve silinen şeylerin içinde Ophelia var mıydı?' },
+      ],
     },
     {
       no: 4, perde: 2, perdeRomen: 'II',
@@ -261,6 +313,25 @@ const hamlet = {
         'Paranoya + zekâya yöneliş. Beden geride, akıl önde. Delilik maskesi takılıyor.',
       onerilenSicaklik: 5,
       yuk: 'Hayalete inanmıyorum diyor; gerçekten de mi inanmıyor?',
+      sahneTipi: 'kart',
+      replikIzi: 'Hamlet, R&G\'ye: "Çağrıldınız mı, kendiniz mi geldiniz?" / Yalnız kalınca: oyuncu bir hiç için ağlıyor — ben gerçek bir baba için susuyorum.',
+      travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 1,
+      anlar: [
+        { id: 's4-a1', tip: 'catal', birlesimSahneNo: 4, travmaDuyarli: false,
+          soru: 'R&G — çocukluk arkadaşları. Hamlet birkaç soruda anlıyor: gönderilmişler. "Çağrıldınız mı, kendiniz mi geldiniz?" Anladığı saniyede içinde ne oldu?',
+          secenekler: [
+            { dal: 'A', baslik: 'Bir kayıp daha', aciklama: 'Acı; dostluk da güvenilmez çıktı. İhanet listesi anne ve amcadan sonra çocukluğa da uzadı.', oznelSabit: 'Onları kaybettiğim an o sorudaydı — cevabı duymama gerek kalmadı. Çocukluğum da bu sarayın malı olmuştu.' },
+            { dal: 'B', baslik: 'Soğuk kayıt', aciklama: 'Şaşırmadı; listeye iki isim daha eklendi. Oyun büyüdü — artık herkes ya taraf ya araç.', oznelSabit: 'Şaşırmadım bile — bu beni asıl korkutan şeydi. İki eski dostu birkaç saniyede tahtadan iki taşa çevirebiliyordum artık.' },
+          ] },
+        { id: 's4-a2', tip: 'catal', birlesimSahneNo: 4, travmaDuyarli: false,
+          soru: 'Oyuncu, Hecuba için gerçek gözyaşı döküyor — bir kurgu için. Hamlet yalnız kalınca kendine yükleniyor. Bu öfkenin gerçek işlevi neydi?',
+          secenekler: [
+            { dal: 'A', baslik: 'Kendine saldırı', aciklama: 'Gerçek hedef kendi eylemsizliği; oyuncu sadece ayna. Öfke içeri akıyor, dışarı değil.', oznelSabit: 'O gece kendime saldırdım çünkü tek güvenli hedef bendim — amcama uzanamayan el, dönüp beni buldu.' },
+            { dal: 'B', baslik: 'Kamçı', aciklama: 'Kendine saldırı bir araç; öfkesini yakıt yapıyor — monolog kendinden nefretle başlıyor, planla bitiyor.', oznelSabit: 'Kendimi kırbaçladım — ama o kırbaç beni planın kapısına sürdü. Utancımı yakıt yapmayı o gece öğrendim.' },
+          ] },
+        { id: 's4-a3', tip: 'yazma', birlesimSahneNo: 4, travmaDuyarli: false,
+          soru: '"Fare Kapanı" fikrinin doğduğu saniye — plan zihninde şekillenirken beliren ilk duygu neydi? Ve o duygunun içinde küçük bir rahatlama saklı mıydı: "artık hemen öldürmem gerekmiyor — önce kanıt"?' },
+      ],
     },
     {
       no: 5, perde: 3, perdeRomen: 'III',
@@ -272,6 +343,25 @@ const hamlet = {
         'Varoluşsal çöküş → hayata dönme kararı → aşkın reddedilişi. Üç farklı an, tek sahnede.',
       onerilenSicaklik: 8,
       yuk: 'Ophelia da onların safındaydı (sandı). Tek pozitif bağ koparılıyor.',
+      sahneTipi: 'kart',
+      replikIzi: '"Var olmak mı, yok olmak mı, bütün sorun bu." / Ophelia\'ya: "Manastıra git." / Ophelia: "Ah ne yüce bir akıl, yıkılmış böyle!"',
+      travmaKategorileri: ['varolussal', 'kayip'], travmaSeviyesi: 2,
+      anlar: [
+        { id: 's5-a1', tip: 'catal', birlesimSahneNo: 5, travmaDuyarli: true,
+          soru: '"Var olmak mı, yok olmak mı" — bu tartı o koridorda ne kadar gerçekti?',
+          secenekler: [
+            { dal: 'A', baslik: 'Gerçek bir tartıydı', aciklama: 'Ölüm o an gerçek bir seçenek olarak duruyordu; felsefe değil, eşik. Monolog bir düşünce değil, bir pazarlık.', oznelSabit: 'O koridorda ölüm bir fikir değildi — kapıydı ve kapının kolunu tuttum. Beni geri çeviren cesaret değil, bilinmeyenin korkusuydu.' },
+            { dal: 'B', baslik: 'Felsefi bir mesafeydi', aciklama: 'Düşünce ölümü tartarken beden çoktan yaşamayı seçmişti; tartı bir sığınak — düşünmek, yapmamanın en soylu biçimi.', oznelSabit: 'Ölümü düşünerek ölümden uzaklaştım — o monolog bir eşik değil, sığınaktı. Düşünmek benim için hep en güvenli odaydı.' },
+          ] },
+        { id: 's5-a2', tip: 'catal', birlesimSahneNo: 5, travmaDuyarli: true,
+          soru: '"Manastıra git" — sevdiği kadına dönen yıkım. O sertlik kime konuşuyordu?',
+          secenekler: [
+            { dal: 'A', baslik: 'Perdeye konuşuyordu', aciklama: 'Dinlendiklerini sezdi; sertlik gözetleyenlere mesajdı — Ophelia iki ateş arasında kaldı.', oznelSabit: 'O sözler ona değildi — perdenin arkasındakilere bağırıyordum. Ama kelimeler perdeyi değil, onu vurdu; bunu biliyordum ve devam ettim.' },
+            { dal: 'B', baslik: 'Gerçekten ona konuşuyordu', aciklama: 'Sevdiği kadını kendi elleriyle uzaklaştırdı — çünkü yaklaşan karanlıkta ona yer yoktu; sertlik, koruma biçimini almış bir veda.', oznelSabit: 'Onu kendi ellerimle kovdum çünkü gideceğim yere kimse gelmemeliydi. En sert sözlerim, söyleyemediğim tek vedaydı.' },
+          ] },
+        { id: 's5-a3', tip: 'yazma', birlesimSahneNo: 5, travmaDuyarli: false,
+          soru: 'Odadan çıkarken Ophelia\'ya son kez baktı mı — ve bakmadıysa, neye bakmamak için?' },
+      ],
     },
     {
       no: 6, perde: 3, perdeRomen: 'III',
