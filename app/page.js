@@ -280,6 +280,18 @@ export default function AnaSayfa() {
             <span style={{ display: 'block' }}>{s.heroSatir1b}</span>
             <span style={{ display: 'block', color: 'var(--accent)' }}>{s.heroBaslik2}</span>
           </h1>
+          <p style={{
+            fontFamily: 'var(--font-display), serif',
+            fontStyle: 'italic',
+            fontWeight: 300,
+            fontSize: 'clamp(1.05rem, 2vw, 1.35rem)',
+            color: 'var(--ink-soft)',
+            margin: '1.4rem 0 0',
+            lineHeight: 1.5,
+            maxWidth: '32ch',
+          }}>
+            {s.heroVaat}
+          </p>
         </div>
 
         {/* Sağ sütun: metodoloji cümlesi + CTA */}

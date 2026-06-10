@@ -307,6 +307,7 @@ export default function NasilCalisilir() {
           <div style={ustEtiketStili}>{t.ncEtiket}</div>
           <h1 style={k1Stili}>{t.ncBaslik}</h1>
           <p style={girisMetinStili}>{t.ncGiris}</p>
+          <p style={{ ...girisMetinStili, fontFamily: 'var(--font-display), serif', fontStyle: 'italic', color: 'var(--ink)' }}>{t.ncVaatGiris}</p>
         </header>
 
         {/* A · Yöntem — vurus* mevcut stringlerini tez olarak kullanıyoruz */}
@@ -399,6 +400,7 @@ export default function NasilCalisilir() {
           paddingTop: '2rem',
           borderTop: '1px solid var(--rule)',
         }}>
+          <p style={govdeStili}>{t.ncVaatKapanis}</p>
           <p style={{ ...tezStili, fontSize: 'clamp(1.4rem, 3vw, 1.9rem)' }}>{t.ncFCumle}</p>
           <a
             href={ctaHref}
