@@ -246,10 +246,10 @@ const macbeth = {
       },
       {
         no: 3,
-        baslik: 'Çocuk(suz)luk — soyu olmayan bir kral adayı',
-        sahneRef: 'Metin bir çocuğun varlığını ima eder ama Macbeth\'in soyu yoktur; cadılar tahtı Banquo\'nun soyuna verir.',
-        yuk: 'Geleceğe uzanamamanın sessiz yarası. Macbeth taht için her şeyi yapar ama onu devredeceği kimse yoktur.',
-        yansimaSorusu: 'Soyunu sürdürememe gerçeği, Macbeth\'in iktidar hırsını nasıl besliyor ya da kemiriyor?',
+        baslik: 'Çocuğun kaybı — soyu olmayan kral adayı',
+        sahneRef: 'Lady Macbeth "emzirdim" der; oyun başladığında çocuk yoktur. Shakespeare bu kaybı hiç anlatmaz; cadılar tahtı Banquo\'nun soyuna verir.',
+        yuk: 'Çiftin ortak, hiç konuşulmayan yarası. Geleceğe uzanamamanın boşluğu — taht hırsının altında, devredilecek kimsenin olmayışı.',
+        yansimaSorusu: 'Çocuğu kaybettikleri günden beri bu evde neyin yeri boş — ve iktidar arzusu o boşluğun neresinden doğdu?',
       },
       {
         no: 4,
@@ -258,7 +258,29 @@ const macbeth = {
         yuk: 'Meşru şiddetle gayrimeşru cinayet arasındaki ince çizgi. Savaşta öldürmek onu Duncan\'ı öldürmeye hazırladı mı, yoksa o eşik bambaşka mıydı?',
         yansimaSorusu: 'Savaşta dökülen kan ile Duncan\'ın kanı Macbeth\'in elinde aynı mı hissedildi, yoksa büsbütün başka mı?',
       },
+      {
+        no: 5,
+        baslik: 'Duncan\'ın eli omzunda — yükselişin anı',
+        sahneRef: 'Oyun başlamadan: Duncan onu generalliğe yükseltti, güvenini herkesin önünde gösterdi.',
+        yuk: 'Borçluluk ve sadakatin kuruluşu. İhanetin tartısının öbür kefesi — Duncan\'a kalkan el, önce bu eli tutmuştu.',
+        yansimaSorusu: 'Duncan elini omzuna ilk koyduğunda Macbeth ne hissetti — ve o anın anısı cinayet gecesi neredeydi?',
+      },
+      {
+        no: 6,
+        baslik: 'Banquo\'yla sırt sırta — kanla mühürlenen dostluk',
+        sahneRef: 'Yıllar önce bir savaşta birbirlerinin hayatını kurtardılar; dostluk sözle değil kanla kuruldu.',
+        yuk: 'Öldürteceği adamla bağın kökü. Banquo\'nun hayaleti, bu ödenmemiş borcun geri dönüşüdür.',
+        yansimaSorusu: 'Banquo onun hayatını kurtardığı an Macbeth\'in bedeninde nasıl kayıtlı — ve katilleri gönderirken o kayıt neredeydi?',
+      },
+      {
+        no: 7,
+        baslik: 'Son sefere çıkış — Lady Macbeth\'e veda',
+        sahneRef: 'Oyunun hemen öncesi: savaşa giderken karısına veda etti; bir sonraki teması kehanet mektubu olacak.',
+        yuk: 'Mektubu yazacağı kadına son bakış. Ortaklığın son masum hali — Sahne 5\'teki kavuşmanın altındaki gerilim buradan başlar.',
+        yansimaSorusu: 'O vedada birbirlerine ne söylemediler — ve kehanet mektubu bu söylenmemişin neresine düştü?',
+      },
     ],
+    // DOĞRULAMA: macbeth-is2a-oyunoncesi-tamam
     iliskiler: [
       {
         no: 1, ad: 'Lady Macbeth', rol: 'EŞ',
