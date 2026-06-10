@@ -1,4 +1,5 @@
 // data/hamlet-i18n.js
+// imza: hamlet-i18n-v2-2026-06-10
 // ITC Actor's Gym — Hamlet vitrin sözlüğü (TR + EN).
 //
 // EN dalı 31 May 2026'da eklendi (Devir Notu Gün 3): vitrin kapsamı Hamlet+Willy
@@ -104,6 +105,23 @@ const hamletI18n = {
     // adapt edildi. Klinik metinler TASLAK (Beyti/Filiz onaylar).
     elYazmasi: {
       altyazi: 'El yazması',
+      kunyeBaslik: 'Künye',
+      kaynakMetin: 'metin',
+      kaynakCikarim: 'çıkarım',
+      fazOyunOncesi: 'Oyun Öncesi',
+      fazOyunOncesiAlt: 'Metnin yazmadığı, senin kuracağın yaşam',
+      fazOyunBaslangici: 'Oyun Başlangıcı',
+      fazOyunBaslangiciAlt: 'Shakespeare\'in metni buradan başlar',
+      panelYazarAnlar: 'Anlar — senin çerçeven',
+      panelYazarReplik: 'Metindeki iz',
+      seninBosDurum: 'Bu sahnenin anları yakında yedirilecek.',
+      anKararEtiket: 'Karar',
+      anHatiraEtiket: 'Hatıra',
+      anIzUretimEtiket: 'İz',
+      anSessizBilgiEtiket: 'Sessiz Bilgi',
+      anBoslukEtiket: 'Boşluk',
+      muhurleYonerge: 'Yazınca otomatik mühürlenir',
+      muhurlendi: '✓ mühürlendi',
       dogrularBaslik: 'Değiştirilemez Doğrular',
       dogrularSayim: 'madde',
       iliskilerBaslik: "Hamlet'in Dünyası · İlişkiler",
@@ -482,6 +500,23 @@ const hamletI18n = {
 
     elYazmasi: {
       altyazi: 'Manuscript',
+      kunyeBaslik: 'Profile',
+      kaynakMetin: 'text',
+      kaynakCikarim: 'inference',
+      fazOyunOncesi: 'Before the Play',
+      fazOyunOncesiAlt: 'The life the text never wrote — yours to build',
+      fazOyunBaslangici: 'The Play Begins',
+      fazOyunBaslangiciAlt: 'Shakespeare\'s text starts here',
+      panelYazarAnlar: 'Moments — your frame',
+      panelYazarReplik: 'Trace in the text',
+      seninBosDurum: 'The moments of this scene will be folded in soon.',
+      anKararEtiket: 'Decision',
+      anHatiraEtiket: 'Memory',
+      anIzUretimEtiket: 'Trace',
+      anSessizBilgiEtiket: 'Silent Knowledge',
+      anBoslukEtiket: 'Gap',
+      muhurleYonerge: 'Sealed automatically as you write',
+      muhurlendi: '✓ sealed',
       dogrularBaslik: 'Unchangeable Truths',
       dogrularSayim: 'items',
       iliskilerBaslik: "Hamlet's World · Relationships",
@@ -1451,6 +1486,23 @@ const hamletI18n = {
 
     elYazmasi: {
       altyazi: 'Das Manuskript',
+      kunyeBaslik: 'Profil',
+      kaynakMetin: 'Text',
+      kaynakCikarim: 'Schluss',
+      fazOyunOncesi: 'Vor dem Stück',
+      fazOyunOncesiAlt: 'Das Leben, das der Text nie schrieb — deins zu bauen',
+      fazOyunBaslangici: 'Das Stück beginnt',
+      fazOyunBaslangiciAlt: 'Shakespeares Text beginnt hier',
+      panelYazarAnlar: 'Augenblicke — dein Rahmen',
+      panelYazarReplik: 'Spur im Text',
+      seninBosDurum: 'Die Augenblicke dieser Szene werden bald eingefügt.',
+      anKararEtiket: 'Entscheidung',
+      anHatiraEtiket: 'Erinnerung',
+      anIzUretimEtiket: 'Spur',
+      anSessizBilgiEtiket: 'Stilles Wissen',
+      anBoslukEtiket: 'Lücke',
+      muhurleYonerge: 'Wird beim Schreiben automatisch versiegelt',
+      muhurlendi: '✓ versiegelt',
       dogrularBaslik: 'Unveränderliche Tatsachen',
       dogrularSayim: 'Punkte',
       iliskilerBaslik: 'Hamlets Welt · Beziehungen',
@@ -1763,7 +1815,12 @@ export function hamletIcerik(dil, hamletData) {
     perdeTemalari: e.perdeTemalari,
     sahnelerWorkbook: e.sahnelerWorkbook,
     tercihler: e.tercihler,
-    boslukSet: e.boslukSet,
+    // boslukSet EN swap'i KALDIRILDI (hamlet-bosluk-v2-2026-06-10).
+    // Sprint B-D: yeni 10-bosluk v2 yapisi (yuruyus + kartCatali) yalniz TR
+    // base'de yasiyor; EN icerik dalindaki eski boslukSet henuz v2'ye gocmedi.
+    // Swap geri acilirsa EN'de eski 5-bosluk yapisi gorunur ve yuruyus/kartCatali
+    // verisi kaybolur. Tum dillerde TR v2 boslukSet gosterilir (gecici parite).
+    // boslukSet: e.boslukSet,
   };
 }
 

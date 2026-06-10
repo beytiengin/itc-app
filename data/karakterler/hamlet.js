@@ -30,21 +30,21 @@ const hamlet = {
   // ─── DEĞİŞTİRİLEMEZ DOĞRULAR ──────────────────────────────────────────────
 
   dogrular: [
-    { kategori: 'Kimlik', madde: 'Hamlet, Danimarka prensidir.' },
-    { kategori: 'Kimlik', madde: "Wittenberg Üniversitesi'nde öğrencidir, felsefeye yatkındır." },
-    { kategori: 'Bilgi', madde: "Babasının hayaletiyle karşılaştı; onun ağzından Claudius'un katil olduğunu öğrendi." },
-    { kategori: 'Bilgi', madde: 'Annesi Gertrude, babasının ölümünden iki ay sonra Claudius ile evlendi.' },
-    { kategori: 'Bilgi', madde: 'Claudius hem amcası, hem üvey babası, hem de hedefi.' },
-    { kategori: 'İlişki', madde: "Ophelia ile romantik bir bağı vardır." },
-    { kategori: 'İlişki', madde: 'Horatio en yakın dostudur, ona her şeyi açar.' },
-    { kategori: 'İlişki', madde: "Polonius, Ophelia'nın babası — yanlışlıkla öldürür." },
-    { kategori: 'Eylem', madde: "Polonius'u perdenin arkasından öldürür." },
-    { kategori: 'Eylem', madde: "Claudius'u dua ederken öldürmekten vazgeçer." },
-    { kategori: 'Eylem', madde: "Rosencrantz ve Guildenstern'i ölüme yollar." },
-    { kategori: 'Eylem', madde: 'Düelloda Laertes ile dövüşür.' },
-    { kategori: 'Son', madde: 'Zehirli kılıçla yaralanır.' },
-    { kategori: 'Son', madde: 'Son sözleri: "Üst tarafı sessiz bir dünya" (The rest is silence).' },
-    { kategori: 'Son', madde: 'Fortinbras tahtın varisi olur.' },
+    { kategori: 'Kimlik', madde: 'Hamlet, Danimarka prensidir.', kaynak: 'metin' },
+    { kategori: 'Kimlik', madde: "Wittenberg Üniversitesi'nde öğrencidir, felsefeye yatkındır.", kaynak: 'metin' },
+    { kategori: 'Bilgi', madde: "Babasının hayaletiyle karşılaştı; onun ağzından Claudius'un katil olduğunu öğrendi.", kaynak: 'metin' },
+    { kategori: 'Bilgi', madde: 'Annesi Gertrude, babasının ölümünden iki ay sonra Claudius ile evlendi.', kaynak: 'metin' },
+    { kategori: 'Bilgi', madde: 'Claudius hem amcası, hem üvey babası, hem de hedefi.', kaynak: 'metin' },
+    { kategori: 'İlişki', madde: "Ophelia ile romantik bir bağı vardır.", kaynak: 'metin' },
+    { kategori: 'İlişki', madde: 'Horatio en yakın dostudur, ona her şeyi açar.', kaynak: 'metin' },
+    { kategori: 'İlişki', madde: "Polonius, Ophelia'nın babası — yanlışlıkla öldürür.", kaynak: 'metin' },
+    { kategori: 'Eylem', madde: "Polonius'u perdenin arkasından öldürür.", kaynak: 'metin' },
+    { kategori: 'Eylem', madde: "Claudius'u dua ederken öldürmekten vazgeçer.", kaynak: 'metin' },
+    { kategori: 'Eylem', madde: "Rosencrantz ve Guildenstern'i ölüme yollar.", kaynak: 'metin' },
+    { kategori: 'Eylem', madde: 'Düelloda Laertes ile dövüşür.', kaynak: 'metin' },
+    { kategori: 'Son', madde: 'Zehirli kılıçla yaralanır.', kaynak: 'metin' },
+    { kategori: 'Son', madde: 'Son sözleri: "Üst tarafı sessiz bir dünya" (The rest is silence).', kaynak: 'metin' },
+    { kategori: 'Son', madde: 'Fortinbras tahtın varisi olur.', kaynak: 'metin' },
   ],
 
   // ─── OYUN ÖNCESİ YAŞAM (Workbook s.58-65) ─────────────────────────────────
@@ -671,11 +671,13 @@ const hamlet = {
   // Her boşluk: önce → boşluk metni → sonra (sahne) + 3 alt-soru.
 
   boslukSet: [
+    // DOĞRULAMA: hamlet-bosluk-v2-2026-06-10
     {
       no: 1,
       baslik: "Wittenberg'den Elsinore'a",
       sinif: 'Mekân Boşluğu',
       konum: 'Oyun Öncesi → I.ii Saray',
+      yasamSirasi: 1,
       sonraSahneNo: 2,
       onceBaslik: 'Wittenberg',
       onceMetin:
@@ -688,22 +690,75 @@ const hamlet = {
       sentez:
         'Boşlukta ne kadar zaman geçti, bilmiyoruz. Cenazeye mi yetişti, düğüne mi vardı — Shakespeare bunu söylemiyor.',
       altSorular: [
-        {
-          no: 1,
-          baslik: 'Haber Geldiğinde',
-          soru: 'Haberi ona kim, hangi kelimelerle getirdi? Bedeni nasıl tepki verdi?',
-        },
-        {
-          no: 2,
-          baslik: 'Yola Çıkmadan',
-          soru: 'Yola çıkmadan önce odasında ne yaptı, neyi bıraktı, neyi yanına aldı?',
-        },
-        {
-          no: 3,
-          baslik: 'Anneyi Gördüğünde',
-          soru: 'Anneyi ilk gördüğünde hangi sözcük dudaklarına geldi, hangisi gelmedi?',
-        },
+        { no: 1, baslik: 'Haber Geldiğinde', soru: 'Haberi ona kim, hangi kelimelerle getirdi? Bedeni nasıl tepki verdi?' },
+        { no: 2, baslik: 'Yola Çıkmadan', soru: 'Yola çıkmadan önce odasında ne yaptı, neyi bıraktı, neyi yanına aldı?' },
+        { no: 3, baslik: 'Anneyi Gördüğünde', soru: 'Anneyi ilk gördüğünde hangi sözcük dudaklarına geldi, hangisi gelmedi?' },
       ],
+      yuruyus: {
+        esik: {
+          komut: 'Bu bir yürüyüş. Bu boşluğu adım adım kuracaksın — Wittenberg\'de kapının çalındığı andan Elsinore\'un eşiğine kadar süren, Shakespeare\'in yazmadığı yol. Acele yok.',
+          adimlar: [
+            'Önce anı kur: üniversite odası, kitaplar, sıradan bir akşam. Haber henüz gelmedi.',
+            'Her durakta Hamlet o an bedeninin neresinde duruyor — fark et, sonra ilerle.',
+            'Seçtiğin her şey senin olur; Sahne 2\'deki ilk monoloğu hangi adamın söyleyeceğini bu yol belirler.',
+          ],
+          hitap: 'Hazır olduğunda ilk adımı at.',
+          buton: 'Başlıyorum',
+        },
+        girisBaslik: 'Wittenberg\'den Elsinore\'a — boşluğu kur',
+        girisAciklama: 'Haber geldi: babası ölmüş. Wittenberg\'den Danimarka\'ya uzanan yolu Shakespeare atlar. O yolu — kalkışı, günleri, eşikteki son nefesi — sen kuracaksın.',
+        girisSentez: 'Bu yürüyüşte seçtiklerin senin olur; Sahne 2\'de yanında kalır.',
+        gecisButonu: 'İlk durağa geç',
+        cikisRitueli: 'Yoldan bir adım geri çekil; bir nefes ver. Kapıdan girince konuşmayacaksın — siyahlar konuşacak. İlk monolog bu kapıdan giren adamın. Ne taşıyorsun?',
+        istasyonlar: [
+          {
+            no: 0, zamanRozet: 'Kapı çalındı',
+            acilis: 'Wittenberg. Kitapların başında sıradan bir akşam. Kapı çalınıyor — eşikte bir haberci, yüzünde yolun tozu ve söylemekten korktuğu bir cümle.',
+            sorular: ['Haberi getiren cümle hangi kelimeyle başladı — ve Hamlet\'in bedeni hangi kelimede durdu?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Kapı açıldığında…',
+          },
+          {
+            no: 1, zamanRozet: 'Yol — günler süren dönüş',
+            acilis: 'Atlar, hanlar, deniz. Dönüş günler sürüyor; yol uzun, haber kısa. Zihin aynı cümleyi evirip çeviriyor.',
+            sorular: ['Yol boyunca Hamlet\'i taşıyan şey neydi — bir umut mu, bir kesinlik mi?'],
+            catal: {
+              anahtar: 'b1-yuruyus-yol', dil: 'birinci_tekil',
+              etiket: 'İki yol var. Hangisi senin?',
+              secenekler: [
+                { deger: 'yetisme', baslik: 'Yetişme umudu', aciklama: 'Belki tabut hâlâ açıktır; son bir kez yüzünü görürüm. Yol bir yarış.',
+                  muhur: 'Bunu unutma — o yolda hâlâ bir oğuldum; yetişecek bir şeyim vardı.',
+                  ozet: 'O yolda hâlâ yetişecek bir şeyim vardı.' },
+                { deger: 'gec-kalmislik', baslik: 'Geç kalmışlık', aciklama: 'Daha yoldayken biliyor: her şey bitmiş olacak. Yol bir yarış değil, bir erteleme.',
+                  muhur: 'Bunu unutma — ben eve değil, bitmiş bir şeyin ardına yürüyordum; geç kalmayı o yolda öğrendim.',
+                  ozet: 'Geç kalmayı o yolda öğrendim.' },
+              ],
+            },
+          },
+          {
+            no: 2, zamanRozet: 'Elsinore göründü',
+            acilis: 'Surlar ufukta. Çocukluğunun kalesi — ama içinde babası olmayan ilk hâli.',
+            sorular: ['Surları gördüğü an içinde ne kıpırdadı — eve dönüş mü, yabancı bir yere varış mı?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Surları gördüğümde…',
+          },
+          {
+            no: 3, zamanRozet: 'Saray kapısı — siyahlar içinde',
+            acilis: 'Eşikte ya da eşikten az önce öğrendi: annesi evlenmiş. Cenaze sofrasının artığı düğün masasına çıkmış. Kapı açılacak; içeride bir kutlama var.',
+            sorular: ['Kapının eşiğinde bir saniye durdu mu — ve durduysa, o saniyede neye izin vermedi?'],
+            catal: {
+              anahtar: 'b1-yuruyus-esik', dil: 'birinci_tekil',
+              etiket: 'İçeri hangi adam giriyor?',
+              secenekler: [
+                { deger: 'gosteren', baslik: 'Yası gösteren', aciklama: 'Siyahları bilerek taşıyor — görsünler, rahatsız olsunlar; yası onun itirazı.',
+                  muhur: 'Bunu unutma — siyahlarım bir itirazdı; o kapıdan yası bayrak yapan bir adam girdi.',
+                  ozet: 'Siyahlarım itirazımdı.' },
+                { deger: 'saklayan', baslik: 'Yası saklayan', aciklama: 'Siyahlar bir zırh; içerisi kimseye açık değil. Gösterdiği, taşıdığının yanında hiç.',
+                  muhur: 'Bunu unutma — gösterdiğim siyah, içimdekinin gölgesi bile değildi; o kapıdan kapalı bir adam girdi.',
+                  ozet: 'Gösterdiğim, taşıdığımın gölgesi bile değildi.' },
+              ],
+            },
+          },
+        ],
+      },
     },
 
     {
@@ -711,6 +766,7 @@ const hamlet = {
       baslik: 'Hayaletten Sonraki Gece',
       sinif: 'Karar Boşluğu',
       konum: 'I.v Sonu → II.ii',
+      yasamSirasi: 2,
       sonraSahneNo: 4,
       onceBaslik: 'I.v · Sonu',
       onceMetin:
@@ -723,30 +779,21 @@ const hamlet = {
       sentez:
         'Hayaletten ayrıldıktan sonra Hamlet\'in delilik maskesi takmaya, plan kurmaya başlaması arasında bir gece var en az. Belki birkaç.',
       altSorular: [
-        {
-          no: 1,
-          baslik: 'Surlardan İnerken',
-          soru: 'Surlardan inerken Horatio\'ya bakışı nasıldı? Sözcük çıktı mı, sessiz miydi?',
-        },
-        {
-          no: 2,
-          baslik: 'O Gece Uyandığında',
-          soru: 'O gece uyudu mu? Uyumayı denedi mi? Uyandığında bir şey değişmiş miydi?',
-        },
-        {
-          no: 3,
-          baslik: 'Maske Fikrinin Doğuşu',
-          soru: '"Antic disposition" fikri nereden çıktı? Bilinçli bir hesap mı, ani bir karar mı?',
-        },
+        { no: 1, baslik: 'Surlardan İnerken', soru: 'Surlardan inerken Horatio\'ya bakışı nasıldı? Sözcük çıktı mı, sessiz miydi?' },
+        { no: 2, baslik: 'O Gece Uyandığında', soru: 'O gece uyudu mu? Uyumayı denedi mi? Uyandığında bir şey değişmiş miydi?' },
+        { no: 3, baslik: 'Maske Fikrinin Doğuşu', soru: '"Antic disposition" fikri nereden çıktı? Bilinçli bir hesap mı, ani bir karar mı?' },
       ],
     },
 
     {
       no: 3,
       baslik: "Polonius'tan Sonra",
-      sinif: 'Kırılma Boşluğu',
+      sinif: 'Kırılma Boşluğu · En Derin',
       konum: 'III.iv Sonu → IV.iii',
+      yasamSirasi: 6,
       sonraSahneNo: 9,
+      // ★ EN DERİN BOŞLUK — yürüyüşe çevirme adayı (cesetle koridor: icra yoğunluğu).
+      // Macbeth B3/Ö3 emsali: FİLİZ ONAYI OLMADAN yürüyüşe çevrilmez. Klasik kalır.
       onceBaslik: 'III.iv · Anne Odası',
       onceMetin:
         'Hamlet annesiyle yüzleşti. Perdenin arkasındaki Polonius\'u "Ne o? Bir fare mi?" diye öldürdü. Hayalet yine geldi. Annesinin yanından çıktı, ölüyü sürükleyerek.',
@@ -758,29 +805,18 @@ const hamlet = {
       sentez:
         'Hamlet\'in ilk öldürdüğü kişi. İlk kanlı an. Bu boşlukta o ilk katilin oluşumu var.',
       altSorular: [
-        {
-          no: 1,
-          baslik: 'Cesedi Sürüklerken',
-          soru: 'Cesedi sürüklerken eline kan bulaştı mı? Ne hissetti? İlk bakışta ne düşündü?',
-        },
-        {
-          no: 2,
-          baslik: 'Cesedi Saklarken',
-          soru: 'Cesedi nereye, nasıl sakladı? Bilinçli bir yer mi seçti, panik bir köşe mi?',
-        },
-        {
-          no: 3,
-          baslik: 'İlk Katil Olarak',
-          soru: 'İlk öldürmenin ardından bedeninde ne değişti? Ses tonu, bakış, yürüyüş?',
-        },
+        { no: 1, baslik: 'Cesedi Sürüklerken', soru: 'Cesedi sürüklerken eline kan bulaştı mı? Ne hissetti? İlk bakışta ne düşündü?' },
+        { no: 2, baslik: 'Cesedi Saklarken', soru: 'Cesedi nereye, nasıl sakladı? Bilinçli bir yer mi seçti, panik bir köşe mi?' },
+        { no: 3, baslik: 'İlk Katil Olarak', soru: 'İlk öldürmenin ardından bedeninde ne değişti? Ses tonu, bakış, yürüyüş?' },
       ],
     },
 
     {
       no: 4,
-      baslik: 'İngiltere Yolculuğu',
+      baslik: 'İngiltere Yolculuğu — Gemi',
       sinif: 'Dönüşüm Boşluğu',
       konum: 'IV.iii → V.i',
+      yasamSirasi: 7,
       sonraSahneNo: 12,
       onceBaslik: 'IV.iii',
       onceMetin:
@@ -791,24 +827,77 @@ const hamlet = {
       sonraMetin:
         'Hamlet farklıdır. "Bütün mesele hazır olmakta." Yorick\'in kafatasıyla felsefe konuşur. Ophelia\'nın cenazesinde patlama bile başka tonlu — ölümle daha tanıdık.',
       sentez:
-        'Beş boşluğun en büyüğü. Hamlet\'in en büyük dönüşümü burada — sürgüne giden Hamlet ile dönen Hamlet aynı kişi değil.',
+        'Boşlukların en büyüğü. Hamlet\'in en büyük dönüşümü burada — sürgüne giden Hamlet ile dönen Hamlet aynı kişi değil.',
       altSorular: [
-        {
-          no: 1,
-          baslik: 'Mektubu Okuduğunda',
-          soru: 'Mektubu okuduğunda ilk hissi neydi? Şaşırma yok — sezmişti. Ama hangi sözcük durdu damağında?',
-        },
-        {
-          no: 2,
-          baslik: 'R&G Kararı',
-          soru: 'R&G\'nin ölümüne karar verirken neye dayandı? Vicdan? İntikam? Yoksa oyun gereği?',
-        },
-        {
-          no: 3,
-          baslik: 'Geri Dönüş',
-          soru: 'Geri dönüş yolunda kim olarak döndüğünü ne zaman anladı? Bir an, bir kelime, bir tanıklık?',
-        },
+        { no: 1, baslik: 'Mektubu Okuduğunda', soru: 'Mektubu okuduğunda ilk hissi neydi? Şaşırma yok — sezmişti. Ama hangi sözcük durdu damağında?' },
+        { no: 2, baslik: 'R&G Kararı', soru: 'R&G\'nin ölümüne karar verirken neye dayandı? Vicdan? İntikam? Yoksa oyun gereği?' },
+        { no: 3, baslik: 'Geri Dönüş', soru: 'Geri dönüş yolunda kim olarak döndüğünü ne zaman anladı? Bir an, bir kelime, bir tanıklık?' },
       ],
+      yuruyus: {
+        esik: {
+          komut: 'Bu bir yürüyüş. Bu boşluğu adım adım kuracaksın — Danimarka kıyısının silindiği andan, geri dönen adamın kıyıya çıkışına kadar. Acele yok.',
+          adimlar: [
+            'Önce anı kur: güverte, rüzgâr, iki eski dost ve mühürlü bir mektup. Kimse bir şey söylemiyor.',
+            'Her durakta Hamlet o an bedeninin neresinde duruyor — fark et, sonra ilerle.',
+            'Seçtiğin her şey senin olur; mezarlığa hangi adamın gireceğini bu deniz belirler.',
+          ],
+          hitap: 'Hazır olduğunda güverteye çık.',
+          buton: 'Başlıyorum',
+        },
+        girisBaslik: 'Gemi — dönüşümün boşluğu',
+        girisAciklama: 'Sürgün gemisi denize açıldı. Mektubun bulunuşunu, fermanın değişmesini, korsanları Shakespeare sahnede göstermez — sonradan anlattırır. Dönüşümün kendisini sen kuracaksın.',
+        girisSentez: 'Bu yürüyüşte seçtiklerin senin olur; Sahne 12\'de yanında kalır.',
+        gecisButonu: 'İlk durağa geç',
+        cikisRitueli: 'Denizden bir adım geri çekil; bir nefes ver. Mezarlığa giden adam, gemiye binen adam değil. Ne taşıyorsun?',
+        istasyonlar: [
+          {
+            no: 0, zamanRozet: 'Güverte — kıyı siliniyor',
+            acilis: 'Danimarka geride inceliyor. R&G yakında — fazla yakında. Hamlet sürgünde; ama içinde bir şey, bu yolculuğun sürgünden fazlası olduğunu seziyor.',
+            sorular: ['Kıyı tamamen silindiği an Hamlet neye baktı — geride kalana mı, açık denize mi?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Kıyı silinirken…',
+          },
+          {
+            no: 1, zamanRozet: 'Gece — kamarada mektup',
+            acilis: 'Uyku yok. Karanlıkta R&G\'nin çantasına uzanıyor; kraliyet mührü, içinde kendi ölüm fermanı: İngiltere\'ye varır varmaz, infaz.',
+            sorular: ['Fermanı okuduğu an içinde ilk ne oldu?'],
+            catal: {
+              anahtar: 'b4-yuruyus-mektup', dil: 'birinci_tekil',
+              etiket: 'İki yol var. Hangisi senin?',
+              secenekler: [
+                { deger: 'sezgi', baslik: 'Sezmiştim', aciklama: 'Okumak sadece doğruladı; şaşkınlık yok, soğuk bir netlik var.',
+                  muhur: 'Bunu unutma — o mektup bana yeni bir şey söylemedi; okuduğum, bildiğimin mührüydü.',
+                  ozet: 'Okuduğum, bildiğimin mührüydü.' },
+                { deger: 'kesinlik', baslik: 'Mührü görmek başkaydı', aciklama: 'Sezmek başka, kralın mührüyle kendi ölümünü okumak başka — kâğıt elinde ağırlaştı.',
+                  muhur: 'Bunu unutma — şüphe taşımak kolaydı; kesinlik elime değdiğinde dünya bir kez daha öldü.',
+                  ozet: 'Kesinlik elime değdiğinde dünya bir kez daha öldü.' },
+              ],
+            },
+          },
+          {
+            no: 2, zamanRozet: 'Fermanı yeniden yazarken',
+            acilis: 'Babasının yüzüğü yanında — kraliyet mührünün eşi. Yeni bir ferman yazıyor: bu mektubu taşıyanlar öldürülsün. İki eski okul arkadaşı.',
+            sorular: ['Bu, Hamlet\'in ilk tereddütsüz eylemi — el nasıldı?'],
+            catal: {
+              anahtar: 'b4-yuruyus-ferman', dil: 'birinci_tekil',
+              etiket: 'İki yol var. Hangisi senin?',
+              secenekler: [
+                { deger: 'soguk', baslik: 'Soğuk ve kararlı', aciklama: 'İlk kez düşünce ile eylem arasında boşluk yok; el durmadan yazdı.',
+                  muhur: 'Bunu unutma — ilk tereddütsüz eylemim iki eski dostun ölümünü yazmaktı; o gece düşünmekle yapmak arasındaki mesafe kapandı.',
+                  ozet: 'O gece düşünmekle yapmak arasındaki mesafe kapandı.' },
+                { deger: 'titredi', baslik: 'Titredi ama yazdı', aciklama: 'El titredi — ama ilk kez titremek durdurmadı.',
+                  muhur: 'Bunu unutma — elim titredi ve yine de yazdı; değişen şey korkunun gitmesi değil, korkunun artık karar verememesiydi.',
+                  ozet: 'Korku artık karar veremiyordu.' },
+              ],
+            },
+          },
+          {
+            no: 3, zamanRozet: 'Korsanlardan sonra — kıyı',
+            acilis: 'Saldırı, çatışma, tek başına korsan gemisine geçiş — ve pazarlık. Şimdi Danimarka kıyısı yeniden önünde; bu kez sürgün değil, dönüş.',
+            sorular: ['Kıyıya ayak bastığı an — gemiye binen adamdan geriye ne kaldı, yeni olan ne?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Kıyıya çıktığımda…',
+          },
+        ],
+      },
     },
 
     {
@@ -816,6 +905,7 @@ const hamlet = {
       baslik: 'Düello Öncesi',
       sinif: 'Eşik Boşluğu',
       konum: 'V.ii(A) → V.ii(B)',
+      yasamSirasi: 9,
       sonraSahneNo: 14,
       onceBaslik: 'V.ii(A)',
       onceMetin:
@@ -828,22 +918,226 @@ const hamlet = {
       sentez:
         'Hamlet bilmiyor ki ölecek. Ama bedeni biliyor olabilir. Bu son boşluk en kısa boşluk — ama belki en yoğun.',
       altSorular: [
-        {
-          no: 1,
-          baslik: 'Yalnız Bir An',
-          soru: 'Salona girmeden önce yalnız bir an oldu mu? Pencereden mi baktı, aynaya mı?',
-        },
-        {
-          no: 2,
-          baslik: 'Annesini Düşündü mü',
-          soru: 'Annesini düşündü mü? Hangi anısı geldi — çocukluktan, son sahnelerden?',
-        },
-        {
-          no: 3,
-          baslik: 'Son Nefes',
-          soru: 'Salona girdiği son nefes — derin mi, yüzeysel mi? Kılıç ağırlığı mı tanıdık geldi, yoksa bir yabancılık mı?',
-        },
+        { no: 1, baslik: 'Yalnız Bir An', soru: 'Salona girmeden önce yalnız bir an oldu mu? Pencereden mi baktı, aynaya mı?' },
+        { no: 2, baslik: 'Annesini Düşündü mü', soru: 'Annesini düşündü mü? Hangi anısı geldi — çocukluktan, son sahnelerden?' },
+        { no: 3, baslik: 'Son Nefes', soru: 'Salona girdiği son nefes — derin mi, yüzeysel mi? Kılıç ağırlığı mı tanıdık geldi, yoksa bir yabancılık mı?' },
       ],
+    },
+
+    {
+      no: 6,
+      baslik: "Hecuba'dan Sonra",
+      sinif: 'Düşüş Boşluğu',
+      konum: 'II.ii Sonu → III.i',
+      yasamSirasi: 3,
+      sonraSahneNo: 5,
+      onceBaslik: 'II.ii · Sonu',
+      onceMetin:
+        'Oyuncu, Hecuba için gerçek gözyaşı döktü — bir kurgu için. Hamlet yalnız kalınca kendine yüklendi: o bir hiç için ağlıyor, bense gerçek bir baba için susuyorum. Sonra plan doğdu: oyun sahnelenecek, kralın vicdanı avlanacak.',
+      boslukMetin:
+        'planla biten gece · plan kurulmuş bir adamın saatleri · uyku ile uyanıklık arası · planın elden kayışı · sabaha karşı çöken soru · "Fare Kapanı"ndan "var olmak mı"ya inen merdiven.',
+      sonraBaslik: 'III.i · "Var olmak mı, yok olmak mı"',
+      sonraMetin:
+        'Ertesi gün. Plan yürürlükte, oyuncular hazırlanıyor — ama Hamlet koridorda tek başına, varlığın kendisini sorguluyor. Ardından Ophelia gelir; karşılaşma yıkımla biter.',
+      sentez:
+        'Shakespeare planın hemen ardından umutsuzluğun en derin monoloğunu koyar — aradaki düşüşü yazmaz. Plan kurmuş bir adam ertesi sabah neden ölümü tartıyor? Oyuncu bu boşlukta o inişi kurar.',
+      altSorular: [
+        { no: 1, baslik: 'Planın Ömrü', soru: 'Plan onu sabaha kadar taşıdı mı — ne zaman elinden kaymaya başladı?' },
+        { no: 2, baslik: 'O Gece Beden', soru: 'O gece uyku ile uyanıklık arasında beden neredeydi — yatakta mı, pencerede mi, hiç oturmadı mı?' },
+        { no: 3, baslik: 'Ophelia Düşüncesi', soru: 'Ophelia ile karşılaşacağını biliyor muydu? Onu en son ne olarak düşünmüştü — sevdiği kadın mı, kaybedilmiş bir hayat mı?' },
+      ],
+    },
+
+    {
+      no: 7,
+      baslik: 'Oyun Gecesine Hazırlık',
+      sinif: 'Maske Boşluğu',
+      konum: 'III.i → III.ii',
+      yasamSirasi: 4,
+      sonraSahneNo: 6,
+      onceBaslik: 'III.i · Ophelia',
+      onceMetin:
+        'Hamlet Ophelia\'yı paramparça etti: "Manastıra git." Perdenin arkasında Claudius ve Polonius dinliyordu — Hamlet bunu sezdi mi, bilmiyoruz. Ophelia yıkık kaldı: "Ah ne yüce bir akıl, yıkılmış böyle!"',
+      boslukMetin:
+        'yıkımdan neşeye geçiş · oyunculara eklettiği mısraların yazımı · Horatio\'ya verilen görev: kralı izle · salon kurulurken bekleyiş · maskenin yeniden takılışı · aynı günün iki Hamlet\'i.',
+      sonraBaslik: 'III.ii · Oyun Gecesi',
+      sonraMetin:
+        'Hamlet oyunculara ustalıkla talimat veriyor — keskin, esprili, ev sahibi gibi. Az önce bir kadını yıkan adamdan eser yok. "Fare Kapanı" başlamak üzere.',
+      sentez:
+        'Aynı gün içinde iki Hamlet: Ophelia\'yı yıkan adam ile salonda espri yapan adam. Shakespeare geçişi yazmaz. Oyuncu bu boşlukta maskenin nasıl ve hangi bedelle takıldığını kurar.',
+      altSorular: [
+        { no: 1, baslik: 'Ophelia\'nın Yüzü', soru: 'Ophelia\'nın yüzü gözünün önünden ne zaman gitti — gitti mi?' },
+        { no: 2, baslik: 'Mısraları Yazarken', soru: 'Oyuna eklettiği mısraları yazarken eli nasıldı — bir tuzak kuran mühendis mi, bir mektup yazan oğul mu?' },
+        { no: 3, baslik: 'Horatio\'ya Görev', soru: 'Horatio\'ya "kralı izle" derken sesi nasıldı — bir komplo ortağına mı konuşuyordu, tek tanığına mı?' },
+      ],
+    },
+
+    {
+      no: 8,
+      baslik: 'Annenin Odasına Koridor',
+      sinif: 'Koridor Boşluğu',
+      konum: 'III.ii Sonu → III.iv Kapısı',
+      yasamSirasi: 5,
+      sonraSahneNo: 8,
+      onceBaslik: 'III.ii · Oyun dağıldı',
+      onceMetin:
+        'Fare Kapanı işledi: Claudius zehir sahnesinde ayağa fırladı, ışık istedi, salon dağıldı. Kanıt geldi — Horatio da gördü. Ardından haber: annesi onu odasına çağırıyor.',
+      boslukMetin:
+        'boşalan salon · gece koridorları · "şimdi sıcak kan içebilirim" tiradı · dua eden Claudius\'un kapısı · çekilmeyen kılıç · annenin kapısına son adımlar — Shakespeare durakları yazar, koridorun kendisini yazmaz.',
+      sonraBaslik: 'III.iv · Anne Odası',
+      sonraMetin:
+        'Hamlet annesinin karşısında. Kendine verdiği söz yürürlükte: sözler hançer olacak, ama el hançere gitmeyecek. Perdenin arkasında biri var — henüz bilmiyor.',
+      sentez:
+        'Oyunun en yoğun gecesi tek bir koridorda akar: kanıt → öldürme fırsatı → öldürmeme → anne. Oyuncu bu koridorda ertelemenin anatomisini kurar — Sahne 8\'e giren adamı bu adımlar yapar.',
+      altSorular: [
+        { no: 1, baslik: 'Kesinliğin Ağırlığı', soru: 'Kanıt geldi — "hayalet haklıydı" kesinleşti. O kesinlik Hamlet\'i hafifletti mi, ağırlaştırdı mı?' },
+        { no: 2, baslik: 'Koridorda Beden', soru: 'Koridorda yürüyüşü nasıldı — hızlı ve kararlı mı, her kapıda duran mı?' },
+        { no: 3, baslik: 'Kendine Verilen Söz', soru: 'Anneye giderken kendine verdiği söz neydi — ve o sözü neden vermek zorunda hissetti?' },
+      ],
+      yuruyus: {
+        esik: {
+          komut: 'Bu bir yürüyüş. Oyunun en yoğun gecesini adım adım kuracaksın — dağılan salondan annenin kapısına kadar süren koridoru. Acele yok.',
+          adimlar: [
+            'Önce anı kur: salon boşaldı, meşaleler söndürülüyor. Kanıt geldi — artık biliyorsun.',
+            'Her durakta Hamlet o an bedeninin neresinde duruyor — fark et, sonra ilerle.',
+            'Seçtiğin her şey senin olur; annenin odasına hangi adamın gireceğini bu koridor belirler.',
+          ],
+          hitap: 'Hazır olduğunda koridora çık.',
+          buton: 'Başlıyorum',
+        },
+        girisBaslik: 'Koridor — kanıttan annenin kapısına',
+        girisAciklama: 'Fare Kapanı işledi; Claudius kendini ele verdi. O salondan annenin odasına uzanan gece koridorunu Shakespeare iki durakla yazar — tiradı ve dua sahnesini. Aralarındaki adımları sen kuracaksın.',
+        girisSentez: 'Bu yürüyüşte seçtiklerin senin olur; Sahne 8\'de yanında kalır.',
+        gecisButonu: 'İlk durağa geç',
+        cikisRitueli: 'Koridordan bir adım geri çekil; bir nefes ver. Kapının ardında annen — ve perdenin ardında bilmediğin biri. Sahne 8\'e bu koridordan giriyorsun. Ne taşıyorsun?',
+        istasyonlar: [
+          {
+            no: 0, zamanRozet: 'Salon boşalıyor',
+            acilis: 'Claudius\'un yüzünü gördün — ışık isteyen bir adamın paniğini. Horatio da gördü; göz göze geldiniz. Salon dağılıyor, sen kalıyorsun.',
+            sorular: ['Kanıtın geldiği o ilk dakikada Hamlet\'in bedeninde zafer mi vardı — yoksa zaferin, beklediğinden daha ağır bir şey mi?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Salon boşalırken…',
+          },
+          {
+            no: 1, zamanRozet: 'Gece koridoru — tirad',
+            acilis: 'Tek başına, gece. İçinden bir ses yükseliyor: şimdi sıcak kan içebilirim — gündüzün bakmaya titreyeceği işler yapabilirim. Tanımadığı bir ses bu. Ya da fazla tanıdık.',
+            sorular: ['Bu ses kimin?'],
+            catal: {
+              anahtar: 'b8-yuruyus-ses', dil: 'birinci_tekil',
+              etiket: 'İki yol var. Hangisi senin?',
+              secenekler: [
+                { deger: 'icimden', baslik: 'İçimden yükselen gerçek', aciklama: 'Bu ses onun — hep oradaydı, maskenin altında bekliyordu; gece sadece izin verdi.',
+                  muhur: 'Bunu unutma — o gece duyduğum ses misafir değildi; evin sahibiydi ve ben ilk kez kapıyı açtım.',
+                  ozet: 'O ses misafir değildi — ilk kez kapıyı açtım.' },
+                { deger: 'kiskirtma', baslik: 'Kendini kışkırtma', aciklama: 'Bu ses bir prova — eyleme geçemeyen adamın kendine yazdığı cesaret repliği.',
+                  muhur: 'Bunu unutma — kan diye konuşan ben değildim; eyleyemeyen benin yazdığı bir replikti. En vahşi sözlerim, en çaresiz anlarımdan çıktı.',
+                  ozet: 'En vahşi sözlerim en çaresiz anlarımdandı.' },
+              ],
+            },
+          },
+          {
+            no: 2, zamanRozet: 'Dua eden adamın kapısı',
+            acilis: 'Bir kapı aralık; içeride Claudius diz çökmüş, dua ediyor. Sırtı dönük, yalnız, silahsız. Kılıç yanında. Shakespeare bu odayı yazar — yazmadığı şey, kapıdan uzaklaşan adımlar.',
+            sorular: ['"Duada ölürse arınmış gider" — bu gerekçe neydi?'],
+            catal: {
+              anahtar: 'b8-yuruyus-gerekce', dil: 'birinci_tekil',
+              etiket: 'İki yol var. Hangisi senin?',
+              secenekler: [
+                { deger: 'gercek', baslik: 'Gerekçe gerçekti', aciklama: 'İntikam yarım olmaz; babası günahları dökülmeden öldü, katili arınmış ölemez. Bekleyiş merhamet değil — intikamın matematiği.',
+                  muhur: 'Bunu unutma — kılıcı merhametten indirmedim; daha derin bir intikam için indirdim. O kapıda durduran şey vicdanım değil, hesabımdı.',
+                  ozet: 'Durduran vicdan değil, hesaptı.' },
+                { deger: 'bahane', baslik: 'Gerekçe bahaneydi', aciklama: 'Hesap sonradan giydirildi; gerçek şu — el gitmedi. Gerekçe, gidememenin asaletli kılıfı.',
+                  muhur: 'Bunu unutma — o kapıda gerekçeyi ben icat ettim; elim gitmedi ve aklım elime bir gerekçe yetiştirdi. Erteleyişimin en zarif anıydı.',
+                  ozet: 'Aklım, gitmeyen elime gerekçe yetiştirdi.' },
+              ],
+            },
+          },
+          {
+            no: 3, zamanRozet: 'Annenin kapısı',
+            acilis: 'Koridorun sonu. Kapının ardında annesi — öfkeli, korkmuş. İçeri girmeden kendine bir söz veriyor: sözler hançer olacak, el hançere gitmeyecek.',
+            sorular: ['O sözü verirken Hamlet en çok neden korkuyordu — annesine yapabileceklerinden mi, koridorda duyduğu o sesten mi?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Kapının önünde…',
+          },
+        ],
+      },
+    },
+
+    {
+      no: 9,
+      baslik: 'Mezarlıkta Tanıma Anı',
+      sinif: 'Tanıma Boşluğu · Mikro',
+      konum: 'Mezarlık (12) anının içi',
+      yasamSirasi: 8,
+      sonraSahneNo: 12,
+      // ⚠️ FİLİZ: yas yoğunluğu — B9→B10 art arda dizilim, nefes kontrolü.
+      onceBaslik: 'V.i · Yorick',
+      onceMetin:
+        'Mezarcıyla söyleşi; Yorick\'in kafatası elinde — çocukluğunun soytarısı. Ölümle neredeyse şakalaşıyor. Sonra bir alay görünür: tabut, kral, kraliçe, Laertes — ve kısaltılmış bir tören.',
+      boslukMetin:
+        'saklanıp izlerken geçen dakikalar · kısaltılmış törenin okunuşu · tabutun kimliği üzerine dönen zihin · Laertes\'in "kardeşim" deyişi · bilmek ile kabul etmek arasındaki saniyeler.',
+      sonraBaslik: 'V.i · Patlama',
+      sonraMetin:
+        'Hamlet öne fırlar, kim olduğunu haykırır, mezara atlar. Kırk bin kardeşin sevgisi — yas ile öfke aynı bedende.',
+      sentez:
+        'Shakespeare tanımayı tek replikle verir; öncesindeki kavrayış saniyelerini atlar. Oyuncu bu mikro boşlukta bilmenin anını kurar — haber söylenmeden önce içeride neyin çoktan bilindiğini.',
+      altSorular: [
+        { no: 1, baslik: 'Törenin Okunuşu', soru: 'Alayı ilk gördüğünde kısaltılmış töreni okudu mu — kimin gömüldüğünü bilmeden önce, neyin gömüldüğünü anladı mı?' },
+        { no: 2, baslik: 'Gertrude\'un Cümlesi', soru: 'Gertrude çiçek serpip "gelinim olacaktın" dediğinde — o cümle bedeninin neresine düştü?' },
+        { no: 3, baslik: 'Mezara Atlamadan', soru: 'Mezara atlamadan önceki son saniye — bir karar mıydı, bir düşüş mü?' },
+      ],
+      kartCatali: {
+        anahtar: 'b9-tanima',
+        soru: 'Tabutun kime ait olduğunu anladığın an — Laertes "kardeşim" dediğinde — içinde ilk ne oldu?',
+        birlesimSahneNo: 12,
+        secenekler: [
+          { dal: 'A', baslik: 'Zaman durdu',
+            aciklama: 'İnanamadı; dünya bir saniye askıda kaldı, sonra üstüne düştü.',
+            oznelSabit: 'Adını duyduğum an dünya bir saniye durdu — o saniyenin içinde hâlâ duruyorum bazen.' },
+          { dal: 'B', baslik: 'Çoktan biliyordum gibi',
+            aciklama: 'Şaşırmadı; içinde bir yer onu kaybetmeyi çoktan kabul etmişti.',
+            oznelSabit: 'Adı söylendiğinde şaşırmadım — içimde bir yer onu çoktan gömmüştü; en korkuncu da buydu.' },
+          { dal: 'C', baslik: 'Önce Laertes\'i gördüm',
+            aciklama: 'Yasın yanına anında bir rakip düştü; mezara kimin için atladığı karışık.',
+            oznelSabit: 'Yası bile saf bırakmadılar bana — kaybettiğimi anladığım anda karşımda bir rakip gördüm; mezara onun için mi, Ophelia için mi atladım, hâlâ bilmiyorum.' },
+        ],
+      },
+    },
+
+    {
+      no: 10,
+      baslik: 'Kadeh Anı',
+      sinif: 'Tanıklık Boşluğu · Mikro',
+      konum: 'Düello (14) anının içi',
+      yasamSirasi: 10,
+      sonraSahneNo: 14,
+      // ⚠️ FİLİZ: anne ölümüne tanıklık — klinik bakış zorunlu (travma adayı).
+      onceBaslik: 'V.ii · Kadeh kalkıyor',
+      onceMetin:
+        'Düello sürüyor; Hamlet öndedir. Gertrude kadehi oğlunun talihine kaldırır. Claudius: "Gertrude, içme." — "İçeceğim, efendim; bağışlayın."',
+      boslukMetin:
+        'iki replik arasındaki saniye · Hamlet\'in gözünün o an nerede olduğu · kadehin etrafındaki tuhaflık · amcanın yüzünden geçen şey · görülebilir olan ile görülen arasındaki fark.',
+      sonraBaslik: 'V.ii · Devam',
+      sonraMetin:
+        'Hamlet: "Şimdi içemem anne — birazdan." Düello sürer. Dakikalar sonra kraliçe sendeler: zehir.',
+      sentez:
+        'Shakespeare bu saniyeyi yazmaz — Hamlet\'in o an neyi görüp neyi görmediğini açık bırakır. Oyuncu bu mikro boşlukta tanıklığın sınırını kurar; cevap, finaldeki vedanın ağırlığını belirler.',
+      altSorular: [
+        { no: 1, baslik: 'Gözün Yeri', soru: 'Claudius "içme" dediğinde Hamlet\'in gözü neredeydi — annesinde mi, rakibinde mi, kendi nefesinde mi?' },
+        { no: 2, baslik: '"Şimdi içemem"', soru: '"Şimdi içemem anne" — bu cümle bir nezaket miydi, bir erteleme mi, yoksa adını koyamadığı bir tedirginlik mi?' },
+        { no: 3, baslik: 'Sendelediğinde', soru: 'Annesi sendelediğinde ilk düşüncesi zehir miydi — ve içinde "biliyordum" diyen bir ses duydu mu?' },
+      ],
+      kartCatali: {
+        anahtar: 'b10-kadeh',
+        soru: 'Annen kadehi kaldırdığında — Claudius "içme" dediğinde — bir saniyelik bir şey gördün mü?',
+        birlesimSahneNo: 14,
+        secenekler: [
+          { dal: 'A', baslik: 'Gördüm ve sustum',
+            aciklama: 'Bir saniyelik bir gölge — kadehte, amcanın yüzünde — ve düello geri çekti onu.',
+            oznelSabit: 'Bir saniye gördüm — kadehte bir gölge, amcamın yüzünde bir şey — ve düelloya döndüm. O saniyeyi geri istemeye yetecek kadar bile ömrüm kalmadı.' },
+          { dal: 'B', baslik: 'Hiçbir şey görmedim',
+            aciklama: 'O an düellonun içindeydi; saniyeyi sonradan, tekrar tekrar kurdu.',
+            oznelSabit: 'Hiçbir şey görmedim — o saniyeyi sonradan kurdum, tekrar tekrar. Suçluluk, hafızama görmüş gibi yerleşti.' },
+        ],
+      },
     },
   ],
 
