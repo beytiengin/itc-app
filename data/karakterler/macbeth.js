@@ -383,7 +383,19 @@ const macbeth = {
       icsel: 'Kısa bir zafer, doğrulanmış olmanın geçici hazzı. Ama Macduff yaklaşmaktadır.',
       onerilenSicaklik: 6,
       yuk: 'Sonunu sezen adamın, son bir kez kehanetin kalkanına sığınması.',
+      sahneTipi: 'kart',
+      replikIzi: 'Genç Seyward düşer. Macbeth: "Sen kadından doğmuştun — kadından doğmuş kimsenin kılıcı işlemez bana." (V.vii)',
       travmaKategorileri: ['siddet'], travmaSeviyesi: 2,
+      anlar: [
+        { id: 's13-a1', tip: 'catal', birlesimSahneNo: 13, travmaDuyarli: false,
+          soru: 'Genç Seyward\'ı savaş alanında, yüz yüze, kılıçla öldürüyor — Duncan\'dan beri ilk kez "kurallı" bir öldürme. Seyward düştüğünde içinde ne var: savaşçı kimliğine dönüşün garip ferahlığı mı, hiçbir şey mi?',
+          secenekler: [
+            { dal: 'A', baslik: 'Savaşçıya dönüş', aciklama: 'Yıllar sonra ilk kez kan "meşru" — pusu yok, uyuyan adam yok, katil yok. Bir anlığına eski Macbeth: zanaatının içinde. İronik bir rahatlama.', oznelSabit: 'O genci öldürdüğümde yıllardır ilk kez kendimi tanıdım — savaş benim dilimdi ve bir anlığına anadilime dönmüştüm.' },
+            { dal: 'B', baslik: 'Hiçbir şey', aciklama: 'Gence bakıyor — ne zafer ne pişmanlık ne ferahlık. Öldürmek nefes almak kadar mekanikleşmiş. Asıl dehşet bu boşluğun kendisi.', oznelSabit: 'Düşerken yüzüne baktım ve hiçbir şey hissetmedim — o an anladım: içimde öldürmenin dokunabileceği bir yer kalmamış.' },
+          ] },
+        { id: 's13-a2', tip: 'yazma', birlesimSahneNo: 13, travmaDuyarli: true,
+          soru: 'Karşısındaki neredeyse bir çocuk — yaşasaydı, kendi oğlu bu yaşlarda olabilirdi. Kılıç inerken bu düşünce ona uğradı mı — yoksa o kapı çoktan örülmüş müydü?' },
+      ],
     },
     {
       no: 14, perde: 5, perdeRomen: 'V',
@@ -393,7 +405,25 @@ const macbeth = {
       icsel: 'Her şey çökmüştür. Zırh dağılmıştır. Ama teslim olmak yerine, kaybedeceğini bile bile dövüşmeyi seçer.',
       onerilenSicaklik: 9,
       yuk: 'Tüm güvencelerini yitiren adamın, son anda hiçliğin karşısında yine de eylemeyi seçmesi.',
+      sahneTipi: 'kart',
+      replikIzi: 'Macduff: "Ben anamın karnından vaktinden önce koparıldım." / Macbeth: "Teslim olmayacağım... Vur bakalım, Macduff!" (V.viii)',
       travmaKategorileri: ['varolussal'], travmaSeviyesi: 3,
+      anlar: [
+        { id: 's14-a1', tip: 'catal', birlesimSahneNo: 14, travmaDuyarli: true,
+          soru: '"Anamın karnından vaktinden önce koparıldım" — son kehanet de çöktü. O cümleyi duyduğu saniyede içinde olan ne: son zırhın paramparça oluşu mu, yoksa tuhaf bir özgürleşme mi?',
+          secenekler: [
+            { dal: 'A', baslik: 'Çöküş', aciklama: 'Son dayanak gitti; ilk kez gerçekten çıplak ve ölümlü. "Dilini lanetlerim bunu söyleyenin" — bastırılmış korku bir anda geri dönüyor.', oznelSabit: 'O cümleyle birlikte üzerimdeki son zırh düştü — ve altından, en başından beri orada bekleyen korku çıktı.' },
+            { dal: 'B', baslik: 'Özgürleşme', aciklama: 'Kehanetler bitti — ilk kez hiçbir senaryonun içinde değil. Ölüm kesinleşti ve tuhaf biçimde hafifledi: bundan sonrası, başından beri ilk kez, tamamen kendi seçimi.', oznelSabit: 'Kehanet çöktüğünde korkmadım — hafifledim. Hayatımda ilk kez kimsenin yazmadığı bir anın içindeydim; sonum benimdi.' },
+          ] },
+        { id: 's14-a2', tip: 'catal', birlesimSahneNo: 14, travmaDuyarli: true,
+          soru: 'Teslim olsa yaşayabilir — Malcolm\'un önünde diz çöküp halkın seyirlik maskarası olarak. Dövüşerek ölmeyi seçiyor. Bu seçimin adresi ne: hâlâ başkalarının gözü mü, yoksa artık yalnızca kendine vereceği son söz mü?',
+          secenekler: [
+            { dal: 'A', baslik: 'Başkalarının gözü', aciklama: 'Maskara olmamak, sürüklenmemek, Malcolm\'a boyun eğmemek — onur dışa dönük; nasıl görüneceği son ana kadar önemli. Kral maskesi mezara kadar.', oznelSabit: 'Diz çökmüş bir Macbeth\'i kimse görmeyecekti — bedenim düşebilirdi ama görüntüm asla. Son nefesimde bile seyircim vardı.' },
+            { dal: 'B', baslik: 'Kendine imza', aciklama: 'Kimsenin görmesi gerekmiyor. Hayat anlamsızsa tek anlam son seçimde: dövüşmek bir umut değil, bir imza. Hiçliğe verilen son cevap.', oznelSabit: 'Son kılıcı kimse için kaldırmadım — hayat bana anlam vermedi, ben son anıyla ona bir imza bıraktım: dövüşerek bitti, diz çökerek değil.' },
+          ] },
+        { id: 's14-a3', tip: 'yazma', birlesimSahneNo: 14, travmaDuyarli: true,
+          soru: 'Son kılıç kalktığında Macbeth\'in gözünün önünden geçen son görüntü neydi — cadılar mı, Duncan mı, taç mı... yoksa sahneye hiç gelmemiş bir yüz mü?' },
+      ],
     },
   ],
 
