@@ -231,7 +231,23 @@ const macbeth = {
       icsel: 'Paranoya başlar. En yakın dost artık en büyük tehdit. Güç, güveni yok eder.',
       onerilenSicaklik: 5,
       yuk: 'Tahtı koruma kaygısının, dostluğu bir hesap kalemine indirgediği an.',
+      sahneTipi: 'kart',
+      replikIzi: 'Macbeth (içinden): "Meyvesiz bir taç koydular başıma — elime kısır bir asa. Banquo\'nun soyu için mi kirlettim ruhumu?" (III.i)',
       travmaKategorileri: ['ihanet'], travmaSeviyesi: 1,
+      anlar: [
+        { id: 's7-a1', tip: 'catal', birlesimSahneNo: 7, travmaDuyarli: false,
+          soru: '"Meyvesiz taç, kısır asa" — taht onun ama gelecek Banquo\'nun soyunun. Asıl yarayı açan hangisi: tahtı kaybetme korkusu mu, "kimin için yaptım" boşluğu mu?',
+          secenekler: [
+            { dal: 'A', baslik: 'Tahtı kaybetme korkusu', aciklama: 'İktidar mantığı: ele geçirilen şey korunmalı. Banquo bir dost değil artık — tahta uzanan bir soy ağacı.', oznelSabit: 'Bedelini ödediğim şeyi kimseye bırakmam — taht artık benim etimden bir parça; ona uzanan eli keserim.' },
+            { dal: 'B', baslik: '"Kimin için" boşluğu', aciklama: 'Devredecek kimsesi yok — ruhunu kirletti ve mirasçısı Banquo\'nun çocukları olacak. Çocuksuzluğun eski yarası tahtın ortasında yeniden açılıyor.', oznelSabit: 'Ruhumu sattım ve aldığım şeyi verecek kimsem yok — bu tahtta oturan ben değilim, boşluğun kendisi.' },
+          ] },
+        { id: 's7-a2', tip: 'catal', birlesimSahneNo: 7, travmaDuyarli: false,
+          soru: 'Banquo\'yla son konuşması bir dost sohbeti gibi görünüyor — "ziyafete gel, atını sür" — ama her soru bir sorgu: nereye, ne kadar süre, oğlun da mı? Macbeth o konuşmada dostunun gözüne bakabildi mi?',
+          secenekler: [
+            { dal: 'A', baslik: 'Baktı — hiçbir şey sızdırmadan', aciklama: 'Gözünün içine baka baka ölüm planını gizledi. Performans artık kusursuz — ve bu kusursuzluk, içinde bir şeyin tamamen öldüğünün kanıtı.', oznelSabit: 'Gözlerinin içine baktım ve elim titremedi — o an anladım: artık her şeyi yapabilirim. Bu beni güçlü değil, korkunç yaptı.' },
+            { dal: 'B', baslik: 'Bakamadı — son insan kırıntısı', aciklama: 'Sorularını sorarken gözünü kaçırdı; atına, eyere, kapıya baktı. O kaçırma, içinde Banquo\'ya ait kalan son dost izi.', oznelSabit: 'Her şeyi planladım ama gözüne bakamadım — içimde ona ait son bir yer hâlâ duruyordu ve oraya basarak geçtim.' },
+          ] },
+      ],
     },
     {
       no: 8, perde: 3, perdeRomen: 'III',
@@ -241,7 +257,19 @@ const macbeth = {
       icsel: 'Yalnızlaşma. Güce sahip ama yanında kimse kalmamış bir adam. Ortaklık yerini sessizliğe bırakır.',
       onerilenSicaklik: 5,
       yuk: 'Birlikte suça giren iki insanın, suçun ağırlığı altında birbirini kaybetmesi.',
+      sahneTipi: 'kart',
+      replikIzi: 'Macbeth: "Zihnim akreplerle dolu, sevgili karım." / "Masum kal bilgiden — ta ki yapılanı alkışlayana dek." (III.ii)',
       travmaKategorileri: ['kayip'], travmaSeviyesi: 1,
+      anlar: [
+        { id: 's8-a1', tip: 'catal', birlesimSahneNo: 8, travmaDuyarli: false,
+          soru: '"Masum kal bilgiden, sevgilim" — Banquo planını ondan saklıyor. Bu saklamanın içindeki niyet ne: onu korumak mı, onu dışarıda bırakmak mı?',
+          secenekler: [
+            { dal: 'A', baslik: 'Koruma', aciklama: 'Onun çöküşünü görüyor; bir cinayetin yükü onu bitirdi, ikincisini taşıyamaz. Saklamak, bu evlilikte sevginin alabildiği son biçim.', oznelSabit: 'Ondan sakladım çünkü onu seviyordum — elimde kalan tek sevgi biçimi, onu kendi yaptıklarımdan korumaktı.' },
+            { dal: 'B', baslik: 'Dışlama', aciklama: 'Duncan\'da irade onundu; şimdi kendi başına karar veriyor ve bunu ona göstermek istiyor. Saklamak bir bağımsızlık ilanı.', oznelSabit: 'İlkinde beni o eşikten geçirmişti — ikincisini ondan sakladım ki kararın yalnız bana ait olabildiğini bileyim.' },
+          ] },
+        { id: 's8-a2', tip: 'yazma', birlesimSahneNo: 8, travmaDuyarli: false,
+          soru: 'Aynı suçu paylaştığı kadına "zihnim akreplerle dolu" diyor — ama akreplerin adını vermiyor. Aynı odada iki ayrı yalnızlık. O cümlede vermediği ad neydi — ve onu söyleseydi aralarında ne değişirdi?' },
+      ],
     },
     {
       no: 9, perde: 3, perdeRomen: 'III',
@@ -251,7 +279,25 @@ const macbeth = {
       icsel: 'Panik ve kontrol kaybı. Herkesin önünde delilik. Suç, görünür bir hayalete dönüşmüştür.',
       onerilenSicaklik: 8,
       yuk: 'Bastırılan vicdanın, bir kralın halka açık sofrasında bedene bürünüp geri dönmesi.',
+      sahneTipi: 'kart',
+      replikIzi: 'Macbeth (hayalete): "Kanlı saçlarını sallama bana!" / "Hangi biçimde gelirsen gel, dayanırım — yeter ki böyle gelme!" (ziyafet sofrası, III.iv)',
       travmaKategorileri: ['zihinsel_kirilma', 'ahlaki_yara'], travmaSeviyesi: 3,
+      anlar: [
+        { id: 's9-a1', tip: 'catal', birlesimSahneNo: 9, travmaDuyarli: true,
+          soru: 'Boş iskemlede Banquo oturuyor — yalnız Macbeth görüyor. Macbeth\'in gördüğü ne: dışarıdan gelen gerçek bir hayalet mi, kendi suçunun bedene bürünmüş hali mi? (Cadılar sorusunun devamı: o sesler de içeriden miydi?)',
+          secenekler: [
+            { dal: 'A', baslik: 'Hayalet dışarıdan', aciklama: 'Dünya ona musallat; öldürdükleri geri geliyor. Doğaüstü gerçek — ve Macbeth bir kurban gibi savunmada.', oznelSabit: 'O sofrada gördüğüm şey zihnimden değildi — öldürdüklerim geri geliyor ve ben artık iki dünyanın arasında yaşıyorum.' },
+            { dal: 'B', baslik: 'Hayalet içeriden', aciklama: 'Zihni suçu ete kemiğe büründürüyor. Kaçış yok — çünkü kaynak kendisi; hayalet nereye gitse onunla gelir.', oznelSabit: 'Banquo orada değildi — ben oradaydım. Kendi zihnimden kaçamayacağımı o sofrada öğrendim.' },
+          ] },
+        { id: 's9-a2', tip: 'catal', birlesimSahneNo: 9, travmaDuyarli: true,
+          soru: 'Konuklar bakıyor, Lady Macbeth durumu kurtarmaya çalışıyor. Macbeth\'in paniği asıl neye: hayaletin kendisine mi, herkesin önünde görülüyor olmaya mı?',
+          secenekler: [
+            { dal: 'A', baslik: 'Hayalete', aciklama: 'Korku saf ve total; sofra, konuklar, krallık siliniyor. O an dünyada yalnız o ve Banquo var.', oznelSabit: 'O an kral değildim, sofrada değildim — dünyada yalnız ikimiz vardık: ben ve geri gelen.' },
+            { dal: 'B', baslik: 'Görülmeye', aciklama: 'Asıl dehşet maskenin düşmesi: içi, herkesin gözü önünde seyirlik oluyor. Hayaletten çok tanıklardan korkuyor.', oznelSabit: 'Hayaletten çok, onu gören yüzümü görenlerden korktum — o sofrada suçum değil, içim ifşa oldu.' },
+          ] },
+        { id: 's9-a3', tip: 'yazma', birlesimSahneNo: 9, travmaDuyarli: true,
+          soru: 'Konuklar dağıldı, sofra boşaldı. Macbeth o iskemleye bir kez daha baktı. Artık orada ne görüyordu — ve o iskemleye bir daha kim oturabilirdi?' },
+      ],
     },
     {
       no: 10, perde: 4, perdeRomen: 'IV',
