@@ -42,6 +42,8 @@ import {
   anSabitleriniGetir,
 } from '../../../../lib/kulis';
 import TopraklanmaModu from '../../../../../components/TopraklanmaModu';
+import BoslukYuruyusu from '../../../../../components/BoslukYuruyusu';
+import KartCatali from '../../../../../components/KartCatali';
 
 const TON = 'var(--accent)';
 const KARAKTER = 'macbeth';
@@ -149,6 +151,8 @@ export default function ElYazmasiSayfasi() {
   const [acikKapiKey, setAcikKapiKey] = useState(null);
   // Topraklanma overlay'i için: hangi sahne başlığıyla çağrıldı.
   const [topraklanma, setTopraklanma] = useState(null);
+  // Yürüyüş tam-ekran overlay'i (Willy paritesi) — { tip:'bosluk'|'sahne', no } | null
+  const [yuruyusHedef, setYuruyusHedef] = useState(null);
 
   useEffect(() => {
     let iptal = false;
@@ -319,6 +323,7 @@ export default function ElYazmasiSayfasi() {
                 anYazmalari={anYazmalari}
                 onAnSec={anSec}
                 onAnYaz={anYaz}
+                onYuruyus={(no) => setYuruyusHedef({ tip: d.tip, no })}
                 acikKapiKey={acikKapiKey}
                 onTopraklanmaAc={(baslik) => setTopraklanma(baslik)}
               />
@@ -331,6 +336,26 @@ export default function ElYazmasiSayfasi() {
       {topraklanma && (
         <TopraklanmaModu baslik={topraklanma} onKapat={() => setTopraklanma(null)} />
       )}
+
+      {yuruyusHedef != null && (() => {
+        let sarmal = null;
+        if (yuruyusHedef.tip === 'sahne') {
+          const s = (data.sahnelerWorkbook || []).find((x) => x.no === yuruyusHedef.no);
+          if (s && s.yuruyus) sarmal = { id: `sahne-${s.no}`, ad: `Sahne ${s.no}`, birlesimSahneNo: s.no, yuruyus: s.yuruyus };
+        } else {
+          const b = (data.boslukSet || []).find((x) => x.no === yuruyusHedef.no);
+          if (b && b.yuruyus) sarmal = { id: `bosluk-${b.no}`, ad: b.baslik || `Boşluk ${b.no}`, birlesimSahneNo: b.sonraSahneNo, yuruyus: b.yuruyus };
+        }
+        if (!sarmal) return null;
+        return (
+          <BoslukYuruyusu
+            karakterId={KARAKTER}
+            bosluk={sarmal}
+            ilkYuruyusMu={false}
+            onKapat={() => setYuruyusHedef(null)}
+          />
+        );
+      })()}
     </main>
   );
 }
@@ -556,7 +581,7 @@ function OlayDugumu({ olay, acik, onAc, t }) {
 
 // ─── DÜĞÜM (sahne / boşluk) ────────────────────────────────────────────────
 
-function DugumGrubu({ domId, dugum, acik, onAc, onKapat, t, ortak, boslukYansima, setBoslukYansima, sahneYansima, setSahneYansima, anSecimleri, anYazmalari, onAnSec, onAnYaz, acikKapiKey, onTopraklanmaAc }) {
+function DugumGrubu({ domId, dugum, acik, onAc, onKapat, t, ortak, boslukYansima, setBoslukYansima, sahneYansima, setSahneYansima, anSecimleri, anYazmalari, onAnSec, onAnYaz, onYuruyus, acikKapiKey, onTopraklanmaAc }) {
   const isSahne = dugum.tip === 'sahne';
   const veri = dugum.veri;
 
@@ -675,7 +700,7 @@ function DugumGrubu({ domId, dugum, acik, onAc, onKapat, t, ortak, boslukYansima
               acikKapiKey={acikKapiKey}
               onTopraklanmaAc={onTopraklanmaAc}
             />
-          : <BoslukPanel veri={veri} t={t} ortak={ortak} boslukYansima={boslukYansima} setBoslukYansima={setBoslukYansima} onKapat={onKapat} />
+          : <BoslukPanel veri={veri} t={t} ortak={ortak} boslukYansima={boslukYansima} setBoslukYansima={setBoslukYansima} onKapat={onKapat} onYuruyus={onYuruyus} anSecimleri={anSecimleri} onAnSec={onAnSec} />
       )}
     </div>
   );
@@ -1107,7 +1132,10 @@ function DurumRozeti({ durum, ortak }) {
 
 // ─── BOŞLUK PANELİ (sade: soru + yazma alanı) ──────────────────────────────
 
-function BoslukPanel({ veri, t, ortak, boslukYansima, setBoslukYansima, onKapat }) {
+function BoslukPanel({ veri, t, ortak, boslukYansima, setBoslukYansima, onKapat, onYuruyus, anSecimleri = {}, onAnSec }) {
+  // Kart-içi çatal (varsa) — overlay yok, oznel_sabitler'e anSec ile yazılır.
+  const kartCataly = veri.kartCatali;
+  const kartCatalAnahtar = kartCataly ? (kartCataly.anahtar || `bosluk-${veri.no}-catal`) : null;
   const boslukId = BOSLUK_ID_PREFIX + veri.no;
   const [metin, setMetin] = useState(boslukYansima[boslukId] || '');
   const [durum, setDurum] = useState(null);
@@ -1125,6 +1153,40 @@ function BoslukPanel({ veri, t, ortak, boslukYansima, setBoslukYansima, onKapat 
 
   return (
     <div style={{ borderTop: '1px solid var(--rule)', padding: '1.4rem 1.3rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+      {/* Yürüyüş (yoğunluk 3 — tam ekran) tetikleyici */}
+      {veri.yuruyus && (
+        <button
+          type="button"
+          onClick={() => onYuruyus && onYuruyus(veri.no)}
+          style={{
+            alignSelf: 'flex-start', cursor: 'pointer',
+            fontFamily: 'var(--font-body), sans-serif', fontWeight: 400,
+            fontSize: '0.62rem', letterSpacing: '0.22em', textTransform: 'uppercase',
+            color: 'var(--bg-base)', backgroundColor: 'var(--accent)',
+            border: 'none', borderRadius: '2px', padding: '0.7rem 1.2rem',
+          }}
+        >
+          {t.yuruyusBaslatBosluk || t.yuruyusBaslat || 'Bu boşluğu adım adım kur'}
+        </button>
+      )}
+
+      {/* Kart-içi çatal (yoğunluk 2 — sayfadan çıkmaz) */}
+      {kartCataly && (
+        <KartCatali
+          cataly={kartCataly}
+          secim={anSecimleri[kartCatalAnahtar]}
+          onSec={(secenek) => onAnSec && onAnSec(
+            { id: kartCatalAnahtar, birlesimSahneNo: veri.sonraSahneNo ?? null },
+            {
+              dal: secenek.dal ?? secenek.deger,
+              baslik: secenek.baslik,
+              aciklama: secenek.aciklama,
+              oznelSabit: secenek.oznelSabit ?? secenek.muhur,
+            },
+          )}
+        />
+      )}
+
       {/* Önce + Sonra mini-bağlam */}
       {(veri.onceMetin || veri.sonraMetin) && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', borderLeft: '2px solid var(--rule)', paddingLeft: '1rem' }}>
