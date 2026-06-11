@@ -1,8 +1,14 @@
 // middleware.ts
 // ITC Actor's Gym — Auth Gating
 //
-// GEÇİCİ: Tüm auth gating devre dışı. Middleware hiçbir şey yapmıyor —
-// Supabase çağrısı bile yok. Tüm sayfalar herkese açık.
+// IMZA: S2-MIDDLEWARE-01 — BİLİNÇLİ KARAR (Sprint 2):
+// Middleware no-op KALIYOR ("geçici" değil artık). Gerekçe: misafir modu
+// gerçek — anonim seçimler cihazda tutulur (S1-MISAFIR-01), UI dürüst
+// "geçici" mesajı verir ve girişte Supabase'e otomatik taşınır
+// (S2-MISAFIR-02 · S2-NAV-01). Rota kilidi bu akışı (vitrin gezintisi +
+// misafir deneme) öldürürdü.
+// Gözden geçirme tetiği: ödeme/üyelik (commercialization) başlarken
+// KORUMALI_ROTALAR yaklaşımı yeniden değerlendirilecek.
 //
 // Geri açmak için aşağıdaki kodun yorumlanmış orijinal halini kullan
 // (alt taraf). KORUMALI_ROTALAR listesini geri yerine koy.

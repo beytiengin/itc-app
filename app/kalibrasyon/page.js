@@ -942,6 +942,18 @@ export default function KalibrasyonSayfasi() {
     }
   };
 
+  // IMZA: S2-KALIB-07 — "baştan başla" artık cevapları VE cihaz taslağını sıfırlar.
+  const bastanBasla = () => {
+    setIntake({});
+    setVakA(Array(24).fill(null));
+    setSkillA(Array(37).fill(null));
+    setPankA(Array(33).fill(null));
+    setPicks({});
+    setKayitDurumu(null);
+    try { localStorage.removeItem(TASLAK_KEY); } catch (e) {}
+    go(1);
+  };
+
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-base)', color: 'var(--ink)', fontFamily: body }}>
       {/* Kopya nav kaldirildi: global components/Navigasyon.js layout.js'den
@@ -1008,7 +1020,7 @@ export default function KalibrasyonSayfasi() {
             <button onClick={() => go(FLOW.length)} style={{ ...backBtn, marginBottom: '1.2rem', display: 'block' }}>{tx(UI.backToLast, lang)}</button>
             <Profile vak={vakRes} mbti={mbtiRes} skills={skillRes} pank={pankRes} lang={lang} onAynaCta={() => router.push('/antrenman/karakter')} />
             <div style={{ textAlign: 'center', marginTop: '2.4rem', display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
-              <button onClick={() => go(1)} style={backBtn}>{tx(UI.restart, lang)}</button>
+              <button onClick={bastanBasla} style={backBtn}>{tx(UI.restart, lang)}</button>{/* IMZA: S2-KALIB-07 (buton) */}
               <button onClick={() => router.push('/profil')} style={backBtn}>← /profil</button>
             </div>
           </div>

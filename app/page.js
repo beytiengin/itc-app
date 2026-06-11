@@ -223,9 +223,12 @@ export default function AnaSayfa() {
     kapanisBaslik = s.kapanisBaslikAnonim;
     kapanisAlt = s.kapanisAltAnonim;
   } else if (!profil || profil.hicYok) {
+    // IMZA: S2-ANA-03 — girişli + profili yok ama cihazda taslak var:
+    // anonim başlanan kalibrasyon tek dokunuşla tamamlanır (sayfada
+    // taslak geri yüklenir, "Profili gör" Supabase'e kaydeder).
     ctaHref = '/kalibrasyon';
-    ctaMetni = s.ctaUye;
-    ctaKapanisMetni = s.ctaUye;
+    ctaMetni = kalibrasyonTaslagiVar ? s.ctaUyeKalibrasyonDevam : s.ctaUye;
+    ctaKapanisMetni = kalibrasyonTaslagiVar ? s.ctaUyeKalibrasyonDevam : s.ctaUye;
     kapanisBaslik = s.kapanisBaslikUye;
     kapanisAlt = s.kapanisAltUyeKalibrasyonEksik;
   } else if (!profil.tamMi) {

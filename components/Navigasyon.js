@@ -19,6 +19,7 @@
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { supabase } from '../app/lib/supabase';
+import { misafirVerileriniTasi } from '../app/lib/misafir'; // IMZA: S2-NAV-01
 import { useDil, ceviri } from '../app/lib/dil';
 import chromeI18n from '../data/chrome-i18n';
 import DilToggle from './DilToggle';
@@ -35,9 +36,14 @@ export default function Navigasyon() {
   useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {
       setKullanici(user || null);
+      // IMZA: S2-NAV-01 — açık oturum + cihazda misafir verisi: girişte taşı.
+      // (Fonksiyon içinde in-flight kilidi + anahtar-yoksa-hızlı-çıkış var;
+      // tekrarlı tetiklenmesi ucuzdur.)
+      if (user) misafirVerileriniTasi();
     });
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setKullanici(session?.user ?? null);
+      if (session?.user) misafirVerileriniTasi();
     });
     return () => subscription.unsubscribe();
   }, []);
