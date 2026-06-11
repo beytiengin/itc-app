@@ -275,11 +275,11 @@ const FLOW = [
     key: 'basics', n: '01', welcome: true,
     title: { tr: 'Oyuncu Profili', en: 'Actor Profile' },
     sub: { tr: 'Kim olduğun · deneyim · hedefler', en: 'Who you are · experience · goals' },
-    // IMZA: S6-KALIB-14 — açılış metni: Beyti'nin blog sesinden
-    // ("yetenekler bileşkesi" + "kendi özgün Macbeth'in"), 4 paragraf.
+    // IMZA: S7-KALIB-16 — açılış kısa tutulur (P1 + pratik satır, tek ekran);
+    // manifesto (Macbeth + boşluk/mühür) kalibrasyon SONUNA taşındı (S7-KALIB-18).
     intro: {
-      tr: '"Oyunculuk yeteneği" diye tek bir yetenek yoktur — bu meslek bir yetenekler bileşkesidir. O bileşkenin içinde nerede durduğunu bilirsen, elinde bir yol haritası olur. Kalibrasyon tam olarak bunu yapar.\n\nBeş bölümde enstrümanını birlikte okuyacağız: kim olduğun, becerilerine dair kendi sözün, nasıl öğrendiğin, yaratıcı yetilerin, seni harekete geçiren duygu sistemlerin. Yaklaşık on beş dakika. Doğru ya da yanlış cevap yok; kimseyle yarışmıyorsun — haritası çıkarılan sensin.\n\nÇünkü bundan sonrası ezber değil, inşa. Macbeth\'i dört yüzyılı aşkındır binlerce oyuncu oynadı ve hiçbiri aynı değildi — çünkü hiçbiri senin bedeninde, senin sesinde değildi.\n\nEl yazmalarında yazarın bıraktığı boşlukları kendi seçimlerinle dolduracak, mühürlediğin her kararla kimseninkine benzemeyen kendi karakterini tasarlayacaksın. Yolculuk burada başlıyor: seninle.',
-      en: 'There is no single talent called "acting talent" — this craft is a composite of abilities. Know where you stand within that composite, and you hold a map. That is exactly what Calibration does.\n\nAcross five sections we will read your instrument together: who you are, your own word on your skills, how you learn, your creative faculties, the emotional systems that move you. About fifteen minutes. There are no right or wrong answers; you are not competing with anyone — you are the one being mapped.\n\nBecause what follows is not memorization but construction. For over four centuries, thousands of actors have played Macbeth, and no two were alike — because none of them lived in your body, spoke with your voice.\n\nIn the manuscripts you will fill the gaps the author left with your own choices, and with every decision you seal, you will design a character that resembles no one else\'s. The journey begins here: with you.',
+      tr: '"Oyunculuk yeteneği" diye tek bir yetenek yoktur — bu meslek bir yetenekler bileşkesidir. O bileşkenin içinde nerede durduğunu bilirsen, elinde bir yol haritası olur. Kalibrasyon tam olarak bunu yapar.\n\nBeş bölüm, yaklaşık on beş dakika. Doğru ya da yanlış cevap yok — haritası çıkarılan sensin.',
+      en: 'There is no single talent called "acting talent" — this craft is a composite of abilities. Know where you stand within that composite, and you hold a map. That is exactly what Calibration does.\n\nFive sections, about fifteen minutes. There are no right or wrong answers — you are the one being mapped.',
     },
   },
   {
@@ -366,6 +366,12 @@ const UI = {
   // IMZA: S4-KALIB-12 — eksen sayfalaması metinleri
   axis: { tr: 'Eksen', en: 'Axis' },
   nextAxis: { tr: 'Sonraki eksen →', en: 'Next axis →' },
+  // IMZA: S7-KALIB-18 — kapanış manifestosu (açılıştan taşınan P3+P4):
+  // sonuçların eşiğinde "bundan sonrası inşa" sözü.
+  kapanisManifesto: {
+    tr: 'Bundan sonrası ezber değil, inşa. Macbeth\'i dört yüzyılı aşkındır binlerce oyuncu oynadı ve hiçbiri aynı değildi — çünkü hiçbiri senin bedeninde, senin sesinde değildi.\n\nEl yazmalarında yazarın bıraktığı boşlukları kendi seçimlerinle dolduracak, mühürlediğin her kararla kimseninkine benzemeyen kendi karakterini tasarlayacaksın. Yolculuk burada başlıyor: seninle.',
+    en: 'What follows is not memorization but construction. For over four centuries, thousands of actors have played Macbeth, and no two were alike — because none of them lived in your body, spoke with your voice.\n\nIn the manuscripts you will fill the gaps the author left with your own choices, and with every decision you seal, you will design a character that resembles no one else\'s. The journey begins here: with you.',
+  },
 };
 
 /* ─── SCORING ─────────────────────────────────────────────────── */
@@ -1106,6 +1112,9 @@ export default function KalibrasyonSayfasi() {
         {pos === FLOW.length + 1 && (
           <div>
             <button onClick={() => go(FLOW.length)} style={{ ...backBtn, marginBottom: '1.2rem', display: 'block' }}>{tx(UI.backToLast, lang)}</button>
+            {/* IMZA: S7-KALIB-18 — kapanış manifestosu: sonuçların eşiğinde,
+                bölüm introlarının italik/sol-çizgi diliyle */}
+            <p style={{ fontFamily: body, fontWeight: 400, fontSize: '1rem', lineHeight: 1.7, color: 'var(--ink)', fontStyle: 'italic', borderLeft: '3px solid var(--accent-soft)', paddingLeft: '1rem', margin: '0 0 2.2rem', whiteSpace: 'pre-line', maxWidth: 560 }}>{tx(UI.kapanisManifesto, lang)}</p>
             <Profile vak={vakRes} mbti={mbtiRes} skills={skillRes} pank={pankRes} lang={lang} onAynaCta={() => router.push('/antrenman/karakter')} />
             <div style={{ textAlign: 'center', marginTop: '2.4rem', display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
               <button onClick={bastanBasla} style={backBtn}>{tx(UI.restart, lang)}</button>{/* IMZA: S2-KALIB-07 (buton) */}
