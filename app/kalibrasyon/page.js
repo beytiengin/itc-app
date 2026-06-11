@@ -493,6 +493,23 @@ function NefesArasi({ lang, onDevam }) {
   );
 }
 
+// IMZA: S5-KALIB-13 — ortak sayfa bölme. Hedef 5 madde; son dilimde 1-2 madde
+// kalırsa bir öncekine katılır (en çok 7 — "genel 5, istisnai 7"; mobil
+// yorgunluğu). Madde SIRASI/içeriği değişmez, yalnız sunum bölünür. VAK,
+// Beceri/Panksepp kategori-içi ve MBTI eksen-içi sayfalama bunu kullanır.
+const SAYFA_HEDEF = 5;
+function sayfaDilimleri(n, hedef = SAYFA_HEDEF) {
+  const dilimler = [];
+  let i = 0;
+  while (i < n) {
+    let bitis = Math.min(i + hedef, n);
+    if (n - bitis > 0 && n - bitis <= 2) bitis = n; // 1-2 maddelik yetim son sayfayı yut
+    dilimler.push([i, bitis]);
+    i = bitis;
+  }
+  return dilimler.length ? dilimler : [[0, 0]];
+}
+
 function ListeTesti({ items, groups, scale, answers, setAnswers, compact, lang }) {
   // groups verildiyse adımlı (kategori-kategori) mod, aksi halde SAYFALI liste.
   // Adımlı modda: oyuncu "37/31" baskısı görmez; her kategori sıfırdan numaralanır.
@@ -503,15 +520,16 @@ function ListeTesti({ items, groups, scale, answers, setAnswers, compact, lang }
   const [sayfaIdx, setSayfaIdx] = useState(0);
 
   if (!groups) {
-    // IMZA: S3-KALIB-09 — VAK (24 madde): mobilde tek uzun liste yorucuydu;
-    // 8'erli sayfalara bölündü. Madde SIRASI ve içerik aynen korunur — yalnız
-    // sunum sayfalanır (psikometrik içerik değişmedi). Kategori adı bilinçli
-    // GÖSTERİLMİYOR (yanıt yanlılığı olmasın). Filiz'e bilgi notu düşülecek.
-    const SAYFA_BOYU = 8;
-    const sayfaSayisi = Math.ceil(items.length / SAYFA_BOYU);
+    // IMZA: S3-KALIB-09 / S5-KALIB-13 — VAK (24 madde): mobilde tek uzun liste
+    // yorucuydu; ~5'erli sayfalara bölündü (ortak sayfaDilimleri; en çok 7).
+    // Madde SIRASI ve içerik aynen korunur — yalnız sunum sayfalanır
+    // (psikometrik içerik değişmedi). Kategori adı bilinçli GÖSTERİLMİYOR
+    // (yanıt yanlılığı olmasın). Filiz'e bilgi notu düşülecek.
+    const dilimler = sayfaDilimleri(items.length);
+    const sayfaSayisi = dilimler.length;
     const guvenliIdx = Math.min(sayfaIdx, sayfaSayisi - 1);
     const sonSayfa = guvenliIdx === sayfaSayisi - 1;
-    const bas = guvenliIdx * SAYFA_BOYU;
+    const [bas, bitis] = dilimler[guvenliIdx];
     const done = answers.filter((a) => a != null).length;
     return (
       <div>
@@ -524,10 +542,10 @@ function ListeTesti({ items, groups, scale, answers, setAnswers, compact, lang }
             <div style={{ width: (done / items.length) * 100 + '%', height: '100%', background: 'var(--accent)', transition: 'width .9s cubic-bezier(.2,.8,.2,1)' }} />
           </div>
         </div>
-        {items.slice(bas, bas + SAYFA_BOYU).map((t, j) => {
+        {items.slice(bas, bitis).map((t, j) => {
           const i = bas + j;
           return (
-            <OlcekSatiri key={i} n={j + 1} text={tx(t, lang)} scale={scale} value={answers[i]} compact={compact} lang={lang}
+            <OlcekSatiri key={i} n={i + 1} text={tx(t, lang)} scale={scale} value={answers[i]} compact={compact} lang={lang}
               onPick={(v) => { const c = [...answers]; c[i] = v; setAnswers(c); }} />
           );
         })}
@@ -541,12 +559,21 @@ function ListeTesti({ items, groups, scale, answers, setAnswers, compact, lang }
   }
 
   // Adımlı (kategori) mod — Beceri (7 kategori) ve Panksepp (6 kategori).
+  // IMZA: S5-KALIB-13 — uzun kategoriler (örn. Beceri "Mesleki Güven" 9 madde)
+  // kategori-içi ~5'erli alt-sayfalara bölündü (ortak sayfaDilimleri). Madde
+  // sırası/içeriği aynen korunur; kategori içi numara alt-sayfalar boyunca sürer.
   const groupKeys = Object.keys(groups);
   const aktifKat = groupKeys[katIdx];
   const aktifIndices = groups[aktifKat]; // [2, 4, 11, ...] (1-indexed item nolari)
+  const katDilimleri = sayfaDilimleri(aktifIndices.length);
+  const katSayfaSayisi = katDilimleri.length;
+  const guvenliKatSayfa = Math.min(sayfaIdx, katSayfaSayisi - 1);
+  const [kBas, kBitis] = katDilimleri[guvenliKatSayfa];
+  const sayfaIndices = aktifIndices.slice(kBas, kBitis);
   const yanitlanan = aktifIndices.filter((i) => answers[i - 1] != null).length;
   const toplamKat = aktifIndices.length;
   const sonKategori = katIdx === groupKeys.length - 1;
+  const sonKatSayfa = guvenliKatSayfa === katSayfaSayisi - 1;
 
   return (
     <div>
@@ -556,22 +583,28 @@ function ListeTesti({ items, groups, scale, answers, setAnswers, compact, lang }
             <span style={{ color: 'var(--accent)', fontWeight: 500 }}>{tx(UI.category, lang)} {katIdx + 1} / {groupKeys.length}</span>
             {' · '}
             <span style={{ color: 'var(--ink)' }}>{glabel(aktifKat, lang)}</span>
+            {katSayfaSayisi > 1 && <span style={{ color: 'var(--ink-muted)' }}>{' · '}{tx(UI.page, lang)} {guvenliKatSayfa + 1}/{katSayfaSayisi}</span>}
           </span>
           <span>{yanitlanan} / {toplamKat} {tx(UI.answered, lang)}</span>
         </div>
       </div>
-      {aktifIndices.map((origNo, displayIdx) => {
+      {sayfaIndices.map((origNo, j) => {
         const i = origNo - 1;
+        const displayIdx = kBas + j;
         return (
           <OlcekSatiri key={i} n={displayIdx + 1} text={tx(items[i], lang)} scale={scale} value={answers[i]} compact={compact} lang={lang}
             onPick={(v) => { const c = [...answers]; c[i] = v; setAnswers(c); }} />
         );
       })}
-      {!sonKategori && (
+      {!sonKatSayfa ? (
         <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-          <button onClick={() => { setKatIdx(katIdx + 1); if (typeof window !== 'undefined') window.scrollTo({ top: 200, behavior: 'smooth' }); }} style={cta}>{tx(UI.nextCategory, lang)}</button>{/* IMZA: S3-KALIB-10 (nefessiz kategori geçişi) */}
+          <button onClick={() => { setSayfaIdx(guvenliKatSayfa + 1); if (typeof window !== 'undefined') window.scrollTo({ top: 200, behavior: 'smooth' }); }} style={cta}>{tx(UI.nextPage, lang)}</button>{/* IMZA: S5-KALIB-13 (kategori-içi sayfa) */}
         </div>
-      )}
+      ) : !sonKategori ? (
+        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+          <button onClick={() => { setKatIdx(katIdx + 1); setSayfaIdx(0); if (typeof window !== 'undefined') window.scrollTo({ top: 200, behavior: 'smooth' }); }} style={cta}>{tx(UI.nextCategory, lang)}</button>{/* IMZA: S3-KALIB-10 (nefessiz kategori geçişi) */}
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -581,16 +614,28 @@ function MBTITesti({ picks, setPicks, lang }) {
   // kategori deseninin aynısıyla EKSEN EKSEN sayfalandı (4 eksen). Satır
   // sırası ve içerik birebir korunur — yalnız sunum sayfalanır
   // (psikometrik içerik değişmedi).
+  // IMZA: S5-KALIB-13 — eksenler hâlâ uzundu (15-17 satır); eksen-içi ~5'erli
+  // alt-sayfalara bölündü (ortak sayfaDilimleri; en çok 7). Satır sırası/içeriği
+  // korunur; eksen-içi numara alt-sayfalar boyunca sürer.
   const [eksenIdx, setEksenIdx] = useState(0);
+  const [mbtiSayfaIdx, setMbtiSayfaIdx] = useState(0);
   const guvenliEksen = Math.min(eksenIdx, MBTI_AXES.length - 1);
   const sonEksen = guvenliEksen === MBTI_AXES.length - 1;
   const aktif = MBTI_AXES[guvenliEksen];
+  const eksenDilimleri = sayfaDilimleri(aktif.rows.length);
+  const eksenSayfaSayisi = eksenDilimleri.length;
+  const guvenliSayfa = Math.min(mbtiSayfaIdx, eksenSayfaSayisi - 1);
+  const [eBas, eBitis] = eksenDilimleri[guvenliSayfa];
+  const sonEksenSayfa = guvenliSayfa === eksenSayfaSayisi - 1;
   const eksenSecilen = (picks[aktif.key] || []).filter((x) => x != null).length;
   return (
     <div>
       <div style={{ position: 'sticky', top: 56, zIndex: 5, background: 'var(--bg-base)', padding: '0.6rem 0 0.9rem', borderBottom: '2px solid var(--ink)' }}>
         <div style={{ fontFamily: body, fontWeight: 400, fontSize: '0.9rem', color: 'var(--ink-soft)', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
-          <span style={{ color: 'var(--accent)', fontWeight: 500 }}>{tx(UI.axis, lang)} {guvenliEksen + 1} / {MBTI_AXES.length}</span>
+          <span>
+            <span style={{ color: 'var(--accent)', fontWeight: 500 }}>{tx(UI.axis, lang)} {guvenliEksen + 1} / {MBTI_AXES.length}</span>
+            {eksenSayfaSayisi > 1 && <span style={{ color: 'var(--ink-muted)' }}>{' · '}{tx(UI.page, lang)} {guvenliSayfa + 1}/{eksenSayfaSayisi}</span>}
+          </span>
           <span>{eksenSecilen} / {aktif.rows.length} {tx(UI.answered, lang)}</span>
         </div>
       </div>
@@ -601,7 +646,8 @@ function MBTITesti({ picks, setPicks, lang }) {
             <span style={{ flex: 1 }}>← {tx(ax.leftHead, lang)}</span>
             <span style={{ flex: 1, textAlign: 'right' }}>{tx(ax.rightHead, lang)} →</span>
           </div>
-          {ax.rows.map((row, i) => {
+          {ax.rows.slice(eBas, eBitis).map((row, j) => {
+            const i = eBas + j;
             const cur = (picks[ax.key] || [])[i];
             const set = (side) => { const c = { ...picks, [ax.key]: [...(picks[ax.key] || [])] }; c[ax.key][i] = side; setPicks(c); };
             const cells = [row.l, row.r];
@@ -634,11 +680,15 @@ function MBTITesti({ picks, setPicks, lang }) {
           })}
         </div>
       ))}
-      {!sonEksen && (
+      {!sonEksenSayfa ? (
         <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-          <button onClick={() => { setEksenIdx(guvenliEksen + 1); if (typeof window !== 'undefined') window.scrollTo({ top: 200, behavior: 'smooth' }); }} style={cta}>{tx(UI.nextAxis, lang)}</button>
+          <button onClick={() => { setMbtiSayfaIdx(guvenliSayfa + 1); if (typeof window !== 'undefined') window.scrollTo({ top: 200, behavior: 'smooth' }); }} style={cta}>{tx(UI.nextPage, lang)}</button>{/* IMZA: S5-KALIB-13 (eksen-içi sayfa) */}
         </div>
-      )}
+      ) : !sonEksen ? (
+        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+          <button onClick={() => { setEksenIdx(guvenliEksen + 1); setMbtiSayfaIdx(0); if (typeof window !== 'undefined') window.scrollTo({ top: 200, behavior: 'smooth' }); }} style={cta}>{tx(UI.nextAxis, lang)}</button>
+        </div>
+      ) : null}
     </div>
   );
 }
