@@ -361,6 +361,9 @@ const UI = {
   // IMZA: S3-KALIB-08 — sayfalama metinleri
   page: { tr: 'Sayfa', en: 'Page' },
   nextPage: { tr: 'Sonraki sayfa →', en: 'Next page →' },
+  // IMZA: S4-KALIB-12 — eksen sayfalaması metinleri
+  axis: { tr: 'Eksen', en: 'Axis' },
+  nextAxis: { tr: 'Sonraki eksen →', en: 'Next axis →' },
 };
 
 /* ─── SCORING ─────────────────────────────────────────────────── */
@@ -574,19 +577,24 @@ function ListeTesti({ items, groups, scale, answers, setAnswers, compact, lang }
 }
 
 function MBTITesti({ picks, setPicks, lang }) {
-  const total = MBTI_AXES.reduce((s, a) => s + a.rows.length, 0);
-  const done = MBTI_AXES.reduce((s, a) => s + (picks[a.key] || []).filter((x) => x != null).length, 0);
+  // IMZA: S4-KALIB-12 — 63 ikili seçim tek sayfada yorucuydu; Beceri/Panksepp
+  // kategori deseninin aynısıyla EKSEN EKSEN sayfalandı (4 eksen). Satır
+  // sırası ve içerik birebir korunur — yalnız sunum sayfalanır
+  // (psikometrik içerik değişmedi).
+  const [eksenIdx, setEksenIdx] = useState(0);
+  const guvenliEksen = Math.min(eksenIdx, MBTI_AXES.length - 1);
+  const sonEksen = guvenliEksen === MBTI_AXES.length - 1;
+  const aktif = MBTI_AXES[guvenliEksen];
+  const eksenSecilen = (picks[aktif.key] || []).filter((x) => x != null).length;
   return (
     <div>
       <div style={{ position: 'sticky', top: 56, zIndex: 5, background: 'var(--bg-base)', padding: '0.6rem 0 0.9rem', borderBottom: '2px solid var(--ink)' }}>
-        <div style={{ fontFamily: body, fontWeight: 400, fontSize: '0.9rem', color: 'var(--ink-soft)' }}>
-          {done} / {total} {tx(UI.rowsHint, lang)}
-          <div style={{ height: 4, background: 'var(--bg-elevated)', borderRadius: 4, marginTop: '0.4rem', overflow: 'hidden' }}>
-            <div style={{ width: (done / total) * 100 + '%', height: '100%', background: 'var(--accent)', transition: 'width .9s cubic-bezier(.2,.8,.2,1)' }} />
-          </div>
+        <div style={{ fontFamily: body, fontWeight: 400, fontSize: '0.9rem', color: 'var(--ink-soft)', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
+          <span style={{ color: 'var(--accent)', fontWeight: 500 }}>{tx(UI.axis, lang)} {guvenliEksen + 1} / {MBTI_AXES.length}</span>
+          <span>{eksenSecilen} / {aktif.rows.length} {tx(UI.answered, lang)}</span>
         </div>
       </div>
-      {MBTI_AXES.map((ax) => (
+      {[aktif].map((ax) => (
         <div key={ax.key} style={{ marginTop: '1.8rem' }}>
           <Etiket>{tx(ax.title, lang)}</Etiket>
           <div style={{ display: 'flex', gap: '0.5rem', margin: '0.2rem 0 0.9rem', fontFamily: body, fontWeight: 500, fontSize: '0.8rem', color: 'var(--ink-soft)' }}>
@@ -626,6 +634,11 @@ function MBTITesti({ picks, setPicks, lang }) {
           })}
         </div>
       ))}
+      {!sonEksen && (
+        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+          <button onClick={() => { setEksenIdx(guvenliEksen + 1); if (typeof window !== 'undefined') window.scrollTo({ top: 200, behavior: 'smooth' }); }} style={cta}>{tx(UI.nextAxis, lang)}</button>
+        </div>
+      )}
     </div>
   );
 }
