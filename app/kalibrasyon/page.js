@@ -358,6 +358,9 @@ const UI = {
   // IMZA: S1-KALIB-01 — anonim tamamlama + giriş çağrısı metinleri
   kayitOturumYok: { tr: 'Kalibrasyonun tamamlandı. Kaydetmek için giriş yapmalısın — cevapların bu cihazda seni bekliyor.', en: 'Your calibration is complete. Sign in to save it — your answers are waiting on this device.' },
   girisYap: { tr: 'Giriş yap →', en: 'Sign in →' },
+  // IMZA: S3-KALIB-08 — sayfalama metinleri
+  page: { tr: 'Sayfa', en: 'Page' },
+  nextPage: { tr: 'Sonraki sayfa →', en: 'Next page →' },
 };
 
 /* ─── SCORING ─────────────────────────────────────────────────── */
@@ -488,29 +491,48 @@ function NefesArasi({ lang, onDevam }) {
 }
 
 function ListeTesti({ items, groups, scale, answers, setAnswers, compact, lang }) {
-  // groups verildiyse adımlı (kategori-kategori) mod, aksi halde tek-uzun-liste.
+  // groups verildiyse adımlı (kategori-kategori) mod, aksi halde SAYFALI liste.
   // Adımlı modda: oyuncu "37/31" baskısı görmez; her kategori sıfırdan numaralanır.
-  // Kategoriler arasında kısa bir nefes arası (Karar 40, A-paketi İŞ 1).
+  // IMZA: S3-KALIB-10 — kategori-arası nefes KALDIRILDI; nefes artık bölüm
+  // aralarında (Karar 40 revizyonu — Beyti, 11 Haz 2026). Mobil yorgunluğu
+  // için groups'suz mod 8'erli sayfalara bölündü (S3-KALIB-09).
   const [katIdx, setKatIdx] = useState(0);
-  const [nefes, setNefes] = useState(false);
+  const [sayfaIdx, setSayfaIdx] = useState(0);
 
   if (!groups) {
-    // Mevcut tek-liste davranışı (VAK, 24 madde).
+    // IMZA: S3-KALIB-09 — VAK (24 madde): mobilde tek uzun liste yorucuydu;
+    // 8'erli sayfalara bölündü. Madde SIRASI ve içerik aynen korunur — yalnız
+    // sunum sayfalanır (psikometrik içerik değişmedi). Kategori adı bilinçli
+    // GÖSTERİLMİYOR (yanıt yanlılığı olmasın). Filiz'e bilgi notu düşülecek.
+    const SAYFA_BOYU = 8;
+    const sayfaSayisi = Math.ceil(items.length / SAYFA_BOYU);
+    const guvenliIdx = Math.min(sayfaIdx, sayfaSayisi - 1);
+    const sonSayfa = guvenliIdx === sayfaSayisi - 1;
+    const bas = guvenliIdx * SAYFA_BOYU;
     const done = answers.filter((a) => a != null).length;
     return (
       <div>
         <div style={{ position: 'sticky', top: 56, zIndex: 5, background: 'var(--bg-base)', padding: '0.6rem 0 0.9rem', borderBottom: '2px solid var(--ink)' }}>
-          <div style={{ fontFamily: body, fontWeight: 400, fontSize: '0.9rem', color: 'var(--ink-soft)' }}>
-            {done} / {items.length} {tx(UI.answered, lang)}
-            <div style={{ height: 4, background: 'var(--bg-elevated)', borderRadius: 4, marginTop: '0.4rem', overflow: 'hidden' }}>
-              <div style={{ width: (done / items.length) * 100 + '%', height: '100%', background: 'var(--accent)', transition: 'width .9s cubic-bezier(.2,.8,.2,1)' }} />
-            </div>
+          <div style={{ fontFamily: body, fontWeight: 400, fontSize: '0.9rem', color: 'var(--ink-soft)', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
+            <span style={{ color: 'var(--accent)', fontWeight: 500 }}>{tx(UI.page, lang)} {guvenliIdx + 1} / {sayfaSayisi}</span>
+            <span>{done} / {items.length} {tx(UI.answered, lang)}</span>
+          </div>
+          <div style={{ height: 4, background: 'var(--bg-elevated)', borderRadius: 4, marginTop: '0.4rem', overflow: 'hidden' }}>
+            <div style={{ width: (done / items.length) * 100 + '%', height: '100%', background: 'var(--accent)', transition: 'width .9s cubic-bezier(.2,.8,.2,1)' }} />
           </div>
         </div>
-        {items.map((t, i) => (
-          <OlcekSatiri key={i} n={i + 1} text={tx(t, lang)} scale={scale} value={answers[i]} compact={compact} lang={lang}
-            onPick={(v) => { const c = [...answers]; c[i] = v; setAnswers(c); }} />
-        ))}
+        {items.slice(bas, bas + SAYFA_BOYU).map((t, j) => {
+          const i = bas + j;
+          return (
+            <OlcekSatiri key={i} n={j + 1} text={tx(t, lang)} scale={scale} value={answers[i]} compact={compact} lang={lang}
+              onPick={(v) => { const c = [...answers]; c[i] = v; setAnswers(c); }} />
+          );
+        })}
+        {!sonSayfa && (
+          <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+            <button onClick={() => { setSayfaIdx(guvenliIdx + 1); if (typeof window !== 'undefined') window.scrollTo({ top: 200, behavior: 'smooth' }); }} style={cta}>{tx(UI.nextPage, lang)}</button>
+          </div>
+        )}
       </div>
     );
   }
@@ -522,10 +544,6 @@ function ListeTesti({ items, groups, scale, answers, setAnswers, compact, lang }
   const yanitlanan = aktifIndices.filter((i) => answers[i - 1] != null).length;
   const toplamKat = aktifIndices.length;
   const sonKategori = katIdx === groupKeys.length - 1;
-
-  if (nefes) {
-    return <NefesArasi lang={lang} onDevam={() => { setNefes(false); setKatIdx(katIdx + 1); if (typeof window !== 'undefined') window.scrollTo({ top: 200, behavior: 'smooth' }); }} />;
-  }
 
   return (
     <div>
@@ -548,7 +566,7 @@ function ListeTesti({ items, groups, scale, answers, setAnswers, compact, lang }
       })}
       {!sonKategori && (
         <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-          <button onClick={() => setNefes(true)} style={cta}>{tx(UI.nextCategory, lang)}</button>
+          <button onClick={() => { setKatIdx(katIdx + 1); if (typeof window !== 'undefined') window.scrollTo({ top: 200, behavior: 'smooth' }); }} style={cta}>{tx(UI.nextCategory, lang)}</button>{/* IMZA: S3-KALIB-10 (nefessiz kategori geçişi) */}
         </div>
       )}
     </div>
@@ -871,6 +889,8 @@ export default function KalibrasyonSayfasi() {
   const [pankA, setPankA] = useState(Array(33).fill(null));
   const [picks, setPicks] = useState({});
   const [kayitDurumu, setKayitDurumu] = useState(null); // null | 'kaydediliyor' | 'hata' | 'oturum-yok'
+  // IMZA: S3-KALIB-11 — nefes araları bölüm GEÇİŞLERİNDE (kategori aralarından taşındı).
+  const [bolumNefesi, setBolumNefesi] = useState(false);
 
   // IMZA: S1-KALIB-02 — Taslak kalıcılığı (localStorage).
   // Her cevap cihaza yazılır; yenileme/geri dönüşte kaldığı bölümden devam.
@@ -960,7 +980,10 @@ export default function KalibrasyonSayfasi() {
           render ediliyor (sticky + marka italik + mobil hamburger). */}
 
       <div style={inner}>
-        {section && (
+        {bolumNefesi && (
+          <NefesArasi lang={lang} onDevam={() => { setBolumNefesi(false); go(pos + 1); }} />
+        )}
+        {section && !bolumNefesi && (
           <div>
             {section.welcome && (
               <div style={{ textAlign: 'center', marginBottom: '2.6rem' }}>
@@ -998,7 +1021,7 @@ export default function KalibrasyonSayfasi() {
                   {kayitDurumu === 'kaydediliyor' ? tx(UI.saving, lang) : tx(UI.seeProfile, lang)}
                 </button>
               ) : (
-                <button onClick={() => go(pos + 1)} style={cta}>{tx(UI.nextSection, lang)}</button>
+                <button onClick={() => setBolumNefesi(true) /* IMZA: S3-KALIB-11 (önce nefes) */} style={cta}>{tx(UI.nextSection, lang)}</button>
               )}
             </div>
 

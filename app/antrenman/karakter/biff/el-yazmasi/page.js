@@ -106,6 +106,10 @@ export default function ElYazmasiSayfasi() {
   }, [data]);
 
   const [acikPanel, setAcikPanel] = useState(null); // { tip, no } | null
+  // IMZA: S3-SCROLL-01 — panel değişiminde zıplama düzeltmesi: tıklama
+  // anındaki başlık konumu saklanır; layout oturunca instant geri kurulur,
+  // sonra başlık yumuşakça üste taşınır (Nina deseninin akordiyon uyarlaması).
+  const panelAcOnceTop = useRef(null);
   const [acikOlay, setAcikOlay] = useState(null);   // olay no | null (oyun öncesi)
   const [dogrularAcik, setDogrularAcik] = useState(false);
   const [iliskilerAcik, setIliskilerAcik] = useState(false);
@@ -156,14 +160,32 @@ export default function ElYazmasiSayfasi() {
     const tip = m[1];
     const no = Number(m[2]);
     if (tip === 'sahne') sahnePanelAc(no); else boslukPanelAc(no);
-    requestAnimationFrame(() => {
-      const el = document.getElementById(`${tip}-${no}`);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
+    // Scroll artık ortak [acikPanel] efektinde (IMZA: S3-SCROLL-01).
   }, [yukleniyor]);
+
+  // IMZA: S3-SCROLL-01 — her panel açılışında: tıklanan başlığı önce eski
+  // ekran konumuna instant sabitle (üstteki panelin kapanma zıplamasını
+  // yutar), sonra yumuşakça üste taşı. Willy/Nina paritesi.
+  useEffect(() => {
+    if (!acikPanel || typeof window === 'undefined') return;
+    const el = document.getElementById(`${acikPanel.tip}-${acikPanel.no}`);
+    if (!el) return;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const onceTop = panelAcOnceTop.current;
+        panelAcOnceTop.current = null;
+        if (onceTop != null) {
+          const fark = el.getBoundingClientRect().top - onceTop;
+          if (fark) window.scrollBy({ top: fark, left: 0, behavior: 'auto' });
+        }
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }, [acikPanel]);
 
   // Sahne panelini açarken o sahnenin antrenman adımlarını lazy yükle.
   async function sahnePanelAc(no) {
+    panelAcOnceTop.current = (typeof document !== 'undefined' && document.getElementById(`sahne-${no}`)?.getBoundingClientRect().top) ?? null; // IMZA: S3-SCROLL-01
     const id = SAHNE_ANTRENMAN_PREFIX + no;
     if (!sahneYansima[id]) {
       try {
@@ -177,7 +199,10 @@ export default function ElYazmasiSayfasi() {
     }
     setAcikPanel({ tip: 'sahne', no });
   }
-  function boslukPanelAc(no) { setAcikPanel({ tip: 'bosluk', no }); }
+  function boslukPanelAc(no) {
+    panelAcOnceTop.current = (typeof document !== 'undefined' && document.getElementById(`bosluk-${no}`)?.getBoundingClientRect().top) ?? null; // IMZA: S3-SCROLL-01
+    setAcikPanel({ tip: 'bosluk', no });
+  }
   function panelKapat() { setAcikPanel(null); }
 
   if (yukleniyor) {

@@ -119,6 +119,10 @@ export default function ElYazmasiSayfasi() {
   }, [data]);
 
   const [acikPanel, setAcikPanel] = useState(null); // { tip, no } | null
+  // IMZA: S3-SCROLL-01 — panel değişiminde zıplama düzeltmesi: tıklama
+  // anındaki başlık konumu saklanır; layout oturunca instant geri kurulur,
+  // sonra başlık yumuşakça üste taşınır (Nina deseninin akordiyon uyarlaması).
+  const panelAcOnceTop = useRef(null);
   const [dogrularAcik, setDogrularAcik] = useState(false);
   const [kunyeSekme, setKunyeSekme] = useState('dogrular'); // 'dogrular' | 'iliskiler'
 
@@ -246,6 +250,15 @@ export default function ElYazmasiSayfasi() {
     if (!el) return;
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
+        // IMZA: S3-SCROLL-01 — önce tıklanan başlığı eski ekran konumuna
+        // instant sabitle (üstteki panelin kapanma zıplamasını yutar),
+        // sonra yumuşakça üste taşı.
+        const onceTop = panelAcOnceTop.current;
+        panelAcOnceTop.current = null;
+        if (onceTop != null) {
+          const fark = el.getBoundingClientRect().top - onceTop;
+          if (fark) window.scrollBy({ top: fark, left: 0, behavior: 'auto' });
+        }
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
@@ -253,9 +266,13 @@ export default function ElYazmasiSayfasi() {
 
   // Sahne paneli — an muhurleri mount'ta toplu yuklendigi icin lazy fetch gerekmez.
   function sahnePanelAc(no) {
+    panelAcOnceTop.current = (typeof document !== 'undefined' && document.getElementById(`sahne-${no}`)?.getBoundingClientRect().top) ?? null; // IMZA: S3-SCROLL-01
     setAcikPanel({ tip: 'sahne', no });
   }
-  function boslukPanelAc(no) { setAcikPanel({ tip: 'bosluk', no }); }
+  function boslukPanelAc(no) {
+    panelAcOnceTop.current = (typeof document !== 'undefined' && document.getElementById(`bosluk-${no}`)?.getBoundingClientRect().top) ?? null; // IMZA: S3-SCROLL-01
+    setAcikPanel({ tip: 'bosluk', no });
+  }
   function panelKapat() { setAcikPanel(null); }
 
   if (yukleniyor) {
