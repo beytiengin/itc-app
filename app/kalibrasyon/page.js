@@ -275,9 +275,11 @@ const FLOW = [
     key: 'basics', n: '01', welcome: true,
     title: { tr: 'Oyuncu Profili', en: 'Actor Profile' },
     sub: { tr: 'Kim olduğun · deneyim · hedefler', en: 'Who you are · experience · goals' },
+    // IMZA: S6-KALIB-14 — açılış metni: Beyti'nin blog sesinden
+    // ("yetenekler bileşkesi" + "kendi özgün Macbeth'in"), 4 paragraf.
     intro: {
-      tr: 'Sevgili dostum, aramıza hoş geldin. Yollarımızın kesişmesine çok sevindik; bunun ilham verici bir yolculuk olmasını diliyoruz. Oyunculuk performansını geliştirmek istiyorsan, doğru yerdesin.',
-      en: 'Dear friend, welcome aboard. We are very happy that our paths crossed and hope it will be an inspiring adventure. If you want to improve your acting performance, you are in the right place.',
+      tr: '"Oyunculuk yeteneği" diye tek bir yetenek yoktur — bu meslek bir yetenekler bileşkesidir. O bileşkenin içinde nerede durduğunu bilirsen, elinde bir yol haritası olur. Kalibrasyon tam olarak bunu yapar.\n\nBeş bölümde enstrümanını birlikte okuyacağız: kim olduğun, becerilerine dair kendi sözün, nasıl öğrendiğin, yaratıcı yetilerin, seni harekete geçiren duygu sistemlerin. Yaklaşık on beş dakika. Doğru ya da yanlış cevap yok; kimseyle yarışmıyorsun — haritası çıkarılan sensin.\n\nÇünkü bundan sonrası ezber değil, inşa. Macbeth\'i dört yüzyılı aşkındır binlerce oyuncu oynadı ve hiçbiri aynı değildi — çünkü hiçbiri senin bedeninde, senin sesinde değildi.\n\nEl yazmalarında yazarın bıraktığı boşlukları kendi seçimlerinle dolduracak, mühürlediğin her kararla kimseninkine benzemeyen kendi karakterini tasarlayacaksın. Yolculuk burada başlıyor: seninle.',
+      en: 'There is no single talent called "acting talent" — this craft is a composite of abilities. Know where you stand within that composite, and you hold a map. That is exactly what Calibration does.\n\nAcross five sections we will read your instrument together: who you are, your own word on your skills, how you learn, your creative faculties, the emotional systems that move you. About fifteen minutes. There are no right or wrong answers; you are not competing with anyone — you are the one being mapped.\n\nBecause what follows is not memorization but construction. For over four centuries, thousands of actors have played Macbeth, and no two were alike — because none of them lived in your body, spoke with your voice.\n\nIn the manuscripts you will fill the gaps the author left with your own choices, and with every decision you seal, you will design a character that resembles no one else\'s. The journey begins here: with you.',
     },
   },
   {
@@ -1052,7 +1054,7 @@ export default function KalibrasyonSayfasi() {
               <div style={{ textAlign: 'center', marginBottom: '2.6rem' }}>
                 <Etiket>{tx(UI.module, lang)}</Etiket>
                 <h1 style={{ fontFamily: serif, fontWeight: 400, fontStyle: 'italic', fontSize: 'clamp(2rem,5.5vw,3rem)', color: 'var(--ink)', margin: '0.3rem 0 1.2rem', lineHeight: 1.05 }}>{tx(UI.heroTitle, lang)}</h1>
-                <p style={{ fontFamily: body, fontWeight: 400, fontSize: '1.08rem', lineHeight: 1.7, color: 'var(--ink)', maxWidth: 540, margin: '0 auto' }}>{tx(section.intro, lang)}</p>
+                <p style={{ fontFamily: body, fontWeight: 400, fontSize: '1.08rem', lineHeight: 1.7, color: 'var(--ink)', maxWidth: 540, margin: '0 auto', whiteSpace: 'pre-line', textAlign: 'left' }}>{tx(section.intro, lang)}</p>{/* IMZA: S6-KALIB-14 (çok paragraf) */}
               </div>
             )}
 

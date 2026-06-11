@@ -58,9 +58,10 @@ const chromeI18n = {
       mod1Roma: 'I',
       mod1Baslik: 'Kendini Tanı',
       mod1Altyazi: 'Kalibrasyon',
+      // IMZA: S6-ANA-05 — Modül I kartı kalibrasyon açılışıyla aynı cümleyi kurar.
       mod1Metin:
-        'Üç kısa test ile duyusal kanal tercihin, psikolojik haritan ve kişilik tipin çıkar. Bu veriler sonraki modüllerde sessizce kişiselleştirme yapar — meta-açıklama yok, sadece sana uyan akış.',
-      mod1Meta: '3 test · ~15 dakika',
+        'Oyunculuk tek bir yetenek değil, bir yetenekler bileşkesidir. Beş bölümlük kalibrasyon o bileşkede nerede durduğunu okur: öğrenme kanalın, becerilerine dair kendi sözün, yaratıcı yetilerin, duygu sistemlerin. Bu veriler sonraki modülleri sessizce sana göre kurar — meta-açıklama yok, sadece sana uyan akış.',
+      mod1Meta: '5 bölüm · ~15 dakika',
       mod2Roma: 'II',
       mod2Baslik: 'Karakterini İnşa Et',
       mod2Altyazi: 'Karakterler',
@@ -448,8 +449,8 @@ const chromeI18n = {
       mod1Baslik: 'Know Yourself',
       mod1Altyazi: 'Calibration',
       mod1Metin:
-        'Three short tests reveal your sensory channel, psychological map, and personality type. These data quietly personalize what follows — no meta-explanation, just a flow that fits you.',
-      mod1Meta: '3 tests · ~15 minutes',
+        'Acting is not a single talent but a composite of abilities. The five-section calibration reads where you stand within that composite: your learning channel, your own word on your skills, your creative faculties, your emotional systems. These data quietly shape the modules that follow — no meta-explanation, just a flow that fits you.',
+      mod1Meta: '5 sections · ~15 minutes',
       mod2Roma: 'II',
       mod2Baslik: 'Build Your Character',
       mod2Altyazi: 'Characters',
@@ -814,8 +815,8 @@ const chromeI18n = {
       mod1Baslik: 'Erkenne dich selbst',
       mod1Altyazi: 'Kalibrierung',
       mod1Metin:
-        'Drei kurze Tests zeigen deinen bevorzugten Sinneskanal, deine psychologische Landkarte und deinen Persönlichkeitstyp. Diese Daten personalisieren die folgenden Module im Stillen — keine Meta-Erklärung, nur ein Ablauf, der zu dir passt.',
-      mod1Meta: '3 Tests · ~15 Minuten',
+        'Schauspiel ist nicht ein einzelnes Talent, sondern ein Verbund von Fähigkeiten. Die Kalibrierung in fünf Abschnitten liest, wo du in diesem Verbund stehst: dein Lernkanal, dein eigenes Wort zu deinen Fähigkeiten, deine kreativen Anlagen, deine Gefühlssysteme. Diese Daten formen die folgenden Module im Stillen — keine Meta-Erklärung, nur ein Ablauf, der zu dir passt.',
+      mod1Meta: '5 Abschnitte · ~15 Minuten',
       mod2Roma: 'II',
       mod2Baslik: 'Erschaffe deine Figur',
       mod2Altyazi: 'Figuren',

@@ -261,7 +261,8 @@ export const FLOW_DE = {
   basics: {
     title: 'Schauspieler-Profil',
     sub: 'Wer du bist · Erfahrung · Ziele',
-    intro: 'Lieber Freund, willkommen an Bord. Wir freuen uns sehr, dass sich unsere Wege gekreuzt haben, und hoffen, dass es eine inspirierende Reise wird. Wenn du deine schauspielerische Darstellung verbessern möchtest, bist du am richtigen Ort.',
+    // IMZA: S6-KALIB-15 — yeni açılış metninin DE karşılığı (4 paragraf).
+    intro: 'Es gibt nicht das eine "Schauspieltalent" — dieses Handwerk ist ein Verbund von Fähigkeiten. Wenn du weißt, wo du in diesem Verbund stehst, hältst du eine Landkarte in der Hand. Genau das leistet die Kalibrierung.\n\nIn fünf Abschnitten lesen wir gemeinsam dein Instrument: wer du bist, dein eigenes Wort zu deinen Fähigkeiten, wie du lernst, deine kreativen Anlagen, die Gefühlssysteme, die dich bewegen. Etwa fünfzehn Minuten. Es gibt keine richtigen oder falschen Antworten; du trittst gegen niemanden an — kartiert wirst du.\n\nDenn was folgt, ist kein Auswendiglernen, sondern Konstruktion. Seit über vier Jahrhunderten haben Tausende Schauspieler Macbeth gespielt, und keine zwei waren gleich — weil keiner von ihnen in deinem Körper lebte, mit deiner Stimme sprach.\n\nIn den Manuskripten wirst du die Lücken, die der Autor gelassen hat, mit deinen eigenen Entscheidungen füllen — und mit jeder Entscheidung, die du versiegelst, eine Figur entwerfen, die keiner anderen gleicht. Die Reise beginnt hier: mit dir.',
   },
   skills: {
     title: 'Fähigkeitskarte',

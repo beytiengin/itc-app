@@ -216,9 +216,12 @@ export default function AnaSayfa() {
       ctaMetni = s.ctaUyeKalibrasyonDevam;
       ctaKapanisMetni = s.ctaUyeKalibrasyonDevam;
     } else {
-      ctaHref = '/giris';
+      // IMZA: S6-ANA-04 — misafir modu gerçek olduğu için kapı kalktı:
+      // anonim "Başla →" doğrudan kalibrasyona gider; giriş, kayıt anında
+      // (tam doğru anda) istenir. Nav'daki Giriş yolu aynen duruyor.
+      ctaHref = '/kalibrasyon';
       ctaMetni = s.ctaBasla;
-      ctaKapanisMetni = s.ctaKapanisAnonim;
+      ctaKapanisMetni = s.ctaBasla;
     }
     kapanisBaslik = s.kapanisBaslikAnonim;
     kapanisAlt = s.kapanisAltAnonim;
