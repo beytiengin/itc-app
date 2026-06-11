@@ -8,7 +8,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { kalibrasyonKaydet } from '../lib/kalibrasyon-kaydet';
 import { useDil } from '../lib/dil';
@@ -355,6 +355,9 @@ const UI = {
   pankCardDesc: { tr: 'Altı duygusal sistemin profili — bir mizaç haritası, bir teşhis değil. Karaktere hangi duygusal kapıdan girdiğini anlamana yardım eder.', en: 'A profile of your six emotional systems — a temperament map, not a diagnosis. It helps you see which emotional door you enter a character through.' },
   saving: { tr: 'Kaydediliyor…', en: 'Saving…' },
   saveError: { tr: 'Kayıt sırasında bir hata oldu. Lütfen tekrar dene.', en: 'There was an error saving. Please try again.' },
+  // IMZA: S1-KALIB-01 — anonim tamamlama + giriş çağrısı metinleri
+  kayitOturumYok: { tr: 'Kalibrasyonun tamamlandı. Kaydetmek için giriş yapmalısın — cevapların bu cihazda seni bekliyor.', en: 'Your calibration is complete. Sign in to save it — your answers are waiting on this device.' },
+  girisYap: { tr: 'Giriş yap →', en: 'Sign in →' },
 };
 
 /* ─── SCORING ─────────────────────────────────────────────────── */
@@ -867,7 +870,42 @@ export default function KalibrasyonSayfasi() {
   const [skillA, setSkillA] = useState(Array(37).fill(null));
   const [pankA, setPankA] = useState(Array(33).fill(null));
   const [picks, setPicks] = useState({});
-  const [kayitDurumu, setKayitDurumu] = useState(null); // null | 'kaydediliyor' | 'hata'
+  const [kayitDurumu, setKayitDurumu] = useState(null); // null | 'kaydediliyor' | 'hata' | 'oturum-yok'
+
+  // IMZA: S1-KALIB-02 — Taslak kalıcılığı (localStorage).
+  // Her cevap cihaza yazılır; yenileme/geri dönüşte kaldığı bölümden devam.
+  // Başarılı Supabase kaydında taslak silinir. Şekil migrate-hazır: HAM
+  // cevaplar saklanır, skorlar geri yüklemede yeniden hesaplanır.
+  const TASLAK_KEY = 'itc-kalibrasyon-taslak';
+  const [taslakHazir, setTaslakHazir] = useState(false);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(TASLAK_KEY);
+      if (raw) {
+        const d = JSON.parse(raw);
+        if (d && d.surum === 1) {
+          if (d.intake && typeof d.intake === 'object') setIntake(d.intake);
+          if (Array.isArray(d.vakA) && d.vakA.length === 24) setVakA(d.vakA);
+          if (Array.isArray(d.skillA) && d.skillA.length === 37) setSkillA(d.skillA);
+          if (Array.isArray(d.pankA) && d.pankA.length === 33) setPankA(d.pankA);
+          if (d.picks && typeof d.picks === 'object') setPicks(d.picks);
+          if (Number.isInteger(d.pos) && d.pos >= 1 && d.pos <= FLOW.length) setPos(d.pos);
+        }
+      }
+    } catch (e) {}
+    setTaslakHazir(true);
+  }, []);
+
+  useEffect(() => {
+    if (!taslakHazir) return;
+    try {
+      localStorage.setItem(TASLAK_KEY, JSON.stringify({
+        surum: 1, pos, intake, vakA, skillA, pankA, picks,
+        guncelleme: new Date().toISOString(),
+      }));
+    } catch (e) {}
+  }, [taslakHazir, pos, intake, vakA, skillA, pankA, picks]);
 
   const vakRes = useMemo(() => scoreVAK(vakA), [vakA]);
   const skillRes = useMemo(() => scoreSkills(skillA), [skillA]);
@@ -891,8 +929,14 @@ export default function KalibrasyonSayfasi() {
         panksepp: pankRes,
       });
       setKayitDurumu(null);
+      try { localStorage.removeItem(TASLAK_KEY); } catch (err) {} // IMZA: S1-KALIB-04
       go(FLOW.length + 1);
     } catch (e) {
+      // IMZA: S1-KALIB-03 — oturum yoksa "kayıt hatası" değil, giriş çağrısı.
+      if (e && e.message === 'Oturum yok') {
+        setKayitDurumu('oturum-yok');
+        return;
+      }
       console.error('Kalibrasyon kayıt hatası:', e);
       setKayitDurumu('hata');
     }
@@ -914,7 +958,7 @@ export default function KalibrasyonSayfasi() {
               </div>
             )}
 
-            <Etiket>{tx(UI.section, lang)} {section.n}</Etiket>
+            <Etiket>{tx(UI.section, lang)} {section.n} / {String(FLOW.length).padStart(2, '0')}</Etiket>{/* IMZA: S1-KALIB-05 — bölüm göstergesi */}
             <h2 style={{ fontFamily: serif, fontWeight: 400, fontStyle: 'italic', fontSize: '2rem', color: 'var(--ink)', margin: '0.2rem 0 0.3rem' }}>{tx(section.title, lang)}</h2>
             <div style={{ fontFamily: body, fontWeight: 400, fontSize: '0.9rem', color: 'var(--ink-soft)', marginBottom: '1.1rem' }}>{tx(section.sub, lang)}</div>
 
@@ -948,6 +992,13 @@ export default function KalibrasyonSayfasi() {
 
             {kayitDurumu === 'hata' && (
               <p style={{ marginTop: '1rem', textAlign: 'center', fontFamily: body, fontWeight: 400, fontSize: '0.9rem', color: 'var(--uyari)' }}>{tx(UI.saveError, lang)}</p>
+            )}
+            {/* IMZA: S1-KALIB-06 — anonim tamamlama: emek korunur, giriş çağrısı */}
+            {kayitDurumu === 'oturum-yok' && (
+              <div style={{ marginTop: '1.2rem', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '0.7rem', alignItems: 'center' }}>
+                <p style={{ margin: 0, fontFamily: body, fontWeight: 400, fontSize: '0.95rem', lineHeight: 1.6, color: 'var(--ink)', maxWidth: 460 }}>{tx(UI.kayitOturumYok, lang)}</p>
+                <a href={'/giris?geri=' + encodeURIComponent('/kalibrasyon')} style={{ fontFamily: body, fontWeight: 500, fontSize: '0.8rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--accent)', textDecoration: 'none', border: '1px solid var(--accent)', padding: '0.7rem 1.4rem' }}>{tx(UI.girisYap, lang)}</a>
+              </div>
             )}
           </div>
         )}

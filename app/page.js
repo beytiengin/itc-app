@@ -174,6 +174,14 @@ export default function AnaSayfa() {
   const [kullanici, setKullanici] = useState(null);
   const [profil, setProfil] = useState(null); // null = anonim ya da yükleniyor
   const [sonNokta, setSonNokta] = useState(null); // {karakterId, hash} | null
+  // IMZA: S1-ANA-01 — cihazda yarım kalibrasyon taslağı var mı? (anonim CTA için)
+  const [kalibrasyonTaslagiVar, setKalibrasyonTaslagiVar] = useState(false);
+
+  useEffect(() => {
+    try {
+      setKalibrasyonTaslagiVar(!!localStorage.getItem('itc-kalibrasyon-taslak'));
+    } catch (e) {}
+  }, []);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -202,9 +210,16 @@ export default function AnaSayfa() {
   // "tam" durumunda son nokta varsa el-yazması derin link; yoksa karakter listesi.
   let ctaHref, ctaMetni, ctaKapanisMetni, kapanisBaslik, kapanisAlt;
   if (!kullanici) {
-    ctaHref = '/giris';
-    ctaMetni = s.ctaBasla;
-    ctaKapanisMetni = s.ctaKapanisAnonim;
+    // IMZA: S1-ANA-02 — cihazda taslak varsa anonim CTA kalibrasyona devam eder.
+    if (kalibrasyonTaslagiVar) {
+      ctaHref = '/kalibrasyon';
+      ctaMetni = s.ctaUyeKalibrasyonDevam;
+      ctaKapanisMetni = s.ctaUyeKalibrasyonDevam;
+    } else {
+      ctaHref = '/giris';
+      ctaMetni = s.ctaBasla;
+      ctaKapanisMetni = s.ctaKapanisAnonim;
+    }
     kapanisBaslik = s.kapanisBaslikAnonim;
     kapanisAlt = s.kapanisAltAnonim;
   } else if (!profil || profil.hicYok) {

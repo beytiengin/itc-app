@@ -20,6 +20,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { supabase } from '../app/lib/supabase';
+import { misafirSabitYaz } from '../app/lib/misafir'; // IMZA: S1-YURUYUS-01
 
 const TON = 'var(--accent)';
 const ONAY = 'var(--onay)';
@@ -127,7 +128,19 @@ export default function BoslukYuruyusu({
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        // Anonim kullanıcı — Supabase'e yazma. Sadece kapan.
+        // IMZA: S1-YURUYUS-01 — Anonim: Supabase yerine cihaza (misafir) yaz.
+        // Satır şekli oznel_sabitler ile birebir; girişte migrate edilebilir.
+        for (const anahtar of Object.keys(secimler)) {
+          misafirSabitYaz(karakterId, {
+            karakter_id: karakterId,
+            bosluk_no: bosluk.id,
+            catal_anahtar: anahtar,
+            secilen_dal: secimler[anahtar],
+            muhur_metni: muhurler[anahtar] || '',
+            ozet_metni: ozetler[anahtar] || '',
+            birlesim_sahne_no: bosluk.birlesimSahneNo || null,
+          });
+        }
         setKayitDurumu(null);
         onKapat?.({ secimler, ozetler });
         return;

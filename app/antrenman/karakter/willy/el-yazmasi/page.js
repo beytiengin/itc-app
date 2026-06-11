@@ -41,6 +41,15 @@ import {
 } from '../../../../lib/kulis';
 import TopraklanmaModu from '../../../../../components/TopraklanmaModu';
 import BoslukYuruyusu from '../../../../../components/BoslukYuruyusu';
+// IMZA: S1-WILLY-01 — anonim misafir katmanı (Sprint 1)
+import {
+  useOturum,
+  misafirMetin,
+  misafirSabitYaz,
+  misafirBoslukYaz,
+  misafirSabitleriOkuAnonim,
+  misafirBosluklariOkuAnonim,
+} from '../../../../lib/misafir';
 
 const TON = 'var(--accent)';
 const KARAKTER = 'willy';
@@ -128,7 +137,7 @@ export default function ElYazmasiSayfasi() {
   // An mühürleme handler'ları — çatal seçimi + yazma (oznel_sabitler).
   async function anSec(an, secenek) {
     setAnSecimleri((p) => ({ ...p, [an.id]: secenek.dal }));
-    await anSabitiKaydet(KARAKTER, {
+    const kayitOk = await anSabitiKaydet(KARAKTER, { // IMZA: S1-WILLY-02
       boslukNo: an.id,
       catalAnahtar: an.id,
       secilenDal: secenek.dal,
@@ -136,11 +145,23 @@ export default function ElYazmasiSayfasi() {
       ozetMetni: `${secenek.baslik || ''} — ${secenek.aciklama || ''}`.trim(),
       birlesimSahneNo: an.birlesimSahneNo ?? null,
     });
+    if (!kayitOk) {
+      // Oturum yok / yazım başarısız — cihazda geçici tut.
+      misafirSabitYaz(KARAKTER, {
+        karakter_id: KARAKTER,
+        bosluk_no: an.id,
+        catal_anahtar: an.id,
+        secilen_dal: secenek.dal,
+        muhur_metni: secenek.oznelSabit || null,
+        ozet_metni: `${secenek.baslik || ''} — ${secenek.aciklama || ''}`.trim(),
+        birlesim_sahne_no: an.birlesimSahneNo ?? null,
+      });
+    }
   }
   async function anYaz(an, metin) {
     setAnYazmalari((p) => ({ ...p, [an.id]: metin }));
     if (!metin || metin.trim().length === 0) return;
-    await anSabitiKaydet(KARAKTER, {
+    const kayitOk = await anSabitiKaydet(KARAKTER, { // IMZA: S1-WILLY-03
       boslukNo: an.id,
       catalAnahtar: an.id,
       secilenDal: null,
@@ -148,6 +169,17 @@ export default function ElYazmasiSayfasi() {
       ozetMetni: metin,
       birlesimSahneNo: an.birlesimSahneNo ?? null,
     });
+    if (!kayitOk) {
+      misafirSabitYaz(KARAKTER, {
+        karakter_id: KARAKTER,
+        bosluk_no: an.id,
+        catal_anahtar: an.id,
+        secilen_dal: null,
+        muhur_metni: metin,
+        ozet_metni: metin,
+        birlesim_sahne_no: an.birlesimSahneNo ?? null,
+      });
+    }
   }
 
   useEffect(() => {
@@ -164,9 +196,21 @@ export default function ElYazmasiSayfasi() {
         setBoslukYansima(bosluklar && typeof bosluklar === 'object' ? bosluklar : {});
         // An mühürleri (çatal seçimleri + yazma) — oznel_sabitler'den.
         const sabitler = await anSabitleriniGetir(KARAKTER);
-        if (!iptal && sabitler) {
-          setAnSecimleri(sabitler.secimler || {});
-          setAnYazmalari(sabitler.muhurler || {});
+        // IMZA: S1-WILLY-04 — anonimken cihazdaki misafir kayıtlarını birleştir.
+        const misafirSatirlar = await misafirSabitleriOkuAnonim(KARAKTER);
+        const misafirBosluklar = await misafirBosluklariOkuAnonim(KARAKTER);
+        if (!iptal) {
+          const secimlerM = { ...((sabitler && sabitler.secimler) || {}) };
+          const muhurlerM = { ...((sabitler && sabitler.muhurler) || {}) };
+          for (const r of misafirSatirlar) {
+            if (r.secilen_dal) secimlerM[r.bosluk_no] = r.secilen_dal;
+            else if (r.muhur_metni) muhurlerM[r.bosluk_no] = r.muhur_metni;
+          }
+          setAnSecimleri(secimlerM);
+          setAnYazmalari(muhurlerM);
+          if (Object.keys(misafirBosluklar).length > 0) {
+            setBoslukYansima((prev) => ({ ...misafirBosluklar, ...prev }));
+          }
         }
         // Açık kapı — VAK baskından sessizce türet (skor/sayı yok).
         const baskin = profil?.vak?.baskin || profil?.vak?.dominant;
@@ -907,6 +951,9 @@ function AnSecenek({ secili, soluk, onClick, harf, baslik, aciklama, muhur }) {
 // Bilissel cerceve gorunur: catal = "Karar" (yorum secilir+muhurlenir),
 // yazma = "Bosluk" (oyuncu uretir+muhurler). Soru-cevap degil, bosluk-doldurma.
 function AnKart({ an, secimler, muhurler, onAnSec, onAnYaz, t }) {
+  const { anonim: anonimAn } = useOturum(); // IMZA: S1-WILLY-06 (hook)
+  const { dil: dilAn } = useDil();
+  const mtAn = misafirMetin(dilAn);
   const isKarar = an.tip === 'catal';
   const isHatira = an.tip === 'hatira';
   const isIz = an.tip === 'iz';
@@ -923,6 +970,13 @@ function AnKart({ an, secimler, muhurler, onAnSec, onAnYaz, t }) {
           ))}
         </div>
       ) : null}
+      {/* IMZA: S1-WILLY-06 — anonim çatal seçimi: dürüst geçici-kayıt mesajı */}
+      {isKarar && anonimAn && secimler[an.id] ? (
+        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.68rem', color: 'var(--uyari)', lineHeight: 1.5 }}>
+          {mtAn.gecici}{' '}
+          <a href={'/giris?geri=' + encodeURIComponent('/antrenman/karakter/willy/el-yazmasi')} style={{ color: 'var(--accent)', textDecoration: 'none' }}>{mtAn.girisYap}</a>
+        </span>
+      ) : null}
       {(an.tip === 'yazma' || an.tip === 'hatira' || an.tip === 'iz' || an.tip === 'sessizbilgi') ? (
         <AnYazma an={an} deger={muhurler[an.id] || ''} onYaz={(metin) => onAnYaz(an, metin)} t={t} hatira={isHatira} iz={isIz} sessizBilgi={isSessizBilgi} />
       ) : null}
@@ -931,6 +985,9 @@ function AnKart({ an, secimler, muhurler, onAnSec, onAnYaz, t }) {
 }
 
 function AnYazma({ an, deger, onYaz, t, hatira, iz, sessizBilgi }) {
+  const { anonim: anonimYazma } = useOturum(); // IMZA: S1-WILLY-05 (hook)
+  const { dil: dilYazma } = useDil();
+  const mtYazma = misafirMetin(dilYazma);
   const [yerel, setYerel] = useState(deger || '');
   const [kaydedildi, setKaydedildi] = useState(false);
   useEffect(() => { setYerel(deger || ''); }, [deger]);
@@ -949,8 +1006,16 @@ function AnYazma({ an, deger, onYaz, t, hatira, iz, sessizBilgi }) {
           lineHeight: 1.65, resize: 'vertical', boxSizing: 'border-box', outline: 'none', caretColor: TON,
         }}
       />
+      {/* IMZA: S1-WILLY-05 — anonimde "mühürlendi" yerine dürüst geçici-kayıt mesajı */}
       {(kaydedildi || (deger && yerel === deger)) && yerel.trim().length > 0 ? (
-        <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.65rem', letterSpacing: '0.2em', color: TON, textTransform: 'uppercase', alignSelf: 'flex-end' }}>{t.muhurlendi || '✓'}</span>
+        anonimYazma ? (
+          <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.68rem', color: 'var(--uyari)', alignSelf: 'flex-end', textAlign: 'right', lineHeight: 1.5 }}>
+            {mtYazma.gecici}{' '}
+            <a href={'/giris?geri=' + encodeURIComponent('/antrenman/karakter/willy/el-yazmasi')} style={{ color: 'var(--accent)', textDecoration: 'none' }}>{mtYazma.girisYap}</a>
+          </span>
+        ) : (
+          <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.65rem', letterSpacing: '0.2em', color: TON, textTransform: 'uppercase', alignSelf: 'flex-end' }}>{t.muhurlendi || '✓'}</span>
+        )
       ) : (
         <span style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '0.74rem', color: 'var(--ink-muted)', alignSelf: 'flex-end' }}>{sessizBilgi ? (t.sessizBilgiYonerge || t.muhurleYonerge) : iz ? (t.izYonerge || t.muhurleYonerge) : hatira ? (t.hatiraYonerge || t.muhurleYonerge) : t.muhurleYonerge}</span>
       )}
@@ -982,9 +1047,11 @@ function SekmeBtn({ aktif, onClick, children }) {
 }
 
 function DurumRozeti({ durum, ortak }) {
+  const { dil: dilRozet } = useDil(); // IMZA: S1-WILLY-08
+  const mtRozet = misafirMetin(dilRozet);
   if (!durum) return null;
-  const renk = durum === 'hata' ? 'var(--uyari)' : durum === 'kaydedildi' ? 'var(--onay-soft)' : 'var(--ink-muted)';
-  const metin = durum === 'kaydediliyor' ? ortak.kaydediliyor : durum === 'kaydedildi' ? ortak.kaydedildi : ortak.hata;
+  const renk = durum === 'hata' || durum === 'gecici' ? 'var(--uyari)' : durum === 'kaydedildi' ? 'var(--onay-soft)' : 'var(--ink-muted)';
+  const metin = durum === 'kaydediliyor' ? ortak.kaydediliyor : durum === 'kaydedildi' ? ortak.kaydedildi : durum === 'gecici' ? mtRozet.gecici : ortak.hata;
   return (
     <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.7rem', color: renk, letterSpacing: '0.08em', alignSelf: 'flex-end' }}>{metin}</span>
   );
@@ -999,12 +1066,17 @@ function BoslukPanel({ veri, t, ortak, boslukYansima, setBoslukYansima, onKapat,
   // Boşluk için ilk alt-soru genelde "ana" sorudur; yoksa generic.
   const soru = (veri.altSorular && veri.altSorular[0]?.soru) || veri.sentez || veri.boslukMetin || '';
 
+  const { anonim: anonimPanel } = useOturum(); // IMZA: S1-WILLY-07
   const kaydet = useDebouncedCallback(async (yeni) => {
     setDurum('kaydediliyor');
     const ok = await boslukYansimasiKaydet(KARAKTER, boslukId, yeni);
     if (ok) {
       setBoslukYansima((prev) => ({ ...prev, [boslukId]: yeni }));
       setDurum('kaydedildi');
+    } else if (anonimPanel) {
+      misafirBoslukYaz(KARAKTER, boslukId, yeni);
+      setBoslukYansima((prev) => ({ ...prev, [boslukId]: yeni }));
+      setDurum('gecici');
     } else setDurum('hata');
   });
 

@@ -17,8 +17,11 @@ import { useState, useEffect } from 'react';
 import { nina } from '../../../../data/pilot/nina';
 import BoslukYuruyusu from '../../../../components/BoslukYuruyusu';
 import { supabase } from '../../../lib/supabase';
+// IMZA: S1-NINA-00 — anonim misafir katmanı (Sprint 1)
+import { useOturum, misafirMetin, misafirSabitYaz, misafirSabitleriOkuAnonim } from '../../../lib/misafir';
 
 const TON = 'var(--accent)';
+const MT = misafirMetin('tr'); // Nina viewer şimdilik TR-only
 const ONAY = 'var(--uyari)';
 const KARAKTER_ID = 'nina';
 const ROMA = { 1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V' };
@@ -315,12 +318,20 @@ export default function NinaPilotSayfasi() {
     async function yukle() {
       try {
         const { data: { user } } = await supabase.auth.getUser();
-        if (!user || iptal) return;
-        const { data, error } = await supabase
-          .from('oznel_sabitler')
-          .select('catal_anahtar, secilen_dal, ozet_metni, muhur_metni, birlesim_sahne_no, bosluk_no')
-          .eq('karakter_id', KARAKTER_ID);
-        if (iptal || error) return;
+        if (iptal) return;
+        // IMZA: S1-NINA-01 — oturum yoksa cihazdaki misafir satırları aynı
+        // haritalama döngüsünden geçer (satır şekli Supabase ile birebir).
+        let data;
+        if (user) {
+          const sonuc = await supabase
+            .from('oznel_sabitler')
+            .select('catal_anahtar, secilen_dal, ozet_metni, muhur_metni, birlesim_sahne_no, bosluk_no')
+            .eq('karakter_id', KARAKTER_ID);
+          if (iptal || sonuc.error) return;
+          data = sonuc.data;
+        } else {
+          data = await misafirSabitleriOkuAnonim(KARAKTER_ID);
+        }
 
         const sahneMap = {};
         const olayMap = {};
@@ -408,7 +419,17 @@ export default function NinaPilotSayfasi() {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        // Anonim — sessizce atla, UI'da lokal seçim göster (yenilemeyle silinir)
+        // IMZA: S1-NINA-02 — Anonim: cihaza (misafir) yaz; yenilemede geri yüklenir.
+        misafirSabitYaz(KARAKTER_ID, {
+          karakter_id: KARAKTER_ID,
+          bosluk_no,
+          catal_anahtar,
+          secilen_dal: secilen_dal ?? null,
+          ozet_metni: ozet_metni ?? null,
+          muhur_metni: muhur_metni ?? null,
+          birlesim_sahne_no: birlesim_sahne_no ?? null,
+        });
+        setYenile(n => n + 1);
         return;
       }
       const { error } = await supabase.from('oznel_sabitler').upsert({
@@ -1626,6 +1647,7 @@ function KatlananTercih({ t, secilen, onSec, ekstraNot, acikDisaridan }) {
 
 // ─── Yazma anı (serbest metin → mühür) ──────────────────────
 function YazmaAni({ an, deger, onYaz, etiket = 'Boşluk', gosterBaslik = true }) {
+  const { anonim } = useOturum(); // IMZA: S1-NINA-03
   const [yerel, setYerel] = useState(deger || '');
   const [kaydedildi, setKaydedildi] = useState(false);
   useEffect(() => { setYerel(deger || ''); }, [deger]);
@@ -1678,15 +1700,26 @@ function YazmaAni({ an, deger, onYaz, etiket = 'Boşluk', gosterBaslik = true })
           boxSizing: 'border-box',
         }}
       />
+      {/* IMZA: S1-NINA-03 — anonimde "mühürlendi" yerine dürüst geçici-kayıt mesajı */}
       {(kaydedildi || (deger && yerel === deger)) && yerel.trim().length > 0 && (
-        <span style={{
-          fontFamily: 'var(--font-body), sans-serif',
-          fontWeight: 300,
-          fontSize: '0.65rem',
-          letterSpacing: '0.2em',
-          color: TON,
-          textTransform: 'uppercase',
-        }}>✓ mühürlendi</span>
+        anonim ? (
+          <span style={{
+            fontFamily: 'var(--font-body), sans-serif',
+            fontWeight: 300,
+            fontSize: '0.7rem',
+            color: 'var(--uyari)',
+            lineHeight: 1.5,
+          }}>{MT.gecici} <a href={'/giris?geri=' + encodeURIComponent('/antrenman/karakter/nina')} style={{ color: 'var(--accent)', textDecoration: 'none' }}>{MT.girisYap}</a></span>
+        ) : (
+          <span style={{
+            fontFamily: 'var(--font-body), sans-serif',
+            fontWeight: 300,
+            fontSize: '0.65rem',
+            letterSpacing: '0.2em',
+            color: TON,
+            textTransform: 'uppercase',
+          }}>✓ mühürlendi</span>
+        )
       )}
     </div>
   );
