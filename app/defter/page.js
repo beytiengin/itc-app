@@ -214,6 +214,8 @@ function Header({ t }) {
       <div style={{ width: '1px', height: '50px', backgroundColor: 'var(--accent)', opacity: 0.4 }} />
       <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.6rem', letterSpacing: '0.4em', color: 'var(--accent)', textTransform: 'uppercase' }}>{t.etiket}</span>
       <h1 style={{ fontFamily: 'var(--font-display), serif', fontWeight: 300, fontSize: 'clamp(2rem, 5vw, 3.2rem)', color: 'var(--ink)', margin: 0 }}>{t.baslik}</h1>
+      {/* IMZA: S9-EPIGRAF-01 — Defter epigrafı */}
+      {t.epigraf ? <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: '1rem', lineHeight: 1.6, color: 'var(--ink-soft)', margin: 0, maxWidth: 560 }}>“{t.epigraf}”</p> : null}
       <p style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.75, margin: 0, maxWidth: 560 }}>
         {t.intro}
       </p>

@@ -260,6 +260,29 @@ function YakindaRozet({ metin }) {
   return <span style={yakindaRozetStili}>{metin}</span>;
 }
 
+// IMZA: S9-EPIGRAF-01 — bölüm epigrafları: Beyti'nin denemelerinden tek satırlar.
+// Yalnız A bölümündeki imzalıdır (atif); kalanlar atıfsız koro. Duvar değil
+// ritim: bölüm başına tek italik satır.
+const epigrafStili = {
+  fontFamily: 'var(--font-display), serif',
+  fontStyle: 'italic',
+  fontWeight: 300,
+  fontSize: '1.05rem',
+  lineHeight: 1.65,
+  color: 'var(--ink-soft)',
+  margin: 0,
+  maxWidth: 620,
+};
+
+function Epigraf({ metin, atif }) {
+  return (
+    <p style={epigrafStili}>
+      “{metin}”
+      {atif ? <span style={{ fontStyle: 'normal', fontSize: '0.72rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--ink-muted)', marginLeft: '0.6rem', whiteSpace: 'nowrap' }}>{atif}</span> : null}
+    </p>
+  );
+}
+
 export default function NasilCalisilir() {
   const { dil } = useDil();
   const t = ceviri(chromeI18n, dil).nasilCalisilir;
@@ -313,6 +336,7 @@ export default function NasilCalisilir() {
         {/* A · Yöntem — vurus* mevcut stringlerini tez olarak kullanıyoruz */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <div style={ustEtiketStili}>{t.ncAEtiket}</div>
+          <Epigraf metin={t.ncEpiA} atif={t.ncEpiAtif} />
           <p style={tezStili}>
             {anaSayfa.vurusGelenekOnce}
             <span style={{ color: 'var(--ink-muted)' }}>{anaSayfa.vurusGelenek}</span>
@@ -328,17 +352,45 @@ export default function NasilCalisilir() {
         {/* B · Üç Modül — mevcut mod1/2/3* stringleri */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <div style={ustEtiketStili}>{t.ncBEtiket}</div>
+          <Epigraf metin={t.ncEpiB} />
           <h2 style={k2Stili}>{t.ncBBaslik}</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <ModulKart roma={anaSayfa.mod1Roma} baslik={anaSayfa.mod1Baslik} altyazi={anaSayfa.mod1Altyazi} metin={anaSayfa.mod1Metin} meta={anaSayfa.mod1Meta} />
             <ModulKart roma={anaSayfa.mod2Roma} baslik={anaSayfa.mod2Baslik} altyazi={anaSayfa.mod2Altyazi} metin={anaSayfa.mod2Metin} meta={anaSayfa.mod2Meta} />
-            <ModulKart roma={anaSayfa.mod3Roma} baslik={anaSayfa.mod3Baslik} altyazi={anaSayfa.mod3Altyazi} metin={anaSayfa.mod3Metin} meta={anaSayfa.mod3Meta} yakinda yakindaMetni={t.ncYakinda} />
+            <ModulKart roma={anaSayfa.mod3Roma} baslik={anaSayfa.mod3Baslik} altyazi={anaSayfa.mod3Altyazi} metin={anaSayfa.mod3Metin} meta={anaSayfa.mod3Meta} yakinda yakindaMetni={t.ncYakinda} dipnot={t.ncEpiMod3} />
           </div>
+        </section>
+
+        {/* IMZA: S9-ORNEK-01 — Hamlet'ten gerçek bir boşluk: yöntem gösterilir, anlatılmaz.
+            İçerik uygulama verisinden (hamlet b3 · veda çatalı); Shakespeare alıntısı yok,
+            tüm metin bizim. travmaDuyarli kaynaklı — Filiz onay notuna eklendi. */}
+        <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <div style={ustEtiketStili}>{t.ncOrnekEtiket}</div>
+          <p style={govdeStili}>{t.ncOrnekGiris}</p>
+          <p style={{ ...tezStili, fontSize: 'clamp(1.15rem, 2.6vw, 1.45rem)' }}>{t.ncOrnekSoru}</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
+            <div style={{ border: '1px solid var(--rule)', padding: '1.2rem 1.3rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 500, fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--accent)' }}>A</span>
+              <h3 style={{ ...adimAdStili, margin: 0 }}>{t.ncOrnekDalABaslik}</h3>
+              <p style={{ ...adimMetinStili, margin: 0 }}>{t.ncOrnekDalAMetin}</p>
+            </div>
+            <div style={{ border: '1px solid var(--rule)', padding: '1.2rem 1.3rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 500, fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--accent)' }}>B</span>
+              <h3 style={{ ...adimAdStili, margin: 0 }}>{t.ncOrnekDalBBaslik}</h3>
+              <p style={{ ...adimMetinStili, margin: 0 }}>{t.ncOrnekDalBMetin}</p>
+            </div>
+          </div>
+          <div style={{ borderLeft: '3px solid var(--accent-soft)', paddingLeft: '1.1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.62rem', letterSpacing: '0.24em', textTransform: 'uppercase', color: 'var(--ink-muted)' }}>{t.ncOrnekMuhurEtiket}</span>
+            <p style={{ ...epigrafStili, color: 'var(--ink)' }}>“{t.ncOrnekMuhur}”</p>
+          </div>
+          <p style={govdeStili}>{t.ncOrnekKapanis}</p>
         </section>
 
         {/* C · Uygulama Akışı — 6 adım */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <div style={ustEtiketStili}>{t.ncCEtiket}</div>
+          <Epigraf metin={t.ncEpiC} />
           <h2 style={k2Stili}>{t.ncCBaslik}</h2>
           <ol style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
             {adimlar.map((a, i) => (
@@ -359,6 +411,7 @@ export default function NasilCalisilir() {
         {/* D · Kimler İçin — 4 kart, geniş ekranda 2 sütun */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <div style={ustEtiketStili}>{t.ncDEtiket}</div>
+          <Epigraf metin={t.ncEpiD} />
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
@@ -379,6 +432,7 @@ export default function NasilCalisilir() {
         {/* E · Sık Sorulanlar — 2 soru-cevap */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <div style={ustEtiketStili}>{t.ncEEtiket}</div>
+          <Epigraf metin={t.ncEpiE} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.6rem' }}>
             <div style={sssKartStili}>
               <h3 style={sssQStili}>{t.ncE1Q}</h3>
@@ -401,6 +455,7 @@ export default function NasilCalisilir() {
           borderTop: '1px solid var(--rule)',
         }}>
           <p style={govdeStili}>{t.ncVaatKapanis}</p>
+          <Epigraf metin={t.ncEpiF} />
           <p style={{ ...tezStili, fontSize: 'clamp(1.4rem, 3vw, 1.9rem)' }}>{t.ncFCumle}</p>
           <a
             href={ctaHref}
@@ -417,7 +472,7 @@ export default function NasilCalisilir() {
   );
 }
 
-function ModulKart({ roma, baslik, altyazi, metin, meta, yakinda, yakindaMetni }) {
+function ModulKart({ roma, baslik, altyazi, metin, meta, yakinda, yakindaMetni, dipnot }) {
   return (
     <div style={yakinda ? modulKartInertStili : modulKartStili}>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', flexWrap: 'wrap' }}>
@@ -430,6 +485,7 @@ function ModulKart({ roma, baslik, altyazi, metin, meta, yakinda, yakindaMetni }
       <div style={{ fontFamily: 'var(--font-body), sans-serif', fontSize: '0.65rem', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--ink-muted)' }}>
         {meta}
       </div>
+      {dipnot ? <p style={{ ...epigrafStili, fontSize: '0.92rem', marginTop: '0.4rem' }}>“{dipnot}”</p> : null}
     </div>
   );
 }
