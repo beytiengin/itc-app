@@ -41,6 +41,7 @@ const chromeI18n = {
         'Oyuncunun zihinsel haritasını, bedensel hafızasını ve psikolojik derinliğini merkeze alan özgün bir oyunculuk metodolojisi.',
       heroVaat: 'Karakterin yazılmamış hayatını keşfet.',
       ctaBasla: 'Başla →',
+      ctaYontem: 'Önce yöntemi tanı →', // IMZA: S10-ANA-06
       ctaUye: "Modül I'e Git →",
       ctaUyeKalibrasyonDevam: 'Kalibrasyonu Tamamla →',
       ctaUyeKarakter: 'Karaktere Git →',
@@ -457,6 +458,7 @@ const chromeI18n = {
         "An original acting methodology centered on the actor's mental map, embodied memory, and psychological depth.",
       heroVaat: 'Discover the unwritten life of the character.',
       ctaBasla: 'Begin →',
+      ctaYontem: 'Meet the method first →',
       ctaUye: 'Go to Module I →',
       ctaUyeKalibrasyonDevam: 'Finish Calibration →',
       ctaUyeKarakter: 'Go to Character →',
@@ -842,6 +844,7 @@ const chromeI18n = {
         'Eine eigenständige Schauspielmethode, die die mentale Landkarte, das körperliche Gedächtnis und die psychologische Tiefe des Schauspielers oder der Schauspielerin ins Zentrum stellt.',
       heroVaat: 'Entdecke das ungeschriebene Leben der Figur.',
       ctaBasla: 'Beginnen →',
+      ctaYontem: 'Lerne zuerst die Methode kennen →',
       ctaUye: 'Zu Modul I →',
       ctaUyeKalibrasyonDevam: 'Kalibrierung abschließen →',
       ctaUyeKarakter: 'Zur Figur →',

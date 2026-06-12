@@ -336,6 +336,13 @@ export default function AnaSayfa() {
           >
             {ctaMetni}
           </a>
+          {/* IMZA: S10-ANA-06 — ikna eden sayfa gömülü kalmasın: anonim
+              ziyaretçiye birincil CTA'nın hemen altında sessiz ikincil yol. */}
+          {!kullanici && (
+            <a href="/nasil-calisilir" style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.8rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--ink-soft)', textDecoration: 'none', borderBottom: '1px solid var(--rule)', paddingBottom: '0.2rem', alignSelf: 'flex-start', marginTop: '1.1rem', display: 'inline-block' }}>
+              {s.ctaYontem}
+            </a>
+          )}
         </div>
       </section>
 
@@ -468,6 +475,14 @@ export default function AnaSayfa() {
           >
             {ctaKapanisMetni}
           </a>
+          {/* IMZA: S10-ANA-06 — kapanışta hâlâ ikna olmamış ziyaretçiye yöntem yolu */}
+          {!kullanici && (
+            <div style={{ marginTop: '1.4rem' }}>
+              <a href="/nasil-calisilir" style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.8rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--ink-soft)', textDecoration: 'none', borderBottom: '1px solid var(--rule)', paddingBottom: '0.2rem' }}>
+                {s.ctaYontem}
+              </a>
+            </div>
+          )}
 
           <div style={{
             marginTop: '4rem',
