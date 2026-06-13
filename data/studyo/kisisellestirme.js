@@ -23,14 +23,19 @@
 //     tazelenir." (baskı yok, geri sayım yok).
 // ============================================================================
 
-// 7 boyut anahtarları — Beceri Haritası gruplarıyla HİZALANACAK.
-// ⚠️ Claude Code / Beyti: bu anahtarlar beceri_sonuclari'nın GERÇEK 7 grup
-// kolonuyla eşlenmeli. Boyut modu bugün aktif olmadığı için (çeşitlilik modu),
-// kesin hizalama Zihin/Beden içeriği gelince yapılabilir. Egzersizlerdeki
-// `besler` etiketleri bu anahtarları kullanır.
+// 7 boyut anahtarları — beceri_sonuclari'nın GERÇEK kolon adları.
+// ✓ Claude Code (Faz C): kalibrasyon-kaydet.js'den doğrulandı. `besler` (antrenmanlar.js)
+//   ↔ BOYUTLAR ↔ DB kolonu üçü aynı string.
+//   Professional Confidence → mesleki_guven
+//   Technical Skills        → teknik
+//   Mental Skills           → zihinsel
+//   Emotional Skills        → duygusal
+//   Motivational Skills     → motivasyonel
+//   Relaxation Skills       → rahatlama
+//   People Skills           → iliskisel
 export const BOYUTLAR = [
-  'odaklanma', 'stres', 'gozlemcilik', 'beden',
-  'ifade', 'hayalgucu', 'farkindalik'
+  'mesleki_guven', 'teknik', 'zihinsel', 'duygusal',
+  'motivasyonel', 'rahatlama', 'iliskisel'
 ];
 
 // Boş kalibrasyon başlangıç seti — gerçek etüt id'leri, üç tip de temsil edilir.
@@ -77,27 +82,26 @@ function tohumlanmisKaristir(dizi, rastgele) {
   return a;
 }
 
-// ---- havuz: tüm karakterlerin etütleri düz listede --------------------------
-export function havuzKur(etutKarakterleri) {
+// ---- havuz: tüm karakterlerin etütleri + antrenman istasyonları düz listede ---
+// Dramaturji (karaktere bağlı) + Zihin/Beden antrenmanları (kanata bağlı) tek havuzda.
+export function havuzKur(etutKarakterleri, antrenmanlar = []) {
   const havuz = [];
   for (const kid in etutKarakterleri) {
     (etutKarakterleri[kid].etudler || []).forEach(e => {
       havuz.push({ karakterId: kid, karakterAd: etutKarakterleri[kid].ad, etut: e });
     });
   }
+  const KANAT_AD = { zihin: 'Zihin', beden: 'Beden' };
+  antrenmanlar.forEach(a => {
+    havuz.push({ karakterId: null, karakterAd: KANAT_AD[a.kanat] || a.kanat, etut: a });
+  });
   return havuz;
 }
 
 // ---- mod tespiti ------------------------------------------------------------
 function kalibrasyonVar(profil) {
   if (!profil) return false;
-  // STUDYO-RAY-B2-UYARLAMA: beceri_sonuclari'nın gerçek kolonları (mesleki_guven,
-  // teknik, ...) BOYUTLAR anahtarlarıyla (odaklanma, stres, ...) henüz hizalı
-  // değil — hizalama Zihin/Beden içeriğiyle gelecek. Bugün çeşitlilik modundayız;
-  // beceri satırının VAR OLMASI kalibrasyon sayılır (studyoProfilGetir _kalibreVar
-  // işaretler). BOYUTLAR numeric ise (gelecek boyut modu) o da kalibrasyondur.
-  if (BOYUTLAR.some(b => typeof profil[b] === 'number')) return true;
-  return profil._kalibreVar === true;
+  return BOYUTLAR.some(b => typeof profil[b] === 'number');
 }
 function etiketliSayisi(havuz) {
   return havuz.filter(x => Array.isArray(x.etut.besler) && x.etut.besler.length).length;
@@ -174,8 +178,8 @@ function boyutSec(havuz, profil, tamamlanan, rastgele) {
 //  ANA FONKSİYON — ray bunu çağırır.
 //  Döner: { mod, baslik, yarinTazelenir, setler:[{karakterId,karakterAd,etut}] }
 // ============================================================================
-export function bugunSeti({ etutKarakterleri, profil = null, tamamlananIds = [], tarih = new Date() }) {
-  const havuz = havuzKur(etutKarakterleri);
+export function bugunSeti({ etutKarakterleri, antrenmanlar = [], profil = null, tamamlananIds = [], tarih = new Date() }) {
+  const havuz = havuzKur(etutKarakterleri, antrenmanlar);
   const tamamlanan = new Set(tamamlananIds);
 
   // 1) boş kalibrasyon → sabit giriş seti

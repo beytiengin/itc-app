@@ -7,6 +7,7 @@
 
 import { useEffect, useState } from 'react';
 import { tumEtutKarakterleri, karakterEtudleri } from '@/data/studyo/etudler';
+import { kanatIstasyonlari, kanatAdi } from '@/data/studyo/antrenmanlar'; // STUDYO-VITRIN-KANAT-C4
 import { supabase } from '@/app/lib/supabase';
 import StudyoRay from '@/components/StudyoRay'; // STUDYO-RAY-MOUNT-B4
 
@@ -15,10 +16,19 @@ const display = 'var(--font-display), serif';
 
 const KANATLAR = [
   { id: 'dramaturji', ad: 'Dramaturji', aktif: true, aciklama: 'Metnin söylediği, sustuğu ve gösterdiği sıra üzerine etütler.' },
-  { id: 'zihin', ad: 'Zihin', aktif: false },
-  { id: 'beden', ad: 'Beden', aktif: false },
+  { id: 'zihin', ad: 'Zihin', aktif: true }, // STUDYO-VITRIN-KANAT-C4
+  { id: 'beden', ad: 'Beden', aktif: true }, // STUDYO-VITRIN-KANAT-C4
   { id: 'gozlem', ad: 'Gözlem', aktif: false },
 ];
+
+// STUDYO-VITRIN-KANAT-C4 — antrenman kanadı (Zihin/Beden) için kart şeridi.
+const kartStili = {
+  textDecoration: 'none', border: '1px solid var(--rule)', borderRadius: 8,
+  padding: '0.95rem 1.1rem', display: 'flex', flexDirection: 'column', gap: '0.35rem',
+};
+const kartEyebrow = { fontFamily: body, fontWeight: 400, fontSize: '0.58rem', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--accent)' };
+const kartBaslik = { fontFamily: display, fontStyle: 'italic', fontSize: '1.15rem', color: 'var(--ink)' };
+const kartAlt = { fontFamily: body, fontWeight: 300, fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ink-muted)' };
 
 const TIP_ETIKET = {
   'bosluk-avi': 'Boşluk Avı',
@@ -67,6 +77,7 @@ export default function StudyoVitrin() {
 
       {/* Dramaturji içeriği */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: '1.6rem' }}>
+        <h2 style={{ fontFamily: display, fontStyle: 'italic', fontWeight: 300, fontSize: '1.7rem', color: 'var(--accent)', margin: 0 }}>Dramaturji</h2>
         {karakterler.map((kar) => {
           const etudler = karakterEtudleri(kar.id);
           return (
@@ -89,6 +100,25 @@ export default function StudyoVitrin() {
           );
         })}
       </section>
+
+      {/* STUDYO-VITRIN-KANAT-C4 — Zihin & Beden kanatları (antrenman istasyonları) */}
+      {['zihin', 'beden'].map((kanat) => (
+        <section key={kanat} style={{ display: 'flex', flexDirection: 'column', gap: '1.3rem' }}>
+          <h2 style={{ fontFamily: display, fontStyle: 'italic', fontWeight: 300, fontSize: '1.7rem', color: 'var(--accent)', margin: 0 }}>{kanatAdi(kanat)}</h2>
+          {kanatIstasyonlari(kanat).map((ist) => (
+            <div key={ist.istasyon} style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+              <h3 style={{ fontFamily: body, fontWeight: 400, fontSize: '0.62rem', letterSpacing: '0.24em', textTransform: 'uppercase', color: 'var(--ink-soft)', margin: 0 }}>{ist.istasyonAd}</h3>
+              {ist.egzersizler.map((e) => (
+                <a key={e.id} href={`/studyo/${e.id}`} style={kartStili}>
+                  <span style={kartEyebrow}>{ist.istasyonAd}</span>
+                  <span style={kartBaslik}>{e.baslik}</span>
+                  <span style={kartAlt}>{e.seviye} · {e.sure}</span>
+                </a>
+              ))}
+            </div>
+          ))}
+        </section>
+      ))}
     </main>
   );
 }

@@ -69,7 +69,7 @@ const yaziAlani = {
 function Kunye({ etut }) {
   return (
     <header style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
-      <span style={ustEtiket}>Stüdyo · Dramaturji</span>
+      <span style={ustEtiket}>Stüdyo · {etut.istasyonAd || 'Dramaturji'}</span>
       <h1 style={baslikStili}>{etut.baslik}</h1>
       <span style={{ fontFamily: body, fontWeight: 300, fontSize: '0.72rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--ink-muted)' }}>
         {etut.seviye} · {etut.sure}
@@ -102,18 +102,27 @@ function Kapanis({ etut, onBitir, yanitlar }) {
 }
 
 // ════════════════════════════════════════════════════════════════════════════
-//  TİP 1 · BOŞLUK AVI — adım adım, reveal yok, her adım boş bırakılabilir
+//  ADIM AKIŞI — Boşluk Avı VE Antrenman (Zihin/Beden) tek motorda.
+//  Adım tipleri: okuma | yazma | secim | uygula | cikis. reveal YOK.
+//  'uygula' (Faz C): okuma gibi + nazik "uygula" çerçevesi (yonerge vurgulu) +
+//  q "hazır olduğunda devam et" — zamanlayıcı/checkbox/sayaç YOK.
+//  stilVaryant (VAK): vakKanal'a göre SESSİZCE doğru metni gösterir (kanal adı
+//  GÖSTERİLMEZ; yoksa 'gorsel' varsayılan). Her adım boş bırakılabilir.
 // ════════════════════════════════════════════════════════════════════════════
-function BoslukAvi({ etut, onBitir }) {
+function AdimAkisi({ etut, onBitir, vakKanal }) {
   const adimlar = etut.adimlar || [];
   const [idx, setIdx] = useState(0);
-  const [yazma, setYazma] = useState({});   // { no: metin }
-  const [secim, setSecim] = useState({});    // { no: secenekId }
+  const [yazma, setYazma] = useState({});   // { index: metin }
+  const [secim, setSecim] = useState({});    // { index: secenekId }
   const guvenli = Math.min(idx, adimlar.length - 1);
   const adim = adimlar[guvenli];
   const son = guvenli === adimlar.length - 1;
+  const antrenmanMi = etut.tip === 'antrenman';
 
-  const yanitlar = { tip: 'bosluk-avi', etudId: etut.id, yazma, secim };
+  const yanitlar = { tip: etut.tip, etudId: etut.id, yazma, secim };
+  const varyantMetni = adim.stilVaryant
+    ? (adim.stilVaryant[vakKanal] || adim.stilVaryant.gorsel)
+    : null;
 
   return (
     <div style={sayfaSarmal}>
@@ -127,12 +136,22 @@ function BoslukAvi({ etut, onBitir }) {
 
         {(adim.metin || []).map((p, i) => <p key={i} style={govde}>{p}</p>)}
 
+        {/* VAK varyantı — sessiz: kanal adı gösterilmez */}
+        {varyantMetni ? (
+          <p style={{ ...govde, fontStyle: 'italic', color: 'var(--ink-soft)' }}>{varyantMetni}</p>
+        ) : null}
+
+        {/* 'uygula' çerçevesi — nazik yönerge, zorlama yok */}
+        {adim.yonerge ? (
+          <p style={{ fontFamily: body, fontWeight: 400, fontSize: '0.92rem', lineHeight: 1.6, color: 'var(--ink)', borderLeft: '3px solid var(--accent)', paddingLeft: '0.9rem', margin: 0 }}>{adim.yonerge}</p>
+        ) : null}
+
         {adim.tip === 'secim' && Array.isArray(adim.secenekler) && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
             {adim.secenekler.map((s) => {
-              const secili = secim[adim.no] === s.id;
+              const secili = secim[guvenli] === s.id;
               return (
-                <button key={s.id} onClick={() => setSecim((p) => ({ ...p, [adim.no]: s.id }))}
+                <button key={s.id} onClick={() => setSecim((p) => ({ ...p, [guvenli]: s.id }))}
                   style={{ textAlign: 'left', cursor: 'pointer', border: `1px solid ${secili ? 'var(--accent)' : 'var(--rule)'}`, background: secili ? 'var(--accent-bg-deep)' : 'transparent', borderRadius: 8, padding: '0.75rem 0.9rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
                   <span style={{ fontFamily: display, fontStyle: 'italic', fontSize: '1rem', color: 'var(--ink)' }}>{s.t}</span>
                   <span style={{ fontFamily: body, fontWeight: 300, fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.55 }}>{s.d}</span>
@@ -146,8 +165,8 @@ function BoslukAvi({ etut, onBitir }) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <p style={soruStili}>{adim.q}</p>
             {adim.hint ? <span style={{ fontFamily: body, fontWeight: 300, fontSize: '0.8rem', color: 'var(--ink-muted)', fontStyle: 'italic' }}>{adim.hint}</span> : null}
-            <textarea style={yaziAlani} placeholder={adim.ph || ''} value={yazma[adim.no] || ''}
-              onChange={(e) => setYazma((p) => ({ ...p, [adim.no]: e.target.value }))} />
+            <textarea style={yaziAlani} placeholder={adim.ph || ''} value={yazma[guvenli] || ''}
+              onChange={(e) => setYazma((p) => ({ ...p, [guvenli]: e.target.value }))} />
           </div>
         ) : adim.q ? (
           <p style={{ ...govde, color: 'var(--ink-soft)', fontStyle: 'italic' }}>{adim.q}</p>
@@ -159,7 +178,7 @@ function BoslukAvi({ etut, onBitir }) {
         {!son ? (
           <button style={cta} onClick={() => { setIdx(guvenli + 1); if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' }); }}>Devam →</button>
         ) : (
-          <button style={cta} onClick={() => onBitir?.(yanitlar)}>Mührü bırak →</button>
+          <button style={cta} onClick={() => onBitir?.(yanitlar)}>{antrenmanMi ? 'Tamamla →' : 'Mührü bırak →'}</button>
         )}
       </div>
     </div>
@@ -390,9 +409,11 @@ function Kronoloji({ etut, onBitir }) {
 }
 
 // ─── Dispatcher ──────────────────────────────────────────────────────────────
-export default function StudyoEtut({ etut, onBitir }) {
+// STUDYO-ETUT-C3 — antrenman ('tip: antrenman') Boşluk Avı ile aynı adım motorunu
+// (AdimAkisi) paylaşır; vakKanal stilVaryant için aşağı geçer.
+export default function StudyoEtut({ etut, onBitir, vakKanal }) {
   if (!etut) return null;
-  if (etut.tip === 'bosluk-avi') return <BoslukAvi etut={etut} onBitir={onBitir} />;
+  if (etut.tip === 'bosluk-avi' || etut.tip === 'antrenman') return <AdimAkisi etut={etut} onBitir={onBitir} vakKanal={vakKanal} />;
   if (etut.tip === 'dogru-cikarim') return <DogruCikarim etut={etut} onBitir={onBitir} />;
   if (etut.tip === 'kronoloji') return <Kronoloji etut={etut} onBitir={onBitir} />;
   return null;

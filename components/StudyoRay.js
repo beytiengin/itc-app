@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { bugunSeti } from '@/data/studyo/kisisellestirme';
 import { etudKarakterleri } from '@/data/studyo/etudler';
+import { antrenmanlar } from '@/data/studyo/antrenmanlar'; // STUDYO-RAY-ANTRENMAN-C7
 import { studyoProfilGetir, studyoTamamlananlar } from '@/lib/studyoKayit'; // bkz. Faz B talimatı
 
 const TIP_AD = { 'bosluk-avi': 'Boşluk Avı', 'dogru-cikarim': 'Doğru / Çıkarım', 'kronoloji': 'Kronoloji' };
@@ -31,7 +32,8 @@ export default function StudyoRay({ userId }) {
         }
       } catch (e) { /* sessiz: veri yoksa giriş seti gösterilir */ }
       if (iptal) return;
-      setRay(bugunSeti({ etutKarakterleri, profil, tamamlananIds }));
+      // STUDYO-RAY-ANTRENMAN-C7 — havuz artık antrenmanları da içerir
+      setRay(bugunSeti({ etutKarakterleri, antrenmanlar, profil, tamamlananIds }));
     })();
     return () => { iptal = true; };
   }, [userId]);
@@ -48,7 +50,7 @@ export default function StudyoRay({ userId }) {
             className="ray-kart"
             onClick={() => router.push(`/studyo/${etut.id}`)}
           >
-            <span className="ray-tag">{TIP_AD[etut.tip] || etut.tip}</span>
+            <span className="ray-tag">{TIP_AD[etut.tip] || etut.istasyonAd || etut.tip}</span>{/* STUDYO-RAY-ANTRENMAN-C7 — antrenman tag fallback */}
             <span className="ray-baslik">{etut.baslik}</span>
             <span className="ray-alt">{karakterAd} · {etut.sure}</span>
           </button>
