@@ -306,6 +306,7 @@ export async function enSonAktiviteGetir() {
         .from('bosluk_yansimalari')
         .select('karakter_id, bosluk_id, son_guncelleme')
         .eq('kullanici_id', user.id)
+        .neq('karakter_id', 'studyo') // STUDYO-A6 — sentinel kayit karaktere ait CTA uretmesin
         .not('metin', 'is', null)
         .neq('metin', '')
         .order('son_guncelleme', { ascending: false })
@@ -315,6 +316,7 @@ export async function enSonAktiviteGetir() {
         .from('antrenman_yansimalari')
         .select('karakter_id, antrenman_id, son_guncelleme')
         .eq('kullanici_id', user.id)
+        .neq('karakter_id', 'studyo') // STUDYO-A6
         .not('metin', 'is', null)
         .neq('metin', '')
         .order('son_guncelleme', { ascending: false })

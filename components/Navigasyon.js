@@ -23,6 +23,7 @@ import { misafirVerileriniTasi } from '../app/lib/misafir'; // IMZA: S2-NAV-01
 import { useDil, ceviri } from '../app/lib/dil';
 import chromeI18n from '../data/chrome-i18n';
 import DilToggle from './DilToggle';
+import { studyoAcik } from '@/lib/flags'; // STUDYO-NAV-A7
 
 export default function Navigasyon() {
   const { dil } = useDil();
@@ -32,6 +33,9 @@ export default function Navigasyon() {
   // undefined = auth henüz çözülmedi (flash önleme); null = anonim; obje = üye.
   const [kullanici, setKullanici] = useState(undefined);
   const [menuAcik, setMenuAcik] = useState(false);
+  // STUDYO-NAV-A7 — Stüdyo linki yalnız flag açıkken; SSR/client uyumu için mount sonrası.
+  const [studyoFlag, setStudyoFlag] = useState(false);
+  useEffect(() => { setStudyoFlag(studyoAcik()); }, []);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -140,6 +144,7 @@ export default function Navigasyon() {
     <>
       <Bilesen href="/kalibrasyon" onClick={kapatOnClick}>{t.kalibrasyon}</Bilesen>
       <Bilesen href="/antrenman/karakter" onClick={kapatOnClick}>{t.antrenman}</Bilesen>
+      {studyoFlag && <Bilesen href="/studyo" onClick={kapatOnClick}>Stüdyo</Bilesen>}{/* STUDYO-NAV-A7 */}
       <Bilesen href="/defter" onClick={kapatOnClick}>{t.kulis}</Bilesen>
       <Bilesen href="/hakkimizda" onClick={kapatOnClick}>{t.hakkimizda}</Bilesen>
       <Bilesen href="/nasil-calisilir" onClick={kapatOnClick}>{t.nasilCalisilir}</Bilesen>

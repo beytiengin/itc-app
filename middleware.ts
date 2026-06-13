@@ -36,6 +36,7 @@ const KORUMALI_ROTALAR = [
   '/profil',
   '/defter',
   '/kulis', // legacy redirect stub — yine korumalı olsun
+  '/studyo', // STUDYO-A8 — kalibrasyon-sonrasi alan; flag kontrolu client'ta, bu yalniz auth
 ];
 
 export async function middleware(request: NextRequest) {
