@@ -18,7 +18,7 @@ const KANATLAR = [
   { id: 'dramaturji', ad: 'Dramaturji', aktif: true, aciklama: 'Metnin söylediği, sustuğu ve gösterdiği sıra üzerine etütler.' },
   { id: 'zihin', ad: 'Zihin', aktif: true }, // STUDYO-VITRIN-KANAT-C4
   { id: 'beden', ad: 'Beden', aktif: true }, // STUDYO-VITRIN-KANAT-C4
-  { id: 'gozlem', ad: 'Gözlem', aktif: false },
+  { id: 'gozlem-oyun', ad: 'Gözlem / Oyun', aktif: true }, // STUDYO-VITRIN-GOZLEM-D2
 ];
 
 // STUDYO-VITRIN-KANAT-C4 — antrenman kanadı (Zihin/Beden) için kart şeridi.
@@ -104,8 +104,8 @@ export default function StudyoVitrin() {
         ))}
       </div>
 
-      {/* STUDYO-VITRIN-KANAT-C4 — Zihin & Beden kanatları (antrenman istasyonları) */}
-      {['zihin', 'beden'].map((kanat) => (
+      {/* STUDYO-VITRIN-KANAT-C4 + STUDYO-VITRIN-GOZLEM-D2 — antrenman kanatları */}
+      {['zihin', 'beden', 'gozlem-oyun'].map((kanat) => (
         <section key={kanat} style={{ display: 'flex', flexDirection: 'column', gap: '1.3rem' }}>
           <h2 style={{ fontFamily: display, fontStyle: 'italic', fontWeight: 300, fontSize: '1.7rem', color: 'var(--accent)', margin: 0 }}>{kanatAdi(kanat)}</h2>
           {kanatIstasyonlari(kanat).map((ist) => (

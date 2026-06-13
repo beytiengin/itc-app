@@ -16,6 +16,7 @@
 //    boşsa render edilmez. Boşluk Avı'nda kullanılmaz.
 
 import { useEffect, useRef, useState } from 'react';
+import SesAdimi from '@/components/SesAdimi'; // STUDYO-SES-MOUNT-D1
 
 const body = 'var(--font-body), sans-serif';
 const display = 'var(--font-display), serif';
@@ -133,6 +134,12 @@ function AdimAkisi({ etut, onBitir, vakKanal }) {
         <span style={{ ...ustEtiket, color: 'var(--ink-muted)' }}>
           Adım {guvenli + 1} / {adimlar.length}{adim.baslik ? ` · ${adim.baslik}` : ''}
         </span>
+
+        {/* STUDYO-SES-MOUNT-D1 — adım src taşıyorsa rehberli ses (preload=none);
+            transkript verilmezse adımın metni transkript olur. src yoksa render edilmez. */}
+        {adim.src ? (
+          <SesAdimi src={adim.src} transkript={adim.transkript || (adim.metin || []).join('\n')} sure={adim.sure} />
+        ) : null}
 
         {(adim.metin || []).map((p, i) => <p key={i} style={govde}>{p}</p>)}
 

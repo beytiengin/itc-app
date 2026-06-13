@@ -91,7 +91,7 @@ export function havuzKur(etutKarakterleri, antrenmanlar = []) {
       havuz.push({ karakterId: kid, karakterAd: etutKarakterleri[kid].ad, etut: e });
     });
   }
-  const KANAT_AD = { zihin: 'Zihin', beden: 'Beden' };
+  const KANAT_AD = { zihin: 'Zihin', beden: 'Beden', 'gozlem-oyun': 'Gözlem / Oyun' };
   antrenmanlar.forEach(a => {
     havuz.push({ karakterId: null, karakterAd: KANAT_AD[a.kanat] || a.kanat, etut: a });
   });

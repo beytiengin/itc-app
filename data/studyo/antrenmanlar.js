@@ -1,17 +1,17 @@
 // ============================================================================
 //  data/studyo/antrenmanlar.js
-//  Stüdyo · Zihin & Beden Kanatları · karakter-bağımsız antrenman istasyonları
+//  Stüdyo · Zihin & Beden & Gözlem/Oyun Kanatları · karakter-bağımsız istasyonlar
 //  Doğrulama imzası: STUDYO-ANTRENMAN-V1-20260613
 // ----------------------------------------------------------------------------
 //  Dramaturji etütlerinden farklı: karaktere değil KANAT/İSTASYON'a bağlı.
-//  Aynı adım motorunu paylaşır (okuma/yazma/secim/cikis) + YENİ step: 'uygula'
+//  Aynı adım motorunu paylaşır (okuma/yazma/secim/cikis) + 'uygula' step
 //  ("şimdi uygula, hazır olduğunda devam et" — zamanlayıcı/checkbox YOK).
 //
 //  TRAVMA: hepsi travmaSeviyesi 0. Substitution YASAK — hiçbir egzersiz
 //  oyuncunun biyografik geçmişine döndürmez; daima ŞİMDİKİ AN + dışa/bedene dönük.
 //
 //  besler[] = Beceri Haritası gruplarının GERÇEK kolon anahtarları.
-//  ✓ Claude Code (Faz C): beceri_sonuclari'nın GERÇEK kolonlarıyla hizalandı
+//  ✓ Claude Code (Faz C/D): beceri_sonuclari'nın GERÇEK kolonlarıyla hizalandı
 //  (kalibrasyon-kaydet.js'den doğrulandı). `besler` ↔ BOYUTLAR ↔ DB kolonu üçü
 //  aynı string. Kaynak enstrüman (acting-performance.xlsx "skills") grupları:
 //    Professional Confidence → mesleki_guven
@@ -23,7 +23,7 @@
 //    People Skills           → iliskisel
 // ============================================================================
 
-const KANAT_AD = { zihin: 'Zihin', beden: 'Beden' };
+const KANAT_AD = { zihin: 'Zihin', beden: 'Beden', 'gozlem-oyun': 'Gözlem / Oyun' };
 
 export const antrenmanlar = [
 
@@ -241,6 +241,105 @@ export const antrenmanlar = [
         q: 'Beden şimdi nasıl? Hangi grup en gergindi?',
         hint: 'Gergin kalan grup, ileride dikkat edeceğin yer.', ph: 'Şimdi…', key: 'sonra' },
       { tip: 'cikis', metin: ['Gevşemiş bir beden, daha çok şey taşıyabilir. Bunu sahne öncesi ya da sonrası kullanabilirsin.'] }
+    ]
+  },
+
+  // ===================== GÖZLEM / OYUN =====================
+
+  // -- Günlük Gözlem: İnsan Gözlemi --
+  {
+    id: 'gozlem-insan',
+    kanat: 'gozlem-oyun', istasyon: 'gunluk-gozlem', istasyonAd: 'Günlük Gözlem',
+    baslik: 'Bir İnsanı Gözle', sure: '8 dk', seviye: 'Giriş',
+    tip: 'antrenman', travmaSeviyesi: 0,
+    besler: ['zihinsel', 'iliskisel'],
+    giris: {
+      lede: 'Oyuncunun ham maddesi insan davranışı. Bugün birini gözle.',
+      metin: ['Tek kural: gözlem, yorum değil. "Üzgün görünüyor" deme — "elini üç kez yüzüne götürdü" de. Hikâye uydurma, sadece ne yaptığını gör. Somut, dışsal, şimdiki an.']
+    },
+    adimlar: [
+      { tip: 'okuma', baslik: 'Kural',
+        metin: ['Gözlem somut davranıştır. "Sinirli" değil, "ayağını yere hızlı hızlı vurdu". Yorum senin çıkarımın; biz önce ham veriyi topluyoruz.'] },
+      { tip: 'uygula', baslik: 'Gözle',
+        metin: ['Şu an çevrende ya da bir kafede/araçta birini seç. İki dakika, dikkat çekmeden gözle. Bir jest, bir alışkanlık, tekrar eden bir hareket ara.'],
+        yonerge: 'İki dakika. Tek bir kişi, somut davranış.',
+        q: 'Gözlemini bitirdiğinde devam et.' },
+      { tip: 'yazma', baslik: 'Ne gördün?',
+        q: 'Gördüğün tek somut davranışı yaz — yorumsuz.',
+        hint: 'Fiil kullan: yaptı, tuttu, baktı, çevirdi.', ph: 'Gördüm ki…', key: 'gozlem' },
+      { tip: 'cikis', metin: ['Bu somut detay, ileride bir karaktere takabileceğin gerçek bir malzeme. Gözlemci göz, oyuncunun ilk aracı.'] }
+    ]
+  },
+
+  // -- Günlük Gözlem: Jest ve Ritim --
+  {
+    id: 'gozlem-ritim',
+    kanat: 'gozlem-oyun', istasyon: 'gunluk-gozlem', istasyonAd: 'Günlük Gözlem',
+    baslik: 'Bedenin Ritmi', sure: '8 dk', seviye: 'Orta',
+    tip: 'antrenman', travmaSeviyesi: 0,
+    besler: ['zihinsel', 'teknik'],
+    giris: {
+      lede: 'Her bedenin bir ritmi var: hızlı/yavaş, kesik/akışkan, ağır/hafif.',
+      metin: ['Bu kez ne yaptığına değil, nasıl yaptığına bak. Birinin hareketindeki tempoyu, ağırlığı, sürekliliği yakala.']
+    },
+    adimlar: [
+      { tip: 'okuma', baslik: 'Ritim nedir',
+        metin: ['Aynı hareket — bir bardağı kaldırmak — biri için ani ve sert, biri için yavaş ve akışkandır. İşte o "nasıl", ritimdir.'] },
+      { tip: 'uygula', baslik: 'Yakala',
+        metin: ['Birini izle. Hareketinin ritmini yakala — istersen kendi bedeninde, gizlice, o ritmi bir an taklit et. Hızını, ağırlığını hisset.'],
+        yonerge: 'Ne değil, nasıl. Tempoyu bedeninde dene.',
+        q: 'Hazır olduğunda devam et.' },
+      { tip: 'yazma', baslik: 'Ritmi tarif et',
+        q: 'Gözlediğin ritmi üç kelimeyle tarif et.',
+        hint: 'Örn: ağır, kesik, tereddütlü.', ph: 'Ritmi…', key: 'ritim' },
+      { tip: 'cikis', metin: ['Bir karakterin ritmini bulmak, çoğu zaman repliğinden önce gelir. Ritim hafızanı besledin.'] }
+    ]
+  },
+
+  // -- Solo Etüt: Nesne Dönüştürme (oyun) --
+  {
+    id: 'oyun-nesne-donustur',
+    kanat: 'gozlem-oyun', istasyon: 'solo-etut', istasyonAd: 'Solo Etütler',
+    baslik: 'Nesne Dönüştürme', sure: '6 dk', seviye: 'Giriş',
+    tip: 'antrenman', travmaSeviyesi: 0,
+    besler: ['zihinsel', 'motivasyonel'],
+    giris: {
+      lede: 'Elindeki nesneyi, ne olduğunu değiştirmeden başka bir şeye dönüştür. Oyun.',
+      metin: ['Nesne aynı kalır; değişen, ona nasıl davrandığın. Bir kalem; onu tutuşunla bir anahtara, sonra kırılgan bir şeye çevir. Sadece elinle, inandırarak.']
+    },
+    adimlar: [
+      { tip: 'okuma', baslik: 'Kural',
+        metin: ['Nesneyi gerçekten başka bir şeymiş gibi oynama — onu öyle TUT. Ağırlığı, kırılganlığı, değeri elinden okunsun. Söz yok, yalnız davranış.'] },
+      { tip: 'uygula', baslik: 'Dönüştür',
+        metin: ['Yanındaki bir nesneyi al (kalem, kaşık, anahtar). Sırayla: önce kendisi gibi tut, sonra çok değerli bir şeymiş gibi, sonra kırılgan/tehlikeli bir şeymiş gibi.'],
+        yonerge: 'Üç farklı tutuş. Nesne aynı, ilişkin değişir.',
+        q: 'Hazır olduğunda devam et.' },
+      { tip: 'yazma', baslik: 'Hangisi?',
+        q: 'Hangi dönüşüm en inandırıcı geldi, hangisi zorladı?',
+        hint: 'Zorlanan, gelişmeye açık olan.', ph: 'En inandırıcı…', key: 'nesne' },
+      { tip: 'cikis', metin: ['Bir nesneyle ilişkini değiştirebiliyorsan, sahnedeki her eşya bir oyun alanı olur.'] }
+    ]
+  },
+
+  // -- Solo Etüt: Tek Kişilik "Evet, Ve" (yazılı doğaçlama) --
+  {
+    id: 'oyun-evet-ve',
+    kanat: 'gozlem-oyun', istasyon: 'solo-etut', istasyonAd: 'Solo Etütler',
+    baslik: 'Evet, Ve — Tek Başına', sure: '7 dk', seviye: 'Giriş',
+    tip: 'antrenman', travmaSeviyesi: 0,
+    besler: ['zihinsel', 'motivasyonel'],
+    giris: {
+      lede: 'Doğaçlamanın kalbi: reddetme, ekle. Bu kez yazarak, tek başına.',
+      metin: ['Sana nötr bir başlangıç vereceğiz. Her adımda "evet, ve…" diyerek hikâyeyi büyüteceksin — hiçbir şeyi geri almadan, sadece üstüne koyarak. Doğru yok; akış var.']
+    },
+    adimlar: [
+      { tip: 'okuma', baslik: 'Kural',
+        metin: ['"Evet" = az önce kurduğunu kabul et. "Ve" = üstüne yeni bir şey ekle. Silme, çelme takma — sadece ilerlet. Beş adım yeter.'] },
+      { tip: 'yazma', baslik: 'Başla',
+        metin: ['Başlangıç: "Kapı çalıyor."'],
+        q: 'Bunu "evet, ve…" ile beş adım büyüt. Her satır bir öncekini kabul edip üstüne koysun.',
+        hint: 'Mantık değil akış. Nereye giderse.', ph: 'Evet, ve…', key: 'evetve' },
+      { tip: 'cikis', metin: ['Reddetmeden inşa etmek — hem doğaçlamanın hem partnerle oyunun temeli. Tek başına bile çalışılır.'] }
     ]
   }
 
