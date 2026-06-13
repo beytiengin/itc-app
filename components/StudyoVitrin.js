@@ -5,7 +5,10 @@
 // "yakında" — dim). Dramaturji altında karakter → etüt listesi.
 // tumEtutKarakterleri() + karakterEtudleri() kullanır. ZihinselAntrenman'a dokunmaz.
 
+import { useEffect, useState } from 'react';
 import { tumEtutKarakterleri, karakterEtudleri } from '@/data/studyo/etudler';
+import { supabase } from '@/app/lib/supabase';
+import StudyoRay from '@/components/StudyoRay'; // STUDYO-RAY-MOUNT-B4
 
 const body = 'var(--font-body), sans-serif';
 const display = 'var(--font-display), serif';
@@ -25,6 +28,13 @@ const TIP_ETIKET = {
 
 export default function StudyoVitrin() {
   const karakterler = tumEtutKarakterleri();
+  // STUDYO-RAY-MOUNT-B4 — userId: oturumsuzsa undefined → ray giriş seti gösterir.
+  const [userId, setUserId] = useState(undefined);
+  useEffect(() => {
+    let iptal = false;
+    supabase.auth.getUser().then(({ data: { user } }) => { if (!iptal) setUserId(user?.id); }).catch(() => {});
+    return () => { iptal = true; };
+  }, []);
 
   return (
     <main style={{ maxWidth: 760, margin: '0 auto', padding: '2.5rem 1.3rem 5rem', display: 'flex', flexDirection: 'column', gap: '2.2rem' }}>
@@ -36,6 +46,9 @@ export default function StudyoVitrin() {
           keskinleştirmek için. Puan yok, yarış yok; öğrenme gerekçede.
         </p>
       </header>
+
+      {/* STUDYO-RAY-MOUNT-B4 — kişiselleştirme rayı, kanatların üstünde */}
+      <StudyoRay userId={userId} />
 
       {/* Kanatlar */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
