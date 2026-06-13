@@ -36,6 +36,26 @@ const TIP_ETIKET = {
   'kronoloji': 'Önce Ne Oldu?',
 };
 
+// STUDYO-VITRIN-NEDIR — "Stüdyo nedir?" açıklayıcı: 4 soru, hero ile kanatlar arası.
+const ACIKLAYICI = [
+  {
+    soru: 'Stüdyo nedir?',
+    cevap: 'Karakter çalışmandan bağımsız, oyunculuk enstrümanını çalıştırdığın kişisel alan. Tek bir rolü inşa etmek için değil; bakışını, dikkatini ve bedenini keskin tutmak için.',
+  },
+  {
+    soru: 'Burada ne yapılır?',
+    cevap: 'Üç kanatta kısa çalışmalar: Zihin (nefes, odak, imgeleme, blokaj, topraklanma), Beden (beden haritası, kas gevşetme) ve Dramaturji (metnin söylediğini, sustuğunu ve gösterdiği sırayı çözmek). Her biri 5–12 dakika, tek başına.',
+  },
+  {
+    soru: 'Kimin için?',
+    cevap: 'Bir rol provasında olsun ya da olmasın, enstrümanını düzenli tutmak isteyen her oyuncu için. Deneyim şartı yok; puan, seviye, yarış yok.',
+  },
+  {
+    soru: 'Nasıl başlarım?',
+    cevap: 'Yukarıdaki "Bugünkü antrenmanın" kartlarından biriyle başla — kalibrasyonun varsa sana göre seçilir. Ya da aşağıdan bir kanat seçip istediğin istasyona gir. İstediğin an bırakır, ertesi gün dönersin.',
+  },
+];
+
 export default function StudyoVitrin() {
   const karakterler = tumEtutKarakterleri();
   // STUDYO-RAY-MOUNT-B4 — userId: oturumsuzsa undefined → ray giriş seti gösterir.
@@ -50,15 +70,24 @@ export default function StudyoVitrin() {
     <main style={{ maxWidth: 760, margin: '0 auto', padding: '2.5rem 1.3rem 5rem', display: 'flex', flexDirection: 'column', gap: '2.2rem' }}>
       <header style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
         <span style={{ fontFamily: body, fontWeight: 400, fontSize: '0.6rem', letterSpacing: '0.32em', textTransform: 'uppercase', color: 'var(--accent)' }}>Pilot · gizli</span>
-        <h1 style={{ fontFamily: display, fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(2.2rem, 6vw, 3rem)', color: 'var(--ink)', margin: 0 }}>Stüdyo</h1>
-        <p style={{ fontFamily: body, fontWeight: 300, fontSize: '1rem', lineHeight: 1.7, color: 'var(--ink-soft)', margin: 0, maxWidth: 560 }}>
-          Kısa, karakter-bağımsız etütler. Tek bir rolü inşa etmek için değil — bakışını
-          keskinleştirmek için. Puan yok, yarış yok; öğrenme gerekçede.
+        <h1 style={{ fontFamily: display, fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(2.2rem, 6vw, 3rem)', color: 'var(--ink)', margin: 0 }}>ITC Stüdyo</h1>
+        <p style={{ fontFamily: display, fontStyle: 'italic', fontWeight: 300, fontSize: '1.2rem', lineHeight: 1.6, color: 'var(--ink-soft)', margin: 0, maxWidth: 560 }}>
+          Oyuncunun karakter çalışmasını kalibre ettiği kişisel alan.
         </p>
       </header>
 
-      {/* STUDYO-RAY-MOUNT-B4 — kişiselleştirme rayı, kanatların üstünde */}
+      {/* STUDYO-RAY-MOUNT-B4 — kişiselleştirme rayı, hero'nun hemen altında */}
       <StudyoRay userId={userId} />
+
+      {/* STUDYO-VITRIN-NEDIR — açıklayıcı: ne / ne yapılır / kim / nasıl */}
+      <section style={{ display: 'flex', flexDirection: 'column', gap: '1.3rem', borderTop: '1px solid var(--rule)', paddingTop: '1.8rem' }}>
+        {ACIKLAYICI.map((m) => (
+          <div key={m.soru} style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+            <h2 style={{ fontFamily: display, fontStyle: 'italic', fontWeight: 300, fontSize: '1.25rem', color: 'var(--ink)', margin: 0 }}>{m.soru}</h2>
+            <p style={{ fontFamily: body, fontWeight: 300, fontSize: '0.95rem', lineHeight: 1.7, color: 'var(--ink-soft)', margin: 0, maxWidth: 600 }}>{m.cevap}</p>
+          </div>
+        ))}
+      </section>
 
       {/* Kanatlar */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
@@ -74,32 +103,6 @@ export default function StudyoVitrin() {
           </span>
         ))}
       </div>
-
-      {/* Dramaturji içeriği */}
-      <section style={{ display: 'flex', flexDirection: 'column', gap: '1.6rem' }}>
-        <h2 style={{ fontFamily: display, fontStyle: 'italic', fontWeight: 300, fontSize: '1.7rem', color: 'var(--accent)', margin: 0 }}>Dramaturji</h2>
-        {karakterler.map((kar) => {
-          const etudler = karakterEtudleri(kar.id);
-          return (
-            <div key={kar.id} style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-              <h2 style={{ fontFamily: display, fontStyle: 'italic', fontWeight: 300, fontSize: '1.5rem', color: 'var(--ink)', margin: 0 }}>{kar.ad}</h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-                {etudler.map((e) => (
-                  <a key={e.id} href={`/studyo/${e.id}`} style={{
-                    textDecoration: 'none', border: '1px solid var(--rule)', borderRadius: 8,
-                    padding: '0.95rem 1.1rem', display: 'flex', flexDirection: 'column', gap: '0.35rem',
-                    transition: 'border-color 0.2s ease',
-                  }}>
-                    <span style={{ fontFamily: body, fontWeight: 400, fontSize: '0.58rem', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--accent)' }}>{TIP_ETIKET[e.tip] || e.tip}</span>
-                    <span style={{ fontFamily: display, fontStyle: 'italic', fontSize: '1.15rem', color: 'var(--ink)' }}>{e.baslik}</span>
-                    <span style={{ fontFamily: body, fontWeight: 300, fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ink-muted)' }}>{e.seviye} · {e.sure}</span>
-                  </a>
-                ))}
-              </div>
-            </div>
-          );
-        })}
-      </section>
 
       {/* STUDYO-VITRIN-KANAT-C4 — Zihin & Beden kanatları (antrenman istasyonları) */}
       {['zihin', 'beden'].map((kanat) => (
@@ -119,6 +122,33 @@ export default function StudyoVitrin() {
           ))}
         </section>
       ))}
+
+      {/* Dramaturji içeriği — karakter tabanlı; bilinçli olarak EN SONDA */}
+      <section style={{ display: 'flex', flexDirection: 'column', gap: '1.6rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+          <h2 style={{ fontFamily: display, fontStyle: 'italic', fontWeight: 300, fontSize: '1.7rem', color: 'var(--accent)', margin: 0 }}>Dramaturji</h2>
+          <p style={{ fontFamily: body, fontWeight: 300, fontSize: '0.85rem', lineHeight: 1.6, color: 'var(--ink-muted)', margin: 0, maxWidth: 560 }}>
+            Klasik karakterler burada birer rol değil, ortak malzeme: metni okuma kasını onların üzerinde çalıştırırsın.
+          </p>
+        </div>
+        {karakterler.map((kar) => {
+          const etudler = karakterEtudleri(kar.id);
+          return (
+            <div key={kar.id} style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+              <h3 style={{ fontFamily: display, fontStyle: 'italic', fontWeight: 300, fontSize: '1.5rem', color: 'var(--ink)', margin: 0 }}>{kar.ad}</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                {etudler.map((e) => (
+                  <a key={e.id} href={`/studyo/${e.id}`} style={kartStili}>
+                    <span style={kartEyebrow}>{TIP_ETIKET[e.tip] || e.tip}</span>
+                    <span style={kartBaslik}>{e.baslik}</span>
+                    <span style={kartAlt}>{e.seviye} · {e.sure}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </section>
     </main>
   );
 }
