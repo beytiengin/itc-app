@@ -300,9 +300,10 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
 
   function kayitDurumuMesaji(durum) {
     if (durum === 'yaziliyor') return null;
-    if (durum === 'kaydediliyor') return 'Kaydediliyor…';
-    if (durum === 'kaydedildi') return '✓ Kaydedildi';
-    if (durum === 'hata') return '⚠ Kaydedilemedi';
+    // IMZA: DE-COMP-02 — kayıt durumu üç-dilli (dil scope'ta hazır)
+    if (durum === 'kaydediliyor') return dil === 'de' ? 'Wird gespeichert…' : dil === 'en' ? 'Saving…' : 'Kaydediliyor…';
+    if (durum === 'kaydedildi') return dil === 'de' ? '✓ Gespeichert' : dil === 'en' ? '✓ Saved' : '✓ Kaydedildi';
+    if (durum === 'hata') return dil === 'de' ? '⚠ Speichern fehlgeschlagen' : dil === 'en' ? '⚠ Could not save' : '⚠ Kaydedilemedi';
     return null;
   }
 

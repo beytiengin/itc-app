@@ -21,6 +21,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { supabase } from '../app/lib/supabase';
 import { misafirSabitYaz } from '../app/lib/misafir'; // IMZA: S1-YURUYUS-01
+import { useDil } from '../app/lib/dil'; // IMZA: DE-COMP-01 — kayıt durumu metinleri üç-dilli
 
 const TON = 'var(--accent)';
 const ONAY = 'var(--onay)';
@@ -65,6 +66,8 @@ export default function BoslukYuruyusu({
 }) {
   const y = bosluk?.yuruyus;
   if (!y) return null;
+
+  const { dil } = useDil(); // IMZA: DE-COMP-01
 
   // ─── State ──────────────────────────────────────────────────────────────
   const [mode, setMode] = useState(ilkYuruyusMu ? 'esik' : 'istasyon');
@@ -521,10 +524,11 @@ export default function BoslukYuruyusu({
                 disabled={kayitDurumu === 'kaydediliyor'}
                 style={butonStili(kayitDurumu === 'kaydediliyor')}
               >
-                {kayitDurumu === 'kaydediliyor' ? 'Kaydediliyor…' :
-                 kayitDurumu === 'kaydedildi' ? '✓ Kaydedildi — kapanıyor' :
-                 kayitDurumu === 'hata' ? '⚠ Kaydedilemedi (yine de kapan)' :
-                 'Yürüyüşü kapat'}
+                {/* IMZA: DE-COMP-01 — kayıt durumu üç-dilli (tr/en/de) */}
+                {kayitDurumu === 'kaydediliyor' ? (dil === 'de' ? 'Wird gespeichert…' : dil === 'en' ? 'Saving…' : 'Kaydediliyor…') :
+                 kayitDurumu === 'kaydedildi' ? (dil === 'de' ? '✓ Gespeichert — wird geschlossen' : dil === 'en' ? '✓ Saved — closing' : '✓ Kaydedildi — kapanıyor') :
+                 kayitDurumu === 'hata' ? (dil === 'de' ? '⚠ Speichern fehlgeschlagen (trotzdem schließen)' : dil === 'en' ? '⚠ Could not save (close anyway)' : '⚠ Kaydedilemedi (yine de kapan)') :
+                 (dil === 'de' ? 'Spaziergang schließen' : dil === 'en' ? 'Close walk' : 'Yürüyüşü kapat')}
               </button>
             </div>
           </div>

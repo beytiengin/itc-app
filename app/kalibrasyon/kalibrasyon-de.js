@@ -324,6 +324,13 @@ export const UI_DE = {
   pankCardDesc: 'Ein Profil deiner sechs emotionalen Systeme — eine Temperamentkarte, keine Diagnose. Es hilft dir zu sehen, durch welche emotionale Tür du eine Figur betrittst.',
   saving: 'Wird gespeichert…',
   saveError: 'Beim Speichern ist ein Fehler aufgetreten. Bitte versuche es erneut.',
+  // IMZA: DE-UIDE-01 — Sprint 1/4/5 UI string eksikleri (oturum-yok, eksen/sayfa sayfalama)
+  kayitOturumYok: 'Deine Kalibrierung ist abgeschlossen. Melde dich an, um sie zu speichern — deine Antworten warten auf diesem Gerät.',
+  girisYap: 'Anmelden →',
+  page: 'Seite',
+  nextPage: 'Nächste Seite →',
+  axis: 'Achse',
+  nextAxis: 'Nächste Achse →',
 };
 
 // Intake secenekleri (dizi, index-sirali)

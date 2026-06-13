@@ -1,5 +1,7 @@
 'use client';
 
+import { useDil } from '../app/lib/dil'; // IMZA: DE-COMP-03 — etiket fallback üç-dilli
+
 // components/KartCatali.js
 // Kart-içi çatal — Nina SPEC §6 paritesi: overlay YOK, tek çatal, sayfadan
 // çıkmaz. Seçim oznel_sabitler'e yazılır (parent onSec ile bağlar).
@@ -50,6 +52,7 @@ function KartSik({ secili, soluk, onClick, harf, baslik, aciklama, muhur }) {
 
 // secim: seçili dal/deger değeri. onSec(secenek) → parent kaydı yapar.
 export default function KartCatali({ cataly, secim, onSec, etiket }) {
+  const { dil } = useDil(); // IMZA: DE-COMP-03
   if (!cataly || !Array.isArray(cataly.secenekler)) return null;
   const dalOf = (s) => s.dal ?? s.deger;
   return (
@@ -63,7 +66,7 @@ export default function KartCatali({ cataly, secim, onSec, etiket }) {
         <span style={{
           fontFamily: 'var(--font-body), sans-serif', fontWeight: 300,
           fontSize: '0.55rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase',
-        }}>{etiket || cataly.etiket || 'Seçim'}</span>
+        }}>{etiket || cataly.etiket || (dil === 'de' ? 'Auswahl' : dil === 'en' ? 'Choice' : 'Seçim')}</span>
         {cataly.soru ? (
           <p style={{
             fontFamily: 'var(--font-display), serif', fontStyle: 'italic',
