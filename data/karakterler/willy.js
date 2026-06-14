@@ -702,7 +702,7 @@ const willy = {
             { dal: 'B', baslik: 'Duymamayı seçiyor', aciklama: 'Gerçeği bir an gördü ama dayanamadı, sevgiye sığındı.', oznelSabit: 'Bir an gerçeği gördüm, sonra ondan kaçıp sevgiye sığındım.' },
           ] },
         { id: 's10-a3', tip: 'yazma', birlesimSahneNo: 10, travmaDuyarli: true,
-          soru: 'Biff ağlayarak ona sarıldığında Willy bir an her şeyi unutuyor. O sarılmada Willy gerçekten ne hissetti — sen onun yerinde olsan içinden ne geçerdi?' },
+          soru: 'Bu anı içine düşmeden, bir adım dışarıdan kur — yönetmen koltuğundan. Biff ağlayarak ona sarıldığında Willy bir an her şeyi unutuyor. O sarılmada Willy\'nin içinden geçeni bir yönetmen gibi izle: ne çözüldü, ne hâlâ kapalı kaldı? Acele yok.' }, // YM3-2026
       ],
       travmaKategorileri: ['varolussal'], travmaSeviyesi: 2,
     },

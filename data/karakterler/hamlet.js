@@ -614,7 +614,7 @@ const hamlet = {
             { dal: 'B', baslik: 'Bir saniyelik buz', aciklama: '"Ya gerçekten görmüyorsa... ya ben?" — delilik şüphesinin kendine döndüğü ilk saniye. Kapı hemen kapatıldı; ama açılmıştı bir kez.', oznelSabit: 'Bir saniye — yalnız bir saniye — kendi gözümden şüphe ettim. O kapıyı hemen kapattım; ama artık orada bir kapı olduğunu biliyordum.' },
           ] },
         { id: 's8-a3', tip: 'yazma', birlesimSahneNo: 8, travmaDuyarli: true,
-          soru: 'Ceset ayaklarının dibinde, annesi karşısında — ve Hamlet "iyi geceler" diyor, defalarca. O vedaların arasında Polonius\'a kaç kez baktı — ve baktığında ne gördü?' },
+          soru: 'Bu sahneyi bir adım dışarıdan, yönetmen gibi kur — içine düşmeden. Ceset ayaklarının dibinde, annesi karşısında, Hamlet "iyi geceler" diyor, defalarca. O vedaların arasında Polonius\'a kaç kez baktığını ve baktığında ne gördüğünü dışarıdan izle. Acele yok.' }, // YM3-2026
       ],
     },
     {
@@ -724,7 +724,7 @@ const hamlet = {
             { dal: 'B', baslik: 'Yas hakkının kavgası', aciklama: 'Laertes\'in gösterişli yası onu çıldırttı — "senin acın benimkinden büyük olamaz." Kavga Ophelia için mi, yası kimin taşıyacağı için mi — karışmış durumda.', oznelSabit: 'O çukurda Ophelia için mi, yas hakkım için mi dövüştüm — hâlâ ayıramıyorum. Acım gerçekti; ama o an acımı yarıştırıyordum ve bunu görüyordum.' },
           ] },
         { id: 's12-a3', tip: 'yazma', birlesimSahneNo: 12, travmaDuyarli: true,
-          soru: 'Mezarlıktan ayrılırken avucunda mezar toprağı kalmış mıydı — ve o toprağı ne zaman, nasıl sildi?' },
+          soru: 'Bir adım geri çekil, bu anı yönetmen gibi kur. Mezarlıktan ayrılırken Hamlet\'in avucunda mezar toprağı kalmış mıydı — o toprağı ne zaman, nasıl sildiğini içine düşmeden izle. Acele yok.' }, // YM3-2026
       ],
     },
     {
@@ -785,7 +785,7 @@ const hamlet = {
             { dal: 'B', baslik: 'Son işlem', aciklama: 'Öfke bile değil artık; ölmekte olan bir adamın son düzeltmesi — soğuk, kesin, neredeyse sessiz. Görev tamamlanıyor; duygu çoktan harcandı.', oznelSabit: 'Onu öfkeyle değil, kesinlikle öldürdüm — ölmekte olan bir adamın son düzeltmesiydi. İntikam dedikleri şey, o saniyede yalnızca bitirilmemiş bir işti.' },
           ] },
         { id: 's14-a3', tip: 'yazma', birlesimSahneNo: 14, travmaDuyarli: true,
-          soru: 'Son nefes Horatio\'nun kollarında: "Anlat hikâyemi." Hangi hikâyeyi — senin Hamlet\'in nasıl hatırlanmak istiyordu: babasının öcünü alan oğul mu, düşünmekten yapamayan adam mı, bambaşka bir şey mi?' },
+          soru: 'Bu son anı içine düşmeden, bir adım dışarıdan kur. Son nefes Horatio\'nun kollarında: "Anlat hikâyemi." Hamlet hangi hikâyeyi bırakmak istiyordu — babasının öcünü alan oğul mu, düşünmekten yapamayan adam mı, bambaşka biri mi? Yönetmen gibi bak, karar onun; acele yok.' }, // YM3-2026
       ],
     },
   ],

@@ -194,7 +194,7 @@ const macbeth = {
             { dal: 'B', baslik: 'Kendini dışarı atan', aciklama: 'Kelime oradaydı; onu hak etmediğine kendisi karar verdi. Kapıyı içeriden kilitledi.', oznelSabit: 'Kelime boğazımdaydı — yutan bendim. O duaya katılmaya yüzüm yoktu; kapıyı ben kapattım.' },
           ] },
         { id: 's5-a3', tip: 'yazma', birlesimSahneNo: 5, travmaDuyarli: true,
-          soru: 'Bir ses bağırdı: "Macbeth uykuyu öldürdü — Macbeth artık uyumayacak." O ses kimin sesiyle konuşuyordu — ve Macbeth onu ilk duyduğunda nerede durdu?' },
+          soru: 'Bu anı bir adım dışarıdan, yönetmen gibi kur — içine düşmeden. Bir ses bağırdı: "Macbeth uykuyu öldürdü — Macbeth artık uyumayacak." O ses kimin sesiyle konuşuyordu, ve Macbeth onu ilk duyduğunda nerede durdu? Dışarıdan izle, acele yok.' }, // YM3-2026
       ],
     },
     {
@@ -296,7 +296,7 @@ const macbeth = {
             { dal: 'B', baslik: 'Görülmeye', aciklama: 'Asıl dehşet maskenin düşmesi: içi, herkesin gözü önünde seyirlik oluyor. Hayaletten çok tanıklardan korkuyor.', oznelSabit: 'Hayaletten çok, onu gören yüzümü görenlerden korktum — o sofrada suçum değil, içim ifşa oldu.' },
           ] },
         { id: 's9-a3', tip: 'yazma', birlesimSahneNo: 9, travmaDuyarli: true,
-          soru: 'Konuklar dağıldı, sofra boşaldı. Macbeth o iskemleye bir kez daha baktı. Artık orada ne görüyordu — ve o iskemleye bir daha kim oturabilirdi?' },
+          soru: 'Bir adım geri çekil, bu sahneyi yönetmen gibi kur. Konuklar dağıldı, sofra boşaldı; Macbeth o iskemleye bir kez daha baktı. Artık orada ne gördüğünü ve o iskemleye bir daha kimin oturabileceğini içine düşmeden izle. Acele yok.' }, // YM3-2026
       ],
     },
     {
@@ -372,7 +372,7 @@ const macbeth = {
             { dal: 'B', baslik: 'Ona', aciklama: 'Veda edemediği için evrene veda ediyor — tirad, söylenememiş ağıtın şifresi. "Hayat anlamsız" demek, "sensiz anlamsız" demenin tek söylenebilir hali.', oznelSabit: '"Hayat bir gölge" derken ona sesleniyordum — ağıt yakamayan adamın ağıtıydı o; kimse anlamadı, o duydu mu bilmem.' },
           ] },
         { id: 's12-a3', tip: 'yazma', birlesimSahneNo: 12, travmaDuyarli: true,
-          soru: 'Hayatın "hiçbir şey ifade etmeyen, gürültü ve öfke dolu bir masal" olduğunu söyledikten birkaç saniye sonra zırhını isteyip savaşa dönüyor. Hiçliğe inanan adam neden hâlâ savaşıyor — o birkaç saniyede içinde ne ayağa kalktı?' },
+          soru: 'Bu geçişi içine düşmeden, bir adım dışarıdan kur. Hayatın "hiçbir şey ifade etmeyen, gürültü ve öfke dolu bir masal" olduğunu söyledikten birkaç saniye sonra Macbeth zırhını isteyip savaşa dönüyor. Hiçliğe inanan adam neden hâlâ savaşıyor — o birkaç saniyede içinde ne ayağa kalktı? Yönetmen gibi bak, acele yok.' }, // YM3-2026
       ],
     },
     {
@@ -422,7 +422,7 @@ const macbeth = {
             { dal: 'B', baslik: 'Kendine imza', aciklama: 'Kimsenin görmesi gerekmiyor. Hayat anlamsızsa tek anlam son seçimde: dövüşmek bir umut değil, bir imza. Hiçliğe verilen son cevap.', oznelSabit: 'Son kılıcı kimse için kaldırmadım — hayat bana anlam vermedi, ben son anıyla ona bir imza bıraktım: dövüşerek bitti, diz çökerek değil.' },
           ] },
         { id: 's14-a3', tip: 'yazma', birlesimSahneNo: 14, travmaDuyarli: true,
-          soru: 'Son kılıç kalktığında Macbeth\'in gözünün önünden geçen son görüntü neydi — cadılar mı, Duncan mı, taç mı... yoksa sahneye hiç gelmemiş bir yüz mü?' },
+          soru: 'Bu son anı bir adım dışarıdan, yönetmen gibi kur. Son kılıç kalktığında Macbeth\'in gözünün önünden geçen son görüntü neydi — cadılar mı, Duncan mı, taç mı... yoksa sahneye hiç gelmemiş bir yüz mü? İçine düşmeden izle, acele yok.' }, // YM3-2026
       ],
     },
   ],
@@ -486,7 +486,7 @@ const macbeth = {
               { dal: 'B', baslik: 'Hiç kelimeye dökülmedi', aciklama: 'Sessizlik anlaşması; yas dile gelmedi, başka şeylere aktı. Ortak hırs, konuşulamayan yasın diliydi belki.', oznelSabit: 'Adını hiç anmadık — sustuk ve sustukça başka şeyler büyüttük. Belki taht, adını koyamadığımız şeyin adıydı.' },
             ] },
           { id: 'o3-a2', tip: 'yazma', travmaDuyarli: true,
-            soru: 'Lady Macbeth o kelimeyi — "emzirdim" — cinayete ikna ederken kullandı. Macbeth duyduğunda içinde hangi oda açıldı, ve o odanın kapısını o gece kim kapattı?' },
+            soru: 'Bu anı içine düşmeden, yönetmen gibi kur. Lady Macbeth o kelimeyi — "emzirdim" — cinayete ikna ederken kullandı. Macbeth duyduğunda içinde hangi oda açıldı, ve o odanın kapısını o gece kim kapattı? Bir adım dışarıdan bak, acele yok.' }, // YM3-2026
         ],
       },
       {
