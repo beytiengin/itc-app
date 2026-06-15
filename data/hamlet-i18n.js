@@ -1306,110 +1306,469 @@ const hamletI18n = {
 
       boslukSet: [
         {
-          no: 1,
-          baslik: 'From Wittenberg to Elsinore',
-          sinif: 'Gap of Place',
-          konum: 'Pre-Play → I.ii Court',
-          sonraSahneNo: 2,
-          onceBaslik: 'Wittenberg',
-          onceMetin: 'Hamlet is at the university, inside the intellectual life. His father is alive. His life is in order — a woman he loves in Denmark, his friend Horatio beside him. One day the news comes: his father is dead.',
-          boslukMetin: 'A departure without news · an uncertain journey · the rush to make the funeral · thinking of his mother inside the mourning · Claudius still only an uncle · no news of the marriage yet.',
-          sonraBaslik: 'I.ii · The Court',
-          sonraMetin: 'Hamlet at the court in black. His mother has married Claudius. Hamlet to the side, in mourning — the first soliloquy: "O, that this too too sullied flesh would melt, thaw, and resolve itself into a dew!"',
-          sentez: 'We do not know how much time the gap holds. Did he make the funeral, or did he arrive at the wedding — Shakespeare does not say.',
-          altSorular: [
-            { no: 1, baslik: 'When the News Came',
-              soru: 'Who brought the news, in what words? How did the body react?' },
-            { no: 2, baslik: 'Before Setting Out',
-              soru: 'Before setting out, what did he do in his room — what did he leave, what did he take with him?' },
-            { no: 3, baslik: 'When He First Saw His Mother',
-              soru: 'When he first saw his mother, which word came to his lips, which did not?' },
-          ],
+        no: 1,
+        baslik: 'From Wittenberg to Elsinore',
+        sinif: 'Gap of Place',
+        konum: 'Pre-Play → I.ii Court',
+        yasamSirasi: 1,
+        sonraSahneNo: 2,
+        onceBaslik: 'Wittenberg',
+        onceMetin:
+        'Hamlet is at the university, inside the intellectual life. His father is alive. His life is in order — a woman he loves in Denmark, his friend Horatio beside him. One day the news comes: his father is dead.',
+        boslukMetin:
+        'A departure without word · an uncertain journey · the rush to reach the funeral · thinking of his mother inside the mourning · Claudius still only an uncle · no news yet of the marriage.',
+        sonraBaslik: 'I.ii · The Court',
+        sonraMetin:
+        'Hamlet at the court in black. His mother has married Claudius. Hamlet to the side, in mourning — the first soliloquy: "O, that this too too solid flesh would melt, thaw and resolve itself into a dew!"',
+        sentez:
+        'We do not know how much time the gap holds. Did he reach the funeral, or arrive at the wedding — Shakespeare does not say.',
+        altSorular: [
+        { no: 1, baslik: 'When the News Came', soru: 'Who brought the news, in what words? How did the body react?' },
+        { no: 2, baslik: 'Before Setting Out', soru: 'Before setting out, what did he do in his room — what did he leave, what did he take with him?' },
+        { no: 3, baslik: 'When He First Saw His Mother', soru: 'When he first saw his mother, which word came to his lips, which did not?' },
+        ],
+        yuruyus: {
+        esik: {
+        komut: 'This is a walk. You will build this gap step by step — the road Shakespeare did not write, from the moment of the knock at the door in Wittenberg to the threshold of Elsinore. There is no hurry.',
+        adimlar: [
+        'First build the moment: the university room, the books, an ordinary evening. The news has not yet come.',
+        'At each stop, notice where in his body Hamlet is standing in that moment — then move on.',
+        'Everything you choose becomes yours; this road decides which man will speak the first soliloquy in Scene 2.',
+        ],
+        hitap: 'When you are ready, take the first step.',
+        buton: 'I begin',
+        },
+        girisBaslik: 'From Wittenberg to Elsinore — build the gap',
+        girisAciklama: 'The news has come: his father is dead. Shakespeare skips the road from Wittenberg to Denmark. That road — the departure, the days, the last breath at the threshold — you will build.',
+        girisSentez: 'In this walk, what you choose becomes yours; it stays with you in Scene 2.',
+        gecisButonu: 'Move to the first stop',
+        cikisRitueli: 'Step back one pace from the road; let out a breath. When you enter through the door you will not speak — the black will speak. The first soliloquy belongs to the man who walks through this door. What are you carrying?',
+        istasyonlar: [
+        {
+        no: 0, zamanRozet: 'The knock at the door',
+        acilis: 'Wittenberg. An ordinary evening at the books. There is a knock — at the threshold a messenger, the dust of the road on his face and a sentence he is afraid to say.',
+        sorular: ['With which word did the sentence bearing the news begin — and at which word did Hamlet\u2019s body stop?'],
+        yazmaAlani: true, yazmaPlaceholder: 'When the door opened…',
         },
         {
-          no: 2,
-          baslik: 'The Night After the Ghost',
-          sinif: 'Gap of Decision',
-          konum: 'I.v End → II.ii',
-          sonraSahneNo: 4,
-          onceBaslik: 'I.v · End',
-          onceMetin: 'The ghost has told him how his father died. Hamlet has sworn revenge. He has made Horatio and Marcellus swear: "How strange or odd soe\'er I bear myself… I perchance hereafter shall think meet / To put an antic disposition on." Dawn is breaking; they are coming down from the ramparts.',
-          boslukMetin: "Dawn · the first day · the first night alone · the mind in bed · the birth of the \"antic disposition\" idea · the groundwork for his visit to Ophelia's chamber (which Polonius reports in II.i).",
-          sonraBaslik: 'II.ii · The Court',
-          sonraMetin: 'A few days have passed. Polonius has reported the observation of "madness" to the king. R&G have been summoned. The players arrive. Hamlet sets up a plan — "The Mousetrap".',
-          sentez: "After parting from the ghost, between the moment he begins to wear the mask of madness and the moment he sets up his plan, there is at least one night. Maybe several.",
-          altSorular: [
-            { no: 1, baslik: 'Coming Down from the Ramparts',
-              soru: "Coming down from the ramparts, how did he look at Horatio? Did a word come out, or was it silent?" },
-            { no: 2, baslik: 'When He Woke That Night',
-              soru: 'Did he sleep that night? Did he try? When he woke, had something changed?' },
-            { no: 3, baslik: 'The Birth of the Mask',
-              soru: 'Where did the "antic disposition" idea come from? A conscious calculation, or a sudden decision?' },
-          ],
+        no: 1, zamanRozet: 'The road — a return of days',
+        acilis: 'Horses, inns, the sea. The return takes days; the road is long, the news short. The mind turns the same sentence over and over.',
+        sorular: ['What carried Hamlet along that road — a hope, or a certainty?'],
+        catal: {
+        anahtar: 'b1-yuruyus-yol', dil: 'birinci_tekil',
+        etiket: 'There are two roads. Which is yours?',
+        secenekler: [
+        { deger: 'yetisme', baslik: 'The hope of reaching in time', aciklama: 'Maybe the coffin is still open; one last look at his face. The road is a race.',
+        muhur: 'Do not forget this — on that road I was still a son; I still had something to reach.',
+        ozet: 'On that road I still had something to reach.' },
+        { deger: 'gec-kalmislik', baslik: 'Lateness', aciklama: 'Even on the road he knows: it will all be over. The road is not a race but a postponement.',
+        muhur: 'Do not forget this — I was walking not toward home but toward something already ended; I learned lateness on that road.',
+        ozet: 'I learned lateness on that road.' },
+        ],
+        },
         },
         {
-          no: 3,
-          baslik: 'After Polonius',
-          sinif: 'Gap of Fracture',
-          konum: 'III.iv End → IV.iii',
-          sonraSahneNo: 9,
-          onceBaslik: "III.iv · The Queen's Chamber",
-          onceMetin: 'Hamlet has confronted his mother. He killed Polonius behind the arras with "How now! A rat?" The ghost came again. He leaves his mother\'s side, dragging the body.',
-          boslukMetin: 'The body · through the night toward the palace · the first killing settling in the mind · regret, coldness, fear — which? · what did he do before morning? · the first sleep as a murderer.',
-          sonraBaslik: 'IV.iii · Before Claudius',
-          sonraMetin: 'Hamlet answers Claudius\'s questions through the mask of irony. "Where is Polonius?" — At supper. Not where he eats, but where he is eaten. Cold madness, the trigger inside.',
-          sentez: 'The first person Hamlet has killed. The first bloody moment. In this gap, the making of that first murderer.',
-          altSorular: [
-            { no: 1, baslik: 'Dragging the Body',
-              soru: 'Did blood get on his hand as he dragged the body? What did he feel? What did he think at first sight?' },
-            { no: 2, baslik: 'Hiding the Body',
-              soru: 'Where, how did he hide the body? A chosen place, or a panicked corner?' },
-            { no: 3, baslik: 'As the First Murderer',
-              soru: 'After the first killing, what changed in the body? Tone of voice, gaze, walk?' },
-          ],
+        no: 2, zamanRozet: 'Elsinore appears',
+        acilis: 'The ramparts on the horizon. The castle of his childhood — but in its first form without his father inside it.',
+        sorular: ['The moment he saw the ramparts, what stirred in him — a homecoming, or an arrival at a foreign place?'],
+        yazmaAlani: true, yazmaPlaceholder: 'When I saw the ramparts…',
         },
         {
-          no: 4,
-          baslik: 'The Voyage to England',
-          sinif: 'Gap of Transformation',
-          konum: 'IV.iii → V.i',
-          sonraSahneNo: 12,
-          onceBaslik: 'IV.iii',
-          onceMetin: "Claudius is exiling him. He will board the ship with R&G. Hamlet says goodbye with irony: \"For England! Farewell, dear mother.\" As if the decision about his life were made by outside forces.",
-          boslukMetin: "The ship sets sail · Hamlet finds R&G's letter · reads the death warrant · changes the letter · pirates attack · Hamlet escapes · returns to Denmark. He writes a letter to Horatio (read in IV.vi).",
-          sonraBaslik: 'V.i · The Graveyard',
-          sonraMetin: 'Hamlet is different. "The readiness is all." He philosophises with Yorick\'s skull. Even the outburst at Ophelia\'s funeral is differently toned — more familiar with death.',
-          sentez: "The largest of the five gaps. Hamlet's greatest transformation is here — the Hamlet who left for exile and the Hamlet who returns are not the same person.",
-          altSorular: [
-            { no: 1, baslik: 'When He Read the Letter',
-              soru: "When he read the letter, what was his first feeling? No surprise — he had sensed it. But which word lingered on his palate?" },
-            { no: 2, baslik: 'The R&G Decision',
-              soru: 'When he decided their deaths, what did he lean on? Conscience? Revenge? Or the requirements of the game?' },
-            { no: 3, baslik: 'The Return',
-              soru: 'On the way back, when did he know as whom he was returning? A moment, a word, a witnessing?' },
-          ],
+        no: 3, zamanRozet: 'The castle door — in black',
+        acilis: 'At the threshold, or just before it, he learned: his mother has married. The leftovers of the funeral feast set out on the wedding table. The door will open; inside there is a celebration.',
+        sorular: ['Did he pause for one second at the threshold — and if he did, what did he not allow himself in that second?'],
+        catal: {
+        anahtar: 'b1-yuruyus-esik', dil: 'birinci_tekil',
+        etiket: 'Which man enters?',
+        secenekler: [
+        { deger: 'gosteren', baslik: 'The one who shows his grief', aciklama: 'He wears the black deliberately — let them see it, let them be discomfited; his grief is his protest.',
+        muhur: 'Do not forget this — my black was a protest; a man who made grief a banner walked through that door.',
+        ozet: 'My black was my protest.' },
+        { deger: 'saklayan', baslik: 'The one who hides his grief', aciklama: 'The black is an armour; the inside is open to no one. What he shows is nothing beside what he carries.',
+        muhur: 'Do not forget this — the black I showed was not even the shadow of what was inside; a closed man walked through that door.',
+        ozet: 'What I showed was not even the shadow of what I carried.' },
+        ],
         },
-        {
-          no: 5,
-          baslik: 'Before the Duel',
-          sinif: 'Gap of the Threshold',
-          konum: 'V.ii(A) → V.ii(B)',
-          sonraSahneNo: 14,
-          onceBaslik: 'V.ii(A)',
-          onceMetin: "Hamlet has told Horatio the R&G story and accepted the duel. \"There's a special providence in the fall of a sparrow.\" The inner peace has begun. Osric leaves; it is time to prepare.",
-          boslukMetin: 'Preparation · perhaps a moment alone · perhaps with Horatio on the way · thinking of his mother · of his father · of Ophelia · the "this could have been my life" moment · choosing the sword · the breath of entering the hall.',
-          sonraBaslik: 'V.ii(B) · The Duel',
-          sonraMetin: 'The duelling hall. The whole court. Hamlet faces Laertes, apologises. The duel begins. "The rest… is silence."',
-          sentez: 'Hamlet does not know that he will die. But his body might. This last gap is the shortest — but perhaps the densest.',
-          altSorular: [
-            { no: 1, baslik: 'A Moment Alone',
-              soru: 'Before entering the hall, was there a moment alone? Did he look out the window, or at the mirror?' },
-            { no: 2, baslik: 'Did He Think of His Mother',
-              soru: 'Did he think of his mother? Which memory came — from childhood, or from the last scenes?' },
-            { no: 3, baslik: 'The Last Breath',
-              soru: 'The last breath as he entered the hall — was it deep, or shallow? Did the weight of the sword feel familiar, or strange?' },
-          ],
         },
+        ],
+        },
+        },
+    {
+      no: 2,
+      baslik: 'The Night After the Ghost',
+      sinif: 'Gap of Decision',
+      konum: 'I.v End → II.ii',
+      yasamSirasi: 2,
+      sonraSahneNo: 4,
+      onceBaslik: 'I.v · End',
+      onceMetin:
+        'The ghost told him how his father died. Hamlet swore revenge. He made Horatio and Marcellus swear an oath: "As I perchance hereafter shall think meet to put an antic disposition on." Dawn breaks; they come down from the ramparts.',
+      boslukMetin:
+        'Dawn · the first day · the first night alone · the mind while lying in bed · the birth of the "antic disposition" idea · the groundwork for the visit to Ophelia\u2019s room (Polonius recounts it in II.i).',
+      sonraBaslik: 'II.ii · The Court',
+      sonraMetin:
+        'A few days have passed. Polonius has reported the "madness" to the king. R&G are summoned. The players arrive. Hamlet is forming a plan — "The Mousetrap".',
+      sentez:
+        'Between leaving the ghost and Hamlet beginning to put on the mask of madness and form a plan, there is at least one night. Perhaps several.',
+      altSorular: [
+        { no: 1, baslik: 'Coming Down from the Ramparts', soru: 'How did he look at Horatio as they came down from the ramparts? Did a word come, or was it silent?' },
+        { no: 2, baslik: 'When He Woke That Night', soru: 'Did he sleep that night? Did he try to? When he woke, had something changed?' },
+        { no: 3, baslik: 'The Birth of the Mask Idea', soru: 'Where did the "antic disposition" idea come from? A conscious calculation, or a sudden decision?' },
+      ],
+    },
+
+    {
+      no: 3,
+      baslik: 'After Polonius',
+      sinif: 'Gap of Fracture · The Deepest',
+      konum: 'III.iv End → IV.iii',
+      yasamSirasi: 6,
+      sonraSahneNo: 9,
+      onceBaslik: 'III.iv · The Mother\u2019s Room',
+      onceMetin:
+        'Hamlet confronted his mother. He killed Polonius behind the arras — "How now? A rat?" The ghost came again. He left his mother\u2019s room, dragging the body.',
+      boslukMetin:
+        'The corpse · through the night toward the palace · the first killing settling in the mind · remorse, or coldness, or fear? · what did he do before morning? · sleep, as a killer for the first time.',
+      sonraBaslik: 'IV.iii · Before Claudius',
+      sonraMetin:
+        'Hamlet answers Claudius\u2019s questions with a mask of irony. "Where is Polonius?" — At supper, not where he eats but where he is eaten. Cold madness, the trigger within.',
+      sentez:
+        'The first person Hamlet kills. The first bloody moment. In this gap is the forming of that first killer.',
+      altSorular: [
+        { no: 1, baslik: 'Dragging the Corpse', soru: 'As he dragged the corpse, did blood get on his hand? What did he feel? What did he think at first sight?' },
+        { no: 2, baslik: 'Hiding the Corpse', soru: 'Where, and how, did he hide the corpse? Did he choose a deliberate place, or a panicked corner?' },
+        { no: 3, baslik: 'As the First Killer', soru: 'After the first killing, what changed in his body? Tone of voice, gaze, gait?' },
+      ],
+    },
+
+    {
+      no: 4,
+      baslik: 'The Voyage to England — The Ship',
+      sinif: 'Gap of Transformation',
+      konum: 'IV.iii → V.i',
+      yasamSirasi: 7,
+      sonraSahneNo: 12,
+      onceBaslik: 'IV.iii',
+      onceMetin:
+        'Claudius is exiling him. He will board the ship with R&G. Hamlet takes his leave with irony: "For England! Farewell, dear mother." As if the decision over his life were made by outside forces.',
+      boslukMetin:
+        'The ship puts out to sea · Hamlet finds R&G\u2019s letter · reads the death warrant · alters the letter · pirates attack · Hamlet escapes · returns to Denmark. He writes to Horatio (read in IV.vi).',
+      sonraBaslik: 'V.i · The Graveyard',
+      sonraMetin:
+        'Hamlet is different. "The readiness is all." He philosophises with Yorick\u2019s skull. Even his outburst at Ophelia\u2019s funeral is of another tone — more familiar with death.',
+      sentez:
+        'The largest of the gaps. Hamlet\u2019s greatest transformation is here — the Hamlet who goes into exile and the Hamlet who returns are not the same person.',
+      altSorular: [
+        { no: 1, baslik: 'When He Read the Letter', soru: 'When he read the letter, what was his first feeling? No surprise — he had sensed it. But which word stuck on his palate?' },
+        { no: 2, baslik: 'The R&G Decision', soru: 'On what did he base the decision to have R&G die? Conscience? Revenge? Or the requirement of the play?' },
+        { no: 3, baslik: 'The Return', soru: 'On the way back, when did he understand who he had returned as? A moment, a word, a witnessing?' },
+      ],
+      yuruyus: {
+        esik: {
+          komut: 'This is a walk. You will build this gap step by step — from the moment the Danish coast disappears to the returning man\u2019s stepping onto the shore. There is no hurry.',
+          adimlar: [
+            'First build the moment: the deck, the wind, two old friends and a sealed letter. No one is saying anything.',
+            'At each stop, notice where in his body Hamlet is standing in that moment — then move on.',
+            'Everything you choose becomes yours; this sea decides which man will enter the graveyard.',
+          ],
+          hitap: 'When you are ready, come up on deck.',
+          buton: 'I begin',
+        },
+        girisBaslik: 'The ship — the gap of transformation',
+        girisAciklama: 'The exile ship has put to sea. The finding of the letter, the altering of the warrant, the pirates — Shakespeare does not show on stage; he has them recounted after. The transformation itself you will build.',
+        girisSentez: 'In this walk, what you choose becomes yours; it stays with you in Scene 12.',
+        gecisButonu: 'Move to the first stop',
+        cikisRitueli: 'Step back one pace from the sea; let out a breath. The man who goes to the graveyard is not the man who boarded the ship. What are you carrying?',
+        istasyonlar: [
+          {
+            no: 0, zamanRozet: 'The deck — the coast fades',
+            acilis: 'Denmark thins behind him. R&G are close — too close. Hamlet is in exile; but something in him senses this voyage is more than exile.',
+            sorular: ['The moment the coast vanished completely, what did Hamlet look at — what was left behind, or the open sea?'],
+            yazmaAlani: true, yazmaPlaceholder: 'As the coast faded…',
+          },
+          {
+            no: 1, zamanRozet: 'Night — the letter in the cabin',
+            acilis: 'No sleep. In the dark he reaches into R&G\u2019s bag; the royal seal, and inside it his own death warrant: on arrival in England, execution.',
+            sorular: ['The moment he read the warrant, what happened in him first?'],
+            catal: {
+              anahtar: 'b4-yuruyus-mektup', dil: 'birinci_tekil',
+              etiket: 'There are two roads. Which is yours?',
+              secenekler: [
+                { deger: 'sezgi', baslik: 'I had sensed it', aciklama: 'Reading it only confirmed; no surprise, a cold clarity.',
+                  muhur: 'Do not forget this — that letter told me nothing new; what I read was the seal of what I already knew.',
+                  ozet: 'What I read was the seal of what I already knew.' },
+                { deger: 'kesinlik', baslik: 'Seeing the seal was another thing', aciklama: 'To sense is one thing; to read your own death under the king\u2019s seal is another — the paper grew heavy in his hand.',
+                  muhur: 'Do not forget this — to carry doubt was easy; when certainty touched my hand the world died once more.',
+                  ozet: 'When certainty touched my hand the world died once more.' },
+              ],
+            },
+          },
+          {
+            no: 2, zamanRozet: 'Rewriting the warrant',
+            acilis: 'His father\u2019s ring is with him — the twin of the royal seal. He writes a new warrant: let the bearers of this letter be put to death. Two old schoolfellows.',
+            sorular: ['This is Hamlet\u2019s first act without hesitation — how was the hand?'],
+            catal: {
+              anahtar: 'b4-yuruyus-ferman', dil: 'birinci_tekil',
+              etiket: 'There are two roads. Which is yours?',
+              secenekler: [
+                { deger: 'soguk', baslik: 'Cold and resolved', aciklama: 'For the first time no gap between thought and act; the hand wrote without stopping.',
+                  muhur: 'Do not forget this — my first act without hesitation was to write the death of two old friends; that night the distance between thinking and doing closed.',
+                  ozet: 'That night the distance between thinking and doing closed.' },
+                { deger: 'titredi', baslik: 'It trembled but wrote', aciklama: 'The hand trembled — but for the first time, trembling did not stop it.',
+                  muhur: 'Do not forget this — my hand trembled and still it wrote; what changed was not that fear left, but that fear could no longer decide.',
+                  ozet: 'Fear could no longer decide.' },
+              ],
+            },
+          },
+          {
+            no: 3, zamanRozet: 'After the pirates — the shore',
+            acilis: 'An attack, a fight, a lone boarding of the pirate ship — and a bargain. Now the Danish coast is before him again; this time not exile, but return.',
+            sorular: ['The moment he set foot on the shore — what was left of the man who boarded the ship, and what was new?'],
+            yazmaAlani: true, yazmaPlaceholder: 'When I stepped onto the shore…',
+          },
+        ],
+      },
+    },
+
+    {
+      no: 5,
+      baslik: 'Before the Duel',
+      sinif: 'Gap of Threshold',
+      konum: 'V.ii(A) → V.ii(B)',
+      yasamSirasi: 9,
+      sonraSahneNo: 14,
+      onceBaslik: 'V.ii(A)',
+      onceMetin:
+        'Hamlet told Horatio the R&G story and accepted the duel invitation. "There\u2019s a special providence in the fall of a sparrow." An inner peace has begun. Osric has left; it is time to prepare.',
+      boslukMetin:
+        'Preparation · perhaps a moment alone · perhaps the walk with Horatio · thinking of his mother · his father · Ophelia · the "this could have been my life" moment · choosing the sword · the breath before entering the hall.',
+      sonraBaslik: 'V.ii(B) · The Duel',
+      sonraMetin:
+        'The duelling hall. The whole court. Hamlet faces Laertes, apologises. The duel begins. "The rest is silence."',
+      sentez:
+        'Hamlet does not know he will die. But his body may know. This last gap is the shortest gap — but perhaps the most intense.',
+      altSorular: [
+        { no: 1, baslik: 'A Moment Alone', soru: 'Was there a moment alone before entering the hall? Did he look out a window, or into a mirror?' },
+        { no: 2, baslik: 'Did He Think of His Mother', soru: 'Did he think of his mother? Which memory came — from childhood, from the recent scenes?' },
+        { no: 3, baslik: 'The Last Breath', soru: 'The last breath as he entered the hall — deep, or shallow? Did the weight of the sword feel familiar, or like a strangeness?' },
+      ],
+    },
+
+    {
+      no: 6,
+      baslik: 'After Hecuba',
+      sinif: 'Gap of Descent',
+      konum: 'II.ii End → III.i',
+      yasamSirasi: 3,
+      sonraSahneNo: 5,
+      onceBaslik: 'II.ii · End',
+      onceMetin:
+        'The player shed real tears for Hecuba — for a fiction. Left alone, Hamlet turned on himself: he weeps for a nothing, while I stay silent for a real father. Then the plan was born: the play will be staged, the king\u2019s conscience caught.',
+      boslukMetin:
+        'a night ending in a plan · the hours of a man who has built a plan · between sleep and waking · the plan slipping from his hands · the question caving in toward dawn · the stair descending from "The Mousetrap" to "to be or not to be".',
+      sonraBaslik: 'III.i · "To be, or not to be"',
+      sonraMetin:
+        'The next day. The plan is in motion, the players are preparing — but Hamlet is alone in a corridor, questioning existence itself. Then Ophelia comes; the encounter ends in ruin.',
+      sentez:
+        'Shakespeare places the deepest monologue of despair right after the plan — he does not write the descent between. Why does a man who has made a plan weigh death the next morning? The actor builds that descent in this gap.',
+      altSorular: [
+        { no: 1, baslik: 'The Lifespan of the Plan', soru: 'Did the plan carry him through to morning — when did it begin to slip from his hands?' },
+        { no: 2, baslik: 'The Body That Night', soru: 'That night, between sleep and waking, where was the body — in bed, at the window, never seated at all?' },
+        { no: 3, baslik: 'The Thought of Ophelia', soru: 'Did he know he would meet Ophelia? As what had he last thought of her — the woman he loved, or a lost life?' },
+      ],
+    },
+
+    {
+      no: 7,
+      baslik: 'Preparing for the Play Night',
+      sinif: 'Gap of the Mask',
+      konum: 'III.i → III.ii',
+      yasamSirasi: 4,
+      sonraSahneNo: 6,
+      onceBaslik: 'III.i · Ophelia',
+      onceMetin:
+        'Hamlet tore Ophelia apart: "Get thee to a nunnery." Claudius and Polonius were listening behind the arras — whether Hamlet sensed this, we do not know. Ophelia was left in ruins: "O, what a noble mind is here o\u2019erthrown!"',
+      boslukMetin:
+        'the passage from ruin to high spirits · the writing of the lines he adds for the players · the task given to Horatio: watch the king · the waiting as the hall is set up · the putting-on of the mask again · the two Hamlets of the same day.',
+      sonraBaslik: 'III.ii · The Play Night',
+      sonraMetin:
+        'Hamlet directs the players with mastery — sharp, witty, like a host. No trace of the man who just shattered a woman. "The Mousetrap" is about to begin.',
+      sentez:
+        'Two Hamlets within the same day: the man who shattered Ophelia, and the man making jokes in the hall. Shakespeare does not write the transition. The actor builds, in this gap, how and at what cost the mask was put on.',
+      altSorular: [
+        { no: 1, baslik: "Ophelia\u2019s Face", soru: 'When did Ophelia\u2019s face leave his mind\u2019s eye — did it leave at all?' },
+        { no: 2, baslik: 'Writing the Lines', soru: 'As he wrote the lines added to the play, how was his hand — an engineer setting a trap, or a son writing a letter?' },
+        { no: 3, baslik: 'The Task for Horatio', soru: 'As he told Horatio "watch the king," how was his voice — was he speaking to a fellow conspirator, or to his only witness?' },
+      ],
+    },
+
+    {
+      no: 8,
+      baslik: 'The Corridor to the Mother\u2019s Room',
+      sinif: 'Gap of the Corridor',
+      konum: 'III.ii End → III.iv Door',
+      yasamSirasi: 5,
+      sonraSahneNo: 8,
+      onceBaslik: 'III.ii · The play breaks up',
+      onceMetin:
+        'The Mousetrap worked: Claudius leapt up at the poisoning scene, called for light, the hall scattered. The proof has come — Horatio saw it too. Then word: his mother summons him to her room.',
+      boslukMetin:
+        'the emptying hall · the night corridors · the "now could I drink hot blood" speech · the door of the praying Claudius · the sword not drawn · the last steps to the mother\u2019s door — Shakespeare writes the stops, not the corridor itself.',
+      sonraBaslik: 'III.iv · The Mother\u2019s Room',
+      sonraMetin:
+        'Hamlet before his mother. The vow he made himself is in force: the words will be daggers, but the hand will not go to the dagger. Behind the arras there is someone — he does not yet know.',
+      sentez:
+        'The most intense night of the play flows through a single corridor: proof → chance to kill → not killing → the mother. The actor builds, in this corridor, the anatomy of postponement — these steps make the man who enters Scene 8.',
+      altSorular: [
+        { no: 1, baslik: 'The Weight of Certainty', soru: 'The proof has come — "the ghost was right" is now certain. Did that certainty lighten Hamlet, or weigh him down?' },
+        { no: 2, baslik: 'The Body in the Corridor', soru: 'How was his walk in the corridor — fast and resolute, or pausing at every door?' },
+        { no: 3, baslik: 'The Vow to Himself', soru: 'What was the vow he made himself on the way to his mother — and why did he feel he had to make it?' },
+      ],
+      yuruyus: {
+        esik: {
+          komut: 'This is a walk. You will build the most intense night of the play step by step — the corridor running from the scattered hall to the mother\u2019s door. There is no hurry.',
+          adimlar: [
+            'First build the moment: the hall has emptied, the torches are being put out. The proof has come — now you know.',
+            'At each stop, notice where in his body Hamlet is standing in that moment — then move on.',
+            'Everything you choose becomes yours; this corridor decides which man will enter the mother\u2019s room.',
+          ],
+          hitap: 'When you are ready, step into the corridor.',
+          buton: 'I begin',
+        },
+        girisBaslik: 'The corridor — from the proof to the mother\u2019s door',
+        girisAciklama: 'The Mousetrap worked; Claudius gave himself away. Shakespeare writes the night corridor from that hall to the mother\u2019s room with two stops — the speech and the prayer scene. The steps between them you will build.',
+        girisSentez: 'In this walk, what you choose becomes yours; it stays with you in Scene 8.',
+        gecisButonu: 'Move to the first stop',
+        cikisRitueli: 'Step back one pace from the corridor; let out a breath. Behind the door is your mother — and behind the arras, someone you do not know. You enter Scene 8 from this corridor. What are you carrying?',
+        istasyonlar: [
+          {
+            no: 0, zamanRozet: 'The hall empties',
+            acilis: 'You saw Claudius\u2019s face — the panic of a man calling for light. Horatio saw it too; your eyes met. The hall scatters, you remain.',
+            sorular: ['In that first minute the proof arrived, was there triumph in Hamlet\u2019s body — or was the triumph something heavier than he expected?'],
+            yazmaAlani: true, yazmaPlaceholder: 'As the hall emptied…',
+          },
+          {
+            no: 1, zamanRozet: 'The night corridor — the speech',
+            acilis: 'Alone, at night. A voice rises within: now could I drink hot blood — and do such things as the day would tremble to look on. A voice he does not recognise. Or one too familiar.',
+            sorular: ['Whose voice is this?'],
+            catal: {
+              anahtar: 'b8-yuruyus-ses', dil: 'birinci_tekil',
+              etiket: 'There are two roads. Which is yours?',
+              secenekler: [
+                { deger: 'icimden', baslik: 'A truth rising from within', aciklama: 'This voice is his — it was always there, waiting beneath the mask; the night only gave it leave.',
+                  muhur: 'Do not forget this — the voice I heard that night was no guest; it was the master of the house, and for the first time I opened the door.',
+                  ozet: 'That voice was no guest — for the first time I opened the door.' },
+                { deger: 'kiskirtma', baslik: 'Goading himself', aciklama: 'This voice is a rehearsal — the courage-line a man who cannot act writes for himself.',
+                  muhur: 'Do not forget this — it was not I who spoke of blood; it was a line written by the self who could not act. My most savage words came from my most helpless moments.',
+                  ozet: 'My most savage words came from my most helpless moments.' },
+              ],
+            },
+          },
+          {
+            no: 2, zamanRozet: 'The door of the praying man',
+            acilis: 'A door ajar; inside, Claudius kneels, praying. His back turned, alone, unarmed. The sword is at your side. Shakespeare writes this room — what he does not write is the steps walking away from the door.',
+            sorular: ['"If he dies at prayer he goes purged" — what was this reasoning?'],
+            catal: {
+              anahtar: 'b8-yuruyus-gerekce', dil: 'birinci_tekil',
+              etiket: 'There are two roads. Which is yours?',
+              secenekler: [
+                { deger: 'gercek', baslik: 'The reasoning was real', aciklama: 'Revenge is not half-done; his father died with his sins unshriven, the killer must not die purged. The waiting is not mercy — the mathematics of revenge.',
+                  muhur: 'Do not forget this — I did not lower the sword from mercy; I lowered it for a deeper revenge. What stopped me at that door was not my conscience but my reckoning.',
+                  ozet: 'What stopped me was not conscience but reckoning.' },
+                { deger: 'bahane', baslik: 'The reasoning was an excuse', aciklama: 'The reckoning was dressed on after; the truth is — the hand did not go. The reasoning is the noble cover for not being able to.',
+                  muhur: 'Do not forget this — at that door I invented the reasoning; my hand did not go, and my mind rushed a reason to my hand. It was the most elegant moment of my postponement.',
+                  ozet: 'My mind rushed a reason to the hand that would not go.' },
+              ],
+            },
+          },
+          {
+            no: 3, zamanRozet: 'The mother\u2019s door',
+            acilis: 'The end of the corridor. Behind the door, his mother — angry, afraid. Before entering he makes himself a vow: the words will be daggers, the hand will not go to the dagger.',
+            sorular: ['As he made that vow, what did Hamlet fear most — what he might do to his mother, or the voice he had heard in the corridor?'],
+            yazmaAlani: true, yazmaPlaceholder: 'Before the door…',
+          },
+        ],
+      },
+    },
+
+    {
+      no: 9,
+      baslik: 'The Moment of Recognition at the Graveyard',
+      sinif: 'Gap of Recognition · Micro',
+      konum: 'Inside the moment of the graveyard (12)',
+      yasamSirasi: 8,
+      sonraSahneNo: 12,
+      // ⚠️ FİLİZ: yas yoğunluğu — B9→B10 art arda dizilim, nefes kontrolü.
+      onceBaslik: 'V.i · Yorick',
+      onceMetin:
+        'The talk with the gravedigger; Yorick\u2019s skull in his hand — the jester of his childhood. He is almost joking with death. Then a procession appears: a coffin, the king, the queen, Laertes — and a shortened rite.',
+      boslukMetin:
+        'the minutes passing as he watches, hidden · the reading of the shortened rite · the mind turning over the identity of the coffin · Laertes\u2019s cry of "brother" · the seconds between knowing and accepting.',
+      sonraBaslik: 'V.i · The Outburst',
+      sonraMetin:
+        'Hamlet leaps forward, cries out who he is, jumps into the grave. The love of forty thousand brothers — grief and rage in the same body.',
+      sentez:
+        'Shakespeare gives the recognition in a single line; he skips the seconds of grasping before it. The actor builds, in this micro gap, the moment of knowing — what was already known within before the news was spoken.',
+      altSorular: [
+        { no: 1, baslik: 'The Reading of the Rite', soru: 'When he first saw the procession, did he read the shortened rite — before knowing who was buried, did he understand what was being buried?' },
+        { no: 2, baslik: "Gertrude\u2019s Sentence", soru: 'When Gertrude scattered flowers and said "I thought thy bride-bed to have decked" — where in his body did that sentence fall?' },
+        { no: 3, baslik: 'Before Leaping into the Grave', soru: 'The last second before leaping into the grave — was it a decision, or a fall?' },
+      ],
+      kartCatali: {
+        anahtar: 'b9-tanima',
+        soru: 'The moment you understood whose coffin it was — when Laertes said "brother" — what happened in you first?',
+        birlesimSahneNo: 12,
+        secenekler: [
+          { dal: 'A', baslik: 'Time stopped',
+            aciklama: 'He could not believe it; the world hung for a second, then fell on him.',
+            oznelSabit: 'The moment I heard her name the world stopped for a second — and sometimes I am still standing inside that second.' },
+          { dal: 'B', baslik: 'As if I already knew',
+            aciklama: 'He was not surprised; somewhere within him had already accepted losing her.',
+            oznelSabit: 'When her name was spoken I was not surprised — somewhere in me had already buried her; that was the most terrible thing of all.' },
+          { dal: 'C', baslik: 'I saw Laertes first',
+            aciklama: 'A rival fell beside the grief at once; for whom he leapt into the grave is unclear.',
+            oznelSabit: 'They would not even leave my grief pure — the moment I understood my loss I saw a rival before me; whether I leapt into the grave for him or for Ophelia, I still do not know.' },
+        ],
+      },
+    },
+
+    {
+      no: 10,
+      baslik: 'The Moment of the Cup',
+      sinif: 'Gap of Witnessing · Micro',
+      konum: 'Inside the moment of the duel (14)',
+      yasamSirasi: 10,
+      sonraSahneNo: 14,
+      // ⚠️ FİLİZ: anne ölümüne tanıklık — klinik bakış zorunlu (travma adayı).
+      onceBaslik: 'V.ii · The cup is raised',
+      onceMetin:
+        'The duel continues; Hamlet is ahead. Gertrude raises the cup to her son\u2019s fortune. Claudius: "Gertrude, do not drink." — "I will, my lord; I pray you, pardon me."',
+      boslukMetin:
+        'the second between the two lines · where Hamlet\u2019s eye was in that moment · the strangeness around the cup · what passed across his uncle\u2019s face · the difference between what was visible and what was seen.',
+      sonraBaslik: 'V.ii · Continuation',
+      sonraMetin:
+        'Hamlet: "I dare not drink yet, madam — by and by." The duel goes on. Minutes later the queen staggers: poison.',
+      sentez:
+        'Shakespeare does not write this second — he leaves open what Hamlet saw and did not see in that moment. The actor builds, in this micro gap, the limit of witnessing; the answer determines the weight of the farewell at the end.',
+      altSorular: [
+        { no: 1, baslik: 'Where the Eye Was', soru: 'When Claudius said "do not drink," where was Hamlet\u2019s eye — on his mother, on his opponent, on his own breath?' },
+        { no: 2, baslik: '"I dare not drink yet"', soru: '"I dare not drink yet, madam" — was that sentence a courtesy, a postponement, or an unease he could not name?' },
+        { no: 3, baslik: 'When She Staggered', soru: 'When his mother staggered, was his first thought poison — and did he hear a voice within saying "I knew"?' },
+      ],
+      kartCatali: {
+        anahtar: 'b10-kadeh',
+        soru: 'When your mother raised the cup — when Claudius said "do not drink" — did you see something, for one second?',
+        birlesimSahneNo: 14,
+        secenekler: [
+          { dal: 'A', baslik: 'I saw, and I said nothing',
+            aciklama: 'A shadow of one second — on the cup, on his uncle\u2019s face — and the duel pulled him back.',
+            oznelSabit: 'I saw for one second — a shadow on the cup, something on my uncle\u2019s face — and I turned back to the duel. I did not have even enough life left to want that second back.' },
+          { dal: 'B', baslik: 'I saw nothing',
+            aciklama: 'In that moment he was inside the duel; he built the second afterward, again and again.',
+            oznelSabit: 'I saw nothing — I built that second afterward, again and again. Guilt settled into my memory as if it had seen.' },
+        ],
+      },
+    },
       ],
     },
   },
@@ -1815,12 +2174,10 @@ export function hamletIcerik(dil, hamletData) {
     perdeTemalari: e.perdeTemalari,
     sahnelerWorkbook: e.sahnelerWorkbook,
     tercihler: e.tercihler,
-    // boslukSet EN swap'i KALDIRILDI (hamlet-bosluk-v2-2026-06-10).
-    // Sprint B-D: yeni 10-bosluk v2 yapisi (yuruyus + kartCatali) yalniz TR
-    // base'de yasiyor; EN icerik dalindaki eski boslukSet henuz v2'ye gocmedi.
-    // Swap geri acilirsa EN'de eski 5-bosluk yapisi gorunur ve yuruyus/kartCatali
-    // verisi kaybolur. Tum dillerde TR v2 boslukSet gosterilir (gecici parite).
-    // boslukSet: e.boslukSet,
+    // boslukSet EN swap'i ACIK (EN-HAM-BOSLUKSET-V2): en.icerik.boslukSet artik
+    // TR ile birebir v2 (10 bosluk, yuruyus 1/4/8, kartCatali 9/10). Filiz EN
+    // ceviri sadakati onayi alindi.
+    boslukSet: e.boslukSet,
   };
 }
 
