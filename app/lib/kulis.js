@@ -536,6 +536,7 @@ export async function anSabitiKaydet(karakterId, kayit) {
         secilen_dal: kayit.secilenDal ?? null,
         ozet_metni: kayit.ozetMetni ?? null,
         muhur_metni: kayit.muhurMetni ?? null,
+        ozel_metin: kayit.ozelMetin ?? null, // IMZA: OZEL-METIN-W1
         birlesim_sahne_no: kayit.birlesimSahneNo ?? null,
         son_guncelleme: new Date().toISOString(),
       },
@@ -567,7 +568,7 @@ export async function anSabitleriniGetir(karakterId) {
 
     const { data, error } = await supabase
       .from('oznel_sabitler')
-      .select('bosluk_no, secilen_dal, muhur_metni')
+      .select('bosluk_no, secilen_dal, muhur_metni, ozel_metin')
       .eq('kullanici_id', user.id)
       .eq('karakter_id', karakterId);
 
@@ -581,6 +582,7 @@ export async function anSabitleriniGetir(karakterId) {
     (data || []).forEach((row) => {
       if (row.secilen_dal) secimler[row.bosluk_no] = row.secilen_dal;
       if (row.muhur_metni) muhurler[row.bosluk_no] = row.muhur_metni;
+      if (row.ozel_metin) muhurler[row.bosluk_no] = row.ozel_metin; // IMZA: OZEL-METIN-R1
     });
     return { secimler, muhurler };
   } catch (e) {
