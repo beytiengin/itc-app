@@ -799,6 +799,127 @@ const macbethI18n = {
       gecisSonrakiEtiket: 'Interpret',
       gecisSonrakiBaslik: "The Author's Frame",
     },
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // EN-MAC-ICERIK-S1 — üst alanlar + dogrular(12) + perdeTemalari(5) + tercihler(5)
+    // Shakespeare alıntıları orijinal (kamuya açık). TASLAK · native QA bekliyor.
+    // ═══════════════════════════════════════════════════════════════════════
+    ad: 'Macbeth',
+    yazar: 'William Shakespeare',
+    donem: 'c. 1606',
+    tur: 'Tragedy',
+    ozet: 'Ambition and the disintegration of conscience. A man who reaches the throne over the bodies he leaves behind, and loses his mind on the way.',
+
+    dogrular: [
+      { kategori: 'Identity', madde: "Macbeth is a general trusted by King Duncan." },
+      { kategori: 'Identity', madde: 'He has just been given the title Thane of Cawdor (I.iii).' },
+      { kategori: 'Identity', madde: "He is a kinsman of King Duncan — both his soldier and his host." },
+      { kategori: 'Knowledge', madde: 'He heard the witches’ prophecy: that he would be king.' },
+      { kategori: 'Knowledge', madde: "He knows Banquo’s children are foretold to be kings." },
+      { kategori: 'Action', madde: "He killed Duncan in his sleep." },
+      { kategori: 'Action', madde: "He ordered Banquo to be murdered." },
+      { kategori: 'Action', madde: "He had Macduff’s family slaughtered." },
+      { kategori: 'Relationship', madde: 'Lady Macbeth is his wife — the partner who carries him forward at the threshold where he falters.' },
+      { kategori: 'Relationship', madde: 'Banquo was his comrade in arms — they fought together, heard the same prophecy. Now a ghost.' },
+      { kategori: 'Ending', madde: 'He learned he would be killed by one not born of woman.' },
+      { kategori: 'Ending', madde: "He learned of Lady Macbeth’s death in the midst of battle." },
+    ],
+
+    perdeTemalari: [
+      { perde: 'I',   baslik: 'Prophecy and Provocation', altyazi: 'Desire awakens, the decision ripens',       sahneAraligi: '1-3'   },
+      { perde: 'II',  baslik: 'Act and First Fracture',    altyazi: 'Blood is spilled, the mind truly breaks',    sahneAraligi: '4-6'   },
+      { perde: 'III', baslik: 'Paranoia and Isolation',    altyazi: 'Power comes, friend turns to foe',           sahneAraligi: '7-9'   },
+      { perde: 'IV',  baslik: 'Addiction and Gloom',       altyazi: 'Prophecy numbs, conscience dulls',           sahneAraligi: '10'    },
+      { perde: 'V',   baslik: 'Collapse and Nothingness',  altyazi: 'Everything ends, meaning falls apart',       sahneAraligi: '11-14' },
+    ],
+
+    tercihler: [
+      {
+        no: 1,
+        konu: 'The Witches and the Prophecy',
+        baslik: 'Do the witches plant a desire Macbeth does not have, or name one already there?',
+        cokluSecim: false,
+        sahneNolari: [1, 10],
+        isaretler: [
+          { ref: 'First encounter', sahneNo: 1, metin: 'The moment the witches say he will be king, Macbeth’s mind leaps straight to murder — as if the thought were already waiting there.' },
+          { ref: 'Return to the witches', sahneNo: 10, metin: 'Macbeth seeks the witches out himself for reassurance; the prophecy is no longer a voice from outside but something he is addicted to.' },
+        ],
+        sentez: 'Whether the prophecy reveals a desire already inside Macbeth or creates it is left open in the text. The actor decides the witches’ degree of reality and influence.',
+        yorumlar: [
+          { harf: 'A', baslik: 'Fate from outside', aciklama: 'The witches are real supernatural forces; they plant the desire. Macbeth is the victim of a fate — the guilt is shared.' },
+          { harf: 'B', baslik: 'The voice of inner desire', aciklama: 'The witches voice the ambition Macbeth already carries; they are only a mirror. The guilt is entirely his.' },
+          { harf: 'C', baslik: 'An uncertain threshold', aciklama: 'Whether real or hallucination is never settled; the actor preserves the ambiguity — the audience, like Macbeth, cannot be sure.' },
+        ],
+      },
+      {
+        no: 2,
+        konu: "Lady Macbeth’s Influence",
+        baslik: 'Is Macbeth pushed by Lady Macbeth, or is he already resolved?',
+        cokluSecim: false,
+        sahneNolari: [3, 8],
+        isaretler: [
+          { ref: 'Wavering decision', sahneNo: 3, metin: 'Macbeth is close to abandoning the murder; Lady Macbeth’s will draws him back to the decision.' },
+          { ref: 'Drifting apart', sahneNo: 8, metin: 'The later murders (Banquo) Macbeth plans alone, without consulting his wife — the driving force is now inside him.' },
+        ],
+        sentez: 'In the first murder Lady Macbeth’s push seems decisive; but in the later murders Macbeth moves alone. The actor decides how much of the ambition comes from himself, how much from his wife.',
+        yorumlar: [
+          { harf: 'A', baslik: 'He could not without her', aciklama: 'The first murder happens entirely through Lady Macbeth’s will; Macbeth is the weak, led party.' },
+          { harf: 'B', baslik: 'He was already resolved', aciklama: 'Macbeth’s ambition is there from the start; Lady Macbeth only gives the final push, the true will is his.' },
+          { harf: 'C', baslik: 'Triggered together', aciklama: 'The two feed each other; neither alone is enough — the guilt is a genuine partnership.' },
+        ],
+      },
+      {
+        no: 3,
+        konu: 'Mental Fracture',
+        baslik: "Are Macbeth’s hallucinations (the dagger, the ghost) real supernatural events, or the collapse of conscience and mind?",
+        cokluSecim: false,
+        sahneNolari: [4, 9],
+        isaretler: [
+          { ref: 'The dagger', sahneNo: 4, metin: 'Before the murder he sees a dagger in the air; whether real or created by the mind is left uncertain.' },
+          { ref: "Banquo’s ghost", sahneNo: 9, metin: 'At the banquet only Macbeth sees the ghost; no one else at the table sees it.' },
+        ],
+        sentez: 'The source of the hallucinations is left open in the text. The actor decides whether they are a supernatural reality or the bodily/mental expression of guilt.',
+        yorumlar: [
+          { harf: 'A', baslik: 'Supernatural reality', aciklama: 'The dagger and the ghost are truly there; the play’s supernatural world externalises conscience.' },
+          { harf: 'B', baslik: 'The collapse of conscience', aciklama: 'All of it is mental; repressed guilt surfaces as hallucination. A clinical fracture.' },
+          { harf: 'C', baslik: 'A bodily trigger', aciklama: 'The fracture begins in the body (sleeplessness, the sight of blood); the mind assigns meaning after. A somatic reading.' },
+        ],
+      },
+      {
+        no: 4,
+        konu: 'Conscience and Guilt',
+        baslik: 'Does Macbeth regret his crime, or only fear being caught and its consequences?',
+        cokluSecim: false,
+        sahneNolari: [5, 6],
+        isaretler: [
+          { ref: 'After the murder', sahneNo: 5, metin: 'Immediately after the act he cannot recognise his own hand, hears voices — he is in a kind of horror.' },
+          { ref: 'Concealment', sahneNo: 6, metin: 'The same Macbeth, minutes later, coolly kills the servants and plays a part.' },
+        ],
+        sentez: "Whether Macbeth’s horror after the murder is moral remorse or fear of being caught / the weight of consequence is left uncertain. The actor chooses the nature of this horror.",
+        yorumlar: [
+          { harf: 'A', baslik: 'Genuine moral remorse', aciklama: 'Macbeth is a man with a conscience; the crime breaks him from within. The tragedy is the fall of a good man.' },
+          { harf: 'B', baslik: 'Fear of consequence', aciklama: 'The horror is not moral but practical — fear of being caught, of losing the throne, of chaos. Calculation, not remorse.' },
+          { harf: 'C', baslik: 'A dulling conscience', aciklama: 'There is conscience at first, but it dulls with each murder; the actor plays this gradual numbing.' },
+        ],
+      },
+      {
+        no: 5,
+        konu: 'The Final Moment',
+        baslik: 'What does Macbeth carry into his last battle — despair, defiance, or a nihilist freedom?',
+        cokluSecim: false,
+        sahneNolari: [12, 14],
+        isaretler: [
+          { ref: "Lady Macbeth’s death", sahneNo: 12, metin: 'He meets his wife’s death not with grief but with a cold meditation on the meaninglessness of life.' },
+          { ref: 'Facing Macduff', sahneNo: 14, metin: 'When the last prophecy collapses too, he chooses to fight knowing he will lose.' },
+        ],
+        sentez: "The emotion Macbeth carries in his final moment is not single-meaning in the text. The actor may read this ending as defeat, defiance, or the acceptance of nothingness.",
+        yorumlar: [
+          { harf: 'A', baslik: 'Hopeless defeat', aciklama: 'A man who has lost everything surrenders to the dark; his fighting is only a reflex.' },
+          { harf: 'B', baslik: 'Defiance', aciklama: 'Though he knows he will lose, he refuses to surrender; a last show of pride and will.' },
+          { harf: 'C', baslik: 'Nihilist freedom', aciklama: 'When meaning collapses and there is nothing left to lose, a strange freedom comes; he chooses to act inside the nothingness.' },
+        ],
+      },
+    ],
   },
 
   de: {
