@@ -2318,10 +2318,22 @@ const macbethI18n = {
 };
 
 // İçerik diline göre karakter verisini döndürür.
-// macbeth.js dramatik içeriği şu an EN'de de TR fallback'te kalır
-// (Willy'deki gibi EN icerik overlay'i Sprint 5+ ile gelir).
+// EN'de en.icerik overlay'i devreye girer (Willy şablonu); tr/de değişmez.
 export function macbethIcerik(dil, macbethData) {
-  return macbethData;
+  if (dil !== 'en') return macbethData;
+  const e = macbethI18n.en.icerik;
+  return {
+    ...macbethData,
+    donem: e.donem,
+    tur: e.tur,
+    ozet: e.ozet,
+    dogrular: e.dogrular,
+    oyunOncesi: e.oyunOncesi,
+    perdeTemalari: e.perdeTemalari,
+    sahnelerWorkbook: e.sahnelerWorkbook,
+    tercihler: e.tercihler,
+    boslukSet: e.boslukSet,
+  };
 }
 
 export default macbethI18n;
