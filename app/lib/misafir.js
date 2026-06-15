@@ -167,6 +167,7 @@ export async function misafirVerileriniTasi() {
             secilen_dal: r.secilen_dal ?? null,
             ozet_metni: r.ozet_metni ?? null,
             muhur_metni: r.muhur_metni ?? null,
+            ozel_metin: r.ozel_metin ?? null, // IMZA: OZEL-METIN-MISAFIR
             birlesim_sahne_no: r.birlesim_sahne_no ?? null,
             son_guncelleme: new Date().toISOString(),
           }));

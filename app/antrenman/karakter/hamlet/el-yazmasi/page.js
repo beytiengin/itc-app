@@ -144,8 +144,21 @@ export default function ElYazmasiSayfasi() {
       birlesimSahneNo: an.birlesimSahneNo ?? null,
     });
   }
-  async function anYaz(an, metin) {
+  // IMZA: OZEL-YAZ-H1 — ozelMi=true ise secilen_dal='ozel' korunur, metin ozel_metin'e gider
+  async function anYaz(an, metin, ozelMi = false) {
     setAnYazmalari((p) => ({ ...p, [an.id]: metin }));
+    if (ozelMi) {
+      await anSabitiKaydet(KARAKTER, {
+        boslukNo: an.id,
+        catalAnahtar: an.id,
+        secilenDal: 'ozel',
+        ozelMetin: metin && metin.trim().length ? metin : null,
+        ozetMetni: metin || null,
+        muhurMetni: null,
+        birlesimSahneNo: an.birlesimSahneNo ?? null,
+      });
+      return;
+    }
     if (!metin || metin.trim().length === 0) return;
     await anSabitiKaydet(KARAKTER, {
       boslukNo: an.id,
@@ -1046,6 +1059,23 @@ function AnKart({ an, secimler, muhurler, onAnSec, onAnYaz, t }) {
           {an.secenekler.map((se) => (
             <AnSecenek key={se.dal} secili={secimler[an.id] === se.dal} soluk={secimler[an.id] && secimler[an.id] !== se.dal} onClick={() => onAnSec(an, se)} harf={se.dal} baslik={se.baslik} aciklama={se.aciklama} muhur={se.oznelSabit} />
           ))}
+          {/* IMZA: OZEL-DAL-H1 — "Kendi cevabım": yalnızca travmaDuyarli olmayan çatallarda */}
+          {an.travmaDuyarli === false ? (
+            <>
+              <AnSecenek
+                secili={secimler[an.id] === 'ozel'}
+                soluk={secimler[an.id] && secimler[an.id] !== 'ozel'}
+                onClick={() => onAnSec(an, { dal: 'ozel', baslik: t.ozelDalBaslik, aciklama: t.ozelDalAciklama, oznelSabit: null })}
+                harf="+"
+                baslik={t.ozelDalBaslik}
+                aciklama={t.ozelDalAciklama}
+                muhur={null}
+              />
+              {secimler[an.id] === 'ozel' ? (
+                <AnYazma an={an} deger={muhurler[an.id] || ''} onYaz={(metin) => onAnYaz(an, metin, true)} t={t} />
+              ) : null}
+            </>
+          ) : null}
         </div>
       ) : null}
       {(an.tip === 'yazma' || an.tip === 'hatira' || an.tip === 'iz' || an.tip === 'sessizbilgi') ? (

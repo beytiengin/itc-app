@@ -162,8 +162,34 @@ export default function ElYazmasiSayfasi() {
       });
     }
   }
-  async function anYaz(an, metin) {
+  // IMZA: OZEL-YAZ-W1 — ozelMi=true ise secilen_dal='ozel' korunur, ozel_metin'e yazılır (misafir dahil)
+  async function anYaz(an, metin, ozelMi = false) {
     setAnYazmalari((p) => ({ ...p, [an.id]: metin }));
+    if (ozelMi) {
+      const ozelDeger = metin && metin.trim().length ? metin : null;
+      const kayitOk = await anSabitiKaydet(KARAKTER, {
+        boslukNo: an.id,
+        catalAnahtar: an.id,
+        secilenDal: 'ozel',
+        ozelMetin: ozelDeger,
+        ozetMetni: metin || null,
+        muhurMetni: null,
+        birlesimSahneNo: an.birlesimSahneNo ?? null,
+      });
+      if (!kayitOk) {
+        misafirSabitYaz(KARAKTER, {
+          karakter_id: KARAKTER,
+          bosluk_no: an.id,
+          catal_anahtar: an.id,
+          secilen_dal: 'ozel',
+          ozel_metin: ozelDeger,
+          ozet_metni: metin || null,
+          muhur_metni: null,
+          birlesim_sahne_no: an.birlesimSahneNo ?? null,
+        });
+      }
+      return;
+    }
     if (!metin || metin.trim().length === 0) return;
     const kayitOk = await anSabitiKaydet(KARAKTER, { // IMZA: S1-WILLY-03
       boslukNo: an.id,
@@ -985,6 +1011,23 @@ function AnKart({ an, secimler, muhurler, onAnSec, onAnYaz, t }) {
           {an.secenekler.map((se) => (
             <AnSecenek key={se.dal} secili={secimler[an.id] === se.dal} soluk={secimler[an.id] && secimler[an.id] !== se.dal} onClick={() => onAnSec(an, se)} harf={se.dal} baslik={se.baslik} aciklama={se.aciklama} muhur={se.oznelSabit} />
           ))}
+          {/* IMZA: OZEL-DAL-W1 — "Kendi cevabım": yalnızca travmaDuyarli olmayan çatallarda */}
+          {an.travmaDuyarli === false ? (
+            <>
+              <AnSecenek
+                secili={secimler[an.id] === 'ozel'}
+                soluk={secimler[an.id] && secimler[an.id] !== 'ozel'}
+                onClick={() => onAnSec(an, { dal: 'ozel', baslik: t.ozelDalBaslik, aciklama: t.ozelDalAciklama, oznelSabit: null })}
+                harf="+"
+                baslik={t.ozelDalBaslik}
+                aciklama={t.ozelDalAciklama}
+                muhur={null}
+              />
+              {secimler[an.id] === 'ozel' ? (
+                <AnYazma an={an} deger={muhurler[an.id] || ''} onYaz={(metin) => onAnYaz(an, metin, true)} t={t} />
+              ) : null}
+            </>
+          ) : null}
         </div>
       ) : null}
       {/* IMZA: S1-WILLY-06 — anonim çatal seçimi: dürüst geçici-kayıt mesajı */}
