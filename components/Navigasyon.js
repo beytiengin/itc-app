@@ -225,24 +225,28 @@ export default function Navigasyon() {
           )}
         </nav>
 
-        {/* Mobil hamburger (~720px altı) */}
-        <button
-          className="nav-hamburger"
-          onClick={() => setMenuAcik(true)}
-          aria-expanded={menuAcik}
-          aria-label={t.menuAc}
-          style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '0.4rem',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'var(--ink)',
-          }}
-        >
-          <Hamburger />
-        </button>
+        {/* Mobil sağ küme (~720px altı): dil seçici (hep görünür) + hamburger.
+            Masaüstünde gizli — dil zaten nav-masaustu içinde. */}
+        <div className="nav-mobil-kume" style={{ alignItems: 'center', gap: '0.9rem' }}>
+          <DilToggle />
+          <button
+            className="nav-hamburger"
+            onClick={() => setMenuAcik(true)}
+            aria-expanded={menuAcik}
+            aria-label={t.menuAc}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '0.4rem',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'var(--ink)',
+            }}
+          >
+            <Hamburger />
+          </button>
+        </div>
       </header>
 
       {/* Drawer (mobilde her zaman var, açık/kapalı toggle) */}

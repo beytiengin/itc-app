@@ -214,10 +214,12 @@ a {
    ~720px altında masaüstü yatay nav gizlenir, hamburger gelir. */
 .nav-masaustu { display: flex; }
 .nav-hamburger { display: none; }
+.nav-mobil-kume { display: none; }
 
 @media (max-width: 720px) {
   .nav-masaustu { display: none !important; }
   .nav-hamburger { display: inline-flex !important; }
+  .nav-mobil-kume { display: flex !important; }
 }
 
 @keyframes fadeUp {

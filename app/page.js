@@ -9,6 +9,7 @@ import { getKalibrasyonProfili } from './lib/kalibrasyon';
 import { enSonAktiviteGetir } from './lib/kulis';
 import { useDil, ceviri } from './lib/dil';
 import chromeI18n from '../data/chrome-i18n';
+import DilToggle from '../components/DilToggle';
 
 // ─── Paylaşılan Stil Objeleri ───────────────────────────────────────────────
 
@@ -260,6 +261,31 @@ export default function AnaSayfa() {
     <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)', color: 'var(--ink)', display: 'flex', flexDirection: 'column' }}>
 
       {/* Üst navigasyon artık global — components/Navigasyon.js (app/layout.js) */}
+
+      {/* DİL ALANI — uluslararası ziyaretçi için belirgin, üç dilde okunur etiket.
+          Header'daki DilToggle ile aynı context'i kullanır (senkron + persist). */}
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '1.1rem',
+        flexWrap: 'wrap',
+        padding: '0.85rem 1.6rem',
+        borderBottom: '1px solid var(--rule)',
+        background: 'var(--bg-elevated)',
+      }}>
+        <span style={{
+          fontFamily: 'var(--font-body), sans-serif',
+          fontSize: '0.58rem',
+          fontWeight: 500,
+          letterSpacing: '0.3em',
+          textTransform: 'uppercase',
+          color: 'var(--ink-muted)',
+        }}>
+          Dil · Language · Sprache
+        </span>
+        <DilToggle />
+      </div>
 
       {/* BÖLÜM 1 — KARŞILAMA (HERO YÖN 2: editöryel, sol hizalı, iki sütun) */}
       <section style={{
