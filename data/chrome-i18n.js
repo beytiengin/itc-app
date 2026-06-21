@@ -170,6 +170,18 @@ const chromeI18n = {
       neYapacaksin: 'Ne yapacaksın',
       hatirla: 'Hatırla',
     },
+    // Karar 62 — Hassas an uyarıları (üç kademe: hafif/orta/ağır).
+    // Güvenlik azalmaz, derecelenir. Kanonik dil — oyuncu-yüzü (Karar 31).
+    uyari: {
+      hafif: 'Acele etme.',
+      orta: 'Bu an ağır olabilir.',
+      agir: 'Gerekirse çıkışa geç.',
+      ortaEtiket: 'Hazırlık',
+      agirEtiket: 'Koruma',
+      topraklanmaCagri: 'Sahne sonunda Topraklanma seninle.',
+      topraklanmaCta: 'Rolden Güvenli Çıkış',
+      destekNotu: 'Bu çalışma terapi değildir. Süreçte zorlanırsan bir ruh sağlığı uzmanına başvurmayı düşünebilirsin.',
+    },
     kulis: {
       // IMZA: S9-EPIGRAF-01 — Defter epigrafı
       epigraf: 'En büyük rakibin, bir önceki projedeki sensin.',
@@ -570,6 +582,18 @@ const chromeI18n = {
       neYapacaksin: 'What you will do',
       hatirla: 'Remember',
     },
+    // Decision 62 — Sensitive-moment warnings (three tiers: light/medium/heavy).
+    // Safety is not reduced, it is graded. Canonical, player-facing language.
+    uyari: {
+      hafif: 'Take your time.',
+      orta: 'This moment may be heavy.',
+      agir: 'Step out if you need to.',
+      ortaEtiket: 'A heads-up',
+      agirEtiket: 'Care',
+      topraklanmaCagri: 'Grounding is with you at the end of the scene.',
+      topraklanmaCta: 'Safe Exit From Role',
+      destekNotu: 'This work is not therapy. If you find it difficult, consider reaching out to a mental health professional.',
+    },
     kulis: {
       epigraf: 'Your greatest rival is the you of the previous project.',
       hazirlaniyor: 'Loading…',
@@ -955,6 +979,18 @@ const chromeI18n = {
       neredesin: 'Wo du gerade bist',
       neYapacaksin: 'Was du tun wirst',
       hatirla: 'Denk daran',
+    },
+    // Entscheidung 62 — Hinweise bei sensiblen Momenten (drei Stufen: leicht/mittel/schwer).
+    // Sicherheit wird nicht verringert, sondern abgestuft. Kanonische, spielernahe Sprache.
+    uyari: {
+      hafif: 'Lass dir Zeit.',
+      orta: 'Dieser Moment kann schwer sein.',
+      agir: 'Geh hinaus, wenn du es brauchst.',
+      ortaEtiket: 'Ein Hinweis',
+      agirEtiket: 'Schutz',
+      topraklanmaCagri: 'Die Erdung ist am Ende der Szene bei dir.',
+      topraklanmaCta: 'Sicherer Ausstieg aus der Rolle',
+      destekNotu: 'Diese Arbeit ist keine Therapie. Wenn es dir schwerfällt, ziehe in Betracht, dich an eine Fachperson für psychische Gesundheit zu wenden.',
     },
     kulis: {
       epigraf: 'Dein größter Rivale bist du selbst — der aus dem letzten Projekt.',
