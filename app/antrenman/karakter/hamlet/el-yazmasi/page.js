@@ -44,6 +44,7 @@ import {
 } from '../../../../lib/kulis';
 import TopraklanmaModu from '../../../../../components/TopraklanmaModu';
 import UyariSeviye, { uyariSeviyesi } from '../../../../../components/UyariSeviye';
+import KisimSifir from '../../../../../components/KisimSifir';
 import BoslukYuruyusu from '../../../../../components/BoslukYuruyusu';
 import KartCatali from '../../../../../components/KartCatali';
 
@@ -290,6 +291,9 @@ export default function ElYazmasiSayfasi() {
           <h1 style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(2.4rem, 6vw, 3.2rem)', color: 'var(--ink)', margin: 0, lineHeight: 1.1 }}>{data.ad || 'Hamlet'}</h1>
           <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.75rem', letterSpacing: '0.2em', color: 'var(--ink-soft)', textTransform: 'uppercase' }}>{t.altyazi}</span>
         </header>
+
+        {/* KISIM 0 · Yöntem — Karar 61 (EŞİK ↔ KISIM I arası; araç tanıtımı, katlı) */}
+        <KisimSifir />
 
         {/* 2. Doğrular + İlişkiler — tek katlanır künye, içinde iki sekme (Willy paritesi) */}
         <BolumKatlanir
