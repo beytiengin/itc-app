@@ -824,6 +824,23 @@ const hamletI18n = {
         "Mourning, betrayal, and existential questioning. The invisible journey of a prince caught between thought and action.",
       etiketler: ['Tragedy', 'Mourning', 'Betrayal', 'Philosophical'],
 
+      // Kaybedilen Dünya (Baseline · Karar 57) — EN overlay
+      kaybedilenDunya: {
+        girisler: [
+          'Before we move through the eight moments, we must build one thing: the Hamlet who existed before all these losses. Because we can only grasp how deeply something was shattered if we know it standing whole.',
+          'This is the last normal world Hamlet possessed — and the emotional reference point of the whole work. In every scene that follows, in every loss, you will in fact be searching for this world. Do not rush; this is not a quick introduction but the ground on which everything will be built.',
+          'There was a time — nothing had yet cracked. The father was alive; king and father were the same man. Mother and father stood side by side; when Hamlet looked at them he saw a whole. He was studying at Wittenberg, the world wide and open. His love for Ophelia was still unstained. There was as yet no ghost in the corridors of his mind.',
+          "You will build this happy ground — because all of Hamlet's grief is the measure of this lost world.",
+        ],
+        anlar: [
+          { id: 'baseline-a1', tip: 'hatira', travmaDuyarli: false, soru: 'Imagine a moment when mother, father and Hamlet were together and happy. A supper, a ceremony, a garden, a family joke. No shadow yet. What was that moment like — its light, its sound, its scent?' },
+          { id: 'baseline-a2', tip: 'yazma', travmaDuyarli: false, soru: 'Father—son: Before the catastrophe, what was the bond between father and son? Was the king the stronger presence, or the father? Was Hamlet close to him, or was it a distant admiration?' },
+          { id: 'baseline-a3', tip: 'yazma', travmaDuyarli: false, soru: 'Mother—son: Before the catastrophe, what kind of closeness was there between mother and Hamlet? Did she still love him as a child? Its state on that day is the measure of what will later be lost.' },
+          { id: 'baseline-a4', tip: 'yazma', travmaDuyarli: false, soru: "What did this world look like? In a single sentence: what was Hamlet's world before the catastrophe? This sentence will be the summary of everything he loses — you seal this." },
+        ],
+        kapanis: 'Now hold this ground in mind. The next eight moments are the story of how this world cracked.',
+      },
+
       dogrular: [
         { kategori: 'Identity', madde: 'Hamlet is the prince of Denmark.' },
         { kategori: 'Identity', madde: 'A student at Wittenberg University, drawn to philosophy.' },
@@ -2255,6 +2272,7 @@ export function hamletIcerik(dil, hamletData) {
     tur: e.tur,
     ozet: e.ozet,
     etiketler: e.etiketler,
+    kaybedilenDunya: e.kaybedilenDunya,
     dogrular: e.dogrular,
     oyunOncesi: e.oyunOncesi,
     perdeTemalari: e.perdeTemalari,

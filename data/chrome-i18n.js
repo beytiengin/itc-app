@@ -213,6 +213,13 @@ const chromeI18n = {
       kopru: 'Bu yöntemin tam anlatımı ayrı bir kitapta: Karakterin Görünmeyen Yaşamı (Beyti Engin · Uzm. Psikolog Filiz Kaya Ataklı). Burada yöntemi yaparsın; orada neden işe yaradığını okursun.',
       kapanis: 'Şimdi yöntemi biliyorsun. Karakterine geçebilirsin.',
     },
+    // Karar 57 — Kaybedilen Dünya (Baseline) shell etiketleri. İçerik karakter-özel
+    // (karakter verisi); buradaki etiketler karakter-nötr (Karar 31 oyuncu-yüzü).
+    baseline: {
+      etiket: '0 · Kaybedilen Dünya',
+      baslik: 'Felaketten Önce',
+      altyazi: 'Karakterin yıkılmadan önceki dünyası — sahnede gördüğümüz karakter, bunun üstünde durur.',
+    },
     kulis: {
       // IMZA: S9-EPIGRAF-01 — Defter epigrafı
       epigraf: 'En büyük rakibin, bir önceki projedeki sensin.',
@@ -656,6 +663,13 @@ const chromeI18n = {
       kopru: 'The full account of this method lives in a separate book: The Unseen Life of the Character (Beyti Engin · Filiz Kaya Ataklı, Clinical Psychologist). Here you practice the method; there you read why it works.',
       kapanis: 'Now you know the method. You can move on to your character.',
     },
+    // Decision 57 — The Lost World (Baseline) shell labels. Content is character-specific
+    // (character data); these labels are character-neutral (player-facing, Decision 31).
+    baseline: {
+      etiket: '0 · The Lost World',
+      baslik: 'Before the Catastrophe',
+      altyazi: "The character's world before the collapse — the character we see on stage stands upon it.",
+    },
     kulis: {
       epigraf: 'Your greatest rival is the you of the previous project.',
       hazirlaniyor: 'Loading…',
@@ -1084,6 +1098,13 @@ const chromeI18n = {
       kopruBaslik: 'Wo die Theorie lebt',
       kopru: 'Die vollständige Darstellung dieser Methode lebt in einem eigenen Buch: Das unsichtbare Leben der Figur (Beyti Engin · Filiz Kaya Ataklı, Dipl.-Psych.). Hier übst du die Methode; dort liest du, warum sie wirkt.',
       kapanis: 'Jetzt kennst du die Methode. Du kannst zu deiner Figur übergehen.',
+    },
+    // Entscheidung 57 — Die verlorene Welt (Baseline) Shell-Beschriftungen. Inhalt ist
+    // figurspezifisch (Figurdaten); diese Beschriftungen sind figurneutral (spielernah).
+    baseline: {
+      etiket: '0 · Die verlorene Welt',
+      baslik: 'Vor der Katastrophe',
+      altyazi: 'Die Welt der Figur vor dem Zusammenbruch — die Figur, die wir auf der Bühne sehen, steht auf ihr.',
     },
     kulis: {
       epigraf: 'Dein größter Rivale bist du selbst — der aus dem letzten Projekt.',

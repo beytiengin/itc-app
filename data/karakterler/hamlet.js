@@ -23,6 +23,26 @@ const hamlet = {
       "Henüz felaket olmamış. Hamlet, Wittenberg'de felsefe okuyan genç bir prens. Babası yaşıyor, anne ve baba bir arada, Ophelia'ya duyduğu sevgi henüz saf. Henüz zihninin koridorlarında hayalet yok.",
   },
 
+  // ─── KAYBEDİLEN DÜNYA (Baseline · Karar 57) ───────────────────────────────
+  // El Yazması'nın 5. katmanı: karakterin yıkılmadan önceki dünyası. İlişkiler
+  // künyesinden sonra, Oyun Öncesi'nden önce. An türleri: Hatıra baskın
+  // (travma-DIŞI); İz/Sessiz Bilgi KULLANILMAZ. Kaynak: Inside The Hamlet v2.0.
+  kaybedilenDunya: {
+    girisler: [
+      'Sekiz ana geçmeden önce, bir şeyi kurmamız gerek: bütün bu kayıpların öncesindeki Hamlet. Çünkü bir şeyin ne kadar yıkıldığını ancak ayakta hâlini bilirsek anlarız.',
+      'Bu, Hamlet\'in sahip olduğu son normal dünya — ve bütün çalışmanın duygusal referans noktası. Sonraki her sahnede, her kayıpta, aslında bu dünyayı arayacaksın. Acele etme; burası hızlı geçilecek bir giriş değil, üstüne her şeyin inşa edileceği zemin.',
+      'Bir zaman vardı — henüz hiçbir şey çatlamamıştı. Baba yaşıyordu, kral ve baba aynı adamdı. Anne ile baba yan yanaydı; Hamlet onlara baktığında bir bütün görüyordu. Wittenberg\'de okuyordu, dünya geniş ve açıktı. Ophelia\'ya duyduğu sevgi henüz lekesizdi. Zihninin koridorlarında henüz hayalet yoktu.',
+      'Bu mutlu zemini sen kuracaksın — çünkü Hamlet\'in bütün yası, bu kaybedilen dünyanın ölçüsüdür.',
+    ],
+    anlar: [
+      { id: 'baseline-a1', tip: 'hatira', travmaDuyarli: false, soru: 'Anne, baba ve Hamlet\'in birlikte, mutlu olduğu bir an hayal et. Bir akşam yemeği, bir tören, bir bahçe, bir aile içi şaka. Henüz hiçbir gölge yok. O an neye benziyordu — ışığı, sesi, kokusu?' },
+      { id: 'baseline-a2', tip: 'yazma', travmaDuyarli: false, soru: 'Baba—oğul: Felaketten önce baba ile oğul arasındaki bağ nasıldı? Kral mı baskındı, baba mı? Hamlet ona yakın mıydı, uzak bir hayranlık mı vardı?' },
+      { id: 'baseline-a3', tip: 'yazma', travmaDuyarli: false, soru: 'Anne—oğul: Felaketten önce anne ile Hamlet arasında nasıl bir yakınlık vardı? Onu hâlâ çocuk gibi mi seviyordu? Bu yakınlığın o günkü hâli, sonra kaybedilecek olanın ölçüsü.' },
+      { id: 'baseline-a4', tip: 'yazma', travmaDuyarli: false, soru: 'Bu dünya neye benziyordu? Tek cümleyle: felaketten önceki Hamlet\'in dünyası neydi? Bu cümle, kaybettiği her şeyin özeti olacak — bunu mühürlüyorsun.' },
+    ],
+    kapanis: 'Şimdi bu zemini aklında tut. Sıradaki sekiz an, bu dünyanın nasıl çatladığının hikâyesi.',
+  },
+
   // ─── KRİTİK İLİŞKİLER ─────────────────────────────────────────────────────
 
   iliskiler: ['Babanın Hayaleti', 'Gertrude', 'Claudius', 'Ophelia', 'Horatio', 'Polonius'],

@@ -45,6 +45,7 @@ import {
 import TopraklanmaModu from '../../../../../components/TopraklanmaModu';
 import UyariSeviye, { uyariSeviyesi } from '../../../../../components/UyariSeviye';
 import KisimSifir from '../../../../../components/KisimSifir';
+import BaselineKunye from '../../../../../components/BaselineKunye';
 import BoslukYuruyusu from '../../../../../components/BoslukYuruyusu';
 import KartCatali from '../../../../../components/KartCatali';
 
@@ -327,6 +328,17 @@ export default function ElYazmasiSayfasi() {
             )}
           </div>
         </BolumKatlanir>
+
+        {/* Kaybedilen Dünya (Baseline) — Karar 57: El Yazması 5. katman.
+            İlişkiler künyesinden sonra, Oyun Öncesi'nden önce. An kartları
+            (Hatıra baskın, travma-DIŞI) viewer-yerel AnKart ile. */}
+        {data.kaybedilenDunya ? (
+          <BaselineKunye veri={data.kaybedilenDunya}>
+            {(data.kaybedilenDunya.anlar || []).map((an) => (
+              <AnKart key={an.id} an={an} secimler={anSecimleri} muhurler={anYazmalari} onAnSec={anSec} onAnYaz={anYaz} t={t} />
+            ))}
+          </BaselineKunye>
+        ) : null}
 
         {/* Senaryo akışı — Oyun Öncesi olaylar artık akışın başında (Willy paritesi,
             katlanır fasıl DEĞİL). Başlık hiyerarşisi: H1 (ad) > H2 (bu) > faz ayracı. */}

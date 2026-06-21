@@ -42,6 +42,7 @@ import {
 import TopraklanmaModu from '../../../../../components/TopraklanmaModu';
 import UyariSeviye, { uyariSeviyesi } from '../../../../../components/UyariSeviye';
 import KisimSifir from '../../../../../components/KisimSifir';
+import BaselineKunye from '../../../../../components/BaselineKunye';
 import BoslukYuruyusu from '../../../../../components/BoslukYuruyusu';
 // IMZA: S1-WILLY-01 — anonim misafir katmanı (Sprint 1)
 import {
@@ -365,6 +366,17 @@ export default function ElYazmasiSayfasi() {
             )}
           </div>
         </BolumKatlanir>
+
+        {/* Kaybedilen Dünya (Baseline) — Karar 57: El Yazması 5. katman.
+            İlişkiler künyesinden sonra, Oyun Öncesi'nden önce. Willy Baseline
+            metni Beyti dramaturg yazımı bekliyor (dormant; veri yok). */}
+        {data.kaybedilenDunya ? (
+          <BaselineKunye veri={data.kaybedilenDunya}>
+            {(data.kaybedilenDunya.anlar || []).map((an) => (
+              <AnKart key={an.id} an={an} secimler={anSecimleri} muhurler={anYazmalari} onAnSec={anSec} onAnYaz={anYaz} t={t} />
+            ))}
+          </BaselineKunye>
+        ) : null}
 
         {/* 4. Senaryo akışı — Oyun Öncesi olaylar artık timeline başında (kronolojik). */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
