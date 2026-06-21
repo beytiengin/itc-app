@@ -850,6 +850,16 @@ const hamletI18n = {
             sahneRef: 'I.i · Horatio',
             yuk: "Familial honour, an inheritance of power, a great shadow carried on the back.",
             yansimaSorusu: "Where does this legendary father's shadow fall in your Hamlet's body?",
+            anlar: [
+              { id: 'o1-a1', tip: 'catal', travmaDuyarli: false,
+                soru: 'A father who beat a king with a sword; a son who grew up with books. How did that legend come to rest on Hamlet\'s shoulders?',
+                secenekler: [
+                  { dal: 'A', baslik: 'A warm roof', aciklama: 'His father was the greatest man alive; the shadow did not crush, it sheltered. That is why the loss is so vast — the roof caved in.', oznelSabit: 'My father\'s shadow never crushed me — it covered me. When he died, what I lost was not a king but the sky above my head.' },
+                  { dal: 'B', baslik: 'An impossible scale', aciklama: 'A father of the sword, a son of the book; the legend was not a mirror but a scale — and Hamlet always weighed himself short. The Fortinbras comparison will be the continuation of this scale.', oznelSabit: 'My father\'s legend always asked me the same question: what have you done? I tried to win that duel in books — and never once won.' },
+                ] },
+              { id: 'o1-a2', tip: 'yazma', travmaDuyarli: false,
+                soru: 'From whose mouth did Hamlet hear that duel story — his father\'s, or others\'? Did his father ever tell his own legend to his son?' },
+            ],
           },
           {
             no: 2,
@@ -857,6 +867,16 @@ const hamletI18n = {
             sahneRef: 'I.i · Horatio',
             yuk: "A revenge parallel to Hamlet's own — but Fortinbras is impulsive, Hamlet hesitates.",
             yansimaSorusu: 'When Hamlet hears of this parallel avenger, how does he place himself?',
+            anlar: [
+              { id: 'o2-a1', tip: 'catal', travmaDuyarli: false,
+                soru: 'Two princes of the same generation — their fathers met in single combat, and each will lose his father. How did Hamlet carry that name — Fortinbras?',
+                secenekler: [
+                  { dal: 'A', baslik: 'An irrelevant name', aciklama: 'A Norwegian prince, distant politics; he held no place in Hamlet\'s mind. Hamlet did not know he would become a mirror — the collision comes when they meet on the road.', oznelSabit: 'Fortinbras was a name on a map to me — until I saw his army. They held my mirror up from far away; only up close did I see myself in it.' },
+                  { dal: 'B', baslik: 'A familiar shadow', aciklama: 'Their fathers\' duel had bound the two sons before they were born; he always watched that name with a particular attention — as if a parallel life were being lived there.', oznelSabit: 'I knew Fortinbras without ever seeing him — our fathers\' duel had birthed us onto the two pans of a scale. Every move he made showed me where I myself was standing.' },
+                ] },
+              { id: 'o2-a2', tip: 'yazma', travmaDuyarli: false,
+                soru: 'Did the two princes ever meet — a ceremony, an embassy, a hunt? If they met, what was in that exchange of looks; if they did not, with what face did Hamlet imagine him?' },
+            ],
           },
           {
             no: 3,
@@ -864,6 +884,16 @@ const hamletI18n = {
             sahneRef: "I.v · The Ghost's Revelation",
             yuk: "The point of departure for the whole play. A subconscious suspicion, a doubt that cannot yet be spoken.",
             yansimaSorusu: "A doubt that cannot be spoken — what kind of sound does it make in Hamlet's body?",
+            anlar: [
+              { id: 'o3-a1', tip: 'catal', travmaDuyarli: true, guvenliCikis: true,
+                soru: 'His last sight of his father alive — the farewell as he left for Wittenberg. The Ghost will return as the likeness of that unfinished goodbye. What was that parting like?',
+                secenekler: [
+                  { dal: 'A', baslik: 'A king saw him off', aciklama: 'Formal, distant; a father\'s warmth left beneath protocol. That is why the Ghost is the likeness of everything left unsaid — Hamlet\'s true farewell to his father never happened.', oznelSabit: 'I did not say goodbye to my father — I said goodbye to a king. When the Ghost appeared on the ramparts I understood: what drew me after it was not revenge but a farewell left unfinished.' },
+                  { dal: 'B', baslik: 'A father saw him off', aciklama: 'For a moment protocol fell away — a hand on the shoulder, a sentence, perhaps a smile. That last warmth is now the heaviest memory: the cold return of something that ended warm.', oznelSabit: 'In our last farewell, for a moment he was my father — his hand on my shoulder. When I saw the Ghost, it was that hand I searched for most; inside the armour, the hand that would never touch my shoulder again.' },
+                ] },
+              { id: 'o3-a2', tip: 'sessizbilgi', travmaDuyarli: true,
+                soru: '"A serpent stung him as he slept in the orchard" — that was the official story, and everyone believed it. But when Hamlet heard that sentence, a knowledge settled quietly inside him — a doubt not yet named. Notice what settled; do not defend it, do not explain it. Just see that it is there — then let it go.' },
+            ],
           },
           {
             no: 4,
@@ -871,6 +901,16 @@ const hamletI18n = {
             sahneRef: "I.ii · Hamlet's Monologue",
             yuk: 'A moral trauma, betrayal layered onto deep mourning — "ere yet the salt of most unrighteous tears had left the flushing in her galled eyes".',
             yansimaSorusu: '"But two months dead — nay, not so much, not two" — how does that line settle in the body?',
+            anlar: [
+              { id: 'o4-a1', tip: 'catal', travmaDuyarli: true, guvenliCikis: true,
+                soru: 'What cut Hamlet deepest in this marriage?',
+                secenekler: [
+                  { dal: 'A', baslik: 'The speed', aciklama: 'Not the marriage but its haste; the trampling of the mourning period was the father\'s second death. "Ere yet the salt of those tears was dry" — all the anger lives in that span of time.', oznelSabit: 'What broke me was not the marriage but the calendar — my father was not yet cold in his grave. My mother could have loved someone; but forgetting him so fast killed my father a second time.' },
+                  { dal: 'B', baslik: 'The person', aciklama: 'That it was Claudius; with another, perhaps it could have been borne. That it was the brother stained everything backward too — every family portrait is suspect now.', oznelSabit: 'With anyone else I might have endured it — but his brother. That marriage stained not the future but the past; my whole childhood turned into a suspect photograph.' },
+                ] },
+              { id: 'o4-a2', tip: 'iz', travmaDuyarli: true,
+                soru: 'The first time he saw his mother and Claudius side by side — as husband and wife — that moment settled somewhere in Hamlet\'s body. Probe the trace it left behind; do not rebuild the scene, only notice what remains in the body. You do not have to name it. Notice, and let go.' },
+            ],
           },
           {
             no: 5,
@@ -878,6 +918,16 @@ const hamletI18n = {
             sahneRef: 'I.ii',
             yuk: 'A usurpation of the right to the throne. Personal loss and political fracture together.',
             yansimaSorusu: 'Personal loss + political fracture — which one is felt first?',
+            anlar: [
+              { id: 'o5-a1', tip: 'catal', travmaDuyarli: false,
+                soru: 'He had a right to the succession; the throne passed to his uncle. Where did this loss fall in Hamlet?',
+                secenekler: [
+                  { dal: 'A', baslik: 'He thought it had not fallen', aciklama: 'The throne was never what he wanted — he wanted Wittenberg, his books. The loss only began to ache later, among the other losses.', oznelSabit: 'I never wanted the throne — I only realised later that I had lost it. But even a thing I did not want being taken from me eventually found its own name.' },
+                  { dal: 'B', baslik: 'A silent wound', aciklama: 'The point was not the throne but the choice — he was not even granted the right to decide whether he wanted it. The political base of the anger at Claudius was laid here.', oznelSabit: 'I did not want the throne — but I wanted the right to refuse it. My uncle stole from me not a crown but a choice; that is the stone beneath my anger.' },
+                ] },
+              { id: 'o5-a2', tip: 'yazma', travmaDuyarli: false,
+                soru: 'At the coronation, where was Hamlet — in the front row, lost in the crowd, or absent altogether? And throughout the ceremony, where were his eyes?' },
+            ],
           },
           {
             no: 6,
@@ -885,6 +935,16 @@ const hamletI18n = {
             sahneRef: 'I.ii · Claudius',
             yuk: 'Torn from his intellectual life — Wittenberg, the place where he was most himself.',
             yansimaSorusu: 'Summoned away from where he was most himself — where does the body resist?',
+            anlar: [
+              { id: 'o6-a1', tip: 'catal', travmaDuyarli: false,
+                soru: 'Claudius forbade his return; his mother said "stay." Hamlet gave his answer to his mother alone: "I shall in all my best obey you, madam." Why did he stay?',
+                secenekler: [
+                  { dal: 'A', baslik: 'For his mother', aciklama: 'That sentence was a true obedience; despite all his anger he cannot break from his mother. The bond is stained but unbroken — it cannot break.', oznelSabit: 'I stayed because she asked — despite my anger, perhaps because of it. I never managed to hate my mother; even on my darkest day, that word "mother" left my mouth in obedience.' },
+                  { dal: 'B', baslik: 'For the reckoning', aciklama: 'Wittenberg is no longer a refuge; something here is unfinished. The obedience "to mother" was a move that shut Claudius out of the sentence — staying was not surrender but taking position.', oznelSabit: '"I shall obey you, madam" — in that sentence there was not one word for my uncle, and we both heard it. I stayed; because if I left, this castle would be sealed shut along with my questions.' },
+                ] },
+              { id: 'o6-a2', tip: 'yazma', travmaDuyarli: false,
+                soru: 'What was left unfinished at Wittenberg — a book, an argument, a room, a habit? What was the image Hamlet kept in his mind as "the life to return to"?' },
+            ],
           },
           {
             no: 7,
@@ -892,6 +952,16 @@ const hamletI18n = {
             sahneRef: 'III.i · Polonius, Laertes',
             yuk: 'Hope and fragility. The only positive bond inside the mourning — and it too is under threat.',
             yansimaSorusu: 'The only positive bond inside the mourning, and it is under threat. Where is the contradiction?',
+            anlar: [
+              { id: 'o7-a1', tip: 'catal', travmaDuyarli: false,
+                soru: 'How did this bond begin? Shakespeare shows only the remnants — letters, gifts, Ophelia\'s saying that he "importuned her with love."',
+                secenekler: [
+                  { dal: 'A', baslik: 'Hamlet began it', aciklama: 'Letters, insistence, gifts — the only unplanned thing in the philosopher-prince\'s life. The one thing he began without thinking will become the thing he thinks about most.', oznelSabit: 'I wanted her — the only thing in my life I began without planning. The man who weighed everything loved her alone unweighed; perhaps that is why she was the truest thing I had.' },
+                  { dal: 'B', baslik: 'It grew slowly', aciklama: 'Two children raised at court; one day the look changed. Neither of them knows when it began — and they are unprepared for the end of a thing that has no beginning.', oznelSabit: 'I do not know when it began — one day I looked at her and my look had changed. It was the only thing whose beginning I did not know; perhaps that is why I could never believe in its end.' },
+                ] },
+              { id: 'o7-a2', tip: 'yazma', travmaDuyarli: false,
+                soru: 'In one of the letters he wrestles with metre — enough to write that he is "ill at these numbers." The man who has read every book stumbles over three lines of love poetry. While writing which letter did he first feel defenceless?' },
+            ],
           },
           {
             no: 8,
@@ -899,6 +969,16 @@ const hamletI18n = {
             sahneRef: 'I.ii',
             yuk: 'Only Hamlet is in mourning. The court goes on with its dealings.',
             yansimaSorusu: 'Only Hamlet is in mourning — what kind of isolation is this?',
+            anlar: [
+              { id: 'o8-a1', tip: 'catal', travmaDuyarli: false,
+                soru: 'The court runs on — envoys, negotiations, seals. The world turns even without his father. What did this functioning do to Hamlet?',
+                secenekler: [
+                  { dal: 'A', baslik: 'Anger', aciklama: 'This functioning was an insult; every seal, every envoy, his father erased once more. Everyone not in mourning is an accomplice.', oznelSabit: 'Every turning cog of the court was an insult to me — my father was dead and the papers were being signed. I blamed everyone who did not mourn, for every hour they did not.' },
+                  { dal: 'B', baslik: 'Estrangement', aciklama: 'Something deeper than anger; a tourist in his own home. Mourning pulled him out of time — the court lives by the calendar, he lives somewhere without one.', oznelSabit: 'I could not even be angry at them — I was in another time. The court lived by the calendar; I had stayed in the day my father died, and no one came to visit it.' },
+                ] },
+              { id: 'o8-a2', tip: 'yazma', travmaDuyarli: false,
+                soru: 'In what concrete moment did Hamlet first realise he was the only one mourning — a laugh, distant music, an everyday sound coming through an open window?' },
+            ],
           },
         ],
 
