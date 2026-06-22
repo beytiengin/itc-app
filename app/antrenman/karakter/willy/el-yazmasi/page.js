@@ -40,6 +40,9 @@ import {
   anSabitleriniGetir,
 } from '../../../../lib/kulis';
 import TopraklanmaModu from '../../../../../components/TopraklanmaModu';
+import UyariSeviye, { uyariSeviyesi } from '../../../../../components/UyariSeviye';
+import KisimSifir from '../../../../../components/KisimSifir';
+import BaselineKunye from '../../../../../components/BaselineKunye';
 import BoslukYuruyusu from '../../../../../components/BoslukYuruyusu';
 // IMZA: S1-WILLY-01 — anonim misafir katmanı (Sprint 1)
 import {
@@ -328,6 +331,9 @@ export default function ElYazmasiSayfasi() {
           <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 200, fontSize: '0.75rem', letterSpacing: '0.2em', color: 'var(--ink-soft)', textTransform: 'uppercase' }}>{t.altyazi}</span>
         </header>
 
+        {/* KISIM 0 · Yöntem — Karar 61 (EŞİK ↔ KISIM I arası; araç tanıtımı, katlı) */}
+        <KisimSifir />
+
         {/* 2. Doğrular + İlişkiler — tek katlanır künye, içinde iki sekme */}
         <BolumKatlanir
           baslik={t.kunyeBaslik || 'Künye'}
@@ -360,6 +366,17 @@ export default function ElYazmasiSayfasi() {
             )}
           </div>
         </BolumKatlanir>
+
+        {/* Kaybedilen Dünya (Baseline) — Karar 57: El Yazması 5. katman.
+            İlişkiler künyesinden sonra, Oyun Öncesi'nden önce. Willy Baseline
+            metni Beyti dramaturg yazımı bekliyor (dormant; veri yok). */}
+        {data.kaybedilenDunya ? (
+          <BaselineKunye veri={data.kaybedilenDunya}>
+            {(data.kaybedilenDunya.anlar || []).map((an) => (
+              <AnKart key={an.id} an={an} secimler={anSecimleri} muhurler={anYazmalari} onAnSec={anSec} onAnYaz={anYaz} t={t} />
+            ))}
+          </BaselineKunye>
+        ) : null}
 
         {/* 4. Senaryo akışı — Oyun Öncesi olaylar artık timeline başında (kronolojik). */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
@@ -873,6 +890,12 @@ function SahnePanel({ veri, t, ortak, onKapat, kayitAni, hassas, provisional, ac
 
   return (
     <div style={{ borderTop: '1px solid var(--rule)', padding: '1.4rem 1.3rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+      {/* Karar 62 — sahne-level uyarı kademesi (açık uyariSeviye; tam ton:
+          ağır kademede Topraklanma çağrısı + destek kapısı). Veri etiketlenene
+          dek dormant — placement Beyti dramaturg seçimi (K62 §6). */}
+      {uyariSeviyesi(veri) ? (
+        <UyariSeviye seviye={uyariSeviyesi(veri)} metin={veri.uyariMetni} onTopraklanma={() => onTopraklanmaAc && onTopraklanmaAc(veri.baslik)} />
+      ) : null}
       <div role="tablist" aria-label={t.panelYazarBaslik + ' / ' + t.panelSeninBaslik} style={{ display: 'flex', gap: '0.4rem' }}>
         <SekmeBtn aktif={sekme === 'yazar'} onClick={() => setSekme('yazar')}>{t.panelYazarBaslik}</SekmeBtn>
         <SekmeBtn aktif={sekme === 'senin'} onClick={() => setSekme('senin')}>{t.panelSeninBaslik}</SekmeBtn>
@@ -1002,8 +1025,12 @@ function AnKart({ an, secimler, muhurler, onAnSec, onAnYaz, t }) {
   const isIz = an.tip === 'iz';
   const isSessizBilgi = an.tip === 'sessizbilgi';
   const eyebrow = isKarar ? t.anKararEtiket : isHatira ? t.anHatiraEtiket : isIz ? t.anIzUretimEtiket : isSessizBilgi ? t.anSessizBilgiEtiket : t.anBoslukEtiket;
+  // Karar 62 — an-level uyarı kademesi (kompakt: çıkış butonu/destek notu YOK;
+  // tam koruma sahne sonunda kurulur). travmaDuyarli → 'agir' (K62 §4).
+  const anUyari = uyariSeviyesi(an);
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem', padding: '0.9rem 1rem', background: 'var(--bg-base)', borderLeft: `2px solid ${TON}`, border: '1px solid var(--rule)' }}>
+      {anUyari ? <UyariSeviye seviye={anUyari} /> : null}
       <span style={{ fontFamily: 'var(--font-body), sans-serif', fontWeight: 400, fontSize: '0.58rem', letterSpacing: '0.3em', color: TON, textTransform: 'uppercase' }}>{eyebrow}</span>
       <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.02rem', color: 'var(--ink)', margin: 0, lineHeight: 1.55 }}>{an.soru}</p>
       {isKarar && Array.isArray(an.secenekler) ? (

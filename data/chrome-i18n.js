@@ -170,6 +170,56 @@ const chromeI18n = {
       neYapacaksin: 'Ne yapacaksın',
       hatirla: 'Hatırla',
     },
+    // Karar 62 — Hassas an uyarıları (üç kademe: hafif/orta/ağır).
+    // Güvenlik azalmaz, derecelenir. Kanonik dil — oyuncu-yüzü (Karar 31).
+    uyari: {
+      hafif: 'Acele etme.',
+      orta: 'Bu an ağır olabilir.',
+      agir: 'Gerekirse çıkışa geç.',
+      ortaEtiket: 'Hazırlık',
+      agirEtiket: 'Koruma',
+      topraklanmaCagri: 'Sahne sonunda Topraklanma seninle.',
+      topraklanmaCta: 'Rolden Güvenli Çıkış',
+      destekNotu: 'Bu çalışma terapi değildir. Süreçte zorlanırsan bir ruh sağlığı uzmanına başvurmayı düşünebilirsin.',
+    },
+    // Karar 61 — KISIM 0 · Yöntem. Araçları sıcak dille TANITIR (anlatmaz).
+    // Karakter-nötr kanonik tanımlar (K61 §3) + kanonik mottolar. Karar 31 oyuncu-yüzü.
+    kisimSifir: {
+      etiket: 'KISIM 0 · Yöntem',
+      baslik: 'Nasıl Çalışacaksın',
+      giris: 'Eşikten geçtin. İçeri girmeden önce bu çalışmanın nasıl işlediğini bilmen iyi olur — çünkü buradan sonra bazı sözcükleri sık göreceksin: mühürlemek, boşluk, iz, iki çerçeve. Bunlar süs değil; bir yöntemin parçaları. Bu kısa bölüm onları tanıtır, sonra çekilir.',
+      itcCumle: 'Sahnede gördüğümüz karakter, görmediğimiz karakterin üstünde durur.',
+      itcAciklama: 'Bir karakteri inandırıcı kılan, sahnede söylediği sözler değil — o sözlerin altında duran görünmeyen yaşamdır. Senin işin o görünmeyeni kurmak.',
+      sozBaslik: 'Önce bir söz — pazarlık edilmez',
+      motto1: 'Karakter senin kişisel travmalarınla inşa edilmez. Karakterin kendi verisi vardır.',
+      motto2: 'Sahip değil — misafir.',
+      sozAciklama: 'Bu araçların hiçbiri seni karakterine taşımıyor — sen karakterini kendi verisinden çıkarıyorsun. Bu yalnızca bir ilke değil, bir korumadır: kendi yarasını her gece açan oyuncu yıpranır.',
+      araclarBaslik: 'Yöntemin araçları',
+      kavramlar: [
+        { ad: 'Öznel sabit (mühür)', tanim: 'Sahneye taşıdığın doğru — bir kez mühürlersin, üstüne kurarsın.' },
+        { ad: 'Boşluk', tanim: 'Metnin yazmadığı, senin kuracağın an.' },
+        { ad: 'İz', tanim: 'Bedende kalan kalıntı — içine düşmeden yokla, adlandırma, bırak.' },
+        { ad: 'Hatıra', tanim: 'Karakterin yaşadığı güvenli bir an — oradan bak, sonra bırak.' },
+        { ad: 'Sessiz Bilgi', tanim: 'İçe yerleşen, henüz dile gelmemiş bilgi — ne hatıra ne iz.' },
+        { ad: 'İki çerçeve', tanim: 'Yazarın söylediği · Senin kurduğun. Duvarları yazar koyar, odaları sen döşersin.' },
+        { ad: 'Beş an', tanim: 'Karar · Boşluk · Hatıra · İz · Sessiz Bilgi — karakteri kurmanın beş yolu.' },
+        { ad: 'Üç ses', tanim: 'Dinlenir · İncelenir · Üretilir. Yazara saygı, karaktere kulak, kendine güven.' },
+        { ad: 'Kaybedilen Dünya', tanim: 'Karakterin yıkılmadan önceki dünyası — sonraki her kayıp onunla ölçülür.' },
+        { ad: 'Yürüyüş', tanim: 'Sahneyi adım adım kuracaksın — gözün açık.' },
+      ],
+      guvenlikBaslik: 'Hatıra ile İz — güvenlik sınırı',
+      guvenlik: 'Beş an arasındaki en önemli sınır Hatıra ile İz arasındadır. Hatıra güvenlidir — sıcak, duyusal, seni yormayan. İz ise sarsıcı olanın kalıntısıdır; ona asla girmezsin, yalnız bedende ne kaldığını fark edip bırakırsın. "İz" gördüğünde acele etme: yokla ve bırak. Bu, yöntemin en dikkat ettiği güvenlik kuralıdır.',
+      kopruBaslik: 'Teori nerede',
+      kopru: 'Bu yöntemin tam anlatımı ayrı bir kitapta: Karakterin Görünmeyen Yaşamı (Beyti Engin · Uzm. Psikolog Filiz Kaya Ataklı). Burada yöntemi yaparsın; orada neden işe yaradığını okursun.',
+      kapanis: 'Şimdi yöntemi biliyorsun. Karakterine geçebilirsin.',
+    },
+    // Karar 57 — Kaybedilen Dünya (Baseline) shell etiketleri. İçerik karakter-özel
+    // (karakter verisi); buradaki etiketler karakter-nötr (Karar 31 oyuncu-yüzü).
+    baseline: {
+      etiket: '0 · Kaybedilen Dünya',
+      baslik: 'Felaketten Önce',
+      altyazi: 'Karakterin yıkılmadan önceki dünyası — sahnede gördüğümüz karakter, bunun üstünde durur.',
+    },
     kulis: {
       // IMZA: S9-EPIGRAF-01 — Defter epigrafı
       epigraf: 'En büyük rakibin, bir önceki projedeki sensin.',
@@ -570,6 +620,56 @@ const chromeI18n = {
       neYapacaksin: 'What you will do',
       hatirla: 'Remember',
     },
+    // Decision 62 — Sensitive-moment warnings (three tiers: light/medium/heavy).
+    // Safety is not reduced, it is graded. Canonical, player-facing language.
+    uyari: {
+      hafif: 'Take your time.',
+      orta: 'This moment may be heavy.',
+      agir: 'Step out if you need to.',
+      ortaEtiket: 'A heads-up',
+      agirEtiket: 'Care',
+      topraklanmaCagri: 'Grounding is with you at the end of the scene.',
+      topraklanmaCta: 'Safe Exit From Role',
+      destekNotu: 'This work is not therapy. If you find it difficult, consider reaching out to a mental health professional.',
+    },
+    // Decision 61 — PART 0 · Method. Introduces the tools in warm language (does not explain).
+    // Character-neutral canonical definitions + canonical mottos. Player-facing (Decision 31).
+    kisimSifir: {
+      etiket: 'PART 0 · Method',
+      baslik: 'How You Will Work',
+      giris: 'You have crossed the threshold. Before you step inside, it helps to know how this work runs — because from here on you will meet certain words often: sealing, gap, trace, the two frames. These are not ornament; they are parts of a method. This short section introduces them, then steps aside.',
+      itcCumle: 'The character we see on stage stands upon the character we do not see.',
+      itcAciklama: 'What makes a character believable is not the lines spoken on stage — it is the unseen life beneath those lines. Your task is to build that unseen life.',
+      sozBaslik: 'First, a promise — not negotiable',
+      motto1: 'A character is not built from your personal trauma. The character has its own data.',
+      motto2: 'Not owned — a guest.',
+      sozAciklama: 'None of these tools carry you into your character — you draw the character out of its own data. This is not only a principle but a protection: an actor who reopens their own wound every night wears down.',
+      araclarBaslik: 'The tools of the method',
+      kavramlar: [
+        { ad: 'Subjective constant (seal)', tanim: 'A truth you carry onto the stage — you seal it once, then build upon it.' },
+        { ad: 'Gap', tanim: 'The moment the text leaves unwritten, the one you will build.' },
+        { ad: 'Trace', tanim: 'A residue left in the body — sense it without falling in, do not name it, let it go.' },
+        { ad: 'Memory', tanim: "A safe moment from the character's life — look from there, then release it." },
+        { ad: 'Silent Knowledge', tanim: 'Something settled within, not yet spoken — neither memory nor trace.' },
+        { ad: 'The two frames', tanim: "The author's and yours. The author sets the walls; you furnish the rooms." },
+        { ad: 'The five moments', tanim: 'Decision · Gap · Memory · Trace · Silent Knowledge — five ways to build a character.' },
+        { ad: 'The three voices', tanim: 'Heard · Examined · Produced. Respect the author, listen to the character, trust yourself.' },
+        { ad: 'The Lost World', tanim: "The character's world before the collapse — every later loss is measured against it." },
+        { ad: 'The Walk', tanim: 'You will build the scene step by step — eyes open.' },
+      ],
+      guvenlikBaslik: 'Memory and Trace — the safety boundary',
+      guvenlik: 'The most important boundary among the five moments is between Memory and Trace. Memory is safe — warm, sensory, not wearing. Trace is the residue of what was shattering; you never enter it, you only notice what remains in the body and let it go. When you see "Trace," do not rush: sense it and release it. This is the safety rule the method guards most carefully.',
+      kopruBaslik: 'Where the theory lives',
+      kopru: 'The full account of this method lives in a separate book: The Unseen Life of the Character (Beyti Engin · Filiz Kaya Ataklı, Clinical Psychologist). Here you practice the method; there you read why it works.',
+      kapanis: 'Now you know the method. You can move on to your character.',
+    },
+    // Decision 57 — The Lost World (Baseline) shell labels. Content is character-specific
+    // (character data); these labels are character-neutral (player-facing, Decision 31).
+    baseline: {
+      etiket: '0 · The Lost World',
+      baslik: 'Before the Catastrophe',
+      altyazi: "The character's world before the collapse — the character we see on stage stands upon it.",
+    },
     kulis: {
       epigraf: 'Your greatest rival is the you of the previous project.',
       hazirlaniyor: 'Loading…',
@@ -955,6 +1055,56 @@ const chromeI18n = {
       neredesin: 'Wo du gerade bist',
       neYapacaksin: 'Was du tun wirst',
       hatirla: 'Denk daran',
+    },
+    // Entscheidung 62 — Hinweise bei sensiblen Momenten (drei Stufen: leicht/mittel/schwer).
+    // Sicherheit wird nicht verringert, sondern abgestuft. Kanonische, spielernahe Sprache.
+    uyari: {
+      hafif: 'Lass dir Zeit.',
+      orta: 'Dieser Moment kann schwer sein.',
+      agir: 'Geh hinaus, wenn du es brauchst.',
+      ortaEtiket: 'Ein Hinweis',
+      agirEtiket: 'Schutz',
+      topraklanmaCagri: 'Die Erdung ist am Ende der Szene bei dir.',
+      topraklanmaCta: 'Sicherer Ausstieg aus der Rolle',
+      destekNotu: 'Diese Arbeit ist keine Therapie. Wenn es dir schwerfällt, ziehe in Betracht, dich an eine Fachperson für psychische Gesundheit zu wenden.',
+    },
+    // Entscheidung 61 — TEIL 0 · Methode. Stellt die Werkzeuge in warmer Sprache VOR (erklärt nicht).
+    // Figurneutrale kanonische Definitionen + kanonische Leitsätze. Spielernah (Entscheidung 31).
+    kisimSifir: {
+      etiket: 'TEIL 0 · Methode',
+      baslik: 'Wie du arbeiten wirst',
+      giris: 'Du hast die Schwelle überschritten. Bevor du eintrittst, ist es gut zu wissen, wie diese Arbeit funktioniert — denn von hier an wirst du bestimmten Wörtern oft begegnen: versiegeln, Leerstelle, Spur, die zwei Rahmen. Das ist kein Zierrat; es sind Teile einer Methode. Dieser kurze Abschnitt stellt sie vor und tritt dann zurück.',
+      itcCumle: 'Die Figur, die wir auf der Bühne sehen, steht auf der Figur, die wir nicht sehen.',
+      itcAciklama: 'Was eine Figur glaubwürdig macht, sind nicht die auf der Bühne gesprochenen Worte — es ist das unsichtbare Leben unter diesen Worten. Deine Aufgabe ist es, dieses Unsichtbare aufzubauen.',
+      sozBaslik: 'Zuerst ein Versprechen — nicht verhandelbar',
+      motto1: 'Eine Figur wird nicht aus deinem persönlichen Trauma gebaut. Die Figur hat ihre eigenen Daten.',
+      motto2: 'Nicht besessen — ein Gast.',
+      sozAciklama: 'Keines dieser Werkzeuge trägt dich in deine Figur — du schöpfst die Figur aus ihren eigenen Daten. Das ist nicht nur ein Prinzip, sondern ein Schutz: Wer jede Nacht die eigene Wunde öffnet, verschleißt.',
+      araclarBaslik: 'Die Werkzeuge der Methode',
+      kavramlar: [
+        { ad: 'Subjektive Konstante (Siegel)', tanim: 'Eine Wahrheit, die du auf die Bühne trägst — du versiegelst sie einmal und baust darauf auf.' },
+        { ad: 'Leerstelle', tanim: 'Der Moment, den der Text ungeschrieben lässt — den du bauen wirst.' },
+        { ad: 'Spur', tanim: 'Ein Rückstand im Körper — spüre ihn, ohne hineinzufallen, benenne ihn nicht, lass ihn los.' },
+        { ad: 'Erinnerung', tanim: 'Ein sicherer Moment aus dem Leben der Figur — blicke von dort, dann lass ihn los.' },
+        { ad: 'Stilles Wissen', tanim: 'Etwas innerlich Verankertes, noch nicht Ausgesprochenes — weder Erinnerung noch Spur.' },
+        { ad: 'Die zwei Rahmen', tanim: 'Der des Autors und deiner. Der Autor setzt die Wände; du richtest die Räume ein.' },
+        { ad: 'Die fünf Momente', tanim: 'Entscheidung · Leerstelle · Erinnerung · Spur · Stilles Wissen — fünf Wege, eine Figur zu bauen.' },
+        { ad: 'Die drei Stimmen', tanim: 'Gehört · Untersucht · Erzeugt. Achte den Autor, höre der Figur zu, vertraue dir.' },
+        { ad: 'Die verlorene Welt', tanim: 'Die Welt der Figur vor dem Zusammenbruch — jeder spätere Verlust wird an ihr gemessen.' },
+        { ad: 'Der Gang', tanim: 'Du wirst die Szene Schritt für Schritt bauen — mit offenen Augen.' },
+      ],
+      guvenlikBaslik: 'Erinnerung und Spur — die Sicherheitsgrenze',
+      guvenlik: 'Die wichtigste Grenze unter den fünf Momenten liegt zwischen Erinnerung und Spur. Die Erinnerung ist sicher — warm, sinnlich, nicht ermüdend. Die Spur ist der Rückstand des Erschütternden; du betrittst sie nie, du bemerkst nur, was im Körper bleibt, und lässt es los. Wenn du "Spur" siehst, eile nicht: spüre und lass los. Das ist die Sicherheitsregel, die die Methode am sorgfältigsten wahrt.',
+      kopruBaslik: 'Wo die Theorie lebt',
+      kopru: 'Die vollständige Darstellung dieser Methode lebt in einem eigenen Buch: Das unsichtbare Leben der Figur (Beyti Engin · Filiz Kaya Ataklı, Dipl.-Psych.). Hier übst du die Methode; dort liest du, warum sie wirkt.',
+      kapanis: 'Jetzt kennst du die Methode. Du kannst zu deiner Figur übergehen.',
+    },
+    // Entscheidung 57 — Die verlorene Welt (Baseline) Shell-Beschriftungen. Inhalt ist
+    // figurspezifisch (Figurdaten); diese Beschriftungen sind figurneutral (spielernah).
+    baseline: {
+      etiket: '0 · Die verlorene Welt',
+      baslik: 'Vor der Katastrophe',
+      altyazi: 'Die Welt der Figur vor dem Zusammenbruch — die Figur, die wir auf der Bühne sehen, steht auf ihr.',
     },
     kulis: {
       epigraf: 'Dein größter Rivale bist du selbst — der aus dem letzten Projekt.',

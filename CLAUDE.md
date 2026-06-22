@@ -119,6 +119,9 @@ itc-app/
 │   ├── TemaSecici.js                    # /profil için tema radyo seçimi
 │   ├── KalibrasyonOzeti.jsx             # Karar 36 — 4 harita özet (Beceri · VAK · MBTI · Panksepp)
 │   ├── MikroBlokKart.js                 # Workbook "neden çerçevesi" 3 mikro-blok kartı (Gün 5)
+│   ├── UyariSeviye.js                   # Karar 62 — hassas uyarı 3 kademe (hafif/orta/ağır) + uyariSeviyesi() helper
+│   ├── KisimSifir.js                    # Karar 61 — KISIM 0 Yöntem girişi (10 araç tanıtımı, katlı)
+│   ├── BaselineKunye.js                 # Karar 57 — Kaybedilen Dünya (El Yazması 5. katman)
 │   ├── SayfaIskelet.js                  # Loading skeleton
 │   ├── Katlanir.js                      # Genel açılır/kapanır blok
 │   ├── IlerlemeRozet.js                 # Karakter listesi ilerleme rozetleri
@@ -595,6 +598,22 @@ Bu ilkeler kod kararlarını etkiler. **Mutlaka oku:**
   - Bileşenler `Hamlet*` önekiyle paylaşılıyor; karakter farkı sadece veride (`willy.js` vb.).
     Willy sayfaları Hamlet'ten kopyalanırken kalan "5 boşluk" metin kalıntıları
     2026-05-24'te temizlendi (Willy'de 4 boşluk).
+- ✅ **Canon yedirme — Karar 57 + 61 + 62 App uygulaması** (2026-06-21)
+  - **K62 — Hassas uyarı kademeleri:** `UyariSeviye` bileşeni (hafif/orta/ağır) +
+    `uyariSeviyesi()` helper + chrome-i18n `uyari` (TR/EN/DE). An-level (AnKart):
+    `travmaDuyarli → 'agir'` kompakt; sahne-level (SahnePanel): açık `uyariSeviye`
+    tam ton (Topraklanma çağrısı + destek kapısı). hamlet/macbeth/willy viewer.
+    Sahne placement'ları Beyti dramaturg seçimine bırakıldı (dormant).
+  - **K61 — KISIM 0 Yöntem:** `KisimSifir` bileşeni (10 araç sıcak dille tanıtım,
+    katlı) + chrome-i18n `kisimSifir` (TR/EN/DE, karakter-nötr kanonik tanımlar).
+    Header sonrası (EŞİK ↔ KISIM I arası). Substitution Yasağı + Hatıra/İz güvenlik
+    sınırı + Method Book köprüsü. Karar 41 El Yazması dokunulmadı.
+  - **K57 — Kaybedilen Dünya (Baseline):** `BaselineKunye` bileşeni (El Yazması 5.
+    katman, katlanır, varsayılan açık) + chrome-i18n `baseline` etiketleri. Hamlet
+    içeriği hamlet.js (TR) + hamlet-i18n.js (EN) — Inside The Hamlet v2.0 kanonik
+    metni (4 an: Hatıra baskın, travma-DIŞI). İlişkiler künyesinden sonra yerleşim;
+    an kartları viewer-yerel AnKart (oznel_sabitler kaydı). Willy/Macbeth metni
+    Beyti dramaturg yazımı bekliyor (dormant).
 - ✅ **Tasarım Migrasyonu Sprint** (Dalga 1-3, 2026-05-07)
   - Dual mode: dark (mevcut kimlik) + krem (Workbook ruhu, bordo aksan)
   - CSS değişken sistemi: yapı + semantik + sıcak zemin + kategori paleti
