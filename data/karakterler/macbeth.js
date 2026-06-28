@@ -131,7 +131,7 @@ const macbeth = {
       replikIzi: 'Macbeth: "Hem akrabası, hem uyruğu, hem ev sahibiyim — kapıyı katile kapamam gerekirken kendim bıçak mı tutayım?" (I.vii tartısı) / Lady Macbeth girer; terazi döner.',
       travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 2,
       anlar: [
-        { id: 's3-a1', tip: 'catal', birlesimSahneNo: 3, travmaDuyarli: true,
+        { id: 's3-a1', tip: 'catal', birlesimSahneNo: 3, travmaDuyarli: true, guvenliCikis: true,
           soru: '"Bu işte daha ileri gitmeyeceğiz" — Macbeth vazgeçtiğini söylüyor. Bu cümle neydi: gerçek bir geri dönüş mü, yoksa kendine sunduğu son bir masumiyet kanıtı mı?',
           secenekler: [
             { dal: 'A', baslik: 'Gerçek vazgeçiş', aciklama: 'O an içtenlikle bırakıyor; Lady Macbeth gelmese Duncan sabaha sağ çıkacaktı. Suçun terazisi o gece ikiye bölünür.', oznelSabit: 'Vazgeçmiştim — gerçekten. Beni eşikten geçiren el benim elim değildi; ama hançeri tutan eldi.' },
@@ -143,7 +143,7 @@ const macbeth = {
             { dal: 'A', baslik: 'Cesaret yarası', aciklama: '"Erkek misin" sorusu savaşçı kimliğinin tam ortasına saplanıyor; o kimlik sorgulanınca her şeyi yapar.', oznelSabit: 'Bana korkak denmesine dayanamam — bunu bilen tek kişi karımdı ve tam oraya bastı.' },
             { dal: 'B', baslik: 'Onun gözünden düşmek', aciklama: 'Mesele cesaret değil; onun karşısında küçülmek. O kararlılıkla bakarken geri adım atamıyor.', oznelSabit: 'Duncan\'dan korkmuyordum — onun gözlerindeki hayal kırıklığından korkuyordum.' },
           ] },
-        { id: 's3-a3', tip: 'yazma', birlesimSahneNo: 3, travmaDuyarli: true,
+        { id: 's3-a3', tip: 'yazma', birlesimSahneNo: 3, travmaDuyarli: true, guvenliCikis: true,
           soru: '"Kararlıyım artık" dediği saniyede vicdanı son kez bir şey söyledi. Ne dedi — ve Macbeth o sesi nereye gömdü?' },
       ],
     },
@@ -159,13 +159,9 @@ const macbeth = {
       replikIzi: 'Macbeth: "Bu gördüğüm bir hançer mi — sapı elime dönük? Gel, tutayım seni... Tutamıyorum, ama hâlâ görüyorum." (gece yarısı koridoru)',
       travmaKategorileri: ['zihinsel_kirilma'], travmaSeviyesi: 2,
       anlar: [
-        { id: 's4-a1', tip: 'catal', birlesimSahneNo: 4, travmaDuyarli: true,
-          soru: 'Havada bir hançer — sapı ona dönük, tutulamıyor ama görülmeye devam ediyor. Macbeth o görüntüye nasıl bakıyor: zihninin son uyarısı olarak mı, yolun daveti olarak mı?',
-          secenekler: [
-            { dal: 'A', baslik: 'Uyarı — ama yürüyor', aciklama: 'Zihni "dur" diyor; hançeri bir alarm olarak görüyor. Görüyor, anlıyor — ve yine de yürüyor. Direnen zihin, itaat eden beden.', oznelSabit: 'Zihnim bana son bir kez "dur" dedi — hançeri o gönderdi. Duymadım değil; duydum ve geçtim.' },
-            { dal: 'B', baslik: 'Davet — yol gösteriyor', aciklama: 'Hançer onu çağırıyor; kendini seçilmiş bir yolun yolcusu gibi hissediyor. Sorumluluk görüntüye devrediliyor.', oznelSabit: 'Hançer bana yolu gösterdi — ben sadece izledim. O gece kararı ben vermedim; karar beni taşıdı.' },
-          ] },
-        { id: 's4-a2', tip: 'yazma', birlesimSahneNo: 4, travmaDuyarli: true,
+        { id: 's4-a1', tip: 'iz', birlesimSahneNo: 4, travmaDuyarli: true, guvenliCikis: true,
+          soru: 'Havada bir hançer — sapı ona dönük, tutulamıyor ama görülmeye devam ediyor. Bu görüntü şimdi bir karar anı değil; zaten olmuş bir şeyin zihindeki izi. O hançerin orada asılı kalışını izle: bir yanı "dur" diyen bir uyarıydı, bir yanı çağıran bir davet. İkisi arasında nasıl salındığını, hangisinin daha ağır bastığını acele etmeden seyret — sonra bırak gitsin.' },
+        { id: 's4-a2', tip: 'yazma', birlesimSahneNo: 4, travmaDuyarli: true, guvenliCikis: true,
           soru: 'Kapının kolu elinin altında. İçerideki adam ona güvenerek uyudu. Çan çaldı — eşiği geçmeden önceki son saniyede Macbeth\'in içinden geçen son görüntü neydi?' },
       ],
     },
@@ -181,19 +177,19 @@ const macbeth = {
       replikIzi: 'Macbeth: "Bunu ben mi yaptım?" / "Biri \'Amin\' dedi — ben diyemedim. En çok ihtiyacım olan anda kelime boğazımda kaldı." (kanlı ellerle dönüş)',
       travmaKategorileri: ['siddet', 'ahlaki_yara'], travmaSeviyesi: 3,
       anlar: [
-        { id: 's5-a1', tip: 'catal', birlesimSahneNo: 5, travmaDuyarli: true,
+        { id: 's5-a1', tip: 'catal', birlesimSahneNo: 5, travmaDuyarli: true, guvenliCikis: true,
           soru: 'Kanlı ellerine bakıyor: "Bunu ben mi yaptım?" O bakışta eller neye dönüşüyor — eylemi taşıyamayan yabancı bir şeye mi, dayanılmaz biçimde kendisinin olan bir şeye mi?',
           secenekler: [
             { dal: 'A', baslik: 'El yabancılaşıyor', aciklama: 'Eylem ile benlik arasına mesafe giriyor; "yapan" ile "bakan" ayrışıyor. Macbeth kendi elini bir başkasının eli gibi görüyor.', oznelSabit: 'O ellere baktım ve tanımadım — yapan bendim ama bakan, yapanı kabul etmedi.' },
             { dal: 'B', baslik: 'El acıyla benim', aciklama: 'Kaçacak mesafe yok; el onun, kan onun, eylem onun. Bütün ağırlık tek seferde iniyor.', oznelSabit: 'Eller benimdi — en korkuncu buydu. Hiçbir okyanus bu kanı yıkayamaz; çünkü kan elimde değil, ben\'imde.' },
           ] },
-        { id: 's5-a2', tip: 'catal', birlesimSahneNo: 5, travmaDuyarli: true,
+        { id: 's5-a2', tip: 'catal', birlesimSahneNo: 5, travmaDuyarli: true, guvenliCikis: true,
           soru: 'Yan odada dua edenler "Amin" dedi; Macbeth diyemedi — kelime boğazında kaldı. Neden: Tanrı\'nın onu çoktan dışarıda bıraktığını hissettiği için mi, kendi kendini dışarı attığı için mi?',
           secenekler: [
             { dal: 'A', baslik: 'Dışlanmış', aciklama: 'Kelimeyi söylemeye çalıştı ve söyleyemedi — kapı dışarıdan kilitlendi. Hüküm verilmiş; o sadece öğreniyor.', oznelSabit: '"Amin" demeye en çok o gece ihtiyacım vardı — ve kelime bana verilmedi. Kapı dışarıdan kapanmıştı.' },
             { dal: 'B', baslik: 'Kendini dışarı atan', aciklama: 'Kelime oradaydı; onu hak etmediğine kendisi karar verdi. Kapıyı içeriden kilitledi.', oznelSabit: 'Kelime boğazımdaydı — yutan bendim. O duaya katılmaya yüzüm yoktu; kapıyı ben kapattım.' },
           ] },
-        { id: 's5-a3', tip: 'yazma', birlesimSahneNo: 5, travmaDuyarli: true,
+        { id: 's5-a3', tip: 'yazma', birlesimSahneNo: 5, travmaDuyarli: true, guvenliCikis: true,
           soru: 'Bu anı bir adım dışarıdan, yönetmen gibi kur — içine düşmeden. Bir ses bağırdı: "Macbeth uykuyu öldürdü — Macbeth artık uyumayacak." O ses kimin sesiyle konuşuyordu, ve Macbeth onu ilk duyduğunda nerede durdu? Dışarıdan izle, acele yok.' }, // YM3-2026
       ],
     },
@@ -209,7 +205,7 @@ const macbeth = {
       replikIzi: 'Macbeth: "Bir saat önce ölseydim, mutlu yaşamış sayılırdım." (yas performansı — yalanın içinden kaçan hakikat)',
       travmaKategorileri: ['ahlaki_yara'], travmaSeviyesi: 2,
       anlar: [
-        { id: 's6-a1', tip: 'catal', birlesimSahneNo: 6, travmaDuyarli: true,
+        { id: 's6-a1', tip: 'catal', birlesimSahneNo: 6, travmaDuyarli: true, guvenliCikis: true,
           soru: 'Hizmetkârları öldürmesi planda yoktu — Lady Macbeth bile sarsılıyor. O an neydi: tanık bırakmama paniği mi, yeni rolünün ilk soğuk doğaçlaması mı?',
           secenekler: [
             { dal: 'A', baslik: 'Panik', aciklama: 'Düşünmeden, refleksle; eller karar verdi, akıl sonradan geldi. Kontrol kaybının ilk kamusal anı.', oznelSabit: 'Onları öldürdüğümde düşünmüyordum — korkuyordum. İlk cinayet planlıydı; ikincisi benden taştı.' },
@@ -283,19 +279,15 @@ const macbeth = {
       replikIzi: 'Macbeth (hayalete): "Kanlı saçlarını sallama bana!" / "Hangi biçimde gelirsen gel, dayanırım — yeter ki böyle gelme!" (ziyafet sofrası, III.iv)',
       travmaKategorileri: ['zihinsel_kirilma', 'ahlaki_yara'], travmaSeviyesi: 3,
       anlar: [
-        { id: 's9-a1', tip: 'catal', birlesimSahneNo: 9, travmaDuyarli: true,
-          soru: 'Boş iskemlede Banquo oturuyor — yalnız Macbeth görüyor. Macbeth\'in gördüğü ne: dışarıdan gelen gerçek bir hayalet mi, kendi suçunun bedene bürünmüş hali mi? (Cadılar sorusunun devamı: o sesler de içeriden miydi?)',
-          secenekler: [
-            { dal: 'A', baslik: 'Hayalet dışarıdan', aciklama: 'Dünya ona musallat; öldürdükleri geri geliyor. Doğaüstü gerçek — ve Macbeth bir kurban gibi savunmada.', oznelSabit: 'O sofrada gördüğüm şey zihnimden değildi — öldürdüklerim geri geliyor ve ben artık iki dünyanın arasında yaşıyorum.' },
-            { dal: 'B', baslik: 'Hayalet içeriden', aciklama: 'Zihni suçu ete kemiğe büründürüyor. Kaçış yok — çünkü kaynak kendisi; hayalet nereye gitse onunla gelir.', oznelSabit: 'Banquo orada değildi — ben oradaydım. Kendi zihnimden kaçamayacağımı o sofrada öğrendim.' },
-          ] },
-        { id: 's9-a2', tip: 'catal', birlesimSahneNo: 9, travmaDuyarli: true,
+        { id: 's9-a1', tip: 'iz', birlesimSahneNo: 9, travmaDuyarli: true, guvenliCikis: true,
+          soru: 'Bir adım geri çekil, bu anı yönetmen gibi dışarıdan kur — içine düşmeden. Boş iskemlede Banquo oturuyor, yalnız Macbeth görüyor. O görüntünün dışarıdan gelen bir musallat mı yoksa kendi suçunun bedenlenmiş hali mi olduğunu çözmek zorunda değilsin; sadece Macbeth\'in onu görürken iki dünya arasında nasıl asılı kaldığını izle. Acele yok — bakışını orada tut, sonra bırak.' },
+        { id: 's9-a2', tip: 'catal', birlesimSahneNo: 9, travmaDuyarli: true, guvenliCikis: true,
           soru: 'Konuklar bakıyor, Lady Macbeth durumu kurtarmaya çalışıyor. Macbeth\'in paniği asıl neye: hayaletin kendisine mi, herkesin önünde görülüyor olmaya mı?',
           secenekler: [
             { dal: 'A', baslik: 'Hayalete', aciklama: 'Korku saf ve total; sofra, konuklar, krallık siliniyor. O an dünyada yalnız o ve Banquo var.', oznelSabit: 'O an kral değildim, sofrada değildim — dünyada yalnız ikimiz vardık: ben ve geri gelen.' },
             { dal: 'B', baslik: 'Görülmeye', aciklama: 'Asıl dehşet maskenin düşmesi: içi, herkesin gözü önünde seyirlik oluyor. Hayaletten çok tanıklardan korkuyor.', oznelSabit: 'Hayaletten çok, onu gören yüzümü görenlerden korktum — o sofrada suçum değil, içim ifşa oldu.' },
           ] },
-        { id: 's9-a3', tip: 'yazma', birlesimSahneNo: 9, travmaDuyarli: true,
+        { id: 's9-a3', tip: 'yazma', birlesimSahneNo: 9, travmaDuyarli: true, guvenliCikis: true,
           soru: 'Bir adım geri çekil, bu sahneyi yönetmen gibi kur. Konuklar dağıldı, sofra boşaldı; Macbeth o iskemleye bir kez daha baktı. Artık orada ne gördüğünü ve o iskemleye bir daha kimin oturabileceğini içine düşmeden izle. Acele yok.' }, // YM3-2026
       ],
     },
@@ -359,19 +351,15 @@ const macbeth = {
       replikIzi: 'Macbeth: "Daha sonra ölmeliydi — böyle bir söze zaman olurdu. Yarın, yarın, yarın..." (V.v)',
       travmaKategorileri: ['kayip', 'varolussal'], travmaSeviyesi: 3,
       anlar: [
-        { id: 's12-a1', tip: 'catal', birlesimSahneNo: 12, travmaDuyarli: true,
-          soru: '"Daha sonra ölmeliydi — böyle bir söze zaman olurdu." Bu cümle ne: yasın ertelenmesi mi ("şimdi vaktim yok, sonra ağlarım"), yoksa yasın imkânsızlığı mı ("artık hiçbir zaman \'sonra\' olmayacak")?',
-          secenekler: [
-            { dal: 'A', baslik: 'Ertelenen yas', aciklama: 'Savaş bitince, her şey durulunca... Bir "sonra"ya hâlâ inanıyor; yası rafa kaldırıyor. Trajedi: o sonra hiç gelmeyecek.', oznelSabit: 'Yasımı savaş sonrasına sakladım — bilmiyordum ki benim için bir "sonra" kalmamıştı. O ağıt hâlâ bende durur, yakılamamış.' },
-            { dal: 'B', baslik: 'İmkânsız yas', aciklama: '"Sonra" diye bir şey kalmadı — kelimeler anlamını yitirdi. Yarın tiradı tam buradan doğuyor: zaman, içinde yas tutulabilecek bir şey olmaktan çıktı.', oznelSabit: 'Onu kaybettiğim an anladım: ağlayabileceğim bir zaman yok — çünkü zamanın kendisi anlamını onunla birlikte kaybetti.' },
-          ] },
-        { id: 's12-a2', tip: 'catal', birlesimSahneNo: 12, travmaDuyarli: true,
+        { id: 's12-a1', tip: 'iz', birlesimSahneNo: 12, travmaDuyarli: true, guvenliCikis: true,
+          soru: 'Bu anı içine düşmeden, bir adım dışarıdan izle. "Daha sonra ölmeliydi" — bu cümle havada asılı duruyor: bir yanı ertelenmiş bir yas ("sonra ağlarım"), bir yanı imkânsız bir yas ("artık sonra diye bir şey yok"). Hangisi olduğuna karar verme; Macbeth\'in o ikisi arasında nasıl durduğunu, hangisinin ona daha yakın olduğunu seyret. Acele yok — sonra bırak.' },
+        { id: 's12-a2', tip: 'catal', birlesimSahneNo: 12, travmaDuyarli: true, guvenliCikis: true,
           soru: '"Yarın, yarın, yarın..." — bu tirad kime söyleniyor? Kendi içine çöken bir adamın sesli düşünüşü mü, yoksa veda edemediği kadına şifrelenmiş bir ağıt mı?',
           secenekler: [
             { dal: 'A', baslik: 'Kendine', aciklama: 'Dünyaya değil, kendi içine konuşuyor; çöküşün sesli hali. Lady Macbeth artık bu tiradın içinde bile yok — boşluk o kadar büyük.', oznelSabit: 'O sözleri kimseye söylemedim — kendi içime düşerken çıkardığım sesti. Onun adı bile geçmiyordu; çünkü artık hiçbir ad bir şey taşımıyordu.' },
             { dal: 'B', baslik: 'Ona', aciklama: 'Veda edemediği için evrene veda ediyor — tirad, söylenememiş ağıtın şifresi. "Hayat anlamsız" demek, "sensiz anlamsız" demenin tek söylenebilir hali.', oznelSabit: '"Hayat bir gölge" derken ona sesleniyordum — ağıt yakamayan adamın ağıtıydı o; kimse anlamadı, o duydu mu bilmem.' },
           ] },
-        { id: 's12-a3', tip: 'yazma', birlesimSahneNo: 12, travmaDuyarli: true,
+        { id: 's12-a3', tip: 'yazma', birlesimSahneNo: 12, travmaDuyarli: true, guvenliCikis: true,
           soru: 'Bu geçişi içine düşmeden, bir adım dışarıdan kur. Hayatın "hiçbir şey ifade etmeyen, gürültü ve öfke dolu bir masal" olduğunu söyledikten birkaç saniye sonra Macbeth zırhını isteyip savaşa dönüyor. Hiçliğe inanan adam neden hâlâ savaşıyor — o birkaç saniyede içinde ne ayağa kalktı? Yönetmen gibi bak, acele yok.' }, // YM3-2026
       ],
     },
@@ -393,7 +381,7 @@ const macbeth = {
             { dal: 'A', baslik: 'Savaşçıya dönüş', aciklama: 'Yıllar sonra ilk kez kan "meşru" — pusu yok, uyuyan adam yok, katil yok. Bir anlığına eski Macbeth: zanaatının içinde. İronik bir rahatlama.', oznelSabit: 'O genci öldürdüğümde yıllardır ilk kez kendimi tanıdım — savaş benim dilimdi ve bir anlığına anadilime dönmüştüm.' },
             { dal: 'B', baslik: 'Hiçbir şey', aciklama: 'Gence bakıyor — ne zafer ne pişmanlık ne ferahlık. Öldürmek nefes almak kadar mekanikleşmiş. Asıl dehşet bu boşluğun kendisi.', oznelSabit: 'Düşerken yüzüne baktım ve hiçbir şey hissetmedim — o an anladım: içimde öldürmenin dokunabileceği bir yer kalmamış.' },
           ] },
-        { id: 's13-a2', tip: 'yazma', birlesimSahneNo: 13, travmaDuyarli: true,
+        { id: 's13-a2', tip: 'yazma', birlesimSahneNo: 13, travmaDuyarli: true, guvenliCikis: true,
           soru: 'Karşısındaki neredeyse bir çocuk — yaşasaydı, kendi oğlu bu yaşlarda olabilirdi. Kılıç inerken bu düşünce ona uğradı mı — yoksa o kapı çoktan örülmüş müydü?' },
       ],
     },
@@ -409,19 +397,19 @@ const macbeth = {
       replikIzi: 'Macduff: "Ben anamın karnından vaktinden önce koparıldım." / Macbeth: "Teslim olmayacağım... Vur bakalım, Macduff!" (V.viii)',
       travmaKategorileri: ['varolussal'], travmaSeviyesi: 3,
       anlar: [
-        { id: 's14-a1', tip: 'catal', birlesimSahneNo: 14, travmaDuyarli: true,
+        { id: 's14-a1', tip: 'catal', birlesimSahneNo: 14, travmaDuyarli: true, guvenliCikis: true,
           soru: '"Anamın karnından vaktinden önce koparıldım" — son kehanet de çöktü. O cümleyi duyduğu saniyede içinde olan ne: son zırhın paramparça oluşu mu, yoksa tuhaf bir özgürleşme mi?',
           secenekler: [
             { dal: 'A', baslik: 'Çöküş', aciklama: 'Son dayanak gitti; ilk kez gerçekten çıplak ve ölümlü. "Dilini lanetlerim bunu söyleyenin" — bastırılmış korku bir anda geri dönüyor.', oznelSabit: 'O cümleyle birlikte üzerimdeki son zırh düştü — ve altından, en başından beri orada bekleyen korku çıktı.' },
             { dal: 'B', baslik: 'Özgürleşme', aciklama: 'Kehanetler bitti — ilk kez hiçbir senaryonun içinde değil. Ölüm kesinleşti ve tuhaf biçimde hafifledi: bundan sonrası, başından beri ilk kez, tamamen kendi seçimi.', oznelSabit: 'Kehanet çöktüğünde korkmadım — hafifledim. Hayatımda ilk kez kimsenin yazmadığı bir anın içindeydim; sonum benimdi.' },
           ] },
-        { id: 's14-a2', tip: 'catal', birlesimSahneNo: 14, travmaDuyarli: true,
+        { id: 's14-a2', tip: 'catal', birlesimSahneNo: 14, travmaDuyarli: true, guvenliCikis: true,
           soru: 'Teslim olsa yaşayabilir — Malcolm\'un önünde diz çöküp halkın seyirlik maskarası olarak. Dövüşerek ölmeyi seçiyor. Bu seçimin adresi ne: hâlâ başkalarının gözü mü, yoksa artık yalnızca kendine vereceği son söz mü?',
           secenekler: [
             { dal: 'A', baslik: 'Başkalarının gözü', aciklama: 'Maskara olmamak, sürüklenmemek, Malcolm\'a boyun eğmemek — onur dışa dönük; nasıl görüneceği son ana kadar önemli. Kral maskesi mezara kadar.', oznelSabit: 'Diz çökmüş bir Macbeth\'i kimse görmeyecekti — bedenim düşebilirdi ama görüntüm asla. Son nefesimde bile seyircim vardı.' },
             { dal: 'B', baslik: 'Kendine imza', aciklama: 'Kimsenin görmesi gerekmiyor. Hayat anlamsızsa tek anlam son seçimde: dövüşmek bir umut değil, bir imza. Hiçliğe verilen son cevap.', oznelSabit: 'Son kılıcı kimse için kaldırmadım — hayat bana anlam vermedi, ben son anıyla ona bir imza bıraktım: dövüşerek bitti, diz çökerek değil.' },
           ] },
-        { id: 's14-a3', tip: 'yazma', birlesimSahneNo: 14, travmaDuyarli: true,
+        { id: 's14-a3', tip: 'yazma', birlesimSahneNo: 14, travmaDuyarli: true, guvenliCikis: true,
           soru: 'Bu son anı bir adım dışarıdan, yönetmen gibi kur. Son kılıç kalktığında Macbeth\'in gözünün önünden geçen son görüntü neydi — cadılar mı, Duncan mı, taç mı... yoksa sahneye hiç gelmemiş bir yüz mü? İçine düşmeden izle, acele yok.' }, // YM3-2026
       ],
     },
@@ -479,13 +467,9 @@ const macbeth = {
         sahneTipi: 'kart',
         replikIzi: 'Lady Macbeth: "Emzirdim — bilirim çocuğu emzirmenin ne demek olduğunu..." (I.vii)',
         anlar: [
-          { id: 'o3-a1', tip: 'catal', travmaDuyarli: true,
-            soru: 'Kayıptan sonra bu evde o çocuğun adı nasıl taşındı: bir kez konuşulup sonsuza dek kapatıldı mı, yoksa hiç kelimeye dökülmedi mi?',
-            secenekler: [
-              { dal: 'A', baslik: 'Bir kez — bir daha asla', aciklama: 'Bir gece konuştular, ağladılar, kapıyı kapattılar. O kapının arkası ikisinin de bildiği ama gitmediği bir oda.', oznelSabit: 'Onu bir kez konuştuk — o gece bitti ve kapıyı birlikte kapattık. O odanın anahtarı ikimizde de durur; ikimiz de kullanmayız.' },
-              { dal: 'B', baslik: 'Hiç kelimeye dökülmedi', aciklama: 'Sessizlik anlaşması; yas dile gelmedi, başka şeylere aktı. Ortak hırs, konuşulamayan yasın diliydi belki.', oznelSabit: 'Adını hiç anmadık — sustuk ve sustukça başka şeyler büyüttük. Belki taht, adını koyamadığımız şeyin adıydı.' },
-            ] },
-          { id: 'o3-a2', tip: 'yazma', travmaDuyarli: true,
+          { id: 'o3-a1', tip: 'sessizbilgi', travmaDuyarli: true, guvenliCikis: true,
+            soru: 'Kayıptan sonra bu evde o çocuğun adı nasıl taşındı? Bunu bir karara bağlama — sadece o adın bu evdeki ağırlığını dinle. Bir ihtimal: bir gece konuşuldu, ağlandı, kapı birlikte kapatıldı; arkasında ikisinin de bildiği ama gitmediği bir oda kaldı. Başka bir ihtimal: hiç kelimeye dökülmedi, yas başka şeylere aktı — belki taht, adı konamayan şeyin adı oldu. İçine düşmeden, hangisinin bu eve daha çok benzediğini sessizce tart, sonra bırak.' },
+          { id: 'o3-a2', tip: 'yazma', travmaDuyarli: true, guvenliCikis: true,
             soru: 'Bu anı içine düşmeden, yönetmen gibi kur. Lady Macbeth o kelimeyi — "emzirdim" — cinayete ikna ederken kullandı. Macbeth duyduğunda içinde hangi oda açıldı, ve o odanın kapısını o gece kim kapattı? Bir adım dışarıdan bak, acele yok.' }, // YM3-2026
         ],
       },
@@ -1165,4 +1149,5 @@ const macbeth = {
   // DOĞRULAMA: macbeth-is2b-bosluklar-tamam (boslukSet 6→10)
 };
 
+// DOĞRULAMA: macbeth-an-migration-tamam (iz 3 + sessizbilgi 1 + guvenliCikis 20 · 28 Haz 2026)
 export default macbeth;
