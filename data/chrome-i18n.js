@@ -6,8 +6,9 @@
 // (willy-i18n.js, hamlet-i18n.js); bu sözlük yalnız chrome içindir.
 //
 // Kanon notları:
-// - Spine §3.17: rakam yasak ("1000'i aşkın oyuncu" → "20 yılı aşkın
-//   araştırma ve pratiğin sentezi").
+// - Spine §3.17 (Karar 63, 1b/2b): "1000+" YASAK; saha figürü "100'den fazla
+//   profesyonel oyuncu" (kanonik). "Sentez" çerçevesi KULLANILMAZ — ITC
+//   pratikten doğmuş yöntem (kuram sentezi değil).
 // - Karar 16: kurucu bağlamında "Beyti & Filiz" (&), teknik formül × yalnız
 //   Spine §3.13 eş-eğitmenlik başlığında.
 // - Karar 31: oyuncu-yüzü dil; "AI Dış Ses" → "Dış Ses".
@@ -82,7 +83,7 @@ const chromeI18n = {
       beytiEtiket: 'Oyuncu · Eğitmen',
       beytiAd: 'Beyti Engin',
       beytiMetin:
-        "Afife Ödüllü oyuncu. ITC metodolojisini 2005'te Filiz Kaya Ataklı ile kurdu; 20 yılı aşkın araştırma ve pratiğin sentezi.",
+        "Afife Ödüllü oyuncu. ITC metodolojisini 2005'te Filiz Kaya Ataklı ile kurdu; 20 yılı aşkın atölye pratiğinden doğan yöntem, bugüne dek 100'den fazla profesyonel oyuncuyla derinleşti.",
       filizEtiket: 'Uzm. Psikolog',
       filizAd: 'Filiz Kaya Ataklı',
       filizMetin:
@@ -300,8 +301,8 @@ const chromeI18n = {
       emptyKalibrasyonCta: 'Kalibrasyona Git →',
     },
     hakkimizda: {
-      // Hero — Spine §3.17: rakam yasak (eski "20 yıllık pratik" + "1000'i aşkın
-      // oyuncu" ifadeleri çıkarıldı; tarihsel sayım yerine kanonik dil).
+      // Hero — Spine §3.17 (Karar 63): "1000+" yasak; saha figürü "100+ profesyonel
+      // oyuncu" kanonik (bio satırında kullanıldı). "Sentez" çerçevesi kullanılmaz.
       heroUstEtiket: "Yöntem · 2005'ten bugüne",
       heroBaslik: 'Inside The Character',
       // Hero altyazi (TASLAK Beyti dogrulamali) — ana sayfa kopyasi yerine kimlik cumlesi.
@@ -544,7 +545,7 @@ const chromeI18n = {
       beytiEtiket: 'Actor · Instructor',
       beytiAd: 'Beyti Engin',
       beytiMetin:
-        "Afife Award-winning actor. Co-founded the ITC methodology with Filiz Kaya Ataklı in 2005 — a synthesis of over twenty years of research and practice.",
+        "Afife Award-winning actor. Co-founded the ITC methodology with Filiz Kaya Ataklı in 2005 — a method born of over twenty years of workshop practice, deepened with more than 100 professional actors.",
       filizEtiket: 'Psychologist',
       filizAd: 'Filiz Kaya Ataklı',
       filizMetin:
@@ -980,7 +981,7 @@ const chromeI18n = {
       beytiEtiket: 'Schauspieler · Ausbilder',
       beytiAd: 'Beyti Engin',
       beytiMetin:
-        'Afife-preisgekrönter Schauspieler. Begründete die ITC-Methodik 2005 gemeinsam mit Filiz Kaya Ataklı — die Synthese aus über zwanzig Jahren Forschung und Praxis.',
+        'Afife-preisgekrönter Schauspieler. Begründete die ITC-Methodik 2005 gemeinsam mit Filiz Kaya Ataklı — eine Methode, die aus über zwanzig Jahren Workshop-Praxis entstand und mit mehr als 100 professionellen Schauspielern vertieft wurde.',
       filizEtiket: 'Dipl.-Psychologin',
       filizAd: 'Filiz Kaya Ataklı',
       filizMetin:
