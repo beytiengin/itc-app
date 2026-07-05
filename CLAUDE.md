@@ -598,6 +598,22 @@ Bu ilkeler kod kararlarını etkiler. **Mutlaka oku:**
   - Bileşenler `Hamlet*` önekiyle paylaşılıyor; karakter farkı sadece veride (`willy.js` vb.).
     Willy sayfaları Hamlet'ten kopyalanırken kalan "5 boşluk" metin kalıntıları
     2026-05-24'te temizlendi (Willy'de 4 boşluk).
+- ✅ **Karar 64 — Modül I Actor Assessment Battery, PARALEL akış** (2026-07-05, Aşama 1-4)
+  - `data/kalibrasyon/batarya.js` — FKA-imzalı batarya VERBATIM (EN; marka ITC'ye
+    normalize; `teamNotes`/`adminNote` ASLA render edilmez; madde metinleri FKA
+    çalışma sürümü v0.x — değişiklik yalnız Filiz'den gelen yeni sürümle)
+  - `/batarya` route — feature-flag (`bataryaAcik()`: env `NEXT_PUBLIC_BATARYA=1`
+    veya `?batarya=1`) + oturum korumalı. Akış: Consent → Intake → M1 APS (50,
+    karışık sıra, domain başlıksız) → M2 Access → M3 Emotional (P4 opsiyonel,
+    puanlanmaz) → M4 Form A; Form B tekrar-girilebilir (case study)
+  - `app/lib/batarya-kaydet.js` — ham=kaynak (`yanitlar`), türetim (`skorlar`:
+    ters 6−ham, Exit Capacity, C/E alt-toplam) hamdan yeniden hesaplanabilir
+  - `supabase-migrations/karar64-batarya.sql` — `batarya_sonuclari` (append-only
+    JSONB) + `batarya_onam` (AYRI KVKK defteri; islem verildi/geri_cekildi,
+    kapsam batarya/video). MANUEL uygulanır (Dashboard)
+  - **PARALEL FAZ:** eski `/kalibrasyon` CANLI ve Modül II'yi besliyor;
+    `vakDili()`/`pankseppYaklasimi()` DOKUNULMAZ. Switch: hukuki onay + köprüler
+    (Karar 65: 5→3 kanal eşleme) + Filiz son onayı
 - ✅ **Canon yedirme — Karar 57 + 61 + 62 App uygulaması** (2026-06-21)
   - **K62 — Hassas uyarı kademeleri:** `UyariSeviye` bileşeni (hafif/orta/ağır) +
     `uyariSeviyesi()` helper + chrome-i18n `uyari` (TR/EN/DE). An-level (AnKart):
