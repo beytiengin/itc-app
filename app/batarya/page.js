@@ -1,18 +1,30 @@
-// app/batarya/page.js — Modül I · ITC Actor Assessment Battery (Karar 64, Aşama 4)
+// app/batarya/page.js — Modül I · ITC Actor Assessment Battery v0.5 (Karar 64/64a)
 // PARALEL AKIŞ: eski /kalibrasyon canlı kalır; bu route feature-flag arkasında
 // (lib/flags.js bataryaAcik — env NEXT_PUBLIC_BATARYA=1 veya ?batarya=1) ve
 // oturum korumalı (middleware Karar 33 ile no-op olduğundan koruma sayfa içinde).
 //
+// v0.5 AKIŞ (kaynak Module Map):
+//   CORE: Consent → Intake → Type Lens (M1) → APS (M2) → Emotional (M3)
+//   OPSİYONEL (core sonrası, sıra serbest): Access (M4) · Flow (M5, Form A bir kez
+//   + Form B tekrarlanabilir) · Regulation (M6) · Mindfulness (M7) · Body (M8,
+//   yalnız Part 1 self-report) · Entry & Exit (M9)
+//
 // KURALLAR (Karar 64 + batarya.js başlığı):
 //   - İçerik verbatim EN render edilir; girişte "currently available in English" notu.
-//   - `teamNotes` / `adminNote` ASLA render edilmez.
-//   - Likert bölümleri (M1 Section B · M3 Part 1 · M4 Form A) KARIŞIK sırada ve
-//     alan/sistem/boyut başlıkları OLMADAN sunulur — deterministik seed'li
-//     karıştırma (tüm katılımcılar aynı sırayı görür; enstrüman tutarlılığı).
+//   - Gizli alanlar ASLA render edilmez: teamNotes · adminNote · scoringNotes ·
+//     kaynakKapsami · about · kapsamNotu · kapanisNotu · whyThisOrder ·
+//     retakeCadence · teamNoteBeyti.
+//   - adminNote sunum kuralları UYGULANIR: Likert bölümleri KARIŞIK sırada,
+//     alan/sistem/boyut/eksen başlıkları OLMADAN (deterministik seed — tüm
+//     katılımcılar aynı sırayı görür). Type Lens'te A/B tarafları madde başına
+//     rastgele yüz çevirir (yanıt örüntüsü harf kolonuna eşlenemesin).
+//   - Regulation Part 1 + Part 2 TEK havuzda karışık uygulanır (Part 2 adminNote).
 //   - Ham yanıtlar `yanitlar`a (kaynak), türetimler `skorlar`a (batarya-kaydet).
 //   - Sorular atlanabilir (voluntary participation) — yalnız consent kutuları
 //     + imza zorunlu.
-//   - M3 Part 4 opsiyonel ve puanlanmaz.
+//   - Emotional Part 4 opsiyonel ve puanlanmaz. Entry & Exit Part 3-5 puanlanmaz;
+//     Part 4 sonrası standingOffer HER ZAMAN gösterilir; toplu skor üretilmez.
+//   - Type Lens BİR KEZ alınır (scoringNotes) — tamamlandıysa tekrar sunulmaz.
 
 'use client';
 
@@ -22,8 +34,10 @@ import { bataryaAcik } from '@/lib/flags';
 import { supabase } from '../lib/supabase';
 import { batarya } from '../../data/kalibrasyon/batarya';
 import {
-  bataryaSonucKaydet, bataryaOnamKaydet, bataryaDurumGetir,
-  m1Skorla, m2Skorla, m3Skorla, m4aSkorla, m4bSkorla,
+  bataryaSonucKaydet, bataryaOnamKaydet, bataryaDurumGetir, modulBul,
+  typeLensSkorla, apsSkorla, emotionalSkorla, accessSkorla,
+  flowASkorla, flowBSkorla, regulationSkorla, mindfulnessSkorla,
+  bodySkorla, entryExitSkorla,
 } from '../lib/batarya-kaydet';
 
 const TON = 'var(--accent)';
@@ -47,14 +61,40 @@ function karistir(dizi, seed) {
   return a;
 }
 
-/* ─── Akış tanımı ────────────────────────────────────────────────────────── */
-const ADIMLAR = [
+// Karıştırma seed'leri — SABİT (pilot verisi sıra-tutarlılığı; asla değiştirme).
+// aps=64001 ve emotional=64003 v1'den korunur; flow formA=64004 korunur.
+const SEED = {
+  aps: 64001,
+  emotional_p1: 64003,
+  flow_formA: 64004,
+  access_p1: 65001,
+  access_p2: 65002,
+  access_p4: 65003,
+  regulation: 65006,
+  mindfulness: 65007,
+  body: 65008,
+  entry_exit_p1: 65009,
+  type_lens_sira: 65100,
+  type_lens_yuz: 65100, // + madde no → A/B taraf çevirme
+};
+
+/* ─── Akış tanımı (v0.5 core path) ───────────────────────────────────────── */
+const CEKIRDEK = [
   { key: 'consent', etiket: 'Consent' },
   { key: 'intake', etiket: 'Intake' },
-  { key: 'm1_aps', etiket: 'Module 1' },
-  { key: 'm2_access', etiket: 'Module 2' },
-  { key: 'm3_emotional', etiket: 'Module 3' },
-  { key: 'm4_formA', etiket: 'Module 4' },
+  { key: 'type_lens', etiket: 'Module 1' },
+  { key: 'aps', etiket: 'Module 2' },
+  { key: 'emotional', etiket: 'Module 3' },
+];
+
+// Opsiyonel modüller — hub kartları (flow: Form A bir kez, Form B tekrarlanabilir).
+const OPSIYONEL = [
+  { slug: 'access', yazimKey: 'access' },
+  { slug: 'flow', yazimKey: 'flow_formA' },
+  { slug: 'regulation', yazimKey: 'regulation' },
+  { slug: 'mindfulness', yazimKey: 'mindfulness' },
+  { slug: 'body', yazimKey: 'body' },
+  { slug: 'entry_exit', yazimKey: 'entry_exit' },
 ];
 
 export default function BataryaSayfasi() {
@@ -123,49 +163,50 @@ function GirisGerekli() {
 
 /* ─── Ana akış ───────────────────────────────────────────────────────────── */
 function BataryaAkis({ durum, durumYenile }) {
-  // Kaldığı yerden devam: consent yoksa consent; sonra ilk eksik modül.
-  const ilkAdim = useMemo(() => {
+  // Kaldığı yerden devam: consent yoksa consent; sonra ilk eksik core modül; sonra hub.
+  const ilkGorunum = useMemo(() => {
     if (!durum.onamVar) return 'consent';
-    for (const a of ADIMLAR.slice(1)) if (!durum.moduller.has(a.key)) return a.key;
-    return 'tamam';
+    for (const a of CEKIRDEK.slice(1)) if (!durum.moduller.has(a.key)) return a.key;
+    return 'hub';
   }, [durum]);
 
-  const [adim, setAdim] = useState(ilkAdim);
-  const [formBAcik, setFormBAcik] = useState(false);
+  const [gorunum, setGorunum] = useState(ilkGorunum);
 
-  const siradaki = () => {
-    const i = ADIMLAR.findIndex((a) => a.key === adim);
-    const kalan = ADIMLAR.slice(i + 1).find((a) => a.key !== 'consent' && !durum.moduller.has(a.key));
-    setAdim(kalan ? kalan.key : 'tamam');
+  const coreSiradaki = () => {
+    const i = CEKIRDEK.findIndex((a) => a.key === gorunum);
+    const kalan = CEKIRDEK.slice(i + 1).find((a) => a.key !== 'consent' && !durum.moduller.has(a.key));
+    setGorunum(kalan ? kalan.key : 'hub');
   };
 
-  const tamamla = async () => { await durumYenile(); siradaki(); };
+  const coreTamamla = async () => { await durumYenile(); coreSiradaki(); };
+  const hubaDon = async () => { await durumYenile(); setGorunum('hub'); };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.6rem' }}>
-      <IlerlemeSeridi adim={adim} durum={durum} />
-      {adim === 'consent' && <ConsentAdimi onTamam={tamamla} />}
-      {adim === 'intake' && <IntakeAdimi onTamam={tamamla} />}
-      {adim === 'm1_aps' && <LikertModulAdimi modulKey="m1_aps" onTamam={tamamla} />}
-      {adim === 'm2_access' && <Modul2Adimi onTamam={tamamla} />}
-      {adim === 'm3_emotional' && <Modul3Adimi onTamam={tamamla} />}
-      {adim === 'm4_formA' && <LikertModulAdimi modulKey="m4_formA" onTamam={tamamla} />}
-      {adim === 'tamam' && !formBAcik && (
-        <TamamEkrani formBSayisi={durum.formBSayisi} onFormB={() => setFormBAcik(true)} />
-      )}
-      {adim === 'tamam' && formBAcik && (
-        <FormBAdimi onTamam={async () => { await durumYenile(); setFormBAcik(false); }} onVazgec={() => setFormBAcik(false)} />
-      )}
+      <IlerlemeSeridi gorunum={gorunum} durum={durum} />
+      {gorunum === 'consent' && <ConsentAdimi onTamam={coreTamamla} />}
+      {gorunum === 'intake' && <IntakeAdimi onTamam={coreTamamla} />}
+      {gorunum === 'type_lens' && <TypeLensAdimi onTamam={coreTamamla} />}
+      {gorunum === 'aps' && <KarisikLikertAdimi slug="aps" onTamam={coreTamamla} />}
+      {gorunum === 'emotional' && <EmotionalAdimi onTamam={coreTamamla} />}
+      {gorunum === 'hub' && <OpsiyonelHub durum={durum} onSec={setGorunum} />}
+      {gorunum === 'access' && <AccessAdimi onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
+      {gorunum === 'flow' && <KarisikLikertAdimi slug="flow" onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
+      {gorunum === 'flow_formB' && <FormBAdimi onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
+      {gorunum === 'regulation' && <KarisikLikertAdimi slug="regulation" onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
+      {gorunum === 'mindfulness' && <KarisikLikertAdimi slug="mindfulness" onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
+      {gorunum === 'body' && <KarisikLikertAdimi slug="body" onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
+      {gorunum === 'entry_exit' && <EntryExitAdimi onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
     </div>
   );
 }
 
-function IlerlemeSeridi({ adim, durum }) {
+function IlerlemeSeridi({ gorunum, durum }) {
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
-      {ADIMLAR.map((a) => {
+      {CEKIRDEK.map((a) => {
         const bitti = a.key === 'consent' ? durum.onamVar : durum.moduller.has(a.key);
-        const aktif = a.key === adim;
+        const aktif = a.key === gorunum;
         return (
           <span key={a.key} style={{
             fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.6rem',
@@ -183,7 +224,7 @@ function IlerlemeSeridi({ adim, durum }) {
 
 /* ─── Consent ────────────────────────────────────────────────────────────── */
 function ConsentAdimi({ onTamam }) {
-  const c = batarya.module1.consent;
+  const c = batarya.intake.consent;
   const [kutular, setKutular] = useState({});
   const [imza, setImza] = useState('');
   const [hata, setHata] = useState('');
@@ -235,7 +276,7 @@ function ConsentAdimi({ onTamam }) {
 
 /* ─── Intake (Section A) ─────────────────────────────────────────────────── */
 function IntakeAdimi({ onTamam }) {
-  const a = batarya.module1.sectionA;
+  const a = batarya.intake.sectionA;
   const [yanitlar, setYanitlar] = useState({});
   const [hata, setHata] = useState('');
   const [gonderiliyor, setGonderiliyor] = useState(false);
@@ -322,28 +363,20 @@ function IntakeSoru({ soru, deger, onYaz }) {
   );
 }
 
-/* ─── Karışık-sıra Likert modülleri (M1 Section B · M4 Form A) ───────────── */
-// adminNote kuralı: maddeler karışık sırada, alan/boyut başlıkları OLMADAN.
-const LIKERT_MODULLER = {
-  m1_aps: {
-    baslik: () => batarya.module1.sectionB.baslik,
-    giris: () => batarya.module1.sectionB.giris,
-    olcek: () => batarya.module1.sectionB.olcek,
-    maddeler: () => karistir(batarya.module1.sectionB.alanlar.flatMap((a) => a.maddeler), 64001),
-    skorla: m1Skorla,
-  },
-  m4_formA: {
-    baslik: () => `${batarya.module4.baslik} · ${batarya.module4.formA.baslik}`,
-    giris: () => `${batarya.module4.giris}\n\n${batarya.module4.formA.giris}`,
-    olcek: () => batarya.module4.formA.olcek,
-    maddeler: () => karistir(batarya.module4.formA.boyutlar.flatMap((b) => b.maddeler), 64004),
-    skorla: m4aSkorla,
-  },
-};
-
-function LikertModulAdimi({ modulKey, onTamam }) {
-  const tanim = LIKERT_MODULLER[modulKey];
-  const maddeler = useMemo(() => tanim.maddeler(), [modulKey]);
+/* ─── Module 1 — Type Lens (44 zorunlu-seçim) ────────────────────────────── */
+// adminNote kuralı: maddeler tamamen karışık, eksen başlıkları YOK, A/B tarafları
+// madde başına yüz çevirir (deterministik). Yanıt DATA tarafına ('a'/'b') kaydedilir
+// — görünüm çevirmesi puanlamayı etkilemez. scoringNotes: bir kez alınır; marjlar
+// oyuncuya gösterilmez (Karar 31 — sonuç "hipotez", sınıflandırma değil).
+function TypeLensAdimi({ onTamam }) {
+  const tl = modulBul('type_lens');
+  const maddeler = useMemo(() => {
+    const hepsi = tl.eksenler.flatMap((e) => e.maddeler);
+    return karistir(hepsi, SEED.type_lens_sira).map((m) => ({
+      ...m,
+      cevrik: mulberry32(SEED.type_lens_yuz + m.no)() < 0.5,
+    }));
+  }, []);
   const [yanitlar, setYanitlar] = useState({});
   const [hata, setHata] = useState('');
   const [gonderiliyor, setGonderiliyor] = useState(false);
@@ -351,18 +384,22 @@ function LikertModulAdimi({ modulKey, onTamam }) {
   const gonder = async () => {
     setGonderiliyor(true); setHata('');
     try {
-      await bataryaSonucKaydet(modulKey, yanitlar, tanim.skorla(yanitlar));
+      await bataryaSonucKaydet('type_lens', yanitlar, typeLensSkorla(yanitlar));
       await onTamam();
     } catch (e) { setHata('Could not save. Please try again.'); setGonderiliyor(false); }
   };
 
   return (
-    <BolumKabuk baslik={tanim.baslik()} giris={tanim.giris()}>
-      <OlcekLegend olcek={tanim.olcek()} />
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+    <BolumKabuk baslik={`${tl.baslik}${tl.ustBaslik ? ' · ' + tl.ustBaslik : ''}`} giris={tl.giris}>
+      {tl.vurgu && (
+        <p style={{ ...govdeStil, fontFamily: 'var(--font-display), serif', fontStyle: 'italic', color: TON }}>
+          {tl.vurgu}
+        </p>
+      )}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
         {maddeler.map((m, i) => (
-          <LikertSatir key={m.no} sira={i + 1} metin={m.metin} deger={yanitlar[m.no]}
-            onSec={(v) => setYanitlar((p) => ({ ...p, [m.no]: v }))} />
+          <TypeLensMadde key={m.no} sira={i + 1} madde={m} secim={yanitlar[m.no]}
+            onSec={(taraf) => setYanitlar((p) => ({ ...p, [m.no]: taraf }))} />
         ))}
       </div>
       <CevapSayaci cevaplanan={Object.keys(yanitlar).length} toplam={maddeler.length} />
@@ -372,9 +409,235 @@ function LikertModulAdimi({ modulKey, onTamam }) {
   );
 }
 
-/* ─── Modül 2 — Access Channel (4 part) ──────────────────────────────────── */
-function Modul2Adimi({ onTamam }) {
-  const m2 = batarya.module2;
+function TypeLensMadde({ sira, madde, secim, onSec }) {
+  // cevrik ise B önce gösterilir; kayıt her zaman data tarafıyla ('a'/'b') yapılır.
+  const secenekler = madde.cevrik
+    ? [{ taraf: 'b', metin: madde.b }, { taraf: 'a', metin: madde.a }]
+    : [{ taraf: 'a', metin: madde.a }, { taraf: 'b', metin: madde.b }];
+  return (
+    <div style={{ ...soruKutuStil, gap: '0.55rem' }}>
+      <span style={{ ...govdeStil, fontSize: '0.92rem' }}>
+        <span style={{ color: 'var(--ink-muted)', marginRight: '0.5rem' }}>{sira}.</span>
+        {madde.metin}
+      </span>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+        {secenekler.map((s) => {
+          const secili = secim === s.taraf;
+          return (
+            <button key={s.taraf} onClick={() => onSec(secili ? undefined : s.taraf)} style={{
+              textAlign: 'left', padding: '0.6rem 0.8rem', cursor: 'pointer',
+              background: secili ? 'var(--accent-bg)' : 'var(--bg-base)',
+              border: `1px solid ${secili ? TON : 'var(--rule)'}`,
+              transition: 'all 0.2s ease',
+            }}>
+              <span style={{ ...govdeStil, fontSize: '0.86rem', color: secili ? 'var(--ink)' : 'var(--ink-soft)' }}>
+                {s.metin}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Karışık-sıra Likert modülleri (APS · Flow A · Regulation · Mindfulness · Body) ── */
+// adminNote kuralı: maddeler karışık sırada, alan/boyut/faset başlıkları OLMADAN.
+const LIKERT_MODULLER = {
+  aps: {
+    yazimKey: 'aps',
+    baslik: (m) => m.baslik,
+    giris: (m) => m.giris,
+    olcek: (m) => m.olcek,
+    maddeler: (m) => karistir(m.alanlar.flatMap((a) => a.maddeler), SEED.aps),
+    skorla: apsSkorla,
+  },
+  flow: {
+    yazimKey: 'flow_formA',
+    baslik: (m) => `${m.baslik} · ${m.formA.baslik}`,
+    giris: (m) => `${m.giris}\n\n${m.formA.giris}`,
+    olcek: (m) => m.formA.olcek,
+    maddeler: (m) => karistir(m.formA.boyutlar.flatMap((b) => b.maddeler), SEED.flow_formA),
+    skorla: flowASkorla,
+  },
+  // Regulation: Part 1 + Part 2 TEK havuz (Part 2 adminNote: "Administered mixed with Part 1").
+  regulation: {
+    yazimKey: 'regulation',
+    baslik: (m) => `${m.baslik}${m.ustBaslik ? ' · ' + m.ustBaslik : ''}`,
+    giris: (m) => m.giris,
+    olcek: (m) => m.part1.olcek,
+    maddeler: (m) => karistir(
+      [...m.part1.fasetler, ...m.part2.fasetler].flatMap((f) => f.maddeler),
+      SEED.regulation
+    ),
+    skorla: regulationSkorla,
+  },
+  mindfulness: {
+    yazimKey: 'mindfulness',
+    baslik: (m) => `${m.baslik}${m.ustBaslik ? ' · ' + m.ustBaslik : ''}`,
+    giris: (m) => m.giris,
+    olcek: (m) => m.olcek,
+    maddeler: (m) => karistir(m.fasetler.flatMap((f) => f.maddeler), SEED.mindfulness),
+    skorla: mindfulnessSkorla,
+  },
+  // Body: yalnız Part 1 self-report app'te (video/atölye katmanları ayrı doküman + ayrı onam).
+  body: {
+    yazimKey: 'body',
+    baslik: (m) => `${m.baslik} · ${m.part1.baslik}`,
+    giris: (m) => m.part1.not || '',
+    olcek: (m) => m.part1.olcek,
+    maddeler: (m) => karistir(m.part1.fasetler.flatMap((f) => f.maddeler), SEED.body),
+    skorla: bodySkorla,
+  },
+};
+
+function KarisikLikertAdimi({ slug, onTamam, onVazgec }) {
+  const modul = modulBul(slug);
+  const tanim = LIKERT_MODULLER[slug];
+  const maddeler = useMemo(() => tanim.maddeler(modul), [slug]);
+  const [yanitlar, setYanitlar] = useState({});
+  const [hata, setHata] = useState('');
+  const [gonderiliyor, setGonderiliyor] = useState(false);
+
+  const gonder = async () => {
+    setGonderiliyor(true); setHata('');
+    try {
+      await bataryaSonucKaydet(tanim.yazimKey, yanitlar, tanim.skorla(yanitlar));
+      await onTamam();
+    } catch (e) { setHata('Could not save. Please try again.'); setGonderiliyor(false); }
+  };
+
+  return (
+    <BolumKabuk baslik={tanim.baslik(modul)} giris={tanim.giris(modul)}>
+      <OlcekLegend olcek={tanim.olcek(modul)} />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+        {maddeler.map((m, i) => (
+          <LikertSatir key={m.no} sira={i + 1} metin={m.metin} deger={yanitlar[m.no]}
+            onSec={(v) => setYanitlar((p) => ({ ...p, [m.no]: v }))} />
+        ))}
+      </div>
+      <CevapSayaci cevaplanan={Object.keys(yanitlar).length} toplam={maddeler.length} />
+      <div style={{ display: 'flex', gap: '0.7rem', flexWrap: 'wrap' }}>
+        <IleriButon onClick={gonder} disabled={gonderiliyor} etiket={gonderiliyor ? 'Saving…' : 'Save & continue'} />
+        {onVazgec && <button onClick={onVazgec} style={ikincilButonStil}>Back</button>}
+      </div>
+      {hata && <HataYazi metin={hata} />}
+    </BolumKabuk>
+  );
+}
+
+/* ─── Module 3 — Emotional Profile (Part 1 karışık; Part 4 opsiyonel) ─────── */
+function EmotionalAdimi({ onTamam }) {
+  const em = modulBul('emotional');
+  const p1Maddeler = useMemo(
+    () => karistir(em.part1.sistemler.flatMap((s) => s.maddeler), SEED.emotional_p1),
+    []
+  );
+  const [yanitlar, setYanitlar] = useState({});
+  const [konfor, setKonfor] = useState({});      // part4: { duygu: {hissetme, gosterme} }
+  const [p4Atla, setP4Atla] = useState(false);
+  const [hata, setHata] = useState('');
+  const [gonderiliyor, setGonderiliyor] = useState(false);
+
+  const likertYaz = (no, v) => setYanitlar((p) => ({ ...p, [no]: v }));
+
+  const gonder = async () => {
+    setGonderiliyor(true); setHata('');
+    try {
+      // part4 opsiyonel + PUANLANMAZ — yalnız ham; atlandıysa hiç yazılmaz.
+      const ham = { ...yanitlar, ...(p4Atla ? {} : { konforEnvanteri: konfor }) };
+      await bataryaSonucKaydet('emotional', ham, emotionalSkorla(yanitlar));
+      await onTamam();
+    } catch (e) { setHata('Could not save. Please try again.'); setGonderiliyor(false); }
+  };
+
+  return (
+    <BolumKabuk baslik={`${em.baslik}${em.ustBaslik ? ' · ' + em.ustBaslik : ''}`} giris={em.giris}>
+      {/* Part 1 — karışık sıra, sistem başlıkları YOK (adminNote kuralı) */}
+      <h3 style={araBaslikStil}>{em.part1.baslik}</h3>
+      <p style={govdeStil}>{em.part1.giris}</p>
+      <OlcekLegend olcek={em.part1.olcek} />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+        {p1Maddeler.map((m, i) => (
+          <LikertSatir key={m.no} sira={i + 1} metin={m.metin} deger={yanitlar[m.no]} onSec={(v) => likertYaz(m.no, v)} />
+        ))}
+      </div>
+
+      <h3 style={araBaslikStil}>{em.part2.baslik}</h3>
+      <p style={govdeStil}>{em.part2.giris}</p>
+      <OlcekLegend olcek={em.part2.olcek} />
+      {em.part2.maddeler.map((m) => (
+        <LikertSatir key={m.no} metin={m.metin} deger={yanitlar[m.no]} onSec={(v) => likertYaz(m.no, v)} />
+      ))}
+
+      <h3 style={araBaslikStil}>{em.part3.baslik}</h3>
+      <p style={govdeStil}>{em.part3.giris}</p>
+      <OlcekLegend olcek={em.part3.olcek} />
+      {em.part3.maddeler.map((m) => (
+        <LikertSatir key={m.no} metin={m.metin} deger={yanitlar[m.no]} onSec={(v) => likertYaz(m.no, v)} />
+      ))}
+
+      {/* Part 4 — opsiyonel, profil skoruna girmez */}
+      <h3 style={araBaslikStil}>{em.part4.baslik}</h3>
+      <p style={govdeStil}>{em.part4.giris}</p>
+      {!p4Atla ? (
+        <>
+          <button onClick={() => setP4Atla(true)} style={{ ...ikincilButonStil, alignSelf: 'flex-start' }}>
+            Skip this part
+          </button>
+          <OlcekLegend baslik={em.part4.olcekBaslik} olcek={em.part4.olcek} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+            {em.part4.duygular.map((duygu) => (
+              <KonforSatiri key={duygu} duygu={duygu} sutunlar={em.part4.sutunlar}
+                deger={konfor[duygu] || {}}
+                onYaz={(alan, v) => setKonfor((p) => ({ ...p, [duygu]: { ...(p[duygu] || {}), [alan]: v } }))} />
+            ))}
+          </div>
+        </>
+      ) : (
+        <p style={{ ...altYaziStil, fontStyle: 'italic' }}>
+          Skipped — you can take this part another time.{' '}
+          <button onClick={() => setP4Atla(false)} style={{ ...baglantiButonStil }}>Undo</button>
+        </p>
+      )}
+
+      <IleriButon onClick={gonder} disabled={gonderiliyor} etiket={gonderiliyor ? 'Saving…' : 'Save & continue'} />
+      {hata && <HataYazi metin={hata} />}
+    </BolumKabuk>
+  );
+}
+
+function KonforSatiri({ duygu, sutunlar, deger, onYaz }) {
+  const alanlar = [
+    { key: 'hissetme', etiket: sutunlar[0] },
+    { key: 'gosterme', etiket: sutunlar[1] },
+  ];
+  return (
+    <div style={{ ...soruKutuStil, gap: '0.5rem' }}>
+      <span style={{ ...govdeStil, fontWeight: 400 }}>{duygu}</span>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+        {alanlar.map((alan) => (
+          <div key={alan.key} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+            <span style={{ ...altYaziStil, fontSize: '0.7rem', minWidth: 140 }}>{alan.etiket}</span>
+            <BesliSecim deger={deger[alan.key]} onSec={(v) => onYaz(alan.key, v)} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Module 4 — Access Channel (4 part) ─────────────────────────────────── */
+// Part 1: kanal başlıkları GİZLİ + karışık sıra (global adminNote kuralı —
+// Likert profil bölümleri başlıksız/karışık). Part 3 sıralamaları ham kalır.
+function AccessAdimi({ onTamam, onVazgec }) {
+  const ac = modulBul('access');
+  const p1Maddeler = useMemo(
+    () => karistir(ac.part1.kanallar.flatMap((k) => k.maddeler), SEED.access_p1),
+    []
+  );
+  const p2Maddeler = useMemo(() => karistir(ac.part2.maddeler, SEED.access_p2), []);
+  const p4Maddeler = useMemo(() => karistir(ac.part4.maddeler, SEED.access_p4), []);
   const [yanitlar, setYanitlar] = useState({});
   const [siralamalar, setSiralamalar] = useState({});
   const [hata, setHata] = useState('');
@@ -386,48 +649,47 @@ function Modul2Adimi({ onTamam }) {
     setGonderiliyor(true); setHata('');
     try {
       const ham = { ...yanitlar, siralamalar };
-      await bataryaSonucKaydet('m2_access', ham, m2Skorla(yanitlar));
+      await bataryaSonucKaydet('access', ham, accessSkorla(yanitlar));
       await onTamam();
     } catch (e) { setHata('Could not save. Please try again.'); setGonderiliyor(false); }
   };
 
   return (
-    <BolumKabuk baslik={`${m2.baslik} · ${m2.ustBaslik}`} giris={m2.giris}>
-      {/* Part 1 — kanal başlıkları görünür (vividness bölümü; karışık-sıra kuralı yalnız Likert kişilik bölümleri için) */}
-      <h3 style={araBaslikStil}>{m2.part1.baslik}</h3>
-      <p style={govdeStil}>{m2.part1.giris}</p>
-      <OlcekLegend olcek={m2.part1.olcek} />
-      {m2.part1.kanallar.map((kanal) => (
-        <div key={kanal.ad} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-          <span style={{ ...eyebrowStil, color: 'var(--ink-muted)' }}>{kanal.ad}{kanal.opsiyonel ? ' — optional' : ''}</span>
-          {kanal.maddeler.map((m) => (
-            <LikertSatir key={m.no} metin={m.metin} deger={yanitlar[m.no]} onSec={(v) => likertYaz(m.no, v)} />
-          ))}
-        </div>
-      ))}
+    <BolumKabuk baslik={`${ac.baslik}${ac.ustBaslik ? ' · ' + ac.ustBaslik : ''}`} giris={ac.giris}>
+      <h3 style={araBaslikStil}>{ac.part1.baslik}</h3>
+      <p style={govdeStil}>{ac.part1.giris}</p>
+      <OlcekLegend olcek={ac.part1.olcek} />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+        {p1Maddeler.map((m, i) => (
+          <LikertSatir key={m.no} sira={i + 1} metin={m.metin} deger={yanitlar[m.no]} onSec={(v) => likertYaz(m.no, v)} />
+        ))}
+      </div>
 
-      <h3 style={araBaslikStil}>{m2.part2.baslik}</h3>
-      <p style={govdeStil}>{m2.part2.giris}</p>
-      <OlcekLegend olcek={m2.part2.olcek} />
-      {m2.part2.maddeler.map((m) => (
+      <h3 style={araBaslikStil}>{ac.part2.baslik}</h3>
+      <p style={govdeStil}>{ac.part2.giris}</p>
+      <OlcekLegend olcek={ac.part2.olcek} />
+      {p2Maddeler.map((m) => (
         <LikertSatir key={m.no} metin={m.metin} deger={yanitlar[m.no]} onSec={(v) => likertYaz(m.no, v)} />
       ))}
 
-      <h3 style={araBaslikStil}>{m2.part3.baslik}</h3>
-      <p style={govdeStil}>{m2.part3.giris}</p>
-      {m2.part3.siralamaSorulari.map((soru) => (
+      <h3 style={araBaslikStil}>{ac.part3.baslik}</h3>
+      <p style={govdeStil}>{ac.part3.giris}</p>
+      {ac.part3.siralamaSorulari.map((soru) => (
         <SiralamaSorusu key={soru.no} soru={soru} secim={siralamalar[soru.no] || []}
           onDegis={(dizi) => setSiralamalar((p) => ({ ...p, [soru.no]: dizi }))} />
       ))}
 
-      <h3 style={araBaslikStil}>{m2.part4.baslik}</h3>
-      <p style={govdeStil}>{m2.part4.giris}</p>
-      <OlcekLegend olcek={m2.part4.olcek} />
-      {m2.part4.maddeler.map((m) => (
+      <h3 style={araBaslikStil}>{ac.part4.baslik}</h3>
+      <p style={govdeStil}>{ac.part4.giris}</p>
+      <OlcekLegend olcek={ac.part4.olcek} />
+      {p4Maddeler.map((m) => (
         <LikertSatir key={m.no} metin={m.metin} deger={yanitlar[m.no]} onSec={(v) => likertYaz(m.no, v)} />
       ))}
 
-      <IleriButon onClick={gonder} disabled={gonderiliyor} etiket={gonderiliyor ? 'Saving…' : 'Save & continue'} />
+      <div style={{ display: 'flex', gap: '0.7rem', flexWrap: 'wrap' }}>
+        <IleriButon onClick={gonder} disabled={gonderiliyor} etiket={gonderiliyor ? 'Saving…' : 'Save & continue'} />
+        {onVazgec && <button onClick={onVazgec} style={ikincilButonStil}>Back</button>}
+      </div>
       {hata && <HataYazi metin={hata} />}
     </BolumKabuk>
   );
@@ -470,110 +732,9 @@ function SiralamaSorusu({ soru, secim, onDegis }) {
   );
 }
 
-/* ─── Modül 3 — Emotional Profile (Part 1 karışık; Part 4 opsiyonel) ─────── */
-function Modul3Adimi({ onTamam }) {
-  const m3 = batarya.module3;
-  const p1Maddeler = useMemo(
-    () => karistir(m3.part1.sistemler.flatMap((s) => s.maddeler), 64003),
-    []
-  );
-  const [yanitlar, setYanitlar] = useState({});
-  const [konfor, setKonfor] = useState({});      // part4: { duygu: {hissetme, gosterme} }
-  const [p4Atla, setP4Atla] = useState(false);
-  const [hata, setHata] = useState('');
-  const [gonderiliyor, setGonderiliyor] = useState(false);
-
-  const likertYaz = (no, v) => setYanitlar((p) => ({ ...p, [no]: v }));
-
-  const gonder = async () => {
-    setGonderiliyor(true); setHata('');
-    try {
-      // part4 opsiyonel + PUANLANMAZ — yalnız ham; atlandıysa hiç yazılmaz.
-      const ham = { ...yanitlar, ...(p4Atla ? {} : { konforEnvanteri: konfor }) };
-      await bataryaSonucKaydet('m3_emotional', ham, m3Skorla(yanitlar));
-      await onTamam();
-    } catch (e) { setHata('Could not save. Please try again.'); setGonderiliyor(false); }
-  };
-
-  return (
-    <BolumKabuk baslik={`${m3.baslik} · ${m3.ustBaslik}`} giris={m3.giris}>
-      {/* Part 1 — karışık sıra, sistem başlıkları YOK (adminNote kuralı) */}
-      <h3 style={araBaslikStil}>{m3.part1.baslik}</h3>
-      <p style={govdeStil}>{m3.part1.giris}</p>
-      <OlcekLegend olcek={m3.part1.olcek} />
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-        {p1Maddeler.map((m, i) => (
-          <LikertSatir key={m.no} sira={i + 1} metin={m.metin} deger={yanitlar[m.no]} onSec={(v) => likertYaz(m.no, v)} />
-        ))}
-      </div>
-
-      <h3 style={araBaslikStil}>{m3.part2.baslik}</h3>
-      <p style={govdeStil}>{m3.part2.giris}</p>
-      <OlcekLegend olcek={m3.part2.olcek} />
-      {m3.part2.maddeler.map((m) => (
-        <LikertSatir key={m.no} metin={m.metin} deger={yanitlar[m.no]} onSec={(v) => likertYaz(m.no, v)} />
-      ))}
-
-      <h3 style={araBaslikStil}>{m3.part3.baslik}</h3>
-      <p style={govdeStil}>{m3.part3.giris}</p>
-      <OlcekLegend olcek={m3.part3.olcek} />
-      {m3.part3.maddeler.map((m) => (
-        <LikertSatir key={m.no} metin={m.metin} deger={yanitlar[m.no]} onSec={(v) => likertYaz(m.no, v)} />
-      ))}
-
-      {/* Part 4 — opsiyonel, profil skoruna girmez */}
-      <h3 style={araBaslikStil}>{m3.part4.baslik}</h3>
-      <p style={govdeStil}>{m3.part4.giris}</p>
-      {!p4Atla ? (
-        <>
-          <button onClick={() => setP4Atla(true)} style={{ ...ikincilButonStil, alignSelf: 'flex-start' }}>
-            Skip this part
-          </button>
-          <OlcekLegend baslik={m3.part4.olcekBaslik} olcek={m3.part4.olcek} />
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
-            {m3.part4.duygular.map((duygu) => (
-              <KonforSatiri key={duygu} duygu={duygu} sutunlar={m3.part4.sutunlar}
-                deger={konfor[duygu] || {}}
-                onYaz={(alan, v) => setKonfor((p) => ({ ...p, [duygu]: { ...(p[duygu] || {}), [alan]: v } }))} />
-            ))}
-          </div>
-        </>
-      ) : (
-        <p style={{ ...altYaziStil, fontStyle: 'italic' }}>
-          Skipped — you can take this part another time.{' '}
-          <button onClick={() => setP4Atla(false)} style={{ ...baglantiButonStil }}>Undo</button>
-        </p>
-      )}
-
-      <IleriButon onClick={gonder} disabled={gonderiliyor} etiket={gonderiliyor ? 'Saving…' : 'Save & continue'} />
-      {hata && <HataYazi metin={hata} />}
-    </BolumKabuk>
-  );
-}
-
-function KonforSatiri({ duygu, sutunlar, deger, onYaz }) {
-  const alanlar = [
-    { key: 'hissetme', etiket: sutunlar[0] },
-    { key: 'gosterme', etiket: sutunlar[1] },
-  ];
-  return (
-    <div style={{ ...soruKutuStil, gap: '0.5rem' }}>
-      <span style={{ ...govdeStil, fontWeight: 400 }}>{duygu}</span>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-        {alanlar.map((alan) => (
-          <div key={alan.key} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
-            <span style={{ ...altYaziStil, fontSize: '0.7rem', minWidth: 140 }}>{alan.etiket}</span>
-            <BesliSecim deger={deger[alan.key]} onSec={(v) => onYaz(alan.key, v)} />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* ─── Modül 4 Form B (tekrarlanabilir) ───────────────────────────────────── */
+/* ─── Module 5 — Flow Form B (tekrarlanabilir) ───────────────────────────── */
 function FormBAdimi({ onTamam, onVazgec }) {
-  const fb = batarya.module4.formB;
+  const fb = modulBul('flow').formB;
   const [performans, setPerformans] = useState('');
   const [tarih, setTarih] = useState('');
   const [yanitlar, setYanitlar] = useState({});
@@ -585,7 +746,7 @@ function FormBAdimi({ onTamam, onVazgec }) {
     setGonderiliyor(true); setHata('');
     try {
       const ham = { performans, tarih, ...yanitlar, acikNot: not };
-      await bataryaSonucKaydet('m4_formB', ham, m4bSkorla(yanitlar));
+      await bataryaSonucKaydet('flow_formB', ham, flowBSkorla(yanitlar));
       await onTamam();
     } catch (e) { setHata('Could not save. Please try again.'); setGonderiliyor(false); }
   };
@@ -617,19 +778,111 @@ function FormBAdimi({ onTamam, onVazgec }) {
   );
 }
 
-/* ─── Tamam ekranı ───────────────────────────────────────────────────────── */
-function TamamEkrani({ formBSayisi, onFormB }) {
+/* ─── Module 9 — Entry & Exit, Recovery, Sustainability ──────────────────── */
+// Part 1-2 puanlanır (hafif); Part 3-4-5 YALNIZ ham. Part 4 sonrası standingOffer
+// HER ZAMAN gösterilir (App Safety Rules — yanıtlardan bağımsız). Yanıtlar İÇ İÇE
+// (part1 ve part4 madde no'ları çakışır). Toplu "iyilik skoru" üretilmez.
+function EntryExitAdimi({ onTamam, onVazgec }) {
+  const ee = modulBul('entry_exit');
+  const p1Maddeler = useMemo(
+    () => karistir(ee.part1.fasetler.flatMap((f) => f.maddeler), SEED.entry_exit_p1),
+    []
+  );
+  const [yanitlar, setYanitlar] = useState({ part1: {}, part2: {}, part3: {}, part4: {}, part5: {} });
+  const [hata, setHata] = useState('');
+  const [gonderiliyor, setGonderiliyor] = useState(false);
+
+  const yaz = (part, no, v) => setYanitlar((p) => ({ ...p, [part]: { ...p[part], [no]: v } }));
+
+  const gonder = async () => {
+    setGonderiliyor(true); setHata('');
+    try {
+      await bataryaSonucKaydet('entry_exit', yanitlar, entryExitSkorla(yanitlar));
+      await onTamam();
+    } catch (e) { setHata('Could not save. Please try again.'); setGonderiliyor(false); }
+  };
+
+  const partBlok = (part, anahtar, karisikMaddeler) => {
+    const maddeler = karisikMaddeler ?? part.maddeler;
+    return (
+      <>
+        <h3 style={araBaslikStil}>{part.baslik}</h3>
+        {part.giris && <p style={govdeStil}>{part.giris}</p>}
+        {part.olcek && <OlcekLegend olcek={part.olcek} />}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+          {maddeler.map((m, i) => (
+            <LikertSatir key={m.no} sira={karisikMaddeler ? i + 1 : undefined} metin={m.metin}
+              deger={yanitlar[anahtar][m.no]} onSec={(v) => yaz(anahtar, m.no, v)} />
+          ))}
+        </div>
+      </>
+    );
+  };
+
   return (
-    <div style={{ ...kutuStil, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-      <h2 style={{ ...araBaslikStil, fontSize: '1.3rem' }}>Thank you — the core battery is complete.</h2>
-      <p style={govdeStil}>
-        Your profile is recorded. From here, Form B is the repeatable part: fill it in right after a
-        specific scene, monologue, or performance, while it&apos;s fresh — we return to it throughout the work.
-      </p>
-      {formBSayisi > 0 && (
-        <p style={{ ...altYaziStil }}>Form B entries so far: {formBSayisi}</p>
-      )}
-      <IleriButon onClick={onFormB} etiket="Rate a performance (Form B) →" />
+    <BolumKabuk baslik={ee.baslik}>
+      {partBlok(ee.part1, 'part1', p1Maddeler)}
+      {partBlok(ee.part2, 'part2')}
+      {partBlok(ee.part3, 'part3')}
+      {partBlok(ee.part4, 'part4')}
+      {/* standingOffer — yanıtlardan bağımsız, Part 4'ten hemen sonra HER ZAMAN */}
+      <div style={{ ...kutuStil, borderColor: TON, background: 'var(--accent-bg)' }}>
+        <p style={govdeStil}>{ee.part4.standingOffer.replace('Standing offer (shown to the actor): ', '')}</p>
+      </div>
+      {partBlok(ee.part5, 'part5')}
+      <div style={{ display: 'flex', gap: '0.7rem', flexWrap: 'wrap' }}>
+        <IleriButon onClick={gonder} disabled={gonderiliyor} etiket={gonderiliyor ? 'Saving…' : 'Save & continue'} />
+        {onVazgec && <button onClick={onVazgec} style={ikincilButonStil}>Back</button>}
+      </div>
+      {hata && <HataYazi metin={hata} />}
+    </BolumKabuk>
+  );
+}
+
+/* ─── Opsiyonel modül merkezi (core sonrası) ─────────────────────────────── */
+function OpsiyonelHub({ durum, onSec }) {
+  const kartlar = OPSIYONEL.map((o) => {
+    const tanim = batarya.moduleMap.optional.find((x) => x.slug === o.slug);
+    const modul = modulBul(o.slug);
+    return {
+      ...o,
+      ad: tanim?.ad ?? modul.baslik,
+      aciklama: tanim?.aciklama ?? '',
+      bitti: durum.moduller.has(o.yazimKey),
+    };
+  });
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
+      <div style={{ ...kutuStil, display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+        <h2 style={{ ...araBaslikStil, fontSize: '1.3rem', margin: 0 }}>Thank you — the core battery is complete.</h2>
+        <p style={govdeStil}>
+          Your profile is recorded. The modules below are optional — take any of them whenever
+          you like, in any order. Each one deepens a different part of the map.
+        </p>
+      </div>
+      {kartlar.map((k) => (
+        <div key={k.slug} style={{ ...kutuStil, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '0.6rem', flexWrap: 'wrap' }}>
+            <span style={{ ...govdeStil, fontWeight: 400, color: 'var(--ink)' }}>{k.ad}</span>
+            {k.bitti && <span style={{ ...eyebrowStil, color: 'var(--onay-soft)' }}>✓ done</span>}
+          </div>
+          {k.aciklama && <p style={{ ...altYaziStil, fontSize: '0.78rem' }}>{k.aciklama}</p>}
+          <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+            {/* Her modül BİR KEZ (Flow Form A baseline dahil); tekrar yalnız Form B */}
+            {!k.bitti && (
+              <button onClick={() => onSec(k.slug)} style={ikincilButonStil}>
+                Start →
+              </button>
+            )}
+            {k.slug === 'flow' && durum.moduller.has('flow_formA') && (
+              <button onClick={() => onSec('flow_formB')} style={{ ...ikincilButonStil, borderColor: TON, color: TON }}>
+                Rate a performance (Form B{durum.formBSayisi > 0 ? ` · ${durum.formBSayisi} so far` : ''}) →
+              </button>
+            )}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
