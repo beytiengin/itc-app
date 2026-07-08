@@ -282,6 +282,23 @@ export async function bataryaOnamKaydet({ kutuDurumlari, imzaAd, islem = 'verild
   return true;
 }
 
+// Type Lens sonucu (en son satır) — rapor görünümü için {hipotez, komsu, eksenler}.
+// KURAL (tip-raporlari.js): komsu + marjlar KOLAYLAŞTIRICI aracıdır, oyuncu
+// raporunda ASLA gösterilmez — burada döndürülür ama render katmanı yalnız
+// hipotezi kullanır.
+export async function typeLensSonucGetir() {
+  const kullanici_id = await uid();
+  if (!kullanici_id) return null;
+  const { data } = await supabase
+    .from('batarya_sonuclari')
+    .select('skorlar, created_at')
+    .eq('kullanici_id', kullanici_id)
+    .eq('modul', 'type_lens')
+    .order('created_at', { ascending: false })
+    .limit(1);
+  return data?.[0]?.skorlar ?? null;
+}
+
 // Durum: tamamlanan modüller (v1 legacy anahtarlar v0.5 slug'a eşlenir) +
 // geçerli onam + Form B sayısı (devam/özet için).
 export async function bataryaDurumGetir() {

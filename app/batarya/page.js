@@ -37,8 +37,9 @@ import {
   bataryaSonucKaydet, bataryaOnamKaydet, bataryaDurumGetir, modulBul,
   typeLensSkorla, apsSkorla, emotionalSkorla, accessSkorla,
   flowASkorla, flowBSkorla, regulationSkorla, mindfulnessSkorla,
-  bodySkorla, entryExitSkorla,
+  bodySkorla, entryExitSkorla, typeLensSonucGetir,
 } from '../lib/batarya-kaydet';
+import { tipRaporlari } from '../../data/kalibrasyon/tip-raporlari';
 
 const TON = 'var(--accent)';
 
@@ -190,6 +191,7 @@ function BataryaAkis({ durum, durumYenile }) {
       {gorunum === 'aps' && <KarisikLikertAdimi slug="aps" onTamam={coreTamamla} />}
       {gorunum === 'emotional' && <EmotionalAdimi onTamam={coreTamamla} />}
       {gorunum === 'hub' && <OpsiyonelHub durum={durum} onSec={setGorunum} />}
+      {gorunum === 'tip_raporu' && <TipRaporu onGeri={() => setGorunum('hub')} />}
       {gorunum === 'access' && <AccessAdimi onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
       {gorunum === 'flow' && <KarisikLikertAdimi slug="flow" onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
       {gorunum === 'flow_formB' && <FormBAdimi onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
@@ -860,6 +862,11 @@ function OpsiyonelHub({ durum, onSec }) {
           Your profile is recorded. The modules below are optional — take any of them whenever
           you like, in any order. Each one deepens a different part of the map.
         </p>
+        {durum.moduller.has('type_lens') && (
+          <button onClick={() => onSec('tip_raporu')} style={{ ...ikincilButonStil, alignSelf: 'flex-start', borderColor: TON, color: TON }}>
+            Read your Type Lens report →
+          </button>
+        )}
       </div>
       {kartlar.map((k) => (
         <div key={k.slug} style={{ ...kutuStil, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -881,6 +888,104 @@ function OpsiyonelHub({ durum, onSec }) {
               </button>
             )}
           </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ─── Type Lens raporu (tip-raporlari.js — 16/16 FKA seti) ───────────────── */
+// KURALLAR (tip-raporlari.js başlığı):
+//   - Rapor yalnız DÖRT HARF üzerinden çalışır — tip adı/etiketi render edilmez.
+//   - `teamNote` + `surum` ASLA gösterilmez. Nearest neighbour ASLA gösterilmez
+//     (app hesaplar + saklar; kolaylaştırıcı aracı).
+//   - `sorular` setleri serbest keşif katmanında (Kulis) yaşar — bu görünümde
+//     RENDER EDİLMEZ (Filiz onaylı konumlandırma kararı / B).
+//   - Metin içi **kalın** vurgular Filiz'in orijinalidir — <strong> olarak işlenir.
+function TipRaporu({ onGeri }) {
+  const [skor, setSkor] = useState(undefined); // undefined=yükleniyor, null=yok
+
+  useEffect(() => {
+    (async () => setSkor(await typeLensSonucGetir()))();
+  }, []);
+
+  if (skor === undefined) return <p style={altYaziStil}>Loading…</p>;
+  const rapor = skor?.hipotez ? tipRaporlari.raporlar[skor.hipotez] : null;
+
+  if (!rapor) {
+    return (
+      <div style={{ ...kutuStil, display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+        <p style={govdeStil}>
+          Your report isn&apos;t ready yet — it becomes available once Module 1 is complete
+          with enough answered items.
+        </p>
+        <button onClick={onGeri} style={{ ...ikincilButonStil, alignSelf: 'flex-start' }}>Back</button>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.3rem' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+        <span style={eyebrowStil}>{tipRaporlari.meta.baslik}</span>
+        <h2 style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: '2rem', margin: 0, letterSpacing: '0.15em' }}>
+          {rapor.kod}
+        </h2>
+        <p style={{ ...araBaslikStil, margin: 0 }}>{rapor.ustBaslik}</p>
+      </div>
+
+      <RaporParagraflar metinler={rapor.beforeYouRead} kutu />
+      <RaporBolum baslik="First sketch"><RaporParagraflar metinler={rapor.firstSketch} /></RaporBolum>
+      <RaporBolum baslik="Your talents" giris={rapor.talentsGiris}><RaporMaddeler maddeler={rapor.talents} /></RaporBolum>
+      <RaporBolum baslik="The shadows" giris={rapor.obstaclesGiris}><RaporMaddeler maddeler={rapor.obstacles} /></RaporBolum>
+      <RaporBolum baslik="Remedies" giris={rapor.remediesGiris}><RaporMaddeler maddeler={rapor.remedies} /></RaporBolum>
+      <RaporBolum baslik="Finally"><RaporParagraflar metinler={rapor.finallySection} /></RaporBolum>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+        <p style={{ ...govdeStil, fontFamily: 'var(--font-display), serif', fontStyle: 'italic' }}>{rapor.kapanis}</p>
+        <p style={{ ...altYaziStil, fontStyle: 'italic' }}>{rapor.imza}</p>
+      </div>
+
+      <button onClick={onGeri} style={{ ...ikincilButonStil, alignSelf: 'flex-start' }}>Back</button>
+    </div>
+  );
+}
+
+// **kalın** işaretlerini <strong>'a çevirir (Filiz'in orijinal vurguları).
+function KalinIsle({ metin }) {
+  const parcalar = String(metin).split(/\*\*/);
+  return (
+    <>
+      {parcalar.map((p, i) => (i % 2 === 1 ? <strong key={i} style={{ fontWeight: 500, color: 'var(--ink)' }}>{p}</strong> : p))}
+    </>
+  );
+}
+
+function RaporBolum({ baslik, giris, children }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+      <h3 style={araBaslikStil}>{baslik}</h3>
+      {giris && <p style={govdeStil}><KalinIsle metin={giris} /></p>}
+      {children}
+    </div>
+  );
+}
+
+function RaporParagraflar({ metinler, kutu }) {
+  const icerik = metinler.map((m, i) => (
+    <p key={i} style={govdeStil}><KalinIsle metin={m} /></p>
+  ));
+  if (kutu) return <div style={{ ...kutuStil, display: 'flex', flexDirection: 'column', gap: '0.7rem', borderColor: TON, background: 'var(--accent-bg)' }}>{icerik}</div>;
+  return <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>{icerik}</div>;
+}
+
+function RaporMaddeler({ maddeler }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+      {maddeler.map((m, i) => (
+        <div key={i} style={{ ...soruKutuStil, gap: '0.3rem' }}>
+          {m.baslik && <span style={{ ...govdeStil, fontWeight: 400, color: 'var(--ink)' }}>{m.baslik}</span>}
+          <p style={{ ...govdeStil, fontSize: '0.87rem' }}><KalinIsle metin={m.metin} /></p>
         </div>
       ))}
     </div>
