@@ -936,9 +936,9 @@ function TipRaporu({ onGeri }) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.3rem' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
         <span style={eyebrowStil}>{tipRaporlari.meta.baslik}</span>
-        <h2 style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: '2rem', margin: 0, letterSpacing: '0.15em' }}>
-          {rapor.kod}
-        </h2>
+        {/* Doorway Release: dört harf kodu AKTÖR TARAFINDA ASLA render edilmez —
+            isim, beforeYouRead'in son paragrafında Filiz'in yerleştirdiği yerde
+            (**Ad** vurgusu) açılır; başlıkta ne kod ne ad gösterilir. */}
         <p style={{ ...araBaslikStil, margin: 0 }}>{rapor.ustBaslik}</p>
       </div>
 
