@@ -194,20 +194,10 @@ export default function AnaSayfa() {
     return () => subscription.unsubscribe();
   }, []);
 
-  // Üye girince batarya durumunu sessizce çek; CTA'lar durum-duyarlı.
-  // Karar 65: kaynak bataryaDurumGetir(); eski tamMi/hicYok şekline burada
-  // eşlenir ki dört CTA dalı ve son-nokta zinciri aynen kalsın.
+  // Karar 65: üye girince BATARYA durumunu sessizce çek; CTA'lar durum-duyarlı.
   useEffect(() => {
     if (!kullanici) { setProfil(null); setSonNokta(null); return; }
-    bataryaDurumGetir().then((durum) => {
-      const CEKIRDEK_SLUGLAR = ['intake', 'type_lens', 'aps', 'emotional'];
-      const tamamlanan = durum?.moduller ?? new Set();
-      setProfil({
-        hicYok: !durum || durum.girisYok || tamamlanan.size === 0,
-        tamMi: !!durum && !durum.girisYok &&
-          CEKIRDEK_SLUGLAR.every((m) => tamamlanan.has(m)),
-      });
-    });
+    bataryaDurumGetir().then(setProfil);
   }, [kullanici]);
 
   // Tam kalibrasyonlu üye için "son nokta" derin link çek (kaldığı sahne/boşluk).
