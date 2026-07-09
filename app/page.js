@@ -200,10 +200,16 @@ export default function AnaSayfa() {
     bataryaDurumGetir().then(setProfil);
   }, [kullanici]);
 
-  // Tam kalibrasyonlu üye için "son nokta" derin link çek (kaldığı sahne/boşluk).
-  // Yarım kalibrasyonda anlamı yok; çözülemezse fallback zinciri devreye girer.
+  // Karar 65: durumlar bataryadan türer — çekirdek = intake + type_lens + aps + emotional.
+  const CEKIRDEK_SLUGLAR = ['intake', 'type_lens', 'aps', 'emotional'];
+  const cekirdekTam = !!(profil && !profil.girisYok && profil.moduller &&
+    CEKIRDEK_SLUGLAR.every((m) => profil.moduller.has(m)));
+  const bataryaBos = !!(profil && !profil.onamVar && profil.moduller && profil.moduller.size === 0);
+
+  // Çekirdeği tam üye için "son nokta" derin link çek (kaldığı sahne/boşluk).
+  // Yarım bataryada anlamı yok; çözülemezse fallback zinciri devreye girer.
   useEffect(() => {
-    if (!profil || !profil.tamMi) { setSonNokta(null); return; }
+    if (!cekirdekTam) { setSonNokta(null); return; }
     enSonAktiviteGetir().then(setSonNokta);
   }, [profil]);
 
