@@ -13,9 +13,11 @@
 //     → S5 D9 → S6 yolculuk. (§1 Page assembly)
 // NOT: Nihai görsel tasarım pack §8'de Beyti'ye atanmış "pending" kalemdir;
 //   buradaki çubuklar spec'in işlevsel karşılığıdır, sanat yönetimi ayrıca gelir.
-// NOT: §1'deki görüntüleme-sonrası check-in'in kopyası pack'te yok — kopya
-//   Filiz'den gelene dek check-in UI bilinçli olarak kurulmadı.
-// DOĞRULAMA İMZASI: ITC-APSRAPOR-BILESEN-20260709
+// CHECK-IN (§1 + pack sonu, v0.3 ile düzeltildi): kopya pack'in sonundadır
+//   ve İLK tam görüntülemeden sonra bir kez render edilir (localStorage
+//   bayrağı 'itc-aps-checkin-goruldu'). Yalnız kopya gösterilir; "tell us"
+//   etkileşiminin biçimi (buton/kanal) Filiz+Beyti kararını bekler.
+// DOĞRULAMA İMZASI: ITC-APSRAPOR-BILESEN-V2-20260709
 // =====================================================================
 
 'use client';
@@ -99,6 +101,16 @@ function DomainBlok({ d }) {
 /* ─── Tam rapor (§1 montaj planı) ────────────────────────────────────────── */
 export default function ApsRaporu({ onGeri }) {
   const [veri, setVeri] = useState(null); // {grid, montaj, gecmis, band}
+  const [checkInGoster, setCheckInGoster] = useState(false);
+  useEffect(() => {
+    // İlk tam görüntüleme: rapor açıldığında bayrak yoksa check-in bir kez gösterilir.
+    try {
+      if (!localStorage.getItem('itc-aps-checkin-goruldu')) {
+        setCheckInGoster(true);
+        localStorage.setItem('itc-aps-checkin-goruldu', '1');
+      }
+    } catch { /* localStorage yoksa sessiz geç */ }
+  }, []);
   useEffect(() => {
     (async () => {
       const [satirlar, band] = await Promise.all([apsSonuclariGetir(), intakeYanitiGetir(8)]);
@@ -131,7 +143,7 @@ export default function ApsRaporu({ onGeri }) {
         <h2 style={baslik}>{apsRapor.page1.title}</h2>
         <P>{apsRapor.page1.beforeYouRead}</P>
         <P stil={{ fontSize: '0.78rem', color: 'var(--ink-muted)', borderTop: '1px solid var(--rule)', paddingTop: '0.9rem' }}>
-          {apsRapor.page1.holdYourTypeLightly}
+          {apsRapor.page1.holdYourDoorwayLightly}
         </P>
       </div>
 
@@ -188,6 +200,13 @@ export default function ApsRaporu({ onGeri }) {
         <P>{apsRapor.page6.standingOffer}</P>
         <P stil={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', color: 'var(--ink)' }}>{apsRapor.page6.signOff}</P>
       </div>
+
+      {/* POST-REPORT CHECK-IN — ilk tam görüntülemeden sonra, bir kez (§1). */}
+      {checkInGoster && (
+        <div style={{ ...kutu, borderColor: TON }}>
+          <P>{apsRapor.checkIn}</P>
+        </div>
+      )}
     </div>
   );
 }
