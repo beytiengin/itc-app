@@ -241,7 +241,7 @@ export default function AnaSayfa() {
     ctaKapanisMetni = kalibrasyonTaslagiVar ? s.ctaUyeKalibrasyonDevam : s.ctaUye;
     kapanisBaslik = s.kapanisBaslikUye;
     kapanisAlt = s.kapanisAltUyeKalibrasyonEksik;
-  } else if (!profil.tamMi) {
+  } else if (!cekirdekTam) {
     ctaHref = '/batarya';
     ctaMetni = s.ctaUyeKalibrasyonDevam;
     ctaKapanisMetni = s.ctaUyeKalibrasyonDevam;
