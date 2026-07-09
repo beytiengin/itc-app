@@ -294,7 +294,7 @@ export default function NasilCalisilir() {
     supabase.auth.getUser().then(({ data: { user } }) => setKullanici(user || null));
   }, []);
 
-  const ctaHref = kullanici ? '/kalibrasyon' : '/giris';
+  const ctaHref = kullanici ? '/batarya' : '/giris';
 
   // C bölümü 6 adım, son adım Yakında.
   const adimlar = [

@@ -12,7 +12,7 @@
 // - Anonim kullanıcıda gizli — onun için Navigasyon yeterli.
 //
 // Durum kaynakları:
-// - Kalibrasyon: getKalibrasyonProfili() → tamMi/eksikler
+// - Kalibrasyon: bataryaDurumGetir() → çekirdek modüller
 // - Antrenman: usePathname (basit; ileride karakter_ilerleme view eklenir)
 // - Yolculuk: her zaman "Yakında" pasif
 
@@ -21,7 +21,7 @@
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { supabase } from '../app/lib/supabase';
-import { getKalibrasyonProfili } from '../app/lib/kalibrasyon';
+import { bataryaDurumGetir } from '../app/lib/batarya-kaydet';
 import { useDil, ceviri } from '../app/lib/dil';
 import chromeI18n from '../data/chrome-i18n';
 
@@ -46,7 +46,7 @@ export default function Omurga() {
 
   useEffect(() => {
     if (!kullanici) { setProfil(null); return; }
-    getKalibrasyonProfili().then(setProfil);
+    bataryaDurumGetir().then(setProfil);
   }, [kullanici]);
 
   // Anonim ve auth-belirsiz → gizli (Navigasyon yeterli).
@@ -54,13 +54,18 @@ export default function Omurga() {
 
   // Hangi düğüm "aktif" (şu anki konum) — usePathname üstünden.
   function aktifDugum() {
-    if (pathname.startsWith('/kalibrasyon')) return 'kalibrasyon';
+    if (pathname.startsWith('/batarya')) return 'kalibrasyon';
     if (pathname.startsWith('/antrenman')) return 'antrenman';
     return null; // hub/profil/kulis vb. — hiçbir düğüm vurgulanmaz
   }
 
   const aktif = aktifDugum();
-  const kalibrasyonGecildi = profil && profil.tamMi;
+  // Karar 65: çekirdek = intake + type_lens + aps + emotional (v0.5 slug'ları).
+  const CEKIRDEK_SLUGLAR = ['intake', 'type_lens', 'aps', 'emotional'];
+  const kalibrasyonGecildi = !!(
+    profil && !profil.girisYok && profil.moduller &&
+    CEKIRDEK_SLUGLAR.every((m) => profil.moduller.has(m))
+  );
 
   // "Yolculuk" daima yakında — Modül III açıldığında durum mantığı eklenecek.
   const dugumler = [

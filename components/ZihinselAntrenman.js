@@ -337,7 +337,7 @@ export default function ZihinselAntrenman({ antrenmanlar, karakterId, vakBaskini
 
           {!vakBaskini && (
             <a
-              href="/kalibrasyon"
+              href="/batarya"
               style={{
                 display: 'block',
                 padding: '0.8rem 1.1rem',

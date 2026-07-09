@@ -858,7 +858,7 @@ function EmptyKalibrasyon({ t }) {
         {t.emptyKalibrasyonMetin}
       </p>
       <a
-        href="/kalibrasyon"
+        href="/batarya"
         style={{ marginTop: '0.3rem', padding: '0.8rem 1.8rem', backgroundColor: 'var(--accent)', color: 'var(--bg-base)', textDecoration: 'none', fontFamily: 'var(--font-body), sans-serif', fontWeight: 300, fontSize: '0.68rem', letterSpacing: '0.22em', textTransform: 'uppercase', transition: 'all 0.25s ease' }}
         onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-hover)'; }}
         onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent)'; }}

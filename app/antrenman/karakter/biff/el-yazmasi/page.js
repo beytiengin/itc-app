@@ -140,7 +140,7 @@ export default function ElYazmasiSayfasi() {
         setSahneYansima({}); // sahne yansımaları panel açılınca lazy yüklenir.
         // Açık kapı — VAK baskından sessizce türet (skor/sayı yok).
         const baskin = profil?.vak?.baskin || profil?.vak?.dominant;
-        setAcikKapiKey(acikKapi(baskin));
+        setAcikKapiKey(null); // Karar 65: Giriş Kapısı çubuğu emekli — ölçümü kalktı, kavram kanonda saklı.
       } finally {
         if (!iptal) setYukleniyor(false);
       }

@@ -142,7 +142,7 @@ export default function Navigasyon() {
   // Üye linkler (hem masaüstü hem drawer kullanır).
   const uyeLinkler = (Bilesen, kapatOnClick) => (
     <>
-      <Bilesen href="/kalibrasyon" onClick={kapatOnClick}>{t.kalibrasyon}</Bilesen>
+      <Bilesen href="/batarya" onClick={kapatOnClick}>{t.kalibrasyon}</Bilesen>
       <Bilesen href="/antrenman/karakter" onClick={kapatOnClick}>{t.antrenman}</Bilesen>
       {studyoFlag && <Bilesen href="/studyo" onClick={kapatOnClick}>Stüdyo</Bilesen>}{/* STUDYO-NAV-A7 */}
       <Bilesen href="/defter" onClick={kapatOnClick}>{t.kulis}</Bilesen>
