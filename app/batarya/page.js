@@ -867,7 +867,7 @@ function OpsiyonelHub({ durum, onSec }) {
         </p>
         {durum.moduller.has('type_lens') && (
           <button onClick={() => onSec('tip_raporu')} style={{ ...ikincilButonStil, alignSelf: 'flex-start', borderColor: TON, color: TON }}>
-            Read your Type Lens report →
+            Read your Doorway report →
           </button>
         )}
         {durum.moduller.has('aps') && (
