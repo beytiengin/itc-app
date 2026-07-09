@@ -40,6 +40,7 @@ import {
   bodySkorla, entryExitSkorla, typeLensSonucGetir,
 } from '../lib/batarya-kaydet';
 import { tipRaporlari } from '../../data/kalibrasyon/tip-raporlari';
+import ApsRaporu, { ApsMicroReveal } from '../../components/ApsRaporu';
 
 const TON = 'var(--accent)';
 
@@ -188,10 +189,12 @@ function BataryaAkis({ durum, durumYenile }) {
       {gorunum === 'consent' && <ConsentAdimi onTamam={coreTamamla} />}
       {gorunum === 'intake' && <IntakeAdimi onTamam={coreTamamla} />}
       {gorunum === 'type_lens' && <TypeLensAdimi onTamam={coreTamamla} />}
-      {gorunum === 'aps' && <KarisikLikertAdimi slug="aps" onTamam={coreTamamla} />}
+      {gorunum === 'aps' && <KarisikLikertAdimi slug="aps" onTamam={async () => { await durumYenile(); setGorunum('aps_reveal'); }} />}
       {gorunum === 'emotional' && <EmotionalAdimi onTamam={coreTamamla} />}
       {gorunum === 'hub' && <OpsiyonelHub durum={durum} onSec={setGorunum} />}
       {gorunum === 'tip_raporu' && <TipRaporu onGeri={() => setGorunum('hub')} />}
+      {gorunum === 'aps_reveal' && <ApsMicroReveal onDevam={coreSiradaki} />}
+      {gorunum === 'aps_raporu' && <ApsRaporu onGeri={() => setGorunum('hub')} />}
       {gorunum === 'access' && <AccessAdimi onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
       {gorunum === 'flow' && <KarisikLikertAdimi slug="flow" onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
       {gorunum === 'flow_formB' && <FormBAdimi onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
@@ -865,6 +868,11 @@ function OpsiyonelHub({ durum, onSec }) {
         {durum.moduller.has('type_lens') && (
           <button onClick={() => onSec('tip_raporu')} style={{ ...ikincilButonStil, alignSelf: 'flex-start', borderColor: TON, color: TON }}>
             Read your Type Lens report →
+          </button>
+        )}
+        {durum.moduller.has('aps') && (
+          <button onClick={() => onSec('aps_raporu')} style={{ ...ikincilButonStil, alignSelf: 'flex-start', borderColor: TON, color: TON }}>
+            Read your Acting Performance Profile →
           </button>
         )}
       </div>

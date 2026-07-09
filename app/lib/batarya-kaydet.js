@@ -24,6 +24,7 @@
 //     (App Safety Rules: "no aggregate wellbeing score, ever")
 
 import { supabase } from './supabase';
+import { apsGrid } from './aps-rapor-motor';
 import { batarya } from '../../data/kalibrasyon/batarya';
 
 /* ─── Modül erişimi (slug tabanlı) ────────────────────────────────────────── */
@@ -132,7 +133,11 @@ export function apsSkorla(yanitlar) {
   for (const alan of modulBul('aps').alanlar) {
     alanlar[alan.ad] = grupSkoru(alan.maddeler, yanitlar);
   }
-  return { alanlar };
+  // APS Rapor Pack v0.2 §0-1: grid (set/band/hedge/gap) hesaplanır ve
+  // append-only SAKLANIR — coach render + araştırma için; oyuncuya asla
+  // render edilmez. Render katmanı grid'i her zaman alanlar'dan yeniden
+  // türetebilir (eski satırlar gridsizdir, sorun değil).
+  return { alanlar, grid: apsGrid(alanlar) };
 }
 
 // Emotional — 7 sistem + 4 faset ortalaması; Exit Capacity + Reach (teamNotes:
@@ -297,6 +302,34 @@ export async function typeLensSonucGetir() {
     .order('created_at', { ascending: false })
     .limit(1);
   return data?.[0]?.skorlar ?? null;
+}
+
+// APS geçmişi — rapor + retake katmanlaması (pack §2: önceki uygulamalar
+// tarihli soluk çubuklar). Legacy m1_aps satırları dahil, eskiden yeniye.
+export async function apsSonuclariGetir() {
+  const kullanici_id = await uid();
+  if (!kullanici_id) return [];
+  const { data } = await supabase
+    .from('batarya_sonuclari')
+    .select('skorlar, created_at')
+    .eq('kullanici_id', kullanici_id)
+    .in('modul', ['aps', 'm1_aps'])
+    .order('created_at', { ascending: true });
+  return data ?? [];
+}
+
+// Intake tek yanıt — pack §6 {experience_band} = Q8 yanıtı (verbatim metin).
+export async function intakeYanitiGetir(no) {
+  const kullanici_id = await uid();
+  if (!kullanici_id) return null;
+  const { data } = await supabase
+    .from('batarya_sonuclari')
+    .select('yanitlar')
+    .eq('kullanici_id', kullanici_id)
+    .eq('modul', 'intake')
+    .order('created_at', { ascending: false })
+    .limit(1);
+  return data?.[0]?.yanitlar?.[no] ?? data?.[0]?.yanitlar?.[String(no)] ?? null;
 }
 
 // Durum: tamamlanan modüller (v1 legacy anahtarlar v0.5 slug'a eşlenir) +
