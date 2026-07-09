@@ -213,14 +213,14 @@ export default function AnaSayfa() {
   if (!kullanici) {
     // IMZA: S1-ANA-02 — cihazda taslak varsa anonim CTA kalibrasyona devam eder.
     if (kalibrasyonTaslagiVar) {
-      ctaHref = '/kalibrasyon';
+      ctaHref = '/batarya';
       ctaMetni = s.ctaUyeKalibrasyonDevam;
       ctaKapanisMetni = s.ctaUyeKalibrasyonDevam;
     } else {
       // IMZA: S6-ANA-04 — misafir modu gerçek olduğu için kapı kalktı:
       // anonim "Başla →" doğrudan kalibrasyona gider; giriş, kayıt anında
       // (tam doğru anda) istenir. Nav'daki Giriş yolu aynen duruyor.
-      ctaHref = '/kalibrasyon';
+      ctaHref = '/batarya';
       ctaMetni = s.ctaBasla;
       ctaKapanisMetni = s.ctaBasla;
     }
@@ -230,13 +230,13 @@ export default function AnaSayfa() {
     // IMZA: S2-ANA-03 — girişli + profili yok ama cihazda taslak var:
     // anonim başlanan kalibrasyon tek dokunuşla tamamlanır (sayfada
     // taslak geri yüklenir, "Profili gör" Supabase'e kaydeder).
-    ctaHref = '/kalibrasyon';
+    ctaHref = '/batarya';
     ctaMetni = kalibrasyonTaslagiVar ? s.ctaUyeKalibrasyonDevam : s.ctaUye;
     ctaKapanisMetni = kalibrasyonTaslagiVar ? s.ctaUyeKalibrasyonDevam : s.ctaUye;
     kapanisBaslik = s.kapanisBaslikUye;
     kapanisAlt = s.kapanisAltUyeKalibrasyonEksik;
   } else if (!profil.tamMi) {
-    ctaHref = '/kalibrasyon';
+    ctaHref = '/batarya';
     ctaMetni = s.ctaUyeKalibrasyonDevam;
     ctaKapanisMetni = s.ctaUyeKalibrasyonDevam;
     kapanisBaslik = s.kapanisBaslikUye;
