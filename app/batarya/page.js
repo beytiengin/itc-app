@@ -104,7 +104,7 @@ export default function BataryaSayfasi() {
   const [oturumOk, setOturumOk] = useState(null);
   const [durum, setDurum] = useState(null);
 
-  useEffect(() => { setFlagOk(bataryaAcik()); }, []);
+  useEffect(() => { setFlagOk(true); }, []); // Karar 65: switch yapıldı — paralel-faz flag'i emekli (bataryaAcik görevi tamam).
   useEffect(() => {
     if (flagOk === false) { router.replace('/'); return; }
     if (flagOk !== true) return;
