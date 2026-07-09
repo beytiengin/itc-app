@@ -4,7 +4,7 @@
 // beklenen grid örnek belgede AÇIK yazılıdır — kabul testi buradan gelir).
 // Çalıştırma (repo kökünden): node scripts/test-aps-rapor.mjs
 // Repo CJS varsayılan olduğundan motor+data geçici .mjs'e kopyalanıp import edilir.
-// DOĞRULAMA İMZASI: ITC-APSRAPOR-TEST-20260709
+// DOĞRULAMA İMZASI: ITC-APSRAPOR-TEST-V2-20260709
 // =====================================================================
 import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -65,8 +65,16 @@ const mr = M.microRevealMetni(grid);
 dz('micro-reveal top domain = Imagination', mr.includes('Your strongest ground so far: Imagination.'), true);
 dz('experience_band yerleşir', M.experienceContextMetni('3–5 years').includes('journey: 3–5 years. Hold'), true);
 
+// Bekçi 1: checkIn bloğu veri dosyasında VAR (v0.2'de imza-sonrası blok
+// gözden kaçmıştı — bu bekçi o hatanın tekrarını önler).
+const veri = await import(pathToFileURL(join(t, 'aps-rapor.mjs')));
+dz('checkIn bloğu mevcut', typeof veri.apsRapor.checkIn === 'string' && veri.apsRapor.checkIn.length > 50, true);
+dz('sürüm v0.3', veri.apsRapor.meta.surum, 'v0.3');
+dz('holdYourDoorwayLightly anahtarı', typeof veri.apsRapor.page1.holdYourDoorwayLightly, 'string');
+dz("aktör kopyasında 'type' yok", /\btype\b/i.test(JSON.stringify([veri.apsRapor.page1, veri.apsRapor.domainler, veri.apsRapor.page5, veri.apsRapor.page6, veri.apsRapor.checkIn, veri.apsRapor.microReveal])), false);
+
 // Sert kural bekçisi: motor asla toplam/komposit üretmez (pack §0).
 dz('komposit skor alanı YOK', 'toplam' in grid || 'composite' in grid, false);
 
-console.log(hata ? `\n${hata} HATA` : '\nDENİZ FİKSTÜRÜ — TÜM TESTLER GEÇTİ (19/19)');
+console.log(hata ? `\n${hata} HATA` : '\nDENİZ FİKSTÜRÜ — TÜM TESTLER GEÇTİ (23/23)');
 process.exit(hata ? 1 : 0);

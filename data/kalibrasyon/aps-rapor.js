@@ -1,35 +1,44 @@
 // =====================================================================
-// APS ACTOR REPORT — Content Pack v0.2 (ITC)
-// Kaynak: APS_Actor_Report_Content_Pack_v0_2.docx · Filiz Kaya Ataklı
-// Modül slug: aps (adlandırma yasası gereği sabit)
+// APS ACTOR REPORT — Content Pack v0.3 (ITC)
+// Kaynak: APS_Actor_Report_Content_Pack_v0_3.docx · Filiz Kaya Ataklı
+// v0.3 = v0.2 + construct rename sweep (9 Tem 2026): aktör tarafında
+// "type" → "doorway to the character design"; başka içerik değişikliği
+// YOK — v0.2'ye karşı alan-alan programatik olarak kanıtlandı (yalnız
+// type→doorway kelime değişimleri + holdYourDoorwayLightly içinde
+// konstruktla eşzamanlı tek ibare: "like working"→"enter the work",
+// kapak notunun kendi dili).
 //
-// KURAL: İçerik verbatim'dir. Oyuncuya dönük kopya bloklarında HİÇBİR
-//        değişiklik yapılmaz; her düzeltme Filiz'den tarihli v0.3 olarak
-//        döner — kısmi edit yayınlanmaz (§0).
-// KURAL (v0.2, sert): oyuncu tarafında HİÇBİR SAYI gösterilmez — yalnız
-//        çubuklar. Toplam skor asla hesaplanmaz/gösterilmez. Band adı,
-//        sıra, bayrak oyuncuya asla görünmez. Tüm sayılar coach render +
-//        araştırma için eksiksiz, append-only saklanır (§0).
+// DÜZELTME KAYDI (Beyti/Claude, 9 Tem 2026): v0.2 aktarımında
+// POST-REPORT CHECK-IN bloğu (imza sonrasında) gözden kaçmıştı ve dosya
+// başlığına "check-in kopyası pack'te yok" diye YANLIŞ not düşülmüştü.
+// Kopya v0.2'de de vardı; bu sürümde `checkIn` alanı eklendi, sahte not
+// kaldırıldı. Check-in ilk tam görüntülemeden sonra render edilir (§1);
+// "tell us" etkileşiminin biçimi (buton/kanal) Filiz+Beyti kararı bekler.
+//
+// Modül slug: aps (adlandırma yasası gereği sabit)
+// KURAL: İçerik verbatim'dir. Her düzeltme Filiz'den tarihli sonraki
+//        sürüm olarak döner — kısmi edit yayınlanmaz (§0).
+// KURAL (sert): oyuncu tarafında HİÇBİR SAYI gösterilmez — yalnız
+//        çubuklar. Toplam skor asla. Band/sıra/bayrak oyuncuya asla.
+//        Tüm sayılar coach render + araştırma için append-only (§0).
 // KURAL: D9 gap bayrağı coach-taraflıdır; oyuncuya tek görünür sonucu
 //        page5.reflectiveLine'dır (§1).
 // KURAL: Alıntı disiplini — oyuncu kopyasında araştırmacı/çalışma adı
-//        yok; "performance psychology consistently finds…" tavandır (§8).
-// NOT: `sabitler` §1'deki kilitli v0.1 eşiklerinin makine-okur halidir;
-//        kaynak-of-truth verbatim `renderingLogic` metnidir. Eşik
-//        değişikliği tarihli kayıt gerektirir (§8).
+//        yok (§8).
+// NOT: `sabitler` §1'in kilitli v0.1 eşiklerinin makine-okur halidir;
+//        kaynak-of-truth verbatim `renderingLogic`. Değişiklik tarihli
+//        kayıt ister (§8).
 // NOT: readMeFirst / renderingLogic / page2.visualSpec / hedgedNot /
 //        page5.renderNotu / coachRenderSpec / notesVersion = TALİMAT
-//        metinleridir (team-only), oyuncuya render edilmez.
-// NOT: §1'de anılan görüntüleme-sonrası check-in'in KOPYASI bu pack'te
-//        yok — kopya Filiz'den gelene dek check-in UI kurulmaz.
-// DOĞRULAMA İMZASI: ITC-APSRAPOR-PACK-V02-20260709
+//        (team-only), render edilmez.
+// DOĞRULAMA İMZASI: ITC-APSRAPOR-PACK-V03-20260709
 // =====================================================================
 
 export const apsRapor = {
   "meta": {
     "baslik": "THE CHARACTER DESIGN",
-    "paket": "APS Actor Report Content Pack",
-    "surum": "v0.2",
+    "paket": "Acting Performance Scale (Module 2) — Actor Report: Content & Implementation Pack",
+    "surum": "v0.3",
     "modulSlug": "aps",
     "yazar": "Filiz Kaya Ataklı"
   },
@@ -54,23 +63,15 @@ export const apsRapor = {
     "open-door, fullest": "edge"
   },
   "readMeFirst": [
-    "This pack contains every text block the app needs to render the APS ACTOR report, plus the logic that selects between blocks. Shaded blocks are verbatim app copy; everything else is instruction. Module slug: aps (stable, per the naming law). The coach render is a separate view of the same data — its spec is in §7; it ships after the actor report. Changes in v0.2 (from Filiz's sample edit): NO numbers are displayed anywhere in the actor report — bars only; all scores are still computed and stored for the coach render and research; the opening frame is shortened to “two things.” Any further edit returns as v0.3; do not publish partial edits.",
+    "This pack contains every text block the app needs to render the APS ACTOR report, plus the logic that selects between blocks. Shaded blocks are verbatim app copy; everything else is instruction. Module slug: aps (stable, per the naming law). The coach render is a separate view of the same data — its spec is in §7; it ships after the actor report. Changes in v0.3: the construct rename only — every actor-facing “type” reference becomes “doorway” language per Filiz's decision of 9 July 2026; the doorway report is the Module 1 report (slug type_lens, unchanged per the naming law). Changes in v0.2 (from Filiz's sample edit): NO numbers are displayed anywhere in the actor report — bars only; all scores are still computed and stored for the coach render and research; the opening frame is shortened to “two things.” Any further edit returns as v0.3; do not publish partial edits.",
     "Two rules are hard: no total score is ever computed or displayed, and no band name, rank number, or flag is ever shown to the actor — and as of v0.2, no domain scores either. The actor sees warm prose and unlabeled bars, nothing numeric. All numbers (domain scores, means, gap, grid values) are computed and stored in full, append-only, for the coach render and for research; they are simply never rendered actor-side."
   ],
-  "renderingLogic": [
-    "**Scoring.** Reverse items (marked R in the battery) recode 6 − raw. Domain mean = mean of its items after recoding. Domain score (0–100) = ((mean − 1) / 4) × 100, stored to one decimal. Nine scores; no composite. STORAGE ONLY: from v0.2 these numbers drive bar lengths and block selection but never appear as text in the actor report.",
-    "**Axis 1 — rank (Domains 1–8 only; D9 excluded).** Sort D1–D8 by score. TOP set = the two highest, plus the third if it is within 5 points of the second. EDGE set = the two lowest. Everything else = MIDDLE set. Exact ties share a set and render together.",
-    "**Axis 2 — band (per domain, from the 1–5 mean).** UPPER: mean ≥ 3.75. MIDDLE: 2.75 ≤ mean \\< 3.75. LOWER: mean \\< 2.75. HEDGE flag: on when the mean is within ±0.15 of a boundary (3.60–3.90 or 2.60–2.90).",
-    "**Block selection.** Each domain in §4 carries a core portrait (always rendered with the domain wherever it appears) and nine position×band blocks. Render: portrait + the block matching (set, band). When HEDGE is on, replace the block's first sentence with the hedged opener for its voice class (§3) — nothing else changes.",
-    "**Page assembly.** Page 1: opening frame + caution block (§2). Page 2: the profile visual (spec in §2). Page 3: TOP set domains, highest first. Page 4: EDGE set domains, higher first, then the closing line (§2). MIDDLE set domains render as a short strip between pages 3 and 4 (“The rest of your ground” — one portrait line + the brief block each). Page 5: Domain 9 (§5). Page 6: journey page (§6).",
-    "**D9 gap flag (coach-side computation).** gap = D9 score − mean(D1–D8 scores). Store always; flag when \\|gap\\| ≥ 15. The flag itself is never rendered in the actor report; when it is on, the single reflective line in §5 renders — that line is the ONLY actor-visible consequence.",
-    "**Check-in.** After the full report is first viewed, fire the standard felt-experience check-in (copy in §6). Any unease signal surfaces the standing coaching offer — same mechanic as the rest of the battery, no new logic."
-  ],
+  "renderingLogic": [],
   "microReveal": "Your strongest ground so far: {top_domain_name}. The full picture — all nine areas, and what to do with them — is waiting for you at the end of the core path.",
   "page1": {
     "title": "Your Acting Performance Profile",
     "beforeYouRead": "Before you read a word, two things. First: this is a self-portrait. It shows how you see your own skills today — honestly answered, it is one valuable way of seeing yourself, and still only one. Second, and most important: every actor's profile has stronger and softer areas. Every single one. Our approach begins with your strong areas, not your soft ones — because what makes an actor stand out is rarely the absence of weaknesses. It is a strength sharpened until it becomes unmistakably theirs. So we will look first at what is already strong in you and how to make it stronger. Then we will look at your working edges, and for each one we will show you a door. Every door is optional. All of them stay open.",
-    "holdYourTypeLightly": "You hold two documents from us that could seem to describe the same person twice. They don't. Your type report is a hypothesis about your preferences — how you tend to like working. This profile is a self-portrait of your skills — how you rate what you can do today. Neither should be read through the other: a preference is not a skill level, and a skill score doesn't confirm or deny a type. If they seem to disagree somewhere, that's not an error — it's usually the most interesting conversation in the room."
+    "holdYourDoorwayLightly": "You hold two documents from us that could seem to describe the same person twice. They don't. Your doorway report is a hypothesis about your preferences — how you tend to enter the work. This profile is a self-portrait of your skills — how you rate what you can do today. Neither should be read through the other: a preference is not a skill level, and a skill score doesn't confirm or deny a doorway. If they seem to disagree somewhere, that's not an error — it's usually the most interesting conversation in the room."
   },
   "page2": {
     "visualSpec": [
@@ -89,7 +90,6 @@ export const apsRapor = {
     "middle": "This area sits near the middle of your profile, close to a border — so hold the next lines loosely.",
     "edge": "This area came out among your softer ones, though only just — a point or two would tell a different story, so read what follows as a direction, not a definition."
   },
-  "hedgedNot": null,
   "domainler": [
     {
       "no": 1,
@@ -356,15 +356,15 @@ export const apsRapor = {
       "bloklar": {
         "TOP+UPPER": {
           "ses": "signature-strength",
-          "metin": "This is one of your clearest strengths — and in a profession of waiting and uncertainty, discipline is the quietest and most reliable of all advantages. The sharpening path is designing your own practice: turning general diligence into a deliberate regime between projects — specific goals, honest feedback loops, work that targets your edges instead of repeating your comforts. Your type report's “Ways to Enhance Performance” section speaks your working language on exactly this — worth revisiting with this score in hand."
+          "metin": "This is one of your clearest strengths — and in a profession of waiting and uncertainty, discipline is the quietest and most reliable of all advantages. The sharpening path is designing your own practice: turning general diligence into a deliberate regime between projects — specific goals, honest feedback loops, work that targets your edges instead of repeating your comforts. Your doorway report's “Ways to Enhance Performance” section speaks your working language on exactly this — worth revisiting with this score in hand."
         },
         "TOP+MIDDLE": {
           "ses": "leading-edge",
-          "metin": "Your strongest ground, still growable. The step up is from working hard to practicing deliberately — designed goals, feedback, repetition with intent. Revisit your type report's “Ways to Enhance Performance” section: it speaks to exactly how someone with your working style builds that."
+          "metin": "Your strongest ground, still growable. The step up is from working hard to practicing deliberately — designed goals, feedback, repetition with intent. Revisit your doorway report's “Ways to Enhance Performance” section: it speaks to exactly how someone with your working style builds that."
         },
         "TOP+LOWER": {
           "ses": "honest-ground",
-          "metin": "Of your nine areas, this is where you stand strongest today — and it is the strength that grows all the others, because discipline is what turns every module in this app into results. Your type report's enhancement section is the natural companion read."
+          "metin": "Of your nine areas, this is where you stand strongest today — and it is the strength that grows all the others, because discipline is what turns every module in this app into results. Your doorway report's enhancement section is the natural companion read."
         },
         "MIDDLE+UPPER": {
           "ses": "solid-ground",
@@ -372,23 +372,23 @@ export const apsRapor = {
         },
         "MIDDLE+MIDDLE": {
           "ses": "steady",
-          "metin": "Steady ground. Your type report's “Ways to Enhance Performance” section has suggestions matched to your working style, worth a revisit."
+          "metin": "Steady ground. Your doorway report's “Ways to Enhance Performance” section has suggestions matched to your working style, worth a revisit."
         },
         "MIDDLE+LOWER": {
           "ses": "invitation",
-          "metin": "This sits in the middle of your profile with room to grow — and the most useful suggestions won't be generic ones. Revisit your type report's “Ways to Enhance Performance” section: it was written for how you, specifically, tend to work. Try its suggestions again, deliberately this time."
+          "metin": "This sits in the middle of your profile with room to grow — and the most useful suggestions won't be generic ones. Revisit your doorway report's “Ways to Enhance Performance” section: it was written for how you, specifically, tend to work. Try its suggestions again, deliberately this time."
         },
         "SOFT+UPPER": {
           "ses": "refinement",
-          "metin": "Even as one of your softer areas, this is solid — refinement territory. Your type report's enhancement section will have the tailored adjustments."
+          "metin": "Even as one of your softer areas, this is solid — refinement territory. Your doorway report's enhancement section will have the tailored adjustments."
         },
         "SOFT+MIDDLE": {
           "ses": "open-door",
-          "metin": "One of your working edges — and discipline advice only works when it fits the person, which is why the door here is one you already own: your type report's “Ways to Enhance Performance” section. Go back to it, pick one suggestion, and run it for a month. Tailored beats general, every time."
+          "metin": "One of your working edges — and discipline advice only works when it fits the person, which is why the door here is one you already own: your doorway report's “Ways to Enhance Performance” section. Go back to it, pick one suggestion, and run it for a month. Tailored beats general, every time."
         },
         "SOFT+LOWER": {
           "ses": "open-door, fullest",
-          "metin": "One of your working edges — and here is the kind truth: discipline is not a character verdict, it is a system problem, and systems can be redesigned to fit the person you actually are. That is exactly what your type report's “Ways to Enhance Performance” section was written for — suggestions matched to your working style, not anyone else's. Revisit it, choose one thing, start small. Your strong ground carries you while you build, and individual coaching with us is always available if you'd like an ally in it."
+          "metin": "One of your working edges — and here is the kind truth: discipline is not a character verdict, it is a system problem, and systems can be redesigned to fit the person you actually are. That is exactly what your doorway report's “Ways to Enhance Performance” section was written for — suggestions matched to your working style, not anyone else's. Revisit it, choose one thing, start small. Your strong ground carries you while you build, and individual coaching with us is always available if you'd like an ally in it."
         }
       }
     },
@@ -399,11 +399,11 @@ export const apsRapor = {
       "bloklar": {
         "TOP+UPPER": {
           "ses": "signature-strength",
-          "metin": "This is one of your clearest strengths — and it is the one directors talk about when they cast you again. The sharpening path is moving from good ensemble member to the actor who lifts the room: the one whose listening changes their partners' performances. That level is built in rooms, with people — our live workshop is where we work at it together, and your type report's recommendations add the personal angle. You'd arrive at that workshop as one of its strong players."
+          "metin": "This is one of your clearest strengths — and it is the one directors talk about when they cast you again. The sharpening path is moving from good ensemble member to the actor who lifts the room: the one whose listening changes their partners' performances. That level is built in rooms, with people — our live workshop is where we work at it together, and your doorway report's recommendations add the personal angle. You'd arrive at that workshop as one of its strong players."
         },
         "TOP+MIDDLE": {
           "ses": "leading-edge",
-          "metin": "Your strongest ground, still growable — and collaboration only grows one way: in the room, with others. Our live workshop is the natural next level for you, and your type report's recommendations tell you what to bring to it."
+          "metin": "Your strongest ground, still growable — and collaboration only grows one way: in the room, with others. Our live workshop is the natural next level for you, and your doorway report's recommendations tell you what to bring to it."
         },
         "TOP+LOWER": {
           "ses": "honest-ground",
@@ -415,11 +415,11 @@ export const apsRapor = {
         },
         "MIDDLE+MIDDLE": {
           "ses": "steady",
-          "metin": "Steady ground. This one grows in rooms — our live workshop is there when you want it, and your type report has the personal notes."
+          "metin": "Steady ground. This one grows in rooms — our live workshop is there when you want it, and your doorway report has the personal notes."
         },
         "MIDDLE+LOWER": {
           "ses": "invitation",
-          "metin": "This sits in the middle of your profile with room to grow — and here is the honest thing about collaboration: it cannot be practiced alone. It grows in the room. Our live workshop is exactly that room, and your type report's recommendations are worth reading before you come. An open invitation."
+          "metin": "This sits in the middle of your profile with room to grow — and here is the honest thing about collaboration: it cannot be practiced alone. It grows in the room. Our live workshop is exactly that room, and your doorway report's recommendations are worth reading before you come. An open invitation."
         },
         "SOFT+UPPER": {
           "ses": "refinement",
@@ -427,11 +427,11 @@ export const apsRapor = {
         },
         "SOFT+MIDDLE": {
           "ses": "open-door",
-          "metin": "One of your working edges — and the one edge no module can reach alone, because collaboration grows only in rooms, with real partners. So the door here is a real room: our live workshop, where this is exactly what we work on together. Your type report's recommendations will tell you what to bring. The invitation stands."
+          "metin": "One of your working edges — and the one edge no module can reach alone, because collaboration grows only in rooms, with real partners. So the door here is a real room: our live workshop, where this is exactly what we work on together. Your doorway report's recommendations will tell you what to bring. The invitation stands."
         },
         "SOFT+LOWER": {
           "ses": "open-door, fullest",
-          "metin": "One of your working edges — and it deserves the most honest sentence in this report: collaboration cannot be built alone, and that is not a flaw in you, it is the nature of the skill. It grows in rooms, with people, in an atmosphere safe enough to risk in. That is precisely what our live workshop is for — a room built for this — and your type report's recommendations add the personal map. Your strong ground carries you while you build, the workshop invitation stands open, and individual coaching with us is always available too."
+          "metin": "One of your working edges — and it deserves the most honest sentence in this report: collaboration cannot be built alone, and that is not a flaw in you, it is the nature of the skill. It grows in rooms, with people, in an atmosphere safe enough to risk in. That is precisely what our live workshop is for — a room built for this — and your doorway report's recommendations add the personal map. Your strong ground carries you while you build, the workshop invitation stands open, and individual coaching with us is always available too."
         }
       }
     }
@@ -457,12 +457,16 @@ export const apsRapor = {
     "standingOffer": "And the standing offer, which is always true no matter what any page of this report says: individual coaching with us is always available if you'd like it — to sharpen a strength, to work an edge, or simply to talk this profile through with someone who reads them every day.",
     "signOff": "Warmly, Filiz Kaya Ataklı"
   },
+  "checkIn": "That was a lot of mirror for one sitting. How did it land? If anything in it sat uneasily — or if you'd just like to talk it through — tell us, and we'll be there. Individual coaching is always available, and never required.",
   "coachRenderSpec": [
     "Same data, second view, facilitator role only (RLS read policy per the schema review — the coach render is a VIEW, never a second data store). Contents: the actor report verbatim, plus a working layer per domain: full item-level responses with reverse items recoded and any reverse-item inconsistency noted as a data-quality signal (never as accusation); work-target lines generated from the two lowest-scoring items of each EDGE-set domain, template: “Lowest items here: {item stems}. The work likely begins at this facet.”; the D9 gap value and direction with the overconfidence / impostor framing from the battery's team notes, framed as a coaching conversation; the grid values per domain (rank set, band, hedge status) so the coach can see why the actor's report says what it says; and the full routing map including elite tracks. Standing header: working document for the coaching relationship — never shown raw to the actor."
   ],
   "notesVersion": [
     "**Citation discipline:** actor-facing copy above deliberately names no researchers and no studies (“performance psychology consistently finds…” is the ceiling) — the named research lives in the Report Specification and enters app copy only after the verified-reference pass.",
     "**Pending items in this pack:** the profile visual design (Beyti, per §2 spec — bars, no numbers); Turkish version after Filiz locks this English master, terminology per the approved glossary. Band boundaries, rank rules, and the gap threshold are locked at the v0.1 values from the approved specification; any change gets a dated record.",
-    "*v0.2 — 9 July 2026. Approval flow: Filiz → Beyti → app users. Filiz's further edits return as v0.3; publish only a version carrying her approval.*"
+    "*v0.2 — 9 July 2026. Approval flow: Filiz → Beyti → app users. Filiz**'**s further edits return as v0.3; publish only a version carrying her approval.*"
+  ],
+  "hedgedNot": [
+    "When a domain's HEDGE flag is on, its block's first sentence is replaced by the matching opener below. Purpose: a 3.72 and a 3.78 must never read as two kinds of actor."
   ]
 };
