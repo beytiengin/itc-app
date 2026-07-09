@@ -1,49 +1,287 @@
 // =====================================================================
-// ITC — Type Lens Reports · 16/16 TAM SET
-// (Kaynak marka "The Character Design" — Filiz'in Claude'undaki ad; Karar 64 §10
-//  kalıcı talimatıyla oyuncu-yüzü metinlerde ITC'ye normalize edilir.)
-// Instrument author: Filiz Kaya Ataklı
-// ENFP v0.2 (master şablon) · ESFJ v0.2 · 5 × v0.1 rewrite · 9 × v0.1 new
+// THE CHARACTER DESIGN — Doorway Reports (ITC) · Doorway Release
+// Instrument author: Filiz Kaya Ataklı · isim seti onayı: 9 Temmuz 2026
+// 16/16 doorway raporu: Spark+Hearth v0.3 · Bridge v0.1 (AUDIT PENDING —
+// Filiz'in 44-madde üç-geçişli denetimi onaydan önce şart; sürüm satırı ve
+// teamNote'ta verbatim; teamSideAppendix'i Core Report capstone içindir,
+// bu raporda ASLA render edilmez) · kalanlar v0.2.
 //
-// KURAL: İçerik verbatim'dir — kaynaklar: The_<TYPE>_v0_*.docx (16 belge).
-//        Metinlerde HİÇBİR değişiklik yapılmaz; düzeltme yalnız Filiz'den
-//        gelen yeni sürümle olur.
-// KURAL: `teamNote` alanları KATILIMCIYA ASLA gösterilmez. Rapor gövdesi
-//        (battery teamNotes'un aksine) OYUNCUYA DÖNÜK içeriktir.
-// KURAL: Display-name slotu bilinçli boştur — rapor yalnız dört harf
-//        üzerinden çalışır; tip adı/etiketi asla render edilmez.
-// KURAL: Nearest neighbour ASLA oyuncu raporunda gösterilmez; app
-//        hesaplar ve saklar (en dar marjlı eksen çevrilir, marjıyla) —
-//        kolaylaştırıcı aracıdır.
-// KURAL (Karar — Tip Soruları Konumlandırması, Filiz onaylı / B):
-//        `sorular` setleri serbest keşif katmanında (Kulis) yaşar;
-//        travma-duyarlı bağlamda render katmanı şablon F ailesinden
-//        koruyucu çerçeve notunu basar — veriye metin gömülmez.
-// NOT: Metin içi **kalın** vurgular Filiz'in orijinal vurgularıdır;
-//        render katmanı işler. `vurgu: true` maddeler italik yönerge
-//        bloklarıdır; karakter yürüyüşü yönergesi tipe göre uyarlanmıştır
-//        ("Now stop planning/analyzing/... and walk for a while...").
-// DOĞRULAMA İMZASI: ITC-TIPRAPOR-16OF16-20260708
+// KONSTRUKT ADI (kapak notu, 9 Tem 2026): aktör tarafında "type" YOK —
+// konstrukt "doorway to the character design"dir. DB slug'ı type_lens
+// adlandırma yasası gereği ASLA değişmez; yalnız görünen ad değişti.
+//
+// KURAL: İçerik verbatim'dir — kaynak: 15 × The_<Name>_v0_x.docx +
+//        00_Cover_Note_Doorway_Release.docx. Her düzeltme Filiz'den
+//        sonraki sürüm olarak döner.
+// KURAL: Dört harf kodları (`internalKey`) YALNIZ iç anahtardır — DB,
+//        blok seçimi, komşu hesabı. AKTÖR TARAFINDA ASLA RENDER EDİLMEZ,
+//        raporun kendi içinde bile. İsim, beforeYouRead'in son
+//        paragrafında hipotez çerçevesiyle açılır (**Ad** vurgusu
+//        Filiz'indir; KalinIsle işler).
+// KURAL (app cümlesi): sonuçlar "Your doorway to the character design
+//        may be The Spark" olarak ifade edilir — asla "You are a Spark",
+//        asla "your type". "may be" taşıyıcıdır.
+// KURAL: "Questions to Ask in Character Design" bölümü TÜM raporlardan
+//        kaldırıldı — yalnız Combined Core Report Spec Pack capstone
+//        bölümünde yaşar (tip-koşullu). Tip Soruları Konumlandırması (B)
+//        kararının veri kaynağı o pack geldiğinde oradan bağlanır.
+// KURAL: `teamNote` alanları katılımcıya asla gösterilmez.
+// NOT: Bekleyen sweep'ler (kapak notu, Filiz sıralar): APS pack v0.3
+//        ("Hold your doorway lightly"), Combined Core Report Spec v0.3,
+//        battery master Modül 1 görünen adı + tarihli kayıt. Gelene dek
+//        ilgili canlı metinler kendi verbatim sürümlerinde kalır.
+// NOT: "Doorway" teriminin M4 Access Channel diliyle ("doorway into
+//        imagination") çakışması Filiz'e soruldu — cevaba göre kayıt düşülür.
+// DOĞRULAMA İMZASI: ITC-DOORWAY-16OF16-20260709
 // =====================================================================
 
 export const tipRaporlari = {
   meta: {
-    baslik: "INSIDE THE CHARACTER — Type Lens Report",
+    // Render edilen üst başlık — marka ITC normalizasyonu Beyti kuralı;
+    // kaynak başlık verbatim olarak kaynakBaslik'ta.
+    baslik: "ITC — Your Doorway to the Character Design",
+    kaynakBaslik: "THE CHARACTER DESIGN — Your Doorway to the Character Design",
     kaynakModul: "type_lens",
     yazar: "Filiz Kaya Ataklı",
-    mevcut: ["ENFP", "ENFJ", "ENTJ", "ENTP", "ESFJ", "ESFP", "ESTJ", "ESTP", "INFJ", "INFP", "INTJ", "INTP", "ISFJ", "ISFP", "ISTJ", "ISTP"],
-    bekleyen: [],
+    release: "Doorway Release · 9 July 2026",
+    sonucCumlesiKalibi: "Your doorway to the character design may be {ad}.",
+    adAnahtar: {
+      "The Arrow": "ESTP",
+      "The Compass": "ENTJ",
+      "The Cornerstone": "ISTJ",
+      "The Harbor": "ISFJ",
+      "The Hearth": "ESFJ",
+      "The Lantern": "INFJ",
+      "The Map": "INTJ",
+      "The Prism": "ENTP",
+      "The Pulse": "ESFP",
+      "The Question": "INTP",
+      "The Scaffold": "ESTJ",
+      "The Spark": "ENFP",
+      "The Still Water": "ISFP",
+      "The Wellspring": "INFP",
+      "The Workbench": "ISTP",
+      "The Bridge": "ENFJ"
+},
+    bekleyenYeniFormat: [],
   },
 
   raporlar: {
-    "ENFP": {
-      "kod": "ENFP",
-      "surum": "v0.2 (nearest neighbour moved team-side; item-harvest additions)",
+    "ENFJ": {
+    "ad": "The Bridge",
+    "internalKey": "ENFJ",
+    "surum": "v0.1 (new — drafted 9 July 2026, the last of the sixteen; ITEM AUDIT PENDING: Filiz's three-pass audit against the 44 items is required before approval; doorway register applied from birth; question section renders in the CORE REPORT only, appended here team-side)",
+    "ustBaslik": "Let's Talk About You…",
+    "teamNote": "[Team note — not shown to participants: display name: The Bridge (doorway register, approved 9 July 2026). Internal key ENFJ — database and block-selection only, never rendered anywhere actor-side, including this report. The nearest neighbour is NEVER rendered in the actor's report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator's tool — in coaching, the first alternative to offer if the report isn't landing. AUDIT FLAG: this report was drafted without the item-harvest pass — every claim below must be traced to the 44 questionnaire items before this leaves v0.1; lore claims retained at Filiz's judgment.]",
+    "beforeYouRead": [
+      "What you're holding is not a verdict, and it is not a box. It's a hypothesis — our best first guess at how you naturally work, built entirely from your own answers. Read it the way you'd read a good director's note: try it on, test it against your own experience, keep what fits, and drop what doesn't without a second thought. Not every line will be true of you, and not every remedy works for everyone.",
+      "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's.",
+      "One more thing. We've given this way of working a name: your doorway may be **The Bridge**. Hold the name the way you hold everything else here — a may-be, not a badge."
+    ],
+    "firstSketch": [
+      "You are warm, expressive, persuasive, attentive, purposeful, generous with encouragement — a natural connector of people, and a natural believer in them.",
+      "If we had to say it in one line: where others see people as they are, you see who they could become — and you can't help building the way across.",
+      "A room, for you, is never just a collection of individuals. The moment you enter, you're reading it — who's at ease, who's braced, who has something they're not saying, which two people need each other and don't know it yet. And you don't only read it: you move it. A word of encouragement placed exactly right, a question that opens someone up, the warmth that lets a tense rehearsal breathe again — this is your native language, and you speak it before you've decided to.",
+      "People's potential is almost physically visible to you. You look at a shy colleague and see the performance they haven't dared yet; you look at a rough scene and see what it's trying to become. This forward-seeing is your engine: you're pulled toward growth — yours, other people's, the work's — the way some actors are pulled toward applause. Helping someone become more themselves may be the single most satisfying thing you know.",
+      "You express as naturally as you perceive. Feeling reads clearly on you; words come warm and well-aimed; when you speak about something that matters, rooms listen. And you like a direction — an aim, a shared purpose, a rehearsal that's going somewhere. You'll organize the group toward it without being asked, because a gathering of talented people pointed nowhere strikes you as a small tragedy.",
+      "In the room, you tend to work through the relationship: with your scene partner, with the director, with the audience you can feel even through a camera. Connection isn't a byproduct of your acting — it's the material."
+    ],
+    "talentsGiris": "Creative talents are your gems — the resources that let you make a difference. They're also needs: a way of working that starves them will starve you. So the first job is simply to know them and to build your working life around them. Here are yours:",
+    "talents": [
+      {
+        "baslik": "The reader who moves the room.",
+        "metin": "You register the emotional truth of a room in real time — and then, unlike most sensitive people, you act on it: the encouraging word at the exact right moment, the tension named before it hardens, the timing of when to push and when to wait. On stage this becomes something directors treasure: an actor whose attention is genuinely on the partner, whose reactions are alive because they're actually reacting. Your listening isn't technique; it's how you're built."
+      },
+      {
+        "baslik": "The eye for who someone could become.",
+        "metin": "You see latent gifts — in colleagues, in students, in characters. Handed a role, you instinctively read its arc: not only who this person is on page one, but who they're becoming and what's in the way. Transformation, the hardest thing to play, is native ground for you — you feel the distance between a person's present and their possible, because you spend your life looking at exactly that distance."
+      },
+      {
+        "baslik": "The voice that carries.",
+        "metin": "You communicate with warmth and force at once: text lands, feeling reads, intentions arrive. Whether it's a monologue, a company meeting, or a scene that needs someone to raise the emotional stakes, your expressiveness is an instrument that's already tuned. Audiences feel spoken to, not performed at."
+      },
+      {
+        "baslik": "The gatherer toward a purpose.",
+        "metin": "You don't just keep a company warm — you point it somewhere. You're the one who gets the ensemble aligned, who turns six individual performances into one production, who makes people feel their work matters to something larger. Companies with you in them don't only get along; they get somewhere. That is leadership, whether or not anyone puts the word on it."
+      },
+      {
+        "baslik": "Belief as a working tool.",
+        "metin": "Your encouragement changes what people attempt. The colleague who risks the bigger choice, the scene partner who finally lets go — often it's because your belief in them arrived before their own did. In an art form built on risking in front of others, an actor who makes others braver is quietly making the whole production better."
+      }
+    ],
+    "obstaclesGiris": "Talents always travel with side-effects — every single one casts its own shadow. If you're gifted at reading the room, you'll also tend to live at the room's mercy, and so on. Naming the shadow takes away most of its power. Let's name yours:",
+    "obstacles": [
+      {
+        "baslik": "Everyone's becoming except your own.",
+        "metin": "You'll spend an afternoon on a colleague's confidence, a week on a student's breakthrough, a season on a company's health — and arrive at your own scenes with the tank half empty. The developer's eye rarely turns inward; the one who grows everyone can quietly stop growing. Your generosity is real, and it has a budget."
+      },
+      {
+        "baslik": "Harmony at the price of truth.",
+        "metin": "You want the room whole, so you smooth — the hard note softened, the honest disagreement swallowed, the conflict resolved before it finished saying what it came to say. But scenes are made of friction, characters are made of what's unresolved in them, and companies grow through disagreements survived. The instinct that keeps the peace can also sand the edges off your work — and off your own honest voice."
+      },
+      {
+        "baslik": "The room's approval as your compass.",
+        "metin": "You feel how you're landing — constantly, precisely — and that sensitivity can quietly become steering. Praise pulls, criticism wounds, and on a hard day the room's read of you can drown out your own. An actor who plays to be approved of gives the room what it already wanted; your best work will come from somewhere the applause can't reach."
+      },
+      {
+        "baslik": "Loving the potential, missing the person.",
+        "metin": "You see who someone could become so vividly that you can stop seeing who they are — and feel the disappointment when reality declines to match the vision. In life this costs you; in character work it has a specific price: the temptation to play a character's best self, their arc, their redemption, when the scene needs their present truth — small, stuck, and not yet redeemed."
+      },
+      {
+        "baslik": "Yes to every becoming.",
+        "metin": "Someone needs mentoring, a company needs organizing, a friend needs believing in — and your yes is out before your calendar is consulted. The overcommitment isn't vanity; it's that other people's growth genuinely calls to you. But ten half-tended gardens grow less than three well-tended ones, and one of those gardens is supposed to be yours."
+      }
+    ],
+    "remediesGiris": "Now that the talents and their shadows are on the table, here are our suggestions — ways to protect the gems and shrink the side-effects. You may already be using some of them; if so, wonderful. If not, try each one and watch honestly how it works for you. Keep what serves you, drop what doesn't. Not every remedy works for everyone.",
+    "remedies": [
+      {
+        "baslik": "Trust your strengths.",
+        "metin": "Choose work where connection is the material: ensembles, companies with a shared purpose, roles built on relationship. Your attunement, your expressiveness, and your gift for making others braver are not soft extras around the “real” craft — in a collaborative art they are close to the center of it. In your hands, connection is a technique."
+      },
+      {
+        "baslik": "Put your own becoming on the schedule.",
+        "metin": "The developer's eye works on whatever it's pointed at — so point it at yourself, deliberately and regularly: your next skill, your next risk, the role that scares you. Treat your own growth as a commitment to a person you don't let down. Because that's what it is."
+      },
+      {
+        "baslik": "Let the ugly be ugly.",
+        "metin": "Practice, on purpose, the scenes your harmony-instinct resists: the conflict that doesn't resolve, the character who wounds and doesn't apologize, the honest note delivered whole. Let a disagreement in the rehearsal room finish its sentence before you soothe it. The friction you want to smooth is very often the exact material the work needs — and your warmth is strong enough to survive the truth."
+      },
+      {
+        "baslik": "Your read first, then the room's.",
+        "metin": "Before you check how it landed, write down — literally, in a notebook — what you thought of your own work. One sentence is enough. Consult your compass before the room's, every time, until yours is the louder of the two. Praise and criticism both matter less to an actor who has already given an honest verdict."
+      },
+      {
+        "baslik": "Play who they are before who they could become.",
+        "metin": "When you build a character, do the present tense first: this person, today, stuck exactly here — before the arc, before the redemption, before the becoming your eye leaps to. The transformation you play so well only lands if the starting point was true. Build the mud before the wings."
+      },
+      {
+        "baslik": "Ration the tending.",
+        "metin": "Your care for others is a gift with a budget — spend it deliberately. On any production, your first responsibility is the character you were hired to build; the mentoring, the mediating, the believing-in come from what's left, not from the top. And if the weight of everyone else's weather ever starts to cost you — your energy, your ease, your own work — talking it through with someone is always an option; individual coaching is available whenever you'd like it, no pressure, entirely your choice."
+      }
+    ],
+    "finallySection": [
+      "You've chosen a profession that runs on your exact materials: reading people, moving people, and building believable human beings out of relationship and change. Your attunement goes straight into scene work, your expressiveness carries text the way it was meant to be carried, and your gift for gathering people toward a purpose makes every company you join more than the sum of its actors. You are, often without anyone naming it, part of why good productions feel like they're going somewhere. Hooray!",
+      "And notice the pairing that makes you rare: warmth and direction in the same person. Plenty of actors are warm; plenty are driven; the heart of the room that also knows where the room is going is a different creature entirely, and directors build around it. Know that worth in a casting room — you may be tempted to undersell exactly the combination that makes you hard to replace.",
+      "Your best environments are purposeful and human: ensembles that mean something to their members, companies with a direction, rooms where growth is welcome. Your one real hazard is the cynical or fractured production — a room that has stopped believing in itself — where you can spend your entire artistic budget trying to heal a company that didn't hire you as its healer. When you find yourself there, ration the tending, protect your scenes, and remember that not every room can be bridged.",
+      "About technique: your doorway is people and connection, reached through feeling and through your eye for who someone is becoming — so you'll likely work best inside-out, beginning from who the character loves, answers to, and is trying to become, and building the rest from those living bonds. That path is natively yours. One thing to be precise about, because it matters: **inside-out means building the character's inner life first.** The bonds and hopes you play are designed and owned by the character — grown from the character's people, the character's history, who the character loves and who the character is trying to become. It is never an invitation to dig up your own. You imagine your way in; you don't excavate. Your empathy and your eye for what people could be are strong enough to build everything the role needs — that is, in fact, the whole point of them."
+    ],
+    "kapanis": "Thank you for joining this journey with us — let's see what comes next…",
+    "imza": "Warmly, Filiz Kaya Ataklı",
+    "teamSideAppendix": {
+      "baslik": "Appendix — team only: The Bridge · Questions to Ask in Character Design",
+      "teamNote": "[Team note — this section is NEVER rendered in this report. It is The Bridge's doorway-conditional question section for the CORE REPORT capstone (Spec Pack v0.3, Ch. 3), drafted directly in the approved “your character” register. Same item-audit gate applies.]",
+      "sorular": [
+        {
+          "metin": "All of us have a different doorway into understanding. Yours is people and connection — you understand a character through who they love, who they answer to, and who they're trying to become. So your set begins with your character's people, and then, deliberately, keeps going into the private ground your outward attention can otherwise pass by. Give the alone-questions as much time as the together-questions."
+        },
+        {
+          "metin": "Start with the people:",
+          "vurgu": true
+        },
+        {
+          "metin": "Who are the people around your character? Who matters most, and why?"
+        },
+        {
+          "metin": "What does your character mean to each of them — and what does each of them mean to your character?"
+        },
+        {
+          "metin": "Who does your character love, protect, answer to, perform for, avoid?"
+        },
+        {
+          "metin": "When and how did your character meet that person (the one who matters most now)?"
+        },
+        {
+          "metin": "Who believes in your character — and who gave up? What did each one leave behind?"
+        },
+        {
+          "metin": "The becoming:",
+          "vurgu": true
+        },
+        {
+          "metin": "Who is your character trying to become — and for whom?"
+        },
+        {
+          "metin": "Who did your character once try to become, and abandon? What happened, and what remains of it?"
+        },
+        {
+          "metin": "What does your character want most from life right now? Why does it matter that much? How does that shape the moves, actions and feelings?"
+        },
+        {
+          "metin": "Why doesn't your character have it? What is in the way? What is stopping the step from being taken?"
+        },
+        {
+          "metin": "What happens if your character doesn't get it? What is there to lose? What actions and gestures does that bring?"
+        },
+        {
+          "metin": "Now the private ground — stay here as long as you stayed with the people:",
+          "vurgu": true
+        },
+        {
+          "metin": "How is life at the moment for your character?"
+        },
+        {
+          "metin": "What does your character feel when completely alone, door closed, no one to read?"
+        },
+        {
+          "metin": "How does your character feel about themselves?"
+        },
+        {
+          "metin": "What were your character's most common emotions? How did your character express them — and to whom would they never be shown?"
+        },
+        {
+          "metin": "Your character's earliest memory? · Happiest memory? · Saddest memory? · The biggest pain in your character's life? · The biggest joy? · What did your character play as a child — which games, and with whom? · How has your character's posture changed over time — at 5, 10, 15…? · What feelings and sensations come to your character in times of distress?",
+          "vurgu": true
+        },
+        {
+          "metin": "What is your character most afraid of in life right now? How does that shape the moves, actions and feelings?"
+        },
+        {
+          "metin": "Is there love in your character's life right now? What feelings and actions does it bring?"
+        },
+        {
+          "metin": "Is there someone your character once loved but no longer does? If so, what happened? What is the legacy of it in your character's life, feelings, body, and relationship patterns?"
+        },
+        {
+          "metin": "Imagine an ordinary day of your character's, from waking up to going back to bed. Notice the feelings and interactions throughout the day — and notice who your character becomes with each person met. Take notes."
+        },
+        {
+          "metin": "Imagine people's eyes on your character — their looks landing. What does your character feel?"
+        },
+        {
+          "metin": "Walk for a while as your character. Notice your posture and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as your character? And notice: who does your character hope is watching? Take notes.",
+          "vurgu": true
+        },
+        {
+          "metin": "Shift the frame:",
+          "vurgu": true
+        },
+        {
+          "metin": "How else could you see your character?"
+        },
+        {
+          "metin": "Seen through the eyes of the person who loves your character most — what do you notice? And through the eyes of the person your character has hurt most?"
+        },
+        {
+          "metin": "Can you imagine anything else?"
+        },
+        {
+          "metin": "How would your favorite actor approach this character? What would they do with your character?"
+        }
+      ],
+      "not": "ASLA bu raporda render edilmez — Core Report capstone (Spec Pack v0.3, Ch. 3) içindir; aynı item-audit kapısına tabidir."
+    },
+    "auditFlag": "ITEM AUDIT PENDING — Filiz'in 44 maddeye karşı üç-geçişli denetimi onaydan önce şarttır (sürüm satırı + teamNote, verbatim). v0.1'den çıkana dek her iddia madde-izli olmalı."
+  },
+  "ENFP": {
+      "ad": "The Spark",
+      "internalKey": "ENFP",
+      "surum": "v0.3 (doorway name applied and construct renamed — doorway to the character design — 9 July 2026; question section moved to the Combined Core Report; polish pass)",
       "ustBaslik": "Let's Talk About You…",
-      "teamNote": "[Team note — not shown to participants: the display-name slot for this type is deliberately empty; the report runs on the four letters only. The nearest neighbour is NEVER rendered in the actor's report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator's tool — in coaching, the first alternative to offer if the report isn't landing.]",
+      "teamNote": "[Team note — not shown to participants: display name: The Spark (doorway register, approved 9 July 2026). Internal key ENFP — database and block-selection only, never rendered anywhere actor-side, including this report. The nearest neighbour is NEVER rendered in the actor's report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator's tool — in coaching, the first alternative to offer if the report isn't landing.]",
       "beforeYouRead": [
         "What you're holding is not a verdict, and it is not a box. It's a hypothesis — our best first guess at how you naturally work, built entirely from your own answers. Read it the way you'd read a good director's note: try it on, test it against your own experience, keep what fits, and drop what doesn't without a second thought. Not every line will be true of you, and not every remedy works for everyone.",
-        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's."
+        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's.",
+        "One more thing. We've given this way of working a name: your doorway may be **The Spark**. Hold the name the way you hold everything else here — a may-be, not a badge."
       ],
       "firstSketch": [
         "You are warm, enthusiastic, imaginative, spontaneous, curious, expressive, playful with language, quick to connect — with ideas and with people alike.",
@@ -129,358 +367,19 @@ export const tipRaporlari = {
         "Your best environments are warm, flexible, and varied — few rigid rules, room to try things, colleagues who enjoy the search as much as the result. You can absolutely work inside structure; you just shouldn't live your whole life there.",
         "About technique: you'll likely be drawn to inside-out ways of working — starting from the character's inner life and letting the outside follow. That suits you. But let's be precise about one thing, because it matters: **inside-out means building the character's inner life first.** The emotions you work with on stage are designed and owned by the character — constructed from the character's story, the character's memories, the character's wounds. It is never an invitation to dig up your own. You imagine your way in; you don't excavate. Your imagination is strong enough to build everything the role needs — that is, in fact, the whole point of it."
       ],
-      "sorularGiris": "All of us have a different doorway into understanding. Yours is imagination — connections, possibilities, stories. You don't need to collect every physical detail first; you need the right questions, and your imagination does the rest. Here is the set built for the way your mind works. Use it playfully — jump around, follow the heat.",
-      "sorular": [
-        {
-          "metin": "What do we know about the character's present, past and future?"
-        },
-        {
-          "metin": "In what ways might we understand her/him better?"
-        },
-        {
-          "metin": "How else could we see her/him?"
-        },
-        {
-          "metin": "What is the big picture? What is she/he doing, trying to accomplish, feel, be?"
-        },
-        {
-          "metin": "What could we learn about this character if we could time-travel with them?"
-        },
-        {
-          "metin": "— Earliest memory of my character?  ·  Happiest memory?  ·  Saddest memory?  ·  Where did she/he get most embarrassed?  ·  The biggest pain in my character's life?  ·  The biggest joy?  ·  What did she/he play as a child — which games, and why?  ·  How has her/his posture changed over time — at 5, 10, 15…?  ·  When and how did my character meet that person (the one who matters most now)?  ·  What feelings and sensations come in times of distress?",
-          "vurgu": true
-        },
-        {
-          "metin": "Which senses does this character use most? Are there any seeing, hearing or feeling deficits?"
-        },
-        {
-          "metin": "What were her/his most common emotions? How did she/he express them?"
-        },
-        {
-          "metin": "How is life at the moment for her/him?"
-        },
-        {
-          "metin": "How are her/his relationships? Who are the people around her/him?"
-        },
-        {
-          "metin": "Who does she/he get along with best — and worst?"
-        },
-        {
-          "metin": "How does she/he feel about herself/himself?"
-        },
-        {
-          "metin": "Imagine an ordinary day of hers/his, from waking up to going back to bed. Notice her/his feelings and interactions throughout the day, and take notes."
-        },
-        {
-          "metin": "Imagine people's eyes on her/him — their looks landing on your character. What does she/he feel?"
-        },
-        {
-          "metin": "What is your character's sexual orientation? Is she/he comfortable with it? How?"
-        },
-        {
-          "metin": "Is there love in her/his life right now? What feelings and actions does it bring?"
-        },
-        {
-          "metin": "Is there someone she/he once loved but no longer does? If so, what happened? What is the legacy of it in her/his life, feelings, body, and relationship patterns?"
-        },
-        {
-          "metin": "What is she/he most afraid of in life right now? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "What does she/he want most from life right now? Why does it matter that much? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "Why doesn't she/he have it? What is in the way?"
-        },
-        {
-          "metin": "What would she/he have to do to meet that need? What feelings, body sensations, actions and gestures does that bring?"
-        },
-        {
-          "metin": "What is stopping her/him from taking the step?"
-        },
-        {
-          "metin": "What happens if she/he doesn't get it? What is there to lose? What actions and gestures does that bring?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your posture and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as the character? Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "How else could you see all this?"
-        },
-        {
-          "metin": "What other time-travel would you like to take with your character?"
-        },
-        {
-          "metin": "If you shift your perspective now — what else do you notice about your character?"
-        },
-        {
-          "metin": "Can you imagine anything else?"
-        },
-        {
-          "metin": "How would your favorite actor approach this character? What would she/he do with your character?"
-        }
-      ],
-      "kapanis": "Thank you for joining this journey with us — let's see what comes next…",
-      "imza": "Warmly, Filiz Kaya Ataklı"
-    },
-    "ENFJ": {
-      "kod": "ENFJ",
-      "surum": "v0.1 (rewrite of Filiz's original sample; item-audit applied)",
-      "ustBaslik": "Let's Talk About You…",
-      "teamNote": "[Team note — not shown to participants: display-name slot deliberately empty; the report runs on the four letters only. The nearest neighbour is NEVER rendered in the actor's report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator's tool — in coaching, the first alternative to offer if the report isn't landing.]",
-      "beforeYouRead": [
-        "What you're holding is not a verdict, and it is not a box. It's a hypothesis — our best first guess at how you naturally work, built entirely from your own answers. Read it the way you'd read a good director's note: try it on, test it against your own experience, keep what fits, and drop what doesn't without a second thought. Not every line will be true of you, and not every remedy works for everyone.",
-        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's."
-      ],
-      "firstSketch": [
-        "You are warm, empathetic, responsible, sociable, optimistic, supportive, inspiring — a gatherer of people, a spotter of potential, an organizer of hope.",
-        "If we had to say it in one line: you want to make the world a better place, with art.",
-        "Your ambition is real, but it has never been only for yourself. You feel personally responsible for leaving people, rooms, and stories better than you found them — and you have the rare combination that makes this more than a wish: you sense what people are feeling, you see what they could become, and you know how to move them toward it. In any company you join, you soon find yourself — invited or not — tending the group's growth.",
-        "You are the room's emotional barometer. The temperature of a rehearsal reaches you before anyone names it; other people's feelings arrive in your body almost as if they were your own. This is a genuine instrument — you read a scene partner, a director's mood, an audience, with an accuracy others have to work years for. It also means the room's weather is never quite outside you. Praise warms you deeply, criticism lands deep too, and you tend to feel the standard of the people around you — director, audience, partners — before you feel your own.",
-        "Your ideas live out loud. They grow in conversation, in improvisation, in the middle of the room — you often discover what you think by saying it to someone. A character becomes real for you through people: playing scenes, getting reactions, talking it into shape.",
-        "And here is the thing that surprises people who only know your warmth: you are an idealist with a calendar. Your imagination reads between the lines, follows hunches, builds the character's possible worlds — and then lands all of it on a plan. You decide the spine first and gather what fits it; you prepare early and steadily; your working script is marked, scheduled, systematized; and when a choice is made you feel relief — settled, ready to build on it. The vision is airborne; the construction is on rails."
-      ],
-      "talentsGiris": "Creative talents are your gems — the resources that let you make a difference. They're also needs: a way of working that starves them will starve you. So the first job is simply to know them and to build your working life around them. Here are yours:",
-      "talents": [
-        {
-          "baslik": "Seeing what people could become.",
-          "metin": "You look at a colleague, a student, a scene partner — even a difficult one — and see the version of them that hasn't happened yet. And you can't help acting on it: encouraging, nudging, casting people in their best selves. In a company, this makes you a catalyst; around you, people tend to grow. It works on characters too: you read a role the way you read a person, with an eye for what they are reaching toward."
-        },
-        {
-          "baslik": "Reading the room's weather.",
-          "metin": "You register the group's temperature moment by moment — who has gone quiet, who is about to clash, who needs support before the crisis, not after. When you give notes, they arrive warm and cushioned; you mind how they land, and so they land. This is why ensembles knit together around you: someone is tending the invisible layer of the work, and it's you."
-        },
-        {
-          "baslik": "Building with a spine.",
-          "metin": "You decide what the character is about first, and then everything you gather has a home. You prepare early, you systematize, you close the research folder when you have what you need — and by opening night the character is built: locked, repeatable, reliable. In a profession full of brilliant improvisers who can't do it twice, your ability to deliver the same living performance on take one and take forty is quietly precious."
-        },
-        {
-          "baslik": "Words that gather people.",
-          "metin": "You speak to move, not to perform. You can put a vision into words that make other people want to build it with you — in a read-through, a rehearsal argument, a company meeting. You draw the quiet ones out, you translate between people who are talking past each other, and when a project needs everyone on board, you are usually the one who gets them there."
-        }
-      ],
-      "obstaclesGiris": "Talents always travel with side-effects — every single one casts its own shadow. If you're gifted at holding many things at once, you'll also tend not to go deep on any single one, and so on. Naming the shadow takes away most of its power. Let's name yours:",
-      "obstacles": [
-        {
-          "baslik": "Everyone's weather becomes yours.",
-          "metin": "The barometer never switches off. You personally experience the feelings around you — which means a room full of tension, grief, or negativity doesn't just reach you, it moves in. You can become over-involved in other people's storms and walk out of a working day emotionally spent without having spent it on your own work. The same sensitivity that makes you precious to a company is the one that exhausts you."
-        },
-        {
-          "baslik": "Your needs at the back of the queue.",
-          "metin": "Because you prioritize people, you can lose touch with what you yourself need — and struggle to say it, especially if saying it might create conflict or disunity. You give others the warmth you rarely ask for back. Over time this breeds a quiet loneliness: the one who understands everyone, feeling that no one fully knows them. And when boundaries go unkept for long enough, resentment starts doing the boundary's job — badly."
-        },
-        {
-          "baslik": "Yes before counting the cost.",
-          "metin": "You see potential everywhere — in projects, in people, in causes — and you genuinely want to do it all, so yes comes out of you faster than arithmetic. The result: overcommitment, a plate that is always full, and the occasional painful retreat from something you'd have declined if you'd looked at it for one more day. The leap isn't carelessness; it's generosity moving faster than judgment."
-        },
-        {
-          "baslik": "The room's verdict as your compass.",
-          "metin": "You feel the standard of the people around you before you feel your own — which makes you responsive, adaptable, a joy to direct. But it also means praise and criticism steer you more than you'd like to admit, and on a bad day you can lose the signal of your own inner bar entirely. An actor who only calibrates to the room ends up giving the room what it already wanted — and your best work has more in it than that."
-        },
-        {
-          "baslik": "Surprises as intruders.",
-          "metin": "When something unexpected happens — mid-scene, mid-shoot, mid-plan — your first instinct is to contain it and restore the rails. Your love of the settled choice has a shadow: the spine can be decided so early, and locked so firmly, that a better idea arriving late finds the door already closed. The plan that protects your work can, on some days, cage it."
-        }
-      ],
-      "remediesGiris": "Now that the talents and their shadows are on the table, here are our suggestions — ways to protect the gems and shrink the side-effects. You may already be using some of them; if so, wonderful. If not, try each one and watch honestly how it works for you. Keep what serves you, drop what doesn't. Not every remedy works for everyone.",
-      "remedies": [
-        {
-          "baslik": "Trust your strengths.",
-          "metin": "Choose projects where the human layer matters — ensembles, mentoring, stories with a mission. You are at your best where people-work is the work; don't let anyone convince you that tending the company is a distraction from craft. In your hands, it is craft."
-        },
-        {
-          "baslik": "Guard your own weather.",
-          "metin": "Learn to tell, in the moment, which feelings are yours and which ones you picked up from the room — naming it is often enough to set the borrowed ones down. Build a small daily habit of checking in with yourself before you check in with everyone else. And if you ever want company in that work, individual coaching is always available — no pressure, entirely your choice."
-        },
-        {
-          "baslik": "Make friends with conflict.",
-          "metin": "Disunity is not the end of the world, and not every tension needs you to dissolve it. Growth — in a scene, a company, a friendship — often happens exactly in the space you rush to smooth over. Practice letting a disagreement stay in the room for ten more minutes than is comfortable. Watch what it produces."
-        },
-        {
-          "baslik": "“Let me think about it.”",
-          "metin": "Five words that will save you years. Before committing to a project, a favor, a cause, take the day: look at the details, the schedule, the fine print you'd rather skip. The boring, impersonal contract really does need to be read — and reading it is how you protect the enthusiasm that made you want to say yes."
-        },
-        {
-          "baslik": "Leave one door open in the spine.",
-          "metin": "Keep deciding the spine first — it's how you build, and it works. But leave one door unlocked on purpose. Once per rehearsal period, invite the thing you can't plan: an improvisation, a wrong reading, a partner's strange offer. When a surprise walks in mid-performance, try greeting it as material before you contain it. The spine will hold; that's exactly why you can afford the visitor."
-        },
-        {
-          "baslik": "Look inside for the verdict.",
-          "metin": "The room's reading of you is information, not truth. After the notes, after the applause or the silence, ask yourself the private question: what do I think happened in that scene? Keep your own bar somewhere the room can't reach it — you'll act more freely the moment the verdict isn't entirely outsourced."
-        },
-        {
-          "baslik": "Mind your own bottom line.",
-          "metin": "Helping is your joy, but your talents also deserve to feed you. It is possible to serve people, serve the work, and be paid properly, all at once — and keeping that balance is not selfishness, it's sustainability. Watch, too, that the relational side of a project doesn't quietly swallow the deliverables: keep one eye on what must be finished, and by when."
-        }
-      ],
-      "finallySection": [
-        "You've chosen a profession made of exactly your materials: reading people, moving people, building believable human beings and bringing a company along. Your intuition about what drives a person — their needs, their bonds, their unspoken weather — goes straight into character work, and your gift for gathering people makes every production you join a little more of an ensemble. In most groups you drift naturally toward the mentor's chair, and people are usually better actors for having worked beside you. Hooray!",
-        "And notice what you love: the finished thing. Opening night, the final cut, the moment the built performance stands on its own — that's your altar, more than the searching is. Paired with your reliability — the same living performance, take after take, night after night — this makes you a director's safe harbor, and it is worth saying that in a casting room without blushing.",
-        "Your best environments are forward-looking and people-centered, with a shared mission and a company that actually likes each other. Your one environmental hazard: teams at war. On a conflict-ridden production you can spend your entire artistic budget on peacekeeping — mediating, absorbing, smoothing — and arrive at your own scenes with nothing left. When you find yourself in one, ration the tending; your first responsibility on any production is the character you were hired to build.",
-        "About technique: you'll likely be drawn to inside-out ways of working — starting from the character's inner life, their bonds and needs, and letting the outside follow. That suits you. But let's be precise about one thing, because it matters: **inside-out means building the character's inner life first.** The emotions you work with on stage are designed and owned by the character — constructed from the character's story, the character's attachments, the character's wounds. It is never an invitation to dig up your own. You imagine your way in; you don't excavate. Your empathy is strong enough to build everything the role needs — that is, in fact, the whole point of it."
-      ],
-      "sorularGiris": "All of us have a different doorway into understanding. Yours is people: emotions, intentions, needs, and the web of relationships that holds a person in place. You understand a character the way you understand a friend — through who they love, what they long for, and how they land on others. Here is the set built for the way your mind works. *First, the team, the story, and the set:*",
-      "sorular": [
-        {
-          "metin": "Who or what is involved — and who is left out?"
-        },
-        {
-          "metin": "Who will be affected, and how?"
-        },
-        {
-          "metin": "How will others react?"
-        },
-        {
-          "metin": "What's appropriate for everyone involved?"
-        },
-        {
-          "metin": "How will my acting choices affect the relationships among the people on this production?"
-        },
-        {
-          "metin": "Who might contribute a special strength or skill?"
-        },
-        {
-          "metin": "How do we get everyone on board to make this work?"
-        },
-        {
-          "metin": "Now the character:",
-          "vurgu": true
-        },
-        {
-          "metin": "What do we know about the character's emotions?"
-        },
-        {
-          "metin": "What do we know about her/his problems?"
-        },
-        {
-          "metin": "What is it — and what is it not?"
-        },
-        {
-          "metin": "What is happening — when, where, and how?"
-        },
-        {
-          "metin": "Who else do I know who has this problem? How do they feel, move, talk, look?"
-        },
-        {
-          "metin": "Which senses does this character use most? Are there any seeing, hearing or feeling deficits?"
-        },
-        {
-          "metin": "What was this character's childhood like? Parents? Environment?"
-        },
-        {
-          "metin": "As a child, what was one thing she/he could always be sure of?"
-        },
-        {
-          "metin": "What was one thing she/he was never sure of?"
-        },
-        {
-          "metin": "Where did she/he grow up? With all five senses — what could she/he feel there?"
-        },
-        {
-          "metin": "What was her/his greatest talent?"
-        },
-        {
-          "metin": "What amused her/him as a child?"
-        },
-        {
-          "metin": "What were her/his favorite games as a child?"
-        },
-        {
-          "metin": "What were her/his most common emotions? Where did she/he feel them most in the body?"
-        },
-        {
-          "metin": "What were her/his challenges? How did she/he feel about them and react to them?"
-        },
-        {
-          "metin": "How is life at the moment for her/him?"
-        },
-        {
-          "metin": "How are her/his relationships? Who are the people around her/him?"
-        },
-        {
-          "metin": "Where does she/he actually live? What does she/he feel most commonly — and where in the body?"
-        },
-        {
-          "metin": "What is her/his occupation? What is the relationship with the job?"
-        },
-        {
-          "metin": "How does doing this job affect her/his feelings and relationships?"
-        },
-        {
-          "metin": "Who lives with her/him?"
-        },
-        {
-          "metin": "Who does she/he get along with best — and worst?"
-        },
-        {
-          "metin": "How does she/he feel about herself/himself?"
-        },
-        {
-          "metin": "Imagine an ordinary day of hers/his, from waking up to going back to bed. Notice her/his feelings and interactions throughout the day, and take notes."
-        },
-        {
-          "metin": "How does she/he deal with stress? What happens in the body, the feelings, the actions?"
-        },
-        {
-          "metin": "How does she/he have fun these days? What happens in the feelings, the relationships, the body?"
-        },
-        {
-          "metin": "Imagine people's eyes on her/him — their looks landing on your character. What does she/he feel?"
-        },
-        {
-          "metin": "What is your character's sexual orientation? Is she/he comfortable with it? How?"
-        },
-        {
-          "metin": "Is there love in her/his life right now? What feelings and actions does it bring?"
-        },
-        {
-          "metin": "Is there someone she/he once loved but no longer does? If so, what happened? What is the legacy of it in her/his life, feelings, body, and relationship patterns?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your emotions and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as the character? Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "What is she/he most afraid of in life right now? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "What does she/he want most from life right now? Why does it matter that much? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "Why doesn't she/he have it? What is in the way?"
-        },
-        {
-          "metin": "What would she/he have to do to meet that need? What feelings, body sensations, actions and gestures does that bring?"
-        },
-        {
-          "metin": "What is stopping her/him from taking the step?"
-        },
-        {
-          "metin": "What happens if she/he doesn't get it? What is there to lose? What actions and gestures does that bring?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your emotions and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as the character? Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "How does all of the above fit into what you're doing now — physically?"
-        },
-        {
-          "metin": "What else needs to be done? What is missing?"
-        }
-      ],
       "kapanis": "Thank you for joining this journey with us — let's see what comes next…",
       "imza": "Warmly, Filiz Kaya Ataklı"
     },
     "ENTJ": {
-      "kod": "ENTJ",
-      "surum": "v0.1 (new; item-audit applied; Pilot frame from Filiz, re-voiced)",
+      "ad": "The Compass",
+      "internalKey": "ENTJ",
+      "surum": "v0.2 (doorway name applied and construct renamed — doorway to the character design — 9 July 2026; question section moved to the Combined Core Report; polish pass)",
       "ustBaslik": "Let's Talk About You…",
-      "teamNote": "[Team note — not shown to participants: display-name slot deliberately empty; the report runs on the four letters only. The nearest neighbour is NEVER rendered in the actor's report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator's tool — in coaching, the first alternative to offer if the report isn't landing.]",
+      "teamNote": "[Team note — not shown to participants: display name: The Compass (doorway register, approved 9 July 2026). Internal key ENTJ — database and block-selection only, never rendered anywhere actor-side, including this report. The nearest neighbour is NEVER rendered in the actor**'s report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator'**s tool — in coaching, the first alternative to offer if the report isn**'**t landing.]",
       "beforeYouRead": [
         "What you're holding is not a verdict, and it is not a box. It's a hypothesis — our best first guess at how you naturally work, built entirely from your own answers. Read it the way you'd read a good director's note: try it on, test it against your own experience, keep what fits, and drop what doesn't without a second thought. Not every line will be true of you, and not every remedy works for everyone.",
-        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's."
+        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's.",
+        "One more thing. We've given this way of working a name: your doorway may be **The Compass**. Hold the name the way you hold everything else here — a may-be, not a badge."
       ],
       "firstSketch": [
         "You are driven, decisive, strategic, direct, high-energy — a natural organizer of people and plans, most alive when there's a real objective and you're the one moving everyone toward it.",
@@ -569,106 +468,19 @@ export const tipRaporlari = {
         "Your ideal environment gives you a real objective, room to organize, and colleagues who can keep pace — and a director you respect, since you'll chafe under one you don't. Aimless process, endless indecision, and busywork will frustrate you fast. When you can choose, choose the room with a real goal in it — and then, deliberately, make room in it for the people, too.",
         "About technique: you're strategic and structural, so you'll likely build a character from the outside in — the throughline, the architecture, the plan — and drive the rest from there. That's a legitimate and powerful path. One thing to be precise about, because it matters: **the emotions you play are built for the character and owned by the character** — grown from the character's story, situation, and logic, never mined from your own past. You construct them; you don't excavate them. Your mind is strong enough to build everything the role needs — the mastery, for you, is letting the built thing be genuinely felt, not just executed."
       ],
-      "sorularGiris": "All of us have a different doorway into understanding. Yours is structure and objective — you understand a character by mapping her role, her aim, and the logic of how she moves through the story. So your set begins like a strategist's briefing and then, deliberately, keeps going past the plan into the human material your drive can otherwise rush by. Push yourself to stay with the later questions as long as you stayed with the first ones. *The strategist's briefing:*",
-      "sorular": [
-        {
-          "metin": "What are the roles and responsibilities of my character — her/his function in this story?"
-        },
-        {
-          "metin": "What does my character want, and what's the strategy for getting it?"
-        },
-        {
-          "metin": "What does my character have in common with the others — shared ground, shared stakes?"
-        },
-        {
-          "metin": "What information do we actually have in hand — and what are the gaps the script leaves open?"
-        },
-        {
-          "metin": "What is the big picture — the architecture of where this character is heading across the whole arc?"
-        },
-        {
-          "metin": "Now go past the plan, into the person:",
-          "vurgu": true
-        },
-        {
-          "metin": "What are the contradictions in this character — the ways she/he is two opposed things at once?"
-        },
-        {
-          "metin": "What do we know about the character's emotions — and what does she/he feel but never show?"
-        },
-        {
-          "metin": "What was this character's childhood like? Parents? Environment?"
-        },
-        {
-          "metin": "What were her/his most common emotions? Where did she/he feel them most in the body?"
-        },
-        {
-          "metin": "How is life at the moment for her/him?"
-        },
-        {
-          "metin": "How are her/his relationships? Who are the people around her/him?"
-        },
-        {
-          "metin": "Who does she/he get along with best — and worst?"
-        },
-        {
-          "metin": "How does she/he feel about herself/himself?"
-        },
-        {
-          "metin": "Imagine an ordinary day of hers/his, from waking up to going back to bed. Notice her/his feelings and interactions throughout the day, and take notes."
-        },
-        {
-          "metin": "Imagine people's eyes on her/him — their looks landing on your character. What does she/he feel?"
-        },
-        {
-          "metin": "What is your character's sexual orientation? Is she/he comfortable with it? How?"
-        },
-        {
-          "metin": "Is there love in her/his life right now? What feelings and actions does it bring?"
-        },
-        {
-          "metin": "Is there someone she/he once loved but no longer does? If so, what happened? What is the legacy of it in her/his life, feelings, body, and relationship patterns?"
-        },
-        {
-          "metin": "What is she/he most afraid of in life right now? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "What does she/he want most from life right now? Why does it matter that much? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "Why doesn't she/he have it? What is in the way?"
-        },
-        {
-          "metin": "What would she/he have to do to meet that need? What feelings, body sensations, actions and gestures does that bring?"
-        },
-        {
-          "metin": "What is stopping her/him from taking the step?"
-        },
-        {
-          "metin": "What happens if she/he doesn't get it? What is there to lose? What actions and gestures does that bring?"
-        },
-        {
-          "metin": "Now stop planning and walk for a while as the character. Notice your emotions and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as the character? Take notes. For you this walk matters most: it's where the plan becomes a person, and where managing gives way to feeling.",
-          "vurgu": true
-        },
-        {
-          "metin": "Having walked it — what do you now feel about her/him that the plan didn't tell you?"
-        },
-        {
-          "metin": "What else could be true of her/him that you hadn't allowed for?"
-        }
-      ],
       "kapanis": "Thank you for joining this journey with us — let's see what comes next…",
       "imza": "Warmly, Filiz Kaya Ataklı"
     },
     "ENTP": {
-      "kod": "ENTP",
-      "surum": "v0.1 (rewrite of Filiz's original sample; item-audit applied)",
+      "ad": "The Prism",
+      "internalKey": "ENTP",
+      "surum": "v0.2 (doorway name applied and construct renamed — doorway to the character design — 9 July 2026; question section moved to the Combined Core Report; polish pass)",
       "ustBaslik": "Let's Talk About You…",
-      "teamNote": "[Team note — not shown to participants: display-name slot deliberately empty; the report runs on the four letters only. The nearest neighbour is NEVER rendered in the actor's report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator's tool — in coaching, the first alternative to offer if the report isn't landing.]",
+      "teamNote": "[Team note — not shown to participants: display name: The Prism (doorway register, approved 9 July 2026). Internal key ENTP — database and block-selection only, never rendered anywhere actor-side, including this report. The nearest neighbour is NEVER rendered in the actor**'s report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator'**s tool — in coaching, the first alternative to offer if the report isn**'**t landing.]",
       "beforeYouRead": [
         "What you're holding is not a verdict, and it is not a box. It's a hypothesis — our best first guess at how you naturally work, built entirely from your own answers. Read it the way you'd read a good director's note: try it on, test it against your own experience, keep what fits, and drop what doesn't without a second thought. Not every line will be true of you, and not every remedy works for everyone.",
-        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's."
+        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's.",
+        "One more thing. We've given this way of working a name: your doorway may be **The Prism**. Hold the name the way you hold everything else here — a may-be, not a badge."
       ],
       "firstSketch": [
         "You are quick, curious, inventive, outspoken, resourceful, charming when you choose to be — a question mark walking on two legs, allergic to routine, magnetized by anything that hasn't been figured out yet.",
@@ -753,128 +565,19 @@ export const tipRaporlari = {
         "Your ideal environment is intellectually alive without being rigid: sharp colleagues, conceptual problems, room to try the unorthodox thing, credit flowing to the ideas that earn it. Environments of pure procedure will grind you down — and one thing worth knowing about yourself on tender days: your natural language is strategy more than diplomacy. When a room needs soothing rather than solving, borrow a translator or slow yourself by half.",
         "About technique: you're the battery's great synthesizer — you take the best of every approach and build your own, and honestly, almost any technique, training, or workshop will feed you something. One house rule travels with you wherever you borrow from: **the emotions you play are built from the character's story — designed, constructed, owned by the character — never mined from your own past.** You're an inventor. Invent them."
       ],
-      "sorularGiris": "All of us have a different doorway into understanding. Yours is the open problem: you get ready in every direction, and the character arrives in a way even you can't fully explain afterward. So your set has two movements — first the strategist's questions, because your instinct is to find what the character wants and how the machine of them works; then the wide-open ones, because your best discoveries come when the question refuses to narrow. *The strategist's opening:*",
-      "sorular": [
-        {
-          "metin": "What does my character want — in the whole story, and in each scene?"
-        },
-        {
-          "metin": "What is her/his strategy for getting it? Where did she/he learn that strategy?"
-        },
-        {
-          "metin": "Why does she/he do this? And why this way, rather than another?"
-        },
-        {
-          "metin": "Where does the plan break? What does she/he do when it breaks?"
-        },
-        {
-          "metin": "What are the rules of this character's world — and which ones does she/he break?"
-        },
-        {
-          "metin": "Now open all the doors:",
-          "vurgu": true
-        },
-        {
-          "metin": "What do we know about the character's present, past and future?"
-        },
-        {
-          "metin": "In what ways might we understand her/him better?"
-        },
-        {
-          "metin": "How else could we see her/him?"
-        },
-        {
-          "metin": "What is the big picture? What is she/he doing, trying to accomplish, feel, be?"
-        },
-        {
-          "metin": "What could we learn about this character if we could time-travel with them?"
-        },
-        {
-          "metin": "— Earliest memory of my character? · Happiest memory? · Saddest memory? · Where did she/he get most embarrassed? · The biggest pain in my character's life? · The biggest joy? · What did she/he play as a child — which games, and why? · How has her/his posture changed over time — at 5, 10, 15…? · When and how did my character meet that person (the one who matters most now)? · What feelings and sensations come in times of distress?",
-          "vurgu": true
-        },
-        {
-          "metin": "Which senses does this character use most? Are there any seeing, hearing or feeling deficits?"
-        },
-        {
-          "metin": "What were her/his most common emotions? How did she/he express them?"
-        },
-        {
-          "metin": "How is life at the moment for her/him?"
-        },
-        {
-          "metin": "How are her/his relationships? Who are the people around her/him?"
-        },
-        {
-          "metin": "Who does she/he get along with best — and worst?"
-        },
-        {
-          "metin": "How does she/he feel about herself/himself?"
-        },
-        {
-          "metin": "Imagine an ordinary day of hers/his, from waking up to going back to bed. Notice her/his feelings and interactions throughout the day, and take notes."
-        },
-        {
-          "metin": "Imagine people's eyes on her/him — their looks landing on your character. What does she/he feel?"
-        },
-        {
-          "metin": "What is your character's sexual orientation? Is she/he comfortable with it? How?"
-        },
-        {
-          "metin": "Is there love in her/his life right now? What feelings and actions does it bring?"
-        },
-        {
-          "metin": "Is there someone she/he once loved but no longer does? If so, what happened? What is the legacy of it in her/his life, feelings, body, and relationship patterns?"
-        },
-        {
-          "metin": "What is she/he most afraid of in life right now? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "What does she/he want most from life right now? Why does it matter that much? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "Why doesn't she/he have it? What is in the way?"
-        },
-        {
-          "metin": "What would she/he have to do to meet that need? What feelings, body sensations, actions and gestures does that bring?"
-        },
-        {
-          "metin": "What is stopping her/him from taking the step?"
-        },
-        {
-          "metin": "What happens if she/he doesn't get it? What is there to lose? What actions and gestures does that bring?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your posture and your body, your pace, your moves, your five senses — what do you notice as the character? Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "How else could you see all this?"
-        },
-        {
-          "metin": "What other time-travel would you like to take with your character?"
-        },
-        {
-          "metin": "If you shift your perspective now — what else do you notice about your character?"
-        },
-        {
-          "metin": "Can you imagine anything else?"
-        },
-        {
-          "metin": "How would your favorite actor approach this character? What would she/he do with your character?"
-        }
-      ],
       "kapanis": "Thank you for joining this journey with us — let's see what comes next…",
       "imza": "Warmly, Filiz Kaya Ataklı"
     },
     "ESFJ": {
-      "kod": "ESFJ",
-      "surum": "v0.2 (empowering talent foregrounded per Filiz)",
+      "ad": "The Hearth",
+      "internalKey": "ESFJ",
+      "surum": "v0.3 (doorway name applied and construct renamed — doorway to the character design — 9 July 2026; question section moved to the Combined Core Report; polish pass)",
       "ustBaslik": "Let's Talk About You…",
-      "teamNote": "[Team note — not shown to participants: display-name slot deliberately empty; the report runs on the four letters only. The nearest neighbour is NEVER rendered in the actor's report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator's tool — in coaching, the first alternative to offer if the report isn't landing.]",
+      "teamNote": "[Team note — not shown to participants: display name: The Hearth (doorway register, approved 9 July 2026). Internal key ESFJ — database and block-selection only, never rendered anywhere actor-side, including this report. The nearest neighbour is NEVER rendered in the actor**'s report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator'**s tool — in coaching, the first alternative to offer if the report isn**'**t landing.]",
       "beforeYouRead": [
         "What you're holding is not a verdict, and it is not a box. It's a hypothesis — our best first guess at how you naturally work, built entirely from your own answers. Read it the way you'd read a good director's note: try it on, test it against your own experience, keep what fits, and drop what doesn't without a second thought. Not every line will be true of you, and not every remedy works for everyone.",
-        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's."
+        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's.",
+        "One more thing. We've given this way of working a name: your doorway may be **The Hearth**. Hold the name the way you hold everything else here — a may-be, not a badge."
       ],
       "firstSketch": [
         "You are warm, generous, dependable, sociable, conscientious, attentive — the person who notices what a room needs and quietly makes sure it's there, from the coffee to the kind word.",
@@ -959,167 +662,19 @@ export const tipRaporlari = {
         "Your best environments are people-centered and well-run, with a shared purpose and a company that treats each other well. Your one real hazard is a production at war with itself: on a conflict-ridden set you can spend your whole artistic budget on peacekeeping — mediating, absorbing, holding people together — and arrive at your own scenes with nothing left. When you find yourself there, ration the tending; your first responsibility on any job is the character you were hired to build.",
         "About technique: your doorway is people and their needs, reached through real, concrete detail, so you'll likely work best inside-out — beginning from who the character cares for and answers to, and building the rest from true particulars. That suits you. One thing to be precise about, because it matters: **inside-out means building the character's inner life first.** The feelings and bonds you play are designed and owned by the character — grown from the character's history, the character's people, the character's world. It is never an invitation to dig up your own. You imagine your way in; you don't excavate. Your care and your eye for the real are strong enough to build everything the role needs — that is, in fact, the whole point of them."
       ],
-      "sorularGiris": "All of us have a different doorway into understanding. Yours is people: how they feel, what they need, how they're bound to one another — reached through concrete, observed detail rather than abstraction. You understand a character the way you understand someone you're looking after. Here is the set built for the way your mind works. *First, the people and the situation:*",
-      "sorular": [
-        {
-          "metin": "Who or what is involved — and who is left out?"
-        },
-        {
-          "metin": "Who will be affected, and how?"
-        },
-        {
-          "metin": "How will others react?"
-        },
-        {
-          "metin": "What's appropriate for everyone involved?"
-        },
-        {
-          "metin": "How will my acting choices affect the relationships among the people on this production?"
-        },
-        {
-          "metin": "Who might contribute a special strength or skill?"
-        },
-        {
-          "metin": "How do we get everyone on board to make this work?"
-        },
-        {
-          "metin": "Now the character:",
-          "vurgu": true
-        },
-        {
-          "metin": "What do we know about the character's emotions?"
-        },
-        {
-          "metin": "What do we know about her/his problems?"
-        },
-        {
-          "metin": "What is it — and what is it not?"
-        },
-        {
-          "metin": "What is happening — when, where, and how?"
-        },
-        {
-          "metin": "Who else do I know who has this problem? How do they feel, move, talk, look?"
-        },
-        {
-          "metin": "Which senses does this character use most? Are there any seeing, hearing or feeling deficits?"
-        },
-        {
-          "metin": "What was this character's childhood like? Parents? Environment?"
-        },
-        {
-          "metin": "As a child, what was one thing she/he could always be sure of?"
-        },
-        {
-          "metin": "What was one thing she/he was never sure of?"
-        },
-        {
-          "metin": "Where did she/he grow up? With all five senses — what could she/he feel there?"
-        },
-        {
-          "metin": "What was her/his greatest talent?"
-        },
-        {
-          "metin": "What amused her/him as a child?"
-        },
-        {
-          "metin": "What were her/his favorite games as a child?"
-        },
-        {
-          "metin": "What were her/his most common emotions? Where did she/he feel them most in the body?"
-        },
-        {
-          "metin": "What were her/his challenges? How did she/he feel about them and react to them?"
-        },
-        {
-          "metin": "How is life at the moment for her/him?"
-        },
-        {
-          "metin": "How are her/his relationships? Who are the people around her/him?"
-        },
-        {
-          "metin": "Where does she/he actually live? What does she/he feel most commonly — and where in the body?"
-        },
-        {
-          "metin": "What is her/his occupation? What is the relationship with the job?"
-        },
-        {
-          "metin": "How does doing this job affect her/his feelings and relationships?"
-        },
-        {
-          "metin": "Who lives with her/him?"
-        },
-        {
-          "metin": "Who does she/he get along with best — and worst?"
-        },
-        {
-          "metin": "How does she/he feel about herself/himself?"
-        },
-        {
-          "metin": "Imagine an ordinary day of hers/his, from waking up to going back to bed. Notice her/his feelings and interactions throughout the day, and take notes."
-        },
-        {
-          "metin": "How does she/he deal with stress? What happens in the body, the feelings, the actions?"
-        },
-        {
-          "metin": "How does she/he have fun these days? What happens in the feelings, the relationships, the body?"
-        },
-        {
-          "metin": "Imagine people's eyes on her/him — their looks landing on your character. What does she/he feel?"
-        },
-        {
-          "metin": "What is your character's sexual orientation? Is she/he comfortable with it? How?"
-        },
-        {
-          "metin": "Is there love in her/his life right now? What feelings and actions does it bring?"
-        },
-        {
-          "metin": "Is there someone she/he once loved but no longer does? If so, what happened? What is the legacy of it in her/his life, feelings, body, and relationship patterns?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your emotions and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as the character? Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "What is she/he most afraid of in life right now? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "What does she/he want most from life right now? Why does it matter that much? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "Why doesn't she/he have it? What is in the way?"
-        },
-        {
-          "metin": "What would she/he have to do to meet that need? What feelings, body sensations, actions and gestures does that bring?"
-        },
-        {
-          "metin": "What is stopping her/him from taking the step?"
-        },
-        {
-          "metin": "What happens if she/he doesn't get it? What is there to lose? What actions and gestures does that bring?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your emotions and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as the character? Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "How does all of the above fit into what you're doing now — physically?"
-        },
-        {
-          "metin": "What else needs to be done? What is missing?"
-        }
-      ],
       "kapanis": "Thank you for joining this journey with us — let's see what comes next…",
       "imza": "Warmly, Filiz Kaya Ataklı"
     },
     "ESFP": {
-      "kod": "ESFP",
-      "surum": "v0.1 (rewrite of Filiz's original sample; item-audit applied)",
+      "ad": "The Pulse",
+      "internalKey": "ESFP",
+      "surum": "v0.2 (doorway name applied and construct renamed — doorway to the character design — 9 July 2026; question section moved to the Combined Core Report; polish pass)",
       "ustBaslik": "Let's Talk About You…",
-      "teamNote": "[Team note — not shown to participants: display-name slot deliberately empty; the report runs on the four letters only. The nearest neighbour is NEVER rendered in the actor's report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator's tool — in coaching, the first alternative to offer if the report isn't landing.]",
+      "teamNote": "[Team note — not shown to participants: display name: The Pulse (doorway register, approved 9 July 2026). Internal key ESFP — database and block-selection only, never rendered anywhere actor-side, including this report. The nearest neighbour is NEVER rendered in the actor**'s report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator'**s tool — in coaching, the first alternative to offer if the report isn**'**t landing.]",
       "beforeYouRead": [
         "What you're holding is not a verdict, and it is not a box. It's a hypothesis — our best first guess at how you naturally work, built entirely from your own answers. Read it the way you'd read a good director's note: try it on, test it against your own experience, keep what fits, and drop what doesn't without a second thought. Not every line will be true of you, and not every remedy works for everyone.",
-        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's."
+        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's.",
+        "One more thing. We've given this way of working a name: your doorway may be **The Pulse**. Hold the name the way you hold everything else here — a may-be, not a badge."
       ],
       "firstSketch": [
         "You are warm, playful, spontaneous, observant, generous — the person the room happens around, the one who notices when somebody's glass is empty and when somebody's heart is.",
@@ -1213,158 +768,19 @@ export const tipRaporlari = {
         "Your best environments are active, social, and aesthetically alive — room to move, colleagues who are friendly and laid-back, work with visible, immediate results. Heavy bureaucracy, rigid procedure, and long stretches of theory will drain you faster than hard work ever could; when you can choose, choose the room with people and pulse in it.",
         "About technique: your doorway to feeling runs through the senses and the heart, so you'll likely be drawn to inside-out ways of working. Yours has a particular flavor: build the character's sensory world — the room, the textures, the smells, the faces — and the feelings arrive on their own. One thing to be precise about, because it matters: **inside-out means building the character's inner life first.** The emotions you play are designed and owned by the character — grown from the character's world, the character's people, the character's story. It is never an invitation to dig up your own. You imagine your way in; you don't excavate. Your senses are strong enough to build everything the role needs — that is, in fact, the whole point of them."
       ],
-      "sorularGiris": "All of us have a different doorway into understanding. Yours is people and their emotions, reached through the senses — what can be seen, heard, felt, and done. So your set keeps returning you to the body: ask, then walk, then ask again. That rhythm is not decoration; it is how you know things.",
-      "sorular": [
-        {
-          "metin": "What do we know about the character's emotions?"
-        },
-        {
-          "metin": "What do we know about her/his problems?"
-        },
-        {
-          "metin": "What is it — and what is it not?"
-        },
-        {
-          "metin": "What is happening — when, where, and how?"
-        },
-        {
-          "metin": "Who else do I know who has this problem? How do they feel, move, talk, look?"
-        },
-        {
-          "metin": "Which senses does this character use most? Are there any seeing, hearing or feeling deficits?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your emotions and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as the character? Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "What was this character's childhood like? Parents? Environment?"
-        },
-        {
-          "metin": "As a child, what was one thing she/he could always be sure of?"
-        },
-        {
-          "metin": "What was one thing she/he was never sure of?"
-        },
-        {
-          "metin": "Where did she/he grow up? With all five senses — what could she/he feel there?"
-        },
-        {
-          "metin": "What was her/his greatest talent?"
-        },
-        {
-          "metin": "What amused her/him as a child?"
-        },
-        {
-          "metin": "What were her/his favorite games as a child?"
-        },
-        {
-          "metin": "What were her/his most common emotions? Where did she/he feel them most in the body?"
-        },
-        {
-          "metin": "What were her/his challenges? How did she/he feel about them and react to them?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your emotions and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as the character? Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "How is life at the moment for her/him?"
-        },
-        {
-          "metin": "How are her/his relationships? Who are the people around her/him?"
-        },
-        {
-          "metin": "Where does she/he actually live? What does she/he feel most commonly — and where in the body?"
-        },
-        {
-          "metin": "What is her/his occupation? What is the relationship with the job?"
-        },
-        {
-          "metin": "How does doing this job affect her/his feelings and relationships?"
-        },
-        {
-          "metin": "Who lives with her/him?"
-        },
-        {
-          "metin": "Who does she/he get along with best — and worst?"
-        },
-        {
-          "metin": "How does she/he feel about herself/himself?"
-        },
-        {
-          "metin": "Imagine an ordinary day of hers/his, from waking up to going back to bed. Notice her/his feelings and interactions throughout the day, and take notes."
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your emotions and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as the character? Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "How does she/he deal with stress? What happens in the body, the feelings, the actions?"
-        },
-        {
-          "metin": "How does she/he have fun these days? What happens in the feelings, the relationships, the body?"
-        },
-        {
-          "metin": "Imagine people's eyes on her/him — their looks landing on your character. What does she/he feel?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your emotions and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as the character? Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "What is your character's sexual orientation? Is she/he comfortable with it? How?"
-        },
-        {
-          "metin": "Is there love in her/his life right now? What feelings and actions does it bring?"
-        },
-        {
-          "metin": "Is there someone she/he once loved but no longer does? If so, what happened? What is the legacy of it in her/his life, feelings, body, and relationship patterns?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your emotions and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as the character? Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "What is she/he most afraid of in life right now? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "What does she/he want most from life right now? Why does it matter that much? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "Why doesn't she/he have it? What is in the way?"
-        },
-        {
-          "metin": "What would she/he have to do to meet that need? What feelings, body sensations, actions and gestures does that bring?"
-        },
-        {
-          "metin": "What is stopping her/him from taking the step?"
-        },
-        {
-          "metin": "What happens if she/he doesn't get it? What is there to lose? What actions and gestures does that bring?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your emotions and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as the character? Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "How does all of the above fit into what you're doing now — physically?"
-        },
-        {
-          "metin": "What else needs to be done? What is missing?"
-        }
-      ],
       "kapanis": "Thank you for joining this journey with us — let's see what comes next…",
       "imza": "Warmly, Filiz Kaya Ataklı"
     },
     "ESTJ": {
-      "kod": "ESTJ",
-      "surum": "v0.1 (new; item-audit applied; Pilot frame S-grounded)",
+      "ad": "The Scaffold",
+      "internalKey": "ESTJ",
+      "surum": "v0.2 (doorway name applied and construct renamed — doorway to the character design — 9 July 2026; question section moved to the Combined Core Report; polish pass)",
       "ustBaslik": "Let's Talk About You…",
-      "teamNote": "[Team note — not shown to participants: display-name slot deliberately empty; the report runs on the four letters only. The nearest neighbour is NEVER rendered in the actor's report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator's tool — in coaching, the first alternative to offer if the report isn't landing.]",
+      "teamNote": "[Team note — not shown to participants: display name: The Scaffold (doorway register, approved 9 July 2026). Internal key ESTJ — database and block-selection only, never rendered anywhere actor-side, including this report. The nearest neighbour is NEVER rendered in the actor**'s report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator'**s tool — in coaching, the first alternative to offer if the report isn**'**t landing.]",
       "beforeYouRead": [
         "What you're holding is not a verdict, and it is not a box. It's a hypothesis — our best first guess at how you naturally work, built entirely from your own answers. Read it the way you'd read a good director's note: try it on, test it against your own experience, keep what fits, and drop what doesn't without a second thought. Not every line will be true of you, and not every remedy works for everyone.",
-        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's."
+        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's.",
+        "One more thing. We've given this way of working a name: your doorway may be **The Scaffold**. Hold the name the way you hold everything else here — a may-be, not a badge."
       ],
       "firstSketch": [
         "You are decisive, dependable, direct, hard-working, organized — the person who gets things done properly and on time, most alive when there's a real job to do and clear standards to meet.",
@@ -1453,115 +869,25 @@ export const tipRaporlari = {
         "Your ideal environment gives you a real job, clear standards, and colleagues who pull their weight — and a director you respect and can rely on. Vagueness, endless indecision, and shifting goalposts will frustrate you fast. When you can choose, choose the room with a clear task and honest standards in it — and then, deliberately, make room in it for the feeling and the people, too.",
         "About technique: you're practical and structural, so you'll likely build a character from the outside in — the facts, the behavior, the concrete detail, the plan — and drive the rest from there. That's a legitimate and powerful path, and it's natively yours. One thing to be precise about, because it matters: **the emotions you play are built for the character and owned by the character** — grown from the character's story, situation, and real particulars, never mined from your own past. You construct them; you don't excavate them. Your discipline is strong enough to build everything the role needs — the mastery, for you, is letting the built thing be genuinely felt, not just correctly executed."
       ],
-      "sorularGiris": "All of us have a different doorway into understanding. Yours is structure and concrete fact — you understand a character by mapping her role, her circumstances, and the real particulars of how she lives and works. So your set begins like a practical briefing and then, deliberately, keeps going past the facts into the emotional material your drive can otherwise rush by. Push yourself to stay with the later questions as long as you stayed with the first ones. *The practical briefing:*",
-      "sorular": [
-        {
-          "metin": "What are the roles and responsibilities of my character — her/his function and duties in this story?"
-        },
-        {
-          "metin": "What are the concrete facts — where she/he lives, works, comes from; the real particulars of this life?"
-        },
-        {
-          "metin": "What does my character have in common with the others — shared ground, shared stakes?"
-        },
-        {
-          "metin": "What information do we actually have in hand — and what are the gaps the script leaves open?"
-        },
-        {
-          "metin": "How does this character actually operate day to day — the practical shape of her/his life?"
-        },
-        {
-          "metin": "Now go past the facts, into the person:",
-          "vurgu": true
-        },
-        {
-          "metin": "What are the contradictions in this character — the ways she/he is two opposed things at once?"
-        },
-        {
-          "metin": "What do we know about the character's emotions — and what does she/he feel but never show?"
-        },
-        {
-          "metin": "What was this character's childhood like? Parents? Environment?"
-        },
-        {
-          "metin": "As a child, what was one thing she/he could always be sure of? What was one thing she/he was never sure of?"
-        },
-        {
-          "metin": "What were her/his most common emotions? Where did she/he feel them most in the body?"
-        },
-        {
-          "metin": "How is life at the moment for her/him?"
-        },
-        {
-          "metin": "How are her/his relationships? Who are the people around her/him?"
-        },
-        {
-          "metin": "Who does she/he get along with best — and worst?"
-        },
-        {
-          "metin": "How does she/he feel about herself/himself?"
-        },
-        {
-          "metin": "Imagine an ordinary day of hers/his, from waking up to going back to bed. Notice her/his feelings and interactions throughout the day, and take notes."
-        },
-        {
-          "metin": "Imagine people's eyes on her/him — their looks landing on your character. What does she/he feel?"
-        },
-        {
-          "metin": "What is your character's sexual orientation? Is she/he comfortable with it? How?"
-        },
-        {
-          "metin": "Is there love in her/his life right now? What feelings and actions does it bring?"
-        },
-        {
-          "metin": "Is there someone she/he once loved but no longer does? If so, what happened? What is the legacy of it in her/his life, feelings, body, and relationship patterns?"
-        },
-        {
-          "metin": "What is she/he most afraid of in life right now? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "What does she/he want most from life right now? Why does it matter that much? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "Why doesn't she/he have it? What is in the way?"
-        },
-        {
-          "metin": "What would she/he have to do to meet that need? What feelings, body sensations, actions and gestures does that bring?"
-        },
-        {
-          "metin": "What is stopping her/him from taking the step?"
-        },
-        {
-          "metin": "What happens if she/he doesn't get it? What is there to lose? What actions and gestures does that bring?"
-        },
-        {
-          "metin": "Now stop organizing and walk for a while as the character. Notice your emotions and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as the character? Take notes. For you this walk matters most: it's where the plan becomes a person, and where managing gives way to feeling.",
-          "vurgu": true
-        },
-        {
-          "metin": "Having walked it — what do you now feel about her/him that the facts didn't tell you?"
-        },
-        {
-          "metin": "What else could be true of her/him that you hadn't allowed for?"
-        }
-      ],
       "kapanis": "Thank you for joining this journey with us — let's see what comes next…",
       "imza": "Warmly, Filiz Kaya Ataklı"
     },
     "ESTP": {
-      "kod": "ESTP",
-      "surum": "v0.1 (rewrite of Filiz's original sample; item-audit applied)",
+      "ad": "The Arrow",
+      "internalKey": "ESTP",
+      "surum": "v0.2 (doorway name applied and construct renamed — doorway to the character design — 9 July 2026; question section moved to the Combined Core Report; polish pass)",
       "ustBaslik": "Let's Talk About You…",
-      "teamNote": "[Team note — not shown to participants: display-name slot deliberately empty; the report runs on the four letters only. The nearest neighbour is NEVER rendered in the actor's report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator's tool — in coaching, the first alternative to offer if the report isn't landing.]",
+      "teamNote": "[Team note — not shown to participants: display name: The Arrow (doorway register, approved 9 July 2026). Internal key ESTP — database and block-selection only, never rendered anywhere actor-side, including this report. The nearest neighbour is NEVER rendered in the actor**'s report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator'**s tool — in coaching, the first alternative to offer if the report isn**'**t landing.]",
       "beforeYouRead": [
         "What you're holding is not a verdict, and it is not a box. It's a hypothesis — our best first guess at how you naturally work, built entirely from your own answers. Read it the way you'd read a good director's note: try it on, test it against your own experience, keep what fits, and drop what doesn't without a second thought. Not every line will be true of you, and not every remedy works for everyone.",
-        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's."
+        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's.",
+        "One more thing. We've given this way of working a name: your doorway may be **The Arrow**. Hold the name the way you hold everything else here — a may-be, not a badge."
       ],
       "firstSketch": [
         "You are energetic, practical, playful, action-oriented, quick on your feet, hard to rattle — a thrill-seeker with a working brain, most yourself when something is actually happening.",
         "If we had to say it in one line: you find it by doing — and you find it fast.",
         "Life and work, for you, run best at speed and with a bit of a party in them. You bring dynamic energy into any room and any scene, and you read a situation almost instantly — sizing up what's real, what's useful, what to do next. Give you a problem that needs solving in the moment and you're already moving; hesitation isn't caution to you, it's just lost time. You're a natural improviser and, often, a natural athlete: you trust your body, you like a bit of risk, and you're the person people are glad to have around when something goes wrong and someone has to act.",
-        "Here's the engine, though, the part that separates you from the other quick, playful types: you don't just react — you analyze. When a scene isn't working, your instinct isn't to feel your way toward the problem, it's to find the broken part — the illogical choice, the beat that doesn't follow, the motivation that doesn't hold. You judge work by its construction: is it clear, does it stay consistent, does the machine actually run? You anticipate what could break before it breaks. Fast hands, cool logic — that's the combination, and it's rarer than either half alone.",
+        "Here's the engine, though, the part that separates you from the other quick, playful sorts: you don't just react — you analyze. When a scene isn't working, your instinct isn't to feel your way toward the problem, it's to find the broken part — the illogical choice, the beat that doesn't follow, the motivation that doesn't hold. You judge work by its construction: is it clear, does it stay consistent, does the machine actually run? You anticipate what could break before it breaks. Fast hands, cool logic — that's the combination, and it's rarer than either half alone.",
         "You prefer action to conversation, and the more directly a thing can be turned into action, the sharper and clearer you become. Talk-for-its-own-sake loses you; a task you can move on wakes you all the way up. And you're grounded — you trust what's actually in front of you: the page, the facts, the real detail, the here-and-now stakes. Distant hypotheticals hold little interest; the present is where you live and where you're unbeatable.",
         "Socially you're perceptive and direct. You read people quickly and accurately — though you clock what they're doing more than what they're feeling — and you say it like you see it, no hemming, no cushioning. You keep things fast and light rather than heavy or emotional, which makes you great company and, occasionally, a person others wish would slow down with them for a minute."
       ],
@@ -1643,134 +969,19 @@ export const tipRaporlari = {
         "The work will keep handing you your favorite conditions: a bit unpredictable, a bit of adventure in the day, real problems to solve on the spot. Protect that — you want projects that give you room to solve things in the moment, without heavy procedure or a plan you're not allowed to leave. And notice the quiet asset your answers revealed: under the improviser's nerve sits a real analyst. You don't only wing it; you understand the machine you're winging. Trust that half of yourself as much as the fast half — it's what will keep your instinct from hardening into a bag of reliable tricks.",
         "About technique: your doorway is the body and the action — you'll work best from the outside in, building the character through how she moves, stands, breathes, and does, and letting the inner life follow the physical score. That's a legitimate and powerful path, and it's yours. One thing to be precise about, because it matters: **the emotions you play are built for the character and owned by the character** — grown from the character's body, the character's situation, the character's story, never mined from your own past. You construct them from the outside in. Your body is a strong enough instrument to build everything the role needs — that is, in fact, the whole point of it."
       ],
-      "sorularGiris": "All of us have a different doorway into understanding. Yours is action and the body: you understand a character by seeing what she does, doing it yourself, and reading the physical truth of her. So your set is built around movement, and it keeps sending you back to your feet — ask, then walk it, then ask again. For you that walk isn't a break from the analysis; it is the analysis.",
-      "sorular": [
-        {
-          "metin": "What do we know about the character's physicality?"
-        },
-        {
-          "metin": "What do we know about her/his problems?"
-        },
-        {
-          "metin": "What is it — and what is it not?"
-        },
-        {
-          "metin": "What is happening — when, where, and how?"
-        },
-        {
-          "metin": "Who else do I know who has this problem? How do they move, act?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your pace, your movement, your spine, your shoulders, your head above your shoulders, the tense areas in your torso, legs and feet… Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "What was this character's childhood like? Parents? Environment?"
-        },
-        {
-          "metin": "What amused her/him as a child?"
-        },
-        {
-          "metin": "What were her/his favorite games as a child?"
-        },
-        {
-          "metin": "What were her/his movements like — physically?"
-        },
-        {
-          "metin": "What were her/his challenges? How did she/he react to them?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your pace, your movement, your spine, your shoulders, your head above your shoulders, the tense areas in your torso, legs and feet… Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "How is life at the moment for her/him?"
-        },
-        {
-          "metin": "How are her/his relationships?"
-        },
-        {
-          "metin": "Where does she/he actually live?"
-        },
-        {
-          "metin": "What is her/his occupation? What is the relationship with the job?"
-        },
-        {
-          "metin": "How does doing this job affect her/his movements?"
-        },
-        {
-          "metin": "Imagine an ordinary day of hers/his, from waking up to going back to bed. Notice her/his movements throughout the day, and take notes."
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your pace, your movement, your spine, your shoulders, your head above your shoulders, the tense areas in your torso, legs and feet… Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "How does she/he deal with stress? What happens in the body?"
-        },
-        {
-          "metin": "How does she/he have fun these days? What happens in the body?"
-        },
-        {
-          "metin": "Imagine people's eyes on her/him — their looks landing on your character."
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your pace, your movement, your spine, your shoulders, your head above your shoulders, the tense areas in your torso, legs and feet… Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "What is your character's sexual orientation? Is she/he comfortable with it? How?"
-        },
-        {
-          "metin": "Is there love in her/his life right now? What feelings and actions does it bring?"
-        },
-        {
-          "metin": "Is there someone she/he once loved but no longer does? If so, what happened? What is the legacy of it in her/his body?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your pace, your movement, your spine, your shoulders, your head above your shoulders, the tense areas in your torso, legs and feet… Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "What is she/he most afraid of in life right now? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "What does she/he want most from life right now? Why does it matter that much? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "Why doesn't she/he have it? What is in the way?"
-        },
-        {
-          "metin": "What would she/he have to do to meet that need? What actions and gestures does that bring?"
-        },
-        {
-          "metin": "What is stopping her/him from taking the step?"
-        },
-        {
-          "metin": "What happens if she/he doesn't get it? What is there to lose? What actions and gestures does that bring?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your pace, your movement, your spine, your shoulders, your head above your shoulders, the tense areas in your torso, legs and feet… Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "How does all of the above fit into what you're doing now — physically?"
-        },
-        {
-          "metin": "What else needs to be done? What is missing?"
-        }
-      ],
       "kapanis": "Thank you for joining this journey with us — let's see what comes next…",
       "imza": "Warmly, Filiz Kaya Ataklı"
     },
     "INFJ": {
-      "kod": "INFJ",
-      "surum": "v0.1 (new; item-audit applied; Visionary family, canon-checked)",
+      "ad": "The Lantern",
+      "internalKey": "INFJ",
+      "surum": "v0.2 (doorway name applied and construct renamed — doorway to the character design — 9 July 2026; question section moved to the Combined Core Report; polish pass)",
       "ustBaslik": "Let's Talk About You…",
-      "teamNote": "[Team note — not shown to participants: display-name slot deliberately empty; the report runs on the four letters only. The nearest neighbour is NEVER rendered in the actor's report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator's tool — in coaching, the first alternative to offer if the report isn't landing. Visionary talent language to be trued-up against Filiz's Levesque frame when available.]",
+      "teamNote": "[Team note — not shown to participants: display name: The Lantern (doorway register, approved 9 July 2026). Internal key INFJ — database and block-selection only, never rendered anywhere actor-side, including this report. The nearest neighbour is NEVER rendered in the actor**'s report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator'**s tool — in coaching, the first alternative to offer if the report isn**'t landing. Visionary talent language to be trued-up against Filiz'**s Levesque frame when available.]",
       "beforeYouRead": [
         "What you're holding is not a verdict, and it is not a box. It's a hypothesis — our best first guess at how you naturally work, built entirely from your own answers. Read it the way you'd read a good director's note: try it on, test it against your own experience, keep what fits, and drop what doesn't without a second thought. Not every line will be true of you, and not every remedy works for everyone.",
-        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's."
+        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's.",
+        "One more thing. We've given this way of working a name: your doorway may be **The Lantern**. Hold the name the way you hold everything else here — a may-be, not a badge."
       ],
       "firstSketch": [
         "You are insightful, warm, quietly intense, principled, deep — someone who sees into people and into where things are heading, and cares, underneath the calm, with real fire.",
@@ -1851,113 +1062,23 @@ export const tipRaporlari = {
         "Your best environments are safe, deep, and genuinely meaningful — few shallow distractions, room to explore, a director you can trust and a few collaborators you can open with. You can survive colder, more superficial rooms, but you won't open fully in them, and your openness is the whole gift. When you can choose, choose the room where it's safe to go deep — and remember to bring enough of yourself into it that the people there can actually meet you.",
         "About technique: your doorway is insight and the inner life, reached quietly and from within, so you'll work best inside-out — beginning from who the character truly is beneath the surface, and letting everything grow from that seen center. That path is deeply, natively yours. One thing to be precise about, because it matters: **inside-out means building the character's inner life first.** The feelings and depths you play are designed and owned by the character — grown from the character's story, the character's conscience, the character's wounds. It is never an invitation to dig up your own. You imagine your way in; you don't excavate. Your insight and your feeling for truth are strong enough to build everything the role needs — that is, in fact, the whole point of them."
       ],
-      "sorularGiris": "All of us have a different doorway into understanding. Yours is insight — you tend to see the whole of a character early, then work to understand and justify what you've seen. So your set honors both movements: first the deep questions that meet your insight where it lives, then the ones that test and enrich it, so your brilliant first glimpse becomes a fully built and defensible person rather than a fixed first impression. *Meet the character whole:*",
-      "sorular": [
-        {
-          "metin": "Who is this character, really — beneath what she/he shows the world? What's the hidden core?"
-        },
-        {
-          "metin": "What is my character truly driven by — the real motive under the stated one?"
-        },
-        {
-          "metin": "Where is she/he heading across the whole story — the throughline, the arc, the destination?"
-        },
-        {
-          "metin": "What does my character believe? What would she/he never do, and what would she/he die for?"
-        },
-        {
-          "metin": "What is the wound underneath — the old hurt still shaping how she/he moves through the world?"
-        },
-        {
-          "metin": "Now test and enrich what you've seen:",
-          "vurgu": true
-        },
-        {
-          "metin": "What are the contradictions in this character — the ways she/he is two opposed things at once, complicating my first read?"
-        },
-        {
-          "metin": "What evidence would argue against my early impression? What am I not seeing?"
-        },
-        {
-          "metin": "What do we know about the character's emotions — and what does she/he feel but never show?"
-        },
-        {
-          "metin": "What was this character's childhood like? Parents? Environment?"
-        },
-        {
-          "metin": "What were her/his most common emotions? Where did she/he feel them most in the body?"
-        },
-        {
-          "metin": "How is life at the moment for her/him?"
-        },
-        {
-          "metin": "How are her/his relationships? Who are the people around her/him?"
-        },
-        {
-          "metin": "Who does she/he get along with best — and worst?"
-        },
-        {
-          "metin": "How does she/he feel about herself/himself?"
-        },
-        {
-          "metin": "Imagine an ordinary day of hers/his, from waking up to going back to bed. Notice her/his feelings and interactions throughout the day, and take notes."
-        },
-        {
-          "metin": "Imagine people's eyes on her/him — their looks landing on your character. What does she/he feel?"
-        },
-        {
-          "metin": "What is your character's sexual orientation? Is she/he comfortable with it? How?"
-        },
-        {
-          "metin": "Is there love in her/his life right now? What feelings and actions does it bring?"
-        },
-        {
-          "metin": "Is there someone she/he once loved but no longer does? If so, what happened? What is the legacy of it in her/his life, feelings, body, and relationship patterns?"
-        },
-        {
-          "metin": "What is she/he most afraid of in life right now? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "What does she/he want most from life right now? Why does it matter that much? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "Why doesn't she/he have it? What is in the way?"
-        },
-        {
-          "metin": "What would she/he have to do to meet that need? What feelings, body sensations, actions and gestures does that bring?"
-        },
-        {
-          "metin": "What is stopping her/him from taking the step?"
-        },
-        {
-          "metin": "What happens if she/he doesn't get it? What is there to lose? What actions and gestures does that bring?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your emotions and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as the character? Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "Having walked it — what do you now know about her/him that seeing alone didn't tell you?"
-        },
-        {
-          "metin": "What else could be true of her/him that your first insight hadn't allowed for?"
-        }
-      ],
       "kapanis": "Thank you for joining this journey with us — let's see what comes next…",
       "imza": "Warmly, Filiz Kaya Ataklı"
     },
     "INFP": {
-      "kod": "INFP",
-      "surum": "v0.1 (new; item-audit applied; ISFP/ENFP templates combined)",
+      "ad": "The Wellspring",
+      "internalKey": "INFP",
+      "surum": "v0.2 (doorway name applied and construct renamed — doorway to the character design — 9 July 2026; question section moved to the Combined Core Report; polish pass)",
       "ustBaslik": "Let's Talk About You…",
-      "teamNote": "[Team note — not shown to participants: display-name slot deliberately empty; the report runs on the four letters only. The nearest neighbour is NEVER rendered in the actor's report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator's tool — in coaching, the first alternative to offer if the report isn't landing.]",
+      "teamNote": "[Team note — not shown to participants: display name: The Wellspring (doorway register, approved 9 July 2026). Internal key INFP — database and block-selection only, never rendered anywhere actor-side, including this report. The nearest neighbour is NEVER rendered in the actor**'s report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator'**s tool — in coaching, the first alternative to offer if the report isn**'**t landing.]",
       "beforeYouRead": [
         "What you're holding is not a verdict, and it is not a box. It's a hypothesis — our best first guess at how you naturally work, built entirely from your own answers. Read it the way you'd read a good director's note: try it on, test it against your own experience, keep what fits, and drop what doesn't without a second thought. Not every line will be true of you, and not every remedy works for everyone.",
-        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's."
+        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's.",
+        "One more thing. We've given this way of working a name: your doorway may be **The Wellspring**. Hold the name the way you hold everything else here — a may-be, not a badge."
       ],
       "firstSketch": [
-        "You are gentle, imaginative, deeply principled, quietly intense — an idealist with a private inner world, led always by a sense of what is true and what could be.",
-        "If we had to say it in one line: still water on the surface, and underneath it a fire that burns for what matters.",
+        "You are gentle, imaginative, deeply principled, inwardly intense — an idealist with a private inner world, led always by a sense of what is true and what could be.",
+        "If we had to say it in one line: a quiet surface, and underneath it a spring that never stops feeding a fire for what matters.",
         "You are guided from the inside, by a core of values so personal you can rarely explain them fully — you just know, in your body, when something is right and when it isn't. That inner compass is the deepest thing about you. You'll bend a long way to keep the peace, but there is a line, and it's made of conviction rather than rules; the people who mistake your softness for having no edges are always surprised when they meet it. What moves you is not success or status but meaning — you want your life and your work to be about something that matters.",
         "And your imagination doesn't stay on the ground. Where some people see what is, you see what could be — the possible version, the deeper meaning, the story underneath the story. You read between the lines by instinct, follow hunches you can't yet justify, think in metaphor and image and connection. A character, for you, is never just the words on the page; she's a whole inner life waiting to be imagined into being, and imagining her is the part you love most.",
         "You keep this rich inner world mostly private. You restore your energy alone, not in the crowd, and you tend to seem quiet or a little distant until someone earns their way in. You think a feeling through inside — often deeply, often for a long time — before you ever speak it, if you speak it at all. Your heart shows less in what you say than in what you make: a piece of writing, a performance, a small true act of care. The made thing is where you become articulate.",
@@ -2034,116 +1155,22 @@ export const tipRaporlari = {
         "Your best environments are safe, gentle, and creatively free — few rigid rules, room to explore, colleagues who are kind and a director you can trust. You can survive harsher rooms, but you won't open fully in them, and your openness is the whole gift. When you can choose, choose the room where it's safe to be true. Protect that condition like the working essential it is.",
         "About technique: your doorway is meaning and the inner life, reached quietly and from within, so you'll work best inside-out — beginning from what the character believes, longs for, and can't say, and letting everything grow from there. That path is deeply, natively yours. One thing to be precise about, because it matters: **inside-out means building the character's inner life first.** The feelings and longings you play are designed and owned by the character — grown from the character's story, the character's conscience, the character's wounds. It is never an invitation to dig up your own. You imagine your way in; you don't excavate. Your imagination and your feeling for truth are strong enough to build everything the role needs — that is, in fact, the whole point of them."
       ],
-      "sorularGiris": "All of us have a different doorway into understanding. Yours is meaning and inner truth — reached through imagination, values, and the story underneath the story. You understand a character the way you'd understand a soul: from the inside, through what she believes and longs for. Your set moves between the deep questions and the wide-open imaginative ones, because that's how your mind actually travels — inward, then outward, then inward again. *Begin at the centre:*",
-      "sorular": [
-        {
-          "metin": "What are my character's values? What does she/he care about most — in life, and within this situation?"
-        },
-        {
-          "metin": "What would she/he never do? What would she/he die for?"
-        },
-        {
-          "metin": "Where did my character learn that this is the most important thing in life? What is the heart-breaking story behind that conviction?"
-        },
-        {
-          "metin": "What is my character longing for — the thing beneath the thing she says she wants?"
-        },
-        {
-          "metin": "How does my character feel about the issue? How do the others feel — and how does that make my character feel?"
-        },
-        {
-          "metin": "Now open the imagination:",
-          "vurgu": true
-        },
-        {
-          "metin": "What do we know about the character's present, past and future?"
-        },
-        {
-          "metin": "In what ways might we understand her/him better?"
-        },
-        {
-          "metin": "How else could we see her/him?"
-        },
-        {
-          "metin": "What could we learn about this character if we could time-travel with them?"
-        },
-        {
-          "metin": "— Earliest memory of my character? · Happiest memory? · Saddest memory? · Where did she/he get most embarrassed? · The biggest pain in my character's life? · The biggest joy? · What did she/he play as a child — which games, and why? · When and how did my character meet that person (the one who matters most now)? · What feelings and sensations come in times of distress?",
-          "vurgu": true
-        },
-        {
-          "metin": "What were her/his most common emotions? Where did she/he feel them most in the body?"
-        },
-        {
-          "metin": "How is life at the moment for her/him?"
-        },
-        {
-          "metin": "How are her/his relationships? Who are the people around her/him?"
-        },
-        {
-          "metin": "Who does she/he get along with best — and worst?"
-        },
-        {
-          "metin": "How does she/he feel about herself/himself?"
-        },
-        {
-          "metin": "Imagine an ordinary day of hers/his, from waking up to going back to bed. Notice her/his feelings and interactions throughout the day, and take notes."
-        },
-        {
-          "metin": "Imagine people's eyes on her/him — their looks landing on your character. What does she/he feel?"
-        },
-        {
-          "metin": "What is your character's sexual orientation? Is she/he comfortable with it? How?"
-        },
-        {
-          "metin": "Is there love in her/his life right now? What feelings and actions does it bring?"
-        },
-        {
-          "metin": "Is there someone she/he once loved but no longer does? If so, what happened? What is the legacy of it in her/his life, feelings, body, and relationship patterns?"
-        },
-        {
-          "metin": "What is she/he most afraid of in life right now? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "What does she/he want most from life right now? Why does it matter that much? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "Why doesn't she/he have it? What is in the way?"
-        },
-        {
-          "metin": "What would she/he have to do to meet that need? What feelings, body sensations, actions and gestures does that bring?"
-        },
-        {
-          "metin": "What is stopping her/him from taking the step?"
-        },
-        {
-          "metin": "What happens if she/he doesn't get it? What is there to lose? What actions and gestures does that bring?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your emotions and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as the character? Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "How else could you see all this? If you shift your perspective now, what else do you notice about your character?"
-        },
-        {
-          "metin": "Can you imagine anything else?"
-        }
-      ],
       "kapanis": "Thank you for joining this journey with us — let's see what comes next…",
       "imza": "Warmly, Filiz Kaya Ataklı"
     },
     "INTJ": {
-      "kod": "INTJ",
-      "surum": "v0.1 (new; item-audit applied; Visionary family, canon-checked)",
+      "ad": "The Map",
+      "internalKey": "INTJ",
+      "surum": "v0.2 (doorway name applied and construct renamed — doorway to the character design — 9 July 2026; question section moved to the Combined Core Report; polish pass)",
       "ustBaslik": "Let's Talk About You…",
-      "teamNote": "[Team note — not shown to participants: display-name slot deliberately empty; the report runs on the four letters only. The nearest neighbour is NEVER rendered in the actor's report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator's tool — in coaching, the first alternative to offer if the report isn't landing. Visionary talent language to be trued-up against Filiz's Levesque frame when available.]",
+      "teamNote": "[Team note — not shown to participants: display name: The Map (doorway register, approved 9 July 2026). Internal key INTJ — database and block-selection only, never rendered anywhere actor-side, including this report. The nearest neighbour is NEVER rendered in the actor**'s report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator'**s tool — in coaching, the first alternative to offer if the report isn**'t landing. Visionary talent language to be trued-up against Filiz'**s Levesque frame when available.]",
       "beforeYouRead": [
         "What you're holding is not a verdict, and it is not a box. It's a hypothesis — our best first guess at how you naturally work, built entirely from your own answers. Read it the way you'd read a good director's note: try it on, test it against your own experience, keep what fits, and drop what doesn't without a second thought. Not every line will be true of you, and not every remedy works for everyone.",
-        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's."
+        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's.",
+        "One more thing. We've given this way of working a name: your doorway may be **The Map**. Hold the name the way you hold everything else here — a may-be, not a badge."
       ],
       "firstSketch": [
-        "You are strategic, independent, precise, quietly self-assured — a long-range thinker who sees where things are heading and builds, deliberately, to get there.",
+        "You are strategic, independent, precise, calmly self-assured — a long-range thinker who sees where things are heading and builds, deliberately, to get there.",
         "If we had to say it in one line: you see the whole system, and the plan to master it, before most people have seen the problem.",
         "You think in structures and in the long view. Where others work move by move, you tend to see the whole shape at once — how the parts connect, where the pattern is going, what it will take to get from here to the destination — and then you build a deliberate plan to reach it. Insight and strategy run together in you: you don't just perceive where things are heading, you organize toward it, methodically and independently. Half-formed thinking bothers you; you want the model that actually holds, and you'll rework it until it does.",
         "You are independent to the core. You trust your own analysis over received wisdom, you're skeptical of doing a thing simply because it's always been done, and you'd rather understand something from first principles than take it on authority. You hold high standards — highest for yourself — and you have real confidence in your own judgment, earned from a track record of your reads turning out right. You resist being managed, hurried, or told what to think; what you want is the room and the autonomy to work a problem through your own way.",
@@ -2196,11 +1223,11 @@ export const tipRaporlari = {
       "remedies": [
         {
           "baslik": "Trust your strengths.",
-          "metin": "Your strategic depth, your independence, and your drive toward mastery are real and uncommon — lean on them, and choose work with genuine depth and room to think. You're at your best with a real problem and the autonomy to work it your own way; don't apologize for needing that. A rushed or micromanaged INTJ is a wasted one; a trusted one is extraordinary."
+          "metin": "Your strategic depth, your independence, and your drive toward mastery are real and uncommon — lean on them, and choose work with genuine depth and room to think. You're at your best with a real problem and the autonomy to work it your own way; don't apologize for needing that. Rushed and micromanaged, you are wasted; trusted with a real problem, you are extraordinary."
         },
         {
           "baslik": "Let feeling into the work.",
-          "metin": "Your under-trained muscle is the emotional one — so train it on purpose, because for you it's the whole game. When you analyze a character, add a deliberate pass that isn't analysis: what does she feel, in the body, right now, and can I let a version of it actually move through me? You don't have to abandon the strategic mind; you have to let the heart have its turn beside it. The scenes that land are felt, not solved — and letting yourself be moved by the character you've so brilliantly understood is the single most valuable thing you can build."
+          "metin": "Feeling is the one territory your map doesn't chart by itself — so survey it deliberately, because for you it's the whole game. When you analyze a character, add a deliberate pass that isn't analysis: what does she feel, in the body, right now, and can I let a version of it actually move through me? You don't have to abandon the strategic mind; you have to let the heart have its turn beside it. The scenes that land are felt, not solved — and letting yourself be moved by the character you've so brilliantly understood is the single most valuable thing you can build."
         },
         {
           "baslik": "Hold your reads as hypotheses.",
@@ -2221,109 +1248,22 @@ export const tipRaporlari = {
         "Your ideal environment is intellectually serious and genuinely autonomous: real depth, room to think, collaborators you respect, and a director who explains rather than commands. Micromanagement, shallowness, and being hurried will shut you down. When you can choose, choose the room that respects your mind — and then, deliberately, let your heart and your collaborators further into it than feels natural. That deliberate opening is where the great work, and the great working relationships, will come from.",
         "About technique: you're strategic and structural, so you'll likely build a character from the inside out in your own way — grasping the whole system of her first, then constructing everything to serve it. That's a legitimate and powerful path. One thing to be precise about, because it matters: **the emotions you play are built for the character and owned by the character** — grown from the character's story, logic, and wounds, never mined from your own past. You construct them; you don't excavate them. You understand better than anyone that a feeling can be built from the inside of a character's logic — so build it. Your mind is strong enough to construct everything the role needs; the mastery, for you, is letting the constructed thing be genuinely felt, not just perfectly understood."
       ],
-      "sorularGiris": "All of us have a different doorway into understanding. Yours is the system — you understand a character by grasping her whole structure and the logic that runs her. So your set begins where your mind naturally starts, with the architecture, and then deliberately turns toward the two things your analysis can skip: the feeling, and what other people see that you don't. Push yourself to stay with those later questions as long as you stayed with the first ones — that's where your growth as an actor lives. *Map the system:*",
-      "sorular": [
-        {
-          "metin": "Who is this character, structurally — what drives her/him, and how does the logic of that person actually run?"
-        },
-        {
-          "metin": "Where is she/he heading across the whole story — the throughline, the arc, the destination?"
-        },
-        {
-          "metin": "Why does she/he do this — and why this way rather than another? What's the deep design under the behavior?"
-        },
-        {
-          "metin": "What does my character believe? What would she/he never do, and what would she/he die for?"
-        },
-        {
-          "metin": "What is the wound underneath — the old structural fault still shaping how she/he moves through the world?"
-        },
-        {
-          "metin": "Now turn toward feeling — the part the map leaves out:",
-          "vurgu": true
-        },
-        {
-          "metin": "What does this character actually feel — in the body, moment to moment — beneath what she/he understands or shows?"
-        },
-        {
-          "metin": "What are the contradictions in her/him — the ways she/he is two opposed things at once, that a clean model would flatten?"
-        },
-        {
-          "metin": "What was this character's childhood like? Parents? Environment?"
-        },
-        {
-          "metin": "What were her/his most common emotions? Where did she/he feel them most in the body?"
-        },
-        {
-          "metin": "How is life at the moment for her/him?"
-        },
-        {
-          "metin": "How are her/his relationships? Who are the people around her/him?"
-        },
-        {
-          "metin": "Who does she/he get along with best — and worst?"
-        },
-        {
-          "metin": "How does she/he feel about herself/himself?"
-        },
-        {
-          "metin": "Imagine an ordinary day of hers/his, from waking up to going back to bed. Notice her/his feelings and interactions throughout the day, and take notes."
-        },
-        {
-          "metin": "Imagine people's eyes on her/him — their looks landing on your character. What does she/he feel?"
-        },
-        {
-          "metin": "What is your character's sexual orientation? Is she/he comfortable with it? How?"
-        },
-        {
-          "metin": "Is there love in her/his life right now? What feelings and actions does it bring?"
-        },
-        {
-          "metin": "Is there someone she/he once loved but no longer does? If so, what happened? What is the legacy of it in her/his life, feelings, body, and relationship patterns?"
-        },
-        {
-          "metin": "What is she/he most afraid of in life right now? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "What does she/he want most from life right now? Why does it matter that much? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "Why doesn't she/he have it? What is in the way?"
-        },
-        {
-          "metin": "What would she/he have to do to meet that need? What feelings, body sensations, actions and gestures does that bring?"
-        },
-        {
-          "metin": "What is stopping her/him from taking the step?"
-        },
-        {
-          "metin": "What happens if she/he doesn't get it? What is there to lose? What actions and gestures does that bring?"
-        },
-        {
-          "metin": "Now stop analyzing and walk for a while as the character. Notice your emotions and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as the character? Take notes. For you this walk matters most: it's where the system becomes a person, and where understanding gives way to feeling.",
-          "vurgu": true
-        },
-        {
-          "metin": "Having walked it — what do you now feel about her/him that the analysis didn't tell you?"
-        },
-        {
-          "metin": "What did a collaborator — a partner, the director — see in her/him that you hadn't? What does that add?"
-        }
-      ],
       "kapanis": "Thank you for joining this journey with us — let's see what comes next…",
       "imza": "Warmly, Filiz Kaya Ataklı"
     },
     "INTP": {
-      "kod": "INTP",
-      "surum": "v0.1 (new; item-audit applied; Inventor/Explorer spine, introvert re-pitch)",
+      "ad": "The Question",
+      "internalKey": "INTP",
+      "surum": "v0.2 (doorway name applied and construct renamed — doorway to the character design — 9 July 2026; question section moved to the Combined Core Report; polish pass)",
       "ustBaslik": "Let's Talk About You…",
-      "teamNote": "[Team note — not shown to participants: display-name slot deliberately empty; the report runs on the four letters only. The nearest neighbour is NEVER rendered in the actor's report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator's tool — in coaching, the first alternative to offer if the report isn't landing.]",
+      "teamNote": "[Team note — not shown to participants: display name: The Question (doorway register, approved 9 July 2026). Internal key INTP — database and block-selection only, never rendered anywhere actor-side, including this report. The nearest neighbour is NEVER rendered in the actor**'s report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator'**s tool — in coaching, the first alternative to offer if the report isn**'**t landing.]",
       "beforeYouRead": [
         "What you're holding is not a verdict, and it is not a box. It's a hypothesis — our best first guess at how you naturally work, built entirely from your own answers. Read it the way you'd read a good director's note: try it on, test it against your own experience, keep what fits, and drop what doesn't without a second thought. Not every line will be true of you, and not every remedy works for everyone.",
-        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's."
+        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's.",
+        "One more thing. We've given this way of working a name: your doorway may be **The Question**. Hold the name the way you hold everything else here — a may-be, not a badge."
       ],
       "firstSketch": [
-        "You are curious, independent, precise, quietly original — a mind that has to understand things, most alive when a real problem is turning over inside it.",
+        "You are curious, independent, precise, privately original — a mind that has to understand things, most alive when a real problem is turning over inside it.",
         "If we had to say it in one line: you need to know how it truly works — and you won't rest until you do.",
         "You are, above everything, a thinker — and a particular kind: you don't collect facts, you build models. When something interests you, you take it apart in your head to see how it actually functions, and you keep at it, privately and patiently, until the picture is clear and consistent. Half-answers bother you. A shared belief that doesn't hold up under scrutiny bothers you more. You'd rather have the true, complex answer than the comfortable, simple one, and you'll question the whole framework — including your own — to get there.",
         "Your imagination and your logic run together, which is the thing to understand about yourself. One part of you generates: possibilities, connections, what-ifs, the reading nobody else brought. The other part immediately tests: is it consistent, does it hold, where does it break? Most people have one of these; you run both, in a loop, quietly. It's why your ideas are both genuinely original and quietly rigorous — you've already argued yourself out of the weak ones before anyone hears them.",
@@ -2376,11 +1316,11 @@ export const tipRaporlari = {
       "remedies": [
         {
           "baslik": "Trust your strengths.",
-          "metin": "Protect the thinking — the exploring, the modeling, the private testing loop — because that's where your difference is made. Choose work and rooms that give your mind real problems and real room, and don't apologize for needing time to arrive at your own understanding. A rushed INTP is a wasted one; a trusted one is extraordinary."
+          "metin": "Protect the thinking — the exploring, the modeling, the private testing loop — because that's where your difference is made. Choose work and rooms that give your mind real problems and real room, and don't apologize for needing time to arrive at your own understanding. Rushed, you are wasted; given room, you are extraordinary."
         },
         {
           "baslik": "Let feeling into the room.",
-          "metin": "Your under-used muscle is the emotional one — so train it on purpose. When you analyze a character, add one deliberate pass that isn't analysis: what does she feel, in the body, right now, and can I feel a version of it too? You don't have to abandon the mind; you have to let the heart have its turn. The scenes that land are usually felt, not just understood — and this is the most valuable growth edge in your whole profile."
+          "metin": "Feeling is the variable your models keep dropping — so put it back into the equation, deliberately. When you analyze a character, add one deliberate pass that isn't analysis: what does she feel, in the body, right now, and can I feel a version of it too? You don't have to abandon the mind; you have to let the heart have its turn. The scenes that land are usually felt, not just understood — and this is the most valuable growth edge in your whole profile."
         },
         {
           "baslik": "Hold both sides.",
@@ -2401,119 +1341,22 @@ export const tipRaporlari = {
         "Your ideal environment is intellectually alive and genuinely free: real problems, room to think, colleagues who respect ideas, and a director who explains rather than commands. Pure procedure, tight micromanagement, and being hurried will shut you down. When you can choose, choose the room that lets your mind breathe — and then make sure you also let your heart into it.",
         "About technique: you're a natural synthesizer — you'll take the best of every approach, test it, and build your own method from what survives. Almost any training will feed you something. One house rule travels with you wherever you borrow from: **the emotions you play are built from the character's story — designed, constructed, owned by the character — never mined from your own past.** You understand better than anyone that a feeling can be constructed from the inside of a character's logic. So construct it. Your mind is strong enough to build everything the role needs — the trick, for you, is remembering to let the built thing be felt."
       ],
-      "sorularGiris": "All of us have a different doorway into understanding. Yours is the question itself — you understand a character by finding the right thing to ask about her and following it all the way down. So your set begins as an analyst's toolkit — the questions that take a character apart — and then keeps going, because your mind is never quite done turning a thing over. Trust these; the puzzlement they produce is your talent working. *The analyst's opening:*",
-      "sorular": [
-        {
-          "metin": "What are the gaps — what does the script leave unexplained about this character?"
-        },
-        {
-          "metin": "What needs improving or deepening in my current understanding of her/him?"
-        },
-        {
-          "metin": "How else could I see this? What's the reading I haven't considered yet?"
-        },
-        {
-          "metin": "What are the contradictions in this character — the ways she/he is two opposed things at once?"
-        },
-        {
-          "metin": "Why does she/he do this — and why this way, rather than another?"
-        },
-        {
-          "metin": "Now follow it wherever it goes:",
-          "vurgu": true
-        },
-        {
-          "metin": "What do we know about the character's present, past and future?"
-        },
-        {
-          "metin": "In what ways might we understand her/him better?"
-        },
-        {
-          "metin": "What is the big picture? What is she/he doing, trying to accomplish, feel, be?"
-        },
-        {
-          "metin": "What could we learn about this character if we could time-travel with them?"
-        },
-        {
-          "metin": "— Earliest memory of my character? · Happiest memory? · Saddest memory? · The biggest pain in my character's life? · The biggest joy? · What did she/he play as a child — which games, and why? · When and how did my character meet that person (the one who matters most now)? · What feelings and sensations come in times of distress?",
-          "vurgu": true
-        },
-        {
-          "metin": "Which senses does this character use most? Are there any seeing, hearing or feeling deficits?"
-        },
-        {
-          "metin": "What were her/his most common emotions? How did she/he express them — and where in the body?"
-        },
-        {
-          "metin": "How is life at the moment for her/him?"
-        },
-        {
-          "metin": "How are her/his relationships? Who are the people around her/him?"
-        },
-        {
-          "metin": "Who does she/he get along with best — and worst?"
-        },
-        {
-          "metin": "How does she/he feel about herself/himself?"
-        },
-        {
-          "metin": "Imagine an ordinary day of hers/his, from waking up to going back to bed. Notice her/his feelings and interactions throughout the day, and take notes."
-        },
-        {
-          "metin": "Imagine people's eyes on her/him — their looks landing on your character. What does she/he feel?"
-        },
-        {
-          "metin": "What is your character's sexual orientation? Is she/he comfortable with it? How?"
-        },
-        {
-          "metin": "Is there love in her/his life right now? What feelings and actions does it bring?"
-        },
-        {
-          "metin": "Is there someone she/he once loved but no longer does? If so, what happened? What is the legacy of it in her/his life, feelings, body, and relationship patterns?"
-        },
-        {
-          "metin": "What is she/he most afraid of in life right now? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "What does she/he want most from life right now? Why does it matter that much? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "Why doesn't she/he have it? What is in the way?"
-        },
-        {
-          "metin": "What would she/he have to do to meet that need? What feelings, body sensations, actions and gestures does that bring?"
-        },
-        {
-          "metin": "What is stopping her/him from taking the step?"
-        },
-        {
-          "metin": "What happens if she/he doesn't get it? What is there to lose? What actions and gestures does that bring?"
-        },
-        {
-          "metin": "Now stop analyzing and walk for a while as the character. Notice your emotions and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as the character? Take notes. For you this walk matters most: it's where understanding becomes feeling.",
-          "vurgu": true
-        },
-        {
-          "metin": "Having walked it — what do you now know that thinking alone didn't tell you?"
-        },
-        {
-          "metin": "Can you imagine anything else? What else could be true of her/him?"
-        }
-      ],
       "kapanis": "Thank you for joining this journey with us — let's see what comes next…",
       "imza": "Warmly, Filiz Kaya Ataklı"
     },
     "ISFJ": {
-      "kod": "ISFJ",
-      "surum": "v0.1 (new; item-audit applied; Navigator family, canon-checked)",
+      "ad": "The Harbor",
+      "internalKey": "ISFJ",
+      "surum": "v0.2 (doorway name applied and construct renamed — doorway to the character design — 9 July 2026; question section moved to the Combined Core Report; polish pass)",
       "ustBaslik": "Let's Talk About You…",
-      "teamNote": "[Team note — not shown to participants: display-name slot deliberately empty; the report runs on the four letters only. The nearest neighbour is NEVER rendered in the actor's report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator's tool — in coaching, the first alternative to offer if the report isn't landing. Navigator talent language to be trued-up against Filiz's Levesque frame when available.]",
+      "teamNote": "[Team note — not shown to participants: display name: The Harbor (doorway register, approved 9 July 2026). Internal key ISFJ — database and block-selection only, never rendered anywhere actor-side, including this report. The nearest neighbour is NEVER rendered in the actor**'s report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator'**s tool — in coaching, the first alternative to offer if the report isn**'t landing. Navigator talent language to be trued-up against Filiz'**s Levesque frame when available.]",
       "beforeYouRead": [
         "What you're holding is not a verdict, and it is not a box. It's a hypothesis — our best first guess at how you naturally work, built entirely from your own answers. Read it the way you'd read a good director's note: try it on, test it against your own experience, keep what fits, and drop what doesn't without a second thought. Not every line will be true of you, and not every remedy works for everyone.",
-        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's."
+        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's.",
+        "One more thing. We've given this way of working a name: your doorway may be **The Harbor**. Hold the name the way you hold everything else here — a may-be, not a badge."
       ],
       "firstSketch": [
-        "You are warm, devoted, steady, attentive, quietly generous — the person who notices what someone needs and quietly makes sure it's there, most fulfilled when the people you care about are looked after and the work is done right.",
+        "You are warm, devoted, steady, attentive, modestly generous — the person who notices what someone needs and quietly makes sure it's there, most fulfilled when the people you care about are looked after and the work is done right.",
         "If we had to say it in one line: you take care of things — and of people — without ever needing to be asked.",
         "You are wired to care, and to care in practical, reliable ways. You read the people around you closely — who's struggling, who's tired, who's been forgotten — and you can't help acting on it, usually before anyone's had to say a word. But your care isn't just sympathy; it's service. You remember the thing, you bring the thing, you show up when you said you would and do what you promised. For you, love is mostly a set of quiet, dependable actions rather than grand declarations — and the people lucky enough to be looked after by you often don't realize how much you carry until you're not there.",
         "And here is what grounds all that devotion: you trust what's proven. You work from the tested method, the concrete fact, the way that has actually worked — building from real, specific detail, layer by layer, with an exceptional memory for how things are and how they're properly done. You prepare fully and leave little to chance. So you're not only kind; you're reliable — the rare person who both feels for people and can genuinely be counted on to follow through.",
@@ -2591,109 +1434,22 @@ export const tipRaporlari = {
         "Your one real hazard is the one your generosity sets for you: giving so much of yourself to everyone else's work and wellbeing that you arrive at your own scenes with nothing left, or hang back from the roles your talent has earned. Care for the company, yes — but count your own work and your own needs among the things worth protecting. Your first responsibility on any production includes the actor you were hired to be.",
         "About technique: your doorway is people and their needs, reached through real, concrete detail, so you'll likely work best inside-out — beginning from who the character loves and answers to, and building the rest from true particulars. That suits you. One thing to be precise about, because it matters: **inside-out means building the character's inner life first.** The feelings and bonds you play are designed and owned by the character — grown from the character's history, the character's people, the character's world. It is never an invitation to dig up your own. You imagine your way in; you don't excavate. Your care and your eye for the real are strong enough to build everything the role needs — that is, in fact, the whole point of them."
       ],
-      "sorularGiris": "All of us have a different doorway into understanding. Yours is people and their bonds, reached through concrete, observed detail — you understand a character the way you understand someone you're looking after: through who they love, what they need, and the real particulars of their life. Here is the set built for the way your mind works. *Begin with the bonds and the ground:*",
-      "sorular": [
-        {
-          "metin": "Who does my character love, and who loves my character? Who does she/he feel responsible for?"
-        },
-        {
-          "metin": "What are the concrete facts of this life — where she/he lives, works, comes from; the real particulars?"
-        },
-        {
-          "metin": "How does my character feel about the situation? How do the others feel — and how does that make my character feel?"
-        },
-        {
-          "metin": "Who will be affected by what happens, and how?"
-        },
-        {
-          "metin": "What was this character's childhood like? Parents? Environment? What did she/he learn there about being cared for — or not?"
-        },
-        {
-          "metin": "Now go deeper into the person:",
-          "vurgu": true
-        },
-        {
-          "metin": "What are the contradictions in this character — the ways she/he is two opposed things at once?"
-        },
-        {
-          "metin": "What do we know about the character's emotions — and what does she/he feel but never show?"
-        },
-        {
-          "metin": "As a child, what was one thing she/he could always be sure of? What was one thing she/he was never sure of?"
-        },
-        {
-          "metin": "What were her/his most common emotions? Where did she/he feel them most in the body?"
-        },
-        {
-          "metin": "How is life at the moment for her/him?"
-        },
-        {
-          "metin": "How are her/his relationships? Who are the people around her/him?"
-        },
-        {
-          "metin": "Who does she/he get along with best — and worst?"
-        },
-        {
-          "metin": "How does she/he feel about herself/himself?"
-        },
-        {
-          "metin": "Imagine an ordinary day of hers/his, from waking up to going back to bed. Notice her/his feelings and interactions throughout the day, and take notes."
-        },
-        {
-          "metin": "Imagine people's eyes on her/him — their looks landing on your character. What does she/he feel?"
-        },
-        {
-          "metin": "What is your character's sexual orientation? Is she/he comfortable with it? How?"
-        },
-        {
-          "metin": "Is there love in her/his life right now? What feelings and actions does it bring?"
-        },
-        {
-          "metin": "Is there someone she/he once loved but no longer does? If so, what happened? What is the legacy of it in her/his life, feelings, body, and relationship patterns?"
-        },
-        {
-          "metin": "What is she/he most afraid of in life right now? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "What does she/he want most from life right now? Why does it matter that much? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "Why doesn't she/he have it? What is in the way?"
-        },
-        {
-          "metin": "What would she/he have to do to meet that need? What feelings, body sensations, actions and gestures does that bring?"
-        },
-        {
-          "metin": "What is stopping her/him from taking the step?"
-        },
-        {
-          "metin": "What happens if she/he doesn't get it? What is there to lose? What actions and gestures does that bring?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your emotions and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as the character? Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "Having walked it — what do you now feel about her/him that gathering the facts didn't tell you?"
-        },
-        {
-          "metin": "What else could be true of her/him that you hadn't allowed for?"
-        }
-      ],
       "kapanis": "Thank you for joining this journey with us — let's see what comes next…",
       "imza": "Warmly, Filiz Kaya Ataklı"
     },
     "ISFP": {
-      "kod": "ISFP",
-      "surum": "v0.1 (rewrite of Filiz's original sample; item-audit applied)",
+      "ad": "The Still Water",
+      "internalKey": "ISFP",
+      "surum": "v0.2 (doorway name applied and construct renamed — doorway to the character design — 9 July 2026; question section moved to the Combined Core Report; polish pass)",
       "ustBaslik": "Let's Talk About You…",
-      "teamNote": "[Team note — not shown to participants: display-name slot deliberately empty; the report runs on the four letters only. The nearest neighbour is NEVER rendered in the actor's report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator's tool — in coaching, the first alternative to offer if the report isn't landing.]",
+      "teamNote": "[Team note — not shown to participants: display name: The Still Water (doorway register, approved 9 July 2026). Internal key ISFP — database and block-selection only, never rendered anywhere actor-side, including this report. The nearest neighbour is NEVER rendered in the actor**'s report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator'**s tool — in coaching, the first alternative to offer if the report isn**'**t landing.]",
       "beforeYouRead": [
         "What you're holding is not a verdict, and it is not a box. It's a hypothesis — our best first guess at how you naturally work, built entirely from your own answers. Read it the way you'd read a good director's note: try it on, test it against your own experience, keep what fits, and drop what doesn't without a second thought. Not every line will be true of you, and not every remedy works for everyone.",
-        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's."
+        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's.",
+        "One more thing. We've given this way of working a name: your doorway may be **The Still Water**. Hold the name the way you hold everything else here — a may-be, not a badge."
       ],
       "firstSketch": [
-        "You are gentle, warm, flexible, quietly independent, deeply principled — attuned to beauty, attuned to people, and led, always, by an inner sense of what is true.",
+        "You are gentle, warm, flexible, self-directed, deeply principled — attuned to beauty, attuned to people, and led, always, by an inner sense of what is true.",
         "If we had to say it in one line: still water, running deep — and running by its own compass.",
         "You are guided from the inside. Beneath the easygoing, accommodating surface sits a firm and private core of values, and it is that core — not the rules, not the crowd, not the trend — that ultimately decides what you'll do. You'll bend a long way to keep things pleasant, but there's a line you won't cross, and the people who mistake your gentleness for softness are always surprised when they find it. You look for ways to accommodate, and you can struggle with those who won't do the same.",
         "You express yourself more through action than through words. You may seem a little distant at first — you keep your inner world private, and you restore your energy in solitude, not in the crowd — but those who get close come to read your care in the thoughtful things you do rather than the things you say. You tend to think a feeling through inside before you voice it, if you voice it at all; the made thing, more than the spoken sentence, is where your heart tends to show — a piece of writing, a movement, an image, a small act of care.",
@@ -2778,93 +1534,22 @@ export const tipRaporlari = {
         "Your gift for making others feel safe — your warmth, your steadiness, the way you become the quiet heart of a company once people know you — enhances everyone's work, not only your own. And you're keenly tuned to your senses with a true artistic streak, so a job that lets you connect with people and inhabit a character is deeply satisfying for you. Rigid rules and heavy bureaucracy will drain you; a role you can care about will feed you for months. So being an actor genuinely suits you — as long as the trust and safety are there. Protect those conditions like the working essentials they are.",
         "About technique: your doorway is values and the heart, reached quietly and from within, so you'll likely work best inside-out — beginning from what the character believes, loves, and would die for, and letting the rest grow from there. That path is deeply yours. One thing to be precise about, because it matters: **inside-out means building the character's inner life first.** The values and feelings you play are designed and owned by the character — grown from the character's story, the character's conscience, the character's wounds. It is never an invitation to dig up your own. You imagine your way in; you don't excavate. Your feeling for what is true is strong enough to build everything the role needs — that is, in fact, the whole point of it."
       ],
-      "sorularGiris": "All of us have a different doorway into understanding. Yours is values — what a character can stand behind, what makes sense to her heart. You understand people through what they care about, what they believe, and the emotions that live underneath. Here is the set built for the way your mind works — it begins, as you do, with what matters.",
-      "sorular": [
-        {
-          "metin": "How does my character feel about the issue?"
-        },
-        {
-          "metin": "How do the others feel about the issue?"
-        },
-        {
-          "metin": "How do the others feel about my character? And how does that make my character feel?"
-        },
-        {
-          "metin": "What are my character's values? What does she/he care about most — in life, and within this situation?"
-        },
-        {
-          "metin": "How does my character fit in? How did she/he fit in before?"
-        },
-        {
-          "metin": "What is the history of my character's values?"
-        },
-        {
-          "metin": "Where did my character learn that this is the most important thing in life? What is the heart-breaking story behind that conviction?"
-        },
-        {
-          "metin": "Who will gain, and who will lose, from this situation?"
-        },
-        {
-          "metin": "How will everyone be affected?"
-        },
-        {
-          "metin": "What is important to them?"
-        },
-        {
-          "metin": "What special strengths or skills does my character need?"
-        },
-        {
-          "metin": "What bodily sensations does my character feel within each situation?"
-        },
-        {
-          "metin": "What was this character's childhood like? Parents? Environment?"
-        },
-        {
-          "metin": "As a child, what was one thing she/he could always be sure of? What mattered most to my character at 5? 10? 15? 25? 30?…"
-        },
-        {
-          "metin": "What were her/his most common emotions? Where did she/he feel them most in the body?"
-        },
-        {
-          "metin": "Imagine an ordinary day of hers/his, from waking up to going back to bed. Notice her/his feelings and interactions throughout the day, and take notes."
-        },
-        {
-          "metin": "What is she/he most afraid of in life right now? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "What does she/he want most from life right now? Why does it matter that much? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "Why doesn't she/he have it? What is in the way?"
-        },
-        {
-          "metin": "What would she/he have to do to meet that need? What feelings, body sensations, actions and gestures does that bring?"
-        },
-        {
-          "metin": "What is stopping her/him from taking the step?"
-        },
-        {
-          "metin": "What happens if she/he doesn't get it? What is there to lose? What actions and gestures does that bring?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your emotions and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as the character? Take notes.",
-          "vurgu": true
-        }
-      ],
       "kapanis": "Thank you for joining this journey with us — let's see what comes next…",
       "imza": "Warmly, Filiz Kaya Ataklı"
     },
     "ISTJ": {
-      "kod": "ISTJ",
-      "surum": "v0.1 (new; item-audit applied; Navigator family, canon-checked)",
+      "ad": "The Cornerstone",
+      "internalKey": "ISTJ",
+      "surum": "v0.2 (doorway name applied and construct renamed — doorway to the character design — 9 July 2026; question section moved to the Combined Core Report; polish pass)",
       "ustBaslik": "Let's Talk About You…",
-      "teamNote": "[Team note — not shown to participants: display-name slot deliberately empty; the report runs on the four letters only. The nearest neighbour is NEVER rendered in the actor's report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator's tool — in coaching, the first alternative to offer if the report isn't landing. Navigator talent language to be trued-up against Filiz's Levesque frame when available.]",
+      "teamNote": "[Team note — not shown to participants: display name: The Cornerstone (doorway register, approved 9 July 2026). Internal key ISTJ — database and block-selection only, never rendered anywhere actor-side, including this report. The nearest neighbour is NEVER rendered in the actor**'s report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator'**s tool — in coaching, the first alternative to offer if the report isn**'t landing. Navigator talent language to be trued-up against Filiz'**s Levesque frame when available.]",
       "beforeYouRead": [
         "What you're holding is not a verdict, and it is not a box. It's a hypothesis — our best first guess at how you naturally work, built entirely from your own answers. Read it the way you'd read a good director's note: try it on, test it against your own experience, keep what fits, and drop what doesn't without a second thought. Not every line will be true of you, and not every remedy works for everyone.",
-        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's."
+        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's.",
+        "One more thing. We've given this way of working a name: your doorway may be **The Cornerstone**. Hold the name the way you hold everything else here — a may-be, not a badge."
       ],
       "firstSketch": [
-        "You are steady, thorough, dependable, precise, quietly self-possessed — the person who does the work properly and keeps their word, most solid when there's a real job with clear standards to meet.",
+        "You are steady, thorough, dependable, precise, evenly self-possessed — the person who does the work properly and keeps their word, most solid when there's a real job with clear standards to meet.",
         "If we had to say it in one line: you can be counted on — completely, and all the way to done.",
         "You are built on reliability. When you take something on, you do it — thoroughly, carefully, to the standard you set for yourself, which is high. You don't need an audience or a leadership role; you need the work done right. Decisions steady you rather than trouble you, and loose ends sit uneasily — you like things settled, planned, and properly finished. Where some people bring flash and no follow-through, you are the follow-through: your word is genuinely good, and people learn they can build on you without checking.",
         "You trust what's proven. You work from the tested method, the concrete fact, the way that has actually worked before — not from theory floating above the ground. You build from real, specific detail, layer by layer, and you have an exceptional memory for how things are and how they're properly done. You prepare fully, you organize your materials, you leave little to chance. Vagueness and half-baked improvisation make you uneasy; you'd rather know.",
@@ -2921,7 +1606,7 @@ export const tipRaporlari = {
         },
         {
           "baslik": "Let feeling into the work.",
-          "metin": "Your under-trained muscle is the emotional one — so train it on purpose. When you build a character, add one deliberate pass that isn't fact-gathering: what does she feel, in the body, right now, and can I let a version of it move through me too? You don't have to abandon your rigor; you have to give the heart its turn alongside it. The scenes that land are felt, and this is the single most valuable growth edge in your whole profile."
+          "metin": "Feeling is the one particular your thoroughness can skip — so put it on the checklist, on purpose. When you build a character, add one deliberate pass that isn't fact-gathering: what does she feel, in the body, right now, and can I let a version of it move through me too? You don't have to abandon your rigor; you have to give the heart its turn alongside it. The scenes that land are felt, and this is the single most valuable growth edge in your whole profile."
         },
         {
           "baslik": "Try it the other way once.",
@@ -2942,109 +1627,22 @@ export const tipRaporlari = {
         "Your ideal environment gives you a real job, clear standards, honest preparation time, and colleagues who pull their weight — and a director you can respect and rely on. Chaos, constant last-minute changes of plan, and vagueness will unsettle you. When you can choose, choose the room with real standards in it — and then, deliberately, let a little more feeling and flexibility into it than feels natural.",
         "About technique: you're practical and grounded, so you'll likely build a character from the outside in — the facts, the behavior, the concrete detail, the real particulars — and let the inner life follow. That's a legitimate and powerful path, and it's natively yours. One thing to be precise about, because it matters: **the emotions you play are built for the character and owned by the character** — grown from the character's story, situation, and real particulars, never mined from your own past. You construct them; you don't excavate them. Your craft is strong enough to build everything the role needs — the mastery, for you, is letting the built thing be genuinely felt, not just correctly assembled."
       ],
-      "sorularGiris": "All of us have a different doorway into understanding. Yours is concrete fact and how things are properly done — you understand a character by getting the real particulars right: where she comes from, how she lives, what she actually does. So your set begins with the solid ground you trust and then, deliberately, keeps going past the facts into the emotional and flexible material your steadiness can otherwise rush by. Push yourself to stay with the later questions as long as you stayed with the first ones. *Start on solid ground:*",
-      "sorular": [
-        {
-          "metin": "What are the concrete facts of this character — where she/he lives, works, comes from; the real particulars of this life?"
-        },
-        {
-          "metin": "What is her/his role and responsibility in this story — the duties, the function?"
-        },
-        {
-          "metin": "What was this character's childhood like? Parents? Environment? What did she/he learn there about how life works?"
-        },
-        {
-          "metin": "How does this character actually operate day to day — the practical, observable shape of her/his life?"
-        },
-        {
-          "metin": "What information do we actually have in hand — and what are the gaps the script leaves open?"
-        },
-        {
-          "metin": "Now go past the facts, into the person:",
-          "vurgu": true
-        },
-        {
-          "metin": "What are the contradictions in this character — the ways she/he is two opposed things at once?"
-        },
-        {
-          "metin": "What do we know about the character's emotions — and what does she/he feel but never show?"
-        },
-        {
-          "metin": "As a child, what was one thing she/he could always be sure of? What was one thing she/he was never sure of?"
-        },
-        {
-          "metin": "What were her/his most common emotions? Where did she/he feel them most in the body?"
-        },
-        {
-          "metin": "How is life at the moment for her/him?"
-        },
-        {
-          "metin": "How are her/his relationships? Who are the people around her/him?"
-        },
-        {
-          "metin": "Who does she/he get along with best — and worst?"
-        },
-        {
-          "metin": "How does she/he feel about herself/himself?"
-        },
-        {
-          "metin": "Imagine an ordinary day of hers/his, from waking up to going back to bed. Notice her/his feelings and interactions throughout the day, and take notes."
-        },
-        {
-          "metin": "Imagine people's eyes on her/him — their looks landing on your character. What does she/he feel?"
-        },
-        {
-          "metin": "What is your character's sexual orientation? Is she/he comfortable with it? How?"
-        },
-        {
-          "metin": "Is there love in her/his life right now? What feelings and actions does it bring?"
-        },
-        {
-          "metin": "Is there someone she/he once loved but no longer does? If so, what happened? What is the legacy of it in her/his life, feelings, body, and relationship patterns?"
-        },
-        {
-          "metin": "What is she/he most afraid of in life right now? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "What does she/he want most from life right now? Why does it matter that much? How does that shape her/his moves, actions and feelings?"
-        },
-        {
-          "metin": "Why doesn't she/he have it? What is in the way?"
-        },
-        {
-          "metin": "What would she/he have to do to meet that need? What feelings, body sensations, actions and gestures does that bring?"
-        },
-        {
-          "metin": "What is stopping her/him from taking the step?"
-        },
-        {
-          "metin": "What happens if she/he doesn't get it? What is there to lose? What actions and gestures does that bring?"
-        },
-        {
-          "metin": "Now stop gathering facts and walk for a while as the character. Notice your emotions and your body, your pace, your moves, your five senses — what do you see, hear, feel, taste, notice as the character? Take notes. For you this walk matters most: it's where the facts become a person, and where getting it right gives way to feeling.",
-          "vurgu": true
-        },
-        {
-          "metin": "Having walked it — what do you now feel about her/him that the facts didn't tell you?"
-        },
-        {
-          "metin": "What else could be true of her/him that you hadn't allowed for?"
-        }
-      ],
       "kapanis": "Thank you for joining this journey with us — let's see what comes next…",
       "imza": "Warmly, Filiz Kaya Ataklı"
     },
     "ISTP": {
-      "kod": "ISTP",
-      "surum": "v0.1 (new; item-audit applied; Inventor/Adventurer spine, introvert re-pitch)",
+      "ad": "The Workbench",
+      "internalKey": "ISTP",
+      "surum": "v0.2 (doorway name applied and construct renamed — doorway to the character design — 9 July 2026; question section moved to the Combined Core Report; polish pass)",
       "ustBaslik": "Let's Talk About You…",
-      "teamNote": "[Team note — not shown to participants: display-name slot deliberately empty; the report runs on the four letters only. The nearest neighbour is NEVER rendered in the actor's report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator's tool — in coaching, the first alternative to offer if the report isn't landing.]",
+      "teamNote": "[Team note — not shown to participants: display name: The Workbench (doorway register, approved 9 July 2026). Internal key ISTP — database and block-selection only, never rendered anywhere actor-side, including this report. The nearest neighbour is NEVER rendered in the actor**'s report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator'**s tool — in coaching, the first alternative to offer if the report isn**'**t landing.]",
       "beforeYouRead": [
         "What you're holding is not a verdict, and it is not a box. It's a hypothesis — our best first guess at how you naturally work, built entirely from your own answers. Read it the way you'd read a good director's note: try it on, test it against your own experience, keep what fits, and drop what doesn't without a second thought. Not every line will be true of you, and not every remedy works for everyone.",
-        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's."
+        "And one thing before everything else: you don't need to change. The whole point of this report is the opposite — to help you use your own talents to make a difference, not somebody else's.",
+        "One more thing. We've given this way of working a name: your doorway may be **The Workbench**. Hold the name the way you hold everything else here — a may-be, not a badge."
       ],
       "firstSketch": [
-        "You are calm, practical, independent, quietly capable — a hands-on problem-solver who says little and notices everything, most alive when there's a real thing to figure out and do.",
+        "You are calm, practical, independent, coolly capable — a hands-on problem-solver who says little and notices everything, most alive when there's a real thing to figure out and do.",
         "If we had to say it in one line: you understand things by taking them apart — with your hands, not your speeches.",
         "You are a thinker, but not the armchair kind. Your curiosity points at how real things actually work — a mechanism, a body, a situation, a scene that isn't landing — and your instinct is to get in there, take it apart, and understand it from the inside. You trust what's concrete and in front of you: the page, the facts, the physical truth of a thing, over any amount of theory floating above it. Abstract talk for its own sake loses you fast; a real problem you can put your hands on wakes you all the way up.",
         "You're an analyst underneath the quiet. When something isn't working, you don't emote about it — you find the broken part: the beat that doesn't follow, the move that doesn't make sense, the logic that doesn't hold. You judge things by whether they actually function, and you have an unusually accurate eye for where a mechanism — or a scene — will fail. Fast, clean logic paired with real physical skill: that's the combination, and it's a rare one.",
@@ -3105,7 +1703,7 @@ export const tipRaporlari = {
         },
         {
           "baslik": "Let feeling into the work.",
-          "metin": "Your under-trained muscle is the emotional one — so train it on purpose, in the way that suits you: through the body. You already know feeling can be reached physically. When you build a character, add one deliberate pass that isn't problem-solving — let the posture, the breath, the physical life produce an actual feeling, and let yourself register it rather than analyze it. The scenes that land are felt, and for you the doorway to feeling runs straight through the body you already trust."
+          "metin": "For you the way into feeling was never going to be talk — it's the body, and you already trust it. You already know feeling can be reached physically. When you build a character, add one deliberate pass that isn't problem-solving — let the posture, the breath, the physical life produce an actual feeling, and let yourself register it rather than analyze it. The scenes that land are felt, and for you the doorway to feeling runs straight through the body you already trust."
         },
         {
           "baslik": "Say a little more than feels necessary.",
@@ -3125,117 +1723,6 @@ export const tipRaporlari = {
         "The profession's honest challenge for you sits right beside the gift: acting lives in feeling and in collaboration, and your instincts run toward logic and self-sufficiency. This isn't a fault — it's the growth edge, and a rich one. The most powerful thing you can build is the bridge from your real understanding to real feeling — and for you, uniquely, that bridge runs through the body you already trust. You don't have to become talkative or sentimental; you have to let the physical work you're so good at actually move you, and let a little more of yourself into the room with your partners.",
         "Your ideal environment is hands-on, autonomous, and low on nonsense: real craft, room to work your way, colleagues who don't crowd you, and a director who respects that you handle things. Micromanagement, endless theory, and being hurried will shut you down. When you can choose, choose the room that lets you work — and then let it in a little more than feels natural.",
         "About technique: your doorway is the body and the doing, so you'll work best from the outside in — building the character through how she moves, stands, breathes, and operates, and letting the inner life follow the physical score. That's a legitimate and powerful path, and it's natively yours. One thing to be precise about, because it matters: **the emotions you play are built for the character and owned by the character** — grown from the character's body, the character's situation, the character's story, never mined from your own past. You construct them from the outside in, through the body — which is exactly your strength. Your instrument is strong enough to build everything the role needs; the trick, for you, is letting the built thing be felt."
-      ],
-      "sorularGiris": "All of us have a different doorway into understanding. Yours is doing: you understand a character by getting her into your body and working out how she operates. So your set is practical and physical, and it keeps sending you back to your feet — ask, then walk it, then ask again. For you the walk isn't a break from the work; it is the work, and it's where your answers actually live. *The practical opening:*",
-      "sorular": [
-        {
-          "metin": "What do we know about the character's physicality — how does she/he move, stand, carry weight?"
-        },
-        {
-          "metin": "How does this character actually operate — what does she/he do, and how?"
-        },
-        {
-          "metin": "Where's the problem — the beat, the move, the moment that doesn't work yet?"
-        },
-        {
-          "metin": "Why does she/he do this — and why this way, rather than another?"
-        },
-        {
-          "metin": "Who else do I know who moves or operates like this? How do they do it?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your pace, your movement, your spine, your shoulders, your head above your shoulders, the tense areas in your torso, legs and feet… Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "What was this character's childhood like? Parents? Environment?"
-        },
-        {
-          "metin": "What were her/his movements like — physically? How did she/he carry herself/himself?"
-        },
-        {
-          "metin": "What were her/his challenges? How did she/he handle them?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your pace, your movement, your spine, your shoulders, your head above your shoulders, the tense areas in your torso, legs and feet… Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "How is life at the moment for her/him?"
-        },
-        {
-          "metin": "How are her/his relationships?"
-        },
-        {
-          "metin": "Where does she/he actually live?"
-        },
-        {
-          "metin": "What is her/his occupation? What is the relationship with the job?"
-        },
-        {
-          "metin": "How does doing this job affect her/his body and movement?"
-        },
-        {
-          "metin": "Imagine an ordinary day of hers/his, from waking up to going back to bed. Notice her/his movements throughout the day, and take notes."
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your pace, your movement, your spine, your shoulders, your head above your shoulders, the tense areas in your torso, legs and feet… Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "How does she/he deal with stress? What happens in the body?"
-        },
-        {
-          "metin": "How does she/he have fun these days? What happens in the body?"
-        },
-        {
-          "metin": "Imagine people's eyes on her/him — their looks landing on your character. What happens in the body?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your pace, your movement, your spine, your shoulders, your head above your shoulders, the tense areas in your torso, legs and feet… Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "What is your character's sexual orientation? Is she/he comfortable with it? How does it live in the body?"
-        },
-        {
-          "metin": "Is there love in her/his life right now? What actions does it bring?"
-        },
-        {
-          "metin": "Is there someone she/he once loved but no longer does? If so, what happened? What is the legacy of it in her/his body?"
-        },
-        {
-          "metin": "Walk for a while as the character. Notice your pace, your movement, your spine, your shoulders, your head above your shoulders, the tense areas in your torso, legs and feet… Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "What is she/he most afraid of in life right now? How does that shape her/his moves and actions?"
-        },
-        {
-          "metin": "What does she/he want most from life right now? Why does it matter that much? How does that shape her/his moves and actions?"
-        },
-        {
-          "metin": "Why doesn't she/he have it? What is in the way?"
-        },
-        {
-          "metin": "What would she/he have to do to meet that need? What actions and gestures does that bring?"
-        },
-        {
-          "metin": "What is stopping her/him from taking the step?"
-        },
-        {
-          "metin": "What happens if she/he doesn't get it? What is there to lose? What actions and gestures does that bring?"
-        },
-        {
-          "metin": "Now walk it one more time — and this time, let the body produce a feeling rather than solve a problem. What do you feel as the character that the thinking didn't give you? Take notes.",
-          "vurgu": true
-        },
-        {
-          "metin": "Having walked it — what do you now know that figuring it out alone didn't tell you?"
-        },
-        {
-          "metin": "How does all of the above fit into what you're doing now — physically?"
-        }
       ],
       "kapanis": "Thank you for joining this journey with us — let's see what comes next…",
       "imza": "Warmly, Filiz Kaya Ataklı"
