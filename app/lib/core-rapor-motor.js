@@ -49,13 +49,17 @@ export function girisleriSec(apsAlanlar, sistemler) {
 
 // Giriş başlığı + (varsa) bank bloğu. Bloksuz giriş başlığıyla render
 // edilir — metin İCAT EDİLMEZ; eksik bank slotu Filiz'e raporlanır.
+// F1 düzeltmesi: batarya sistem adları parantezli gloss taşır
+// ("Care (tenderness, nurturance)"); aktör başlığı + bank anahtarı YALIN
+// adla çalışır — gloss aktöre taşınmaz, Care/Play blokları kaybolmaz.
 export function girisDoku(giris) {
+  const yalinAd = giris.ad.split(' (')[0];
   const baslik = giris.tur === 'domain'
     ? coreRapor.ch2.domainHeaderKalip.replace('{domain_name}', giris.ad)
-    : coreRapor.ch2.sistemHeaderKalip.replace('{system_name}', giris.ad);
+    : coreRapor.ch2.sistemHeaderKalip.replace('{system_name}', yalinAd);
   const blok = giris.tur === 'domain'
     ? coreRapor.girisBloklari.domain[String(giris.dNo)] ?? null
-    : coreRapor.girisBloklari.sistem[giris.ad] ?? null;
+    : coreRapor.girisBloklari.sistem[yalinAd] ?? null;
   return { baslik, blok };
 }
 
