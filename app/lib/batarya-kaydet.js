@@ -347,6 +347,34 @@ export async function intakeYanitiGetir(no) {
   return data?.[0]?.yanitlar?.[no] ?? data?.[0]?.yanitlar?.[String(no)] ?? null;
 }
 
+// Retake kapısı — Karar Kaydı 10 Tem 2026: çekirdek profiller 12 haftadan
+// (84 gün) önce tekrar alınamaz; ısrar yok (dolmamışsa UI hiçbir şey
+// göstermez). Modül başına SON created_at → kapı = son + 84 gün. Yalnız
+// retake'e uygun çekirdek: aps, emotional (Type Lens bir-kez; Intake/
+// Consent ayrı akış). Legacy satırlar da sayılır.
+export async function retakeDurumu() {
+  const kullanici_id = await uid();
+  if (!kullanici_id) return {};
+  const HEDEF = ['aps', 'emotional'];
+  const legacyler = Object.entries(LEGACY_ESLEME)
+    .filter(([, v]) => HEDEF.includes(v)).map(([k]) => k);
+  const { data } = await supabase
+    .from('batarya_sonuclari')
+    .select('modul, created_at')
+    .eq('kullanici_id', kullanici_id)
+    .in('modul', [...HEDEF, ...legacyler])
+    .order('created_at', { ascending: false });
+  const ESIK_MS = 84 * 24 * 60 * 60 * 1000;
+  const simdi = Date.now();
+  const sonuc = {};
+  for (const r of data || []) {
+    const slug = LEGACY_ESLEME[r.modul] ?? r.modul;
+    if (sonuc[slug]) continue; // ilk = en yeni (desc sıralı)
+    sonuc[slug] = { acik: (simdi - new Date(r.created_at).getTime()) >= ESIK_MS, sonTarih: r.created_at };
+  }
+  return sonuc;
+}
+
 // Durum: tamamlanan modüller (v1 legacy anahtarlar v0.5 slug'a eşlenir) +
 // geçerli onam + Form B sayısı (devam/özet için).
 export async function bataryaDurumGetir() {
