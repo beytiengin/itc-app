@@ -83,6 +83,7 @@ dz("aktör kopyasında 'type' yok", /\btype\b/i.test(aktorKopya), false);
 dz("aktör kopyasında band/EDGE adı yok", /UPPER|LOWER|EDGE set/.test(aktorKopya), false);
 dz('boundary paragraph kanonik biçimde', C.ch1.boundaryParagraph.includes('the actions, the stories, the emotions or the thoughts you build for a character are the character\'s'), true);
 dz('checkIn mevcut', typeof C.checkIn === 'string' && C.checkIn.length > 50, true);
+dz('rota haritası D6→M4 (Karar Kaydı 10 Tem 2026)', C.rotaHaritasi['6'], 'Access Channel & Imagery (Module 4)');
 
-console.log(hata ? `\n${hata} HATA` : '\nSPARK FİKSTÜRÜ — TÜM TESTLER GEÇTİ (17/17, gerçek-ad fikstürü)');
+console.log(hata ? `\n${hata} HATA` : '\nSPARK FİKSTÜRÜ — TÜM TESTLER GEÇTİ (18/18, gerçek-ad fikstürü)');
 process.exit(hata ? 1 : 0);

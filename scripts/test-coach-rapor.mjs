@@ -66,7 +66,9 @@ dz('closedVar → closer render koşulu', d2.closedVar, true);
 dz('sıra: yüksekten (Care önce)', d2.sistemler[0].ad.startsWith('Care'), true);
 const sadnessBaslik = d2.sistemler.find((s) => s.ad.startsWith('Sadness')).baslik;
 const desireBaslik = d2.sistemler.find((s) => s.ad.startsWith('Desire')).baslik;
-dz('Sadness istisna notu (clean exit ≤2)', sadnessBaslik.includes('closed for clean exit'), true);
+dz('Sadness M9-çifti notu (onaylı kural)', sadnessBaslik.includes('open for reach, closed for clean exit'), true);
+const angerBaslik = d2.sistemler.find((s) => s.ad.startsWith('Anger')).baslik;
+dz('Anger (CLOSED) notsuz — Deniz örneği', angerBaslik.includes('closed for'), false);
 dz('Desire istisna notu (control ≤2)', desireBaslik.includes('closed for control'), true);
 dz('her sistemde 4 madde satırı', d2.sistemler.every((s) => s.maddeler.length === 4), true);
 
@@ -111,5 +113,5 @@ dz('safeguard seçimi: 3 blok (D3 + Anger + Desire)', SG.secim.length, 3);
 dz('eksik: D2 (bank bekleniyor)', SG.eksik.length === 1 && SG.eksik[0].startsWith('D2'), true);
 dz('E girişleri Deniz (Imagination→Collab→Care→Play)', E.girisler.map((g) => g.ad.split(' (')[0]), ['Imagination', 'Collaboration', 'Care', 'Play']);
 
-console.log(hata ? `\n${hata} HATA` : '\nDENİZ COACH FİKSTÜRÜ — TÜM TESTLER GEÇTİ (23/23)');
+console.log(hata ? `\n${hata} HATA` : '\nDENİZ COACH FİKSTÜRÜ — TÜM TESTLER GEÇTİ (24/24, onaylı-kural bekçili)');
 process.exit(hata ? 1 : 0);

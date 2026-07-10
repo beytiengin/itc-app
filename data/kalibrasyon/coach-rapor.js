@@ -180,7 +180,7 @@ export const coachRapor = {
         "doluIsaret": 5,
         "careUst": 2,
         "bosIsaret": 1,
-        "durum": "PROPOSED (§8) — Filiz onayıyla tarihli kayıtla kilitlenir. 3'ler ledger'da render edilmez."
+        "durum": "ONAYLI — Karar Kaydı 10 Tem 2026: STRONG = 4–5 (● 5) · SPECIAL CARE = 1–2 (○ 1). 3'ler ledger'da render edilmez."
       }
     }
   },
@@ -194,14 +194,14 @@ export const coachRapor = {
       "esikler": {
         "openEsik": 3.75,
         "closedAlti": 2.75,
-        "durum": "Band-hizalı (spec §5). 'AJAR' terimi PROPOSED (§8) — yalnız koç tarafı; aktöre asla."
+        "durum": "Band-hizalı. 'AJAR' terimi ONAYLI — Karar Kaydı 10 Tem 2026; yalnız koç tarafı sözlüğü, aktöre asla."
       },
-      "fasetIstisnaKurali": "PROPOSED-basitleştirilmiş (Faz i): puanı ≤2 olan faset sistem satırına 'closed for {faset}' notu düşer; örnekteki 'open for reach, closed for clean exit' bileşik biçimi Filiz kuralıyla netleşir."
+      "fasetIstisnaKurali": "ONAYLI — Karar Kaydı 10 Tem 2026 (sistem satırında faset düzeyi açık/kapalı). Uygulama: reach ≥4 VE clean exit ≤2 → 'open for reach, closed for clean exit' (M9-çifti); diğer ≤2 fasetler → 'closed for {faset}'; sistem CLOSED ise not düşülmez (bilgi zaten bantta — Deniz örneği Anger). İki örnek notu birebir üretir."
     },
     "roleHangover": {
       "exitAlti": 2.75,
       "reachEsik": 3.75,
-      "durum": "PROPOSED değerler (§8): exit < 2.75 VE reach ≥ 3.75 → bayrak AÇIK; kapalıysa bölüm hiç render edilmez (örnekteki gibi)."
+      "durum": "ONAYLI — Karar Kaydı 10 Tem 2026: exit craft ort. < 2.75 VE reach craft ort. ≥ 3.75 → bayrak AÇIK; kapalıysa bölüm hiç render edilmez. Aktöre görünür sonucu YOK (yasa)."
     }
   },
   "E": {
@@ -224,27 +224,19 @@ export const coachRapor = {
   },
   "F": {
     "grammarKalip": "Worth exploring together: {observation}. A question for the room, not a conclusion: {question}.",
-    "durum": "§8 AÇIK — thread'ler 'generated' (spec) ama gramer + üretim kuralı Filiz kırmızı kaleminde. FAZ i ÜRETMEZ: bölüm başlığı + bekleme notu render edilir; Ledger ve Open/Closed görünümlerinin F'yi besleyeceği kaydı spec'te."
+    "durum": "KURAL — Karar Kaydı 10 Tem 2026: app üretir, en çok 5, sabit gramer; koç serbest alanı YOK. Üretim şablonları ({observation}/{question} kalıp seti) İÇERİK bekler — Filiz'den (bekleyenlere eklendi); gelene dek bölüm başlık + bekleme notu olarak render edilir."
   },
   "notlar": [
     "COACH LIBRARY (karar c, 9 Tem 2026): Question Bank koç çalışma alanında tek kopya, tüm facilitator'lara aynı, prep_q_* anahtarlarından; hiçbir şey iki kez saklanmaz — E.2 bank'tan SEÇER, kütüphane bank'ın TAMAMIDIR. Bank aktör tarafında bütünüyle PARKED. (Faz i: bank içeriği elimizde olmadığından kütüphane görünümü bank teslimatıyla gelir.)",
     "Madde kökleri enstrüman kaynak-of-truth'undan anahtarla render edilir (batarya master) — asla yeniden yazılmaz. Tüm maddeler Filiz'in özgün enstrümanları; team-side render'da telif kısıtı yok.",
     "Ledger ve Open/Closed görünümleri okuma anında aynı append-only yanıtlardan monte edilir; gösterilen puanlar ters-kodlama SONRASI, (R) etiketi şeffaflığı korur.",
-    "Retake: Ledger ve Open/Closed her zaman SON uygulamayı gösterir, bir öncekine karşı hareket işaretleriyle (↑↓ madde/sistem) — §8'de mekanik onayı bekliyor; Faz i işaretleri henüz üretmez.",
+    "Retake: Ledger ve Open/Closed her zaman SON uygulamayı gösterir, bir öncekine karşı hareket işaretleriyle (↑↓ madde/sistem) — ONAYLI (Karar Kaydı 10 Tem 2026); inşaat kuyruğunda, Faz i işaretleri henüz üretmez.",
     "Tek görünüm; RLS facilitator policy; toplam wellbeing skoru ASLA; Modül 9 bu belgenin dışında; export varsayılan kapalı."
   ],
   "bayraklar": [
-    "Bank kapsamı — tek tarihli karar (ilkesel onay 9 Tem; kırmızı kalemle kilitlenir): aktör-side PARKED, koç-side E.2 seçili + kütüphane tam. Safeguard frame güvenlik mekanizmasıdır — sert incele.",
-    "Ledger eşikleri: STRONG 4–5 (● 5), CARE 1–2 (○ 1) — onay/ayar + tarihli kayıt.",
-    "'AJAR' terimi — onay ya da başka kelime; koç-tarafı-yalnız teyidi (aktörde 'closed' strengths-only yasasını kırar).",
-    "↑↓ hareket işaretleri (madde düzeyi) — mekanik onayı.",
-    "16 koçluk bloğu — blok blok kırmızı kalem (Bridge'inki ITEM AUDIT PENDING miras).",
-    "Modül 9'un yeri — ayrı, daha kısıtlı görünüm önerisi.",
-    "Intake serbest-metin onam kapsamı (+ bizim ek: intake v0.2'de aspiration sorusu YOK — {aspiration_verbatim} kaynağı tarihli kararla).",
-    "Section F thread grameri (+ üretim: kural mı kalem mi).",
-    "Role-hangover eşik değerleri.",
-    "Emotion Exploration aracının adı.",
-    "(Bizim ek) B bölümü dar-marj kuyruğu için harf→kelime haritası (örn. E→extraversion).",
-    "(Bizim ek) Deniz örneği sürüm satırı 'per Spec Pack v0.3' derken E.2 için 'per spec v0.5' diyor — tarihli kayıt düzeni için tek satır düzeltme."
+    "ÇÖZÜLDÜ (Karar Kaydı 10 Tem 2026): bank kapsamı (aktör-side PARKED kalıcı; koç-side tam görünür) · ledger eşikleri · 'AJAR' · ↑↓ işaretleri · 16 koçluk bloğu (koç mimarisi onayıyla) · M9 belge dışında · F = KURAL · role-hangover eşikleri.",
+    "BEKLİYOR (Karar Kaydı 'bekleyenler'): KVKK/GDPR onam metni (facilitator erişimi + intake serbest metni + saklanan check-in yanıtları dahil) · Emotion Exploration aracının gerçek adı · intake aspiration alanı doğrulaması (bizim cevabımız: v0.2'de uygun alan YOK — Q14–18 farklı sorular; yeni madde metni Filiz'den).",
+    "BEKLİYOR (kayıtta adressiz — Filiz'e ayrıca): B bölümü dar-marj kuyruğu için harf→kelime haritası (örn. E→extraversion) · F üretim şablonları ({observation}/{question} kalıpları) · Deniz örneği sürüm satırı tutarsızlığı (v0.3/v0.5) tek satır düzeltme.",
+    "İÇERİK TESLİMATI BEKLENEN DOSYALAR: Question Bank v0.1 (kapsamı onaylı, belge elde değil) · The Bridge v0.2 (onaylı, dosya elde değil — eldeki v0.1) · M3 Report Content Pack v0.1 (koç render + Emotion Exploration kaynağı olarak saklı, elde değil).",
   ]
 };

@@ -16,10 +16,10 @@
 // İÇERİK KAPISI (feature flag DEĞİL — paralel-faz flag dersinden):
 //        setler[key].gecerli olmayan doorway'de Core Report butonu
 //        görünmez. 2/16 set elde; 14 sweep Filiz batch'leri bekler.
-// AÇIK §6 BAYRAKLARI (Filiz kırmızı kalemi): doorwayLine (PROPOSED),
-//        başlık ("Your Core Report" ↔ "Your Character Preparation Set"),
-//        setGrowth onayı. Örnek render ilk ikisini İÇERİYOR — fiilî ≠
-//        onaylı; kapanınca tarihli kayıt düşülür.
+// §6 BAYRAKLARI KAPANDI — Karar Kaydı 10 Tem 2026: doorwayLine ONAYLI
+//        (soru bölümünün üstünde), başlık "Your Core Report" (Filiz'in
+//        seçimi), setGrowth ONAYLI. Kanonik adres:
+//        docs/kanon/KARAR-2026-07-09-10.md
 // KURAL: İçerik verbatim'dir; her düzeltme Filiz'den v0.4 olarak döner —
 //        kısmi edit yayınlanmaz.
 // DOĞRULAMA İMZASI: ITC-COREREPORT-PACK-V03-20260709
@@ -46,7 +46,7 @@ export const coreRapor = {
     "header": "Questions to ask in character design",
     "boundaryLine": "One rule above every question here: these questions build your character's memories, body, and wants — authored by your character, owned by your character. None of them asks for yours. Where the script is silent, ask; never assume, and never substitute your own past for your character's.",
     "doorwayLine": {
-      "durum": "PROPOSED — spec §6 bayrağı: Filiz onaylarsa soru bölümünün üstünde render edilir; çizerse isim yalnız doorway raporunda yaşar. Örnek render (Spark) satırı İÇERİYOR.",
+      "durum": "ONAYLI — Karar Kaydı 10 Tem 2026: soru bölümünün üstünde render edilir.",
       "kalip": "Your doorway: {doorway_name}. Here is the question set built for it."
     }
   },
@@ -69,7 +69,7 @@ export const coreRapor = {
   "ch6": {
     "header": "Where this goes from here",
     "setGrowth": {
-      "durum": "Spec §6: açık onay bekliyor (çekirdeğin retake motivasyonu). Örnek render İÇERİYOR.",
+      "durum": "ONAYLI — Karar Kaydı 10 Tem 2026 (retake motivasyonu). Retake mekaniği: 12-hafta yumuşak kapı + facilitator/ekip istisnası; ısrar yok; Doorway bir-kez kuralı geçerli — UI inşaat kuyruğunda.",
       "metin": "Your set will grow. As you work and retake the core profiles — once a season, or around a period of focused work — new entrances open and new questions arrive. That is the design: the deeper your ground and your palette become, the richer this set becomes with them."
     },
     "standingOffer": "And the standing offer, which is always true no matter what any page of any report says: individual coaching with us is always available if you'd like it — to work with your set, to prepare a specific role, or simply to talk it all through with someone who does this every day.",
@@ -214,7 +214,7 @@ export const coreRapor = {
     },
     "ENFJ": {
       "gecerli": false,
-      "kaynak": "The_Bridge_v0_1 teamSideAppendix — ITEM AUDIT PENDING (Filiz'in 44-madde üç-geçişli denetimi + onayı gelmeden render edilmez; kapak notu kuralı)",
+      "kaynak": "The_Bridge_v0_1 teamSideAppendix — Karar Kaydı 10 Tem 2026: denetim kapısı KAPANDI, The Bridge v0.2 olarak ONAYLI (soru bölümü dahil); ancak v0.2 DOSYASI henüz teslim edilmedi. Eldeki v0.1 metni superseded olabilir — verbatim disiplini gereği gecerli:false, dosya gelince tarihli kayıtla açılır.",
       "giris": null,
       "maddeler": [
         {
@@ -341,8 +341,9 @@ export const coreRapor = {
     }
   },
   "rotaHaritasi": {
-    "not": "Ch.5 routed sentence — yalnız APS-türevli (spec). EDGE alan → modül eşlemesi: iki örnekte de (Spark Core örneği + Deniz coach örneği) doğrulanan çiftler aşağıda; TAM harita Filiz'e soruldu. Eşlemesi olmayan EDGE alan cümleyi tetiklemez ('if fired').",
+    "not": "Ch.5 routed sentence — yalnız APS-türevli. ONAYLI çiftler (Karar Kaydı 10 Tem 2026): D2→M7, D3→M8, D6→M4; kalan EDGE alan eşleri kayıtta 'bekleyenler'de. Eşlemesi olmayan EDGE alan cümleyi tetiklemez ('if fired').",
     "2": "Performance Mindfulness (Module 7)",
-    "3": "The Actor's Body (Module 8)"
+    "3": "The Actor's Body (Module 8)",
+    "6": "Access Channel & Imagery (Module 4)"
   }
 };
