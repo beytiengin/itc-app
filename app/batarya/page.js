@@ -41,6 +41,7 @@ import {
 } from '../lib/batarya-kaydet';
 import { tipRaporlari } from '../../data/kalibrasyon/tip-raporlari';
 import ApsRaporu, { ApsMicroReveal } from '../../components/ApsRaporu';
+import CoreRaporu, { CoreRaporButonu } from '../../components/CoreRaporu';
 
 const TON = 'var(--accent)';
 
@@ -195,6 +196,7 @@ function BataryaAkis({ durum, durumYenile }) {
       {gorunum === 'tip_raporu' && <TipRaporu onGeri={() => setGorunum('hub')} />}
       {gorunum === 'aps_reveal' && <ApsMicroReveal onDevam={coreSiradaki} />}
       {gorunum === 'aps_raporu' && <ApsRaporu onGeri={() => setGorunum('hub')} />}
+      {gorunum === 'core_raporu' && <CoreRaporu onGeri={() => setGorunum('hub')} />}
       {gorunum === 'access' && <AccessAdimi onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
       {gorunum === 'flow' && <KarisikLikertAdimi slug="flow" onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
       {gorunum === 'flow_formB' && <FormBAdimi onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
@@ -875,6 +877,9 @@ function OpsiyonelHub({ durum, onSec }) {
             Read your Acting Performance Profile →
           </button>
         )}
+        {/* Core Report — içerik kapısı: doorway'in geçerli seti yoksa buton HİÇ görünmez
+            (2/16 set elde; feature flag değil — Karar 65 paralel-faz dersinden). */}
+        <CoreRaporButonu onSec={onSec} stil={ikincilButonStil} />
       </div>
       {kartlar.map((k) => (
         <div key={k.slug} style={{ ...kutuStil, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
