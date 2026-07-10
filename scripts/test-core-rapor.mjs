@@ -42,19 +42,23 @@ const alanAdlari = [
 ];
 const apsAlanlar = {};
 alanAdlari.forEach((ad, i) => { apsAlanlar[ad] = { ortalama: (skorlar[i + 1] * 4) / 100 + 1 }; });
+// GERÇEK batarya sistem adları (parantezli açıklamalarıyla) — fikstür artık
+// canlı adlarla koşar; yalın-ad regresyonu (Care/Play blok kaybı) bekçili.
 const sistemler = {
-  Care: { ortalama: 4.25 }, Play: { ortalama: 4.00 }, Seeking: { ortalama: 3.50 },
-  Sadness: { ortalama: 3.25 }, Fear: { ortalama: 3.25 }, Desire: { ortalama: 3.00 }, Anger: { ortalama: 2.50 },
+  'Care (tenderness, nurturance)': { ortalama: 4.25 }, Play: { ortalama: 4.00 },
+  'Seeking (curiosity, wanting, drive)': { ortalama: 3.50 },
+  'Sadness (grief, loss)': { ortalama: 3.25 }, Fear: { ortalama: 3.25 },
+  'Desire (erotic longing, attraction)': { ortalama: 3.00 }, Anger: { ortalama: 2.50 },
 };
 
 const { grid, girisler } = M.girisleriSec(apsAlanlar, sistemler);
 dz('4 giriş', girisler.length, 4);
-dz('giriş sırası: alanlar önce, yüksek önce', girisler.map((g) => g.ad), ['Imagination', 'Collaboration', 'Care', 'Play']);
+dz('giriş sırası: alanlar önce, yüksek önce', girisler.map((g) => g.ad.split(' (')[0]), ['Imagination', 'Collaboration', 'Care', 'Play']);
 dz('D9 asla giriş değil', girisler.some((g) => g.dNo === 9), false);
 
 const dokular = girisler.map(M.girisDoku);
 dz('alan başlık kalıbı', dokular[0].baslik, 'An entrance of yours: Imagination — one of your strongest ground.');
-dz('sistem başlık kalıbı', dokular[2].baslik, 'An entrance of yours: Care — a colour you reach easily.');
+dz('sistem başlık kalıbı YALIN adla (parantez gloss aktöre taşınmaz)', dokular[2].baslik, 'An entrance of yours: Care — a colour you reach easily.');
 dz('4 giriş bloğu da mevcut (Spark fikstüründe)', dokular.every((d) => d.blok && d.blok.length > 100), true);
 dz('Imagination bloğu örnekle başlıyor', dokular[0].blok.startsWith('Imagination is your strong entrance'), true);
 
@@ -80,5 +84,5 @@ dz("aktör kopyasında band/EDGE adı yok", /UPPER|LOWER|EDGE set/.test(aktorKop
 dz('boundary paragraph kanonik biçimde', C.ch1.boundaryParagraph.includes('the actions, the stories, the emotions or the thoughts you build for a character are the character\'s'), true);
 dz('checkIn mevcut', typeof C.checkIn === 'string' && C.checkIn.length > 50, true);
 
-console.log(hata ? `\n${hata} HATA` : '\nSPARK FİKSTÜRÜ — TÜM TESTLER GEÇTİ (17/17)');
+console.log(hata ? `\n${hata} HATA` : '\nSPARK FİKSTÜRÜ — TÜM TESTLER GEÇTİ (17/17, gerçek-ad fikstürü)');
 process.exit(hata ? 1 : 0);
