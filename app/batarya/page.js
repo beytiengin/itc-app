@@ -37,8 +37,7 @@ import {
   bataryaSonucKaydet, bataryaOnamKaydet, bataryaDurumGetir, modulBul,
   typeLensSkorla, apsSkorla, emotionalSkorla, accessSkorla,
   flowASkorla, flowBSkorla, regulationSkorla, mindfulnessSkorla,
-  bodySkorla, entryExitSkorla, typeLensSonucGetir,
-} from '../lib/batarya-kaydet';
+  bodySkorla, entryExitSkorla, typeLensSonucGetir, retakeDurumu } from '../lib/batarya-kaydet';
 import { tipRaporlari } from '../../data/kalibrasyon/tip-raporlari';
 import ApsRaporu, { ApsMicroReveal } from '../../components/ApsRaporu';
 import CoreRaporu, { CoreRaporButonu } from '../../components/CoreRaporu';
@@ -192,6 +191,10 @@ function BataryaAkis({ durum, durumYenile }) {
       {gorunum === 'type_lens' && <TypeLensAdimi onTamam={coreTamamla} />}
       {gorunum === 'aps' && <KarisikLikertAdimi slug="aps" onTamam={async () => { await durumYenile(); setGorunum('aps_reveal'); }} />}
       {gorunum === 'emotional' && <EmotionalAdimi onTamam={coreTamamla} />}
+      {/* Retake (Karar Kaydı 10 Tem): kayıt append-only düşer, micro-reveal
+          ve core-zincir YOK — doğrudan hub'a döner. İlk-kez akışı değişmez. */}
+      {gorunum === 'aps_retake' && <KarisikLikertAdimi slug="aps" onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
+      {gorunum === 'emotional_retake' && <EmotionalAdimi onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
       {gorunum === 'hub' && <OpsiyonelHub durum={durum} onSec={setGorunum} />}
       {gorunum === 'tip_raporu' && <TipRaporu onGeri={() => setGorunum('hub')} />}
       {gorunum === 'aps_reveal' && <ApsMicroReveal onDevam={coreSiradaki} />}
@@ -534,7 +537,7 @@ function KarisikLikertAdimi({ slug, onTamam, onVazgec }) {
 }
 
 /* ─── Module 3 — Emotional Profile (Part 1 karışık; Part 4 opsiyonel) ─────── */
-function EmotionalAdimi({ onTamam }) {
+function EmotionalAdimi({ onTamam, onVazgec }) {
   const em = modulBul('emotional');
   const p1Maddeler = useMemo(
     () => karistir(em.part1.sistemler.flatMap((s) => s.maddeler), SEED.emotional_p1),
@@ -608,7 +611,10 @@ function EmotionalAdimi({ onTamam }) {
         </p>
       )}
 
-      <IleriButon onClick={gonder} disabled={gonderiliyor} etiket={gonderiliyor ? 'Saving…' : 'Save & continue'} />
+      <div style={{ display: 'flex', gap: '0.7rem', flexWrap: 'wrap' }}>
+        <IleriButon onClick={gonder} disabled={gonderiliyor} etiket={gonderiliyor ? 'Saving…' : 'Save & continue'} />
+        {onVazgec && <button onClick={onVazgec} style={ikincilButonStil}>Back</button>}
+      </div>
       {hata && <HataYazi metin={hata} />}
     </BolumKabuk>
   );
@@ -846,6 +852,33 @@ function EntryExitAdimi({ onTamam, onVazgec }) {
   );
 }
 
+/* ─── Retake bağlantısı — 12 hafta dolduysa sakin bir satır; dolmadıysa
+     HİÇBİR ŞEY (Karar Kaydı 10 Tem 2026: ısrar yok, geri sayım yok). ─────── */
+function RetakeSatiri({ onSec }) {
+  const [kapi, setKapi] = useState(null);
+  useEffect(() => { retakeDurumu().then(setKapi); }, []);
+  if (!kapi) return null;
+  const acik = [
+    kapi.aps?.acik && { slug: 'aps_retake', ad: 'Acting Performance Scale' },
+    kapi.emotional?.acik && { slug: 'emotional_retake', ad: 'Emotional Profile' },
+  ].filter(Boolean);
+  if (!acik.length) return null;
+  return (
+    <div style={{ borderTop: '1px solid var(--rule)', paddingTop: '0.9rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+      <p style={{ ...altYaziStil, fontSize: '0.78rem' }}>
+        It's been a season. If you'd like to see how your profile has shifted, you can retake — entirely optional.
+      </p>
+      <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+        {acik.map((m) => (
+          <button key={m.slug} onClick={() => onSec(m.slug)} style={ikincilButonStil}>
+            Retake {m.ad} →
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /* ─── Opsiyonel modül merkezi (core sonrası) ─────────────────────────────── */
 function OpsiyonelHub({ durum, onSec }) {
   const kartlar = OPSIYONEL.map((o) => {
@@ -880,6 +913,7 @@ function OpsiyonelHub({ durum, onSec }) {
         {/* Core Report — içerik kapısı: doorway'in geçerli seti yoksa buton HİÇ görünmez
             (2/16 set elde; feature flag değil — Karar 65 paralel-faz dersinden). */}
         <CoreRaporButonu onSec={onSec} stil={ikincilButonStil} />
+        <RetakeSatiri onSec={onSec} />
       </div>
       {kartlar.map((k) => (
         <div key={k.slug} style={{ ...kutuStil, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
