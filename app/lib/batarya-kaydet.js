@@ -318,6 +318,21 @@ export async function apsSonuclariGetir() {
   return data ?? [];
 }
 
+// Emotional (M3) son sonucu — Core Report giriş seçimi için (legacy dahil).
+// Palet aktöre ASLA render edilmez; motor yalnız top-2 sistem ADINI kullanır.
+export async function emotionalSonucGetir() {
+  const kullanici_id = await uid();
+  if (!kullanici_id) return null;
+  const { data } = await supabase
+    .from('batarya_sonuclari')
+    .select('skorlar')
+    .eq('kullanici_id', kullanici_id)
+    .in('modul', ['emotional', 'm3_emotional'])
+    .order('created_at', { ascending: false })
+    .limit(1);
+  return data?.[0]?.skorlar ?? null;
+}
+
 // Intake tek yanıt — pack §6 {experience_band} = Q8 yanıtı (verbatim metin).
 export async function intakeYanitiGetir(no) {
   const kullanici_id = await uid();
