@@ -119,9 +119,18 @@ export function d2Olustur(emYanitlar) {
     const sinif = ort >= e.openEsik ? 'OPEN' : ort >= e.closedAlti ? 'AJAR' : 'CLOSED';
     if (sinif === 'CLOSED') closedVar = true;
     const hedge = Math.abs(ort - e.openEsik) <= hedgeAralik || Math.abs(ort - e.closedAlti) <= hedgeAralik;
-    // Faset istisnası — PROPOSED-basitleştirilmiş kural (coachRapor.D.d2.fasetIstisnaKurali)
-    const kapali = gecerli.filter((m) => m.r <= 2).map((m) => m.faset);
-    const istisna = kapali.length ? '; closed for ' + kapali.join(', ') : '';
+    // Faset istisnası — ONAYLI kural (Karar Kaydı 10 Tem 2026; coachRapor.D.d2.fasetIstisnaKurali):
+    // reach ≥4 VE clean exit ≤2 → 'open for reach, closed for clean exit' (M9-çifti);
+    // diğer ≤2 fasetler → 'closed for {faset}'; sistem CLOSED ise not düşülmez
+    // (bilgi zaten bantta — Deniz örneği: Anger notsuz).
+    const f = Object.fromEntries(gecerli.map((m) => [m.faset, m.r]));
+    const m9Cifti = (f['reach'] ?? 0) >= 4 && (f['clean exit'] ?? 5) <= 2;
+    const notlar = [];
+    if (m9Cifti) notlar.push('open for reach, closed for clean exit');
+    for (const m of gecerli) {
+      if (m.r <= 2 && !(m9Cifti && m.faset === 'clean exit')) notlar.push('closed for ' + m.faset);
+    }
+    const istisna = notlar.length ? '; ' + notlar.join('; ') : '';
     sistemler.push({
       ad: sistem.ad, ort, sinif, hedge,
       baslik: coachRapor.D.d2.headerKalip
@@ -129,7 +138,7 @@ export function d2Olustur(emYanitlar) {
         .replace('{OPEN | AJAR | CLOSED}', sinif)
         .replace('{system_mean}', ort.toFixed(2))
         .replace('{hedge_note}', hedge ? ', hedge' : '')
-        .replace(/\{facet_exception_note[^}]*\}/, istisna),
+        .replace(/\{facet_exception_note[^}]*\}/, sinif === 'CLOSED' ? '' : istisna),
       maddeler: gecerli.map((m) => coachRapor.D.d2.itemKalip
         .replace('{facet_name}', m.faset)
         .replace('{item_stem}', m.metin)

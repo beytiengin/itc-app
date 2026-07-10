@@ -270,7 +270,7 @@ export const tipRaporlari = {
       ],
       "not": "ASLA bu raporda render edilmez — Core Report capstone (Spec Pack v0.3, Ch. 3) içindir; aynı item-audit kapısına tabidir."
     },
-    "auditFlag": "ITEM AUDIT PENDING — Filiz'in 44 maddeye karşı üç-geçişli denetimi onaydan önce şarttır (sürüm satırı + teamNote, verbatim). v0.1'den çıkana dek her iddia madde-izli olmalı."
+    "auditFlag": "Karar Kaydı 10 Tem 2026: denetim kapısı Filiz onayıyla KAPANDI — The Bridge v0.2 olarak ONAYLI. Eldeki gövde v0.1; v0.2 dosyası teslim edilince tarihli kayıtla değişir."
   },
   "ENFP": {
       "ad": "The Spark",
