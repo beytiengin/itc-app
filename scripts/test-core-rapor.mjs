@@ -71,10 +71,15 @@ dz('rota tetiklendi ve sıra doğru (D2 45 → M7 önce)', rota,
 
 dz('ENFP seti geçerli', !!M.doorwaySeti('ENFP'), true);
 dz('ENFP set 29 madde', M.doorwaySeti('ENFP').maddeler.length, 29);
-dz('ENFJ seti AÇIK (Bridge v0.2 teslim, Karar Kaydı 10 Tem)', !!M.doorwaySeti('ENFJ'), true);
-dz('ENFJ set 29 madde + giriş', [M.doorwaySeti('ENFJ')?.maddeler.length, !!M.doorwaySeti('ENFJ')?.giris], [29, true]);
+dz('ENFJ seti AÇIK (CRQS v1.0, 49 madde sweep-sonrası)', !!M.doorwaySeti('ENFJ'), true);
+dz('ENFJ set 49 madde + giriş', [M.doorwaySeti('ENFJ')?.maddeler.length, !!M.doorwaySeti('ENFJ')?.giris], [49, true]);
 dz('ENFJ girişi people-doorway', M.doorwaySeti('ENFJ')?.giris.startsWith('All of us have a different doorway'), true);
-dz('tanımsız doorway KAPALI', M.doorwaySeti('INTJ'), null);
+// CRQS v1.0: 16/16 doorway seti açık (register sweep tamamlandı).
+const tumDoorway = ['ENFP','ENTP','ENFJ','ENTJ','INFP','INTP','INFJ','INTJ','ESFP','ESTP','ESFJ','ESTJ','ISFP','ISTP','ISFJ','ISTJ'];
+dz('16/16 doorway seti AÇIK', tumDoorway.every((k) => !!M.doorwaySeti(k)), true);
+dz('INTJ artık AÇIK (önceden kapalıydı)', !!M.doorwaySeti('INTJ'), true);
+dz('tüm setler register-temiz (her/him yok)', tumDoorway.every((k) => !JSON.stringify(M.doorwaySeti(k)).includes('her/him')), true);
+dz('bilinmeyen doorway KAPALI', M.doorwaySeti('XXXX'), null);
 dz('doorway satırı (PROPOSED)', M.doorwaySatiri('The Spark'), 'Your doorway: The Spark. Here is the question set built for it.');
 
 // Beraberlik: 2. ile 3. alan eşitse üçü de girer
@@ -91,5 +96,5 @@ dz('boundary paragraph kanonik biçimde', C.ch1.boundaryParagraph.includes('the 
 dz('checkIn mevcut', typeof C.checkIn === 'string' && C.checkIn.length > 50, true);
 dz('rota haritası D6→M4 (Karar Kaydı 10 Tem 2026)', C.rotaHaritasi['6'], 'Access Channel & Imagery (Module 4)');
 
-console.log(hata ? `\n${hata} HATA` : '\nSPARK FİKSTÜRÜ — TÜM TESTLER GEÇTİ (20/20, gerçek-ad fikstürü)');
+console.log(hata ? `\n${hata} HATA` : '\nSPARK FİKSTÜRÜ — TÜM TESTLER GEÇTİ (24/24, 16/16 doorway sweep dahil)');
 process.exit(hata ? 1 : 0);
