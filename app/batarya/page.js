@@ -37,10 +37,12 @@ import {
   bataryaSonucKaydet, bataryaOnamKaydet, bataryaDurumGetir, modulBul,
   typeLensSkorla, apsSkorla, emotionalSkorla, accessSkorla,
   flowASkorla, flowBSkorla, regulationSkorla, mindfulnessSkorla,
-  bodySkorla, entryExitSkorla, typeLensSonucGetir, retakeDurumu } from '../lib/batarya-kaydet';
+  bodySkorla, entryExitSkorla, typeLensSonucGetir, retakeDurumu,
+  emotionalSonucGetir } from '../lib/batarya-kaydet';
 import { tipRaporlari } from '../../data/kalibrasyon/tip-raporlari';
 import ApsRaporu, { ApsMicroReveal } from '../../components/ApsRaporu';
 import CoreRaporu, { CoreRaporButonu } from '../../components/CoreRaporu';
+import { m3Pack } from '../../data/kalibrasyon/m3-pack';
 
 const TON = 'var(--accent)';
 
@@ -190,7 +192,8 @@ function BataryaAkis({ durum, durumYenile }) {
       {gorunum === 'intake' && <IntakeAdimi onTamam={coreTamamla} />}
       {gorunum === 'type_lens' && <TypeLensAdimi onTamam={coreTamamla} />}
       {gorunum === 'aps' && <KarisikLikertAdimi slug="aps" onTamam={async () => { await durumYenile(); setGorunum('aps_reveal'); }} />}
-      {gorunum === 'emotional' && <EmotionalAdimi onTamam={coreTamamla} />}
+      {gorunum === 'emotional' && <EmotionalAdimi onTamam={async () => { await durumYenile(); setGorunum('emotional_reveal'); }} />}
+      {gorunum === 'emotional_reveal' && <EmotionalMicroReveal onDevam={coreSiradaki} />}
       {/* Retake (Karar Kaydı 10 Tem): kayıt append-only düşer, micro-reveal
           ve core-zincir YOK — doğrudan hub'a döner. İlk-kez akışı değişmez. */}
       {gorunum === 'aps_retake' && <KarisikLikertAdimi slug="aps" onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
@@ -537,6 +540,35 @@ function KarisikLikertAdimi({ slug, onTamam, onVazgec }) {
 }
 
 /* ─── Module 3 — Emotional Profile (Part 1 karışık; Part 4 opsiyonel) ─────── */
+// Emotional modül sonu micro-reveal (Karar Kaydı: her modül sonunda; M3 Pack
+// v0.1). En açık sistemin YALIN adı (parantez gloss'suz) {top_system_name}.
+function EmotionalMicroReveal({ onDevam }) {
+  const [metin, setMetin] = useState(null);
+  useEffect(() => {
+    (async () => {
+      const skor = await emotionalSonucGetir();
+      const sistemler = skor?.sistemler;
+      if (!sistemler) { setMetin(m3Pack.microReveal.replace('{top_system_name}', 'your palette')); return; }
+      const enAcik = Object.entries(sistemler)
+        .map(([ad, s]) => ({ ad: ad.split(' (')[0], ort: s?.ortalama ?? s }))
+        .filter((x) => x.ort != null)
+        .sort((a, b) => b.ort - a.ort)[0];
+      setMetin(m3Pack.microReveal.replace('{top_system_name}', enAcik ? enAcik.ad : 'your palette'));
+    })();
+  }, []);
+  return (
+    <div style={{ ...kutuStil, alignItems: 'flex-start' }}>
+      <span style={eyebrowStil}>Module 3 · complete</span>
+      <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.02rem', color: 'var(--ink)', lineHeight: 1.5 }}>
+        {metin ?? '…'}
+      </p>
+      <button onClick={onDevam} style={{ ...ikincilButonStil, borderColor: TON, color: TON }}>
+        Continue →
+      </button>
+    </div>
+  );
+}
+
 function EmotionalAdimi({ onTamam, onVazgec }) {
   const em = modulBul('emotional');
   const p1Maddeler = useMemo(

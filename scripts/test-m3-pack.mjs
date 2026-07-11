@@ -1,0 +1,14 @@
+import { readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
+import { tmpdir } from 'node:os'; import { join } from 'node:path'; import { pathToFileURL } from 'node:url';
+const t=mkdtempSync(join(tmpdir(),'m3-'));
+writeFileSync(join(t,'m3.mjs'),readFileSync('data/kalibrasyon/m3-pack.js','utf8'));
+const { m3Pack } = await import(pathToFileURL(join(t,'m3.mjs')));
+let h=0; const dz=(a,g,b)=>{const ok=JSON.stringify(g)===JSON.stringify(b);if(!ok)h++;console.log((ok?'✓':'✗')+' '+a);};
+dz('micro-reveal {top_system_name} placeholder içerir', m3Pack.microReveal.includes('{top_system_name}'), true);
+dz('micro-reveal core path anıyor', m3Pack.microReveal.includes('core path'), true);
+const doldu = m3Pack.microReveal.replace('{top_system_name}', 'Care');
+dz('placeholder dolunca temiz', !doldu.includes('{'), true);
+dz('Emotion Exploration adı onaylı', m3Pack.emotionExplorationAdi, 'Emotion Exploration tool');
+dz('63 portre durumu HAZIR/APP DIŞI', m3Pack.coachPortreleri.blokSayisi, 63);
+console.log(h?`\n${h} HATA`:'\nM3 PACK (hafif) — 5/5 GEÇTİ');
+process.exit(h?1:0);
