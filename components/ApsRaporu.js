@@ -24,6 +24,7 @@
 
 import { useEffect, useState } from 'react';
 import { apsRapor } from '../data/kalibrasyon/aps-rapor';
+import CheckinV2 from './CheckinV2';
 import {
   apsGrid, sayfaMontaji, microRevealMetni, experienceContextMetni,
 } from '../app/lib/aps-rapor-motor';
@@ -202,11 +203,9 @@ export default function ApsRaporu({ onGeri }) {
       </div>
 
       {/* POST-REPORT CHECK-IN — ilk tam görüntülemeden sonra, bir kez (§1). */}
-      {checkInGoster && (
-        <div style={{ ...kutu, borderColor: TON }}>
-          <P>{apsRapor.checkIn}</P>
-        </div>
-      )}
+      {/* CHECK-IN v2 — soru satırı mevcut onaylı kopya; 4 seçenek + serbest
+          metin standart; serbest metin koça verbatim. */}
+      {checkInGoster && <CheckinV2 baglam="aps" soru={apsRapor.checkIn} />}
     </div>
   );
 }

@@ -69,3 +69,15 @@ export async function kocProfilGetir(aktorId) {
   }
   return profil;
 }
+
+// Check-in yanıtları — koç görünümü (Checkin/F Templates v1.0 §1: serbest
+// metin verbatim). Bir aktörün tüm check-in'leri, bağlam + seçenek + metin.
+// RLS: facilitator okuma policy'si (checkin_facilitator_okuma).
+export async function kocCheckinGetir(aktorId) {
+  const { data } = await supabase
+    .from('checkin_yanitlari')
+    .select('baglam, secenek, serbest_metin, created_at')
+    .eq('kullanici_id', aktorId)
+    .order('created_at', { ascending: false });
+  return data ?? [];
+}

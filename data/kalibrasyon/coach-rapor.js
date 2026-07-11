@@ -210,21 +210,12 @@ export const coachRapor = {
       "safeguardFrame": "These are the questions the actor's set deliberately does not contain — the ones their working style tends to rush past, held back because naming an edge names the edge. They are yours, not theirs: never handed over as a list, never shown as a page. Bring them into the room one at a time, in your own words, at the moment the work makes them natural — woven into an exercise, a rehearsal, a conversation. Asked that way, they are craft; handed over as a list, they become a diagnosis. The boundary binds here as everywhere: every question builds the character's material, never the actor's wounds.",
       "libraryLine": "For role-driven preparation, the full question bank — every domain and every colour, both voices — is in your library; pull any set the role demands, regardless of this profile.",
       "secimKurali": "Part Two seçimi: APS EDGE seti alanları + M3'ün en düşük 2 sistemi (spec §6, Beyti notu). Anahtarlar prep_q_*, voice=safeguard.",
-      "safeguards": {
-        "not": "Kaynak: Character Preparation Question Bank (voice=safeguard, prep_q_* anahtarları). Elimizde YALNIZ Deniz coach örneğinin 3 bloğu var (D3 Body, Anger, Desire). Kalan EDGE alan/sistem safeguard'ları bank'la gelir — İCAT EDİLMEZ; eksik seçim 'bank bekleniyor' notuyla listelenir.",
-        "domain": {
-          "3": "Your body's questions are the ones to not skip. What is your character's tempo — where does it rush, where does it stall? Which part of the body leads when your character enters a room? Pick one ordinary action — making tea, locking a door — and do it as your character, three times, three ways. The body questions are the ones your preparation tends to leave for last; here, do them first."
-        },
-        "sistem": {
-          "Anger": "This colour comes less easily to you today — so build it for your character from the outside in, deliberately. Construct your character's oldest anger as a pillar event: what happened, at what age, who was there, what was never said afterward? What does your character's anger want — distance, justice, to be seen? Where does it live in the body before it reaches the face? Every answer belongs to your character; you are the author, never the source.",
-          "Desire": "These are the questions to not skip — approached as design work, at whatever pace serves you. What is your character's relationship with being wanted — sought, feared, doubted, unnoticed? How does your character signal attraction: directly, in code, or only in what gets carefully not done? What has desire cost your character before? Build one memory of desire for your character from the outside in — the setting, the distance between two people, what was said and what wasn't — physical facts first. And the same frame at full strength here: what you design belongs to your character and points at the character in the scene, never at your scene partner. That line is what makes this work safe to do fully."
-        }
-      }
+      "safeguards_KALDIRILDI": "Safeguard blokları Question Bank'e taşındı (tek kaynak, ITC-QUESTIONBANK-V01). Motor questionBank.domain/sistem[...].safeguard okur; seçim spec §6 (EDGE alanlar + en düşük 2 sistem). Bkz data/kalibrasyon/question-bank.js."
     }
   },
   "F": {
     "grammarKalip": "Worth exploring together: {observation}. A question for the room, not a conclusion: {question}.",
-    "durum": "KURAL — Karar Kaydı 10 Tem 2026: app üretir, en çok 5, sabit gramer; koç serbest alanı YOK. Üretim şablonları ({observation}/{question} kalıp seti) İÇERİK bekler — Filiz'den (bekleyenlere eklendi); gelene dek bölüm başlık + bekleme notu olarak render edilir."
+    "durum": "KURAL + UYGULANDI — Karar Kaydı 10 Tem 2026 + Checkin/F Templates v1.0 (ITC-CHECKINF-V10): app üretir, en çok 5, sabit gramer, öncelik T1→T5; koç serbest alanı YOK. 5 şablon + natural-ground haritası data/kalibrasyon/checkin-f.js; motor fThreadleriUret."
   },
   "notlar": [
     "COACH LIBRARY (karar c, 9 Tem 2026): Question Bank koç çalışma alanında tek kopya, tüm facilitator'lara aynı, prep_q_* anahtarlarından; hiçbir şey iki kez saklanmaz — E.2 bank'tan SEÇER, kütüphane bank'ın TAMAMIDIR. Bank aktör tarafında bütünüyle PARKED. (Faz i: bank içeriği elimizde olmadığından kütüphane görünümü bank teslimatıyla gelir.)",
