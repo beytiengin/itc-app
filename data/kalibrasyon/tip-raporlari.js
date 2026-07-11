@@ -270,7 +270,7 @@ export const tipRaporlari = {
       ],
       "not": "ASLA bu raporda render edilmez — Core Report capstone (Spec Pack v0.3, Ch. 3) içindir; aynı item-audit kapısına tabidir."
     },
-    "auditFlag": "Karar Kaydı 10 Tem 2026: denetim kapısı Filiz onayıyla KAPANDI — The Bridge v0.2 olarak ONAYLI. Eldeki gövde v0.1; v0.2 dosyası teslim edilince tarihli kayıtla değişir."
+    "auditFlag": "Karar Kaydı 10 Tem 2026 + dosya teslimi (The Bridge v0.2): denetim kapısı Filiz onayıyla KAPANDI, ONAYLI. Gövde v0.1↔v0.2 birebir (madde içeriği değişmedi; fark yalnız sürüm mührü + register). Core Report ENFJ seti gecerli:true."
   },
   "ENFP": {
       "ad": "The Spark",

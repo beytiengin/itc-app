@@ -68,7 +68,9 @@ dz('rota tetiklendi ve sıra doğru (D2 45 → M7 önce)', rota,
 
 dz('ENFP seti geçerli', !!M.doorwaySeti('ENFP'), true);
 dz('ENFP set 29 madde', M.doorwaySeti('ENFP').maddeler.length, 29);
-dz('ENFJ seti KAPALI (audit pending)', M.doorwaySeti('ENFJ'), null);
+dz('ENFJ seti AÇIK (Bridge v0.2 teslim, Karar Kaydı 10 Tem)', !!M.doorwaySeti('ENFJ'), true);
+dz('ENFJ set 29 madde + giriş', [M.doorwaySeti('ENFJ')?.maddeler.length, !!M.doorwaySeti('ENFJ')?.giris], [29, true]);
+dz('ENFJ girişi people-doorway', M.doorwaySeti('ENFJ')?.giris.startsWith('All of us have a different doorway'), true);
 dz('tanımsız doorway KAPALI', M.doorwaySeti('INTJ'), null);
 dz('doorway satırı (PROPOSED)', M.doorwaySatiri('The Spark'), 'Your doorway: The Spark. Here is the question set built for it.');
 
@@ -85,5 +87,5 @@ dz('boundary paragraph kanonik biçimde', C.ch1.boundaryParagraph.includes('the 
 dz('checkIn mevcut', typeof C.checkIn === 'string' && C.checkIn.length > 50, true);
 dz('rota haritası D6→M4 (Karar Kaydı 10 Tem 2026)', C.rotaHaritasi['6'], 'Access Channel & Imagery (Module 4)');
 
-console.log(hata ? `\n${hata} HATA` : '\nSPARK FİKSTÜRÜ — TÜM TESTLER GEÇTİ (18/18, gerçek-ad fikstürü)');
+console.log(hata ? `\n${hata} HATA` : '\nSPARK FİKSTÜRÜ — TÜM TESTLER GEÇTİ (20/20, gerçek-ad fikstürü)');
 process.exit(hata ? 1 : 0);
