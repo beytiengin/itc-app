@@ -17,10 +17,10 @@
 export const routing = {
   "meta": {
     "baslik": "Full Routing Map · Micro-Reveals (M4-9) · Doorway Check-in · Intake Verification",
-    "surum": "v0.1",
-    "tarih": "10 Jul 2026",
+    "surum": "v1.0",
+    "tarih": "11 Jul 2026",
     "yazar": "Filiz Kaya Ataklı",
-    "not": "Filiz'in standing 'deliver' talimatıyla; ⚑ iki madde (D7→M6 çifti, M9 reveal kanal cümlesi) tek-kelime veto penceresinde ama build-ready."
+    "not": "APPROVED IN FULL — iki ⚑ madde Filiz'ce onaylandı (11 Tem 2026): D7→M6 çifti + M9 reveal kanal cümlesi. Bu belgede bekleyen yok."
   },
   "microReveals": {
     "m4": {
