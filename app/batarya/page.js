@@ -639,8 +639,12 @@ function AccessMicroReveal({ onDevam }) {
       const skor = await accessSonucGetir();
       const kanallar = skor?.kanallar;
       if (!kanallar) { setMetin(routing.microReveals.m4.metin.replace('{channel}', 'your strongest channel')); return; }
-      // en yüksek skorlu kanal
+      // en yüksek skorlu kanal. A.12 (Ek v0.5): aktörün kendi adlandırdığı
+      // "One more (optional)" kanalı otomatik {channel} türetiminden ÇIKARILIR
+      // — veride ve coach view'da kalır ama reveal/routed copy'yi sürüklemez
+      // (aktör-adı kanal bozuk otomatik copy render etme kenar durumunu kapatır).
       const enYuksek = Object.entries(kanallar)
+        .filter(([ad]) => !/one more|optional/i.test(ad))
         .map(([ad, s]) => ({ ad, ort: s?.ortalama ?? s }))
         .filter((x) => x.ort != null)
         .sort((a, b) => b.ort - a.ort)[0];

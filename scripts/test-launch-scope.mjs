@@ -26,5 +26,14 @@ dz('AccessMicroReveal SİLİNMEDİ (plumbing)', page.includes('function AccessMi
 dz('EntryExitMicroReveal SİLİNMEDİ (plumbing)', page.includes('function EntryExitMicroReveal'), true);
 dz('getter importları korundu', page.includes('accessSonucGetir') && page.includes('entryExitSonucGetir'), true);
 
-console.log(h?`\n${h} HATA`:'\nLAUNCH SCOPE A.11 — 13/13 GEÇTİ');
+// A.12 (Ek v0.5): m4 optional-channel exclusion — plumbing doğru olmalı
+dz('m4 optional exclusion filtresi var', /one more\|optional/i.test(page) && page.includes('otomatik {channel} türetiminden'), true);
+// mantık simülasyonu: optional en yüksek olsa bile dışlanır
+const m4sim = (kanallar) => Object.entries(kanallar)
+  .filter(([ad]) => !/one more|optional/i.test(ad))
+  .map(([ad, sc]) => ({ ad, ort: sc?.ortalama ?? sc }))
+  .filter((x) => x.ort != null).sort((a, b) => b.ort - a.ort)[0]?.ad;
+dz('optional en yüksekse dışlanır', /optional/i.test(m4sim({'Touch (tactile)':{ortalama:4},'One more (optional)':{ortalama:5}}) ?? ''), false);
+
+console.log(h?`\n${h} HATA`:'\nLAUNCH SCOPE A.11 + A.12 — 15/15 GEÇTİ');
 process.exit(h?1:0);
