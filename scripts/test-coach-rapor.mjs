@@ -19,6 +19,7 @@ kopya('data/kalibrasyon/core-rapor.js', 'core-rapor.mjs');
 kopya('data/kalibrasyon/coach-rapor.js', 'coach-rapor.mjs');
 kopya('data/kalibrasyon/question-bank.js', 'question-bank.mjs');
 kopya('data/kalibrasyon/checkin-f.js', 'checkin-f.mjs');
+kopya('data/kalibrasyon/m3-pack.js', 'm3-pack.mjs');
 kopya('app/lib/aps-rapor-motor.js', 'aps-motor.mjs',
   (s) => s.replace("'../../data/kalibrasyon/aps-rapor'", "'./aps-rapor.mjs'"));
 kopya('app/lib/core-rapor-motor.js', 'core-motor.mjs',
@@ -30,6 +31,7 @@ kopya('app/lib/coach-rapor-motor.js', 'coach-motor.mjs',
   (s) => s.replace("'../../data/kalibrasyon/coach-rapor'", "'./coach-rapor.mjs'")
          .replace("'../../data/kalibrasyon/question-bank'", "'./question-bank.mjs'")
          .replace("'../../data/kalibrasyon/checkin-f'", "'./checkin-f.mjs'")
+         .replace("'../../data/kalibrasyon/m3-pack'", "'./m3-pack.mjs'")
          .replace("import { modulBul } from './batarya-kaydet';",
                   "import { batarya } from './batarya.mjs';\nconst modulBul = (slug) => batarya.moduller.find((m) => m.slug === slug) ?? null;")
          .replace("'./aps-rapor-motor'", "'./aps-motor.mjs'")

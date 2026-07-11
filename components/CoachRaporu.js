@@ -16,7 +16,7 @@ import { coachRapor } from '../data/kalibrasyon/coach-rapor';
 import { coreRapor } from '../data/kalibrasyon/core-rapor';
 import {
   orientationDoldur, bBolumu, c1Bolumu, ledgerOlustur, d2Olustur,
-  roleHangover, eBolumu, safeguardSec, fThreadleriUret,
+  roleHangover, eBolumu, safeguardSec, fThreadleriUret, m3Portreleri,
 } from '../app/lib/coach-rapor-motor';
 import { girisDoku, doorwaySeti, doorwaySatiri } from '../app/lib/core-rapor-motor';
 import { kocProfilGetir, kocCheckinGetir } from '../app/lib/koc-veri';
@@ -51,6 +51,7 @@ export default function CoachRaporu({ aktorId, aktorAd, onGeri }) {
       const C1 = p.aps?.skorlar?.alanlar ? c1Bolumu(p.aps.skorlar.alanlar) : null;
       const C2 = p.aps?.yanitlar ? ledgerOlustur(p.aps.yanitlar, p.aps.onceki?.yanitlar) : null;
       const D2 = p.emotional?.yanitlar ? d2Olustur(p.emotional.yanitlar, p.emotional.onceki?.yanitlar) : null;
+      const portreler = p.emotional?.skorlar?.sistemler ? m3Portreleri(p.emotional.skorlar.sistemler) : null;
       const RH = p.emotional?.skorlar ? roleHangover(p.emotional.skorlar) : null;
       const E = p.aps?.skorlar?.alanlar && p.emotional?.skorlar?.sistemler
         ? eBolumu(p.aps.skorlar.alanlar, p.emotional.skorlar.sistemler) : null;
@@ -61,7 +62,7 @@ export default function CoachRaporu({ aktorId, aktorAd, onGeri }) {
       const konfor = p.emotional?.skorlar?.konfor ?? null;
       const F = fThreadleriUret({ c1: C1, rh: RH, d2: D2, hipotez: B?.hipotez, konfor });
       const checkinler = await kocCheckinGetir(aktorId);
-      setV({ p, A, B, C1, C2, D2, RH, E, set, SG, F, checkinler });
+      setV({ p, A, B, C1, C2, D2, RH, E, set, SG, F, checkinler, portreler });
     })();
   }, [aktorId]);
 
@@ -153,7 +154,23 @@ export default function CoachRaporu({ aktorId, aktorAd, onGeri }) {
             </div>
           ))}
           {D2.closedVar && <P stil={{ fontStyle: 'italic' }}>{coachRapor.D.d2.closedCloser}</P>}
-          <P stil={kucuk}>Comfort inventory / Desire check-in / meta-emotion satırları: Faz i kapsamı dışı işaretli — konfor ham verisi saklı, sentez Filiz kurallarıyla; Desire check-in aktör-side mekaniği Filiz kararında.</P>
+
+          {/* D.1 — Portraits & Position×Band blocks (M3 Pack §4; koç-tarafı) */}
+          {portreler && (
+            <>
+              <P stil={kucuk}>D.1 — Portraits (highest colour first; {`{set}×{band}`} block, hedged where near a border)</P>
+              {portreler.map((s) => (
+                <div key={s.ad} style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', borderTop: '1px solid var(--rule)', paddingTop: '0.7rem' }}>
+                  <P stil={{ fontWeight: 400, color: 'var(--ink)', fontSize: '0.82rem' }}>
+                    {s.yalin} — {s.set} · {s.band}{s.hedge ? ' · HEDGE' : ''}
+                  </P>
+                  {s.portre && <P stil={{ fontSize: '0.78rem' }}>{s.portre}</P>}
+                  {s.blok && <P stil={{ fontSize: '0.78rem', fontStyle: 'italic', color: 'var(--ink-soft)' }}>{s.blok}</P>}
+                </div>
+              ))}
+            </>
+          )}
+          <P stil={kucuk}>Comfort inventory / Desire check-in / meta-emotion satırları: konfor ham verisi saklı; Desire check-in mekaniği Filiz kararında.</P>
         </div>
       )}
 

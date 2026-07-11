@@ -296,3 +296,48 @@ export function fThreadleriUret({ c1, rh, d2, hipotez, konfor }) {
   }
   return Object.values(turBazli).sort((a, b) => a.oncelik - b.oncelik).slice(0, 5).map((a) => a.metin);
 }
+
+/* ─── M3 coach portreleri (M3 Pack v0.1 §4) ──────────────────────────────
+   Her sistem: set (TOP/MIDDLE/EDGE — sistemler-arası rank) × band (UPPER/
+   MIDDLE/LOWER — mutlak ortalama). Render: portre + (set,band) bloğu; HEDGE
+   açıksa blok ilk cümlesi ses-sınıfı hedged opener'la değişir. Yalnız KOÇ. */
+import { m3Pack } from '../../data/kalibrasyon/m3-pack';
+
+// İki eksen (M3 Pack §Axis 1-2): set = rank (TOP=en yüksek 2 +5puan-içi-3.,
+// EDGE=en düşük 2, gerisi MIDDLE); band = mutlak ortalama (UPPER≥3.75,
+// MIDDLE 2.75-3.74, LOWER<2.75); HEDGE ±0.15 sınıra.
+export function m3Portreleri(sistemlerSkor) {
+  const P = m3Pack.coachPortreleri;
+  if (!P?.sistemler) return null;
+  const diziler = Object.entries(sistemlerSkor)
+    .map(([ad, s]) => ({ ad, yalin: ad.split(' (')[0], ort: s?.ortalama ?? s }))
+    .filter((x) => x.ort != null)
+    .sort((a, b) => b.ort - a.ort);
+  if (!diziler.length) return null;
+
+  // set: TOP = en yüksek 2 + (3. ikinciden ≤5 puan/0.2 ort içindeyse); EDGE = en düşük 2.
+  const topEsik = diziler[1]?.ort;
+  const topIdx = new Set();
+  diziler.forEach((d, i) => { if (i < 2 || (i === 2 && topEsik - d.ort <= 0.2)) topIdx.add(d.ad); });
+  const edgeIdx = new Set(diziler.slice(-2).map((d) => d.ad));
+
+  return diziler.map((d) => {
+    const set = topIdx.has(d.ad) ? 'TOP' : edgeIdx.has(d.ad) ? 'EDGE' : 'MIDDLE';
+    const band = d.ort >= 3.75 ? 'UPPER' : d.ort >= 2.75 ? 'MIDDLE' : 'LOWER';
+    const hedge = Math.abs(d.ort - 3.75) <= 0.15 || Math.abs(d.ort - 2.75) <= 0.15;
+    const sysData = P.sistemler[d.yalin];
+    const anahtar = `${set}_${band}`;
+    let blok = sysData?.bloklar?.[anahtar] ?? null;
+    // HEDGE: blok ilk cümlesini ses-sınıfı hedged opener'la değiştir
+    if (blok && hedge) {
+      const voice = P.setBandVoice?.[anahtar];
+      const sinif = voice ? P.voiceSinif?.[voice] : null;
+      const opener = sinif ? P.hedged?.[sinif] : null;
+      if (opener) {
+        const kalan = blok.replace(/^[^.!?]*[.!?]\s*/, ''); // ilk cümleyi at
+        blok = opener + ' ' + kalan;
+      }
+    }
+    return { ad: d.ad, yalin: d.yalin, set, band, hedge, portre: sysData?.portre ?? null, blok };
+  });
+}

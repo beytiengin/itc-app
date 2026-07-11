@@ -9,6 +9,10 @@ dz('micro-reveal core path anıyor', m3Pack.microReveal.includes('core path'), t
 const doldu = m3Pack.microReveal.replace('{top_system_name}', 'Care');
 dz('placeholder dolunca temiz', !doldu.includes('{'), true);
 dz('Emotion Exploration adı onaylı', m3Pack.emotionExplorationAdi, 'Emotion Exploration tool');
-dz('63 portre durumu HAZIR/APP DIŞI', m3Pack.coachPortreleri.blokSayisi, 63);
-console.log(h?`\n${h} HATA`:'\nM3 PACK (hafif) — 5/5 GEÇTİ');
+// 63 portre içerik olarak UYGULANDI (M3PORTRE relay): 7 sistem × 9 blok + 7 portre.
+const _sis = m3Pack.coachPortreleri.sistemler;
+dz('7 sistem portresi mevcut', Object.keys(_sis).length, 7);
+dz('63 blok (7 sistem × 9 position×band)', Object.values(_sis).reduce((n, s) => n + Object.keys(s.bloklar).length, 0), 63);
+dz('her sistemde core portre var', Object.values(_sis).every((s) => typeof s.portre === 'string' && s.portre.length > 30), true);
+console.log(h?`\n${h} HATA`:'\nM3 PACK — 7/7 GEÇTİ (portre içeriği bağlandı)');
 process.exit(h?1:0);
