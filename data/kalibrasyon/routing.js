@@ -18,10 +18,10 @@
 export const routing = {
   "meta": {
     "baslik": "Full Routing Map · Micro-Reveals (M4-9) · Doorway Check-in · Intake Verification",
-    "surum": "v1.0",
+    "surum": "v1.1",
     "tarih": "11 Jul 2026",
     "yazar": "Filiz Kaya Ataklı",
-    "not": "Karar Kaydı Eki v0.2 (11 Tem 2026) SWEEP: D7→M6 çifti GERİ ALINDI — D7 artık rotasız (bkz core-rapor rotaNeverRoutes). M9 kanal cümlesi onaylı KALIR (2. cümle veri taşır). m9 reveal WORDING hâlâ Filiz veto penceresinde (Ek C) — plumbing ilerler, render bekler."
+    "not": "v1.1 (Ek v0.3, 11 Tem 2026): A.9 m9 reveal cümlesi YENİLENDİ — eski 'are noted/We'll use them' emekliye ayrıldı, yeni: 'Two doors already carry you back: {channel_1} and {channel_2}.' A.10 BASIC Ph EN+TR adları onaylı (R1→R6 sabit render, skor sırası değil). m9 render UNBLOCKED. v0.2 SWEEP korunur: D7→M6 GERİ ALINDI (D7 rotasız, bkz core-rapor rotaNeverRoutes)."
   },
   "microReveals": {
     "m4": {
@@ -50,12 +50,16 @@ export const routing = {
     },
     "m9": {
       "modul": "Entry & Exit (en yüksek hassasiyet; skor yok, reveal = teşekkür + tek olumlu not)",
-      "metin": "Thank you for this one — it stays close and works quietly for you. Your recovery channels are noted: {channel_1} and {channel_2}. We'll use them.",
-      "onayNot": "M9 satırı aktörün top-2 recovery channel'ını render eder (tercih haritası, asla tip). 2. cümle KALIR (Ek v0.2 §B onaylı). PLUMBING KURULU: entryExitSonucGetir + entryExitSkorla.recoveryKanallar (R1-R6 ham, en yüksek 2 = channel_1/2) hazır. RENDER BEKLER: (1) Filiz m9 reveal WORDING vetosu (Ek C), (2) BASIC Ph 6 kanal display adı EN+TR onayı. İkisi gelene dek m9 micro-reveal aktöre GÖSTERİLMEZ. metinVerisiz arşivde.",
+      "metin": "Thank you for this one — it stays close and works quietly for you. Two doors already carry you back: {channel_1} and {channel_2}.",
+      "onayNot": "M9 satırı top-2 recovery channel'ı OLUMLU render eder (asla tip, asla sıralama). RENDER UNBLOCKED (Ek v0.3 A.9+A.10): (1) yeni cümle onaylı — eski 'are noted/We'll use them' emekliye ayrıldı (recorded-about-you hissi), (2) BASIC Ph EN+TR adları onaylı. KRİTİK: top-2 SEÇİLİR ama R1→R6 instrument order'da RENDER edilir — asla skor sırası (sıralama ima etmez). Eski cümle arşivde (metinVerisiz).",
     "basicPhKanallar": {
-      "not": "R1-R6 internal key = slug (team note only, asla render). Actor-facing display adları EN+TR ONAY BEKLİYOR (Ek C). Lahad kredisi team-side; aktör copy'sinde araştırmacı adı YOK.",
-      "R1": "Meaning & belief", "R2": "Feeling", "R3": "People",
-      "R4": "Imagination", "R5": "Thinking", "R6": "The body"
+      "not": "ONAYLI EN+TR (Ek v0.3 A.10, Filiz — Lahad/Ayalon modeli araştırma-kontrollü). R1-R6 internal key = slug (team note only, asla render). RENDER ORDER SABİT R1→R6 (instrument order), ASLA skor sırası — {channel_1}/{channel_2} sıralama ima edemez. TR adlar sözlüğe FIXED girer. Lahad kredisi team-side; aktör copy'sinde araştırmacı adı YOK. R4 IMAGINATION APS D6 ile ad çakışması (tolere — M9 onu craft değil 'geri dönüş yolu' çerçeveler, whole-battery overlap map'e girer). R6 BODY M8 ile yumuşak çakışma (zararsız).",
+      "R1": { "en": "Meaning", "tr": "Anlam" },
+      "R2": { "en": "Feeling", "tr": "Duygu" },
+      "R3": { "en": "People", "tr": "İnsanlar" },
+      "R4": { "en": "Imagination", "tr": "Hayal Gücü" },
+      "R5": { "en": "Thinking", "tr": "Düşünce" },
+      "R6": { "en": "Body", "tr": "Beden" }
     },
       "metinVerisiz": "Thank you for this one — it stays close and works quietly for you."
     }

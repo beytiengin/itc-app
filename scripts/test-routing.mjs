@@ -41,5 +41,5 @@ dz('doorway check-in soru', R.doorwayCheckin.soru.includes('first mirror'), true
 // Aspiration
 dz('aspiration: yeni madde gerekmez', R.aspirationDogrulama.includes('Yeni madde yok'), true);
 
-console.log(h?`\n${h} HATA`:'\nROUTING v1.0 — 12/12 GEÇTİ');
+console.log(h?`\n${h} HATA`:'\nROUTING v1.1 — 12/12 GEÇTİ');
 process.exit(h?1:0);
