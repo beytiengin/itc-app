@@ -213,14 +213,10 @@ export const coreRapor = {
       ]
     },
     "ENFJ": {
-      "gecerli": false,
-      "kaynak": "The_Bridge_v0_1 teamSideAppendix — Karar Kaydı 10 Tem 2026: denetim kapısı KAPANDI, The Bridge v0.2 olarak ONAYLI (soru bölümü dahil); ancak v0.2 DOSYASI henüz teslim edilmedi. Eldeki v0.1 metni superseded olabilir — verbatim disiplini gereği gecerli:false, dosya gelince tarihli kayıtla açılır.",
-      "giris": null,
+      "gecerli": true,
+      "kaynak": "The_Bridge_v0_2 teamSideAppendix (denetim kapısı Filiz onayıyla kapandı, 9 Tem 2026; register sweep onaylı). Karar Kaydı 10 Tem 2026 + dosya teslimi: gecerli:true.",
+      "giris": "All of us have a different doorway into understanding. Yours is people and connection — you understand a character through who they love, who they answer to, and who they're trying to become. So your set begins with your character's people, and then, deliberately, keeps going into the private ground your outward attention can otherwise pass by. Give the alone-questions as much time as the together-questions.",
       "maddeler": [
-        {
-          "tip": "madde",
-          "metin": "All of us have a different doorway into understanding. Yours is people and connection — you understand a character through who they love, who they answer to, and who they're trying to become. So your set begins with your character's people, and then, deliberately, keeps going into the private ground your outward attention can otherwise pass by. Give the alone-questions as much time as the together-questions."
-        },
         {
           "tip": "italik",
           "metin": "Start with the people:"
