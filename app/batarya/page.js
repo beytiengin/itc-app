@@ -38,7 +38,7 @@ import {
   typeLensSkorla, apsSkorla, emotionalSkorla, accessSkorla,
   flowASkorla, flowBSkorla, regulationSkorla, mindfulnessSkorla,
   bodySkorla, entryExitSkorla, typeLensSonucGetir, retakeDurumu,
-  emotionalSonucGetir } from '../lib/batarya-kaydet';
+  emotionalSonucGetir, accessSonucGetir } from '../lib/batarya-kaydet';
 import { tipRaporlari } from '../../data/kalibrasyon/tip-raporlari';
 import { routing } from '../../data/kalibrasyon/routing';
 import CheckinV2 from '../../components/CheckinV2';
@@ -205,7 +205,8 @@ function BataryaAkis({ durum, durumYenile }) {
       {gorunum === 'aps_reveal' && <ApsMicroReveal onDevam={coreSiradaki} />}
       {gorunum === 'aps_raporu' && <ApsRaporu onGeri={() => setGorunum('hub')} />}
       {gorunum === 'core_raporu' && <CoreRaporu onGeri={() => setGorunum('hub')} />}
-      {gorunum === 'access' && <AccessAdimi onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
+      {gorunum === 'access' && <AccessAdimi onTamam={async () => { await durumYenile(); setGorunum('access_reveal'); }} onVazgec={() => setGorunum('hub')} />}
+      {gorunum === 'access_reveal' && <AccessMicroReveal onDevam={hubaDon} />}
       {gorunum === 'flow' && <KarisikLikertAdimi slug="flow" onTamam={async () => { await durumYenile(); setGorunum('flow_reveal'); }} onVazgec={() => setGorunum('hub')} />}
       {gorunum === 'flow_reveal' && <ModulMicroReveal revealKey="m5_formA" etiket="Module 5" onDevam={hubaDon} />}
       {gorunum === 'flow_formB' && <FormBAdimi onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
@@ -567,6 +568,38 @@ function ModulMicroReveal({ revealKey, etiket, onDevam }) {
 
 // Emotional modül sonu micro-reveal (Karar Kaydı: her modül sonunda; M3 Pack
 // v0.1). En açık sistemin YALIN adı (parantez gloss'suz) {top_system_name}.
+// Access (M4) micro-reveal (Routing v1.0 + Karar Kaydı Eki v0.2 §B): en
+// yüksek skorlu kanal = {channel} (strongest doorway for imagining). Kanal
+// adları Filiz batarya instrument adları (Seeing/Hearing/Feeling) — onaylı.
+function AccessMicroReveal({ onDevam }) {
+  const [metin, setMetin] = useState(null);
+  useEffect(() => {
+    (async () => {
+      const skor = await accessSonucGetir();
+      const kanallar = skor?.kanallar;
+      if (!kanallar) { setMetin(routing.microReveals.m4.metin.replace('{channel}', 'your strongest channel')); return; }
+      // en yüksek skorlu kanal
+      const enYuksek = Object.entries(kanallar)
+        .map(([ad, s]) => ({ ad, ort: s?.ortalama ?? s }))
+        .filter((x) => x.ort != null)
+        .sort((a, b) => b.ort - a.ort)[0];
+      const kanalAd = enYuksek ? enYuksek.ad.split(' (')[0] : 'your strongest channel';
+      setMetin(routing.microReveals.m4.metin.replace('{channel}', kanalAd));
+    })();
+  }, []);
+  return (
+    <div style={{ ...kutuStil, alignItems: 'flex-start' }}>
+      <span style={eyebrowStil}>Module 4 · complete</span>
+      <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.02rem', color: 'var(--ink)', lineHeight: 1.5 }}>
+        {metin ?? '…'}
+      </p>
+      <button onClick={onDevam} style={{ ...ikincilButonStil, borderColor: TON, color: TON }}>
+        Continue →
+      </button>
+    </div>
+  );
+}
+
 function EmotionalMicroReveal({ onDevam }) {
   const [metin, setMetin] = useState(null);
   useEffect(() => {
