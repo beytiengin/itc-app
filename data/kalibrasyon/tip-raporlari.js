@@ -70,7 +70,7 @@ export const tipRaporlari = {
     "ENFJ": {
     "ad": "The Bridge",
     "internalKey": "ENFJ",
-    "surum": "v0.1 (new — drafted 9 July 2026, the last of the sixteen; ITEM AUDIT PENDING: Filiz's three-pass audit against the 44 items is required before approval; doorway register applied from birth; question section renders in the CORE REPORT only, appended here team-side)",
+    "surum": "v0.2 (drafted and APPROVED BY FILIZ, 9 July 2026 — the audit gate is cleared by her approval; doorway register applied from birth; question section renders in the CORE REPORT only, appended here team-side and cleared with the same approval)",
     "ustBaslik": "Let's Talk About You…",
     "teamNote": "[Team note — not shown to participants: display name: The Bridge (doorway register, approved 9 July 2026). Internal key ENFJ — database and block-selection only, never rendered anywhere actor-side, including this report. The nearest neighbour is NEVER rendered in the actor's report: the app computes and stores it (narrowest-margin axis flipped, with margin) as a facilitator's tool — in coaching, the first alternative to offer if the report isn't landing. AUDIT FLAG: this report was drafted without the item-harvest pass — every claim below must be traced to the 44 questionnaire items before this leaves v0.1; lore claims retained at Filiz's judgment.]",
     "beforeYouRead": [
