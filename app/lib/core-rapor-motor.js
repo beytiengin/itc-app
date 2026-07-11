@@ -69,9 +69,10 @@ export function girisDoku(giris) {
 // Ch.5 rota cümlesi — yalnız APS EDGE alanlarından, haritası olanlar,
 // yüksek skor önce ("in that order"). Boşsa null (cümle tetiklenmez).
 export function rotaCumlesi(grid) {
+  // Instrument order (D2→D3→D6→D7), skor değil (Routing v0.1 §A).
   const hedefler = grid.domainler
     .filter((d) => d.set === 'EDGE' && coreRapor.rotaHaritasi[String(d.dNo)])
-    .sort((a, b) => b.skor - a.skor)
+    .sort((a, b) => a.dNo - b.dNo)
     .map((d) => coreRapor.rotaHaritasi[String(d.dNo)]);
   if (!hedefler.length) return null;
   const liste = hedefler.length > 1
