@@ -11,8 +11,8 @@
 //     admin; atama yok. koc_rolleri tablosu + facilitator SELECT policy.
 // FAZ i KAPSAMI: A–E montaj (saklanan profillerden) + standing header +
 //     16 koçluk bloğu + ledger + open/closed + safeguard'lar (eldeki 3).
-//     FAZ i ÜRETMEZ: F thread'leri (üretim kuralı §8'de), ↑↓ işaretleri
-//     (mekanik onayı §8'de), Coach Library görünümü (bank içeriği
+//     FAZ i ÜRETMEZ: F thread'leri (üretim kuralı §8'de),
+//     Coach Library görünümü (bank içeriği
 //     teslim edilmedi), ← tarzı çapraz-desen yorumları (kural mı kalem
 //     mi — Filiz'de).
 // KURAL: İçerik verbatim'dir; her düzeltme Filiz'den v0.6 olarak döner.
@@ -230,7 +230,7 @@ export const coachRapor = {
     "COACH LIBRARY (karar c, 9 Tem 2026): Question Bank koç çalışma alanında tek kopya, tüm facilitator'lara aynı, prep_q_* anahtarlarından; hiçbir şey iki kez saklanmaz — E.2 bank'tan SEÇER, kütüphane bank'ın TAMAMIDIR. Bank aktör tarafında bütünüyle PARKED. (Faz i: bank içeriği elimizde olmadığından kütüphane görünümü bank teslimatıyla gelir.)",
     "Madde kökleri enstrüman kaynak-of-truth'undan anahtarla render edilir (batarya master) — asla yeniden yazılmaz. Tüm maddeler Filiz'in özgün enstrümanları; team-side render'da telif kısıtı yok.",
     "Ledger ve Open/Closed görünümleri okuma anında aynı append-only yanıtlardan monte edilir; gösterilen puanlar ters-kodlama SONRASI, (R) etiketi şeffaflığı korur.",
-    "Retake: Ledger ve Open/Closed her zaman SON uygulamayı gösterir, bir öncekine karşı hareket işaretleriyle (↑↓ madde/sistem) — ONAYLI (Karar Kaydı 10 Tem 2026); inşaat kuyruğunda, Faz i işaretleri henüz üretmez.",
+    "Retake: Ledger ve Open/Closed her zaman SON uygulamayı gösterir, bir öncekine karşı hareket işaretleriyle (↑↓ madde/sistem) — ONAYLI + UYGULANDI (Karar Kaydı 10 Tem 2026, kuyruk ③; ITC-RELAY-UPDOWN-20260710): madde KATEGORİ geçişi (CARE↔nötr↔STRONG) + sistem SINIF geçişi (CLOSED↔AJAR↔OPEN); yalnız onceki uygulama varsa görünür.",
     "Tek görünüm; RLS facilitator policy; toplam wellbeing skoru ASLA; Modül 9 bu belgenin dışında; export varsayılan kapalı."
   ],
   "bayraklar": [

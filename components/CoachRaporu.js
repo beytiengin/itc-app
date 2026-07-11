@@ -29,6 +29,13 @@ const kutu = { border: '1px solid var(--rule)', padding: '1.2rem 1.1rem', displa
 const band = { ...kucuk, fontStyle: 'italic', border: '1px solid var(--rule)', padding: '0.7rem 0.9rem' };
 
 function P({ children, stil }) { return <p style={{ ...govde, ...stil }}>{children}</p>; }
+// Kategori-geçiş işareti — yalnız retake'te (onceki varsa) görünür. ↑ iyiye,
+// ↓ tersine; renk vurgusu koç okuması için, gürültüsüz.
+function Gecis({ gecis }) {
+  if (!gecis) return null;
+  const renk = gecis.yon === 'yukari' ? 'var(--onay-soft, #4a7)' : 'var(--accent)';
+  return <span style={{ ...kucuk, color: renk, marginLeft: '0.4rem', whiteSpace: 'nowrap' }}>{gecis.metin}</span>;
+}
 function Baslik({ children }) { return <h3 style={bolumBaslik}>{children}</h3>; }
 function StandingHeader() { return <div style={band}>{coachRapor.standingHeader}</div>; }
 
@@ -42,8 +49,8 @@ export default function CoachRaporu({ aktorId, aktorAd, onGeri }) {
       const A = p.intake ? orientationDoldur(p.intake.yanitlar) : null;
       const B = p.type_lens ? bBolumu(p.type_lens.skorlar) : null;
       const C1 = p.aps?.skorlar?.alanlar ? c1Bolumu(p.aps.skorlar.alanlar) : null;
-      const C2 = p.aps?.yanitlar ? ledgerOlustur(p.aps.yanitlar) : null;
-      const D2 = p.emotional?.yanitlar ? d2Olustur(p.emotional.yanitlar) : null;
+      const C2 = p.aps?.yanitlar ? ledgerOlustur(p.aps.yanitlar, p.aps.onceki?.yanitlar) : null;
+      const D2 = p.emotional?.yanitlar ? d2Olustur(p.emotional.yanitlar, p.emotional.onceki?.yanitlar) : null;
       const RH = p.emotional?.skorlar ? roleHangover(p.emotional.skorlar) : null;
       const E = p.aps?.skorlar?.alanlar && p.emotional?.skorlar?.sistemler
         ? eBolumu(p.aps.skorlar.alanlar, p.emotional.skorlar.sistemler) : null;
@@ -118,9 +125,9 @@ export default function CoachRaporu({ aktorId, aktorAd, onGeri }) {
               <P stil={kucuk}>C.2 — The Item Ledger · {coachRapor.C.ledger.esikler.durum}</P>
               <P stil={{ ...band, fontStyle: 'italic' }}>{coachRapor.C.ledger.frame}</P>
               <P stil={{ fontWeight: 400, color: 'var(--ink)' }}>Strong items:</P>
-              {C2.strong.map((s, i) => <P key={i} stil={{ fontSize: '0.78rem' }}>{s.metin}</P>)}
+              {C2.strong.map((s, i) => <P key={i} stil={{ fontSize: '0.78rem' }}>{s.metin}<Gecis gecis={s.gecis} /></P>)}
               <P stil={{ fontWeight: 400, color: 'var(--ink)' }}>Items needing special care:</P>
-              {C2.care.map((s, i) => <P key={i} stil={{ fontSize: '0.78rem' }}>{s.metin}</P>)}
+              {C2.care.map((s, i) => <P key={i} stil={{ fontSize: '0.78rem' }}>{s.metin}<Gecis gecis={s.gecis} /></P>)}
               <P stil={{ fontStyle: 'italic' }}>{coachRapor.C.ledger.careCloser}</P>
             </>
           )}
@@ -136,7 +143,7 @@ export default function CoachRaporu({ aktorId, aktorAd, onGeri }) {
           <P stil={{ ...band, fontStyle: 'italic' }}>{coachRapor.D.d2.frame}</P>
           {D2.sistemler.map((s) => (
             <div key={s.ad} style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-              <P stil={{ fontWeight: 400, color: 'var(--ink)' }}>{s.baslik}</P>
+              <P stil={{ fontWeight: 400, color: 'var(--ink)' }}>{s.baslik}<Gecis gecis={s.gecis} /></P>
               {s.maddeler.map((m, i) => <P key={i} stil={{ fontSize: '0.76rem', paddingLeft: '0.8rem' }}>{m}</P>)}
             </div>
           ))}
