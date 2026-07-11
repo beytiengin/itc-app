@@ -50,7 +50,7 @@ export const routing = {
     "m9": {
       "modul": "Entry & Exit (en yüksek hassasiyet; skor yok, reveal = teşekkür + tek olumlu not)",
       "metin": "Thank you for this one — it stays close and works quietly for you. Your recovery channels are noted: {channel_1} and {channel_2}. We'll use them.",
-      "vetoNot": "⚑ M9 satırı aktörün top-2 recovery channel'ını render eder (tercih haritası, asla tip — modülün kendi team note'u). Filiz veri taşımasın derse: ikinci cümle silinir, teşekkür tek başına kalır.",
+      "onayNot": "M9 satırı aktörün top-2 recovery channel'ını render eder (tercih haritası, asla tip — modülün kendi team note'u). ONAYLI (Filiz, 11 Tem 2026): ikinci cümle KALIR — veri taşınır. metinVerisiz alternatifi arşiv olarak saklanır (geri dönülürse tarihli kayıtla).",
       "metinVerisiz": "Thank you for this one — it stays close and works quietly for you."
     }
   },
