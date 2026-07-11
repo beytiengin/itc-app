@@ -327,9 +327,21 @@ export const coreRapor = {
     }
   },
   "rotaHaritasi": {
-    "not": "Ch.5 routed sentence — yalnız APS-türevli. ONAYLI çiftler (Karar Kaydı 10 Tem 2026): D2→M7, D3→M8, D6→M4; kalan EDGE alan eşleri kayıtta 'bekleyenler'de. Eşlemesi olmayan EDGE alan cümleyi tetiklemez ('if fired').",
+    "not": "Ch.5 routed sentence — yalnız APS-türevli (Routing_MicroReveals_Checkin_v0_1). MODULE-ROUTED: EDGE alansa hem routed cümle hem hub önerisi tetiklenir. ⚑D7→M6 Filiz veto penceresinde ama build-ready (battery canon D2/D3/D5/D6 listeliyordu; tek yeni harita girdisi). Sıralama: instrument order (D2→D3→D6→D7), skor değil.",
     "2": "Performance Mindfulness (Module 7)",
     "3": "The Actor's Body (Module 8)",
-    "6": "Access Channel & Imagery (Module 4)"
+    "6": "Access Channel & Imagery (Module 4)",
+    "7": "Regulation & Performance Strategies (Module 6)"
+  },
+  "rotaProseDoor": {
+    "not": "PROSE-DOOR: EDGE alanın kendi blokları öneriyi sözle taşır; routed cümle ve hub TETİKLENMEZ. Metin doorway raporunun EDGE bloklarında zaten var.",
+    "1": "individual coaching (script-work) + Core Report'un kendi soru bölümü",
+    "4": "external voice training / workshop (uygulama-içi modül yok)",
+    "8": "the live workshop (topluluk becerisi tek başına eğitilemez)"
+  },
+  "rotaNeverRoutes": {
+    "not": "NEVER-ROUTES: D5→M3 ama M3 core (herkes alır) → D5 aktör-side routing tetiklemez; koç-side D5 edge palette expression story yanında okunur (Coach F, T2). D9 kendi sayfası (kopyası M6'ya atıf yapar).",
+    "5": "Emotional Expression (M3 core — routing yok)",
+    "9": "Craft Confidence (own page — routing yok)"
   }
 };

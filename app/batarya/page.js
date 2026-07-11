@@ -40,6 +40,8 @@ import {
   bodySkorla, entryExitSkorla, typeLensSonucGetir, retakeDurumu,
   emotionalSonucGetir } from '../lib/batarya-kaydet';
 import { tipRaporlari } from '../../data/kalibrasyon/tip-raporlari';
+import { routing } from '../../data/kalibrasyon/routing';
+import CheckinV2 from '../../components/CheckinV2';
 import ApsRaporu, { ApsMicroReveal } from '../../components/ApsRaporu';
 import CoreRaporu, { CoreRaporButonu } from '../../components/CoreRaporu';
 import { m3Pack } from '../../data/kalibrasyon/m3-pack';
@@ -204,11 +206,15 @@ function BataryaAkis({ durum, durumYenile }) {
       {gorunum === 'aps_raporu' && <ApsRaporu onGeri={() => setGorunum('hub')} />}
       {gorunum === 'core_raporu' && <CoreRaporu onGeri={() => setGorunum('hub')} />}
       {gorunum === 'access' && <AccessAdimi onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
-      {gorunum === 'flow' && <KarisikLikertAdimi slug="flow" onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
+      {gorunum === 'flow' && <KarisikLikertAdimi slug="flow" onTamam={async () => { await durumYenile(); setGorunum('flow_reveal'); }} onVazgec={() => setGorunum('hub')} />}
+      {gorunum === 'flow_reveal' && <ModulMicroReveal revealKey="m5_formA" etiket="Module 5" onDevam={hubaDon} />}
       {gorunum === 'flow_formB' && <FormBAdimi onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
-      {gorunum === 'regulation' && <KarisikLikertAdimi slug="regulation" onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
-      {gorunum === 'mindfulness' && <KarisikLikertAdimi slug="mindfulness" onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
-      {gorunum === 'body' && <KarisikLikertAdimi slug="body" onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
+      {gorunum === 'regulation' && <KarisikLikertAdimi slug="regulation" onTamam={async () => { await durumYenile(); setGorunum('regulation_reveal'); }} onVazgec={() => setGorunum('hub')} />}
+      {gorunum === 'regulation_reveal' && <ModulMicroReveal revealKey="m6" etiket="Module 6" onDevam={hubaDon} />}
+      {gorunum === 'mindfulness' && <KarisikLikertAdimi slug="mindfulness" onTamam={async () => { await durumYenile(); setGorunum('mindfulness_reveal'); }} onVazgec={() => setGorunum('hub')} />}
+      {gorunum === 'mindfulness_reveal' && <ModulMicroReveal revealKey="m7" etiket="Module 7" onDevam={hubaDon} />}
+      {gorunum === 'body' && <KarisikLikertAdimi slug="body" onTamam={async () => { await durumYenile(); setGorunum('body_reveal'); }} onVazgec={() => setGorunum('hub')} />}
+      {gorunum === 'body_reveal' && <ModulMicroReveal revealKey="m8" etiket="Module 8" onDevam={hubaDon} />}
       {gorunum === 'entry_exit' && <EntryExitAdimi onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
     </div>
   );
@@ -540,6 +546,25 @@ function KarisikLikertAdimi({ slug, onTamam, onVazgec }) {
 }
 
 /* ─── Module 3 — Emotional Profile (Part 1 karışık; Part 4 opsiyonel) ─────── */
+// Genel modül micro-reveal (Routing v0.1 §B) — statik metinli modüller için
+// (m5_formA, m6, m7, m8). Placeholder'lı olanlar (m4 channel, m9 recovery
+// channels, m5_formB n) veri getter'ı gelince bu bileşene devreye alınır.
+function ModulMicroReveal({ revealKey, etiket, onDevam }) {
+  const mr = routing.microReveals[revealKey];
+  if (!mr) { onDevam(); return null; }
+  return (
+    <div style={{ ...kutuStil, alignItems: 'flex-start' }}>
+      <span style={eyebrowStil}>{etiket} · complete</span>
+      <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.02rem', color: 'var(--ink)', lineHeight: 1.5 }}>
+        {mr.metin}
+      </p>
+      <button onClick={onDevam} style={{ ...ikincilButonStil, borderColor: TON, color: TON }}>
+        Continue →
+      </button>
+    </div>
+  );
+}
+
 // Emotional modül sonu micro-reveal (Karar Kaydı: her modül sonunda; M3 Pack
 // v0.1). En açık sistemin YALIN adı (parantez gloss'suz) {top_system_name}.
 function EmotionalMicroReveal({ onDevam }) {
@@ -983,10 +1008,20 @@ function OpsiyonelHub({ durum, onSec }) {
 //   - Metin içi **kalın** vurgular Filiz'in orijinalidir — <strong> olarak işlenir.
 function TipRaporu({ onGeri }) {
   const [skor, setSkor] = useState(undefined); // undefined=yükleniyor, null=yok
+  const [doorwayCheckinGoster, setDoorwayCheckinGoster] = useState(false);
 
   useEffect(() => {
     (async () => setSkor(await typeLensSonucGetir()))();
   }, []);
+
+  useEffect(() => {
+    // İlk tam görüntüleme: rapor yüklendiyse ve daha önce gösterilmediyse.
+    if (skor?.hipotez && typeof window !== 'undefined'
+        && !localStorage.getItem('itc-doorway-checkin-goruldu')) {
+      setDoorwayCheckinGoster(true);
+      localStorage.setItem('itc-doorway-checkin-goruldu', '1');
+    }
+  }, [skor]);
 
   if (skor === undefined) return <p style={altYaziStil}>Loading…</p>;
   const rapor = skor?.hipotez ? tipRaporlari.raporlar[skor.hipotez] : null;
@@ -1024,6 +1059,10 @@ function TipRaporu({ onGeri }) {
         <p style={{ ...govdeStil, fontFamily: 'var(--font-display), serif', fontStyle: 'italic' }}>{rapor.kapanis}</p>
         <p style={{ ...altYaziStil, fontStyle: 'italic' }}>{rapor.imza}</p>
       </div>
+
+      {/* Doorway post-report check-in — ilk tam görüntülemede bir kez
+          (Routing v0.1 §C). Standart 4 seçenek + serbest alan (CheckinV2). */}
+      {doorwayCheckinGoster && <CheckinV2 baglam="doorway" soru={routing.doorwayCheckin.soru} />}
 
       <button onClick={onGeri} style={{ ...ikincilButonStil, alignSelf: 'flex-start' }}>Back</button>
     </div>
