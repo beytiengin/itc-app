@@ -16,10 +16,10 @@ import { coachRapor } from '../data/kalibrasyon/coach-rapor';
 import { coreRapor } from '../data/kalibrasyon/core-rapor';
 import {
   orientationDoldur, bBolumu, c1Bolumu, ledgerOlustur, d2Olustur,
-  roleHangover, eBolumu, safeguardSec,
+  roleHangover, eBolumu, safeguardSec, fThreadleriUret,
 } from '../app/lib/coach-rapor-motor';
 import { girisDoku, doorwaySeti, doorwaySatiri } from '../app/lib/core-rapor-motor';
-import { kocProfilGetir } from '../app/lib/koc-veri';
+import { kocProfilGetir, kocCheckinGetir } from '../app/lib/koc-veri';
 
 const TON = 'var(--accent)';
 const bolumBaslik = { fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: '1.2rem', margin: 0, color: 'var(--ink)' };
@@ -56,7 +56,12 @@ export default function CoachRaporu({ aktorId, aktorAd, onGeri }) {
         ? eBolumu(p.aps.skorlar.alanlar, p.emotional.skorlar.sistemler) : null;
       const set = B ? doorwaySeti(B.hipotez) : null;
       const SG = E ? safeguardSec(E.grid, p.emotional.skorlar.sistemler) : null;
-      setV({ p, A, B, C1, C2, D2, RH, E, set, SG });
+      // F threads — app üretir (Checkin/F Templates v1.0 §2); konfor (Part4)
+      // envanteri M3 skorlarında varsa T5 tetikler, yoksa atlanır.
+      const konfor = p.emotional?.skorlar?.konfor ?? null;
+      const F = fThreadleriUret({ c1: C1, rh: RH, d2: D2, hipotez: B?.hipotez, konfor });
+      const checkinler = await kocCheckinGetir(aktorId);
+      setV({ p, A, B, C1, C2, D2, RH, E, set, SG, F, checkinler });
     })();
   }, [aktorId]);
 
@@ -158,7 +163,17 @@ export default function CoachRaporu({ aktorId, aktorAd, onGeri }) {
           <Baslik>E — The Core Report, As Assembled</Baslik>
           <P>Entrances selected: {E.girisler.map((g) => `${g.ad.split(' (')[0]} (${g.tur === 'domain' ? g.deger : g.deger.toFixed(2)})`).join(' · ')}. {set ? `Doorway question section rendered: ${B?.doorwayAd}.` : 'Doorway question section: NOT RENDERED (set bekleniyor — içerik kapısı).'}</P>
           {E.rota && <P stil={kucuk}>Routed sentence fired: {E.rota}</P>}
-          <P stil={kucuk}>Post-view check-in response: yanıt kaydı yok (yakalama mekaniği Filiz kararında).</P>
+          {(() => {
+            const secMetin = { landed_well: 'It landed well', mixed: 'Mixed', uneasily: 'It sat uneasily', talk_it_through: 'Would like to talk it through' };
+            const ilgili = (checkinler || []).filter((c) => c.baglam === 'core' || c.baglam === 'aps');
+            if (!ilgili.length) return <P stil={kucuk}>Post-view check-in: no response recorded.</P>;
+            return ilgili.map((c, i) => (
+              <P key={i} stil={kucuk}>
+                Check-in ({c.baglam}, {(c.created_at || '').slice(0, 10)}): {c.secenek ? secMetin[c.secenek] : '—'}
+                {c.serbest_metin ? ` · “${c.serbest_metin}”` : ''}
+              </P>
+            ));
+          })()}
 
           <P stil={kucuk}>E.2 — The Question Set, Coach Edition · Part One — what the actor got, verbatim:</P>
           {set ? (
@@ -192,10 +207,11 @@ export default function CoachRaporu({ aktorId, aktorAd, onGeri }) {
         </div>
       )}
 
-      {/* F — Threads Worth Pulling (Faz i: üretim yok) */}
+      {/* F — Threads Worth Pulling (app üretir, max 5, sabit gramer) */}
       <div style={kutu}>
         <Baslik>F — Threads Worth Pulling</Baslik>
-        <P stil={kucuk}>{coachRapor.F.durum} Gramer: \u201c{coachRapor.F.grammarKalip}\u201d</P>
+        {(!F || !F.length) && <P stil={kucuk}>No threads fired for this actor.</P>}
+        {F && F.map((t, i) => <P key={i} stil={{ fontSize: '0.82rem' }}>{t}</P>)}
       </div>
 
       <StandingHeader />

@@ -13,12 +13,14 @@ import { pathToFileURL } from 'node:url';
 const t = mkdtempSync(join(tmpdir(), 'core-'));
 writeFileSync(join(t, 'aps-rapor.mjs'), readFileSync('data/kalibrasyon/aps-rapor.js', 'utf8'));
 writeFileSync(join(t, 'core-rapor.mjs'), readFileSync('data/kalibrasyon/core-rapor.js', 'utf8'));
+writeFileSync(join(t, 'question-bank.mjs'), readFileSync('data/kalibrasyon/question-bank.js', 'utf8'));
 writeFileSync(join(t, 'aps-motor.mjs'),
   readFileSync('app/lib/aps-rapor-motor.js', 'utf8')
     .replace("'../../data/kalibrasyon/aps-rapor'", "'./aps-rapor.mjs'"));
 writeFileSync(join(t, 'core-motor.mjs'),
   readFileSync('app/lib/core-rapor-motor.js', 'utf8')
     .replace("'../../data/kalibrasyon/core-rapor'", "'./core-rapor.mjs'")
+    .replace("'../../data/kalibrasyon/question-bank'", "'./question-bank.mjs'")
     .replace("'./aps-rapor-motor'", "'./aps-motor.mjs'")
     .replace("'../../data/kalibrasyon/aps-rapor'", "'./aps-rapor.mjs'"));
 const M = await import(pathToFileURL(join(t, 'core-motor.mjs')));
@@ -60,7 +62,8 @@ const dokular = girisler.map(M.girisDoku);
 dz('alan başlık kalıbı', dokular[0].baslik, 'An entrance of yours: Imagination — one of your strongest ground.');
 dz('sistem başlık kalıbı YALIN adla (parantez gloss aktöre taşınmaz)', dokular[2].baslik, 'An entrance of yours: Care — a colour you reach easily.');
 dz('4 giriş bloğu da mevcut (Spark fikstüründe)', dokular.every((d) => d.blok && d.blok.length > 100), true);
-dz('Imagination bloğu örnekle başlıyor', dokular[0].blok.startsWith('Imagination is your strong entrance'), true);
+dz('Imagination bloğu bank\'tan (aynı metin)', dokular[0].blok.startsWith('Imagination is your strong entrance'), true);
+dz('4 giriş bloğu da bank\'tan dolu', dokular.filter((d) => d.blok).length, 4);
 
 const rota = M.rotaCumlesi(grid);
 dz('rota tetiklendi ve sıra doğru (D2 45 → M7 önce)', rota,
@@ -80,7 +83,8 @@ beraber['Domain 5 — Emotional Expression'].ortalama = (82 * 4) / 100 + 1; // D
 dz('alan beraberliği birlikte render', M.girisleriSec(beraber, sistemler).girisler.filter((g) => g.tur === 'domain').length, 3);
 
 // Strengths-only bekçileri: veri dosyasının aktör kopyasında sayı/band sızıntısı olamaz
-const aktorKopya = JSON.stringify([C.ch1, C.ch2, C.ch3.header, C.ch3.boundaryLine, C.ch4, C.ch5, C.ch6, C.checkIn, C.girisBloklari.domain, C.girisBloklari.sistem, C.setler.ENFP]);
+const QB = (await import(pathToFileURL(join(t, 'question-bank.mjs')))).questionBank;
+const aktorKopya = JSON.stringify([C.ch1, C.ch2, C.ch3.header, C.ch3.boundaryLine, C.ch4, C.ch5, C.ch6, C.checkIn, QB.domain, QB.sistem, C.setler.ENFP]);
 dz("aktör kopyasında 'type' yok", /\btype\b/i.test(aktorKopya), false);
 dz("aktör kopyasında band/EDGE adı yok", /UPPER|LOWER|EDGE set/.test(aktorKopya), false);
 dz('boundary paragraph kanonik biçimde', C.ch1.boundaryParagraph.includes('the actions, the stories, the emotions or the thoughts you build for a character are the character\'s'), true);

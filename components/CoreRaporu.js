@@ -18,6 +18,7 @@
 
 import { useEffect, useState } from 'react';
 import { coreRapor } from '../data/kalibrasyon/core-rapor';
+import CheckinV2 from './CheckinV2';
 import { tipRaporlari } from '../data/kalibrasyon/tip-raporlari';
 import { girisleriSec, girisDoku, rotaCumlesi, doorwaySeti, doorwaySatiri } from '../app/lib/core-rapor-motor';
 import { typeLensSonucGetir, apsSonuclariGetir, emotionalSonucGetir } from '../app/lib/batarya-kaydet';
@@ -159,12 +160,10 @@ export default function CoreRaporu({ onGeri }) {
         <P stil={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', color: 'var(--ink)' }}>{coreRapor.ch6.signOff}</P>
       </div>
 
-      {/* POST-REPORT CHECK-IN — ilk tam görüntülemeden sonra, bir kez */}
-      {checkInGoster && (
-        <div style={{ ...kutu, borderColor: TON }}>
-          <P>{coreRapor.checkIn}</P>
-        </div>
-      )}
+      {/* POST-REPORT CHECK-IN v2 — ilk tam görüntülemeden sonra, bir kez.
+          Soru satırı mevcut onaylı kopya; yanıt biçimi (4 seçenek + serbest
+          metin) standart. Serbest metin koça verbatim. */}
+      {checkInGoster && <CheckinV2 baglam="core" soru={coreRapor.checkIn} />}
     </div>
   );
 }

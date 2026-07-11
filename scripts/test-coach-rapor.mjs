@@ -17,14 +17,19 @@ kopya('data/kalibrasyon/batarya.js', 'batarya.mjs');
 kopya('data/kalibrasyon/aps-rapor.js', 'aps-rapor.mjs');
 kopya('data/kalibrasyon/core-rapor.js', 'core-rapor.mjs');
 kopya('data/kalibrasyon/coach-rapor.js', 'coach-rapor.mjs');
+kopya('data/kalibrasyon/question-bank.js', 'question-bank.mjs');
+kopya('data/kalibrasyon/checkin-f.js', 'checkin-f.mjs');
 kopya('app/lib/aps-rapor-motor.js', 'aps-motor.mjs',
   (s) => s.replace("'../../data/kalibrasyon/aps-rapor'", "'./aps-rapor.mjs'"));
 kopya('app/lib/core-rapor-motor.js', 'core-motor.mjs',
   (s) => s.replace("'../../data/kalibrasyon/core-rapor'", "'./core-rapor.mjs'")
+         .replace("'../../data/kalibrasyon/question-bank'", "'./question-bank.mjs'")
          .replace("'./aps-rapor-motor'", "'./aps-motor.mjs'")
          .replace("'../../data/kalibrasyon/aps-rapor'", "'./aps-rapor.mjs'"));
 kopya('app/lib/coach-rapor-motor.js', 'coach-motor.mjs',
   (s) => s.replace("'../../data/kalibrasyon/coach-rapor'", "'./coach-rapor.mjs'")
+         .replace("'../../data/kalibrasyon/question-bank'", "'./question-bank.mjs'")
+         .replace("'../../data/kalibrasyon/checkin-f'", "'./checkin-f.mjs'")
          .replace("import { modulBul } from './batarya-kaydet';",
                   "import { batarya } from './batarya.mjs';\nconst modulBul = (slug) => batarya.moduller.find((m) => m.slug === slug) ?? null;")
          .replace("'./aps-rapor-motor'", "'./aps-motor.mjs'")
@@ -109,8 +114,10 @@ const sistemSkor = Object.fromEntries(Object.entries(DENIZ).map(([k, v]) => {
 }));
 const E = M.eBolumu(apsAlanlar, sistemSkor);
 const SG = M.safeguardSec(E.grid, sistemSkor);
-dz('safeguard seçimi: 3 blok (D3 + Anger + Desire)', SG.secim.length, 3);
-dz('eksik: D2 (bank bekleniyor)', SG.eksik.length === 1 && SG.eksik[0].startsWith('D2'), true);
+// Question Bank tam (30/30) → Deniz EDGE alanları D2+D3 (ikisi de dolu) + en düşük 2 sistem = 4 blok, eksik YOK.
+dz('safeguard seçimi: 4 blok (D2 + D3 + 2 sistem, bank tam)', SG.secim.length, 4);
+dz('eksik yok (bank 30/30)', SG.eksik.length, 0);
+dz('D2 safeguard bank\'tan geldi', SG.secim.some((x) => x.etiket.includes('D2')), true);
 dz('E girişleri Deniz (Imagination→Collab→Care→Play)', E.girisler.map((g) => g.ad.split(' (')[0]), ['Imagination', 'Collaboration', 'Care', 'Play']);
 
 // ── ③ Kategori-geçiş işaretleri (retake: onceki YANITLAR ile) ──
@@ -135,5 +142,11 @@ dz('Anger OPEN→CLOSED ↓', [angerG?.yon, angerG?.metin], ['asagi', '↓ OPEN 
 dz('değişmeyen sistemde işaret yok (Care)', d2g.sistemler.find((s) => s.ad.startsWith('Care')).gecis, null);
 dz('önceki yoksa D.2 işareti yok', M.d2Olustur(emYanitlar).sistemler.every((s) => s.gecis == null), true);
 
-console.log(hata ? `\n${hata} HATA` : '\nDENİZ COACH FİKSTÜRÜ — TÜM TESTLER GEÇTİ (32/32, ↑↓ kategori-geçiş dahil)');
+// ── F thread üretimi (Deniz: D9 gap yeterince büyükse T1) ──
+const c1D = M.c1Bolumu(apsAlanlar);
+const fThreads = M.fThreadleriUret({ c1: c1D, rh: M.roleHangover({ exitCapacity: 24/7, reach: 25/7 }), d2: M.d2Olustur(emYanitlar), hipotez: 'ENFP' });
+dz('F üretimi çalışıyor (dizi döner)', Array.isArray(fThreads), true);
+dz('F max 5', fThreads.length <= 5, true);
+
+console.log(hata ? `\n${hata} HATA` : '\nDENİZ COACH FİKSTÜRÜ — TÜM TESTLER GEÇTİ (35/35, F üretimi dahil)');
 process.exit(hata ? 1 : 0);

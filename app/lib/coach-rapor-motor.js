@@ -9,6 +9,7 @@
 // =====================================================================
 
 import { coachRapor } from '../../data/kalibrasyon/coach-rapor';
+import { questionBank } from '../../data/kalibrasyon/question-bank';
 import { modulBul } from './batarya-kaydet';
 import { apsGrid } from './aps-rapor-motor';
 import { girisleriSec, rotaCumlesi } from './core-rapor-motor';
@@ -206,10 +207,10 @@ export function eBolumu(apsAlanlar, sistemler) {
 
 // Safeguard seçimi: APS EDGE alanları + M3'ün en düşük 2 sistemi (spec §6).
 export function safeguardSec(grid, sistemler) {
-  const sg = coachRapor.E.e2.safeguards;
+  // Safeguard = Question Bank SAFEGUARD sesi (tek kaynak; spec §6 seçimi).
   const secim = [], eksik = [];
   for (const d of grid.domainler.filter((x) => x.set === 'EDGE').sort((a, b) => b.skor - a.skor)) {
-    const blok = sg.domain[String(d.dNo)];
+    const blok = questionBank.domain[String(d.dNo)]?.safeguard;
     if (blok) secim.push({ etiket: `Safeguard — D${d.dNo} ${d.ad} (edge domain)`, metin: blok });
     else eksik.push(`D${d.dNo} ${d.ad} (edge domain) — bank bekleniyor`);
   }
@@ -219,9 +220,79 @@ export function safeguardSec(grid, sistemler) {
     .sort((a, b) => a.ort - b.ort)
     .slice(0, 2);
   for (const s of dusukler) {
-    const anahtar = Object.keys(sg.sistem).find((k) => s.ad.startsWith(k) || s.ad.includes(k));
-    if (anahtar) secim.push({ etiket: `Safeguard — ${anahtar} (edge system)`, metin: sg.sistem[anahtar] });
+    const anahtar = Object.keys(questionBank.sistem).find((k) => s.ad.startsWith(k) || s.ad.includes(k));
+    if (anahtar) secim.push({ etiket: `Safeguard — ${anahtar} (edge system)`, metin: questionBank.sistem[anahtar].safeguard });
     else eksik.push(`${s.ad} (edge system) — bank bekleniyor`);
   }
   return { secim, eksik };
+}
+
+/* ─── F — Section F thread üretimi (Checkin/F Templates v1.0 §2) ──────────
+   App üretir, max 5, sabit gramer, öncelik T1→T5. Karar Kaydı madde 11:
+   koç serbest alanı YOK. Tüm veri koç-tarafı hesaplardan gelir. ────────── */
+import { checkinF } from '../../data/kalibrasyon/checkin-f';
+
+// Girdiler: c1 (c1Bolumu çıktısı: grid + gapYonu), rh (roleHangover),
+// d2 (d2Olustur: sistemler), hipotez (doorway internalKey), konfor (Part4 varsa).
+export function fThreadleriUret({ c1, rh, d2, hipotez, konfor }) {
+  const F = checkinF.fTemplates;
+  const adaylar = [];
+
+  if (c1?.d9?.gap != null && Math.abs(c1.d9.gap) >= 15) {
+    const g = c1.d9.gap;
+    const metin = (g < 0 ? F.T1.impostor : F.T1.overconfidence).replace('{gap}', String(Math.abs(g)));
+    adaylar.push({ tur: 'T1', oncelik: 1, magnitude: Math.abs(g), metin });
+  }
+
+  if (d2?.sistemler && c1?.grid) {
+    const d5 = c1.grid.domainler.find((x) => x.dNo === 5);
+    const d5Edge = d5?.set === 'EDGE';
+    const d5Upper = d5?.band === 'UPPER';
+    if (d5Edge) {
+      const enYuksek = [...d2.sistemler].filter((s) => s.ort != null).sort((a, b) => b.ort - a.ort)[0];
+      if (enYuksek && enYuksek.ort >= 3.75) {
+        adaylar.push({ tur: 'T2', oncelik: 2, magnitude: enYuksek.ort,
+          metin: F.T2.duz.replace(/\{system\}/g, enYuksek.ad.split(' (')[0]).replace('{reach}', enYuksek.ort.toFixed(2)) });
+      }
+    } else if (d5Upper) {
+      const enDusuk = [...d2.sistemler].filter((s) => s.ort != null).sort((a, b) => a.ort - b.ort)[0];
+      if (enDusuk && enDusuk.ort < 2.75) {
+        adaylar.push({ tur: 'T2', oncelik: 2, magnitude: 5 - enDusuk.ort,
+          metin: F.T2.ters.replace(/\{system\}/g, enDusuk.ad.split(' (')[0]).replace('{score}', d5.skor != null ? String(d5.skor) : '—').replace('{reach}', enDusuk.ort.toFixed(2)) });
+      }
+    }
+  }
+
+  if (hipotez && c1?.grid) {
+    const ng = F.T3.naturalGround[hipotez];
+    const alan = ng ? c1.grid.domainler.find((x) => x.dNo === ng) : null;
+    if (alan && alan.set === 'EDGE') {
+      const ad = alan.ad.replace(/^Domain \d+ — /, '');
+      adaylar.push({ tur: 'T3', oncelik: 3, magnitude: 100 - (alan.skor ?? 100),
+        metin: F.T3.metin.replace('{domain}', `D${ng} ${ad}`) });
+    }
+  }
+
+  if (rh?.bayrak) {
+    adaylar.push({ tur: 'T4', oncelik: 4, magnitude: 1, metin: F.T4.metin });
+  }
+
+  if (Array.isArray(konfor) && konfor.length) {
+    for (const k of konfor) {
+      if (k.feeling == null || k.showing == null) continue;
+      if (k.showing <= 2 && k.feeling >= 4 && k.aciklik === 'OPEN') {
+        adaylar.push({ tur: 'T5', oncelik: 5, magnitude: k.feeling - k.showing,
+          metin: F.T5.showingEdge.replace(/\{emotion\}/g, k.emotion).replace('{showing}', String(k.showing)).replace('{feeling}', String(k.feeling)) });
+      } else if (k.showing <= 2 && k.feeling <= 2 && k.aciklik !== 'OPEN') {
+        adaylar.push({ tur: 'T5', oncelik: 5, magnitude: 5 - Math.min(k.showing, k.feeling),
+          metin: F.T5.unbuilt.replace(/\{emotion\}/g, k.emotion).replace('{showing}', String(k.showing)).replace('{feeling}', String(k.feeling)) });
+      }
+    }
+  }
+
+  const turBazli = {};
+  for (const a of adaylar) {
+    if (!turBazli[a.tur] || a.magnitude > turBazli[a.tur].magnitude) turBazli[a.tur] = a;
+  }
+  return Object.values(turBazli).sort((a, b) => a.oncelik - b.oncelik).slice(0, 5).map((a) => a.metin);
 }

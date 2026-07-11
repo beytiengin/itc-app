@@ -14,6 +14,7 @@
 // =====================================================================
 
 import { coreRapor } from '../../data/kalibrasyon/core-rapor';
+import { questionBank } from '../../data/kalibrasyon/question-bank';
 import { apsGrid } from './aps-rapor-motor';
 import { apsRapor } from '../../data/kalibrasyon/aps-rapor';
 
@@ -57,9 +58,11 @@ export function girisDoku(giris) {
   const baslik = giris.tur === 'domain'
     ? coreRapor.ch2.domainHeaderKalip.replace('{domain_name}', giris.ad)
     : coreRapor.ch2.sistemHeaderKalip.replace('{system_name}', yalinAd);
+  // Giriş bloğu = Question Bank DOORWAY sesi (tek kaynak). Alan → dNo,
+  // sistem → yalın ad. Bank'ta yoksa null (bloksuz başlık render edilir).
   const blok = giris.tur === 'domain'
-    ? coreRapor.girisBloklari.domain[String(giris.dNo)] ?? null
-    : coreRapor.girisBloklari.sistem[yalinAd] ?? null;
+    ? questionBank.domain[String(giris.dNo)]?.doorway ?? null
+    : questionBank.sistem[yalinAd]?.doorway ?? null;
   return { baslik, blok };
 }
 
