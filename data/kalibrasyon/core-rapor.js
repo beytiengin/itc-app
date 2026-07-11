@@ -2352,7 +2352,7 @@ export const coreRapor = {
     }
   },
   "rotaHaritasi": {
-    "not": "Ch.5 routed sentence — yalnız APS-türevli (Routing_MicroReveals_Checkin_v0_1). MODULE-ROUTED: EDGE alansa hem routed cümle hem hub önerisi tetiklenir. D7→M6 ONAYLI (Filiz, 11 Tem 2026 — veto penceresi kapandı; battery canon D2/D3/D5/D6 listeliyordu, bu tek yeni harita girdisi Karar Kaydı'na tarihli eklendi). Sıralama: instrument order (D2→D3→D6→D7), skor değil.",
+    "not": "Ch.5 routed sentence — yalnız APS-türevli (Routing_MicroReveals_Checkin_v0_1). MODULE-ROUTED: EDGE alansa hem routed cümle hem hub önerisi tetiklenir. D7→M6 ONAYLI (Filiz, 11 Tem 2026 — Routing v1.0 APPROVED IN FULL; battery canon D2/D3/D5/D6 listeliyordu, bu tek yeni harita girdisi). Sıralama: instrument order (D2→D3→D6→D7), skor değil.",
     "2": "Performance Mindfulness (Module 7)",
     "3": "The Actor's Body (Module 8)",
     "6": "Access Channel & Imagery (Module 4)",
