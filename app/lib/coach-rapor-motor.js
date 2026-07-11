@@ -77,13 +77,34 @@ export function c1Bolumu(apsAlanlar) {
 }
 
 /* ─── C.2 — Item Ledger (STRONG 4–5 ●5 · CARE 1–2 ○1; 3'ler yok) ────────── */
-export function ledgerOlustur(apsYanitlar) {
+// Madde kategorisi — ledger mantığı: STRONG (≥strongAlt) / CARE (≤careUst) / nötr.
+// Sıralı skala (CARE=0, nötr=1, STRONG=2) yön hesabı için.
+function maddeKategori(r, e) {
+  if (r == null) return null;
+  if (r >= e.strongAlt) return 'STRONG';
+  if (r <= e.careUst) return 'CARE';
+  return 'notr';
+}
+const KAT_SIRA = { CARE: 0, notr: 1, STRONG: 2 };
+
+// Kategori geçiş işareti (Karar Kaydı 10 Tem 2026: madde düzeyi ↑↓, kategori
+// geçişi). oncekiKat yoksa null (ilk uygulamada işaret yok).
+function katGecis(oncekiKat, simdiKat) {
+  if (!oncekiKat || oncekiKat === simdiKat) return null;
+  return KAT_SIRA[simdiKat] > KAT_SIRA[oncekiKat]
+    ? { yon: 'yukari', metin: `↑ ${oncekiKat === 'notr' ? 'neutral' : oncekiKat.toLowerCase()} → ${simdiKat === 'notr' ? 'neutral' : simdiKat.toLowerCase()}` }
+    : { yon: 'asagi', metin: `↓ ${oncekiKat === 'notr' ? 'neutral' : oncekiKat.toLowerCase()} → ${simdiKat === 'notr' ? 'neutral' : simdiKat.toLowerCase()}` };
+}
+
+export function ledgerOlustur(apsYanitlar, oncekiYanitlar) {
   const e = coachRapor.C.ledger.esikler;
   const strong = [], care = [];
   modulBul('aps').alanlar.forEach((alan, i) => {
     for (const m of alan.maddeler) {
       const r = kodla(m, apsYanitlar?.[m.no] ?? apsYanitlar?.[String(m.no)]);
       if (r == null) continue;
+      const rOnceki = oncekiYanitlar ? kodla(m, oncekiYanitlar?.[m.no] ?? oncekiYanitlar?.[String(m.no)]) : null;
+      const gecis = katGecis(maddeKategori(rOnceki, e), maddeKategori(r, e));
       const satir = (kalip, isaret) => kalip
         .replace('●', isaret === '●' ? '●' : '')
         .replace('○', isaret === '○' ? '○' : '')
@@ -92,8 +113,8 @@ export function ledgerOlustur(apsYanitlar) {
         .replace('{rating}', String(r))
         .replace('{reverse_tag}', m.ters ? ' (R)' : '')
         .replace(/^\s+/, '');
-      if (r >= e.strongAlt) strong.push({ dNo: i + 1, no: m.no, r, metin: satir(coachRapor.C.ledger.strongLineKalip, r === e.doluIsaret ? '●' : '') });
-      else if (r <= e.careUst) care.push({ dNo: i + 1, no: m.no, r, metin: satir(coachRapor.C.ledger.careLineKalip, r === e.bosIsaret ? '○' : '') });
+      if (r >= e.strongAlt) strong.push({ dNo: i + 1, no: m.no, r, gecis, metin: satir(coachRapor.C.ledger.strongLineKalip, r === e.doluIsaret ? '●' : '') });
+      else if (r <= e.careUst) care.push({ dNo: i + 1, no: m.no, r, gecis, metin: satir(coachRapor.C.ledger.careLineKalip, r === e.bosIsaret ? '○' : '') });
     }
   });
   return { strong, care };
@@ -102,8 +123,27 @@ export function ledgerOlustur(apsYanitlar) {
 /* ─── D.2 — Open & Closed Systems (koç-tarafı-yalnız sözlük) ────────────── */
 const FASET_AD = { reach: 'reach', vividness: 'vividness', control: 'control', cleanExit: 'clean exit' };
 
-export function d2Olustur(emYanitlar) {
+// Sistem sınıfı — D.2 mantığı (yön için sıralı: CLOSED=0, AJAR=1, OPEN=2).
+const SINIF_SIRA = { CLOSED: 0, AJAR: 1, OPEN: 2 };
+function sinifGecis(oncekiSinif, simdiSinif) {
+  if (!oncekiSinif || oncekiSinif === simdiSinif) return null;
+  const yukari = SINIF_SIRA[simdiSinif] > SINIF_SIRA[oncekiSinif];
+  return { yon: yukari ? 'yukari' : 'asagi',
+           metin: `${yukari ? '↑' : '↓'} ${oncekiSinif} → ${simdiSinif}` };
+}
+
+export function d2Olustur(emYanitlar, oncekiYanitlar) {
   const e = coachRapor.D.d2.esikler;
+  // Önceki sistem sınıflarını hesapla (varsa) — sistem adına göre eşlenir.
+  const oncekiSiniflar = {};
+  if (oncekiYanitlar) {
+    for (const sistem of modulBul('emotional').part1.sistemler) {
+      const gec = sistem.maddeler.map((m) => kodla(m, oncekiYanitlar?.[m.no] ?? oncekiYanitlar?.[String(m.no)])).filter((x) => x != null);
+      if (!gec.length) continue;
+      const o = gec.reduce((t, x) => t + x, 0) / gec.length;
+      oncekiSiniflar[sistem.ad] = o >= e.openEsik ? 'OPEN' : o >= e.closedAlti ? 'AJAR' : 'CLOSED';
+    }
+  }
   const hedgeAralik = 0.15; // APS ile aynı band-hedge aralığı (D.1 'rank/band/hedge')
   const sistemler = [];
   let closedVar = false;
@@ -133,6 +173,7 @@ export function d2Olustur(emYanitlar) {
     const istisna = notlar.length ? '; ' + notlar.join('; ') : '';
     sistemler.push({
       ad: sistem.ad, ort, sinif, hedge,
+      gecis: sinifGecis(oncekiSiniflar[sistem.ad], sinif),
       baslik: coachRapor.D.d2.headerKalip
         .replace('{system_name}', sistem.ad)
         .replace('{OPEN | AJAR | CLOSED}', sinif)

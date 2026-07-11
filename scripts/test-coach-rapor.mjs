@@ -113,5 +113,27 @@ dz('safeguard seçimi: 3 blok (D3 + Anger + Desire)', SG.secim.length, 3);
 dz('eksik: D2 (bank bekleniyor)', SG.eksik.length === 1 && SG.eksik[0].startsWith('D2'), true);
 dz('E girişleri Deniz (Imagination→Collab→Care→Play)', E.girisler.map((g) => g.ad.split(' (')[0]), ['Imagination', 'Collaboration', 'Care', 'Play']);
 
-console.log(hata ? `\n${hata} HATA` : '\nDENİZ COACH FİKSTÜRÜ — TÜM TESTLER GEÇTİ (24/24, onaylı-kural bekçili)');
+// ── ③ Kategori-geçiş işaretleri (retake: onceki YANITLAR ile) ──
+// Ledger: bir maddeyi önceki=1 (CARE), şimdi=5 (STRONG) yap → ↑; tersi → ↓;
+// aynı kalan → işaret yok.
+const oncekiAps = { [duz.no]: 1 }; // önce CARE
+const simdiAps = { [duz.no]: 5 };  // şimdi STRONG
+const ledGecis = M.ledgerOlustur(simdiAps, oncekiAps);
+dz('madde CARE→STRONG ↑', ledGecis.strong.find((s) => s.no === duz.no)?.gecis?.yon, 'yukari');
+dz('↑ metni kategori', ledGecis.strong.find((s) => s.no === duz.no)?.gecis?.metin, '↑ care → strong');
+const ledDusus = M.ledgerOlustur({ [duz.no]: 1 }, { [duz.no]: 5 });
+dz('madde STRONG→CARE ↓', ledDusus.care.find((s) => s.no === duz.no)?.gecis?.yon, 'asagi');
+dz('önceki yoksa işaret yok', M.ledgerOlustur({ [duz.no]: 5 }).strong.find((s) => s.no === duz.no)?.gecis, null);
+dz('kategori aynıysa işaret yok', M.ledgerOlustur({ [duz.no]: 4 }, { [duz.no]: 5 }).strong.find((s) => s.no === duz.no)?.gecis, null);
+
+// D.2: Anger'ı önce OPEN (tüm 5), şimdi CLOSED (Deniz 2.50) → ↓ OPEN → CLOSED
+const angerMaddeleri = modulBul('emotional').part1.sistemler.find((s) => s.ad.startsWith('Anger')).maddeler;
+const oncekiEm = {}; for (const m of angerMaddeleri) oncekiEm[m.no] = m.ters ? 1 : 5; // hepsi OPEN
+const d2g = M.d2Olustur(emYanitlar, oncekiEm);
+const angerG = d2g.sistemler.find((s) => s.ad.startsWith('Anger')).gecis;
+dz('Anger OPEN→CLOSED ↓', [angerG?.yon, angerG?.metin], ['asagi', '↓ OPEN → CLOSED']);
+dz('değişmeyen sistemde işaret yok (Care)', d2g.sistemler.find((s) => s.ad.startsWith('Care')).gecis, null);
+dz('önceki yoksa D.2 işareti yok', M.d2Olustur(emYanitlar).sistemler.every((s) => s.gecis == null), true);
+
+console.log(hata ? `\n${hata} HATA` : '\nDENİZ COACH FİKSTÜRÜ — TÜM TESTLER GEÇTİ (32/32, ↑↓ kategori-geçiş dahil)');
 process.exit(hata ? 1 : 0);
