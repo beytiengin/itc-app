@@ -206,18 +206,18 @@ function BataryaAkis({ durum, durumYenile }) {
       {gorunum === 'aps_raporu' && <ApsRaporu onGeri={() => setGorunum('hub')} />}
       {gorunum === 'core_raporu' && <CoreRaporu onGeri={() => setGorunum('hub')} />}
       {gorunum === 'access' && <AccessAdimi onTamam={async () => { await durumYenile(); setGorunum('access_reveal'); }} onVazgec={() => setGorunum('hub')} />}
-      {gorunum === 'access_reveal' && <AccessMicroReveal onDevam={hubaDon} />}
+      {gorunum === 'access_reveal' && <LaunchScopeTesekkur onDevam={hubaDon} />}{/* A.11: m4 reveal gate off, plumbing korundu */}
       {gorunum === 'flow' && <KarisikLikertAdimi slug="flow" onTamam={async () => { await durumYenile(); setGorunum('flow_reveal'); }} onVazgec={() => setGorunum('hub')} />}
-      {gorunum === 'flow_reveal' && <ModulMicroReveal revealKey="m5_formA" etiket="Module 5" onDevam={hubaDon} />}
+      {gorunum === 'flow_reveal' && <LaunchScopeTesekkur onDevam={hubaDon} />}{/* A.11: m5 reveal gate off */}
       {gorunum === 'flow_formB' && <FormBAdimi onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
       {gorunum === 'regulation' && <KarisikLikertAdimi slug="regulation" onTamam={async () => { await durumYenile(); setGorunum('regulation_reveal'); }} onVazgec={() => setGorunum('hub')} />}
-      {gorunum === 'regulation_reveal' && <ModulMicroReveal revealKey="m6" etiket="Module 6" onDevam={hubaDon} />}
+      {gorunum === 'regulation_reveal' && <LaunchScopeTesekkur onDevam={hubaDon} />}{/* A.11: m6 reveal gate off */}
       {gorunum === 'mindfulness' && <KarisikLikertAdimi slug="mindfulness" onTamam={async () => { await durumYenile(); setGorunum('mindfulness_reveal'); }} onVazgec={() => setGorunum('hub')} />}
-      {gorunum === 'mindfulness_reveal' && <ModulMicroReveal revealKey="m7" etiket="Module 7" onDevam={hubaDon} />}
+      {gorunum === 'mindfulness_reveal' && <LaunchScopeTesekkur onDevam={hubaDon} />}{/* A.11: m7 reveal gate off */}
       {gorunum === 'body' && <KarisikLikertAdimi slug="body" onTamam={async () => { await durumYenile(); setGorunum('body_reveal'); }} onVazgec={() => setGorunum('hub')} />}
-      {gorunum === 'body_reveal' && <ModulMicroReveal revealKey="m8" etiket="Module 8" onDevam={hubaDon} />}
+      {gorunum === 'body_reveal' && <LaunchScopeTesekkur onDevam={hubaDon} />}{/* A.11: m8 reveal gate off */}
       {gorunum === 'entry_exit' && <EntryExitAdimi onTamam={async () => { await durumYenile(); setGorunum('entry_exit_reveal'); }} onVazgec={() => setGorunum('hub')} />}
-      {gorunum === 'entry_exit_reveal' && <EntryExitMicroReveal onDevam={hubaDon} />}
+      {gorunum === 'entry_exit_reveal' && <LaunchScopeTesekkur onDevam={hubaDon} />}{/* A.11: m9 reveal built ama ship yok, plumbing korundu */}
     </div>
   );
 }
@@ -551,6 +551,24 @@ function KarisikLikertAdimi({ slug, onTamam, onVazgec }) {
 // Genel modül micro-reveal (Routing v0.1 §B) — statik metinli modüller için
 // (m5_formA, m6, m7, m8). Placeholder'lı olanlar (m4 channel, m9 recovery
 // channels, m5_formB n) veri getter'ı gelince bu bileşene devreye alınır.
+// LAUNCH SCOPE (Ek v0.4 A.11): go-live'da M4-9 aktör-side render GATE OFF.
+// Modül tamamlanınca micro-reveal DEĞİL, tek teşekkür mesajı görünür.
+// Plumbing (skorlama/getter/routing/coach) olduğu gibi kalır — yalnız
+// aktör-side render kapalı. Reveal bileşenleri (Access/EntryExit/Modul
+// MicroReveal) SİLİNMEDİ, çağrılmıyor — payment principle sonra karar.
+function LaunchScopeTesekkur({ onDevam }) {
+  return (
+    <div style={{ ...kutuStil, alignItems: 'flex-start' }}>
+      <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.02rem', color: 'var(--ink)', lineHeight: 1.5 }}>
+        Thank you for your time — your answers are in and safely kept. The full report for this part is being built with care; it reaches you by the end of 2026.
+      </p>
+      <button onClick={onDevam} style={{ ...ikincilButonStil, borderColor: TON, color: TON }}>
+        Continue →
+      </button>
+    </div>
+  );
+}
+
 function ModulMicroReveal({ revealKey, etiket, onDevam }) {
   const mr = routing.microReveals[revealKey];
   if (!mr) { onDevam(); return null; }
