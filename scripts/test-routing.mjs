@@ -13,9 +13,9 @@ const C = (await import(pathToFileURL(join(t,'core-rapor.mjs')))).coreRapor;
 let h=0; const dz=(a,g,b)=>{const ok=JSON.stringify(g)===JSON.stringify(b);if(!ok)h++;console.log((ok?'✓':'✗')+' '+a+(ok?'':` ${JSON.stringify(g)} ≠ ${JSON.stringify(b)}`));};
 
 // Rota haritası: 4 module-routed alan (D2/D3/D6/D7)
-dz('rotaHaritasi 4 alan (D7 eklendi)', Object.keys(C.rotaHaritasi).filter(k=>/^\d$/.test(k)).sort(), ['2','3','6','7']);
+dz('rotaHaritasi 3 alan (D7 geri alındı)', Object.keys(C.rotaHaritasi).filter(k=>/^\d$/.test(k)).sort(), ['2','3','6']);
 dz('prose-door 3 alan (D1/D4/D8)', Object.keys(C.rotaProseDoor).filter(k=>/^\d$/.test(k)).sort(), ['1','4','8']);
-dz('never-routes D5+D9', Object.keys(C.rotaNeverRoutes).filter(k=>/^\d$/.test(k)).sort(), ['5','9']);
+dz('never-routes D5+D7+D9', Object.keys(C.rotaNeverRoutes).filter(k=>/^\d$/.test(k)).sort(), ['5','7','9']);
 
 // Instrument order: D6 ve D2 EDGE ise → D2 önce (instrument order, skor değil)
 const grid = { domainler: [
@@ -26,7 +26,7 @@ const cumle = CM.rotaCumlesi(grid);
 dz('instrument order: M7(D2) M4(D6) sırası', cumle.indexOf('Module 7') < cumle.indexOf('Module 4'), true);
 
 // D7 EDGE → M6 rota
-dz('D7→M6 rota', CM.rotaCumlesi({domainler:[{dNo:7,set:'EDGE',skor:30,ad:'D7'}]}).includes('Module 6'), true);
+dz('D7 rotasız (Ek v0.2: D7→M6 geri alındı)', CM.rotaCumlesi({domainler:[{dNo:7,set:'EDGE',skor:30,ad:'D7'}]}), null);
 // D5 EDGE → rota YOK (never-routes)
 dz('D5 rota tetiklemez', CM.rotaCumlesi({domainler:[{dNo:5,set:'EDGE',skor:30,ad:'D5'}]}), null);
 

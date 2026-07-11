@@ -234,9 +234,19 @@ export function bodySkorla(yanitlar) {
 // TOPLU skor ÜRETİLMEZ (App Safety Rules — "no aggregate wellbeing score, ever").
 export function entryExitSkorla(yanitlar) {
   const ee = modulBul('entry_exit');
+  // ADDITIVE (Karar Kaydı Eki v0.2 §B): Part 3 recovery channel skorları
+  // türev katman — mevcut fasetler/gecisler çıktısı DEĞİŞMEZ, ham veri
+  // dokunulmaz. R1-R6 (BASIC Ph), 1-5 ölçek; en yüksek 2 = m9 {channel_1/2}.
+  const p3 = yanitlar.part3 ?? {};
+  const recoveryKanallar = {};
+  for (const m of ee.part3?.maddeler ?? []) {
+    const v = p3[m.no];
+    if (v != null) recoveryKanallar[m.no] = v; // ham 1-5 (append-only, sadece okuma)
+  }
   return {
     fasetler: fasetSkorlari(ee.part1.fasetler, yanitlar.part1 ?? {}),
     gecisler: grupSkoru(ee.part2.maddeler, yanitlar.part2 ?? {}),
+    recoveryKanallar, // additive; boşsa {} — mevcut tüketiciler etkilenmez
   };
 }
 
@@ -328,6 +338,37 @@ export async function emotionalSonucGetir() {
     .select('skorlar')
     .eq('kullanici_id', kullanici_id)
     .in('modul', ['emotional', 'm3_emotional'])
+    .order('created_at', { ascending: false })
+    .limit(1);
+  return data?.[0]?.skorlar ?? null;
+}
+
+// READ-ONLY view (Karar Kaydı Eki v0.2 §B): m4 {channel} için. Access
+// modülünün en yüksek skorlu kanalını döndürür (strongest doorway).
+// Write path YOK.
+export async function accessSonucGetir() {
+  const kullanici_id = await uid();
+  if (!kullanici_id) return null;
+  const { data } = await supabase
+    .from('batarya_sonuclari')
+    .select('skorlar')
+    .eq('kullanici_id', kullanici_id)
+    .in('modul', ['access', 'm2_access'])
+    .order('created_at', { ascending: false })
+    .limit(1);
+  return data?.[0]?.skorlar ?? null;
+}
+
+// READ-ONLY view: m9 {channel_1/2} için. entry_exit Part 3 recovery
+// kanallarının (R1-R6) ham skorlarını döndürür. Write path YOK.
+export async function entryExitSonucGetir() {
+  const kullanici_id = await uid();
+  if (!kullanici_id) return null;
+  const { data } = await supabase
+    .from('batarya_sonuclari')
+    .select('skorlar')
+    .eq('kullanici_id', kullanici_id)
+    .in('modul', ['entry_exit', 'm9_entry_exit'])
     .order('created_at', { ascending: false })
     .limit(1);
   return data?.[0]?.skorlar ?? null;

@@ -26,7 +26,8 @@ export const m3Pack = {
     "not": "Karar Kaydı 9 Tem: M3 oyuncuya AYRI rapor üretmez (ayna-yok). Bu pack koç render + Emotion Exploration + micro-reveal KAYNAĞIDIR. Bu dosya şimdilik iki hafif parçayı taşır: micro-reveal (Emotional modül sonu) + Emotion Exploration araç adı. 63 coach portre/blok ayrı turda (sonraki teslimat) bağlanacak — pack'te hazır, henüz app'e alınmadı."
   },
   "microReveal": "Your palette is complete — and with it, the core path. One of your strongest colours: {top_system_name}. Your full report — everything you've built across the whole journey — is ready for you now.",
-  "emotionExplorationAdi": "Emotion Exploration tool",
+  "emotionExplorationAdi": "Emotion Exploration",
+  "emotionExplorationAdiNot": "ONAYLI (Karar Kaydı Eki v0.2, Filiz 11 Tem 2026): resmi ad EMOTION EXPLORATION. Portre copy'sindeki 'the Emotion Exploration tool' ifadeleri Filiz'in verbatim gramer akışıdır (araç referansı) — dokunulmadı, içerik bütünlüğü. TR display adı sözlük sürecinden geçecek.",
   "coachPortreleri": {
     "durum": "UYGULANDI (ITC-RELAY-M3PORTRE-20260710): 7 sistem × (portre + 9 position×band bloğu) = 63 blok + 7 portre + 3 hedged opener. Coach D bölümünde her sistemin (set, band) eşleşen portre+bloğu render; HEDGE açıksa blok ilk cümlesi ses-sınıfına göre hedged opener'la değişir. Strengths-only korunur (aktöre yalnız Core Report girişleri).",
     "sistemler": {

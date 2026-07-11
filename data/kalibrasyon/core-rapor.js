@@ -2352,11 +2352,10 @@ export const coreRapor = {
     }
   },
   "rotaHaritasi": {
-    "not": "Ch.5 routed sentence — yalnız APS-türevli (Routing_MicroReveals_Checkin_v0_1). MODULE-ROUTED: EDGE alansa hem routed cümle hem hub önerisi tetiklenir. D7→M6 ONAYLI (Filiz, 11 Tem 2026 — Routing v1.0 APPROVED IN FULL; battery canon D2/D3/D5/D6 listeliyordu, bu tek yeni harita girdisi). Sıralama: instrument order (D2→D3→D6→D7), skor değil.",
+    "not": "Ch.5 routed sentence — yalnız APS-türevli (Routing_MicroReveals_Checkin). MODULE-ROUTED: EDGE alansa hem routed cümle hem hub önerisi tetiklenir. Sıralama: instrument order (D2→D3→D6), skor değil. GERİ ALINDI (Karar Kaydı Eki v0.2, Filiz 11 Tem 2026): D7→M6 çifti KALDIRILDI — D7 hiçbir yere yönlenmez (ne module-routed ne prose-door); önceki 'D7→M6 ONAYLI' kaydı bu tarihli girişle supersede edildi. M6 aktörün kendi seçimi + facilitator önerisiyle erişilebilir; yalnız otomatik APS rotası kalktı.",
     "2": "Performance Mindfulness (Module 7)",
     "3": "The Actor's Body (Module 8)",
-    "6": "Access Channel & Imagery (Module 4)",
-    "7": "Regulation & Performance Strategies (Module 6)"
+    "6": "Access Channel & Imagery (Module 4)"
   },
   "rotaProseDoor": {
     "not": "PROSE-DOOR: EDGE alanın kendi blokları öneriyi sözle taşır; routed cümle ve hub TETİKLENMEZ. Metin doorway raporunun EDGE bloklarında zaten var.",
@@ -2365,8 +2364,9 @@ export const coreRapor = {
     "8": "the live workshop (topluluk becerisi tek başına eğitilemez)"
   },
   "rotaNeverRoutes": {
-    "not": "NEVER-ROUTES: D5→M3 ama M3 core (herkes alır) → D5 aktör-side routing tetiklemez; koç-side D5 edge palette expression story yanında okunur (Coach F, T2). D9 kendi sayfası (kopyası M6'ya atıf yapar).",
+    "not": "NEVER-ROUTES: D5→M3 ama M3 core (herkes alır) → D5 aktör-side routing tetiklemez; koç-side D5 edge palette expression story yanında okunur (Coach F, T2). D7 rotasız (Karar Kaydı Eki v0.2, 11 Tem 2026: D7→M6 geri alındı; M6 seçim/facilitator ile erişilir). D9 kendi sayfası (kopyası M6'ya atıf yapar).",
     "5": "Emotional Expression (M3 core — routing yok)",
+    "7": "Professional Discipline & Motivation (D7→M6 geri alındı — routing yok)",
     "9": "Craft Confidence (own page — routing yok)"
   }
 };

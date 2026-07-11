@@ -9,8 +9,9 @@
 // aspirationDogrulama — Coach Section A için yeni intake maddesi gerekmez.
 // (Rota haritası core-rapor.js rotaHaritasi/rotaProseDoor/rotaNeverRoutes'ta.)
 //
-// KURAL: İçerik verbatim'dir. ⚑ M9 kanal cümlesi Filiz veto penceresinde
-//        (metinVerisiz alternatifi hazır).
+// KURAL: İçerik verbatim'dir. Karar Kaydı Eki v0.2 (11 Tem): D7 to M6 GERİ
+//        ALINDI (D7 rotasız). m9 reveal WORDING hâlâ veto penceresinde (Ek C)
+//        — plumbing kurulur, render bekler; metinVerisiz arşivde.
 // DOĞRULAMA İMZASI: ITC-ROUTING-V01-20260710
 // =====================================================================
 
@@ -20,7 +21,7 @@ export const routing = {
     "surum": "v1.0",
     "tarih": "11 Jul 2026",
     "yazar": "Filiz Kaya Ataklı",
-    "not": "APPROVED IN FULL — iki ⚑ madde Filiz'ce onaylandı (11 Tem 2026): D7→M6 çifti + M9 reveal kanal cümlesi. Bu belgede bekleyen yok."
+    "not": "Karar Kaydı Eki v0.2 (11 Tem 2026) SWEEP: D7→M6 çifti GERİ ALINDI — D7 artık rotasız (bkz core-rapor rotaNeverRoutes). M9 kanal cümlesi onaylı KALIR (2. cümle veri taşır). m9 reveal WORDING hâlâ Filiz veto penceresinde (Ek C) — plumbing ilerler, render bekler."
   },
   "microReveals": {
     "m4": {
@@ -50,7 +51,12 @@ export const routing = {
     "m9": {
       "modul": "Entry & Exit (en yüksek hassasiyet; skor yok, reveal = teşekkür + tek olumlu not)",
       "metin": "Thank you for this one — it stays close and works quietly for you. Your recovery channels are noted: {channel_1} and {channel_2}. We'll use them.",
-      "onayNot": "M9 satırı aktörün top-2 recovery channel'ını render eder (tercih haritası, asla tip — modülün kendi team note'u). ONAYLI (Filiz, 11 Tem 2026): ikinci cümle KALIR — veri taşınır. metinVerisiz alternatifi arşiv olarak saklanır (geri dönülürse tarihli kayıtla).",
+      "onayNot": "M9 satırı aktörün top-2 recovery channel'ını render eder (tercih haritası, asla tip). 2. cümle KALIR (Ek v0.2 §B onaylı). PLUMBING KURULU: entryExitSonucGetir + entryExitSkorla.recoveryKanallar (R1-R6 ham, en yüksek 2 = channel_1/2) hazır. RENDER BEKLER: (1) Filiz m9 reveal WORDING vetosu (Ek C), (2) BASIC Ph 6 kanal display adı EN+TR onayı. İkisi gelene dek m9 micro-reveal aktöre GÖSTERİLMEZ. metinVerisiz arşivde.",
+    "basicPhKanallar": {
+      "not": "R1-R6 internal key = slug (team note only, asla render). Actor-facing display adları EN+TR ONAY BEKLİYOR (Ek C). Lahad kredisi team-side; aktör copy'sinde araştırmacı adı YOK.",
+      "R1": "Meaning & belief", "R2": "Feeling", "R3": "People",
+      "R4": "Imagination", "R5": "Thinking", "R6": "The body"
+    },
       "metinVerisiz": "Thank you for this one — it stays close and works quietly for you."
     }
   },

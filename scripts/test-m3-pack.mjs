@@ -8,7 +8,7 @@ dz('micro-reveal {top_system_name} placeholder içerir', m3Pack.microReveal.incl
 dz('micro-reveal core path anıyor', m3Pack.microReveal.includes('core path'), true);
 const doldu = m3Pack.microReveal.replace('{top_system_name}', 'Care');
 dz('placeholder dolunca temiz', !doldu.includes('{'), true);
-dz('Emotion Exploration adı onaylı', m3Pack.emotionExplorationAdi, 'Emotion Exploration tool');
+dz('Emotion Exploration adı onaylı (Ek v0.2 A.5: "tool" kaldırıldı)', m3Pack.emotionExplorationAdi, 'Emotion Exploration');
 // 63 portre içerik olarak UYGULANDI (M3PORTRE relay): 7 sistem × 9 blok + 7 portre.
 const _sis = m3Pack.coachPortreleri.sistemler;
 dz('7 sistem portresi mevcut', Object.keys(_sis).length, 7);
