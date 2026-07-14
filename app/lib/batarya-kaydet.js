@@ -113,6 +113,11 @@ export function typeLensSkorla(yanitlar) {
     });
   }
   const hipotez = eksenler.map((e) => e.harf ?? '?').join('');
+  // KEMER+ASKI: eksik/boş yanıtla skorlanamaz kayıt DB'ye DÜŞEMEZ.
+  // (9 Tem 2026'da hipotez:"????" 0-cevaplı kayıt oyuncuyu kilitlemişti — ITC-TYPELENS-KILIT-20260714)
+  if (hipotez.includes('?')) {
+    throw new Error('Type Lens eksik yanıtlandı — skorlanamaz (hipotez: ' + hipotez + ')');
+  }
   // En yakın komşu: en dar marjlı ekseni çevir.
   let darIdx = 0;
   eksenler.forEach((e, i) => { if (e.marj < eksenler[darIdx].marj) darIdx = i; });
@@ -400,6 +405,22 @@ export async function intakeYanitiGetir(no) {
 // göstermez). Modül başına SON created_at → kapı = son + 84 gün. Yalnız
 // retake'e uygun çekirdek: aps, emotional (Type Lens bir-kez; Intake/
 // Consent ayrı akış). Legacy satırlar da sayılır.
+/* ─── Type Lens retake (ITC-TYPELENS-RETAKE-20260714) ───────────────────────
+   "Bir kez alınır" hissi KORUNUR: kolay/kazara tekrar yok — Doorway raporunun
+   altında sessiz bağlantı + onay ekranı (sürtünme). 84 günlük pencere YOK:
+   pencere kilitlenen oyuncuyu (ve geliştiriciyi) dışarıda bırakırdı.
+   Eski yanıtlar SİLİNMEZ — append-only; en yeni kayıt geçerli rapordur.       */
+export async function typeLensRetakeSayisi() {
+  const kullanici_id = await uid();
+  if (!kullanici_id) return 0;
+  const { count } = await supabase
+    .from('batarya_sonuclari')
+    .select('id', { count: 'exact', head: true })
+    .eq('kullanici_id', kullanici_id)
+    .eq('modul', 'type_lens');
+  return count ?? 0;
+}
+
 export async function retakeDurumu() {
   const kullanici_id = await uid();
   if (!kullanici_id) return {};
@@ -432,7 +453,7 @@ export async function bataryaDurumGetir() {
   const [sonuclarQ, onamQ] = await Promise.all([
     supabase
       .from('batarya_sonuclari')
-      .select('modul, created_at')
+      .select('modul, created_at, skorlar')
       .eq('kullanici_id', kullanici_id)
       .order('created_at', { ascending: true }),
     supabase
@@ -445,7 +466,17 @@ export async function bataryaDurumGetir() {
   ]);
 
   const slugla = (m) => LEGACY_ESLEME[m] ?? m;
-  const moduller = new Set((sonuclarQ.data || []).map((r) => slugla(r.modul)));
+  // KİLİT KORUMASI: skorlanamaz type_lens kaydı ("????") TAMAMLANMIŞ SAYILMAZ.
+  // Böyle bir kayıt varsa oyuncu Modül 1'e geri düşer, rapor-yok/geri-dönüş-yok
+  // kilidi kendiliğinden çözülür (ITC-TYPELENS-KILIT-20260714).
+  const gecerliKayit = (r) => {
+    if (slugla(r.modul) !== 'type_lens') return true;
+    const h = r.skorlar?.hipotez;
+    return typeof h === 'string' && h.length === 4 && !h.includes('?');
+  };
+  const moduller = new Set(
+    (sonuclarQ.data || []).filter(gecerliKayit).map((r) => slugla(r.modul)),
+  );
   const formBSayisi = (sonuclarQ.data || []).filter((r) => slugla(r.modul) === 'flow_formB').length;
   // Geçerli onam = en son satır 'verildi' (onam defteri kuralı).
   const onamVar = onamQ.data?.[0]?.islem === 'verildi';
