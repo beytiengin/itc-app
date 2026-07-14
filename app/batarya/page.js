@@ -171,11 +171,18 @@ function GirisGerekli() {
 /* ─── Ana akış ───────────────────────────────────────────────────────────── */
 function BataryaAkis({ durum, durumYenile }) {
   // Kaldığı yerden devam: consent yoksa consent; sonra ilk eksik core modül; sonra hub.
+  // Geliştirici modu (?dev=1) — YALNIZ test için: hub'da her modüle serbest giriş.
+  // Oyuncu-yüzü akış ve kanon HİÇ değişmez (ITC-DEV-20260714).
+  const devMod = useMemo(() => (
+    typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('dev') === '1'
+  ), []);
+
   const ilkGorunum = useMemo(() => {
     if (!durum.onamVar) return 'consent';
+    if (devMod) return 'hub';
     for (const a of CEKIRDEK.slice(1)) if (!durum.moduller.has(a.key)) return a.key;
     return 'hub';
-  }, [durum]);
+  }, [durum, devMod]);
 
   const [gorunum, setGorunum] = useState(ilkGorunum);
 
@@ -199,6 +206,9 @@ function BataryaAkis({ durum, durumYenile }) {
       {gorunum === 'consent' && <ConsentAdimi onTamam={coreTamamla} />}
       {gorunum === 'intake' && <IntakeAdimi onTamam={coreTamamla} />}
       {gorunum === 'type_lens' && <TypeLensAdimi onTamam={async () => { await durumYenile(); setGorunum('doorway_reveal'); }} />}
+      {gorunum === 'type_lens_retake_onay' && (
+        <RetakeOnayi onEvet={() => setGorunum('type_lens')} onHayir={() => setGorunum('tip_raporu')} />
+      )}
       {gorunum === 'doorway_reveal' && <DoorwayMicroReveal onDevam={coreSiradaki} onRapor={() => setGorunum('tip_raporu')} />}
       {gorunum === 'aps' && <KarisikLikertAdimi slug="aps" onTamam={async () => { await durumYenile(); setGorunum('aps_reveal'); }} />}
       {gorunum === 'emotional' && <EmotionalAdimi onTamam={async () => { await durumYenile(); setGorunum('emotional_reveal'); }} />}
@@ -207,10 +217,13 @@ function BataryaAkis({ durum, durumYenile }) {
           ve core-zincir YOK — doğrudan hub'a döner. İlk-kez akışı değişmez. */}
       {gorunum === 'aps_retake' && <KarisikLikertAdimi slug="aps" onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
       {gorunum === 'emotional_retake' && <EmotionalAdimi onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
-      {gorunum === 'hub' && <OpsiyonelHub durum={durum} onSec={setGorunum} />}
-      {gorunum === 'tip_raporu' && <TipRaporu onGeri={() => setGorunum(
-        CEKIRDEK.every((a) => a.key === 'consent' || durum.moduller.has(a.key)) ? 'hub' : 'doorway_reveal'
-      )} />}
+      {gorunum === 'hub' && <OpsiyonelHub durum={durum} onSec={setGorunum} devMod={devMod} />}
+      {gorunum === 'tip_raporu' && <TipRaporu
+        onGeri={() => setGorunum(
+          CEKIRDEK.every((a) => a.key === 'consent' || durum.moduller.has(a.key)) ? 'hub' : 'doorway_reveal'
+        )}
+        onRetake={() => setGorunum('type_lens_retake_onay')}
+      />}
       {gorunum === 'aps_reveal' && <ApsMicroReveal onDevam={coreSiradaki} />}
       {gorunum === 'aps_raporu' && <ApsRaporu onGeri={() => setGorunum('hub')} />}
       {gorunum === 'core_raporu' && <CoreRaporu onGeri={() => setGorunum('hub')} />}
@@ -503,7 +516,12 @@ function TypeLensAdimi({ onTamam }) {
   const [hata, setHata] = useState('');
   const [gonderiliyor, setGonderiliyor] = useState(false);
 
+  // Eksik yanıt = skorlanamaz kayıt = kilit. Tamamlanmadan gönderim YOK.
+  const cevaplanan = Object.keys(yanitlar).length;
+  const tamMi = cevaplanan === maddeler.length;
+
   const gonder = async () => {
+    if (!tamMi) return;
     setGonderiliyor(true); setHata('');
     try {
       await bataryaSonucKaydet('type_lens', yanitlar, typeLensSkorla(yanitlar));
@@ -524,8 +542,14 @@ function TypeLensAdimi({ onTamam }) {
             onSec={(taraf) => setYanitlar((p) => ({ ...p, [m.no]: taraf }))} />
         ))}
       </div>
-      <CevapSayaci cevaplanan={Object.keys(yanitlar).length} toplam={maddeler.length} />
-      <IleriButon onClick={gonder} disabled={gonderiliyor} etiket={gonderiliyor ? 'Saving…' : 'Save & continue'} />
+      <CevapSayaci cevaplanan={cevaplanan} toplam={maddeler.length} />
+      {!tamMi && (
+        <p style={altYaziStil}>
+          Every item needs a choice — the doorway can't be read from a partial answer.
+        </p>
+      )}
+      <IleriButon onClick={gonder} disabled={gonderiliyor || !tamMi}
+        etiket={gonderiliyor ? 'Saving…' : 'Save & continue'} />
       {hata && <HataYazi metin={hata} />}
     </BolumKabuk>
   );
@@ -660,6 +684,32 @@ function KarisikLikertAdimi({ slug, onTamam, onVazgec }) {
 /* ─── Doorway (M1) micro-reveal — M2/M3 ile simetri (ITC-DOORWAY-REVEAL-20260714)
    Modül 1 bitince akış doğrudan M2'ye atlıyordu: ne rapor, ne tek satır bilgi.
    Reveal metni PROPOSED — Filiz onayı bekler (tip hipotezine ilk temas).      */
+/* ─── Type Lens retake onayı — sürtünme ekranı (ITC-TYPELENS-RETAKE-20260714)
+   "Bir kez alınır" hissini taşıyan yer burası: kimse kazara basmaz, ama
+   sıkışan çıkar. Sayaç/rozet YOK (gamification kanonen reddedilmiştir).     */
+function RetakeOnayi({ onEvet, onHayir }) {
+  return (
+    <div style={{ ...kutuStil, alignItems: 'flex-start' }}>
+      <h2 style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontWeight: 300, fontSize: '1.35rem', margin: 0, color: 'var(--ink)' }}>
+        Start the doorway again?
+      </h2>
+      <p style={{ ...govdeStil }}>
+        Retaking replaces the doorway you read from now on. Your earlier answers stay in the
+        record — nothing is erased. This isn't meant to be done often: a doorway shifts with
+        time and work, not with mood.
+      </p>
+      <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+        <button onClick={onEvet} style={{ ...ikincilButonStil, borderColor: TON, color: TON }}>
+          Yes, start again ↺
+        </button>
+        <button onClick={onHayir} style={ikincilButonStil}>
+          No, keep what I have
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function DoorwayMicroReveal({ onDevam, onRapor }) {
   return (
     <div style={{ ...kutuStil, alignItems: 'flex-start' }}>
@@ -820,81 +870,154 @@ function EmotionalMicroReveal({ onDevam }) {
 
 function EmotionalAdimi({ onTamam, onVazgec }) {
   const em = modulBul('emotional');
+  // Part 1 — karışık sıra KORUNUR (adminNote: sistem başlığı gösterilmez).
+  // Filiz kararı (14 Tem 2026, seçenek C): 28 madde SİLİNMEZ, 6'lı setlere bölünür.
   const p1Maddeler = useMemo(
     () => karistir(em.part1.sistemler.flatMap((s) => s.maddeler), SEED.emotional_p1),
     []
   );
+  const SET = 6;
+  const p1Setleri = useMemo(() => {
+    const out = [];
+    for (let k = 0; k < p1Maddeler.length; k += SET) out.push(p1Maddeler.slice(k, k + SET));
+    return out;
+  }, [p1Maddeler]);
+
+  // Sayfalar: [p1 setleri...] · part2 · part3 · part4
+  const sayfalar = useMemo(
+    () => [
+      ...p1Setleri.map((set, k) => ({ tur: 'p1', set, ilk: k === 0 })),
+      { tur: 'p2' }, { tur: 'p3' }, { tur: 'p4' },
+    ],
+    [p1Setleri]
+  );
+
   const [yanitlar, setYanitlar] = useState({});
   const [konfor, setKonfor] = useState({});      // part4: { duygu: {hissetme, gosterme} }
   const [p4Atla, setP4Atla] = useState(false);
+  const [sayfaIdx, setSayfaIdx] = useState(0);
+  const [yukleniyor, setYukleniyor] = useState(true);
   const [hata, setHata] = useState('');
   const [gonderiliyor, setGonderiliyor] = useState(false);
 
+  // Kısmi kayıt — yarım bırakılırsa kaldığı sayfadan devam.
+  useEffect(() => {
+    (async () => {
+      const t = await taslakGetir('emotional');
+      if (t) {
+        const y = t.yanitlar || {};
+        const { konforEnvanteri, ...likert } = y;
+        setYanitlar(likert);
+        if (konforEnvanteri) setKonfor(konforEnvanteri);
+        setSayfaIdx(Math.min(t.setIndex || 0, sayfalar.length - 1));
+      }
+      setYukleniyor(false);
+    })();
+  }, [sayfalar.length]);
+
   const likertYaz = (no, v) => setYanitlar((p) => ({ ...p, [no]: v }));
 
-  const gonder = async () => {
-    setGonderiliyor(true); setHata('');
-    try {
-      // part4 opsiyonel + PUANLANMAZ — yalnız ham; atlandıysa hiç yazılmaz.
-      const ham = { ...yanitlar, ...(p4Atla ? {} : { konforEnvanteri: konfor }) };
-      await bataryaSonucKaydet('emotional', ham, emotionalSkorla(yanitlar));
-      await onTamam();
-    } catch (e) { setHata('Could not save. Please try again.'); setGonderiliyor(false); }
+  const sonSayfa = sayfaIdx >= sayfalar.length - 1;
+
+  const ileri = async () => {
+    setHata('');
+    if (sonSayfa) {
+      setGonderiliyor(true);
+      try {
+        // part4 opsiyonel + PUANLANMAZ — yalnız ham; atlandıysa hiç yazılmaz.
+        const ham = { ...yanitlar, ...(p4Atla ? {} : { konforEnvanteri: konfor }) };
+        await bataryaSonucKaydet('emotional', ham, emotionalSkorla(yanitlar));
+        await onTamam();
+      } catch (e) { setHata('Could not save. Please try again.'); setGonderiliyor(false); }
+      return;
+    }
+    const yeni = sayfaIdx + 1;
+    await taslakKaydet('emotional', { ...yanitlar, konforEnvanteri: konfor }, yeni);
+    setSayfaIdx(yeni);
   };
 
+  const geri = () => { setHata(''); setSayfaIdx((k) => Math.max(0, k - 1)); };
+
+  if (yukleniyor) return <p style={altYaziStil}>Loading…</p>;
+
+  const sayfa = sayfalar[sayfaIdx];
+  // Karışık sırada global numara (set içi değil) — "1 / 28" hissi korunur.
+  const p1Basi = sayfaIdx * SET;
+
   return (
-    <BolumKabuk baslik={`${em.baslik}${em.ustBaslik ? ' · ' + em.ustBaslik : ''}`} giris={em.giris}>
-      {/* Part 1 — karışık sıra, sistem başlıkları YOK (adminNote kuralı) */}
-      <h3 style={araBaslikStil}>{em.part1.baslik}</h3>
-      <p style={govdeStil}>{em.part1.giris}</p>
-      <OlcekLegend olcek={em.part1.olcek} />
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-        {p1Maddeler.map((m, i) => (
-          <LikertSatir key={m.no} sira={i + 1} metin={m.metin} deger={yanitlar[m.no]} onSec={(v) => likertYaz(m.no, v)} />
-        ))}
-      </div>
+    <BolumKabuk baslik={`${em.baslik}${em.ustBaslik ? ' · ' + em.ustBaslik : ''}`}
+      giris={sayfaIdx === 0 ? em.giris : undefined}>
+      <p style={altYaziStil}>{sayfaIdx + 1} / {sayfalar.length}</p>
 
-      <h3 style={araBaslikStil}>{em.part2.baslik}</h3>
-      <p style={govdeStil}>{em.part2.giris}</p>
-      <OlcekLegend olcek={em.part2.olcek} />
-      {em.part2.maddeler.map((m) => (
-        <LikertSatir key={m.no} metin={m.metin} deger={yanitlar[m.no]} onSec={(v) => likertYaz(m.no, v)} />
-      ))}
-
-      <h3 style={araBaslikStil}>{em.part3.baslik}</h3>
-      <p style={govdeStil}>{em.part3.giris}</p>
-      <OlcekLegend olcek={em.part3.olcek} />
-      {em.part3.maddeler.map((m) => (
-        <LikertSatir key={m.no} metin={m.metin} deger={yanitlar[m.no]} onSec={(v) => likertYaz(m.no, v)} />
-      ))}
-
-      {/* Part 4 — opsiyonel, profil skoruna girmez */}
-      <h3 style={araBaslikStil}>{em.part4.baslik}</h3>
-      <p style={govdeStil}>{em.part4.giris}</p>
-      {!p4Atla ? (
+      {sayfa.tur === 'p1' && (
         <>
-          <button onClick={() => setP4Atla(true)} style={{ ...ikincilButonStil, alignSelf: 'flex-start' }}>
-            Skip this part
-          </button>
-          <OlcekLegend baslik={em.part4.olcekBaslik} olcek={em.part4.olcek} />
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
-            {em.part4.duygular.map((duygu) => (
-              <KonforSatiri key={duygu} duygu={duygu} sutunlar={em.part4.sutunlar}
-                deger={konfor[duygu] || {}}
-                onYaz={(alan, v) => setKonfor((p) => ({ ...p, [duygu]: { ...(p[duygu] || {}), [alan]: v } }))} />
+          {sayfa.ilk && <h3 style={araBaslikStil}>{em.part1.baslik}</h3>}
+          {sayfa.ilk && <p style={govdeStil}>{em.part1.giris}</p>}
+          <OlcekLegend olcek={em.part1.olcek} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+            {sayfa.set.map((m, i) => (
+              <LikertSatir key={m.no} sira={p1Basi + i + 1} metin={m.metin}
+                deger={yanitlar[m.no]} onSec={(v) => likertYaz(m.no, v)} />
             ))}
           </div>
         </>
-      ) : (
-        <p style={{ ...altYaziStil, fontStyle: 'italic' }}>
-          Skipped — you can take this part another time.{' '}
-          <button onClick={() => setP4Atla(false)} style={{ ...baglantiButonStil }}>Undo</button>
-        </p>
       )}
 
-      <div style={{ display: 'flex', gap: '0.7rem', flexWrap: 'wrap' }}>
-        <IleriButon onClick={gonder} disabled={gonderiliyor} etiket={gonderiliyor ? 'Saving…' : 'Save & continue'} />
-        {onVazgec && <button onClick={onVazgec} style={ikincilButonStil}>Back</button>}
+      {sayfa.tur === 'p2' && (
+        <>
+          <h3 style={araBaslikStil}>{em.part2.baslik}</h3>
+          <p style={govdeStil}>{em.part2.giris}</p>
+          <OlcekLegend olcek={em.part2.olcek} />
+          {em.part2.maddeler.map((m) => (
+            <LikertSatir key={m.no} metin={m.metin} deger={yanitlar[m.no]} onSec={(v) => likertYaz(m.no, v)} />
+          ))}
+        </>
+      )}
+
+      {sayfa.tur === 'p3' && (
+        <>
+          <h3 style={araBaslikStil}>{em.part3.baslik}</h3>
+          <p style={govdeStil}>{em.part3.giris}</p>
+          <OlcekLegend olcek={em.part3.olcek} />
+          {em.part3.maddeler.map((m) => (
+            <LikertSatir key={m.no} metin={m.metin} deger={yanitlar[m.no]} onSec={(v) => likertYaz(m.no, v)} />
+          ))}
+        </>
+      )}
+
+      {/* Part 4 — opsiyonel, profil skoruna girmez */}
+      {sayfa.tur === 'p4' && (
+        <>
+          <h3 style={araBaslikStil}>{em.part4.baslik}</h3>
+          <p style={govdeStil}>{em.part4.giris}</p>
+          {!p4Atla ? (
+            <>
+              <button onClick={() => setP4Atla(true)} style={{ ...ikincilButonStil, alignSelf: 'flex-start' }}>
+                Skip this part
+              </button>
+              <OlcekLegend baslik={em.part4.olcekBaslik} olcek={em.part4.olcek} />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+                {em.part4.duygular.map((duygu) => (
+                  <KonforSatiri key={duygu} duygu={duygu} sutunlar={em.part4.sutunlar}
+                    deger={konfor[duygu] || {}}
+                    onYaz={(alan, v) => setKonfor((p) => ({ ...p, [duygu]: { ...(p[duygu] || {}), [alan]: v } }))} />
+                ))}
+              </div>
+            </>
+          ) : (
+            <p style={{ ...altYaziStil, fontStyle: 'italic' }}>
+              Skipped — you can take this part another time.{' '}
+              <button onClick={() => setP4Atla(false)} style={{ ...baglantiButonStil }}>Undo</button>
+            </p>
+          )}
+        </>
+      )}
+
+      <div style={{ display: 'flex', gap: '0.7rem', flexWrap: 'wrap', alignItems: 'center' }}>
+        {sayfaIdx > 0 && <button onClick={geri} style={ikincilButonStil}>← Back</button>}
+        <IleriButon onClick={ileri} disabled={gonderiliyor}
+          etiket={gonderiliyor ? 'Saving…' : sonSayfa ? 'Save & continue' : 'Continue'} />
+        {sayfaIdx === 0 && onVazgec && <button onClick={onVazgec} style={ikincilButonStil}>Back</button>}
       </div>
       {hata && <HataYazi metin={hata} />}
     </BolumKabuk>
@@ -1161,7 +1284,30 @@ function RetakeSatiri({ onSec }) {
 }
 
 /* ─── Opsiyonel modül merkezi (core sonrası) ─────────────────────────────── */
-function OpsiyonelHub({ durum, onSec }) {
+// DEV — yalnız ?dev=1. Oyuncu bunu ASLA görmez.
+function DevSatiri({ onSec }) {
+  const hedefler = [
+    ['intake', 'Intake'], ['type_lens', 'Doorway (M1)'],
+    ['aps', 'APS (M2)'], ['emotional', 'Emotional (M3)'],
+    ['tip_raporu', 'Doorway report'], ['doorway_reveal', 'Doorway reveal'],
+  ];
+  return (
+    <div style={{ borderTop: '1px dashed var(--rule)', paddingTop: '0.9rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+      <p style={{ ...altYaziStil, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+        Dev mode — not visible to actors
+      </p>
+      <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+        {hedefler.map(([k, ad]) => (
+          <button key={k} onClick={() => onSec(k)} style={{ ...ikincilButonStil, fontSize: '0.75rem', padding: '0.3rem 0.6rem' }}>
+            {ad}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function OpsiyonelHub({ durum, onSec, devMod }) {
   const kartlar = OPSIYONEL.map((o) => {
     const tanim = batarya.moduleMap.optional.find((x) => x.slug === o.slug);
     const modul = modulBul(o.slug);
@@ -1195,6 +1341,7 @@ function OpsiyonelHub({ durum, onSec }) {
             (2/16 set elde; feature flag değil — Karar 65 paralel-faz dersinden). */}
         <CoreRaporButonu onSec={onSec} stil={ikincilButonStil} />
         <RetakeSatiri onSec={onSec} />
+        {devMod && <DevSatiri onSec={onSec} />}
       </div>
       {kartlar.map((k) => (
         <div key={k.slug} style={{ ...kutuStil, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -1230,7 +1377,7 @@ function OpsiyonelHub({ durum, onSec }) {
 //   - `sorular` setleri serbest keşif katmanında (Kulis) yaşar — bu görünümde
 //     RENDER EDİLMEZ (Filiz onaylı konumlandırma kararı / B).
 //   - Metin içi **kalın** vurgular Filiz'in orijinalidir — <strong> olarak işlenir.
-function TipRaporu({ onGeri }) {
+function TipRaporu({ onGeri, onRetake }) {
   const [skor, setSkor] = useState(undefined); // undefined=yükleniyor, null=yok
   const [doorwayCheckinGoster, setDoorwayCheckinGoster] = useState(false);
 
@@ -1288,7 +1435,21 @@ function TipRaporu({ onGeri }) {
           (Routing v0.1 §C). Standart 4 seçenek + serbest alan (CheckinV2). */}
       {doorwayCheckinGoster && <CheckinV2 baglam="doorway" soru={routing.doorwayCheckin.soru} />}
 
-      <button onClick={onGeri} style={{ ...ikincilButonStil, alignSelf: 'flex-start' }}>Back</button>
+      {/* Retake — sessiz, rapor okunduktan SONRA. Kazara basılmaz; onay ekranı
+          sürtünmeyi taşır (ITC-TYPELENS-RETAKE-20260714). */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', borderTop: '1px solid var(--rule)', paddingTop: '0.9rem' }}>
+        <p style={{ ...altYaziStil, fontSize: '0.78rem', fontStyle: 'italic' }}>
+          A doorway is a hypothesis, not a verdict — it's meant to be lived with rather than re-run.
+        </p>
+        <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+          <button onClick={onGeri} style={ikincilButonStil}>Back</button>
+          {onRetake && (
+            <button onClick={onRetake} style={{ ...ikincilButonStil, color: 'var(--ink-muted)' }}>
+              Start again ↺
+            </button>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
