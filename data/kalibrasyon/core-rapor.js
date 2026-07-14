@@ -15,7 +15,8 @@
 //        'How your set was built' bölümü Filiz'in eliyle SİLİNDİ.
 // İÇERİK KAPISI (feature flag DEĞİL — paralel-faz flag dersinden):
 //        setler[key].gecerli olmayan doorway'de Core Report butonu
-//        görünmez. 2/16 set elde; 14 sweep Filiz batch'leri bekler.
+//        görünmez. 16/16 set elde (CRQS v1.0 register sweep, 11 Tem 2026 —
+//        16 doorway hepsi gecerli:true; eski "2/16" durumu kapandı).
 // §6 BAYRAKLARI KAPANDI — Karar Kaydı 10 Tem 2026: doorwayLine ONAYLI
 //        (soru bölümünün üstünde), başlık "Your Core Report" (Filiz'in
 //        seçimi), setGrowth ONAYLI. Kanonik adres:
