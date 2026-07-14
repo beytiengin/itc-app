@@ -505,6 +505,7 @@ function IntakeSoru({ soru, deger, onYaz }) {
 // oyuncuya gösterilmez (Karar 31 — sonuç "hipotez", sınıflandırma değil).
 function TypeLensAdimi({ onTamam }) {
   const tl = modulBul('type_lens');
+  // Karışık sıra + yüz çevirme KORUNUR — deterministik (SEED), sayfalama etkilemez.
   const maddeler = useMemo(() => {
     const hepsi = tl.eksenler.flatMap((e) => e.maddeler);
     return karistir(hepsi, SEED.type_lens_sira).map((m) => ({
@@ -512,44 +513,95 @@ function TypeLensAdimi({ onTamam }) {
       cevrik: mulberry32(SEED.type_lens_yuz + m.no)() < 0.5,
     }));
   }, []);
+
+  // 44 madde tek kolondaydı: yarıda bırakan HER ŞEYİ kaybediyordu (taslak yoktu).
+  // 6'lı setler + kısmi kayıt — diğer modüllerle aynı desen (ITC-DOORWAY-SET-20260714).
+  const SET = 6;
+  const setler = useMemo(() => {
+    const out = [];
+    for (let k = 0; k < maddeler.length; k += SET) out.push(maddeler.slice(k, k + SET));
+    return out;
+  }, [maddeler]);
+
   const [yanitlar, setYanitlar] = useState({});
+  const [setIdx, setSetIdx] = useState(0);
+  const [yukleniyor, setYukleniyor] = useState(true);
   const [hata, setHata] = useState('');
   const [gonderiliyor, setGonderiliyor] = useState(false);
 
-  // Eksik yanıt = skorlanamaz kayıt = kilit. Tamamlanmadan gönderim YOK.
-  const cevaplanan = Object.keys(yanitlar).length;
-  const tamMi = cevaplanan === maddeler.length;
+  useEffect(() => {
+    let iptal = false;
+    (async () => {
+      const t = await taslakGetir('type_lens');
+      if (!iptal) {
+        if (t) {
+          setYanitlar(t.yanitlar || {});
+          setSetIdx(Math.min(t.setIndex || 0, setler.length - 1));
+        }
+        setYukleniyor(false);
+      }
+    })();
+    return () => { iptal = true; };
+  }, [setler.length]);
 
-  const gonder = async () => {
-    if (!tamMi) return;
-    setGonderiliyor(true); setHata('');
-    try {
-      await bataryaSonucKaydet('type_lens', yanitlar, typeLensSkorla(yanitlar));
-      await onTamam();
-    } catch (e) { setHata('Could not save. Please try again.'); setGonderiliyor(false); }
+  const set = setler[setIdx] ?? [];
+  const sonSet = setIdx >= setler.length - 1;
+
+  // Zorunlu seçim: eksik yanıt skorlanamaz (typeLensSkorla '?' görürse throw eder).
+  // Kapı SAYFA BAZINDA — oyuncu boşluğu 40 madde sonra değil, hemen orada görür.
+  const sayfaTam = set.every((m) => yanitlar[m.no] != null);
+  const cevaplanan = Object.keys(yanitlar).length;
+  const hepsiTam = cevaplanan === maddeler.length;
+
+  const ileri = async () => {
+    setHata('');
+    if (!sayfaTam) return;
+    if (sonSet) {
+      if (!hepsiTam) { setHata('Some items are still unanswered — please go back and complete them.'); return; }
+      setGonderiliyor(true);
+      try {
+        await bataryaSonucKaydet('type_lens', yanitlar, typeLensSkorla(yanitlar));
+        await onTamam();
+      } catch (e) { setHata('Could not save. Please try again.'); setGonderiliyor(false); }
+      return;
+    }
+    const yeni = setIdx + 1;
+    await taslakKaydet('type_lens', yanitlar, yeni);
+    setSetIdx(yeni);
   };
 
+  const geri = () => { setHata(''); setSetIdx((k) => Math.max(0, k - 1)); };
+
+  if (yukleniyor) return <p style={altYaziStil}>Loading…</p>;
+
+  const basi = setIdx * SET;
+
   return (
-    <BolumKabuk baslik={`${tl.baslik}${tl.ustBaslik ? ' · ' + tl.ustBaslik : ''}`} giris={tl.giris}>
-      {tl.vurgu && (
+    <BolumKabuk baslik={`${tl.baslik}${tl.ustBaslik ? ' · ' + tl.ustBaslik : ''}`}
+      giris={setIdx === 0 ? tl.giris : undefined}>
+      {setIdx === 0 && tl.vurgu && (
         <p style={{ ...govdeStil, fontFamily: 'var(--font-display), serif', fontStyle: 'italic', color: TON }}>
           {tl.vurgu}
         </p>
       )}
+      <p style={altYaziStil}>{setIdx + 1} / {setler.length}</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
-        {maddeler.map((m, i) => (
-          <TypeLensMadde key={m.no} sira={i + 1} madde={m} secim={yanitlar[m.no]}
+        {set.map((m, i) => (
+          <TypeLensMadde key={m.no} sira={basi + i + 1} madde={m} secim={yanitlar[m.no]}
             onSec={(taraf) => setYanitlar((p) => ({ ...p, [m.no]: taraf }))} />
         ))}
       </div>
       <CevapSayaci cevaplanan={cevaplanan} toplam={maddeler.length} />
-      {!tamMi && (
+      {!sayfaTam && (
         <p style={altYaziStil}>
           Every item needs a choice — the doorway can't be read from a partial answer.
         </p>
       )}
-      <IleriButon onClick={gonder} disabled={gonderiliyor || !tamMi}
-        etiket={gonderiliyor ? 'Saving…' : 'Save & continue'} />
+      <div style={{ display: 'flex', gap: '0.7rem', flexWrap: 'wrap', alignItems: 'center' }}>
+        {setIdx > 0 && <button onClick={geri} style={ikincilButonStil}>← Back</button>}
+        <IleriButon onClick={ileri} disabled={gonderiliyor || !sayfaTam}
+          etiket={gonderiliyor ? 'Saving…' : sonSet ? 'Save & continue' : 'Continue'} />
+      </div>
       {hata && <HataYazi metin={hata} />}
     </BolumKabuk>
   );
