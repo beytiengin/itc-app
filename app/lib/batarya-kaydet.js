@@ -278,6 +278,9 @@ export async function bataryaSonucKaydet(modul, yanitlar, skorlar) {
     skorlar: skorlar ?? null,
   });
   if (error) throw error;
+  // Modül bitti — kısmi kayıt taslağı artık gereksiz (ITC-TASLAK-20260714).
+  await supabase.from('batarya_taslak').delete()
+    .eq('kullanici_id', kullanici_id).eq('modul', modul);
   return true;
 }
 
@@ -385,7 +388,11 @@ export async function intakeYanitiGetir(no) {
     .eq('modul', 'intake')
     .order('created_at', { ascending: false })
     .limit(1);
-  return data?.[0]?.yanitlar?.[no] ?? data?.[0]?.yanitlar?.[String(no)] ?? null;
+  const ham = data?.[0]?.yanitlar?.[no] ?? data?.[0]?.yanitlar?.[String(no)] ?? null;
+  // Detaylı seçenek (ör. "Other: ______") nesne olarak saklanır: { sec, detay }.
+  // Çağıranlar seçilen ETİKETİ bekler — nesneyi burada düzleştir (ITC-TASLAK-20260714).
+  if (ham && typeof ham === 'object' && !Array.isArray(ham) && 'sec' in ham) return ham.sec;
+  return ham;
 }
 
 // Retake kapısı — Karar Kaydı 10 Tem 2026: çekirdek profiller 12 haftadan
@@ -444,4 +451,40 @@ export async function bataryaDurumGetir() {
   const onamVar = onamQ.data?.[0]?.islem === 'verildi';
 
   return { girisYok: false, moduller, formBSayisi, onamVar };
+}
+
+/* ─── Kısmi kayıt (setli akış) — ITC-TASLAK-20260714 ──────────────────────
+   Taslak, batarya_sonuclari'ndan AYRI: upsert edilir, modül bitince silinir.
+   Kaynak-of-truth her zaman batarya_sonuclari (append-only) kalır.          */
+
+export async function taslakKaydet(modul, yanitlar, setIndex) {
+  const kullanici_id = await uid();
+  if (!kullanici_id) return false;
+  const { error } = await supabase.from('batarya_taslak').upsert(
+    { kullanici_id, modul, yanitlar, set_index: setIndex, guncellendi: new Date().toISOString() },
+    { onConflict: 'kullanici_id,modul' },
+  );
+  // Taslak kaybı akışı DURDURMAZ — oyuncu devam edebilmeli (sessiz geç).
+  if (error) { console.warn('taslak kaydedilemedi', error); return false; }
+  return true;
+}
+
+export async function taslakGetir(modul) {
+  const kullanici_id = await uid();
+  if (!kullanici_id) return null;
+  const { data, error } = await supabase
+    .from('batarya_taslak')
+    .select('yanitlar, set_index')
+    .eq('kullanici_id', kullanici_id)
+    .eq('modul', modul)
+    .maybeSingle();
+  if (error || !data) return null;
+  return { yanitlar: data.yanitlar ?? {}, setIndex: data.set_index ?? 0 };
+}
+
+export async function taslakSil(modul) {
+  const kullanici_id = await uid();
+  if (!kullanici_id) return;
+  await supabase.from('batarya_taslak').delete()
+    .eq('kullanici_id', kullanici_id).eq('modul', modul);
 }

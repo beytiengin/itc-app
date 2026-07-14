@@ -28,6 +28,46 @@
 // DOĞRULAMA İMZASI: ITC-BATARYA-V05-FULL-20260707
 // =====================================================================
 
+/* ─── Seçim listeleri (liste tipi soruları besler) — ITC-LISTE-20260714 ─────
+   Ülke: ISO 3166 kısa ad. Şehir dropdown'u YOK — 195 ülkelik şehir ağacı
+   taşınmaz; q3 serbest metin. Eğitim alanı: geniş şemsiye kategoriler.       */
+export const ULKELER = [
+  "Afghanistan","Albania","Algeria","Andorra","Angola","Argentina","Armenia","Australia","Austria","Azerbaijan",
+  "Bahrain","Bangladesh","Belarus","Belgium","Bolivia","Bosnia and Herzegovina","Brazil","Bulgaria",
+  "Cambodia","Cameroon","Canada","Chile","China","Colombia","Costa Rica","Croatia","Cuba","Cyprus","Czechia",
+  "Denmark","Dominican Republic","Ecuador","Egypt","El Salvador","Estonia","Ethiopia",
+  "Finland","France","Georgia","Germany","Ghana","Greece","Guatemala","Honduras","Hungary",
+  "Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Ivory Coast",
+  "Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kosovo","Kuwait","Kyrgyzstan",
+  "Latvia","Lebanon","Libya","Lithuania","Luxembourg","Malaysia","Malta","Mexico","Moldova","Mongolia",
+  "Montenegro","Morocco","Nepal","Netherlands","New Zealand","Nicaragua","Nigeria","North Macedonia","Norway",
+  "Oman","Pakistan","Palestine","Panama","Paraguay","Peru","Philippines","Poland","Portugal","Qatar",
+  "Romania","Russia","Saudi Arabia","Senegal","Serbia","Singapore","Slovakia","Slovenia","South Africa",
+  "South Korea","Spain","Sri Lanka","Sweden","Switzerland","Syria","Taiwan","Tanzania","Thailand","Tunisia",
+  "Türkiye","Turkmenistan","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States",
+  "Uruguay","Uzbekistan","Venezuela","Vietnam","Yemen","Zimbabwe",
+  "Other / not listed",
+];
+
+export const EGITIM_ALANLARI = [
+  "Acting / Performing Arts",
+  "Theatre Studies / Dramaturgy",
+  "Film, Television & Media",
+  "Music / Opera",
+  "Dance / Movement",
+  "Fine Arts & Design",
+  "Humanities (literature, philosophy, history)",
+  "Social Sciences",
+  "Psychology",
+  "Education / Pedagogy",
+  "Communication & Journalism",
+  "Business / Economics / Law",
+  "Engineering / Natural Sciences",
+  "Health Sciences / Medicine",
+  "No formal higher education",
+  "Other: ______",
+];
+
 export const batarya = {
   meta: {
     baslik: "INSIDE THE CHARACTER",
@@ -134,7 +174,7 @@ export const batarya = {
   intake: {
     slug: "intake",
     surum: "v0.2",
-    baslik: "Intake — Getting to Know You & Consent (v0.2)",
+    baslik: "Getting to Know You",
     consent: {
       baslik: "Participant Information & Consent",
       giris:
@@ -192,8 +232,8 @@ export const batarya = {
           baslik: "About you",
           sorular: [
             { no: 1, metin: "Name:", tip: "metin" },
-            { no: 2, metin: "Country:", tip: "liste", not: "(select from list)" },
-            { no: 3, metin: "City:", tip: "liste", not: "(select from list)" },
+            { no: 2, metin: "Country:", tip: "liste", not: "(select from list)", secenekler: ULKELER },
+            { no: 3, metin: "City:", tip: "metin", not: "(type your city)" },
             { no: 4, metin: "Date of birth:", tip: "tarih" },
             {
               no: 5,
@@ -211,6 +251,7 @@ export const batarya = {
               metin: "Field of education:",
               tip: "liste",
               not: "(select from list)",
+              secenekler: EGITIM_ALANLARI,
             },
           ],
         },
@@ -373,7 +414,7 @@ export const batarya = {
       sira: 1,
       cekirdek: true,
       surum: "v0.1",
-      baslik: "Module 1 — Type Lens (v0.1)",
+      baslik: "Doorway",
       about: {
         whatItLooksFor:
           "What it looks for. The actor's type-IN-ACTING — the instinctive working preferences that shape how this particular actor takes in a script, builds a character, makes choices, and runs a working life — obtained the same way the affective profile is obtained in Module 3: through an original instrument, not by administering the MBTI. Forty-four forced-choice acting situations across four axes yield a four-letter type HYPOTHESIS, always offered with its nearest neighbour so the actor can try both on. It sits early in the battery so the hypothesis can shape how everything downstream is approached and routed. A hypothesis to explore, never a box to live in.",
@@ -709,7 +750,7 @@ export const batarya = {
       sira: 2,
       cekirdek: true,
       surum: "v0.2",
-      baslik: "Module 2 — Acting Performance Scale (v0.2)",
+      baslik: "Acting Performance Scale",
       about: {
         whatItLooksFor:
           "What it looks for. A self-assessed profile of the actor's craft across nine domains — script analysis & character construction, concentration & presence, body & movement, voice & speech, emotional expression, imagination, professional discipline & motivation, collaboration, and craft confidence. It is the flagship instrument: the one built to full measurement depth, with dissertation and publication potential, and the anchor the rest of the battery routes from. The intake before it places every score in context (a score means different things at year one and year fifteen).",
@@ -842,7 +883,7 @@ export const batarya = {
       sira: 3,
       cekirdek: true,
       surum: "v0.1",
-      baslik: "Module 3 — Emotional Profile (v0.1)",
+      baslik: "Emotional Profile",
       about: {
         whatItLooksFor:
           "What it looks for. Expressive ACCESS to emotion for a role — not personal wiring — across the seven Panksepp affective systems on four facets each (reach, vividness, control, clean exit); plus meta-emotion ability (noticing, naming, steadying); bodily emotional awareness (interoception); and an unscored emotion-comfort inventory. This module is where the load-bearing boundary lives: it measures how easily the actor can travel to an emotional colour for the work and come back cleanly, never how much emotion they carry in life.",
@@ -1034,7 +1075,7 @@ export const batarya = {
       sira: 4,
       cekirdek: false,
       surum: "v0.1",
-      baslik: "Module 4 — Access Channel & Imagery Profile (v0.1)",
+      baslik: "Access Channel & Imagery",
       about: {
         whatItLooksFor:
           "What it looks for. The actor's strongest and most controllable imaginative doorways — visual, auditory, kinesthetic, tactile, and emotional imagery — plus how well images can be steered (controllability), which channel arrives first unbidden (spontaneous channel), and whether imagery actually drives behavior (imagery-in-action). The output routes every downstream exercise through the actor's own channel: 'reach the grief' becomes a picture, a sound, or a bodily weight depending on this profile.",
@@ -1202,7 +1243,7 @@ export const batarya = {
       sira: 5,
       cekirdek: false,
       surum: "v0.1",
-      baslik: "Module 5 — Flow Proneness (v0.1)",
+      baslik: "Flow Proneness",
       about: {
         whatItLooksFor:
           "What it looks for. How readily the actor enters flow — the state where the scene takes over and the watching self goes quiet. Form A is a dispositional baseline across the nine flow dimensions (taken once); Form B is a repeatable state measure taken immediately after a specific performance (the primary case-study instrument). Dimensions are tagged as either conditions/antecedents [C] or the experience of flow [E], so the module can show not just whether flow rose but why.",
@@ -1352,7 +1393,7 @@ export const batarya = {
       sira: 6,
       cekirdek: false,
       surum: "v0.1",
-      baslik: "Module 6 — Regulation & Performance Strategies (v0.1)",
+      baslik: "Regulation & Performance Strategies",
       about: {
         whatItLooksFor:
           "What it looks for. The actor's ability to find and hold their own best performing state, and to return to it when nerves, tiredness, or a mistake pull them off. Six facets on two parallel 'find your right level' spines: an AROUSAL spine (know your optimal energy zone, regulate toward it from either direction, hold it) and a TENSION spine (notice unnecessary tension, release what you don't need without collapsing, arrive at efficient tone) — plus self-talk, pre-performance routine, and refocusing after error. The regulation read is designed to sit beside Module 5's flow conditions as part of the same mechanism story.",
@@ -1471,7 +1512,7 @@ export const batarya = {
       sira: 7,
       cekirdek: false,
       surum: "v0.1",
-      baslik: "Module 7 — Performance Mindfulness (v0.1)",
+      baslik: "Performance Mindfulness",
       about: {
         whatItLooksFor:
           "What it looks for. Mindfulness as a trainable disposition brought into the acting context — the open, nonjudgmental, present-moment quality of attention that underlies good work. Three facets: Present-Moment Awareness, Nonjudgmental Attitude, and Nonreactivity / Letting Be. It is framed as the trainable doorway INTO flow, not flow itself.",
@@ -1541,7 +1582,7 @@ export const batarya = {
       sira: 8,
       cekirdek: false,
       surum: "v0.2 (consolidated)",
-      baslik: "Module 8 — The Actor's Body (v0.2, consolidated)",
+      baslik: "The Actor's Body",
       about: {
         whatItLooksFor:
           "What it looks for. The habitual body — the actor's default tensions, postural signature, and movement/facial habits that ride uninvited into every character — plus the capacities to release, return to neutral, and travel from the habit. Built two-source and organized around three readings and the gaps between them: what the actor believes about their body, what a trained eye sees, and what changes from relaxed to tense/alert.",
@@ -1622,7 +1663,7 @@ export const batarya = {
       sira: 9,
       cekirdek: false,
       surum: "v0.1",
-      baslik: "Module 9 — Entry & Exit (v0.1)",
+      baslik: "Entry & Exit",
       about: {
         whatItLooksFor:
           "What it looks for. The sustainable actor — how they enter and leave roles, recover, carry the working life, and know their own weather. Deliberately built to FEEL different from the rest: warmer, opt-in, more reflective, visibly protective. It names areas and offers gentle support; it never assesses clinical status. Five parts: Role-Boundary Style, Recovery Practice, Recovery Channels, Working Life & Emotional Labor, and Your Own Weather.",

@@ -38,7 +38,8 @@ import {
   typeLensSkorla, apsSkorla, emotionalSkorla, accessSkorla,
   flowASkorla, flowBSkorla, regulationSkorla, mindfulnessSkorla,
   bodySkorla, entryExitSkorla, typeLensSonucGetir, retakeDurumu,
-  emotionalSonucGetir, accessSonucGetir, entryExitSonucGetir } from '../lib/batarya-kaydet';
+  emotionalSonucGetir, accessSonucGetir, entryExitSonucGetir,
+  taslakKaydet, taslakGetir } from '../lib/batarya-kaydet';
 import { tipRaporlari } from '../../data/kalibrasyon/tip-raporlari';
 import { routing } from '../../data/kalibrasyon/routing';
 import CheckinV2 from '../../components/CheckinV2';
@@ -178,6 +179,11 @@ function BataryaAkis({ durum, durumYenile }) {
 
   const [gorunum, setGorunum] = useState(ilkGorunum);
 
+  // Her adım/rapor geçişinde sayfa BAŞINA dön (uzun Likert'te ortada kalıyordu).
+  useEffect(() => {
+    if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [gorunum]);
+
   const coreSiradaki = () => {
     const i = CEKIRDEK.findIndex((a) => a.key === gorunum);
     const kalan = CEKIRDEK.slice(i + 1).find((a) => a.key !== 'consent' && !durum.moduller.has(a.key));
@@ -192,7 +198,8 @@ function BataryaAkis({ durum, durumYenile }) {
       <IlerlemeSeridi gorunum={gorunum} durum={durum} />
       {gorunum === 'consent' && <ConsentAdimi onTamam={coreTamamla} />}
       {gorunum === 'intake' && <IntakeAdimi onTamam={coreTamamla} />}
-      {gorunum === 'type_lens' && <TypeLensAdimi onTamam={coreTamamla} />}
+      {gorunum === 'type_lens' && <TypeLensAdimi onTamam={async () => { await durumYenile(); setGorunum('doorway_reveal'); }} />}
+      {gorunum === 'doorway_reveal' && <DoorwayMicroReveal onDevam={coreSiradaki} onRapor={() => setGorunum('tip_raporu')} />}
       {gorunum === 'aps' && <KarisikLikertAdimi slug="aps" onTamam={async () => { await durumYenile(); setGorunum('aps_reveal'); }} />}
       {gorunum === 'emotional' && <EmotionalAdimi onTamam={async () => { await durumYenile(); setGorunum('emotional_reveal'); }} />}
       {gorunum === 'emotional_reveal' && <EmotionalMicroReveal onDevam={coreSiradaki} />}
@@ -201,7 +208,9 @@ function BataryaAkis({ durum, durumYenile }) {
       {gorunum === 'aps_retake' && <KarisikLikertAdimi slug="aps" onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
       {gorunum === 'emotional_retake' && <EmotionalAdimi onTamam={hubaDon} onVazgec={() => setGorunum('hub')} />}
       {gorunum === 'hub' && <OpsiyonelHub durum={durum} onSec={setGorunum} />}
-      {gorunum === 'tip_raporu' && <TipRaporu onGeri={() => setGorunum('hub')} />}
+      {gorunum === 'tip_raporu' && <TipRaporu onGeri={() => setGorunum(
+        CEKIRDEK.every((a) => a.key === 'consent' || durum.moduller.has(a.key)) ? 'hub' : 'doorway_reveal'
+      )} />}
       {gorunum === 'aps_reveal' && <ApsMicroReveal onDevam={coreSiradaki} />}
       {gorunum === 'aps_raporu' && <ApsRaporu onGeri={() => setGorunum('hub')} />}
       {gorunum === 'core_raporu' && <CoreRaporu onGeri={() => setGorunum('hub')} />}
@@ -298,34 +307,81 @@ function ConsentAdimi({ onTamam }) {
 /* ─── Intake (Section A) ─────────────────────────────────────────────────── */
 function IntakeAdimi({ onTamam }) {
   const a = batarya.intake.sectionA;
+  const gruplar = a.gruplar;                     // doğal setler (4-7 soru)
   const [yanitlar, setYanitlar] = useState({});
+  const [setIdx, setSetIdx] = useState(0);
+  const [yukleniyor, setYukleniyor] = useState(true);
   const [hata, setHata] = useState('');
   const [gonderiliyor, setGonderiliyor] = useState(false);
 
+  // Kısmi kayıt: yarım bırakılmışsa kaldığı setten devam (ITC-TASLAK-20260714).
+  useEffect(() => {
+    (async () => {
+      const t = await taslakGetir('intake');
+      if (t) {
+        setYanitlar(t.yanitlar || {});
+        setSetIdx(Math.min(t.setIndex || 0, gruplar.length - 1));
+      }
+      setYukleniyor(false);
+    })();
+  }, [gruplar.length]);
+
   const yaz = (no, deger) => setYanitlar((p) => ({ ...p, [no]: deger }));
 
-  const gonder = async () => {
-    setGonderiliyor(true); setHata('');
-    try {
-      await bataryaSonucKaydet('intake', yanitlar, null);
-      await onTamam();
-    } catch (e) { setHata('Could not save. Please try again.'); setGonderiliyor(false); }
+  const sonSet = setIdx >= gruplar.length - 1;
+
+  const ileri = async () => {
+    setHata('');
+    if (sonSet) {
+      setGonderiliyor(true);
+      try {
+        await bataryaSonucKaydet('intake', yanitlar, null);  // taslağı kendisi siler
+        await onTamam();
+      } catch (e) { setHata('Could not save. Please try again.'); setGonderiliyor(false); }
+      return;
+    }
+    const yeni = setIdx + 1;
+    await taslakKaydet('intake', yanitlar, yeni);  // hata olsa da akış durmaz
+    setSetIdx(yeni);
   };
 
+  const geri = () => { setHata(''); setSetIdx((i) => Math.max(0, i - 1)); };
+
+  if (yukleniyor) return <p style={altYaziStil}>Loading…</p>;
+
+  const grup = gruplar[setIdx];
   return (
-    <BolumKabuk baslik={a.baslik} giris={a.giris}>
-      {a.gruplar.map((grup) => (
-        <div key={grup.baslik} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <h3 style={araBaslikStil}>{grup.baslik}</h3>
-          {grup.not && <p style={{ ...altYaziStil, fontStyle: 'italic' }}>{grup.not}</p>}
-          {grup.sorular.map((soru) => (
-            <IntakeSoru key={soru.no} soru={soru} deger={yanitlar[soru.no]} onYaz={(v) => yaz(soru.no, v)} />
-          ))}
-        </div>
-      ))}
-      <IleriButon onClick={gonder} disabled={gonderiliyor} etiket={gonderiliyor ? 'Saving…' : 'Save & continue'} />
+    <BolumKabuk baslik={a.baslik} giris={setIdx === 0 ? a.giris : undefined}>
+      <p style={altYaziStil}>{setIdx + 1} / {gruplar.length}</p>
+      <div key={grup.baslik} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <h3 style={araBaslikStil}>{grup.baslik}</h3>
+        {grup.not && <p style={{ ...altYaziStil, fontStyle: 'italic' }}>{grup.not}</p>}
+        {grup.sorular.map((soru) => (
+          <IntakeSoru key={soru.no} soru={soru} deger={yanitlar[soru.no]} onYaz={(v) => yaz(soru.no, v)} />
+        ))}
+      </div>
+      <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
+        {setIdx > 0 && (
+          <button onClick={geri} style={{ ...ikincilButonStil, alignSelf: 'flex-start' }}>← Back</button>
+        )}
+        <IleriButon onClick={ileri} disabled={gonderiliyor}
+          etiket={gonderiliyor ? 'Saving…' : sonSet ? 'Save & continue' : 'Continue'} />
+      </div>
       {hata && <HataYazi metin={hata} />}
     </BolumKabuk>
+  );
+}
+
+// Seçenek metnindeki '______' = serbest metin ister (koç adı, "Other: ______" vb.).
+// Etikette çizgiler gösterilmez; seçilince altında input açılır.
+const DETAY = /_{3,}/;
+const detayMi = (s) => DETAY.test(s);
+const etiketTemiz = (s) => s.replace(/:?\s*_{3,}/, '').replace(/\s*\(optional\)\s*$/i, ' (optional)').trim();
+
+function DetayGirdisi({ deger, onYaz, ipucu }) {
+  return (
+    <input type="text" value={deger || ''} onChange={(e) => onYaz(e.target.value)} placeholder={ipucu}
+      style={{ ...girdiStil, marginLeft: '1.5rem', marginTop: '0.3rem', maxWidth: '22rem' }} />
   );
 }
 
@@ -334,33 +390,66 @@ function IntakeSoru({ soru, deger, onYaz }) {
     <span style={{ ...govdeStil, fontWeight: 400 }}>{soru.metin} {soru.not && <em style={{ color: 'var(--ink-muted)' }}>{soru.not}</em>}</span>
   );
   if (soru.tip === 'tekSecim') {
+    // deger: string (detaysız) | { sec, detay } (detaylı seçenek işaretliyse)
+    const secili = typeof deger === 'object' && deger ? deger.sec : deger;
+    const detay  = typeof deger === 'object' && deger ? deger.detay : '';
     return (
       <div style={soruKutuStil}>
         {etiket}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-          {soru.secenekler.map((s) => (
-            <label key={s} style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start', cursor: 'pointer' }}>
-              <input type="radio" name={`q${soru.no}`} checked={deger === s} onChange={() => onYaz(s)} style={{ marginTop: '0.2rem', accentColor: TON }} />
-              <span style={{ ...govdeStil, fontSize: '0.85rem' }}>{s}</span>
-            </label>
-          ))}
+          {soru.secenekler.map((s) => {
+            const d = detayMi(s);
+            return (
+              <div key={s}>
+                <label style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start', cursor: 'pointer' }}>
+                  <input type="radio" name={`q${soru.no}`} checked={secili === s}
+                    onChange={() => onYaz(d ? { sec: s, detay: '' } : s)}
+                    style={{ marginTop: '0.2rem', accentColor: TON }} />
+                  <span style={{ ...govdeStil, fontSize: '0.85rem' }}>{etiketTemiz(s)}</span>
+                </label>
+                {d && secili === s && (
+                  <DetayGirdisi deger={detay} ipucu="Type here…"
+                    onYaz={(v) => onYaz({ sec: s, detay: v })} />
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     );
   }
   if (soru.tip === 'cokluSecim') {
-    const secili = Array.isArray(deger) ? deger : [];
-    const degistir = (s) => onYaz(secili.includes(s) ? secili.filter((x) => x !== s) : [...secili, s]);
+    // deger: { secili: string[], detaylar: { [secenek]: string } }
+    const norm = Array.isArray(deger) ? { secili: deger, detaylar: {} }
+               : (deger && typeof deger === 'object') ? { secili: deger.secili ?? [], detaylar: deger.detaylar ?? {} }
+               : { secili: [], detaylar: {} };
+    const { secili, detaylar } = norm;
+    const degistir = (s) => {
+      const yeni = secili.includes(s) ? secili.filter((x) => x !== s) : [...secili, s];
+      const yeniDetaylar = { ...detaylar };
+      if (!yeni.includes(s)) delete yeniDetaylar[s];
+      onYaz({ secili: yeni, detaylar: yeniDetaylar });
+    };
+    const detayYaz = (s, v) => onYaz({ secili, detaylar: { ...detaylar, [s]: v } });
     return (
       <div style={soruKutuStil}>
         {etiket}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-          {soru.secenekler.map((s) => (
-            <label key={s} style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start', cursor: 'pointer' }}>
-              <input type="checkbox" checked={secili.includes(s)} onChange={() => degistir(s)} style={{ marginTop: '0.2rem', accentColor: TON }} />
-              <span style={{ ...govdeStil, fontSize: '0.85rem' }}>{s}</span>
-            </label>
-          ))}
+          {soru.secenekler.map((s) => {
+            const d = detayMi(s);
+            return (
+              <div key={s}>
+                <label style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start', cursor: 'pointer' }}>
+                  <input type="checkbox" checked={secili.includes(s)} onChange={() => degistir(s)}
+                    style={{ marginTop: '0.2rem', accentColor: TON }} />
+                  <span style={{ ...govdeStil, fontSize: '0.85rem' }}>{etiketTemiz(s)}</span>
+                </label>
+                {d && secili.includes(s) && (
+                  <DetayGirdisi deger={detaylar[s]} ipucu="Type here…" onYaz={(v) => detayYaz(s, v)} />
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     );
@@ -375,7 +464,19 @@ function IntakeSoru({ soru, deger, onYaz }) {
       </div>
     );
   }
-  // metin / liste / tarih
+  // liste — açılır seçim (secenekler veriden gelir; yoksa serbest metne düşer)
+  if (soru.tip === 'liste' && Array.isArray(soru.secenekler) && soru.secenekler.length) {
+    return (
+      <div style={soruKutuStil}>
+        {etiket}
+        <select value={deger || ''} onChange={(e) => onYaz(e.target.value)} style={girdiStil}>
+          <option value="">— select —</option>
+          {soru.secenekler.map((s) => <option key={s} value={s}>{s}</option>)}
+        </select>
+      </div>
+    );
+  }
+  // metin / liste (seçeneksiz) / tarih
   return (
     <div style={soruKutuStil}>
       {etiket}
@@ -556,6 +657,31 @@ function KarisikLikertAdimi({ slug, onTamam, onVazgec }) {
 // Plumbing (skorlama/getter/routing/coach) olduğu gibi kalır — yalnız
 // aktör-side render kapalı. Reveal bileşenleri (Access/EntryExit/Modul
 // MicroReveal) SİLİNMEDİ, çağrılmıyor — payment principle sonra karar.
+/* ─── Doorway (M1) micro-reveal — M2/M3 ile simetri (ITC-DOORWAY-REVEAL-20260714)
+   Modül 1 bitince akış doğrudan M2'ye atlıyordu: ne rapor, ne tek satır bilgi.
+   Reveal metni PROPOSED — Filiz onayı bekler (tip hipotezine ilk temas).      */
+function DoorwayMicroReveal({ onDevam, onRapor }) {
+  return (
+    <div style={{ ...kutuStil, alignItems: 'flex-start' }}>
+      <p style={{ fontFamily: 'var(--font-display), serif', fontStyle: 'italic', fontSize: '1.02rem', color: 'var(--ink)', lineHeight: 1.5 }}>
+        That part is done — your answers are in and safely kept. What comes back to you here is
+        a doorway, not a label: a first hypothesis about how you enter a role. Hold it lightly.
+      </p>
+      <p style={altYaziStil}>
+        You can read it now, or carry on and come back to it whenever you like — it stays available.
+      </p>
+      <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+        <button onClick={onRapor} style={{ ...ikincilButonStil, borderColor: TON, color: TON }}>
+          Read your Doorway report →
+        </button>
+        <button onClick={onDevam} style={ikincilButonStil}>
+          Continue →
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function LaunchScopeTesekkur({ onDevam }) {
   return (
     <div style={{ ...kutuStil, alignItems: 'flex-start' }}>
