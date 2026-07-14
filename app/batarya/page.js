@@ -640,32 +640,80 @@ const LIKERT_MODULLER = {
 function KarisikLikertAdimi({ slug, onTamam, onVazgec }) {
   const modul = modulBul(slug);
   const tanim = LIKERT_MODULLER[slug];
+  // Karışık sıra KORUNUR (karistir + SEED) — sadece sayfalara bölünür.
+  // Setli akış: 6'lı (Filiz kararı 14 Tem, seçenek C — madde silinmez).
   const maddeler = useMemo(() => tanim.maddeler(modul), [slug]);
+  const SET = 6;
+  const setler = useMemo(() => {
+    const out = [];
+    for (let k = 0; k < maddeler.length; k += SET) out.push(maddeler.slice(k, k + SET));
+    return out;
+  }, [maddeler]);
+
+  // Taslak anahtarı yazimKey — slug değil (aps/aps_retake aynı kaydı paylaşır).
+  const taslakKey = tanim.yazimKey;
+
   const [yanitlar, setYanitlar] = useState({});
+  const [setIdx, setSetIdx] = useState(0);
+  const [yukleniyor, setYukleniyor] = useState(true);
   const [hata, setHata] = useState('');
   const [gonderiliyor, setGonderiliyor] = useState(false);
 
-  const gonder = async () => {
-    setGonderiliyor(true); setHata('');
-    try {
-      await bataryaSonucKaydet(tanim.yazimKey, yanitlar, tanim.skorla(yanitlar));
-      await onTamam();
-    } catch (e) { setHata('Could not save. Please try again.'); setGonderiliyor(false); }
+  useEffect(() => {
+    let iptal = false;
+    (async () => {
+      const t = await taslakGetir(taslakKey);
+      if (!iptal) {
+        if (t) {
+          setYanitlar(t.yanitlar || {});
+          setSetIdx(Math.min(t.setIndex || 0, setler.length - 1));
+        }
+        setYukleniyor(false);
+      }
+    })();
+    return () => { iptal = true; };
+  }, [taslakKey, setler.length]);
+
+  const sonSet = setIdx >= setler.length - 1;
+
+  const ileri = async () => {
+    setHata('');
+    if (sonSet) {
+      setGonderiliyor(true);
+      try {
+        await bataryaSonucKaydet(tanim.yazimKey, yanitlar, tanim.skorla(yanitlar));
+        await onTamam();
+      } catch (e) { setHata('Could not save. Please try again.'); setGonderiliyor(false); }
+      return;
+    }
+    const yeni = setIdx + 1;
+    await taslakKaydet(taslakKey, yanitlar, yeni);
+    setSetIdx(yeni);
   };
 
+  const geri = () => { setHata(''); setSetIdx((k) => Math.max(0, k - 1)); };
+
+  if (yukleniyor) return <p style={altYaziStil}>Loading…</p>;
+
+  const set = setler[setIdx];
+  const basi = setIdx * SET;   // global numara — "7, 8, 9…" diye devam eder
+
   return (
-    <BolumKabuk baslik={tanim.baslik(modul)} giris={tanim.giris(modul)}>
+    <BolumKabuk baslik={tanim.baslik(modul)} giris={setIdx === 0 ? tanim.giris(modul) : undefined}>
+      <p style={altYaziStil}>{setIdx + 1} / {setler.length}</p>
       <OlcekLegend olcek={tanim.olcek(modul)} />
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-        {maddeler.map((m, i) => (
-          <LikertSatir key={m.no} sira={i + 1} metin={m.metin} deger={yanitlar[m.no]}
+        {set.map((m, i) => (
+          <LikertSatir key={m.no} sira={basi + i + 1} metin={m.metin} deger={yanitlar[m.no]}
             onSec={(v) => setYanitlar((p) => ({ ...p, [m.no]: v }))} />
         ))}
       </div>
       <CevapSayaci cevaplanan={Object.keys(yanitlar).length} toplam={maddeler.length} />
-      <div style={{ display: 'flex', gap: '0.7rem', flexWrap: 'wrap' }}>
-        <IleriButon onClick={gonder} disabled={gonderiliyor} etiket={gonderiliyor ? 'Saving…' : 'Save & continue'} />
-        {onVazgec && <button onClick={onVazgec} style={ikincilButonStil}>Back</button>}
+      <div style={{ display: 'flex', gap: '0.7rem', flexWrap: 'wrap', alignItems: 'center' }}>
+        {setIdx > 0 && <button onClick={geri} style={ikincilButonStil}>← Back</button>}
+        <IleriButon onClick={ileri} disabled={gonderiliyor}
+          etiket={gonderiliyor ? 'Saving…' : sonSet ? 'Save & continue' : 'Continue'} />
+        {setIdx === 0 && onVazgec && <button onClick={onVazgec} style={ikincilButonStil}>Back</button>}
       </div>
       {hata && <HataYazi metin={hata} />}
     </BolumKabuk>
